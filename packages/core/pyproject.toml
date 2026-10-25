@@ -1,0 +1,15 @@
+[project]
+name = "cportal-core"
+version = "0.1.0"
+description = "Shared kernel: settings, paths, areas of interest (later: ORM, schemas, ids, kpis, events, lineage)"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
+    "python-dotenv>=1.0",
+    "pyyaml>=6.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.9,<0.14"]
+build-backend = "uv_build"

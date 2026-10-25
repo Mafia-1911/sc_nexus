@@ -1,0 +1,88 @@
+# Priors for the DS-AIS-01 synthetic twin (aisstream has no Bangladesh coverage, probe 2026-10-26).
+# Every number names its source. "estimate" marks a placeholder that M1 calibrates against real
+# data (GFW hourly presence segmentation, UNCTAD time in port) before it may drive any KPI.
+version: 1
+port: BDCGP
+
+# Ocean-going arrivals per day. Source: DS-PORT-01 PortWatch Daily_Ports_Data, Chattogram
+# (port241), mean of 2026-06-27..2026-10-16 (112 days).
+arrivals_per_day:
+  container: 3.62
+  tanker: 1.22
+  dry_bulk: 0.61
+  general_cargo: 0.50
+  roro: 0.07
+
+# Time at the outer anchorage before berthing and time alongside, as lognormals given by their
+# median (hours) and sigma. Calibration target: GFW cargo port visits (confidence 4, < 60 days,
+# 2026-07-27..2026-10-25) have total port time p10 32 h, p50 83 h, p90 276 h (DS-AIS-02).
+# The split between anchorage and berth is an estimate.
+durations_h:
+  container: {anchorage: {median: 38, sigma: 0.9}, berth: {median: 36, sigma: 0.45}}
+  tanker: {anchorage: {median: 30, sigma: 0.9}, berth: {median: 30, sigma: 0.4}}
+  general_cargo: {anchorage: {median: 48, sigma: 0.9}, berth: {median: 48, sigma: 0.5}}
+  roro: {anchorage: {median: 20, sigma: 0.8}, berth: {median: 18, sigma: 0.4}}
+  # Bulk carriers mostly discharge into lighters at the anchorage (GFW: 1,142 of 1,159 cargo
+  # visits stopped only at anchor cells). Share and duration are estimates.
+  dry_bulk: {lighterage_share: 0.7, anchorage: {median: 96, sigma: 0.8}, berth: {median: 60, sigma: 0.5}}
+
+# Anchorage cells, weighted by how often GFW port visits stopped there (DS-AIS-02,
+# anchorage IDs from public-global-port-visits-events v5.0). Only cells inside ctg_outer_anchorage.
+anchorage_cells:
+  - {id: 30ace253, lat: 22.095, lon: 91.795, weight: 1430}
+  - {id: 30ace41f, lat: 22.131, lon: 91.737, weight: 997}
+  - {id: 30ac5397, lat: 21.731, lon: 91.781, weight: 529}
+  - {id: 30ace687, lat: 22.142, lon: 91.718, weight: 407}
+  - {id: 30acffbf, lat: 21.874, lon: 91.810, weight: 367}
+  - {id: 30ace3ef, lat: 22.118, lon: 91.766, weight: 355}
+  - {id: 30ace3b7, lat: 22.107, lon: 91.785, weight: 148}
+  - {id: 30ace64b, lat: 22.179, lon: 91.698, weight: 90}
+  - {id: 30ace7ed, lat: 22.215, lon: 91.693, weight: 38}
+
+# Dock cells from the same GFW visits (atDock=true). Assignment by type is an estimate.
+berth_cells:
+  container:
+    - {id: 30acdf55, lat: 22.321, lon: 91.830, weight: 293}
+    - {id: 30acdf49, lat: 22.316, lon: 91.814, weight: 38}
+  tanker:
+    - {id: 30acdffb, lat: 22.237, lon: 91.825, weight: 41}
+  general_cargo:
+    - {id: 30acdf03, lat: 22.286, lon: 91.795, weight: 31}
+    - {id: 30acdf49, lat: 22.316, lon: 91.814, weight: 38}
+  dry_bulk:
+    - {id: 30acdf03, lat: 22.286, lon: 91.795, weight: 31}
+  roro:
+    - {id: 30acdf49, lat: 22.316, lon: 91.814, weight: 38}
+
+# Synthetic route geometry (not navigational): sea entry point, then waypoints up the Karnaphuli.
+sea_entry: {lat: 21.05, lon: 91.85, jitter_deg: 0.2}
+river_waypoints:
+  - {lat: 22.20, lon: 91.79}
+  - {lat: 22.26, lon: 91.80}
+
+speeds_kn:
+  approach: [11, 14]
+  river: [6, 8]
+  departure: [10, 13]
+
+# AIS reporting. ITU-R M.1371: class A reports every 2-10 s underway and every 3 min at anchor
+# or moored; static data every 6 min. Underway reports are thinned to 30 s to keep volume sane.
+reporting_s:
+  underway: 30
+  stationary: 180
+  static: 360
+receiver:
+  drop_probability: 0.05     # estimate: independent message loss
+  outage_per_hour: 0.01      # estimate: chance an hour contains a 30-min receiver outage
+  position_noise_m: 10
+
+# Vessel dimensions (LOA m, beam m, draught m) by type; estimates bounded by the Karnaphuli
+# channel (LOA ~200 m, draught ~9.5 m per press reports; verify against CPA rules in M1).
+dimensions:
+  container: {loa: [140, 190], beam: [22, 30], draught: [7.5, 9.5], ais_type: 70}
+  tanker: {loa: [130, 185], beam: [20, 30], draught: [7.0, 9.5], ais_type: 80}
+  dry_bulk: {loa: [170, 200], beam: [28, 32], draught: [8.0, 9.5], ais_type: 70}
+  general_cargo: {loa: [90, 150], beam: [15, 24], draught: [5.5, 8.5], ais_type: 70}
+  roro: {loa: [140, 180], beam: [24, 30], draught: [6.0, 8.0], ais_type: 70}
+
+destinations: ["CHITTAGONG", "CHATTOGRAM", "BD CGP", "CTG OPL", "CHITTAGONG BD"]

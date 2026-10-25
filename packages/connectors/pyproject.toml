@@ -1,0 +1,27 @@
+[project]
+name = "cportal-connectors"
+version = "0.1.0"
+description = "One module per data source (DS-ID): probe() now; fetch_raw(), parse() and the synthetic twin from M1"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "cportal-core",
+    "feedparser>=6.0",
+    "genson>=1.3",
+    "holidays>=0.60",
+    "httpx>=0.27",
+    "openpyxl>=3.1",
+    "searoute>=1.3",
+    "websockets>=13",
+]
+
+[project.scripts]
+probe = "cportal_connectors.probe_cli:main"
+ais-collect = "cportal_connectors.ais_collector:main"
+ais-synth = "cportal_connectors.ais_synthetic:main"
+
+[tool.uv.sources]
+cportal-core = { workspace = true }
+
+[build-system]
+requires = ["uv_build>=0.9,<0.14"]
+build-backend = "uv_build"

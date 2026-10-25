@@ -1,0 +1,65 @@
+[project]
+name = "cportal"
+version = "0.1.0"
+description = "Supply Chain Nexus (codename Cportal): supply-chain resilience for the Chattogram-Dhaka corridor"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "cportal-core",
+    "cportal-connectors",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.13",
+    "pytest>=8.3",
+    "ruff>=0.8",
+    "types-PyYAML>=6.0",
+]
+
+[tool.uv]
+# The repo lives on an NTFS drive; hardlinks from the uv cache (another filesystem) fail.
+link-mode = "copy"
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[tool.uv.sources]
+cportal-core = { workspace = true }
+cportal-connectors = { workspace = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+# Never let `ruff format` touch Markdown code blocks (the brief is read-only).
+extend-exclude = ["docs", "*.md"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
+# Typographic characters used on purpose in user-facing text.
+allowed-confusables = ["–", "×", "’", "‘"]
+
+[tool.ruff.lint.per-file-ignores]
+# Connector classes are single instances whose class attributes are declarative config.
+"packages/connectors/src/cportal_connectors/sources/*" = ["RUF012"]
+
+[tool.mypy]
+python_version = "3.12"
+files = ["packages/core/src", "packages/connectors/src"]
+disallow_untyped_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+
+[[tool.mypy.overrides]]
+module = ["genson.*", "feedparser.*", "searoute.*", "openpyxl.*"]
+ignore_missing_imports = true
+
+[tool.pyrefly]
+# Editors running pyrefly don't follow uv's editable-install .pth files.
+search-path = ["packages/core/src", "packages/connectors/src"]
+
+[tool.pytest.ini_options]
+testpaths = ["packages/core/tests", "packages/connectors/tests"]
+addopts = "-q"

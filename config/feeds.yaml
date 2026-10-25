@@ -1,0 +1,95 @@
+# DS-NEWS-03 curated feeds. Discovered on 2026-10-26 from each site's <link rel="alternate">
+# or by testing the usual feed path; robots.txt read for every host.
+# Guardrail (03-data-sources.md §5): store URL, title, ≤ 300-char snippet and extracted fields;
+# link out; never republish full text.
+#
+# status: active | stale | blocked | excluded
+feeds:
+  - id: gcaptain
+    url: https://gcaptain.com/feed/
+    lang: en
+    topic: shipping
+    status: active
+  - id: splash247
+    url: https://splash247.com/feed/
+    lang: en
+    topic: shipping
+    status: active
+  - id: container_news
+    url: https://container-news.com/feed/
+    lang: en
+    topic: shipping
+    status: active
+  - id: hellenic_shipping
+    url: https://www.hellenicshippingnews.com/feed/
+    lang: en
+    topic: shipping
+    crawl_delay_s: 30  # robots.txt Crawl-Delay
+    status: active
+  - id: loadstar
+    url: https://theloadstar.com/feed/
+    lang: en
+    topic: logistics
+    note: Part-paywalled; the feed carries headlines and teasers
+    status: active
+  - id: daily_star_business
+    url: https://www.thedailystar.net/business/rss.xml
+    lang: en
+    topic: bangladesh-business
+    note: Redirects to /taxonomy/term/2/rss.xml
+    status: active
+  - id: daily_star_top
+    url: https://www.thedailystar.net/rss.xml
+    lang: en
+    topic: bangladesh-general
+    note: Stale and malformed (feedparser bozo); newest item 2026-06-01, oldest 2016. Use section feeds
+    status: stale
+  - id: tbs_economy
+    url: https://www.tbsnews.net/economy/rss.xml
+    lang: en
+    topic: bangladesh-business
+    crawl_delay_s: 10  # robots.txt Crawl-delay
+    status: active
+  - id: tbs_top
+    url: https://www.tbsnews.net/rss.xml
+    lang: en
+    topic: bangladesh-general
+    crawl_delay_s: 10
+    note: Dead feed; newest item 2021-11-12. Use section feeds (economy)
+    status: stale
+  - id: dhaka_tribune
+    url: https://www.dhakatribune.com/feed/
+    lang: en
+    topic: bangladesh-general
+    status: active
+  - id: textile_today
+    url: https://www.textiletoday.com.bd/feed
+    lang: en
+    topic: garments
+    status: active
+  - id: just_style
+    url: https://www.just-style.com/feed/
+    lang: en
+    topic: garments
+    status: active
+  - id: fda_press
+    url: https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/press-releases/rss.xml
+    lang: en
+    topic: pharma-regulatory
+    crawl_delay_s: 30  # robots.txt Crawl-Delay
+    status: active
+  - id: fiercepharma
+    url: https://www.fiercepharma.com/rss/xml
+    lang: en
+    topic: pharma
+    note: HTTP 403 bot wall on the homepage and the feed; reach it via GDELT (domain:fiercepharma.com) instead
+    status: blocked
+  - id: financial_express_bd
+    url: null
+    lang: en
+    topic: bangladesh-business
+    note: >-
+      No feed advertised, and robots.txt disallows AI crawlers (ClaudeBot, GPTBot, CCBot,
+      anthropic-ai, Claude-Web). Excluded out of respect for that signal; its articles still
+      reach C2 through GDELT metadata.
+    status: excluded

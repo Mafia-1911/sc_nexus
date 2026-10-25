@@ -1,0 +1,38 @@
+# Secrets (AGENTS.md rule 8)
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Data zones (02-architecture.md §8): raw and lake stay local; samples are committed
+data/raw/
+data/lake/
+data/synthetic/
+data/cache/
+
+# Model artifacts are fetched, not committed (02-architecture.md §4)
+models/**/*.onnx
+models/**/*.pt
+models/**/*.joblib
+models/**/*.bin
+
+# Web
+node_modules/
+.next/
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store

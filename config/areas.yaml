@@ -1,0 +1,31 @@
+# Named areas of interest. Bboxes are (lon_min, lat_min, lon_max, lat_max), WGS84.
+# Initial values are copied from docs/brief/03-data-sources.md §3; M0 refines them from OSM and
+# observed AIS, and every change records its evidence in docs/DECISIONS.md.
+bboxes:
+  ctg_outer_anchorage:
+    bbox: [91.50, 21.70, 91.95, 22.30]
+    note: Outer anchorage, Karnaphuli approach and Kutubdia lighterage (brief, unverified)
+  ctg_port_river:
+    bbox: [91.76, 22.22, 91.86, 22.36]
+    note: Karnaphuli berths (CCT, NCT, PCT, GCB) (brief, unverified)
+  mongla:
+    bbox: [89.40, 21.60, 89.70, 22.55]
+    note: Pussur channel and anchorage (brief, unverified)
+  payra:
+    bbox: [90.15, 21.65, 90.45, 22.10]
+    note: Rabnabad channel (brief, unverified)
+  bay_of_bengal_approach:
+    bbox: [88.0, 19.5, 92.5, 22.5]
+    note: Arrivals and ETA modelling; high volume, filter by message type (brief)
+  bangladesh:
+    bbox: [88.0, 20.5, 92.7, 26.7]
+    note: Whole-country envelope for coverage counts (rounded outward from the national outline)
+  dhaka_region:
+    bbox: [90.20, 23.40, 90.75, 24.10]
+    note: Query-scoping envelope for Dhaka, Gazipur, Savar, Narayanganj, Pangaon (approximate)
+  dhaka_ctg_corridor:
+    bbox: [90.30, 22.20, 91.95, 24.00]
+    note: Query-scoping envelope for the Dhaka–Chattogram road/rail/river corridor (approximate)
+
+# Reference points: every entry names the source of its coordinates.
+points: {}

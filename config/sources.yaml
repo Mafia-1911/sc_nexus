@@ -1,0 +1,85 @@
+# Source registry: what code needs at runtime (mode, credentials, politeness, fallback).
+# The narrative per source (limits, licence, coverage, quirks) is in docs/data-sources/<DS-ID>.md,
+# generated from docs/data-sources/cards.yaml plus the latest probe run.
+#
+# status:   verified | needs-registration | blocked | manual | paid-excluded | deprecated | unprobed
+#           (`manual` extends the brief's list: a human-maintained table with cited sources)
+# mode:     live | replay | synthetic | off   (default for M2; 02-architecture.md §8)
+# fallback: what serves the same schema when the source fails twice (two-strikes rule, A-012)
+# min_interval_s: the harness's token bucket; never below a documented limit.
+version: 1
+sources:
+  # 2.1 Maritime and AIS --------------------------------------------------------------------
+  DS-AIS-01: {name: aisstream.io live AIS, tier: P0, status: verified, mode: synthetic, fallback: synthetic, used_by: [C4, NX], auth: api-key, env: [AISSTREAM_API_KEY], protocol: WebSocket, base_url: "wss://stream.aisstream.io/v0/stream", min_interval_s: 1, bd_coverage: none}
+  DS-AIS-02: {name: Global Fishing Watch API v3, tier: P0, status: verified, mode: replay, fallback: synthetic, used_by: [C4, C2, NX], auth: bearer-token, env: [GFW_API_TOKEN], protocol: REST, base_url: "https://gateway.api.globalfishingwatch.org/v3", min_interval_s: 1, nc: true}
+  DS-AIS-03: {name: Danish Maritime Authority historical AIS, tier: P1, status: blocked, mode: off, fallback: DS-AIS-04, used_by: [C4], auth: none, protocol: file-download, base_url: "http://aisdata.ais.dk/", min_interval_s: 2}
+  DS-AIS-04: {name: NOAA MarineCadastre AIS (US waters), tier: P1, status: blocked, mode: off, fallback: synthetic, used_by: [C4], auth: none, protocol: file-download, min_interval_s: 2}
+  DS-AIS-05: {name: xView3-SAR dataset, tier: P2, status: unprobed, mode: off, used_by: [C4], auth: account-download, protocol: file-download}
+
+  # 2.2 Port statistics and geometry -----------------------------------------------------------
+  DS-PORT-01: {name: IMF PortWatch, tier: P0, status: verified, mode: replay, fallback: synthetic, used_by: [C4, C2, NX], auth: none, protocol: ArcGIS FeatureServer, base_url: "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services", min_interval_s: 1}
+  DS-PORT-02: {name: UNCTADstat port-call statistics, tier: P1, status: blocked, mode: off, fallback: manual, used_by: [C4], auth: none, protocol: JS data viewer, min_interval_s: 2}
+  DS-PORT-03: {name: Container Port Performance Index (World Bank / S&P), tier: P1, status: verified, mode: replay, fallback: manual, used_by: [C4], auth: none, protocol: file-download, base_url: "https://openknowledge.worldbank.org", min_interval_s: 2, nc: true}
+  DS-PORT-04: {name: World Port Index (NGA Pub 150), tier: P1, status: verified, mode: off, fallback: DS-PORT-05, used_by: [C4, C3], auth: none, protocol: REST, base_url: "https://msi.nga.mil/api/publications/world-port-index", min_interval_s: 2, bd_coverage: none}
+  DS-PORT-05: {name: UN/LOCODE, tier: P0, status: verified, mode: replay, fallback: replay, used_by: [core], auth: none, protocol: file-download, base_url: "https://unlocode.unece.org/downloads/unlocode-latest.zip", min_interval_s: 2}
+  DS-PORT-06: {name: OSM Overpass API (port geometry), tier: P0, status: verified, mode: replay, fallback: DS-GEO-01, used_by: [C4, C3], auth: none, protocol: REST, base_url: "https://overpass-api.de/api/interpreter", min_interval_s: 5}
+  DS-PORT-07: {name: Chittagong / Mongla Port Authority websites, tier: P1, status: blocked, mode: off, fallback: synthetic, used_by: [C4, C2], auth: none, protocol: HTML, min_interval_s: 5}
+  DS-PORT-08: {name: searoute (Eurostat MARNET), tier: P0, status: verified, mode: live, fallback: live, used_by: [C3, NX], auth: none, protocol: offline package}
+  DS-PORT-09: {name: GFW named anchorages, tier: P1, status: needs-registration, mode: off, fallback: DS-AIS-02, used_by: [C4], auth: account-download, protocol: file-download, nc: true}
+
+  # 2.3 Satellite ------------------------------------------------------------------------------
+  DS-SAT-01: {name: Copernicus Data Space Ecosystem (Sentinel-1/2), tier: P1, status: needs-registration, mode: off, fallback: DS-SAT-04, used_by: [C4], auth: account, protocol: STAC, base_url: "https://stac.dataspace.copernicus.eu/v1", min_interval_s: 1}
+  DS-SAT-02: {name: Microsoft Planetary Computer STAC, tier: P2, status: unprobed, mode: off, used_by: [C4], auth: none, protocol: STAC}
+  DS-SAT-03: {name: Google Earth Engine, tier: P2, status: unprobed, mode: off, used_by: [C4], auth: account, protocol: REST}
+  DS-SAT-04: {name: GFW SAR presence, tier: P0, status: verified, mode: replay, fallback: synthetic, used_by: [C4], auth: bearer-token, env: [GFW_API_TOKEN], protocol: REST, base_url: "https://gateway.api.globalfishingwatch.org/v3", min_interval_s: 1, nc: true}
+  DS-SAT-05: {name: "NASA Earthdata (CMR, LANCE NRT flood, ASF) - proposed, not in the brief", tier: P1, status: needs-registration, mode: off, fallback: DS-WX-02, used_by: [C2, C4], auth: bearer-token, env: [EARTHDATA_TOKEN], protocol: REST, base_url: "https://cmr.earthdata.nasa.gov/search", min_interval_s: 1}
+
+  # 2.4 Weather and hazards --------------------------------------------------------------------
+  DS-WX-01: {name: Open-Meteo (forecast, archive, marine), tier: P0, status: verified, mode: live, fallback: replay, used_by: [C4, C3], auth: none, protocol: REST, min_interval_s: 1}
+  DS-WX-02: {name: GDACS API, tier: P0, status: verified, mode: live, fallback: replay, used_by: [C2, NX], auth: none, protocol: REST, base_url: "https://www.gdacs.org/gdacsapi/api", min_interval_s: 2}
+  DS-WX-03: {name: IBTrACS cyclone tracks, tier: P1, status: verified, mode: replay, fallback: replay, used_by: [C2, NX], auth: none, protocol: file-download, min_interval_s: 2}
+  DS-WX-04: {name: holidays package (Bangladesh) + Islamic calendar, tier: P0, status: verified, mode: live, fallback: manual, used_by: [C3, C4], auth: none, protocol: offline package}
+
+  # 2.5 News, events and macro -----------------------------------------------------------------
+  DS-NEWS-01: {name: GDELT DOC 2.0 API, tier: P0, status: blocked, mode: off, fallback: DS-NEWS-02, used_by: [C2], auth: none, protocol: REST, base_url: "https://api.gdeltproject.org/api/v2/doc/doc", min_interval_s: 10}
+  DS-NEWS-02: {name: GDELT 2.0 Events + GKG raw files, tier: P0, status: verified, mode: live, fallback: replay, used_by: [C2], auth: none, protocol: file-download, base_url: "http://data.gdeltproject.org/gdeltv2", min_interval_s: 2}
+  DS-NEWS-03: {name: Curated RSS feeds (config/feeds.yaml), tier: P0, status: verified, mode: live, fallback: replay, used_by: [C2], auth: none, protocol: RSS, min_interval_s: 2}
+  DS-NEWS-04: {name: ReliefWeb API v2, tier: P1, status: needs-registration, mode: off, fallback: DS-WX-02, used_by: [C2], auth: appname, env: [RELIEFWEB_APPNAME], protocol: REST, base_url: "https://api.reliefweb.int/v2", min_interval_s: 2}
+  DS-NEWS-05: {name: ACLED, tier: P2, status: unprobed, mode: off, used_by: [C2], auth: oauth, protocol: REST, nc: true}
+  DS-NEWS-06: {name: NY Fed Global Supply Chain Pressure Index, tier: P1, status: verified, mode: replay, fallback: replay, used_by: [C1, NX], auth: none, protocol: file-download, min_interval_s: 2}
+  DS-NEWS-07: {name: NGA MSI broadcast warnings, tier: P2, status: unprobed, mode: off, used_by: [C2], auth: none, protocol: REST}
+
+  # 2.6 Trade, supply network and risk ---------------------------------------------------------
+  DS-TRADE-01: {name: UN Comtrade API, tier: P1, status: verified, mode: replay, fallback: DS-TRADE-02, used_by: [C1], auth: api-key, env: [COMTRADE_API_KEY], protocol: REST, base_url: "https://comtradeapi.un.org/data/v1", min_interval_s: 2}
+  DS-TRADE-02: {name: CEPII BACI, tier: P1, status: verified, mode: replay, fallback: DS-TRADE-01, used_by: [C1], auth: none, protocol: file-download, min_interval_s: 2}
+  DS-TRADE-03: {name: World Bank API v2 (WDI, LPI), tier: P0, status: verified, mode: live, fallback: replay, used_by: [C1, NX], auth: none, protocol: REST, base_url: "https://api.worldbank.org/v2", min_interval_s: 1}
+  DS-RISK-01: {name: WGI, INFORM Risk, ND-GAIN, tier: P1, status: verified, mode: replay, fallback: replay, used_by: [C1], auth: none, protocol: file-download, min_interval_s: 2}
+  DS-RISK-02: {name: WRI Aqueduct floods / JRC flood hazard, tier: P2, status: unprobed, mode: off, used_by: [C1], auth: none, protocol: file-download}
+  DS-SUP-01: {name: Open Supply Hub (garment facilities), tier: P1, status: needs-registration, mode: off, fallback: synthetic, used_by: [C1], auth: account-download, protocol: file-download}
+  DS-SUP-02: {name: SupplyGraph (Bangladesh FMCG GNN benchmark), tier: P1, status: verified, mode: replay, fallback: synthetic, used_by: [C1], auth: none, protocol: git, min_interval_s: 2}
+  DS-SUP-03: {name: DataCo Smart Supply Chain, tier: P1, status: verified, mode: replay, fallback: synthetic, used_by: [C1, C3], auth: none, protocol: file-download, min_interval_s: 2}
+  DS-SUP-04: {name: USAID SCMS Delivery History, tier: P2, status: unprobed, mode: off, used_by: [C1], auth: none, protocol: file-download}
+  DS-SUP-05: {name: Wikidata SPARQL, GLEIF LEI API, tier: P2, status: unprobed, mode: off, used_by: [C1, C2], auth: none, protocol: REST}
+
+  # 2.7 Pharma regulatory ----------------------------------------------------------------------
+  DS-PHARMA-01: {name: openFDA, tier: P0, status: verified, mode: live, fallback: replay, used_by: [C2, C1], auth: optional-api-key, env: [OPENFDA_API_KEY], protocol: REST, base_url: "https://api.fda.gov", min_interval_s: 1}
+  DS-PHARMA-02: {name: FDA Data Dashboard, tier: P1, status: needs-registration, mode: off, fallback: DS-PHARMA-01, used_by: [C1, C2], auth: api-key, protocol: REST, min_interval_s: 2}
+  DS-PHARMA-03: {name: FDA Import Alerts and Warning Letters, tier: P1, status: verified, mode: replay, fallback: DS-PHARMA-01, used_by: [C2, C1], auth: none, protocol: HTML, min_interval_s: 5}
+  DS-PHARMA-04: {name: EudraGMDP, DGDA notices, tier: P2, status: unprobed, mode: off, used_by: [C2], auth: none, protocol: HTML}
+
+  # 2.8 Geo, routing and emissions -------------------------------------------------------------
+  DS-GEO-01: {name: Geofabrik Bangladesh OSM extract, tier: P0, status: verified, mode: replay, fallback: replay, used_by: [C3, C4], auth: none, protocol: file-download, base_url: "https://download.geofabrik.de/asia", min_interval_s: 2}
+  DS-GEO-02: {name: OSM Overpass API (ICDs, depots, bridges), tier: P0, status: verified, mode: replay, fallback: DS-GEO-01, used_by: [C3], auth: none, protocol: REST, base_url: "https://overpass-api.de/api/interpreter", min_interval_s: 5}
+  DS-GEO-03: {name: OpenRouteService (HGV), tier: P1, status: needs-registration, mode: off, fallback: DS-GEO-01, used_by: [C3], auth: api-key, env: [ORS_API_KEY], protocol: REST, min_interval_s: 2}
+  DS-GEO-04: {name: Nominatim + GeoNames dump, tier: P0, status: verified, mode: live, fallback: replay, used_by: [C2, core], auth: none, protocol: REST + file-download, min_interval_s: 1.1}
+  DS-GEO-05: {name: Emission factors (UK DESNZ; GLEC method), tier: P0, status: verified, mode: replay, fallback: replay, used_by: [C3, NX], auth: none, protocol: file-download, min_interval_s: 2}
+  DS-GEO-06: {name: Bangladesh cost tables (manual), tier: P1, status: manual, mode: replay, fallback: manual, used_by: [C3], auth: none, protocol: manual}
+  DS-GEO-07: {name: Basemap tiles (OpenFreeMap; Geofabrik Shortbread offline), tier: P0, status: verified, mode: live, fallback: replay, used_by: [web], auth: none, protocol: vector tiles, min_interval_s: 1}
+
+  # 2.9 Vision ---------------------------------------------------------------------------------
+  DS-VIS-01: {name: MVTec AD, tier: P0, status: blocked, mode: off, fallback: DS-VIS-02, used_by: [C5], auth: none, protocol: file-download, min_interval_s: 2, nc: true}
+  DS-VIS-02: {name: VisA, tier: P0, status: verified, mode: replay, fallback: replay, used_by: [C5], auth: none, protocol: file-download, min_interval_s: 2}
+  DS-VIS-03: {name: MVTec LOCO AD, tier: P1, status: blocked, mode: off, fallback: DS-VIS-05, used_by: [C5], auth: none, protocol: file-download, nc: true}
+  DS-VIS-04: {name: Fabric and garment defect datasets, tier: P0, status: verified, mode: replay, fallback: DS-VIS-02, used_by: [C5], auth: mixed, env: [ROBOFLOW_API_KEY], protocol: file-download, min_interval_s: 2}
+  DS-VIS-05: {name: Pharma tablet defect datasets (Roboflow), tier: P0, status: verified, mode: replay, fallback: DS-VIS-02, used_by: [C5], auth: api-key, env: [ROBOFLOW_API_KEY], protocol: REST, min_interval_s: 2}
+  DS-VIS-06: {name: Real-IAD, MVTec AD 2, tier: P2, status: unprobed, mode: off, used_by: [C5], auth: mixed, protocol: file-download}

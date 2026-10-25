@@ -1,0 +1,433 @@
+# Narrative facts for each source card (template: docs/brief/03-data-sources.md §1).
+# `uv run probe --card <DS-ID>` renders docs/data-sources/<DS-ID>.md from this file,
+# config/sources.yaml and the latest probe run. Edit here, not in the generated cards.
+# Measured numbers come from the M0 probes of 2026-10-25/26 UTC.
+
+DS-AIS-01:
+  signup: https://aisstream.io/authenticate (keys under https://aisstream.io/account)
+  pagination: none (push stream)
+  limits_documented: 3 subscribed connections per account and per IP; subscription within 3 s; ≤ 1 subscription update/s; ≤ 200 MMSI filters; no SLA, no replay; uncompressed connections bandwidth-limited from Sep 2026 (use permessage-deflate)
+  limits_observed: worldwide PositionReport stream ≈ 44 msg/s; server confirms with {"MessageType":"SubscriptionConfirmation","Message":{"CompressionEnabled":true}}
+  licence: No terms page found (only /privacypolicy). Redistribution rights unclear, so only 5 frames per message type are committed, as format fixtures.
+  attribution: "AIS data: aisstream.io"
+  nc: unknown
+  freshness: real time (seconds) where receivers exist
+  history: none (persist on arrival)
+  cadence: push
+  bd_coverage: "**None.** 0 messages in 10 min over the Bay of Bengal approach box (88.0–92.5 E, 19.5–22.5 N) and 0 in about 50 min of collector runtime (two runs, 2026-10-25 22:55–23:40 UTC), while the same key streamed 44 msg/s worldwide."
+  failure_modes: invalid key → the server drops the connection with no close frame and no error JSON (≈ 1.3 s); idle box → only the confirmation frame arrives
+  quirks: MetaData.MMSI_String is an integer; ShipName padded to 20 chars; time_utc in Go format ("2026-10-25 22:59:34.035581545 +0000 UTC"); sentinels Cog 360, TrueHeading 511, RateOfTurn -128; ShipStaticData Destination contains '@' padding and junk; Eta has no year; ImoNumber/MaximumStaticDraught 0 = unknown
+  mapping: ais_position(mmsi ← MetaData.MMSI, ts ← parse(MetaData.time_utc), received_at ← collector clock, lon/lat ← Message.*.Longitude/Latitude, sog_kn ← Sog (102.3→null), cog_deg ← Cog (360→null), heading_deg ← TrueHeading (511→null), nav_status ← NavigationalStatus); vessel(name, callsign, ship_type_ais ← ShipStaticData)
+  synthetic_twin: "`uv run ais-synth`: frames in exactly this format for Chattogram, fictional vessels (MID 999, names 'SYN …'), Poisson arrivals from PortWatch (3.62 container, 1.22 tanker, 0.61 bulk, 0.50 general, 0.07 ro-ro per day), anchorage cells and berth cells from GFW, ground-truth port calls. 7-day baseline: 78 visits, 200,975 frames, dwell p50 81.8 h vs GFW 83 h; p90 182 h vs 276 h (thin tail); 29–36 vessels/day in the anchorage vs 57–81 GFW cargo (no lighters/coasters yet)."
+  next: Keep `make collect-ais` running anywhere it can (coverage may appear); M1 replaces the visit planner with the SimPy port DES and adds a lighter/coaster fleet.
+
+DS-AIS-02:
+  signup: https://globalfishingwatch.org/our-apis/tokens (free, non-commercial; ≤ 5 tokens/account)
+  pagination: offset/limit with `nextOffset`; limit tested at 1000
+  limits_documented: '50,000 requests/day and 1,500,000/month across all tokens; exceeding blocks every token for 24 h / 30 days (HTTP 429). 4Wings: one report at a time (429), 524 after 100 s then fetch /4wings/last-report; date range ≤ 366 days'
+  limits_observed: "headers x-ratelimit-daily-limit-requests: 50000, x-ratelimit-monthly-limit-requests: 1500000 (usage counters stayed 0)"
+  licence: CC BY-NC 4.0; non-commercial use only
+  attribution: '"Powered by Global Fishing Watch." linked to https://globalfishingwatch.org (or the dataset/date-range citation form on the licence page)'
+  nc: true
+  freshness: port visits and presence ≈ 2–4 days behind (latest presence day 2026-10-21, latest transmission 2026-10-23 when probed on 2026-10-26)
+  history: port visits back to 2012+ (visits overlapping the window are returned, some starting 2014); presence 2012 → ~96 h ago
+  cadence: daily
+  bd_coverage: "**Strong.** 1,897 port visits at `bgd-chittagong` in 90 days (1,242 cargo, 1,662 at confidence 4); cargo port time (conf 4, < 60 d) p10 32 h, p50 83 h, p90 276 h. Outer anchorage presence: 80–128 vessels/day (57–81 cargo) over 40 days, with IMO, MMSI, name, flag, type, hours and speed."
+  failure_modes: no or bad token → 401 {"error":"invalid token"}; unknown dataset → 404; offset past the end → 201 with empty entries; POST /events answers 201, not 200
+  quirks: "timeFilterMode=OVERLAP returns visits that began years ago (one 12-year 'visit' at dock): filter by start date and duration. 1,142 of 1,159 cargo visits stop only at anchor cells (lighterage), so the start/intermediate/end anchorage `atDock` flags matter. Flags are ISO3. vessel.ssvid is the MMSI as a string."
+  mapping: port_call(method='gfw', gfw_visit_id ← port_visit.visitId, arrival_ts ← start, departure_ts ← end, dwell_h ← port_visit.durationHrs, confidence ← port_visit.confidence, stops ← start/intermediate/endAnchorage{anchorageId, atDock, lat, lon}); vessel_identity(gfw_vessel_id ← vessel.id, mmsi ← vessel.ssvid, flag_iso3); zone_presence_daily ← 4Wings presence rows
+  synthetic_twin: the DS-AIS-01 twin's ground-truth port calls use the same fields; M1 DES calibrates to these quantiles
+  next: label store for C4 (point-in-time); hourly presence at HIGH resolution to segment anchorage wait vs berth time
+
+DS-AIS-03:
+  signup: none
+  limits_documented: large daily CSV zips; DMA site was offline after a security incident (brief)
+  bd_coverage: n/a (Danish waters; used only to develop port-call segmentation)
+  licence: DMA terms (not reached)
+  failure_modes: the listing at http://aisdata.ais.dk/ now holds no aisdk*.zip links (1.4 KB page)
+  quirks: site layout changed since the brief; not pursued further (P1, one strike)
+  next: use NOAA (DS-AIS-04) or the synthetic twin for segmentation development
+
+DS-AIS-04:
+  signup: none
+  licence: US public data
+  bd_coverage: n/a (US waters)
+  failure_modes: https://coast.noaa.gov/htdata/CMSP/AISDataHandler/2025/index.html → 404; the GitHub repo ocm-marinecadastre/ais-vessel-traffic is reachable
+  next: find the 2025 file index through the GitHub README in M6 if C4 pretraining needs it
+
+DS-PORT-01:
+  signup: none
+  pagination: 'ArcGIS resultOffset/resultRecordCount; maxRecordCount 1000 (ports, daily) / 2000 (disruptions); `exceededTransferLimit: true` when capped'
+  limits_documented: none published; ArcGIS Online fair use
+  limits_observed: 0.75–1.8 s per query; an over-limit request took 15 s
+  licence: IMF PortWatch terms (free use with attribution; see portwatch.imf.org)
+  attribution: "IMF PortWatch (portwatch.imf.org), built on UN Global Platform AIS data"
+  nc: false
+  freshness: Daily_Ports_Data ends 2026-10-16 when probed on 2026-10-26 (10-day lag)
+  history: 2019-01-01 onward, one row per port per day (2,846 days)
+  cadence: weekly-ish refresh of daily rows
+  bd_coverage: "**5 ports:** Chittagong port241 (mean 6.36 calls/day 2019–2026, max 22; last 112 days 6.02: container 3.62, tanker 1.22, dry bulk 0.61, general 0.50, ro-ro 0.07), Mongla port759, Payra port890, Dhaka port289, offshore oil terminal fso64. Disruptions layer: 4 Bangladesh events since 2019 (Red alerts only; no Remal)."
+  failure_modes: bad field → HTTP 200 with {"error":{"code":400,...}}; no match / offset past end → 200 with features []; 5000 rows requested → 1000 returned with exceededTransferLimit
+  quirks: "LOCODE is null for Chittagong and Payra; where present it has a space ('BD MGL'). DateOnly `date` is a string; Date fields are epoch ms. Hub catalogue lists 14 services, incl. a GDACS-derived disruptions layer with affected ports."
+  mapping: port_activity_daily(port ← portid via external_id 'portwatch', date, calls_by_type ← portcalls_*, import_t/export_t ← import*/export*); disruption_event external_ids.gdacs ← eventid
+  synthetic_twin: daily calls by type from the DES (M1), calibrated to these means and variances
+
+DS-PORT-02:
+  signup: none
+  licence: UNCTAD terms; derived from MarineTraffic (ships ≥ 1,000 GT) but published free
+  bd_coverage: 'country-level medians (not probed: the data viewer renders client-side)'
+  failure_modes: stats.unctad.org short links return the JS app shell (43 KB); the legacy bulk path /7zip/US_PortCalls.csv.7z → 404
+  next: two strikes reached; copy Bangladesh medians by hand from the Review of Maritime Transport / data viewer into config/priors with citation (manual fallback)
+
+DS-PORT-03:
+  signup: none
+  licence: CC BY-NC 3.0 IGO (the brief assumed CC BY)
+  nc: true
+  history: annual; editions 2020–2024 (published 2025-09-22) and **CPPI 2025** (published 2026-06-10, OKR handle 10986/45008)
+  bd_coverage: Chattogram is ranked in the index (port-level hours; values not extracted in M0)
+  failure_modes: ppp.worldbank.org returns 403 (bot wall); the OKR search API answers
+  next: download the CPPI 2025 annex through OKR in M1 for calibration and narrative
+
+DS-PORT-04:
+  signup: none
+  licence: US public (NGA)
+  limits_observed: whole index (2,951 ports) in one 6.3 MB JSON; `output` parameter ignored for bad values
+  bd_coverage: "**None.** No Bangladesh (or Sri Lanka) entries; India has 8."
+  quirks: the API returns 2,951 ports, fewer than the ~3,600–4,300 the brief cites
+  next: use UN/LOCODE + PortWatch + GeoNames for port reference; port limits (draught, LOA) come from CPA notices or press, cited by hand
+
+DS-PORT-05:
+  signup: none
+  limits_documented: none; a 13 MB zip per release
+  licence: "UN/CEFACT standards are free to use under CC BY 4.0 (unlocode.unece.org footer)"
+  attribution: "UN/LOCODE, UNECE"
+  freshness: Pre-Release (Latest) zip dated 2026-10-23
+  history: official releases biannual (latest official 2025-1 on UNICC GitLab)
+  bd_coverage: "45 Bangladesh codes: 12 ports (BDCGP Chattogram 2220N 09150E, BDMGL Mongla (no coordinates), **BDPAY Payra Port** (confirms the code), BDPGN Pangaon, BDPCR Panchashar (port + multimodal), Ashuganj, Narayanganj, Khulna, ...), 8 multimodal/ICD, 15 airports, 10 road."
+  failure_modes: service.unece.org (the brief's host) answers 403 with a Cloudflare JavaScript challenge for every URL, robots.txt included; missing file → 404
+  quirks: CSV has no header and Function precedes Status; Coordinates are degrees+minutes text; Pre-Release may change before the official release
+  mapping: location(locode ← Country+Location, name ← Name, kind ← Function flags, geom ← parse(Coordinates)); external_id(scheme 'unlocode')
+
+DS-PORT-06:
+  signup: none
+  limits_documented: ~10,000 requests and 1 GB per day per user; slots per IP (2 here); 429 when rate-limited, 504 when over capacity
+  limits_observed: 30–114 s per query; intermittent 502 "server at capacity"; the private.coffee mirror timed out at 120 s
+  licence: ODbL 1.0 (share-alike for derived databases)
+  attribution: "© OpenStreetMap contributors"
+  nc: false
+  freshness: minutely diffs (osm_base 2026-10-25T22:46Z)
+  bd_coverage: "Chattogram envelope: 123 features (100 piers, 6 docks, 5 harbours, 'Patenga Container Terminal Jetty', 'Matarbari Deep Sea Port', operator 'Red Sea Gateway Terminal Bangladesh'). **0 anchorage features** around Chattogram. Mongla 43, Payra 11."
+  failure_modes: syntax error → 400 HTML; capacity → 502 Markdown body; client timeout reproducible
+  quirks: Bangladesh bboxes leak Indian features; clip with the Geofabrik bangladesh.poly
+  mapping: port_zone(zone_type ← harbour/pier/quay/dock tags, geom ← way geometry, source 'osm')
+  next: two strikes on availability; extract the same tags locally from the Geofabrik PBF (DS-GEO-01) in M1. Anchorage zones come from GFW cells (DS-AIS-02)
+
+DS-PORT-07:
+  signup: none
+  bd_coverage: unknown (sites unreachable to scripted clients)
+  failure_modes: TLS fails for cpa.gov.bd, mpa.gov.bd (and bpc.gov.bd, biwtc.gov.bd); cpa.gov.bd serves a certificate for afccl.gov.bd without its intermediate
+  next: a human checks in a browser what is public (berthing schedule, outer-anchorage list) and the terms; until then queue numbers come from the press via C2 ("news as sensor") or the synthetic DES
+
+DS-PORT-08:
+  signup: none
+  licence: Apache-2.0 (searoute 1.6.0 package metadata; the brief guessed MIT)
+  nc: false
+  limits_observed: offline; first route 791 ms (graph load), then < 13 ms
+  bd_coverage: "BDCGP → Colombo 1,334 nm, Singapore 1,528 nm, Port Klang 1,341 nm, Rotterdam 8,092 nm, Los Angeles 9,313 nm; the path leaves through the Karnaphuli mouth"
+  quirks: origin snaps to the nearest network node; MARNET lanes are approximate
+  mapping: lane(via ← route vertices, typical_transit_d ← length / speed)
+
+DS-PORT-09:
+  signup: https://globalfishingwatch.org (website login for the anchorage dataset download)
+  licence: GFW terms (non-commercial)
+  nc: true
+  bd_coverage: the same anchorage IDs and positions already arrive inside port-visit events (9 anchorage cells and 4 dock cells around Chattogram in config/priors)
+  next: not needed for M1; DS-AIS-02 covers it
+
+DS-SAT-01:
+  signup: https://dataspace.copernicus.eu (free account; downloads and Sentinel Hub need it)
+  limits_documented: free quotas per account (record on sign-up)
+  licence: Copernicus data licence (free and open, attribution "Contains modified Copernicus Sentinel data")
+  freshness: hours after acquisition
+  bd_coverage: "Last 60 days over the outer anchorage: Sentinel-1 GRD 25 items on 15 days (all sentinel-1d); Sentinel-2 L2A 30 items on 27 days, only 5 with < 30 % cloud"
+  failure_modes: unknown collection → 400 CollectionInQuerryDoesNotExist (sic)
+  next: catalogue search works without auth; GFW SAR (DS-SAT-04) covers the ship-count need, so the account is optional (Q-15)
+
+DS-SAT-04:
+  signup: same token as DS-AIS-02
+  limits_documented: as DS-AIS-02; 4Wings date range ≤ 366 days (HTTP 422 beyond)
+  licence: CC BY-NC 4.0
+  nc: true
+  freshness: latest detection day 2026-10-17 when probed on 2026-10-26 (~9 days)
+  history: 2017 onward
+  bd_coverage: "Outer anchorage, last 120 days: 28 overpass days, 50–251 detections per pass (Sentinel-1 roughly every 4 days)"
+  failure_modes: range > 366 days → 422 "Maximum of 366 days time range supported."; bad temporal-resolution → 422 listing allowed values
+  mapping: satellite_observation(sensor 'S1', acq_ts ← date, detections_count ← detections, matched vessel IDs ← vesselIDs)
+
+DS-SAT-05:
+  signup: https://urs.earthdata.nasa.gov (EDL); LANCE NRT downloads need a separate LANCE app key
+  licence: NASA data are open (no restrictions; cite the product)
+  bd_coverage: 14 MCDWD_L3_NRT (MODIS NRT flood) granules over Bangladesh in 10 days via CMR; 0 Sentinel-1A SLC granules (S1A is no longer the active satellite)
+  failure_modes: the EDL bearer token is not accepted by the LANCE host; both requests end at the URS OAuth page
+  next: proposed, not in the brief. Decide at G0 whether flood maps join C2/fusion; if yes, create a LANCE app key
+
+DS-WX-01:
+  signup: none
+  limits_documented: free non-commercial use < 600 calls/min, 5,000/hour, 10,000/day, 300,000/month
+  licence: CC BY 4.0 (data); non-commercial free tier
+  attribution: '"Weather data by Open-Meteo.com" (link to open-meteo.com)'
+  nc: free tier is non-commercial
+  freshness: forecasts updated hourly; archive ~5-day delay (ERA5)
+  history: weather archive from 1940; marine via ERA5-Ocean (0.5°) for history
+  bd_coverage: forecasts and marine data at both Chattogram points; Remal window (2024-05-24..29) returned for weather and marine
+  failure_modes: unknown variable → 400 {"error":true,"reason":...}; forecast_days 30 → 400 "Allowed range 0 to 16"; marine forecast_days 16 → 200 (docs say 8)
+  quirks: the marine grid snaps the river-berth point (22.29 N 91.81 E) to a sea cell at 22.208 N 91.792 E (~10 km); sea_level_height_msl is relative to global MSL, not chart datum, and unreliable near coasts
+  mapping: port_state_snapshot.weather/tide ← hourly variables (wind_gusts_10m, precipitation, wave_height, sea_level_height_msl)
+
+DS-WX-02:
+  signup: none
+  pagination: pageSize ≤ 100, pageNumber
+  limits_documented: none; pass `caller` to identify the client
+  licence: free; credit "Global Disaster Alert and Coordination System, GDACS"
+  attribution: "GDACS, European Commission JRC"
+  nc: false
+  freshness: minutes to hours
+  history: events since 2000s
+  bd_coverage: "17 events with Bangladesh since 2019: TC 9 (Red: Fani-19, Bulbul-19, Amphan-20, Hamoon-23; Orange: Remal-24, Midhili-23, Sitrang-22, ...), FL 6, EQ 2"
+  failure_modes: country as ISO3 ('BGD') → 204 No Content (use the name 'Bangladesh'); no events / page past end → 204, not an empty FeatureCollection; bad date → 400 RFC 9110 problem JSON; eventsbyarea → timed out at 60 s twice
+  quirks: fromdate/todate have no zone suffix (UTC); event IDs are stable across episodes
+  mapping: disruption_event(type ← eventtype (TC→CYCLONE_STORM, FL→FLOOD, EQ→EARTHQUAKE_OTHER_NATURAL), severity ← alertlevel, external_ids.gdacs ← eventid/episodeid, geom ← event geometry)
+  synthetic_twin: scenario library (cyclone) emits GDACS-shaped events (M1)
+
+DS-WX-03:
+  signup: none
+  licence: NOAA NCEI (public domain; cite IBTrACS v04r01)
+  freshness: last3years file has provisional fixes up to the probe day (2026-10-25)
+  history: North Indian basin since the 1800s (full file); last-three-years file 11.7 MB
+  bd_coverage: "Storms within 2° of the approach box in the last 3 years: Mocha, Hamoon, Midhili (2023), Remal, Dana (2024), plus unnamed systems"
+  failure_modes: bad basin file → 404
+  quirks: the second CSV line holds units; skip it
+  mapping: scenario cyclone tracks (lat, lon, wind) for the scenario library and backtests
+
+DS-WX-04:
+  signup: none
+  licence: MIT (holidays 0.107)
+  bd_coverage: 17–23 public holidays per year 2019–2027; Eid al-Fitr and al-Adha as 3 days each; 2019–2021 marked "(estimated)"
+  quirks: "**Gap:** extended Eid closures declared by executive order (e.g. 9–10 days in 2025) and highway truck bans are not in the package"
+  mapping: calendar features; a manual `holiday_override` table (kind public | extended_closure | truck_ban, with notice URL) fills the gap
+  next: M1 seeds the override table from the Cabinet Division notices and police truck-ban notices, each cited
+
+DS-NEWS-01:
+  signup: none
+  limits_documented: 'informal: "Please limit requests to one every 5 seconds" (the API''s own 429 body)'
+  limits_observed: HTTP 429 on the **first** request after minutes of silence, three times over 1.5 h, ~13–22 s to answer
+  licence: GDELT terms (free; cite GDELT)
+  bd_coverage: not measured (blocked)
+  failure_modes: 429 with a text body; the server then drops the kept-alive connection
+  quirks: 'the block looks per-IP and this connection is likely behind carrier-grade NAT (Cloudflare PoP: Dhaka)'
+  next: two strikes reached → DS-NEWS-02 raw files are the primary discovery path; retry DOC from another network or a cloud worker later
+
+DS-NEWS-02:
+  signup: none
+  limits_documented: none (static files); BigQuery optional
+  licence: GDELT terms (free; cite "The GDELT Project")
+  freshness: 15-minute batches
+  history: since 2015 (masterfilelist)
+  bd_coverage: "24 h of Events: 63,040 events, **370 located in Bangladesh** (0.6 %), mostly Dhaka; Mongla 11. 2 h of GKG: 27 of 3,832 English records and 28 of 9,278 translated records mention a Bangladesh location; **38 translated records came from Bengali sources** (mzamin.com, bdnews24.com)"
+  failure_modes: missing batch → 404 (1 of 8 translation batches was missing); HTTP and HTTPS both work
+  quirks: tab-separated without header (61 Event and 27 GKG columns); zero-padded CAMEO codes must stay strings; FIPS country codes (Bangladesh = BG)
+  mapping: article(url ← DocumentIdentifier, source_name ← SourceCommonName, gdelt_ids ← GKGRECORDID, themes ← V2Themes, lang ← TranslationInfo srclc); disruption candidates ← Events with ActionGeo BG/IN/CN
+
+DS-NEWS-03:
+  signup: none
+  limits_documented: per-feed robots.txt; crawl-delay 30 s (Hellenic Shipping News, FDA), 10 s (TBS)
+  licence: per-publisher copyright; store URL, title, ≤ 300-char snippet only (committed samples are metadata-only)
+  freshness: most feeds < 5 h old at probe time; Splash247, Loadstar, Just Style ~60 h (weekend)
+  history: last 8–100 items per feed (no backfill; GDELT supplies history)
+  bd_coverage: "260 items from 11 active feeds; 133 mention Bangladesh terms (Dhaka Tribune 100, Textile Today 12, Daily Star business 4, TBS economy 4)"
+  failure_modes: missing path → 404 HTML; FiercePharma → 403 bot wall; Financial Express BD excluded (robots.txt blocks ClaudeBot, GPTBot, CCBot, anthropic-ai)
+  quirks: TBS rss.xml is dead (newest item 2021) and Daily Star rss.xml is stale and malformed; section feeds work. Container News, Textile Today and Just Style ship full text (keep it transient)
+  mapping: article(url, title, published_at, snippet ≤ 300, source_name ← feed id, discovered_via 'rss')
+
+DS-NEWS-04:
+  signup: https://apidoc.reliefweb.int/parameters#appname (request a pre-approved appname)
+  licence: free (per-report source licences)
+  failure_modes: no appname → 400; unapproved appname → 403
+  next: request an appname (approval takes time); GDACS covers hazards meanwhile
+
+DS-NEWS-06:
+  signup: none
+  licence: free (Federal Reserve Bank of New York; cite Benigno et al.)
+  cadence: monthly
+  bd_coverage: global index (not country-specific)
+  quirks: the workbook downloaded (106 KB); the sheet outline was not parsed in M0
+
+DS-TRADE-01:
+  signup: https://comtradedeveloper.un.org (free "comtrade - v1" subscription)
+  limits_documented: free key ≈ 500 calls/day, ≤ 100,000 records/call; keyless preview ≤ 500 records (third-party documentation)
+  licence: UN Comtrade terms (free; cite UN Comtrade)
+  bd_coverage: "**Bangladesh last self-reported in 2018.** Mirror data works: 2024 India→BD cotton (HS 52) $2.70 B, China→BD cotton $2.28 B, knitted fabric (60) $1.98 B, staple fibre (55) $1.56 B, filament (54) $1.50 B; India→BD antibiotics (2941) $91.7 M, heterocyclics (2933) $89.0 M"
+  failure_modes: bad key → 401 with JSON message; bad commodity → 200 with empty data (no error); keyless preview for BD 2023 → empty
+  mapping: trade_flow(reporter, partner, hs, year, flow, value_usd, net_wgt_kg, is_mirror) for C1 priors
+
+DS-TRADE-02:
+  signup: none
+  licence: CEPII terms (free for research; Etalab Open Licence 2.0 for BACI)
+  bd_coverage: all reporters and partners, HS6 (mirror-reconciled)
+  limits_observed: release V202601; BACI_HS22 zip 2.05 GB
+  next: download once in M3 and keep only Bangladesh-partner rows in the lake
+
+DS-TRADE-03:
+  signup: none
+  limits_documented: ≤ 60 indicators per request, URL ≤ 4,000 chars; no published rate limit
+  licence: CC BY 4.0 (most WDI series)
+  attribution: "World Bank, World Development Indicators"
+  freshness: lastupdated 2026-10-08
+  history: annual from 1960
+  bd_coverage: "LPI overall only for 2007, 2010, 2014, 2016, 2018, 2022 (latest 2.6); container port traffic 2010–2024 (2024: 3,353,732 TEU); liner connectivity only to 2021; merchandise exports to 2025 ($48.2 B)"
+  failure_modes: bad indicator/country → HTTP 200 with [{"message":[{"id":"120",...}]}]; years without data → rows with value null; page past end → empty list
+  mapping: country_indicator(iso3, indicator, year, value) feature table for C1/NX
+
+DS-RISK-01:
+  signup: none
+  licence: WGI CC BY 4.0; INFORM (EC JRC, free with citation); ND-GAIN (free with citation)
+  bd_coverage: country-level for Bangladesh and supplier countries
+  limits_observed: INFORM 2026 workbook 2.5 MB; ND-GAIN 2026 zip link found
+  failure_modes: WGI via World Bank API source 3 with GE.EST-style codes returned no rows (codes changed; one strike)
+  next: take WGI from its own download in M3
+
+DS-SUP-01:
+  signup: https://opensupplyhub.org (free account; download ≤ 5,000 production locations)
+  licence: CC BY-SA 4.0 for OSH data (check on download); **API is paid** (excluded)
+  failure_modes: API without credentials → 401; robots.txt → 403
+  next: only if Q-05 (b) is chosen; real facility names get sourced attributes only
+
+DS-SUP-02:
+  signup: none
+  licence: LGPL-2.1 on the repository (code licence applied to data; treat as share-alike)
+  history: last push 2025-01-15
+  bd_coverage: Bangladesh FMCG company graph (products, plants, product groups); 28 files
+  quirks: CIOL-SUST/SupplyGraph redirects to ciol-researchlab/SupplyGraph
+
+DS-SUP-03:
+  signup: none
+  licence: CC BY 4.0 (Mendeley Data v5, 2019)
+  bd_coverage: none (global e-commerce orders); used only for delivery-risk baselines and synthetic calibration
+
+DS-PHARMA-01:
+  signup: https://open.fda.gov/apis/authentication/ (optional key)
+  pagination: limit ≤ 1000, skip ≤ 25000, then search_after
+  limits_documented: no key 240/min and 1,000/day per IP; with key 240/min and 120,000/day
+  limits_observed: x-ratelimit-limit 240, x-ratelimit-remaining 232 (with key)
+  licence: openFDA (public domain / CC0-like)
+  freshness: last_updated 2026-10-14
+  bd_coverage: "109 drug recalls by Indian firms in 2025–2026 (Class II 91, III 8, I 1); 0 by Bangladeshi firms; shortages endpoint is /drug/shortages.json (100 records/page)"
+  failure_modes: no match and unknown field both → 404 NOT_FOUND; limit 1001 → 400; skip 25001 → 400; bad key → 403 API_KEY_INVALID
+  mapping: disruption_event(type PHARMA_REGULATORY_QUALITY, external_ids.fda_recall ← recall_number) linked to the supplier org by fuzzy firm name
+
+DS-PHARMA-02:
+  signup: https://datadashboard.fda.gov (API access request; Authorization-User / Authorization-Key headers)
+  failure_modes: no credentials → 400 "Required parameter(s) missing" (validation runs before auth)
+  next: optional; openFDA and import alerts cover the demo
+
+DS-PHARMA-03:
+  signup: none
+  licence: US public
+  limits_documented: fda.gov robots.txt Crawl-Delay 30; accessdata.fda.gov does not disallow /cms_ia
+  bd_coverage: "Import Alert 66-40 page (1.96 MB) mentions India 120 times, China 166, Bangladesh 0"
+  next: parse firm rows (name, country, date) into supplier risk events in M4
+
+DS-GEO-01:
+  signup: none
+  licence: ODbL 1.0
+  attribution: "Data processed by Geofabrik GmbH and created by OpenStreetMap contributors"
+  freshness: data cut-off 2026-10-24T20:20:51Z; daily updates
+  history: dated extracts back to 2014 (yearly snapshots)
+  bd_coverage: whole country; PBF 355,878,537 bytes; Shapefile 975 MB; GeoPackage 992 MB; **Shortbread vector tiles 348 MB** (offline basemap option)
+  failure_modes: wrong region → 404
+  mapping: corridor graph (roads, rail, waterways) for C3; local replacement for Overpass extracts (port zones, ICDs, tolls)
+
+DS-GEO-02:
+  signup: none
+  limits_documented: as DS-PORT-06
+  licence: ODbL 1.0
+  bd_coverage: "26 container sites by name (ICD / depot / terminal), 191 toll booths (some in India: clip to the BD polygon), 154 rail stations in the corridor box (incl. Tripura, India), EPZ name matches noisy (schools and banks named 'EPZ')"
+  failure_modes: status, container and river queries hit 502 "at capacity" on the second run; the first run timed out twice at 120 s
+  next: two strikes → local PBF extraction in M1/M5
+
+DS-GEO-03:
+  signup: https://openrouteservice.org/dev/#/signup
+  failure_modes: no key → 401
+  next: optional validation of C3 travel times
+
+DS-GEO-04:
+  signup: none
+  limits_documented: Nominatim ≤ 1 request/s, identifying User-Agent, cache results, no bulk or autocomplete; GeoNames dump free
+  licence: Nominatim results ODbL; GeoNames CC BY 4.0
+  freshness: GeoNames BD edited 2026-10-24
+  bd_coverage: "All six test places found (Chattogram Port 5, Kamalapur ICD 2, Pangaon 1, Mongla Port 5, Payra Port 1, Dhaka EPZ 1). GeoNames BD: 59,428 rows; ports include Port of Chittagong, Mongla, Mongla Anchorage, Payra Port, Ashuganj"
+  failure_modes: no match → 200 []; bad format → 400 text; GeoNames missing country → 404
+  quirks: place_id is unstable (key on osm_type+osm_id); alternatenames carry Bangla spellings
+  mapping: location(geonames_id, name_bn ← alternatenames); geocoder for C2 with a local GeoNames-first gazetteer
+
+DS-GEO-05:
+  signup: none
+  licence: UK Open Government Licence v3.0 (DESNZ); GLEC Framework method only
+  attribution: "UK Government GHG Conversion Factors for Company Reporting 2026 (DESNZ)"
+  freshness: 2026 set published 2026-06-11, flat file revised July 2026
+  bd_coverage: factors are UK-based (no Bangladesh-specific values); flat file has 8,741 rows, 3,658 freight rows (HGV, rail, cargo ship, sea tanker, freight flights; WTT rows separate)
+  quirks: GLEC Framework v3.2 (Oct 2025) default values are restricted to SFC members and certified tools; use DESNZ factors with the GLEC/ISO 14083 method and state it
+  mapping: emission_factor(mode, vehicle_class, fuel, unit 'tonne.km', ghg_unit, value, scope TTW/WTT, year, source)
+
+DS-GEO-06:
+  signup: none
+  failure_modes: bpc.gov.bd and biwtc.gov.bd fail TLS verification; railway.gov.bd reachable
+  next: manual table with source URL and date per value (M5)
+
+DS-GEO-07:
+  signup: none
+  limits_documented: OpenFreeMap public instance has no limits on views; offline downloads ≤ 3,000 tiles or 50 MB; no SLA
+  licence: OpenMapTiles schema, OSM data (ODbL); commercial use allowed
+  attribution: "OpenFreeMap © OpenMapTiles Data from OpenStreetMap"
+  freshness: weekly planet builds (tiles dated 20261018)
+  bd_coverage: vector tiles to z14 over the Karnaphuli berths (z8 95 KB, z12 68 KB, z14 43 KB)
+  failure_modes: tile beyond maxzoom → 200 with an empty body
+  quirks: the TileJSON tile URL contains a dated build path; read it from the TileJSON, never hard-code
+  next: for an offline demo, serve Geofabrik's Bangladesh Shortbread MBTiles (348 MB) locally
+
+DS-VIS-01:
+  signup: none (direct links on the downloads page)
+  licence: CC BY-NC-SA 4.0; "not allowed to use the dataset for commercial purposes"
+  nc: true
+  bd_coverage: n/a (benchmark images)
+  failure_modes: "pill, capsule, carpet and the full 4.9 GB archive → 404 'Seite nicht gefunden' on mydrive.ch; only leather (524,889,948 bytes, xz) downloads"
+  next: two strikes → VisA capsules + Roboflow tablets carry the pharma pack; ask MVTec or try the page in a browser for fresh links
+
+DS-VIS-02:
+  signup: none
+  licence: CC BY 4.0 (LICENSE-DATASET); code Apache-2.0
+  attribution: Zou et al., SPot-the-Difference, ECCV 2022
+  bd_coverage: n/a
+  limits_observed: one 1,929,840,640-byte tar from S3; split CSV 10,821 rows
+  quirks: "`capsules` split: train/normal 542, test/normal 60, test/anomaly 100; folder names lower-case (candle, capsules, pcb1, ...)"
+  mapping: inspection_image(source_dataset 'visa', category ← object, label ← label, mask_uri ← mask)
+
+DS-VIS-03:
+  licence: CC BY-NC-SA 4.0
+  nc: true
+  failure_modes: archive links on the downloads page → 404 (same hosting problem as DS-VIS-01)
+
+DS-VIS-04:
+  signup: https://app.roboflow.com (API key, provided); Kaggle account for the Fabric Stain Dataset
+  licence: StitchNet CC BY 4.0; Fabric Stain CC0 (Kaggle/Dataset Ninja); Gil-Arroyo 2025 CC BY 4.0 (RIUBU); AITEX AFID licence unclear (Dataset Ninja says CC0, mirror says "other")
+  bd_coverage: n/a (garment pack images)
+  limits_observed: "StitchNet v4: 483 images, classes Skipped stitch 97, normal 102, Stain and damage 102, Overlapped stitch 101, bobbin thread defect 97"
+  failure_modes: MDPI (Carrilho 2024) → 403 bot wall; the brief's figshare "FD dataset (720 images)" could not be found
+  next: download StitchNet + Fabric Stain in M7; confirm AITEX licence on aitex.es before use
+
+DS-VIS-05:
+  signup: https://app.roboflow.com (API key, provided)
+  licence: CC BY 4.0 (per project)
+  bd_coverage: n/a (pharma pack images)
+  limits_observed: "defective_tablets v3: 919 images (broken 339, spotted 427, empty 250, color_mismatch 487); Pharmaceutical Tablet Defects: 32 source images (230 after augmentation, not 230 originals); defect_tablet_detection: unusable class list (typos)"
+  failure_modes: no key → 401 OAuthException; bad key → 401; missing project → 404 GraphMethodException

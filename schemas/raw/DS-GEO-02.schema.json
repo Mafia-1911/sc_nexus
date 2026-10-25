@@ -1,0 +1,927 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-GEO-02",
+  "title": "DS-GEO-02 · OSM Overpass: inland logistics infrastructure: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "bridges_count_corridor": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number"
+        },
+        "generator": {
+          "type": "string"
+        },
+        "osm3s": {
+          "type": "object",
+          "properties": {
+            "timestamp_osm_base": {
+              "type": "string"
+            },
+            "copyright": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "copyright",
+            "timestamp_osm_base"
+          ]
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "tags": {
+                "type": "object",
+                "properties": {
+                  "nodes": {
+                    "type": "string"
+                  },
+                  "ways": {
+                    "type": "string"
+                  },
+                  "relations": {
+                    "type": "string"
+                  },
+                  "total": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "nodes",
+                  "relations",
+                  "total",
+                  "ways"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "tags",
+              "type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "elements",
+        "generator",
+        "osm3s",
+        "version"
+      ]
+    },
+    "container_sites_bd": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number"
+        },
+        "generator": {
+          "type": "string"
+        },
+        "osm3s": {
+          "type": "object",
+          "properties": {
+            "timestamp_osm_base": {
+              "type": "string"
+            },
+            "copyright": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "copyright",
+            "timestamp_osm_base"
+          ]
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "lat": {
+                "type": "number"
+              },
+              "lon": {
+                "type": "number"
+              },
+              "tags": {
+                "type": "object",
+                "properties": {
+                  "addr:city": {
+                    "type": "string"
+                  },
+                  "addr:housename": {
+                    "type": "string"
+                  },
+                  "addr:suburb": {
+                    "type": "string"
+                  },
+                  "amenity": {
+                    "type": "string"
+                  },
+                  "identifier": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "office": {
+                    "type": "string"
+                  },
+                  "building": {
+                    "type": "string"
+                  },
+                  "addr:street": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "opening_hours": {
+                    "type": "string"
+                  },
+                  "population": {
+                    "type": "string"
+                  },
+                  "population:date": {
+                    "type": "string"
+                  },
+                  "smoking": {
+                    "type": "string"
+                  },
+                  "working Area": {
+                    "type": "string"
+                  },
+                  "healthcare": {
+                    "type": "string"
+                  },
+                  "club": {
+                    "type": "string"
+                  },
+                  "bus": {
+                    "type": "string"
+                  },
+                  "highway": {
+                    "type": "string"
+                  },
+                  "public_transport": {
+                    "type": "string"
+                  },
+                  "religion": {
+                    "type": "string"
+                  },
+                  "air_conditioning": {
+                    "type": "string"
+                  },
+                  "operator": {
+                    "type": "string"
+                  },
+                  "name:en": {
+                    "type": "string"
+                  },
+                  "ref": {
+                    "type": "string"
+                  },
+                  "industrial": {
+                    "type": "string"
+                  },
+                  "landuse": {
+                    "type": "string"
+                  },
+                  "port": {
+                    "type": "string"
+                  },
+                  "port:type": {
+                    "type": "string"
+                  },
+                  "man_made": {
+                    "type": "string"
+                  },
+                  "area": {
+                    "type": "string"
+                  },
+                  "barrier": {
+                    "type": "string"
+                  },
+                  "name:bn": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "surface": {
+                    "type": "string"
+                  },
+                  "oneway": {
+                    "type": "string"
+                  },
+                  "addr:postcode": {
+                    "type": "string"
+                  },
+                  "usage": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              "center": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lon": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "lat",
+                  "lon"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "tags",
+              "type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "elements",
+        "generator",
+        "osm3s",
+        "version"
+      ]
+    },
+    "epz_bd": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number"
+        },
+        "generator": {
+          "type": "string"
+        },
+        "osm3s": {
+          "type": "object",
+          "properties": {
+            "timestamp_osm_base": {
+              "type": "string"
+            },
+            "copyright": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "copyright",
+            "timestamp_osm_base"
+          ]
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "lat": {
+                "type": "number"
+              },
+              "lon": {
+                "type": "number"
+              },
+              "tags": {
+                "type": "object",
+                "properties": {
+                  "building": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "addr:city": {
+                    "type": "string"
+                  },
+                  "addr:housenumber": {
+                    "type": "string"
+                  },
+                  "addr:postcode": {
+                    "type": "string"
+                  },
+                  "addr:street": {
+                    "type": "string"
+                  },
+                  "designation": {
+                    "type": "string"
+                  },
+                  "name:en": {
+                    "type": "string"
+                  },
+                  "office": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "website": {
+                    "type": "string"
+                  },
+                  "bus": {
+                    "type": "string"
+                  },
+                  "highway": {
+                    "type": "string"
+                  },
+                  "public_transport": {
+                    "type": "string"
+                  },
+                  "amenity": {
+                    "type": "string"
+                  },
+                  "power": {
+                    "type": "string"
+                  },
+                  "place": {
+                    "type": "string"
+                  },
+                  "shop": {
+                    "type": "string"
+                  },
+                  "religion": {
+                    "type": "string"
+                  },
+                  "man_made": {
+                    "type": "string"
+                  },
+                  "leisure": {
+                    "type": "string"
+                  },
+                  "craft": {
+                    "type": "string"
+                  },
+                  "historic": {
+                    "type": "string"
+                  },
+                  "healthcare": {
+                    "type": "string"
+                  },
+                  "emergency": {
+                    "type": "string"
+                  },
+                  "tourism": {
+                    "type": "string"
+                  },
+                  "mobile": {
+                    "type": "string"
+                  },
+                  "not:brand:wikidata": {
+                    "type": "string"
+                  },
+                  "natural": {
+                    "type": "string"
+                  },
+                  "tidal": {
+                    "type": "string"
+                  },
+                  "water": {
+                    "type": "string"
+                  },
+                  "oneway": {
+                    "type": "string"
+                  },
+                  "landuse": {
+                    "type": "string"
+                  },
+                  "bicycle": {
+                    "type": "string"
+                  },
+                  "foot": {
+                    "type": "string"
+                  },
+                  "horse": {
+                    "type": "string"
+                  },
+                  "motor_vehicle": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "operator": {
+                    "type": "string"
+                  },
+                  "lane": {
+                    "type": "string"
+                  },
+                  "atm": {
+                    "type": "string"
+                  },
+                  "branch": {
+                    "type": "string"
+                  },
+                  "brand": {
+                    "type": "string"
+                  },
+                  "level": {
+                    "type": "string"
+                  },
+                  "opening_hours": {
+                    "type": "string"
+                  },
+                  "wheelchair": {
+                    "type": "string"
+                  },
+                  "plant:method": {
+                    "type": "string"
+                  },
+                  "plant:output:electricity": {
+                    "type": "string"
+                  },
+                  "plant:source": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "barrier": {
+                    "type": "string"
+                  },
+                  "locked": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              "center": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lon": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "lat",
+                  "lon"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "tags",
+              "type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "elements",
+        "generator",
+        "osm3s",
+        "version"
+      ]
+    },
+    "rail_hubs_corridor": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number"
+        },
+        "generator": {
+          "type": "string"
+        },
+        "osm3s": {
+          "type": "object",
+          "properties": {
+            "timestamp_osm_base": {
+              "type": "string"
+            },
+            "copyright": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "copyright",
+            "timestamp_osm_base"
+          ]
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "lat": {
+                "type": "number"
+              },
+              "lon": {
+                "type": "number"
+              },
+              "tags": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "name:ar": {
+                    "type": "string"
+                  },
+                  "name:bn": {
+                    "type": "string"
+                  },
+                  "name:en": {
+                    "type": "string"
+                  },
+                  "operator": {
+                    "type": "string"
+                  },
+                  "operator:en": {
+                    "type": "string"
+                  },
+                  "railway": {
+                    "type": "string"
+                  },
+                  "internet_access": {
+                    "type": "string"
+                  },
+                  "public_transport": {
+                    "type": "string"
+                  },
+                  "ref": {
+                    "type": "string"
+                  },
+                  "start_date": {
+                    "type": "string"
+                  },
+                  "wikidata": {
+                    "type": "string"
+                  },
+                  "network": {
+                    "type": "string"
+                  },
+                  "loc_name": {
+                    "type": "string"
+                  },
+                  "loc_name:en": {
+                    "type": "string"
+                  },
+                  "name:hi": {
+                    "type": "string"
+                  },
+                  "name:ja": {
+                    "type": "string"
+                  },
+                  "name:pa": {
+                    "type": "string"
+                  },
+                  "wikipedia": {
+                    "type": "string"
+                  },
+                  "wheelchair": {
+                    "type": "string"
+                  },
+                  "disused": {
+                    "type": "string"
+                  },
+                  "addr:city": {
+                    "type": "string"
+                  },
+                  "addr:street": {
+                    "type": "string"
+                  },
+                  "operator:bn": {
+                    "type": "string"
+                  },
+                  "addr:postcode": {
+                    "type": "string"
+                  },
+                  "train": {
+                    "type": "string"
+                  },
+                  "alt_name": {
+                    "type": "string"
+                  },
+                  "amenity": {
+                    "type": "string"
+                  },
+                  "check_date": {
+                    "type": "string"
+                  },
+                  "check_date:wheelchair": {
+                    "type": "string"
+                  },
+                  "vending": {
+                    "type": "string"
+                  },
+                  "name:zh": {
+                    "type": "string"
+                  },
+                  "name:zh-Hans": {
+                    "type": "string"
+                  },
+                  "name:zh-Hant": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "station": {
+                    "type": "string"
+                  },
+                  "subway": {
+                    "type": "string"
+                  },
+                  "addr:city:en": {
+                    "type": "string"
+                  },
+                  "name_1": {
+                    "type": "string"
+                  },
+                  "level": {
+                    "type": "string"
+                  },
+                  "website": {
+                    "type": "string"
+                  },
+                  "alt_name:en": {
+                    "type": "string"
+                  },
+                  "addr:district": {
+                    "type": "string"
+                  },
+                  "addr:housenumber": {
+                    "type": "string"
+                  },
+                  "building": {
+                    "type": "string"
+                  },
+                  "tram": {
+                    "type": "string"
+                  },
+                  "layer": {
+                    "type": "string"
+                  },
+                  "noaddress": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "building:levels": {
+                    "type": "string"
+                  },
+                  "area:railway": {
+                    "type": "string"
+                  },
+                  "landuse": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "railway"
+                ]
+              },
+              "center": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lon": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "lat",
+                  "lon"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "tags",
+              "type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "elements",
+        "generator",
+        "osm3s",
+        "version"
+      ]
+    },
+    "toll_booths_bd": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number"
+        },
+        "generator": {
+          "type": "string"
+        },
+        "osm3s": {
+          "type": "object",
+          "properties": {
+            "timestamp_osm_base": {
+              "type": "string"
+            },
+            "copyright": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "copyright",
+            "timestamp_osm_base"
+          ]
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "lat": {
+                "type": "number"
+              },
+              "lon": {
+                "type": "number"
+              },
+              "tags": {
+                "type": "object",
+                "properties": {
+                  "barrier": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "name:en": {
+                    "type": "string"
+                  },
+                  "bicycle": {
+                    "type": "string"
+                  },
+                  "currency:INR": {
+                    "type": "string"
+                  },
+                  "foot": {
+                    "type": "string"
+                  },
+                  "motor_vehicle": {
+                    "type": "string"
+                  },
+                  "currency:BDT": {
+                    "type": "string"
+                  },
+                  "payment:cash": {
+                    "type": "string"
+                  },
+                  "payment:fasttag": {
+                    "type": "string"
+                  },
+                  "access": {
+                    "type": "string"
+                  },
+                  "operational_status": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "building": {
+                    "type": "string"
+                  },
+                  "horse": {
+                    "type": "string"
+                  },
+                  "layer": {
+                    "type": "string"
+                  },
+                  "payment:notes": {
+                    "type": "string"
+                  },
+                  "currency:Taka": {
+                    "type": "string"
+                  },
+                  "area": {
+                    "type": "string"
+                  },
+                  "addr:city": {
+                    "type": "string"
+                  },
+                  "addr:housenumber": {
+                    "type": "string"
+                  },
+                  "addr:street": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "opening_hours": {
+                    "type": "string"
+                  },
+                  "building:colour": {
+                    "type": "string"
+                  },
+                  "building:levels": {
+                    "type": "string"
+                  },
+                  "building:material": {
+                    "type": "string"
+                  },
+                  "building:use": {
+                    "type": "string"
+                  },
+                  "height": {
+                    "type": "string"
+                  },
+                  "nohousenumber": {
+                    "type": "string"
+                  },
+                  "roof:orientation": {
+                    "type": "string"
+                  },
+                  "roof:shape": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "barrier"
+                ]
+              },
+              "center": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lon": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "lat",
+                  "lon"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "tags",
+              "type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "elements",
+        "generator",
+        "osm3s",
+        "version"
+      ]
+    }
+  }
+}

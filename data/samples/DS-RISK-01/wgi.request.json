@@ -1,0 +1,27 @@
+{
+  "method": "GET",
+  "url": "https://api.worldbank.org/v2/country/BGD;CHN;IND;VNM;LKA;MMR/indicator/GE.EST;PV.EST;RQ.EST;CC.EST?source=3&format=json&date=2018:2025&per_page=1000",
+  "params": {
+    "source": 3,
+    "format": "json",
+    "date": "2018:2025",
+    "per_page": 1000
+  },
+  "headers": {
+    "host": "api.worldbank.org",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-25T23:31:48.094573+00:00",
+  "status": 200,
+  "content_type": "application/json;charset=utf-8",
+  "transformed": false
+}

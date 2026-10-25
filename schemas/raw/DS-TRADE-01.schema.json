@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-TRADE-01",
+  "title": "DS-TRADE-01 · UN Comtrade API: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "bgd_imports_garment_inputs": {
+      "type": "object",
+      "properties": {
+        "elapsedTime": {
+          "type": "string"
+        },
+        "count": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "array"
+        },
+        "error": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "count",
+        "data",
+        "elapsedTime",
+        "error"
+      ]
+    },
+    "mirror_cn_in_exports_to_bgd": {
+      "type": "object",
+      "properties": {
+        "elapsedTime": {
+          "type": "string"
+        },
+        "count": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "typeCode": {
+                "type": "string"
+              },
+              "freqCode": {
+                "type": "string"
+              },
+              "refPeriodId": {
+                "type": "integer"
+              },
+              "refYear": {
+                "type": "integer"
+              },
+              "refMonth": {
+                "type": "integer"
+              },
+              "period": {
+                "type": "string"
+              },
+              "reporterCode": {
+                "type": "integer"
+              },
+              "reporterISO": {
+                "type": "string"
+              },
+              "reporterDesc": {
+                "type": "string"
+              },
+              "flowCode": {
+                "type": "string"
+              },
+              "flowDesc": {
+                "type": "string"
+              },
+              "partnerCode": {
+                "type": "integer"
+              },
+              "partnerISO": {
+                "type": "string"
+              },
+              "partnerDesc": {
+                "type": "string"
+              },
+              "partner2Code": {
+                "type": "integer"
+              },
+              "partner2ISO": {
+                "type": "string"
+              },
+              "partner2Desc": {
+                "type": "string"
+              },
+              "classificationCode": {
+                "type": "string"
+              },
+              "classificationSearchCode": {
+                "type": "string"
+              },
+              "isOriginalClassification": {
+                "type": "boolean"
+              },
+              "cmdCode": {
+                "type": "string"
+              },
+              "cmdDesc": {
+                "type": "string"
+              },
+              "aggrLevel": {
+                "type": "integer"
+              },
+              "isLeaf": {
+                "type": "boolean"
+              },
+              "customsCode": {
+                "type": "string"
+              },
+              "customsDesc": {
+                "type": "string"
+              },
+              "mosCode": {
+                "type": "string"
+              },
+              "motCode": {
+                "type": "integer"
+              },
+              "motDesc": {
+                "type": "string"
+              },
+              "qtyUnitCode": {
+                "type": "integer"
+              },
+              "qtyUnitAbbr": {
+                "type": "string"
+              },
+              "qty": {
+                "type": "number"
+              },
+              "isQtyEstimated": {
+                "type": "boolean"
+              },
+              "altQtyUnitCode": {
+                "type": "integer"
+              },
+              "altQtyUnitAbbr": {
+                "type": "string"
+              },
+              "altQty": {
+                "type": "number"
+              },
+              "isAltQtyEstimated": {
+                "type": "boolean"
+              },
+              "netWgt": {
+                "type": "number"
+              },
+              "isNetWgtEstimated": {
+                "type": "boolean"
+              },
+              "grossWgt": {
+                "type": "number"
+              },
+              "isGrossWgtEstimated": {
+                "type": "boolean"
+              },
+              "cifvalue": {
+                "type": "null"
+              },
+              "fobvalue": {
+                "type": "number"
+              },
+              "primaryValue": {
+                "type": "number"
+              },
+              "legacyEstimationFlag": {
+                "type": "integer"
+              },
+              "isReported": {
+                "type": "boolean"
+              },
+              "isAggregate": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "aggrLevel",
+              "altQty",
+              "altQtyUnitAbbr",
+              "altQtyUnitCode",
+              "cifvalue",
+              "classificationCode",
+              "classificationSearchCode",
+              "cmdCode",
+              "cmdDesc",
+              "customsCode",
+              "customsDesc",
+              "flowCode",
+              "flowDesc",
+              "fobvalue",
+              "freqCode",
+              "grossWgt",
+              "isAggregate",
+              "isAltQtyEstimated",
+              "isGrossWgtEstimated",
+              "isLeaf",
+              "isNetWgtEstimated",
+              "isOriginalClassification",
+              "isQtyEstimated",
+              "isReported",
+              "legacyEstimationFlag",
+              "mosCode",
+              "motCode",
+              "motDesc",
+              "netWgt",
+              "partner2Code",
+              "partner2Desc",
+              "partner2ISO",
+              "partnerCode",
+              "partnerDesc",
+              "partnerISO",
+              "period",
+              "primaryValue",
+              "qty",
+              "qtyUnitAbbr",
+              "qtyUnitCode",
+              "refMonth",
+              "refPeriodId",
+              "refYear",
+              "reporterCode",
+              "reporterDesc",
+              "reporterISO",
+              "typeCode"
+            ]
+          }
+        },
+        "error": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "count",
+        "data",
+        "elapsedTime",
+        "error"
+      ]
+    }
+  }
+}

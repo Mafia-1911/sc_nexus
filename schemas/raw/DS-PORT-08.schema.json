@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-PORT-08",
+  "title": "DS-PORT-08 · searoute (Eurostat MARNET sea lanes): raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "routes": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "geometry": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "coordinates": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "coordinates",
+                  "type"
+                ]
+              },
+              "properties": {
+                "type": "object",
+                "properties": {
+                  "length": {
+                    "type": "number"
+                  },
+                  "units": {
+                    "type": "string"
+                  },
+                  "duration_hours": {
+                    "type": "number"
+                  },
+                  "to": {
+                    "type": "string"
+                  },
+                  "from": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "duration_hours",
+                  "from",
+                  "length",
+                  "to",
+                  "units"
+                ]
+              }
+            },
+            "required": [
+              "geometry",
+              "properties",
+              "type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "features",
+        "type"
+      ]
+    }
+  }
+}

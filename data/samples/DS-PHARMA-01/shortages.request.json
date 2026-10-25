@@ -1,0 +1,25 @@
+{
+  "method": "GET",
+  "url": "https://api.fda.gov/drug/shortages.json?api_key=%2A%2A%2AREDACTED%2A%2A%2A&limit=100",
+  "params": {
+    "api_key": "***REDACTED***",
+    "limit": 100
+  },
+  "headers": {
+    "host": "api.fda.gov",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "the brief's first candidate path",
+  "captured_at": "2026-10-25T23:24:34.914489+00:00",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "transformed": false
+}

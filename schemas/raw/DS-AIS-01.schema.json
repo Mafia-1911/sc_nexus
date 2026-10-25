@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-AIS-01",
+  "title": "DS-AIS-01 · aisstream.io live AIS: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "capture_bd_approach": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Message": {
+            "type": "object",
+            "properties": {
+              "CompressionEnabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "CompressionEnabled"
+            ]
+          },
+          "MessageType": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Message",
+          "MessageType"
+        ]
+      }
+    }
+  }
+}

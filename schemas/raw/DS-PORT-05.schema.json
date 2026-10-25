@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-PORT-05",
+  "title": "DS-PORT-05 · UN/LOCODE (UNECE): raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "latest_zip": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Change": {
+            "type": "string"
+          },
+          "Country": {
+            "type": "string"
+          },
+          "Location": {
+            "type": "string"
+          },
+          "Name": {
+            "type": "string"
+          },
+          "NameWoDiacritics": {
+            "type": "string"
+          },
+          "Subdivision": {
+            "type": "string"
+          },
+          "Function": {
+            "type": "string"
+          },
+          "Status": {
+            "type": "string"
+          },
+          "Date": {
+            "type": "string"
+          },
+          "IATA": {
+            "type": "string"
+          },
+          "Coordinates": {
+            "type": "string"
+          },
+          "Remarks": {
+            "type": "string"
+          },
+          "_part": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Change",
+          "Coordinates",
+          "Country",
+          "Date",
+          "Function",
+          "IATA",
+          "Location",
+          "Name",
+          "NameWoDiacritics",
+          "Remarks",
+          "Status",
+          "Subdivision",
+          "_part"
+        ]
+      }
+    }
+  }
+}

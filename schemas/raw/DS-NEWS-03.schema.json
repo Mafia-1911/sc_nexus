@@ -1,0 +1,4362 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-NEWS-03",
+  "title": "DS-NEWS-03 · Curated RSS feeds: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "feed_container_news": {
+      "type": "object",
+      "properties": {
+        "bozo": {
+          "type": "boolean"
+        },
+        "bozo_exception": {
+          "type": "null"
+        },
+        "version": {
+          "type": "string"
+        },
+        "feed": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "title_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "rel": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "rel",
+                  "type"
+                ]
+              }
+            },
+            "link": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "subtitle_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "updated": {
+              "type": "string"
+            },
+            "updated_parsed": {
+              "type": "string"
+            },
+            "language": {
+              "type": "string"
+            },
+            "sy_updateperiod": {
+              "type": "string"
+            },
+            "sy_updatefrequency": {
+              "type": "string"
+            },
+            "image": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "title_detail": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "language": {
+                      "type": "null"
+                    },
+                    "base": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "language",
+                    "type",
+                    "value"
+                  ]
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "rel": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "href": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "href",
+                      "rel",
+                      "type"
+                    ]
+                  }
+                },
+                "link": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "height",
+                "href",
+                "link",
+                "links",
+                "title",
+                "title_detail",
+                "width"
+              ]
+            }
+          },
+          "required": [
+            "image",
+            "language",
+            "link",
+            "links",
+            "subtitle",
+            "subtitle_detail",
+            "sy_updatefrequency",
+            "sy_updateperiod",
+            "title",
+            "title_detail",
+            "updated",
+            "updated_parsed"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "title_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rel": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "href",
+                    "rel",
+                    "type"
+                  ]
+                }
+              },
+              "link": {
+                "type": "string"
+              },
+              "authors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              },
+              "author": {
+                "type": "string"
+              },
+              "author_detail": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              "published": {
+                "type": "string"
+              },
+              "published_parsed": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "term": {
+                      "type": "string"
+                    },
+                    "scheme": {
+                      "type": "null"
+                    },
+                    "label": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "scheme",
+                    "term"
+                  ]
+                }
+              },
+              "id": {
+                "type": "string"
+              },
+              "guidislink": {
+                "type": "boolean"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "language": {
+                      "type": "null"
+                    },
+                    "base": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "language",
+                    "type",
+                    "value"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "author",
+              "author_detail",
+              "authors",
+              "content",
+              "guidislink",
+              "id",
+              "link",
+              "links",
+              "published",
+              "published_parsed",
+              "summary",
+              "summary_detail",
+              "tags",
+              "title",
+              "title_detail"
+            ]
+          }
+        }
+      },
+      "required": [
+        "bozo",
+        "bozo_exception",
+        "entries",
+        "feed",
+        "version"
+      ]
+    },
+    "feed_daily_star_business": {
+      "type": "object",
+      "properties": {
+        "bozo": {
+          "type": "boolean"
+        },
+        "bozo_exception": {
+          "type": "null"
+        },
+        "version": {
+          "type": "string"
+        },
+        "feed": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "title_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rel": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "href": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "rel",
+                  "type"
+                ]
+              }
+            },
+            "link": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "subtitle_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "language": {
+              "type": "string"
+            },
+            "updated": {
+              "type": "string"
+            },
+            "updated_parsed": {
+              "type": "string"
+            },
+            "published": {
+              "type": "string"
+            },
+            "published_parsed": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "language",
+            "link",
+            "links",
+            "published",
+            "published_parsed",
+            "subtitle",
+            "subtitle_detail",
+            "title",
+            "title_detail",
+            "updated",
+            "updated_parsed"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "title_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rel": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "href",
+                    "rel",
+                    "type"
+                  ]
+                }
+              },
+              "link": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "guidislink": {
+                "type": "boolean"
+              },
+              "published": {
+                "type": "string"
+              },
+              "published_parsed": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "title"
+                ]
+              }
+            },
+            "required": [
+              "guidislink",
+              "id",
+              "link",
+              "links",
+              "published",
+              "published_parsed",
+              "source",
+              "summary",
+              "summary_detail",
+              "title",
+              "title_detail"
+            ]
+          }
+        }
+      },
+      "required": [
+        "bozo",
+        "bozo_exception",
+        "entries",
+        "feed",
+        "version"
+      ]
+    },
+    "feed_daily_star_top": {
+      "type": "object",
+      "properties": {
+        "bozo": {
+          "type": "boolean"
+        },
+        "bozo_exception": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "feed": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "title_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rel": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "href": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "rel",
+                  "type"
+                ]
+              }
+            },
+            "link": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "subtitle_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "language": {
+              "type": "string"
+            },
+            "published": {
+              "type": "string"
+            },
+            "published_parsed": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "language",
+            "link",
+            "links",
+            "published",
+            "published_parsed",
+            "subtitle",
+            "subtitle_detail",
+            "title",
+            "title_detail"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "title_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rel": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "href",
+                    "rel",
+                    "type"
+                  ]
+                }
+              },
+              "link": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "published": {
+                "type": "string"
+              },
+              "published_parsed": {
+                "type": "string"
+              },
+              "authors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "email"
+                  ]
+                }
+              },
+              "author": {
+                "type": "string"
+              },
+              "author_detail": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "guidislink": {
+                "type": "boolean"
+              },
+              "source": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "author",
+              "author_detail",
+              "authors",
+              "guidislink",
+              "id",
+              "link",
+              "links",
+              "published",
+              "published_parsed",
+              "summary",
+              "summary_detail",
+              "title",
+              "title_detail"
+            ]
+          }
+        }
+      },
+      "required": [
+        "bozo",
+        "bozo_exception",
+        "entries",
+        "feed",
+        "version"
+      ]
+    },
+    "feed_dhaka_tribune": {
+      "type": "object",
+      "properties": {
+        "bozo": {
+          "type": "boolean"
+        },
+        "bozo_exception": {
+          "type": "null"
+        },
+        "version": {
+          "type": "string"
+        },
+        "feed": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "title_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "rel": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "rel",
+                  "type"
+                ]
+              }
+            },
+            "link": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "subtitle_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "image": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "title_detail": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "language": {
+                      "type": "null"
+                    },
+                    "base": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "language",
+                    "type",
+                    "value"
+                  ]
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "rel": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "href": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "href",
+                      "rel",
+                      "type"
+                    ]
+                  }
+                },
+                "link": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "href",
+                "link",
+                "links",
+                "title",
+                "title_detail"
+              ]
+            },
+            "rights": {
+              "type": "string"
+            },
+            "rights_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "published": {
+              "type": "string"
+            },
+            "published_parsed": {
+              "type": "string"
+            },
+            "generator_detail": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+            "generator": {
+              "type": "string"
+            },
+            "language": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "generator",
+            "generator_detail",
+            "image",
+            "language",
+            "link",
+            "links",
+            "published",
+            "published_parsed",
+            "rights",
+            "rights_detail",
+            "subtitle",
+            "subtitle_detail",
+            "title",
+            "title_detail"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "title_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rel": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "href",
+                    "rel",
+                    "type"
+                  ]
+                }
+              },
+              "link": {
+                "type": "string"
+              },
+              "published": {
+                "type": "string"
+              },
+              "published_parsed": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "term": {
+                      "type": "string"
+                    },
+                    "scheme": {
+                      "type": "null"
+                    },
+                    "label": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "scheme",
+                    "term"
+                  ]
+                }
+              },
+              "id": {
+                "type": "string"
+              },
+              "guidislink": {
+                "type": "boolean"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              }
+            },
+            "required": [
+              "guidislink",
+              "id",
+              "link",
+              "links",
+              "published",
+              "published_parsed",
+              "summary",
+              "summary_detail",
+              "tags",
+              "title",
+              "title_detail"
+            ]
+          }
+        }
+      },
+      "required": [
+        "bozo",
+        "bozo_exception",
+        "entries",
+        "feed",
+        "version"
+      ]
+    },
+    "feed_fda_press": {
+      "type": "object",
+      "properties": {
+        "bozo": {
+          "type": "boolean"
+        },
+        "bozo_exception": {
+          "type": "null"
+        },
+        "version": {
+          "type": "string"
+        },
+        "feed": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "title_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rel": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "href": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "rel",
+                  "type"
+                ]
+              }
+            },
+            "link": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "subtitle_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "language": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "language",
+            "link",
+            "links",
+            "subtitle",
+            "subtitle_detail",
+            "title",
+            "title_detail"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "title_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rel": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "href",
+                    "rel",
+                    "type"
+                  ]
+                }
+              },
+              "link": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "published": {
+                "type": "string"
+              },
+              "published_parsed": {
+                "type": "string"
+              },
+              "authors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              },
+              "author": {
+                "type": "string"
+              },
+              "author_detail": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "guidislink": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "author",
+              "author_detail",
+              "authors",
+              "guidislink",
+              "id",
+              "link",
+              "links",
+              "published",
+              "published_parsed",
+              "summary",
+              "summary_detail",
+              "title",
+              "title_detail"
+            ]
+          }
+        }
+      },
+      "required": [
+        "bozo",
+        "bozo_exception",
+        "entries",
+        "feed",
+        "version"
+      ]
+    },
+    "feed_gcaptain": {
+      "type": "object",
+      "properties": {
+        "bozo": {
+          "type": "boolean"
+        },
+        "bozo_exception": {
+          "type": "null"
+        },
+        "version": {
+          "type": "string"
+        },
+        "feed": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "title_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "rel": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "rel",
+                  "type"
+                ]
+              }
+            },
+            "link": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "subtitle_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "updated": {
+              "type": "string"
+            },
+            "updated_parsed": {
+              "type": "string"
+            },
+            "language": {
+              "type": "string"
+            },
+            "sy_updateperiod": {
+              "type": "string"
+            },
+            "sy_updatefrequency": {
+              "type": "string"
+            },
+            "generator_detail": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+            "generator": {
+              "type": "string"
+            },
+            "image": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "title_detail": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "language": {
+                      "type": "null"
+                    },
+                    "base": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "language",
+                    "type",
+                    "value"
+                  ]
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "rel": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "href": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "href",
+                      "rel",
+                      "type"
+                    ]
+                  }
+                },
+                "link": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "height",
+                "href",
+                "link",
+                "links",
+                "title",
+                "title_detail",
+                "width"
+              ]
+            }
+          },
+          "required": [
+            "generator",
+            "generator_detail",
+            "image",
+            "language",
+            "link",
+            "links",
+            "subtitle",
+            "subtitle_detail",
+            "sy_updatefrequency",
+            "sy_updateperiod",
+            "title",
+            "title_detail",
+            "updated",
+            "updated_parsed"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "title_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rel": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "href",
+                    "rel",
+                    "type"
+                  ]
+                }
+              },
+              "link": {
+                "type": "string"
+              },
+              "authors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              },
+              "author": {
+                "type": "string"
+              },
+              "author_detail": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              "published": {
+                "type": "string"
+              },
+              "published_parsed": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "term": {
+                      "type": "string"
+                    },
+                    "scheme": {
+                      "type": "null"
+                    },
+                    "label": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "scheme",
+                    "term"
+                  ]
+                }
+              },
+              "id": {
+                "type": "string"
+              },
+              "guidislink": {
+                "type": "boolean"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              }
+            },
+            "required": [
+              "author",
+              "author_detail",
+              "authors",
+              "guidislink",
+              "id",
+              "link",
+              "links",
+              "published",
+              "published_parsed",
+              "summary",
+              "summary_detail",
+              "tags",
+              "title",
+              "title_detail"
+            ]
+          }
+        }
+      },
+      "required": [
+        "bozo",
+        "bozo_exception",
+        "entries",
+        "feed",
+        "version"
+      ]
+    },
+    "feed_hellenic_shipping": {
+      "type": "object",
+      "properties": {
+        "bozo": {
+          "type": "boolean"
+        },
+        "bozo_exception": {
+          "type": "null"
+        },
+        "version": {
+          "type": "string"
+        },
+        "feed": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "title_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "rel": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "rel",
+                  "type"
+                ]
+              }
+            },
+            "link": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "subtitle_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "updated": {
+              "type": "string"
+            },
+            "updated_parsed": {
+              "type": "string"
+            },
+            "language": {
+              "type": "string"
+            },
+            "sy_updateperiod": {
+              "type": "string"
+            },
+            "sy_updatefrequency": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "language",
+            "link",
+            "links",
+            "subtitle",
+            "subtitle_detail",
+            "sy_updatefrequency",
+            "sy_updateperiod",
+            "title",
+            "title_detail",
+            "updated",
+            "updated_parsed"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "title_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rel": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "href",
+                    "rel",
+                    "type"
+                  ]
+                }
+              },
+              "link": {
+                "type": "string"
+              },
+              "authors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              },
+              "author": {
+                "type": "string"
+              },
+              "author_detail": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              "published": {
+                "type": "string"
+              },
+              "published_parsed": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "term": {
+                      "type": "string"
+                    },
+                    "scheme": {
+                      "type": "null"
+                    },
+                    "label": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "scheme",
+                    "term"
+                  ]
+                }
+              },
+              "id": {
+                "type": "string"
+              },
+              "guidislink": {
+                "type": "boolean"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              }
+            },
+            "required": [
+              "author",
+              "author_detail",
+              "authors",
+              "guidislink",
+              "id",
+              "link",
+              "links",
+              "published",
+              "published_parsed",
+              "summary",
+              "summary_detail",
+              "tags",
+              "title",
+              "title_detail"
+            ]
+          }
+        }
+      },
+      "required": [
+        "bozo",
+        "bozo_exception",
+        "entries",
+        "feed",
+        "version"
+      ]
+    },
+    "feed_just_style": {
+      "type": "object",
+      "properties": {
+        "bozo": {
+          "type": "boolean"
+        },
+        "bozo_exception": {
+          "type": "null"
+        },
+        "version": {
+          "type": "string"
+        },
+        "feed": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "title_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "rel": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "rel",
+                  "type"
+                ]
+              }
+            },
+            "link": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "subtitle_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "updated": {
+              "type": "string"
+            },
+            "updated_parsed": {
+              "type": "string"
+            },
+            "language": {
+              "type": "string"
+            },
+            "sy_updateperiod": {
+              "type": "string"
+            },
+            "sy_updatefrequency": {
+              "type": "string"
+            },
+            "generator_detail": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+            "generator": {
+              "type": "string"
+            },
+            "image": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "title_detail": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "language": {
+                      "type": "null"
+                    },
+                    "base": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "language",
+                    "type",
+                    "value"
+                  ]
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "rel": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "href": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "href",
+                      "rel",
+                      "type"
+                    ]
+                  }
+                },
+                "link": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "height",
+                "href",
+                "link",
+                "links",
+                "title",
+                "title_detail",
+                "width"
+              ]
+            }
+          },
+          "required": [
+            "generator",
+            "generator_detail",
+            "image",
+            "language",
+            "link",
+            "links",
+            "subtitle",
+            "subtitle_detail",
+            "sy_updatefrequency",
+            "sy_updateperiod",
+            "title",
+            "title_detail",
+            "updated",
+            "updated_parsed"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "title_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rel": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    },
+                    "length": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "href",
+                    "rel",
+                    "type"
+                  ]
+                }
+              },
+              "link": {
+                "type": "string"
+              },
+              "media_content": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "medium": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "medium",
+                    "type",
+                    "url"
+                  ]
+                }
+              },
+              "authors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              },
+              "author": {
+                "type": "string"
+              },
+              "author_detail": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              "published": {
+                "type": "string"
+              },
+              "published_parsed": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "term": {
+                      "type": "string"
+                    },
+                    "scheme": {
+                      "type": "null"
+                    },
+                    "label": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "scheme",
+                    "term"
+                  ]
+                }
+              },
+              "id": {
+                "type": "string"
+              },
+              "guidislink": {
+                "type": "boolean"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "language": {
+                      "type": "null"
+                    },
+                    "base": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "language",
+                    "type",
+                    "value"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "author",
+              "author_detail",
+              "authors",
+              "content",
+              "guidislink",
+              "id",
+              "link",
+              "links",
+              "media_content",
+              "published",
+              "published_parsed",
+              "summary",
+              "summary_detail",
+              "tags",
+              "title",
+              "title_detail"
+            ]
+          }
+        }
+      },
+      "required": [
+        "bozo",
+        "bozo_exception",
+        "entries",
+        "feed",
+        "version"
+      ]
+    },
+    "feed_loadstar": {
+      "type": "object",
+      "properties": {
+        "bozo": {
+          "type": "boolean"
+        },
+        "bozo_exception": {
+          "type": "null"
+        },
+        "version": {
+          "type": "string"
+        },
+        "feed": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "title_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "rel": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "rel",
+                  "type"
+                ]
+              }
+            },
+            "link": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "subtitle_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "updated": {
+              "type": "string"
+            },
+            "updated_parsed": {
+              "type": "string"
+            },
+            "language": {
+              "type": "string"
+            },
+            "sy_updateperiod": {
+              "type": "string"
+            },
+            "sy_updatefrequency": {
+              "type": "string"
+            },
+            "generator_detail": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+            "generator": {
+              "type": "string"
+            },
+            "site": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "generator",
+            "generator_detail",
+            "language",
+            "link",
+            "links",
+            "site",
+            "subtitle",
+            "subtitle_detail",
+            "sy_updatefrequency",
+            "sy_updateperiod",
+            "title",
+            "title_detail",
+            "updated",
+            "updated_parsed"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "title_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rel": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "href",
+                    "rel",
+                    "type"
+                  ]
+                }
+              },
+              "link": {
+                "type": "string"
+              },
+              "comments": {
+                "type": "string"
+              },
+              "authors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              },
+              "author": {
+                "type": "string"
+              },
+              "author_detail": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              "published": {
+                "type": "string"
+              },
+              "published_parsed": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "term": {
+                      "type": "string"
+                    },
+                    "scheme": {
+                      "type": "null"
+                    },
+                    "label": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "scheme",
+                    "term"
+                  ]
+                }
+              },
+              "id": {
+                "type": "string"
+              },
+              "guidislink": {
+                "type": "boolean"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "wfw_commentrss": {
+                "type": "string"
+              },
+              "slash_comments": {
+                "type": "string"
+              },
+              "post-id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "author",
+              "author_detail",
+              "authors",
+              "comments",
+              "guidislink",
+              "id",
+              "link",
+              "links",
+              "post-id",
+              "published",
+              "published_parsed",
+              "slash_comments",
+              "summary",
+              "summary_detail",
+              "tags",
+              "title",
+              "title_detail",
+              "wfw_commentrss"
+            ]
+          }
+        }
+      },
+      "required": [
+        "bozo",
+        "bozo_exception",
+        "entries",
+        "feed",
+        "version"
+      ]
+    },
+    "feed_splash247": {
+      "type": "object",
+      "properties": {
+        "bozo": {
+          "type": "boolean"
+        },
+        "bozo_exception": {
+          "type": "null"
+        },
+        "version": {
+          "type": "string"
+        },
+        "feed": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "title_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "rel": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "rel",
+                  "type"
+                ]
+              }
+            },
+            "link": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "subtitle_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "updated": {
+              "type": "string"
+            },
+            "updated_parsed": {
+              "type": "string"
+            },
+            "language": {
+              "type": "string"
+            },
+            "sy_updateperiod": {
+              "type": "string"
+            },
+            "sy_updatefrequency": {
+              "type": "string"
+            },
+            "generator_detail": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+            "generator": {
+              "type": "string"
+            },
+            "image": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "title_detail": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "language": {
+                      "type": "null"
+                    },
+                    "base": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "language",
+                    "type",
+                    "value"
+                  ]
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "rel": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "href": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "href",
+                      "rel",
+                      "type"
+                    ]
+                  }
+                },
+                "link": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "height",
+                "href",
+                "link",
+                "links",
+                "title",
+                "title_detail",
+                "width"
+              ]
+            },
+            "site": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "generator",
+            "generator_detail",
+            "image",
+            "language",
+            "link",
+            "links",
+            "site",
+            "subtitle",
+            "subtitle_detail",
+            "sy_updatefrequency",
+            "sy_updateperiod",
+            "title",
+            "title_detail",
+            "updated",
+            "updated_parsed"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "title_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rel": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    },
+                    "length": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "href",
+                    "rel",
+                    "type"
+                  ]
+                }
+              },
+              "link": {
+                "type": "string"
+              },
+              "comments": {
+                "type": "string"
+              },
+              "authors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              },
+              "author": {
+                "type": "string"
+              },
+              "author_detail": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              "published": {
+                "type": "string"
+              },
+              "published_parsed": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "term": {
+                      "type": "string"
+                    },
+                    "scheme": {
+                      "type": "null"
+                    },
+                    "label": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "scheme",
+                    "term"
+                  ]
+                }
+              },
+              "id": {
+                "type": "string"
+              },
+              "guidislink": {
+                "type": "boolean"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "wfw_commentrss": {
+                "type": "string"
+              },
+              "slash_comments": {
+                "type": "string"
+              },
+              "media_content": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "width": {
+                      "type": "string"
+                    },
+                    "height": {
+                      "type": "string"
+                    },
+                    "medium": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "height",
+                    "medium",
+                    "type",
+                    "url",
+                    "width"
+                  ]
+                }
+              },
+              "media_thumbnail": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "width": {
+                      "type": "string"
+                    },
+                    "height": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "height",
+                    "url",
+                    "width"
+                  ]
+                }
+              },
+              "href": {
+                "type": "string"
+              },
+              "post-id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "author",
+              "author_detail",
+              "authors",
+              "comments",
+              "guidislink",
+              "href",
+              "id",
+              "link",
+              "links",
+              "media_content",
+              "media_thumbnail",
+              "post-id",
+              "published",
+              "published_parsed",
+              "slash_comments",
+              "summary",
+              "summary_detail",
+              "tags",
+              "title",
+              "title_detail",
+              "wfw_commentrss"
+            ]
+          }
+        }
+      },
+      "required": [
+        "bozo",
+        "bozo_exception",
+        "entries",
+        "feed",
+        "version"
+      ]
+    },
+    "feed_tbs_economy": {
+      "type": "object",
+      "properties": {
+        "bozo": {
+          "type": "boolean"
+        },
+        "bozo_exception": {
+          "type": "null"
+        },
+        "version": {
+          "type": "string"
+        },
+        "feed": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "title_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "subtitle_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rel": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "href": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "rel",
+                  "type"
+                ]
+              }
+            },
+            "link": {
+              "type": "string"
+            },
+            "language": {
+              "type": "string"
+            },
+            "published": {
+              "type": "string"
+            },
+            "published_parsed": {
+              "type": "string"
+            },
+            "updated": {
+              "type": "string"
+            },
+            "updated_parsed": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "language",
+            "link",
+            "links",
+            "published",
+            "published_parsed",
+            "subtitle",
+            "subtitle_detail",
+            "title",
+            "title_detail",
+            "updated",
+            "updated_parsed"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "title_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rel": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "href",
+                    "rel",
+                    "type"
+                  ]
+                }
+              },
+              "link": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "guidislink": {
+                "type": "boolean"
+              },
+              "published": {
+                "type": "string"
+              },
+              "published_parsed": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "title"
+                ]
+              },
+              "media_content": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "filesize": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "medium": {
+                      "type": "string"
+                    },
+                    "width": {
+                      "type": "string"
+                    },
+                    "height": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "filesize",
+                    "height",
+                    "medium",
+                    "type",
+                    "url",
+                    "width"
+                  ]
+                }
+              },
+              "media_thumbnail": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "width": {
+                      "type": "string"
+                    },
+                    "height": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "height",
+                    "url",
+                    "width"
+                  ]
+                }
+              },
+              "href": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "guidislink",
+              "href",
+              "id",
+              "link",
+              "links",
+              "media_content",
+              "media_thumbnail",
+              "published",
+              "published_parsed",
+              "source",
+              "summary",
+              "summary_detail",
+              "title",
+              "title_detail"
+            ]
+          }
+        }
+      },
+      "required": [
+        "bozo",
+        "bozo_exception",
+        "entries",
+        "feed",
+        "version"
+      ]
+    },
+    "feed_tbs_top": {
+      "type": "object",
+      "properties": {
+        "bozo": {
+          "type": "boolean"
+        },
+        "bozo_exception": {
+          "type": "null"
+        },
+        "version": {
+          "type": "string"
+        },
+        "feed": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "title_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rel": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "href": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "rel",
+                  "type"
+                ]
+              }
+            },
+            "link": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "subtitle_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "language": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "language",
+            "link",
+            "links",
+            "subtitle",
+            "subtitle_detail",
+            "title",
+            "title_detail"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "title_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rel": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "href",
+                    "rel",
+                    "type"
+                  ]
+                }
+              },
+              "link": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "published": {
+                "type": "string"
+              },
+              "published_parsed": {
+                "type": "string"
+              },
+              "authors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              },
+              "author": {
+                "type": "string"
+              },
+              "author_detail": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "guidislink": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "author",
+              "author_detail",
+              "authors",
+              "guidislink",
+              "id",
+              "link",
+              "links",
+              "published",
+              "published_parsed",
+              "summary",
+              "summary_detail",
+              "title",
+              "title_detail"
+            ]
+          }
+        }
+      },
+      "required": [
+        "bozo",
+        "bozo_exception",
+        "entries",
+        "feed",
+        "version"
+      ]
+    },
+    "feed_textile_today": {
+      "type": "object",
+      "properties": {
+        "bozo": {
+          "type": "boolean"
+        },
+        "bozo_exception": {
+          "type": "null"
+        },
+        "version": {
+          "type": "string"
+        },
+        "feed": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "title_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rel": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "href": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "rel",
+                  "type"
+                ]
+              }
+            },
+            "link": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "subtitle_detail": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "null"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base",
+                "language",
+                "type",
+                "value"
+              ]
+            },
+            "language": {
+              "type": "string"
+            },
+            "updated": {
+              "type": "string"
+            },
+            "updated_parsed": {
+              "type": "string"
+            },
+            "published": {
+              "type": "string"
+            },
+            "published_parsed": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "language",
+            "link",
+            "links",
+            "published",
+            "published_parsed",
+            "subtitle",
+            "subtitle_detail",
+            "title",
+            "title_detail",
+            "updated",
+            "updated_parsed"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "title_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rel": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "href",
+                    "rel",
+                    "type"
+                  ]
+                }
+              },
+              "link": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "guidislink": {
+                "type": "boolean"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "summary_detail": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base",
+                  "language",
+                  "type",
+                  "value"
+                ]
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "language": {
+                      "type": "null"
+                    },
+                    "base": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "language",
+                    "type",
+                    "value"
+                  ]
+                }
+              },
+              "published": {
+                "type": "string"
+              },
+              "published_parsed": {
+                "type": "string"
+              },
+              "authors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "email",
+                    "name"
+                  ]
+                }
+              },
+              "author": {
+                "type": "string"
+              },
+              "author_detail": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "name"
+                ]
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "term": {
+                      "type": "string"
+                    },
+                    "scheme": {
+                      "type": "null"
+                    },
+                    "label": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "scheme",
+                    "term"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "author",
+              "author_detail",
+              "authors",
+              "content",
+              "guidislink",
+              "id",
+              "link",
+              "links",
+              "published",
+              "published_parsed",
+              "summary",
+              "summary_detail",
+              "tags",
+              "title",
+              "title_detail"
+            ]
+          }
+        }
+      },
+      "required": [
+        "bozo",
+        "bozo_exception",
+        "entries",
+        "feed",
+        "version"
+      ]
+    }
+  }
+}

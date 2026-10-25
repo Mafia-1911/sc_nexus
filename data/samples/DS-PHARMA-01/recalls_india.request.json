@@ -1,0 +1,27 @@
+{
+  "method": "GET",
+  "url": "https://api.fda.gov/drug/enforcement.json?api_key=%2A%2A%2AREDACTED%2A%2A%2A&search=country:%22India%22+AND+report_date:[20250101+TO+20261231]&limit=100&sort=report_date:desc",
+  "params": {
+    "api_key": "***REDACTED***",
+    "search": "country:\"India\" AND report_date:[20250101 TO 20261231]",
+    "limit": 100,
+    "sort": "report_date:desc"
+  },
+  "headers": {
+    "host": "api.fda.gov",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "drug recalls by firms in India, last two calendar years",
+  "captured_at": "2026-10-25T23:24:34.914489+00:00",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "transformed": false
+}

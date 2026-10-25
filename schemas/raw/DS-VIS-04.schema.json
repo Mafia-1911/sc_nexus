@@ -1,0 +1,454 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-VIS-04",
+  "title": "DS-VIS-04 · Fabric and garment defect datasets: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "stitchnet_roboflow": {
+      "type": "object",
+      "properties": {
+        "workspace": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "url"
+          ]
+        },
+        "project": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "created": {
+              "type": "number"
+            },
+            "updated": {
+              "type": "number"
+            },
+            "images": {
+              "type": "integer"
+            },
+            "unannotated": {
+              "type": "integer"
+            },
+            "annotation": {
+              "type": "string"
+            },
+            "versions": {
+              "type": "integer"
+            },
+            "public": {
+              "type": "boolean"
+            },
+            "license": {
+              "type": "string"
+            },
+            "splits": {
+              "type": "object",
+              "properties": {
+                "testPercent": {
+                  "type": "string"
+                },
+                "trainPercent": {
+                  "type": "string"
+                },
+                "valid": {
+                  "type": "integer"
+                },
+                "validPercent": {
+                  "type": "string"
+                },
+                "testParsed": {
+                  "type": "string"
+                },
+                "trainParsed": {
+                  "type": "string"
+                },
+                "test": {
+                  "type": "integer"
+                },
+                "export": {
+                  "type": "integer"
+                },
+                "train": {
+                  "type": "integer"
+                },
+                "validParsed": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "export",
+                "test",
+                "testParsed",
+                "testPercent",
+                "train",
+                "trainParsed",
+                "trainPercent",
+                "valid",
+                "validParsed",
+                "validPercent"
+              ]
+            },
+            "colors": {
+              "type": "object",
+              "properties": {
+                "bobbin thread defect": {
+                  "type": "string"
+                },
+                "Stain and damage": {
+                  "type": "string"
+                },
+                "Overlapped stitch": {
+                  "type": "string"
+                },
+                "Skipped stitch": {
+                  "type": "string"
+                },
+                "normal": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "Overlapped stitch",
+                "Skipped stitch",
+                "Stain and damage",
+                "bobbin thread defect",
+                "normal"
+              ]
+            },
+            "classes": {
+              "type": "object",
+              "properties": {
+                "Skipped stitch": {
+                  "type": "integer"
+                },
+                "normal": {
+                  "type": "integer"
+                },
+                "Stain and damage": {
+                  "type": "integer"
+                },
+                "Overlapped stitch": {
+                  "type": "integer"
+                },
+                "bobbin thread defect": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "Overlapped stitch",
+                "Skipped stitch",
+                "Stain and damage",
+                "bobbin thread defect",
+                "normal"
+              ]
+            },
+            "icon": {
+              "type": "object",
+              "properties": {
+                "original": {
+                  "type": "string"
+                },
+                "thumb": {
+                  "type": "string"
+                },
+                "annotation": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "annotation",
+                "original",
+                "thumb"
+              ]
+            },
+            "preprocessing": {
+              "type": "object",
+              "properties": {
+                "auto-orient": {
+                  "type": "boolean"
+                },
+                "contrast": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "resize": {
+                  "type": "object",
+                  "properties": {
+                    "format": {
+                      "type": "string"
+                    },
+                    "width": {
+                      "type": "string"
+                    },
+                    "height": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "format",
+                    "height",
+                    "width"
+                  ]
+                }
+              },
+              "required": [
+                "auto-orient",
+                "contrast",
+                "resize"
+              ]
+            },
+            "augmentation": {
+              "type": "object",
+              "properties": {
+                "image": {
+                  "type": "object",
+                  "properties": {
+                    "versions": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "versions"
+                  ]
+                },
+                "flip": {
+                  "type": "object",
+                  "properties": {
+                    "horizontal": {
+                      "type": "boolean"
+                    },
+                    "vertical": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "horizontal",
+                    "vertical"
+                  ]
+                },
+                "rotate": {
+                  "type": "object",
+                  "properties": {
+                    "degrees": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "degrees"
+                  ]
+                }
+              },
+              "required": [
+                "flip",
+                "image",
+                "rotate"
+              ]
+            }
+          },
+          "required": [
+            "annotation",
+            "augmentation",
+            "classes",
+            "colors",
+            "created",
+            "icon",
+            "id",
+            "images",
+            "license",
+            "name",
+            "preprocessing",
+            "public",
+            "splits",
+            "type",
+            "unannotated",
+            "updated",
+            "versions"
+          ]
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "created": {
+                "type": "number"
+              },
+              "images": {
+                "type": "integer"
+              },
+              "splits": {
+                "type": "object",
+                "properties": {
+                  "valid": {
+                    "type": "integer"
+                  },
+                  "test": {
+                    "type": "integer"
+                  },
+                  "train": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "test",
+                  "train",
+                  "valid"
+                ]
+              },
+              "generating": {
+                "type": "boolean"
+              },
+              "progress": {
+                "type": "integer"
+              },
+              "preprocessing": {
+                "type": "object",
+                "properties": {
+                  "auto-orient": {
+                    "type": "boolean"
+                  },
+                  "contrast": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ]
+                  },
+                  "resize": {
+                    "type": "object",
+                    "properties": {
+                      "format": {
+                        "type": "string"
+                      },
+                      "width": {
+                        "type": [
+                          "integer",
+                          "string"
+                        ]
+                      },
+                      "height": {
+                        "type": [
+                          "integer",
+                          "string"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "format",
+                      "height",
+                      "width"
+                    ]
+                  }
+                },
+                "required": [
+                  "auto-orient",
+                  "contrast",
+                  "resize"
+                ]
+              },
+              "augmentation": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "object",
+                    "properties": {
+                      "versions": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "versions"
+                    ]
+                  },
+                  "flip": {
+                    "type": "object",
+                    "properties": {
+                      "horizontal": {
+                        "type": "boolean"
+                      },
+                      "vertical": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "horizontal",
+                      "vertical"
+                    ]
+                  },
+                  "rotate": {
+                    "type": "object",
+                    "properties": {
+                      "degrees": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "degrees"
+                    ]
+                  }
+                }
+              },
+              "exports": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "augmentation",
+              "created",
+              "exports",
+              "generating",
+              "id",
+              "images",
+              "name",
+              "preprocessing",
+              "progress",
+              "splits"
+            ]
+          }
+        }
+      },
+      "required": [
+        "project",
+        "versions",
+        "workspace"
+      ]
+    }
+  }
+}

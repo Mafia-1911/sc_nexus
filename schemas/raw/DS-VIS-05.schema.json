@@ -1,0 +1,1171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-VIS-05",
+  "title": "DS-VIS-05 · Pharma tablet defect datasets (Roboflow Universe): raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "defect_tablet_detection": {
+      "type": "object",
+      "properties": {
+        "workspace": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "url"
+          ]
+        },
+        "project": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "created": {
+              "type": "number"
+            },
+            "updated": {
+              "type": "number"
+            },
+            "images": {
+              "type": "integer"
+            },
+            "unannotated": {
+              "type": "integer"
+            },
+            "annotation": {
+              "type": "string"
+            },
+            "versions": {
+              "type": "integer"
+            },
+            "public": {
+              "type": "boolean"
+            },
+            "license": {
+              "type": "string"
+            },
+            "splits": {
+              "type": "object",
+              "properties": {
+                "train": {
+                  "type": "integer"
+                },
+                "valid": {
+                  "type": "integer"
+                },
+                "test": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "test",
+                "train",
+                "valid"
+              ]
+            },
+            "colors": {
+              "type": "object",
+              "properties": {
+                "defeceetive": {
+                  "type": "string"
+                },
+                "compliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliant": {
+                  "type": "string"
+                },
+                "spot": {
+                  "type": "string"
+                },
+                "fpreign_pill": {
+                  "type": "string"
+                },
+                "compliant": {
+                  "type": "string"
+                },
+                "defect_blister": {
+                  "type": "string"
+                },
+                "empty_pill": {
+                  "type": "string"
+                },
+                "broken": {
+                  "type": "string"
+                },
+                "defectiev": {
+                  "type": "string"
+                },
+                "compliant_blister": {
+                  "type": "string"
+                },
+                "empty_blister": {
+                  "type": "string"
+                },
+                "defectve": {
+                  "type": "string"
+                },
+                "broken_blister": {
+                  "type": "string"
+                },
+                "fefective": {
+                  "type": "string"
+                },
+                "broken_pill": {
+                  "type": "string"
+                },
+                "holy_pill": {
+                  "type": "string"
+                },
+                "v": {
+                  "type": "string"
+                },
+                "foreign_blister": {
+                  "type": "string"
+                },
+                "defective": {
+                  "type": "string"
+                },
+                "spotted_pill": {
+                  "type": "string"
+                },
+                "foreign": {
+                  "type": "string"
+                },
+                "foreign_pill": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "broken",
+                "broken_blister",
+                "broken_pill",
+                "compliant",
+                "compliant_blister",
+                "compliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliant",
+                "defeceetive",
+                "defect_blister",
+                "defectiev",
+                "defective",
+                "defectve",
+                "empty_blister",
+                "empty_pill",
+                "fefective",
+                "foreign",
+                "foreign_blister",
+                "foreign_pill",
+                "fpreign_pill",
+                "holy_pill",
+                "spot",
+                "spotted_pill",
+                "v"
+              ]
+            },
+            "classes": {
+              "type": "object",
+              "properties": {
+                "foreign": {
+                  "type": "integer"
+                },
+                "holy_pill": {
+                  "type": "integer"
+                },
+                "defectve": {
+                  "type": "integer"
+                },
+                "compliant": {
+                  "type": "integer"
+                },
+                "broken_blister": {
+                  "type": "integer"
+                },
+                "broken": {
+                  "type": "integer"
+                },
+                "defeceetive": {
+                  "type": "integer"
+                },
+                "fefective": {
+                  "type": "integer"
+                },
+                "compliant_blister": {
+                  "type": "integer"
+                },
+                "empty_pill": {
+                  "type": "integer"
+                },
+                "defective": {
+                  "type": "integer"
+                },
+                "foreign_blister": {
+                  "type": "integer"
+                },
+                "spotted_pill": {
+                  "type": "integer"
+                },
+                "broken_pill": {
+                  "type": "integer"
+                },
+                "empty_blister": {
+                  "type": "integer"
+                },
+                "foreign_pill": {
+                  "type": "integer"
+                },
+                "fpreign_pill": {
+                  "type": "integer"
+                },
+                "compliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliant": {
+                  "type": "integer"
+                },
+                "spot": {
+                  "type": "integer"
+                },
+                "v": {
+                  "type": "integer"
+                },
+                "defectiev": {
+                  "type": "integer"
+                },
+                "defect_blister": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "broken",
+                "broken_blister",
+                "broken_pill",
+                "compliant",
+                "compliant_blister",
+                "compliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliantcompliant",
+                "defeceetive",
+                "defect_blister",
+                "defectiev",
+                "defective",
+                "defectve",
+                "empty_blister",
+                "empty_pill",
+                "fefective",
+                "foreign",
+                "foreign_blister",
+                "foreign_pill",
+                "fpreign_pill",
+                "holy_pill",
+                "spot",
+                "spotted_pill",
+                "v"
+              ]
+            },
+            "icon": {
+              "type": "null"
+            },
+            "preprocessing": {
+              "type": "object",
+              "properties": {
+                "auto-orient": {
+                  "type": "boolean"
+                },
+                "resize": {
+                  "type": "object",
+                  "properties": {
+                    "format": {
+                      "type": "string"
+                    },
+                    "height": {
+                      "type": "integer"
+                    },
+                    "width": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "format",
+                    "height",
+                    "width"
+                  ]
+                }
+              },
+              "required": [
+                "auto-orient",
+                "resize"
+              ]
+            },
+            "augmentation": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "annotation",
+            "augmentation",
+            "classes",
+            "colors",
+            "created",
+            "icon",
+            "id",
+            "images",
+            "license",
+            "name",
+            "preprocessing",
+            "public",
+            "splits",
+            "type",
+            "unannotated",
+            "updated",
+            "versions"
+          ]
+        },
+        "versions": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "project",
+        "versions",
+        "workspace"
+      ]
+    },
+    "defective_tablets": {
+      "type": "object",
+      "properties": {
+        "workspace": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "url"
+          ]
+        },
+        "project": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "created": {
+              "type": "number"
+            },
+            "updated": {
+              "type": "number"
+            },
+            "images": {
+              "type": "integer"
+            },
+            "unannotated": {
+              "type": "integer"
+            },
+            "annotation": {
+              "type": "string"
+            },
+            "versions": {
+              "type": "integer"
+            },
+            "public": {
+              "type": "boolean"
+            },
+            "license": {
+              "type": "string"
+            },
+            "splits": {
+              "type": "object",
+              "properties": {
+                "train": {
+                  "type": "integer"
+                },
+                "valid": {
+                  "type": "integer"
+                },
+                "test": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "test",
+                "train",
+                "valid"
+              ]
+            },
+            "colors": {
+              "type": "object",
+              "properties": {
+                "empty": {
+                  "type": "string"
+                },
+                "spotted": {
+                  "type": "string"
+                },
+                "color_mismatch": {
+                  "type": "string"
+                },
+                "broken": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "broken",
+                "color_mismatch",
+                "empty",
+                "spotted"
+              ]
+            },
+            "classes": {
+              "type": "object",
+              "properties": {
+                "broken": {
+                  "type": "integer"
+                },
+                "spotted": {
+                  "type": "integer"
+                },
+                "empty": {
+                  "type": "integer"
+                },
+                "color_mismatch": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "broken",
+                "color_mismatch",
+                "empty",
+                "spotted"
+              ]
+            },
+            "icon": {
+              "type": "object",
+              "properties": {
+                "original": {
+                  "type": "string"
+                },
+                "thumb": {
+                  "type": "string"
+                },
+                "annotation": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "annotation",
+                "original",
+                "thumb"
+              ]
+            },
+            "preprocessing": {
+              "type": "object"
+            },
+            "augmentation": {
+              "type": "object",
+              "properties": {
+                "image": {
+                  "type": "object",
+                  "properties": {
+                    "versions": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "versions"
+                  ]
+                },
+                "rotate": {
+                  "type": "object",
+                  "properties": {
+                    "degrees": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "degrees"
+                  ]
+                },
+                "saturation": {
+                  "type": "object",
+                  "properties": {
+                    "percent": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "percent"
+                  ]
+                },
+                "hue": {
+                  "type": "object",
+                  "properties": {
+                    "degrees": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "degrees"
+                  ]
+                }
+              },
+              "required": [
+                "hue",
+                "image",
+                "rotate",
+                "saturation"
+              ]
+            }
+          },
+          "required": [
+            "annotation",
+            "augmentation",
+            "classes",
+            "colors",
+            "created",
+            "icon",
+            "id",
+            "images",
+            "license",
+            "name",
+            "preprocessing",
+            "public",
+            "splits",
+            "type",
+            "unannotated",
+            "updated",
+            "versions"
+          ]
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "created": {
+                "type": "number"
+              },
+              "images": {
+                "type": "integer"
+              },
+              "splits": {
+                "type": "object",
+                "properties": {
+                  "valid": {
+                    "type": "integer"
+                  },
+                  "test": {
+                    "type": "integer"
+                  },
+                  "train": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "test",
+                  "train",
+                  "valid"
+                ]
+              },
+              "generating": {
+                "type": "boolean"
+              },
+              "progress": {
+                "type": "integer"
+              },
+              "preprocessing": {
+                "type": "object"
+              },
+              "augmentation": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "object",
+                    "properties": {
+                      "versions": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "versions"
+                    ]
+                  },
+                  "rotate": {
+                    "type": "object",
+                    "properties": {
+                      "degrees": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "degrees"
+                    ]
+                  },
+                  "saturation": {
+                    "type": "object",
+                    "properties": {
+                      "percent": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "percent"
+                    ]
+                  },
+                  "hue": {
+                    "type": "object",
+                    "properties": {
+                      "degrees": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "degrees"
+                    ]
+                  }
+                },
+                "required": [
+                  "image",
+                  "rotate",
+                  "saturation"
+                ]
+              },
+              "exports": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "augmentation",
+              "created",
+              "exports",
+              "generating",
+              "id",
+              "images",
+              "name",
+              "preprocessing",
+              "progress",
+              "splits"
+            ]
+          }
+        }
+      },
+      "required": [
+        "project",
+        "versions",
+        "workspace"
+      ]
+    },
+    "pharmaceutical_tablet_defects": {
+      "type": "object",
+      "properties": {
+        "workspace": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "url"
+          ]
+        },
+        "project": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "created": {
+              "type": "number"
+            },
+            "updated": {
+              "type": "number"
+            },
+            "images": {
+              "type": "integer"
+            },
+            "unannotated": {
+              "type": "integer"
+            },
+            "annotation": {
+              "type": "string"
+            },
+            "versions": {
+              "type": "integer"
+            },
+            "public": {
+              "type": "boolean"
+            },
+            "license": {
+              "type": "string"
+            },
+            "splits": {
+              "type": "object",
+              "properties": {
+                "train": {
+                  "type": "integer"
+                },
+                "valid": {
+                  "type": "integer"
+                },
+                "test": {
+                  "type": "integer"
+                },
+                "export": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "export",
+                "test",
+                "train",
+                "valid"
+              ]
+            },
+            "colors": {
+              "type": "object",
+              "properties": {
+                "tablets": {
+                  "type": "string"
+                },
+                "Normal Tablet": {
+                  "type": "string"
+                },
+                "Defective Tablet": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "Defective Tablet",
+                "Normal Tablet",
+                "tablets"
+              ]
+            },
+            "classes": {
+              "type": "object",
+              "properties": {
+                "tablets": {
+                  "type": "integer"
+                },
+                "Defective Tablet": {
+                  "type": "integer"
+                },
+                "Normal Tablet": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "Defective Tablet",
+                "Normal Tablet",
+                "tablets"
+              ]
+            },
+            "icon": {
+              "type": "object",
+              "properties": {
+                "original": {
+                  "type": "string"
+                },
+                "thumb": {
+                  "type": "string"
+                },
+                "annotation": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "annotation",
+                "original",
+                "thumb"
+              ]
+            },
+            "preprocessing": {
+              "type": "object",
+              "properties": {
+                "auto-orient": {
+                  "type": "boolean"
+                },
+                "resize": {
+                  "type": "object",
+                  "properties": {
+                    "width": {
+                      "type": "integer"
+                    },
+                    "height": {
+                      "type": "integer"
+                    },
+                    "format": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "format",
+                    "height",
+                    "width"
+                  ]
+                }
+              },
+              "required": [
+                "auto-orient",
+                "resize"
+              ]
+            },
+            "augmentation": {
+              "type": "object",
+              "properties": {
+                "flip": {
+                  "type": "object",
+                  "properties": {
+                    "horizontal": {
+                      "type": "boolean"
+                    },
+                    "vertical": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "horizontal",
+                    "vertical"
+                  ]
+                },
+                "rotate": {
+                  "type": "object",
+                  "properties": {
+                    "degrees": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "degrees"
+                  ]
+                },
+                "brightness": {
+                  "type": "object",
+                  "properties": {
+                    "percent": {
+                      "type": "integer"
+                    },
+                    "brighten": {
+                      "type": "boolean"
+                    },
+                    "darken": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "brighten",
+                    "darken",
+                    "percent"
+                  ]
+                },
+                "exposure": {
+                  "type": "object",
+                  "properties": {
+                    "percent": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "percent"
+                  ]
+                },
+                "image": {
+                  "type": "object",
+                  "properties": {
+                    "versions": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "versions"
+                  ]
+                }
+              },
+              "required": [
+                "brightness",
+                "exposure",
+                "flip",
+                "image",
+                "rotate"
+              ]
+            }
+          },
+          "required": [
+            "annotation",
+            "augmentation",
+            "classes",
+            "colors",
+            "created",
+            "icon",
+            "id",
+            "images",
+            "license",
+            "name",
+            "preprocessing",
+            "public",
+            "splits",
+            "type",
+            "unannotated",
+            "updated",
+            "versions"
+          ]
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "created": {
+                "type": "number"
+              },
+              "images": {
+                "type": "integer"
+              },
+              "splits": {
+                "type": "object",
+                "properties": {
+                  "valid": {
+                    "type": "integer"
+                  },
+                  "test": {
+                    "type": "integer"
+                  },
+                  "train": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "train"
+                ]
+              },
+              "generating": {
+                "type": "boolean"
+              },
+              "progress": {
+                "type": "integer"
+              },
+              "model": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "endpoint": {
+                    "type": "string"
+                  },
+                  "start": {
+                    "type": "number"
+                  },
+                  "end": {
+                    "type": "number"
+                  },
+                  "fromScratch": {
+                    "type": "boolean"
+                  },
+                  "tfjs": {
+                    "type": "boolean"
+                  },
+                  "oak": {
+                    "type": "boolean"
+                  },
+                  "map": {
+                    "type": "string"
+                  },
+                  "recall": {
+                    "type": "string"
+                  },
+                  "precision": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "end",
+                  "endpoint",
+                  "fromScratch",
+                  "id",
+                  "map",
+                  "oak",
+                  "precision",
+                  "recall",
+                  "start",
+                  "tfjs"
+                ]
+              },
+              "preprocessing": {
+                "type": "object",
+                "properties": {
+                  "auto-orient": {
+                    "type": "boolean"
+                  },
+                  "resize": {
+                    "type": "object",
+                    "properties": {
+                      "width": {
+                        "type": "integer"
+                      },
+                      "height": {
+                        "type": "integer"
+                      },
+                      "format": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "format",
+                      "height",
+                      "width"
+                    ]
+                  }
+                },
+                "required": [
+                  "auto-orient",
+                  "resize"
+                ]
+              },
+              "augmentation": {
+                "type": "object",
+                "properties": {
+                  "brightness": {
+                    "type": "object",
+                    "properties": {
+                      "brighten": {
+                        "type": "boolean"
+                      },
+                      "darken": {
+                        "type": "boolean"
+                      },
+                      "percent": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "brighten",
+                      "darken",
+                      "percent"
+                    ]
+                  },
+                  "exposure": {
+                    "type": "object",
+                    "properties": {
+                      "percent": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "percent"
+                    ]
+                  },
+                  "flip": {
+                    "type": "object",
+                    "properties": {
+                      "horizontal": {
+                        "type": "boolean"
+                      },
+                      "vertical": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "horizontal",
+                      "vertical"
+                    ]
+                  },
+                  "image": {
+                    "type": "object",
+                    "properties": {
+                      "versions": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "versions"
+                    ]
+                  },
+                  "rotate": {
+                    "type": "object",
+                    "properties": {
+                      "degrees": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "degrees"
+                    ]
+                  }
+                },
+                "required": [
+                  "flip",
+                  "image",
+                  "rotate"
+                ]
+              },
+              "exports": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "augmentation",
+              "created",
+              "exports",
+              "generating",
+              "id",
+              "images",
+              "name",
+              "preprocessing",
+              "progress",
+              "splits"
+            ]
+          }
+        }
+      },
+      "required": [
+        "project",
+        "versions",
+        "workspace"
+      ]
+    }
+  }
+}

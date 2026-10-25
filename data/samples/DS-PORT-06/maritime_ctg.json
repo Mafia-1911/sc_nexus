@@ -1,0 +1,1521 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-25T22:46:51Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 1215713597,
+  "lat": 22.3170190,
+  "lon": 91.8274852,
+  "tags": {
+    "harbour": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 5263703742,
+  "lat": 22.3171252,
+  "lon": 91.8679795,
+  "tags": {
+    "waterway": "dock"
+  }
+},
+{
+  "type": "node",
+  "id": 9877568971,
+  "lat": 22.2855603,
+  "lon": 91.7942718,
+  "tags": {
+    "harbour": "yes",
+    "seamark:harbour:category": "naval",
+    "seamark:type": "harbour"
+  }
+},
+{
+  "type": "node",
+  "id": 9877568972,
+  "lat": 22.2974846,
+  "lon": 91.7949575,
+  "tags": {
+    "harbour": "yes",
+    "seamark:harbour:category": "container",
+    "seamark:type": "harbour"
+  }
+},
+{
+  "type": "node",
+  "id": 9877568973,
+  "lat": 22.3095381,
+  "lon": 91.8037620,
+  "tags": {
+    "harbour": "yes",
+    "seamark:harbour:category": "container;bulk;cargo",
+    "seamark:type": "harbour"
+  }
+},
+{
+  "type": "node",
+  "id": 11215217364,
+  "lat": 22.3400541,
+  "lon": 91.7641383,
+  "tags": {
+    "name": "Infinity ️ Equipment yard",
+    "waterway": "dock"
+  }
+},
+{
+  "type": "node",
+  "id": 11361262902,
+  "lat": 22.3233849,
+  "lon": 91.8178714,
+  "tags": {
+    "leisure": "marina",
+    "name": "M/S UK Marine Service, West Madarbari Panir Tanki Chittagong, Chattogram",
+    "seamark:harbour:category": "marina",
+    "seamark:type": "harbour"
+  }
+},
+{
+  "type": "node",
+  "id": 11368157883,
+  "lat": 22.3282144,
+  "lon": 91.8142666,
+  "tags": {
+    "name": "Sea Coast Shipping & Trading Ltd, R. B. Court (3Rd Floor), Chattogram",
+    "waterway": "dock"
+  }
+},
+{
+  "type": "way",
+  "id": 133563650,
+  "center": {
+    "lat": 22.2720510,
+    "lon": 91.8079919
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 133563652,
+  "center": {
+    "lat": 22.2554450,
+    "lon": 91.8124241
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 133563653,
+  "center": {
+    "lat": 22.2713490,
+    "lon": 91.8095154
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 133563656,
+  "center": {
+    "lat": 22.2722093,
+    "lon": 91.8081050
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 133777974,
+  "center": {
+    "lat": 22.2448704,
+    "lon": 91.8349804
+  },
+  "tags": {
+    "bridge": "yes",
+    "highway": "footway",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 353156388,
+  "center": {
+    "lat": 21.7796366,
+    "lon": 91.8621675
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 353199373,
+  "center": {
+    "lat": 21.8555563,
+    "lon": 91.8927722
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 355219066,
+  "center": {
+    "lat": 22.2701401,
+    "lon": 91.8133873
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 355277520,
+  "center": {
+    "lat": 22.2708217,
+    "lon": 91.8113191
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 355277521,
+  "center": {
+    "lat": 22.2730603,
+    "lon": 91.8062250
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 355277523,
+  "center": {
+    "lat": 22.2763213,
+    "lon": 91.8090842
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 355277524,
+  "center": {
+    "lat": 22.2734904,
+    "lon": 91.8051344
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 355277525,
+  "center": {
+    "lat": 22.2739403,
+    "lon": 91.8043181
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 355326468,
+  "center": {
+    "lat": 22.3277574,
+    "lon": 91.8718152
+  },
+  "tags": {
+    "harbour": "yes",
+    "waterway": "boatyard"
+  }
+},
+{
+  "type": "way",
+  "id": 356838301,
+  "center": {
+    "lat": 22.3167067,
+    "lon": 91.8243837
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 356846070,
+  "center": {
+    "lat": 22.2898306,
+    "lon": 91.7980736
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 356880152,
+  "center": {
+    "lat": 22.2984279,
+    "lon": 91.8009004
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357037710,
+  "center": {
+    "lat": 22.3186757,
+    "lon": 91.8334155
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357037712,
+  "center": {
+    "lat": 22.3188603,
+    "lon": 91.8345414
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357043138,
+  "center": {
+    "lat": 22.3186232,
+    "lon": 91.8321244
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357204462,
+  "center": {
+    "lat": 22.3197275,
+    "lon": 91.8436524
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357204467,
+  "center": {
+    "lat": 22.3201397,
+    "lon": 91.8456362
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357245387,
+  "center": {
+    "lat": 22.3170617,
+    "lon": 91.8252252
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357246364,
+  "center": {
+    "lat": 22.3089028,
+    "lon": 91.8131844
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357246370,
+  "center": {
+    "lat": 22.3091572,
+    "lon": 91.8135724
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357246373,
+  "center": {
+    "lat": 22.3092254,
+    "lon": 91.8137219
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357246376,
+  "center": {
+    "lat": 22.3086952,
+    "lon": 91.8128923
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357310246,
+  "center": {
+    "lat": 22.3180061,
+    "lon": 91.8297406
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357310248,
+  "center": {
+    "lat": 22.3180334,
+    "lon": 91.8298844
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357310250,
+  "center": {
+    "lat": 22.3180348,
+    "lon": 91.8299112
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357310252,
+  "center": {
+    "lat": 22.3180107,
+    "lon": 91.8297663
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357311144,
+  "center": {
+    "lat": 22.3185105,
+    "lon": 91.8303083
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357311145,
+  "center": {
+    "lat": 22.3186358,
+    "lon": 91.8300009
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 357312953,
+  "center": {
+    "lat": 22.3185861,
+    "lon": 91.8317081
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 361360657,
+  "center": {
+    "lat": 22.2590679,
+    "lon": 91.8400044
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 426579171,
+  "center": {
+    "lat": 21.8132907,
+    "lon": 91.8744995
+  },
+  "tags": {
+    "highway": "service",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 426583171,
+  "center": {
+    "lat": 21.9134361,
+    "lon": 91.8839739
+  },
+  "tags": {
+    "highway": "service",
+    "man_made": "pier",
+    "name": "Akbar Balir Ghat"
+  }
+},
+{
+  "type": "way",
+  "id": 426583689,
+  "center": {
+    "lat": 21.8861226,
+    "lon": 91.8957324
+  },
+  "tags": {
+    "access": "permit",
+    "bicycle": "yes",
+    "foot": "yes",
+    "highway": "service",
+    "horse": "yes",
+    "lanes": "1",
+    "layer": "1",
+    "man_made": "pier",
+    "maxspeed": "20",
+    "motor_vehicle": "permit",
+    "name": "Dhurung Ghat",
+    "oneway": "no"
+  }
+},
+{
+  "type": "way",
+  "id": 512233057,
+  "center": {
+    "lat": 22.3247943,
+    "lon": 91.8309176
+  },
+  "tags": {
+    "addr:city": "Chittagong",
+    "addr:postcode": "4000",
+    "addr:street": "সদরঘাট সড়ক",
+    "amenity": "ferry_terminal",
+    "description": "Inland port in Chittagong",
+    "man_made": "pier",
+    "name": "Sadarghat",
+    "name:bn": "সদরঘাট",
+    "name:en": "Sadar Ghat",
+    "wikidata": "Q18989066"
+  }
+},
+{
+  "type": "way",
+  "id": 513506879,
+  "center": {
+    "lat": 22.2437372,
+    "lon": 91.8240155
+  },
+  "tags": {
+    "waterway": "dock"
+  }
+},
+{
+  "type": "way",
+  "id": 513506880,
+  "center": {
+    "lat": 22.2418712,
+    "lon": 91.8224400
+  },
+  "tags": {
+    "waterway": "dock"
+  }
+},
+{
+  "type": "way",
+  "id": 513506881,
+  "center": {
+    "lat": 22.2436436,
+    "lon": 91.8231693
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 513506882,
+  "center": {
+    "lat": 22.2425103,
+    "lon": 91.8217259
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 513506883,
+  "center": {
+    "lat": 22.2421688,
+    "lon": 91.8208137
+  },
+  "tags": {
+    "bridge": "yes",
+    "foot": "yes",
+    "highway": "footway",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 514097193,
+  "center": {
+    "lat": 22.2867776,
+    "lon": 91.7937216
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier",
+    "name": "NB-2",
+    "source": "Esri World Imagery"
+  }
+},
+{
+  "type": "way",
+  "id": 544606344,
+  "center": {
+    "lat": 22.3337004,
+    "lon": 91.8742663
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 653915983,
+  "center": {
+    "lat": 22.2655466,
+    "lon": 91.8296308
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 653918465,
+  "center": {
+    "lat": 22.2657414,
+    "lon": 91.8288598
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 653918467,
+  "center": {
+    "lat": 22.2666961,
+    "lon": 91.8276131
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 653918468,
+  "center": {
+    "lat": 22.2663411,
+    "lon": 91.8280965
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 895431219,
+  "center": {
+    "lat": 21.7818487,
+    "lon": 91.8624308
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 895475955,
+  "center": {
+    "lat": 21.7196610,
+    "lon": 91.9470395
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 895475956,
+  "center": {
+    "lat": 21.7223570,
+    "lon": 91.9467096
+  },
+  "tags": {
+    "area": "yes",
+    "layer": "1",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 896466674,
+  "center": {
+    "lat": 21.8861322,
+    "lon": 91.8957864
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 896466675,
+  "center": {
+    "lat": 21.9134641,
+    "lon": 91.8840500
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 896466676,
+  "center": {
+    "lat": 21.8779793,
+    "lon": 91.8959356
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 896466677,
+  "center": {
+    "lat": 21.8778287,
+    "lon": 91.8959571
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 896466678,
+  "center": {
+    "lat": 21.8775726,
+    "lon": 91.8959792
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 896466679,
+  "center": {
+    "lat": 21.8772510,
+    "lon": 91.8960416
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 896466680,
+  "center": {
+    "lat": 21.8770708,
+    "lon": 91.8959551
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 896494980,
+  "center": {
+    "lat": 21.8029715,
+    "lon": 91.8427986
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "breakwater"
+  }
+},
+{
+  "type": "way",
+  "id": 899083438,
+  "center": {
+    "lat": 21.8225440,
+    "lon": 91.9105839
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 899084683,
+  "center": {
+    "lat": 21.8004543,
+    "lon": 91.9020249
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 899731253,
+  "center": {
+    "lat": 21.7051575,
+    "lon": 91.8743780
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 899731254,
+  "center": {
+    "lat": 21.7048808,
+    "lon": 91.8743887
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 899731259,
+  "center": {
+    "lat": 21.7040439,
+    "lon": 91.8712117
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 899731273,
+  "center": {
+    "lat": 21.7038509,
+    "lon": 91.8714302
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 899731275,
+  "center": {
+    "lat": 21.7038989,
+    "lon": 91.8708958
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 899731278,
+  "center": {
+    "lat": 21.7036042,
+    "lon": 91.8709414
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 899731281,
+  "center": {
+    "lat": 21.6944560,
+    "lon": 91.8552530
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "breakwater"
+  }
+},
+{
+  "type": "way",
+  "id": 899740979,
+  "center": {
+    "lat": 21.8038045,
+    "lon": 91.9039365
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 902560317,
+  "center": {
+    "lat": 21.8932239,
+    "lon": 91.9117929
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 902560318,
+  "center": {
+    "lat": 21.8762416,
+    "lon": 91.9229513
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 902560319,
+  "center": {
+    "lat": 21.8776688,
+    "lon": 91.9241659
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 902560320,
+  "center": {
+    "lat": 21.8776810,
+    "lon": 91.9242344
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 902560321,
+  "center": {
+    "lat": 21.8785565,
+    "lon": 91.9410148
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 902560322,
+  "center": {
+    "lat": 21.8779402,
+    "lon": 91.9396766
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 902560323,
+  "center": {
+    "lat": 21.8639593,
+    "lon": 91.9257324
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 902577429,
+  "center": {
+    "lat": 21.9666242,
+    "lon": 91.8832619
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 902901608,
+  "center": {
+    "lat": 22.0450995,
+    "lon": 91.8930572
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 903257838,
+  "center": {
+    "lat": 22.3220222,
+    "lon": 91.8638653
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 907720211,
+  "center": {
+    "lat": 22.3189324,
+    "lon": 91.8356031
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 931940947,
+  "center": {
+    "lat": 21.7037475,
+    "lon": 91.8884824
+  },
+  "tags": {
+    "construction": "commercial",
+    "industrial": "port",
+    "landuse": "construction",
+    "name": "Matarbari Deep Sea Port",
+    "name:bn": "মাতারবাড়ি গভীর সমুদ্র বন্দর"
+  }
+},
+{
+  "type": "way",
+  "id": 955410795,
+  "center": {
+    "lat": 22.2308392,
+    "lon": 91.8052672
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1074952502,
+  "center": {
+    "lat": 22.3026609,
+    "lon": 91.7971096
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier",
+    "source": "Esri World Imagery"
+  }
+},
+{
+  "type": "way",
+  "id": 1074952508,
+  "center": {
+    "lat": 22.2884121,
+    "lon": 91.7933987
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier",
+    "name": "NB-6",
+    "source": "Esri World Imagery"
+  }
+},
+{
+  "type": "way",
+  "id": 1074952509,
+  "center": {
+    "lat": 22.2836305,
+    "lon": 91.7948652
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier",
+    "name": "NB-4",
+    "source": "Esri World Imagery"
+  }
+},
+{
+  "type": "way",
+  "id": 1074952510,
+  "center": {
+    "lat": 22.2821152,
+    "lon": 91.7956277
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier",
+    "name": "NB-5",
+    "source": "Esri World Imagery"
+  }
+},
+{
+  "type": "way",
+  "id": 1074952511,
+  "center": {
+    "lat": 22.2803341,
+    "lon": 91.7967153
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "quay",
+    "source": "Esri World Imagery"
+  }
+},
+{
+  "type": "way",
+  "id": 1074952512,
+  "center": {
+    "lat": 22.2760113,
+    "lon": 91.8013213
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "quay",
+    "source": "Esri World Imagery"
+  }
+},
+{
+  "type": "way",
+  "id": 1074952513,
+  "center": {
+    "lat": 22.2782982,
+    "lon": 91.7987270
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "quay",
+    "source": "Esri World Imagery"
+  }
+},
+{
+  "type": "way",
+  "id": 1074952514,
+  "center": {
+    "lat": 22.2749167,
+    "lon": 91.8032137
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier",
+    "source": "Esri World Imagery"
+  }
+},
+{
+  "type": "way",
+  "id": 1074952516,
+  "center": {
+    "lat": 22.2955153,
+    "lon": 91.7949307
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "quay"
+  }
+},
+{
+  "type": "way",
+  "id": 1074952517,
+  "center": {
+    "lat": 22.3099214,
+    "lon": 91.8051392
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "quay"
+  }
+},
+{
+  "type": "way",
+  "id": 1074952529,
+  "center": {
+    "lat": 22.3170257,
+    "lon": 91.8137872
+  },
+  "tags": {
+    "area": "yes",
+    "highway": "service",
+    "man_made": "pier",
+    "source": "Esri World Imagery"
+  }
+},
+{
+  "type": "way",
+  "id": 1074952534,
+  "center": {
+    "lat": 22.3251222,
+    "lon": 91.8322409
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier",
+    "source": "Esri World Imagery"
+  }
+},
+{
+  "type": "way",
+  "id": 1074952535,
+  "center": {
+    "lat": 22.3256450,
+    "lon": 91.8346381
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier",
+    "mooring": "declaration",
+    "source": "Esri World Imagery"
+  }
+},
+{
+  "type": "way",
+  "id": 1075187103,
+  "center": {
+    "lat": 22.2689644,
+    "lon": 91.8162561
+  },
+  "tags": {
+    "dock": "drydock",
+    "source": "Esri World Imagery",
+    "waterway": "dock"
+  }
+},
+{
+  "type": "way",
+  "id": 1075187115,
+  "center": {
+    "lat": 22.2762558,
+    "lon": 91.7981432
+  },
+  "tags": {
+    "area": "yes",
+    "barrier": "wall",
+    "highway": "service",
+    "industrial": "port",
+    "name": "South Container Yard",
+    "name:bn": "সাউথ কনটেইনার ইয়ার্ড",
+    "operator": "Red Sea Gateway Terminal Bangladesh",
+    "port": "container_yard",
+    "source": "Esri World Imagery",
+    "surface": "concrete"
+  }
+},
+{
+  "type": "way",
+  "id": 1075187123,
+  "center": {
+    "lat": 22.2777386,
+    "lon": 91.7971249
+  },
+  "tags": {
+    "barrier": "wall",
+    "industrial": "port",
+    "name": "South Container Yard",
+    "name:bn": "সাউথ কনটেইনার ইয়ার্ড",
+    "operator": "Red Sea Gateway Terminal Bangladesh",
+    "port": "container_yard",
+    "source": "Esri World Imagery",
+    "surface": "concrete"
+  }
+},
+{
+  "type": "way",
+  "id": 1077266571,
+  "center": {
+    "lat": 22.3109231,
+    "lon": 91.8035462
+  },
+  "tags": {
+    "cargo": "container;bulk;general",
+    "industrial": "port",
+    "landuse": "industrial",
+    "name": "চট্টগ্রাম বন্দর",
+    "name:bn": "চট্টগ্রাম বন্দর",
+    "name:en": "Chittagong Port",
+    "name:zh": "吉大港港口",
+    "name:zh-Hans": "吉大港港口",
+    "name:zh-Hant": "吉大港港口",
+    "source": "Esri World Imagery",
+    "wikidata": "Q3348944",
+    "wikipedia": "bn:চট্টগ্রাম বন্দর"
+  }
+},
+{
+  "type": "way",
+  "id": 1089016877,
+  "center": {
+    "lat": 22.2462657,
+    "lon": 91.8343735
+  },
+  "tags": {
+    "bridge": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1089016878,
+  "center": {
+    "lat": 22.2465914,
+    "lon": 91.8344941
+  },
+  "tags": {
+    "bridge": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1089016879,
+  "center": {
+    "lat": 22.2463760,
+    "lon": 91.8340670
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1089016881,
+  "center": {
+    "lat": 22.2454132,
+    "lon": 91.8334787
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1089016887,
+  "center": {
+    "lat": 22.2405666,
+    "lon": 91.8304697
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1089016889,
+  "center": {
+    "lat": 22.2401693,
+    "lon": 91.8311803
+  },
+  "tags": {
+    "bridge": "yes",
+    "highway": "footway",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1239101124,
+  "center": {
+    "lat": 21.7010253,
+    "lon": 91.8763340
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1239101133,
+  "center": {
+    "lat": 21.7035265,
+    "lon": 91.8763194
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1487226518,
+  "center": {
+    "lat": 22.2361487,
+    "lon": 91.8245556
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1487834117,
+  "center": {
+    "lat": 22.2336919,
+    "lon": 91.8213251
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1487834118,
+  "center": {
+    "lat": 22.2346691,
+    "lon": 91.8229306
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1546089267,
+  "center": {
+    "lat": 22.2687812,
+    "lon": 91.8201931
+  },
+  "tags": {
+    "industrial": "oil",
+    "man_made": "pier",
+    "mooring": "commercial",
+    "name": "Patenga New Dolphin Jetty",
+    "name:bn": "পতেঙ্গা নতুন ডলফিন জেটি",
+    "surface": "concrete"
+  }
+},
+{
+  "type": "way",
+  "id": 1546751098,
+  "center": {
+    "lat": 22.2680067,
+    "lon": 91.8239867
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier",
+    "name": "Patenga Container Terminal Jetty",
+    "surface": "concrete"
+  }
+},
+{
+  "type": "way",
+  "id": 1551538029,
+  "center": {
+    "lat": 22.2483230,
+    "lon": 91.8350440
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+}
+
+  ]
+}

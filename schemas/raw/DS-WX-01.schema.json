@@ -1,0 +1,714 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-WX-01",
+  "title": "DS-WX-01 · Open-Meteo forecast, archive and marine APIs: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "archive_remal": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "generationtime_ms": {
+          "type": "number"
+        },
+        "utc_offset_seconds": {
+          "type": "integer"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "timezone_abbreviation": {
+          "type": "string"
+        },
+        "elevation": {
+          "type": "number"
+        },
+        "hourly_units": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "string"
+            },
+            "temperature_2m": {
+              "type": "string"
+            },
+            "precipitation": {
+              "type": "string"
+            },
+            "wind_speed_10m": {
+              "type": "string"
+            },
+            "wind_gusts_10m": {
+              "type": "string"
+            },
+            "wind_direction_10m": {
+              "type": "string"
+            },
+            "pressure_msl": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "precipitation",
+            "pressure_msl",
+            "temperature_2m",
+            "time",
+            "wind_direction_10m",
+            "wind_gusts_10m",
+            "wind_speed_10m"
+          ]
+        },
+        "hourly": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "temperature_2m": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "precipitation": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wind_speed_10m": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wind_gusts_10m": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wind_direction_10m": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "pressure_msl": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "required": [
+            "precipitation",
+            "pressure_msl",
+            "temperature_2m",
+            "time",
+            "wind_direction_10m",
+            "wind_gusts_10m",
+            "wind_speed_10m"
+          ]
+        }
+      },
+      "required": [
+        "elevation",
+        "generationtime_ms",
+        "hourly",
+        "hourly_units",
+        "latitude",
+        "longitude",
+        "timezone",
+        "timezone_abbreviation",
+        "utc_offset_seconds"
+      ]
+    },
+    "forecast_port": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "generationtime_ms": {
+          "type": "number"
+        },
+        "utc_offset_seconds": {
+          "type": "integer"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "timezone_abbreviation": {
+          "type": "string"
+        },
+        "elevation": {
+          "type": "number"
+        },
+        "hourly_units": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "string"
+            },
+            "temperature_2m": {
+              "type": "string"
+            },
+            "precipitation": {
+              "type": "string"
+            },
+            "wind_speed_10m": {
+              "type": "string"
+            },
+            "wind_gusts_10m": {
+              "type": "string"
+            },
+            "wind_direction_10m": {
+              "type": "string"
+            },
+            "pressure_msl": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "precipitation",
+            "pressure_msl",
+            "temperature_2m",
+            "time",
+            "wind_direction_10m",
+            "wind_gusts_10m",
+            "wind_speed_10m"
+          ]
+        },
+        "hourly": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "temperature_2m": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "precipitation": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wind_speed_10m": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wind_gusts_10m": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wind_direction_10m": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "pressure_msl": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "required": [
+            "precipitation",
+            "pressure_msl",
+            "temperature_2m",
+            "time",
+            "wind_direction_10m",
+            "wind_gusts_10m",
+            "wind_speed_10m"
+          ]
+        }
+      },
+      "required": [
+        "elevation",
+        "generationtime_ms",
+        "hourly",
+        "hourly_units",
+        "latitude",
+        "longitude",
+        "timezone",
+        "timezone_abbreviation",
+        "utc_offset_seconds"
+      ]
+    },
+    "marine_anchorage": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "generationtime_ms": {
+          "type": "number"
+        },
+        "utc_offset_seconds": {
+          "type": "integer"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "timezone_abbreviation": {
+          "type": "string"
+        },
+        "elevation": {
+          "type": "number"
+        },
+        "hourly_units": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "string"
+            },
+            "wave_height": {
+              "type": "string"
+            },
+            "wind_wave_height": {
+              "type": "string"
+            },
+            "swell_wave_height": {
+              "type": "string"
+            },
+            "wave_period": {
+              "type": "string"
+            },
+            "wave_direction": {
+              "type": "string"
+            },
+            "ocean_current_velocity": {
+              "type": "string"
+            },
+            "ocean_current_direction": {
+              "type": "string"
+            },
+            "sea_level_height_msl": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "ocean_current_direction",
+            "ocean_current_velocity",
+            "sea_level_height_msl",
+            "swell_wave_height",
+            "time",
+            "wave_direction",
+            "wave_height",
+            "wave_period",
+            "wind_wave_height"
+          ]
+        },
+        "hourly": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "wave_height": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wind_wave_height": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "swell_wave_height": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wave_period": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wave_direction": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "ocean_current_velocity": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "ocean_current_direction": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "sea_level_height_msl": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "required": [
+            "ocean_current_direction",
+            "ocean_current_velocity",
+            "sea_level_height_msl",
+            "swell_wave_height",
+            "time",
+            "wave_direction",
+            "wave_height",
+            "wave_period",
+            "wind_wave_height"
+          ]
+        }
+      },
+      "required": [
+        "elevation",
+        "generationtime_ms",
+        "hourly",
+        "hourly_units",
+        "latitude",
+        "longitude",
+        "timezone",
+        "timezone_abbreviation",
+        "utc_offset_seconds"
+      ]
+    },
+    "marine_history_remal": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "generationtime_ms": {
+          "type": "number"
+        },
+        "utc_offset_seconds": {
+          "type": "integer"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "timezone_abbreviation": {
+          "type": "string"
+        },
+        "elevation": {
+          "type": "number"
+        },
+        "hourly_units": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "string"
+            },
+            "wave_height": {
+              "type": "string"
+            },
+            "wind_wave_height": {
+              "type": "string"
+            },
+            "swell_wave_height": {
+              "type": "string"
+            },
+            "wave_period": {
+              "type": "string"
+            },
+            "wave_direction": {
+              "type": "string"
+            },
+            "ocean_current_velocity": {
+              "type": "string"
+            },
+            "ocean_current_direction": {
+              "type": "string"
+            },
+            "sea_level_height_msl": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "ocean_current_direction",
+            "ocean_current_velocity",
+            "sea_level_height_msl",
+            "swell_wave_height",
+            "time",
+            "wave_direction",
+            "wave_height",
+            "wave_period",
+            "wind_wave_height"
+          ]
+        },
+        "hourly": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "wave_height": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wind_wave_height": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "swell_wave_height": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wave_period": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wave_direction": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "ocean_current_velocity": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "ocean_current_direction": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "sea_level_height_msl": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "required": [
+            "ocean_current_direction",
+            "ocean_current_velocity",
+            "sea_level_height_msl",
+            "swell_wave_height",
+            "time",
+            "wave_direction",
+            "wave_height",
+            "wave_period",
+            "wind_wave_height"
+          ]
+        }
+      },
+      "required": [
+        "elevation",
+        "generationtime_ms",
+        "hourly",
+        "hourly_units",
+        "latitude",
+        "longitude",
+        "timezone",
+        "timezone_abbreviation",
+        "utc_offset_seconds"
+      ]
+    },
+    "marine_river_berths": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "generationtime_ms": {
+          "type": "number"
+        },
+        "utc_offset_seconds": {
+          "type": "integer"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "timezone_abbreviation": {
+          "type": "string"
+        },
+        "elevation": {
+          "type": "number"
+        },
+        "hourly_units": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "string"
+            },
+            "wave_height": {
+              "type": "string"
+            },
+            "wind_wave_height": {
+              "type": "string"
+            },
+            "swell_wave_height": {
+              "type": "string"
+            },
+            "wave_period": {
+              "type": "string"
+            },
+            "wave_direction": {
+              "type": "string"
+            },
+            "ocean_current_velocity": {
+              "type": "string"
+            },
+            "ocean_current_direction": {
+              "type": "string"
+            },
+            "sea_level_height_msl": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "ocean_current_direction",
+            "ocean_current_velocity",
+            "sea_level_height_msl",
+            "swell_wave_height",
+            "time",
+            "wave_direction",
+            "wave_height",
+            "wave_period",
+            "wind_wave_height"
+          ]
+        },
+        "hourly": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "wave_height": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wind_wave_height": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "swell_wave_height": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wave_period": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "wave_direction": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "ocean_current_velocity": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "ocean_current_direction": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "sea_level_height_msl": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "required": [
+            "ocean_current_direction",
+            "ocean_current_velocity",
+            "sea_level_height_msl",
+            "swell_wave_height",
+            "time",
+            "wave_direction",
+            "wave_height",
+            "wave_period",
+            "wind_wave_height"
+          ]
+        }
+      },
+      "required": [
+        "elevation",
+        "generationtime_ms",
+        "hourly",
+        "hourly_units",
+        "latitude",
+        "longitude",
+        "timezone",
+        "timezone_abbreviation",
+        "utc_offset_seconds"
+      ]
+    }
+  }
+}

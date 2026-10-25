@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-SAT-04",
+  "title": "DS-SAT-04 · GFW SAR vessel detections: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "sar_ctg_daily": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "null"
+        },
+        "offset": {
+          "type": "null"
+        },
+        "nextOffset": {
+          "type": "null"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "public-global-sar-presence:v5.0": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string"
+                    },
+                    "detections": {
+                      "type": "integer"
+                    },
+                    "flag": {
+                      "type": "string"
+                    },
+                    "vesselIDs": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "date",
+                    "detections",
+                    "flag",
+                    "vesselIDs"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "public-global-sar-presence:v5.0"
+            ]
+          }
+        }
+      },
+      "required": [
+        "entries",
+        "limit",
+        "metadata",
+        "nextOffset",
+        "offset",
+        "total"
+      ]
+    }
+  }
+}

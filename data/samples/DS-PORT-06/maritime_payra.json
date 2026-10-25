@@ -1,0 +1,152 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-25T22:48:50Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 920617578,
+  "center": {
+    "lat": 22.0280252,
+    "lon": 90.4154251
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 952245853,
+  "center": {
+    "lat": 21.9770297,
+    "lon": 90.3880986
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 952245854,
+  "center": {
+    "lat": 21.9547145,
+    "lon": 90.3784232
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 952867035,
+  "center": {
+    "lat": 21.9489765,
+    "lon": 90.4058084
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1536905272,
+  "center": {
+    "lat": 21.9478358,
+    "lon": 90.2977552
+  },
+  "tags": {
+    "foot": "yes",
+    "horse": "no",
+    "layer": "1",
+    "man_made": "pier",
+    "pier": "gangway"
+  }
+},
+{
+  "type": "way",
+  "id": 1536919401,
+  "center": {
+    "lat": 21.9968840,
+    "lon": 90.3149135
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "quay"
+  }
+},
+{
+  "type": "way",
+  "id": 1536919402,
+  "center": {
+    "lat": 22.0035259,
+    "lon": 90.3172570
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "quay"
+  }
+},
+{
+  "type": "way",
+  "id": 1537259305,
+  "center": {
+    "lat": 21.9501185,
+    "lon": 90.2930267
+  },
+  "tags": {
+    "industrial": "port",
+    "landuse": "industrial",
+    "name": "Payra Port 1st Terminal",
+    "name:bn": "পায়রা বন্দর ১ম টার্মিনাল",
+    "operator": "Payra Port Authority",
+    "port": "yes",
+    "public_transport": "terminal"
+  }
+},
+{
+  "type": "way",
+  "id": 1544883120,
+  "center": {
+    "lat": 21.9529730,
+    "lon": 90.2995948
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier",
+    "name": "Payra Port Service Jetty"
+  }
+},
+{
+  "type": "way",
+  "id": 1544883121,
+  "center": {
+    "lat": 21.9884315,
+    "lon": 90.2790529
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1544883122,
+  "center": {
+    "lat": 21.9888471,
+    "lon": 90.2795961
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+}
+
+  ]
+}

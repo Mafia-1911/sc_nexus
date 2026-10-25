@@ -1,0 +1,477 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-PORT-06",
+  "title": "DS-PORT-06 · OSM Overpass: port geometry: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "anchorage_geometry_ctg": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number"
+        },
+        "generator": {
+          "type": "string"
+        },
+        "osm3s": {
+          "type": "object",
+          "properties": {
+            "timestamp_osm_base": {
+              "type": "string"
+            },
+            "copyright": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "copyright",
+            "timestamp_osm_base"
+          ]
+        },
+        "elements": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "elements",
+        "generator",
+        "osm3s",
+        "version"
+      ]
+    },
+    "maritime_ctg": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number"
+        },
+        "generator": {
+          "type": "string"
+        },
+        "osm3s": {
+          "type": "object",
+          "properties": {
+            "timestamp_osm_base": {
+              "type": "string"
+            },
+            "copyright": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "copyright",
+            "timestamp_osm_base"
+          ]
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "lat": {
+                "type": "number"
+              },
+              "lon": {
+                "type": "number"
+              },
+              "tags": {
+                "type": "object",
+                "properties": {
+                  "harbour": {
+                    "type": "string"
+                  },
+                  "waterway": {
+                    "type": "string"
+                  },
+                  "seamark:harbour:category": {
+                    "type": "string"
+                  },
+                  "seamark:type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "leisure": {
+                    "type": "string"
+                  },
+                  "man_made": {
+                    "type": "string"
+                  },
+                  "bridge": {
+                    "type": "string"
+                  },
+                  "highway": {
+                    "type": "string"
+                  },
+                  "area": {
+                    "type": "string"
+                  },
+                  "access": {
+                    "type": "string"
+                  },
+                  "bicycle": {
+                    "type": "string"
+                  },
+                  "foot": {
+                    "type": "string"
+                  },
+                  "horse": {
+                    "type": "string"
+                  },
+                  "lanes": {
+                    "type": "string"
+                  },
+                  "layer": {
+                    "type": "string"
+                  },
+                  "maxspeed": {
+                    "type": "string"
+                  },
+                  "motor_vehicle": {
+                    "type": "string"
+                  },
+                  "oneway": {
+                    "type": "string"
+                  },
+                  "addr:city": {
+                    "type": "string"
+                  },
+                  "addr:postcode": {
+                    "type": "string"
+                  },
+                  "addr:street": {
+                    "type": "string"
+                  },
+                  "amenity": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "name:bn": {
+                    "type": "string"
+                  },
+                  "name:en": {
+                    "type": "string"
+                  },
+                  "wikidata": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "construction": {
+                    "type": "string"
+                  },
+                  "industrial": {
+                    "type": "string"
+                  },
+                  "landuse": {
+                    "type": "string"
+                  },
+                  "mooring": {
+                    "type": "string"
+                  },
+                  "dock": {
+                    "type": "string"
+                  },
+                  "barrier": {
+                    "type": "string"
+                  },
+                  "operator": {
+                    "type": "string"
+                  },
+                  "port": {
+                    "type": "string"
+                  },
+                  "surface": {
+                    "type": "string"
+                  },
+                  "cargo": {
+                    "type": "string"
+                  },
+                  "name:zh": {
+                    "type": "string"
+                  },
+                  "name:zh-Hans": {
+                    "type": "string"
+                  },
+                  "name:zh-Hant": {
+                    "type": "string"
+                  },
+                  "wikipedia": {
+                    "type": "string"
+                  }
+                }
+              },
+              "center": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lon": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "lat",
+                  "lon"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "tags",
+              "type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "elements",
+        "generator",
+        "osm3s",
+        "version"
+      ]
+    },
+    "maritime_mongla": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number"
+        },
+        "generator": {
+          "type": "string"
+        },
+        "osm3s": {
+          "type": "object",
+          "properties": {
+            "timestamp_osm_base": {
+              "type": "string"
+            },
+            "copyright": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "copyright",
+            "timestamp_osm_base"
+          ]
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "center": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lon": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "lat",
+                  "lon"
+                ]
+              },
+              "tags": {
+                "type": "object",
+                "properties": {
+                  "highway": {
+                    "type": "string"
+                  },
+                  "man_made": {
+                    "type": "string"
+                  },
+                  "alt_name": {
+                    "type": "string"
+                  },
+                  "industrial": {
+                    "type": "string"
+                  },
+                  "landuse": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "name:en": {
+                    "type": "string"
+                  },
+                  "wikidata": {
+                    "type": "string"
+                  },
+                  "wikimedia_commons": {
+                    "type": "string"
+                  },
+                  "wikipedia": {
+                    "type": "string"
+                  },
+                  "amenity": {
+                    "type": "string"
+                  },
+                  "ferry": {
+                    "type": "string"
+                  },
+                  "public_transport": {
+                    "type": "string"
+                  },
+                  "area": {
+                    "type": "string"
+                  },
+                  "waterway": {
+                    "type": "string"
+                  },
+                  "floating": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "required": [
+              "center",
+              "id",
+              "tags",
+              "type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "elements",
+        "generator",
+        "osm3s",
+        "version"
+      ]
+    },
+    "maritime_payra": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number"
+        },
+        "generator": {
+          "type": "string"
+        },
+        "osm3s": {
+          "type": "object",
+          "properties": {
+            "timestamp_osm_base": {
+              "type": "string"
+            },
+            "copyright": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "copyright",
+            "timestamp_osm_base"
+          ]
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "center": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lon": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "lat",
+                  "lon"
+                ]
+              },
+              "tags": {
+                "type": "object",
+                "properties": {
+                  "area": {
+                    "type": "string"
+                  },
+                  "man_made": {
+                    "type": "string"
+                  },
+                  "foot": {
+                    "type": "string"
+                  },
+                  "horse": {
+                    "type": "string"
+                  },
+                  "layer": {
+                    "type": "string"
+                  },
+                  "pier": {
+                    "type": "string"
+                  },
+                  "industrial": {
+                    "type": "string"
+                  },
+                  "landuse": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "name:bn": {
+                    "type": "string"
+                  },
+                  "operator": {
+                    "type": "string"
+                  },
+                  "port": {
+                    "type": "string"
+                  },
+                  "public_transport": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "required": [
+              "center",
+              "id",
+              "tags",
+              "type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "elements",
+        "generator",
+        "osm3s",
+        "version"
+      ]
+    }
+  }
+}

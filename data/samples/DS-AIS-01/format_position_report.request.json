@@ -1,0 +1,24 @@
+{
+  "url": "wss://stream.aisstream.io/v0/stream",
+  "subscription": {
+    "APIKey": "***REDACTED***",
+    "BoundingBoxes": [
+      [
+        [
+          -90,
+          -180
+        ],
+        [
+          90,
+          180
+        ]
+      ]
+    ],
+    "FilterMessageTypes": [
+      "PositionReport"
+    ]
+  },
+  "seconds": 5,
+  "source_run": "_probes/DS-AIS-01/20261025T225933Z",
+  "note": "5 real frames kept as format fixtures only"
+}

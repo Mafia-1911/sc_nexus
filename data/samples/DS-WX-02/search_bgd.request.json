@@ -1,0 +1,30 @@
+{
+  "method": "GET",
+  "url": "https://www.gdacs.org/gdacsapi/api/Events/geteventlist/search?eventlist=TC;FL;EQ&country=Bangladesh&fromDate=2019-01-01&toDate=2026-10-25&pageSize=100&pageNumber=1&caller=cportal",
+  "params": {
+    "eventlist": "TC;FL;EQ",
+    "country": "Bangladesh",
+    "fromDate": "2019-01-01",
+    "toDate": "2026-10-25",
+    "pageSize": 100,
+    "pageNumber": 1,
+    "caller": "cportal"
+  },
+  "headers": {
+    "host": "www.gdacs.org",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "all TC/FL/EQ events with Bangladesh in the affected countries since 2019",
+  "captured_at": "2026-10-25T22:19:18.138149+00:00",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "transformed": false
+}

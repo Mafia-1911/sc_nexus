@@ -1,0 +1,30 @@
+{
+  "method": "GET",
+  "url": "https://comtradeapi.un.org/data/v1/get/C/A/HS?reporterCode=50&period=2022,2023,2024&cmdCode=52,54,55,60&flowCode=M&partnerCode=&includeDesc=true",
+  "params": {
+    "reporterCode": 50,
+    "period": "2022,2023,2024",
+    "cmdCode": "52,54,55,60",
+    "flowCode": "M",
+    "partnerCode": "",
+    "includeDesc": "true"
+  },
+  "headers": {
+    "host": "comtradeapi.un.org",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)",
+    "ocp-apim-subscription-key": "***REDACTED***"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "Bangladesh-reported imports of garment inputs",
+  "captured_at": "2026-10-25T23:27:29.878516+00:00",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "transformed": false
+}

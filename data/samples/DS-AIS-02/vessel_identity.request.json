@@ -1,0 +1,25 @@
+{
+  "method": "GET",
+  "url": "https://gateway.api.globalfishingwatch.org/v3/vessels/ad4954ca1-1d7e-53a2-8ed3-de3fec1c4c7c?dataset=public-global-vessel-identity:latest",
+  "params": {
+    "dataset": "public-global-vessel-identity:latest"
+  },
+  "headers": {
+    "host": "gateway.api.globalfishingwatch.org",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)",
+    "authorization": "***REDACTED***"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-25T23:14:26.993553+00:00",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "transformed": false
+}

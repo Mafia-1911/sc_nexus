@@ -1,0 +1,936 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-PORT-01",
+  "title": "DS-PORT-01 · IMF PortWatch: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "daily_bgd_coverage": {
+      "type": "object",
+      "properties": {
+        "objectIdFieldName": {
+          "type": "string"
+        },
+        "uniqueIdField": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "isSystemMaintained": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "isSystemMaintained",
+            "name"
+          ]
+        },
+        "globalIdFieldName": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "alias": {
+                "type": "string"
+              },
+              "sqlType": {
+                "type": "string"
+              },
+              "domain": {
+                "type": "null"
+              },
+              "defaultValue": {
+                "type": "null"
+              },
+              "length": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "alias",
+              "defaultValue",
+              "domain",
+              "name",
+              "sqlType",
+              "type"
+            ]
+          }
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "first_date": {
+                    "type": "string"
+                  },
+                  "last_date": {
+                    "type": "string"
+                  },
+                  "days": {
+                    "type": "integer"
+                  },
+                  "mean_calls": {
+                    "type": "number"
+                  },
+                  "max_calls": {
+                    "type": "integer"
+                  },
+                  "portid": {
+                    "type": "string"
+                  },
+                  "portname": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "days",
+                  "first_date",
+                  "last_date",
+                  "max_calls",
+                  "mean_calls",
+                  "portid",
+                  "portname"
+                ]
+              }
+            },
+            "required": [
+              "attributes"
+            ]
+          }
+        }
+      },
+      "required": [
+        "features",
+        "fields",
+        "globalIdFieldName",
+        "objectIdFieldName",
+        "uniqueIdField"
+      ]
+    },
+    "daily_bgd_recent": {
+      "type": "object",
+      "properties": {
+        "objectIdFieldName": {
+          "type": "string"
+        },
+        "uniqueIdField": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "isSystemMaintained": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "isSystemMaintained",
+            "name"
+          ]
+        },
+        "globalIdFieldName": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "alias": {
+                "type": "string"
+              },
+              "sqlType": {
+                "type": "string"
+              },
+              "domain": {
+                "type": "null"
+              },
+              "defaultValue": {
+                "type": "null"
+              },
+              "length": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "alias",
+              "defaultValue",
+              "domain",
+              "name",
+              "sqlType",
+              "type"
+            ]
+          }
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string"
+                  },
+                  "year": {
+                    "type": "integer"
+                  },
+                  "month": {
+                    "type": "integer"
+                  },
+                  "day": {
+                    "type": "integer"
+                  },
+                  "portid": {
+                    "type": "string"
+                  },
+                  "portname": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "ISO3": {
+                    "type": "string"
+                  },
+                  "portcalls_container": {
+                    "type": "integer"
+                  },
+                  "portcalls_dry_bulk": {
+                    "type": "integer"
+                  },
+                  "portcalls_general_cargo": {
+                    "type": "integer"
+                  },
+                  "portcalls_roro": {
+                    "type": "integer"
+                  },
+                  "portcalls_tanker": {
+                    "type": "integer"
+                  },
+                  "portcalls_cargo": {
+                    "type": "integer"
+                  },
+                  "portcalls": {
+                    "type": "integer"
+                  },
+                  "import_container": {
+                    "type": "integer"
+                  },
+                  "import_dry_bulk": {
+                    "type": "integer"
+                  },
+                  "import_general_cargo": {
+                    "type": "integer"
+                  },
+                  "import_roro": {
+                    "type": "integer"
+                  },
+                  "import_tanker": {
+                    "type": "integer"
+                  },
+                  "import_cargo": {
+                    "type": "integer"
+                  },
+                  "import": {
+                    "type": "integer"
+                  },
+                  "export_container": {
+                    "type": "integer"
+                  },
+                  "export_dry_bulk": {
+                    "type": "integer"
+                  },
+                  "export_general_cargo": {
+                    "type": "integer"
+                  },
+                  "export_roro": {
+                    "type": "integer"
+                  },
+                  "export_tanker": {
+                    "type": "integer"
+                  },
+                  "export_cargo": {
+                    "type": "integer"
+                  },
+                  "export": {
+                    "type": "integer"
+                  },
+                  "ObjectId": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "ISO3",
+                  "ObjectId",
+                  "country",
+                  "date",
+                  "day",
+                  "export",
+                  "export_cargo",
+                  "export_container",
+                  "export_dry_bulk",
+                  "export_general_cargo",
+                  "export_roro",
+                  "export_tanker",
+                  "import",
+                  "import_cargo",
+                  "import_container",
+                  "import_dry_bulk",
+                  "import_general_cargo",
+                  "import_roro",
+                  "import_tanker",
+                  "month",
+                  "portcalls",
+                  "portcalls_cargo",
+                  "portcalls_container",
+                  "portcalls_dry_bulk",
+                  "portcalls_general_cargo",
+                  "portcalls_roro",
+                  "portcalls_tanker",
+                  "portid",
+                  "portname",
+                  "year"
+                ]
+              }
+            },
+            "required": [
+              "attributes"
+            ]
+          }
+        }
+      },
+      "required": [
+        "features",
+        "fields",
+        "globalIdFieldName",
+        "objectIdFieldName",
+        "uniqueIdField"
+      ]
+    },
+    "disruption_ports_bgd": {
+      "type": "object",
+      "properties": {
+        "objectIdFieldName": {
+          "type": "string"
+        },
+        "uniqueIdField": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "isSystemMaintained": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "isSystemMaintained",
+            "name"
+          ]
+        },
+        "globalIdFieldName": {
+          "type": "string"
+        },
+        "geometryType": {
+          "type": "string"
+        },
+        "spatialReference": {
+          "type": "object",
+          "properties": {
+            "wkid": {
+              "type": "integer"
+            },
+            "latestWkid": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "latestWkid",
+            "wkid"
+          ]
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "alias": {
+                "type": "string"
+              },
+              "sqlType": {
+                "type": "string"
+              },
+              "length": {
+                "type": "integer"
+              },
+              "domain": {
+                "type": "null"
+              },
+              "defaultValue": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "alias",
+              "defaultValue",
+              "domain",
+              "name",
+              "sqlType",
+              "type"
+            ]
+          }
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "portid": {
+                    "type": "string"
+                  },
+                  "portname": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "lat": {
+                    "type": "number"
+                  },
+                  "long": {
+                    "type": "number"
+                  },
+                  "eventid": {
+                    "type": "integer"
+                  },
+                  "eventname": {
+                    "type": "string"
+                  },
+                  "fromdate": {
+                    "type": "integer"
+                  },
+                  "todate": {
+                    "type": "integer"
+                  },
+                  "distance_km": {
+                    "type": "number"
+                  },
+                  "ObjectId": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "ObjectId",
+                  "country",
+                  "distance_km",
+                  "eventid",
+                  "eventname",
+                  "fromdate",
+                  "lat",
+                  "long",
+                  "portid",
+                  "portname",
+                  "todate"
+                ]
+              }
+            },
+            "required": [
+              "attributes"
+            ]
+          }
+        }
+      },
+      "required": [
+        "features",
+        "fields",
+        "geometryType",
+        "globalIdFieldName",
+        "objectIdFieldName",
+        "spatialReference",
+        "uniqueIdField"
+      ]
+    },
+    "disruptions_bgd": {
+      "type": "object",
+      "properties": {
+        "objectIdFieldName": {
+          "type": "string"
+        },
+        "uniqueIdField": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "isSystemMaintained": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "isSystemMaintained",
+            "name"
+          ]
+        },
+        "globalIdFieldName": {
+          "type": "string"
+        },
+        "geometryProperties": {
+          "type": "object",
+          "properties": {
+            "shapeAreaFieldName": {
+              "type": "string"
+            },
+            "shapeLengthFieldName": {
+              "type": "string"
+            },
+            "units": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "shapeAreaFieldName",
+            "shapeLengthFieldName",
+            "units"
+          ]
+        },
+        "geometryType": {
+          "type": "string"
+        },
+        "spatialReference": {
+          "type": "object",
+          "properties": {
+            "wkid": {
+              "type": "integer"
+            },
+            "latestWkid": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "latestWkid",
+            "wkid"
+          ]
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "alias": {
+                "type": "string"
+              },
+              "sqlType": {
+                "type": "string"
+              },
+              "domain": {
+                "type": "null"
+              },
+              "defaultValue": {
+                "type": "null"
+              },
+              "length": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "alias",
+              "defaultValue",
+              "domain",
+              "name",
+              "sqlType",
+              "type"
+            ]
+          }
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "eventid": {
+                    "type": "integer"
+                  },
+                  "eventtype": {
+                    "type": "string"
+                  },
+                  "eventname": {
+                    "type": "string"
+                  },
+                  "htmlname": {
+                    "type": "string"
+                  },
+                  "htmldescription": {
+                    "type": "string"
+                  },
+                  "alertlevel": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "fromdate": {
+                    "type": "integer"
+                  },
+                  "year": {
+                    "type": "integer"
+                  },
+                  "todate": {
+                    "type": "integer"
+                  },
+                  "severitytext": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "lat": {
+                    "type": "number"
+                  },
+                  "long": {
+                    "type": "number"
+                  },
+                  "editdate": {
+                    "type": "integer"
+                  },
+                  "affectedports": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "n_affectedports": {
+                    "type": "integer"
+                  },
+                  "affectedpopulation": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "pageid": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "ObjectId": {
+                    "type": "integer"
+                  },
+                  "Shape__Area": {
+                    "type": "number"
+                  },
+                  "Shape__Length": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "ObjectId",
+                  "Shape__Area",
+                  "Shape__Length",
+                  "affectedpopulation",
+                  "affectedports",
+                  "alertlevel",
+                  "country",
+                  "editdate",
+                  "eventid",
+                  "eventname",
+                  "eventtype",
+                  "fromdate",
+                  "htmldescription",
+                  "htmlname",
+                  "lat",
+                  "long",
+                  "n_affectedports",
+                  "pageid",
+                  "severitytext",
+                  "todate",
+                  "year"
+                ]
+              }
+            },
+            "required": [
+              "attributes"
+            ]
+          }
+        }
+      },
+      "required": [
+        "features",
+        "fields",
+        "geometryProperties",
+        "geometryType",
+        "globalIdFieldName",
+        "objectIdFieldName",
+        "spatialReference",
+        "uniqueIdField"
+      ]
+    },
+    "ports_bgd": {
+      "type": "object",
+      "properties": {
+        "objectIdFieldName": {
+          "type": "string"
+        },
+        "uniqueIdField": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "isSystemMaintained": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "isSystemMaintained",
+            "name"
+          ]
+        },
+        "globalIdFieldName": {
+          "type": "string"
+        },
+        "geometryType": {
+          "type": "string"
+        },
+        "spatialReference": {
+          "type": "object",
+          "properties": {
+            "wkid": {
+              "type": "integer"
+            },
+            "latestWkid": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "latestWkid",
+            "wkid"
+          ]
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "alias": {
+                "type": "string"
+              },
+              "sqlType": {
+                "type": "string"
+              },
+              "length": {
+                "type": "integer"
+              },
+              "domain": {
+                "type": "null"
+              },
+              "defaultValue": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "alias",
+              "defaultValue",
+              "domain",
+              "name",
+              "sqlType",
+              "type"
+            ]
+          }
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "portid": {
+                    "type": "string"
+                  },
+                  "portname": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "ISO3": {
+                    "type": "string"
+                  },
+                  "continent": {
+                    "type": "string"
+                  },
+                  "fullname": {
+                    "type": "string"
+                  },
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lon": {
+                    "type": "number"
+                  },
+                  "vessel_count_total": {
+                    "type": "integer"
+                  },
+                  "vessel_count_container": {
+                    "type": "integer"
+                  },
+                  "vessel_count_dry_bulk": {
+                    "type": "integer"
+                  },
+                  "vessel_count_general_cargo": {
+                    "type": "integer"
+                  },
+                  "vessel_count_RoRo": {
+                    "type": "integer"
+                  },
+                  "vessel_count_tanker": {
+                    "type": "integer"
+                  },
+                  "industry_top1": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "industry_top2": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "industry_top3": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "share_country_maritime_import": {
+                    "type": "number"
+                  },
+                  "share_country_maritime_export": {
+                    "type": "number"
+                  },
+                  "LOCODE": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "pageid": {
+                    "type": "string"
+                  },
+                  "countrynoaccents": {
+                    "type": "string"
+                  },
+                  "ObjectId": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "ISO3",
+                  "LOCODE",
+                  "ObjectId",
+                  "continent",
+                  "country",
+                  "countrynoaccents",
+                  "fullname",
+                  "industry_top1",
+                  "industry_top2",
+                  "industry_top3",
+                  "lat",
+                  "lon",
+                  "pageid",
+                  "portid",
+                  "portname",
+                  "share_country_maritime_export",
+                  "share_country_maritime_import",
+                  "vessel_count_RoRo",
+                  "vessel_count_container",
+                  "vessel_count_dry_bulk",
+                  "vessel_count_general_cargo",
+                  "vessel_count_tanker",
+                  "vessel_count_total"
+                ]
+              },
+              "geometry": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            "required": [
+              "attributes",
+              "geometry"
+            ]
+          }
+        }
+      },
+      "required": [
+        "features",
+        "fields",
+        "geometryType",
+        "globalIdFieldName",
+        "objectIdFieldName",
+        "spatialReference",
+        "uniqueIdField"
+      ]
+    }
+  }
+}

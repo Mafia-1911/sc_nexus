@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-TRADE-03",
+  "title": "DS-TRADE-03 · World Bank Indicators API v2: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "indicators_bgd": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "integer"
+              },
+              "pages": {
+                "type": "integer"
+              },
+              "per_page": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              },
+              "sourceid": {
+                "type": "null"
+              },
+              "lastupdated": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "lastupdated",
+              "page",
+              "pages",
+              "per_page",
+              "sourceid",
+              "total"
+            ]
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "indicator": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "value"
+                  ]
+                },
+                "country": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "value"
+                  ]
+                },
+                "countryiso3code": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": [
+                    "null",
+                    "number"
+                  ]
+                },
+                "scale": {
+                  "type": "string"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "obs_status": {
+                  "type": "string"
+                },
+                "decimal": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "country",
+                "countryiso3code",
+                "date",
+                "decimal",
+                "indicator",
+                "obs_status",
+                "unit",
+                "value"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

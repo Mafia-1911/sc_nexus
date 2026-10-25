@@ -1,0 +1,1049 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-GEO-04",
+  "title": "DS-GEO-04 · Nominatim + GeoNames dump: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "geonames_bd": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "geonameid": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "asciiname": {
+            "type": "string"
+          },
+          "alternatenames": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "feature_class": {
+            "type": "string"
+          },
+          "feature_code": {
+            "type": "string"
+          },
+          "country_code": {
+            "type": "string"
+          },
+          "cc2": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "admin1_code": {
+            "type": [
+              "integer",
+              "null",
+              "string"
+            ]
+          },
+          "admin2_code": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "admin3_code": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "admin4_code": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "population": {
+            "type": "integer"
+          },
+          "elevation": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "dem": {
+            "type": "integer"
+          },
+          "timezone": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "modification_date": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "admin1_code",
+          "admin2_code",
+          "admin3_code",
+          "admin4_code",
+          "alternatenames",
+          "asciiname",
+          "cc2",
+          "country_code",
+          "dem",
+          "elevation",
+          "feature_class",
+          "feature_code",
+          "geonameid",
+          "latitude",
+          "longitude",
+          "modification_date",
+          "name",
+          "population",
+          "timezone"
+        ]
+      }
+    },
+    "reverse_bdcgp": {
+      "type": "object",
+      "properties": {
+        "place_id": {
+          "type": "integer"
+        },
+        "licence": {
+          "type": "string"
+        },
+        "osm_type": {
+          "type": "string"
+        },
+        "osm_id": {
+          "type": "integer"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "lon": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "place_rank": {
+          "type": "integer"
+        },
+        "importance": {
+          "type": "number"
+        },
+        "addresstype": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string"
+            },
+            "county": {
+              "type": "string"
+            },
+            "state_district": {
+              "type": "string"
+            },
+            "ISO3166-2-lvl5": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "ISO3166-2-lvl4": {
+              "type": "string"
+            },
+            "postcode": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "country_code": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "ISO3166-2-lvl4",
+            "ISO3166-2-lvl5",
+            "city",
+            "country",
+            "country_code",
+            "county",
+            "postcode",
+            "state",
+            "state_district"
+          ]
+        },
+        "boundingbox": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "address",
+        "addresstype",
+        "boundingbox",
+        "category",
+        "display_name",
+        "importance",
+        "lat",
+        "licence",
+        "lon",
+        "name",
+        "osm_id",
+        "osm_type",
+        "place_id",
+        "place_rank",
+        "type"
+      ]
+    },
+    "search_chattogram_port": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "place_id": {
+            "type": "integer"
+          },
+          "licence": {
+            "type": "string"
+          },
+          "osm_type": {
+            "type": "string"
+          },
+          "osm_id": {
+            "type": "integer"
+          },
+          "lat": {
+            "type": "string"
+          },
+          "lon": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "place_rank": {
+            "type": "integer"
+          },
+          "importance": {
+            "type": "number"
+          },
+          "addresstype": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "building": {
+                "type": "string"
+              },
+              "road": {
+                "type": "string"
+              },
+              "suburb": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "county": {
+                "type": "string"
+              },
+              "state_district": {
+                "type": "string"
+              },
+              "ISO3166-2-lvl5": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "ISO3166-2-lvl4": {
+                "type": "string"
+              },
+              "postcode": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "country_code": {
+                "type": "string"
+              },
+              "amenity": {
+                "type": "string"
+              },
+              "village": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ISO3166-2-lvl4",
+              "ISO3166-2-lvl5",
+              "country",
+              "country_code",
+              "county",
+              "postcode",
+              "road",
+              "state",
+              "state_district"
+            ]
+          },
+          "extratags": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "religion": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "religion"
+                ]
+              }
+            ]
+          },
+          "boundingbox": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "address",
+          "addresstype",
+          "boundingbox",
+          "category",
+          "display_name",
+          "extratags",
+          "importance",
+          "lat",
+          "licence",
+          "lon",
+          "name",
+          "osm_id",
+          "osm_type",
+          "place_id",
+          "place_rank",
+          "type"
+        ]
+      }
+    },
+    "search_dhaka_export_processing_zone": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "place_id": {
+            "type": "integer"
+          },
+          "licence": {
+            "type": "string"
+          },
+          "osm_type": {
+            "type": "string"
+          },
+          "osm_id": {
+            "type": "integer"
+          },
+          "lat": {
+            "type": "string"
+          },
+          "lon": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "place_rank": {
+            "type": "integer"
+          },
+          "importance": {
+            "type": "number"
+          },
+          "addresstype": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "building": {
+                "type": "string"
+              },
+              "road": {
+                "type": "string"
+              },
+              "industrial": {
+                "type": "string"
+              },
+              "suburb": {
+                "type": "string"
+              },
+              "county": {
+                "type": "string"
+              },
+              "state_district": {
+                "type": "string"
+              },
+              "ISO3166-2-lvl5": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "ISO3166-2-lvl4": {
+                "type": "string"
+              },
+              "postcode": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "country_code": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ISO3166-2-lvl4",
+              "ISO3166-2-lvl5",
+              "building",
+              "country",
+              "country_code",
+              "county",
+              "industrial",
+              "postcode",
+              "road",
+              "state",
+              "state_district",
+              "suburb"
+            ]
+          },
+          "extratags": {
+            "type": "null"
+          },
+          "boundingbox": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "address",
+          "addresstype",
+          "boundingbox",
+          "category",
+          "display_name",
+          "extratags",
+          "importance",
+          "lat",
+          "licence",
+          "lon",
+          "name",
+          "osm_id",
+          "osm_type",
+          "place_id",
+          "place_rank",
+          "type"
+        ]
+      }
+    },
+    "search_kamalapur_inland_container_depot": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "place_id": {
+            "type": "integer"
+          },
+          "licence": {
+            "type": "string"
+          },
+          "osm_type": {
+            "type": "string"
+          },
+          "osm_id": {
+            "type": "integer"
+          },
+          "lat": {
+            "type": "string"
+          },
+          "lon": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "place_rank": {
+            "type": "integer"
+          },
+          "importance": {
+            "type": "number"
+          },
+          "addresstype": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "highway": {
+                "type": "string"
+              },
+              "road": {
+                "type": "string"
+              },
+              "commercial": {
+                "type": "string"
+              },
+              "quarter": {
+                "type": "string"
+              },
+              "suburb": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "county": {
+                "type": "string"
+              },
+              "state_district": {
+                "type": "string"
+              },
+              "ISO3166-2-lvl5": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "ISO3166-2-lvl4": {
+                "type": "string"
+              },
+              "postcode": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "country_code": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ISO3166-2-lvl4",
+              "ISO3166-2-lvl5",
+              "city",
+              "commercial",
+              "country",
+              "country_code",
+              "county",
+              "quarter",
+              "state",
+              "state_district",
+              "suburb"
+            ]
+          },
+          "extratags": {
+            "type": "object",
+            "properties": {
+              "bus": {
+                "type": "string"
+              },
+              "public_transport": {
+                "type": "string"
+              },
+              "landuse": {
+                "type": "string"
+              }
+            }
+          },
+          "boundingbox": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "address",
+          "addresstype",
+          "boundingbox",
+          "category",
+          "display_name",
+          "extratags",
+          "importance",
+          "lat",
+          "licence",
+          "lon",
+          "name",
+          "osm_id",
+          "osm_type",
+          "place_id",
+          "place_rank",
+          "type"
+        ]
+      }
+    },
+    "search_mongla_port": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "place_id": {
+            "type": "integer"
+          },
+          "licence": {
+            "type": "string"
+          },
+          "osm_type": {
+            "type": "string"
+          },
+          "osm_id": {
+            "type": "integer"
+          },
+          "lat": {
+            "type": "string"
+          },
+          "lon": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "place_rank": {
+            "type": "integer"
+          },
+          "importance": {
+            "type": "number"
+          },
+          "addresstype": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "industrial": {
+                "type": "string"
+              },
+              "town": {
+                "type": "string"
+              },
+              "county": {
+                "type": "string"
+              },
+              "state_district": {
+                "type": "string"
+              },
+              "ISO3166-2-lvl5": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "ISO3166-2-lvl4": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "country_code": {
+                "type": "string"
+              },
+              "leisure": {
+                "type": "string"
+              },
+              "road": {
+                "type": "string"
+              },
+              "suburb": {
+                "type": "string"
+              },
+              "postcode": {
+                "type": "string"
+              },
+              "building": {
+                "type": "string"
+              },
+              "amenity": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ISO3166-2-lvl4",
+              "ISO3166-2-lvl5",
+              "country",
+              "country_code",
+              "county",
+              "state",
+              "state_district",
+              "town"
+            ]
+          },
+          "extratags": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "wikidata": {
+                    "type": "string"
+                  },
+                  "wikipedia": {
+                    "type": "string"
+                  },
+                  "industrial": {
+                    "type": "string"
+                  },
+                  "wikimedia_commons": {
+                    "type": "string"
+                  },
+                  "building": {
+                    "type": "string"
+                  },
+                  "religion": {
+                    "type": "string"
+                  }
+                }
+              }
+            ]
+          },
+          "boundingbox": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "address",
+          "addresstype",
+          "boundingbox",
+          "category",
+          "display_name",
+          "extratags",
+          "importance",
+          "lat",
+          "licence",
+          "lon",
+          "name",
+          "osm_id",
+          "osm_type",
+          "place_id",
+          "place_rank",
+          "type"
+        ]
+      }
+    },
+    "search_pangaon": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "place_id": {
+            "type": "integer"
+          },
+          "licence": {
+            "type": "string"
+          },
+          "osm_type": {
+            "type": "string"
+          },
+          "osm_id": {
+            "type": "integer"
+          },
+          "lat": {
+            "type": "string"
+          },
+          "lon": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "place_rank": {
+            "type": "integer"
+          },
+          "importance": {
+            "type": "number"
+          },
+          "addresstype": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "village": {
+                "type": "string"
+              },
+              "county": {
+                "type": "string"
+              },
+              "state_district": {
+                "type": "string"
+              },
+              "ISO3166-2-lvl5": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "ISO3166-2-lvl4": {
+                "type": "string"
+              },
+              "postcode": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "country_code": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ISO3166-2-lvl4",
+              "ISO3166-2-lvl5",
+              "country",
+              "country_code",
+              "county",
+              "postcode",
+              "state",
+              "state_district",
+              "village"
+            ]
+          },
+          "extratags": {
+            "type": "null"
+          },
+          "boundingbox": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "address",
+          "addresstype",
+          "boundingbox",
+          "category",
+          "display_name",
+          "extratags",
+          "importance",
+          "lat",
+          "licence",
+          "lon",
+          "name",
+          "osm_id",
+          "osm_type",
+          "place_id",
+          "place_rank",
+          "type"
+        ]
+      }
+    },
+    "search_payra_port": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "place_id": {
+            "type": "integer"
+          },
+          "licence": {
+            "type": "string"
+          },
+          "osm_type": {
+            "type": "string"
+          },
+          "osm_id": {
+            "type": "integer"
+          },
+          "lat": {
+            "type": "string"
+          },
+          "lon": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "place_rank": {
+            "type": "integer"
+          },
+          "importance": {
+            "type": "number"
+          },
+          "addresstype": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "commercial": {
+                "type": "string"
+              },
+              "county": {
+                "type": "string"
+              },
+              "state_district": {
+                "type": "string"
+              },
+              "ISO3166-2-lvl5": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "ISO3166-2-lvl4": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "country_code": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ISO3166-2-lvl4",
+              "ISO3166-2-lvl5",
+              "commercial",
+              "country",
+              "country_code",
+              "county",
+              "state",
+              "state_district"
+            ]
+          },
+          "extratags": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "description"
+            ]
+          },
+          "boundingbox": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "address",
+          "addresstype",
+          "boundingbox",
+          "category",
+          "display_name",
+          "extratags",
+          "importance",
+          "lat",
+          "licence",
+          "lon",
+          "name",
+          "osm_id",
+          "osm_type",
+          "place_id",
+          "place_rank",
+          "type"
+        ]
+      }
+    }
+  }
+}

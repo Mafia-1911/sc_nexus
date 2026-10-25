@@ -1,0 +1,22 @@
+{
+  "method": "GET",
+  "url": "https://www.newyorkfed.org/medialibrary/research/interactives/gscpi/downloads/gscpi_data.xlsx",
+  "params": null,
+  "headers": {
+    "host": "www.newyorkfed.org",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-25T23:31:35.084203+00:00",
+  "status": 200,
+  "content_type": "application/vnd.ms-excel",
+  "transformed": false
+}

@@ -1,0 +1,3259 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-25T22:53:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 4382600319,
+  "lat": 23.9473250,
+  "lon": 90.2774127,
+  "tags": {
+    "building": "yes",
+    "name": "BEPZA School and College"
+  }
+},
+{
+  "type": "node",
+  "id": 4518976689,
+  "lat": 23.7443138,
+  "lon": 90.3845110,
+  "tags": {
+    "addr:city": "Dhaka",
+    "addr:housenumber": "19/D",
+    "addr:postcode": "1205",
+    "addr:street": "Road # 6, Dhanmondi",
+    "designation": "Government Office",
+    "name": "BEPZA Complex",
+    "name:en": "BEPZA Complex",
+    "office": "government",
+    "source": "www.bepza.gov.bd"
+  }
+},
+{
+  "type": "node",
+  "id": 5104713258,
+  "lat": 23.7431891,
+  "lon": 90.3409978,
+  "tags": {
+    "name": "Arisha Economic Zone",
+    "website": "https://directorsdirectory.com/arisha-economic-zone/"
+  }
+},
+{
+  "type": "node",
+  "id": 5153081140,
+  "lat": 22.2933552,
+  "lon": 91.7819926,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "CEPZ Bus Stop সিইপিজেড বাস স্টপ",
+    "public_transport": "stop_position"
+  }
+},
+{
+  "type": "node",
+  "id": 5153084633,
+  "lat": 22.2928144,
+  "lon": 91.7808584,
+  "tags": {
+    "amenity": "bank",
+    "name": "Southeast Bank Limited, Off-Shore Banking Unit CEPZ, CEPZ Entry Rd, Chattogram",
+    "name:en": "Standard Chartered Bank"
+  }
+},
+{
+  "type": "node",
+  "id": 5153085546,
+  "lat": 22.2928020,
+  "lon": 91.7807170,
+  "tags": {
+    "amenity": "bank",
+    "name": "Commercial Bank of Ceylon ATM, CEPZ Entry Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 5199318614,
+  "lat": 23.6782049,
+  "lon": 90.5172360,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "Adamjee EPZ Bus Stand আদমজী ইপিজেড বাস স্ট্যান্ড",
+    "public_transport": "stop_position"
+  }
+},
+{
+  "type": "node",
+  "id": 5628307598,
+  "lat": 23.9504370,
+  "lon": 90.2739488,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "Dhaka EPZ Bus Stand",
+    "public_transport": "stop_position"
+  }
+},
+{
+  "type": "node",
+  "id": 5629867776,
+  "lat": 23.9469742,
+  "lon": 90.2731521,
+  "tags": {
+    "name": "DEPZ Substation",
+    "power": "substation"
+  }
+},
+{
+  "type": "node",
+  "id": 5778830875,
+  "lat": 23.9478095,
+  "lon": 90.2746797,
+  "tags": {
+    "name": "New DEPZ Power Substation",
+    "power": "substation"
+  }
+},
+{
+  "type": "node",
+  "id": 5778830876,
+  "lat": 23.9462627,
+  "lon": 90.2760771,
+  "tags": {
+    "amenity": "college",
+    "name": "EPZA Public School & College"
+  }
+},
+{
+  "type": "node",
+  "id": 6344309290,
+  "lat": 22.4980748,
+  "lon": 89.6047572,
+  "tags": {
+    "name": "Powerpack Economic Zone",
+    "place": "locality"
+  }
+},
+{
+  "type": "node",
+  "id": 10745029819,
+  "lat": 24.8391476,
+  "lon": 88.9102250,
+  "tags": {
+    "name": "Naogaon Special Agro-Economic Zone Ltd, Near BSCIC Industrial Estate, Naogaon City Bypass, Naogaon",
+    "shop": "agrarian"
+  }
+},
+{
+  "type": "node",
+  "id": 11290683141,
+  "lat": 22.3181209,
+  "lon": 91.7749344,
+  "tags": {
+    "amenity": "school",
+    "name": "Anand Bazar Government Primary School, CEPZ Connecting Road, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11299654556,
+  "lat": 22.3071339,
+  "lon": 91.7769237,
+  "tags": {
+    "amenity": "police",
+    "name": "South Halishahar Police Bit, Hashem Manzil, CEPZ Connecting Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11299658043,
+  "lat": 22.3108368,
+  "lon": 91.7770820,
+  "tags": {
+    "amenity": "school",
+    "name": "Chittagong Model School, CEPZ Connecting Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11299665661,
+  "lat": 22.3067710,
+  "lon": 91.7768910,
+  "tags": {
+    "amenity": "police",
+    "name": "Halisahar Police Fari, Hashem Manzil, CEPZ Connecting Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11299667935,
+  "lat": 22.3073300,
+  "lon": 91.7756039,
+  "tags": {
+    "amenity": "school",
+    "name": "E.P.Z Karnaphuli Model School, Hashem Manzil, CEPZ Connecting Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11299686444,
+  "lat": 22.3083124,
+  "lon": 91.7772596,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "Bakar Ali Fakirer Tek Bus Stop, CEPZ Connecting Rd, Chattogram",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 11299686445,
+  "lat": 22.3081900,
+  "lon": 91.7781499,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Abdul Aziz Malum Jame Masjid, CEPZ Connecting Rd, Chattogram",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "node",
+  "id": 11299845173,
+  "lat": 22.3004443,
+  "lon": 91.7811729,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Khanjahan Ali (RA) Jame Masjid, CEPZ Connecting Rd, Chattogram",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "node",
+  "id": 11301534768,
+  "lat": 22.2936177,
+  "lon": 91.7756369,
+  "tags": {
+    "man_made": "works",
+    "name": "Bonshoe Bangladesh Limited, CEPZ Rd Number 1, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11301543464,
+  "lat": 22.2942856,
+  "lon": 91.7803327,
+  "tags": {
+    "man_made": "works",
+    "name": "K&T Logistics, CEPZ Connecting Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11301548294,
+  "lat": 22.2933895,
+  "lon": 91.7792508,
+  "tags": {
+    "amenity": "post_office",
+    "name": "CEPZ Sub Post Office, CEPZ Entry Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11301550257,
+  "lat": 22.2952669,
+  "lon": 91.7747087,
+  "tags": {
+    "man_made": "works",
+    "name": "PACIFIC JEANS LIMITED, Plot -14, Pacific Jeans Ltd, 19 CEPZ Entry Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11301558946,
+  "lat": 22.2927078,
+  "lon": 91.7720803,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "CEPZ Central Mosque, CEPZ HP-DRS., Chattogram",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "node",
+  "id": 11301561378,
+  "lat": 22.2930684,
+  "lon": 91.7748559,
+  "tags": {
+    "man_made": "works",
+    "name": "Dream Bengal Garments Ltd, CEPZ Rd Number 1, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11301565287,
+  "lat": 22.2954151,
+  "lon": 91.7794461,
+  "tags": {
+    "name": "Saqib Motors, Kolshir Dige Road, EPZ, Bandara, Chattogram",
+    "shop": "motorcycle_repair"
+  }
+},
+{
+  "type": "node",
+  "id": 11301565296,
+  "lat": 22.2957078,
+  "lon": 91.7781476,
+  "tags": {
+    "man_made": "works",
+    "name": "Patenga Footwear (Pvt.) Ltd., CEPZ Connecting Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11301566402,
+  "lat": 22.2956744,
+  "lon": 91.7728685,
+  "tags": {
+    "man_made": "works",
+    "name": "RTT Textile Industries Pvt. Ltd, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11301574409,
+  "lat": 22.2950321,
+  "lon": 91.7726584,
+  "tags": {
+    "man_made": "works",
+    "name": "Pacific Accessories Ltd., Plot - 7, Sector -5/A Export Processing Zone, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11301577624,
+  "lat": 22.2997912,
+  "lon": 91.7776600,
+  "tags": {
+    "name": "CEPZ ansar camp, Ansar camp, Chattogram",
+    "office": "government"
+  }
+},
+{
+  "type": "node",
+  "id": 11301591976,
+  "lat": 22.3010696,
+  "lon": 91.7781487,
+  "tags": {
+    "amenity": "marketplace",
+    "name": "Kolshidighir Par Kancha Bazar, CEPZ Connecting Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11301668442,
+  "lat": 22.2952354,
+  "lon": 91.7830221,
+  "tags": {
+    "amenity": "bank",
+    "name": "Mutual Trust Bank ATM, CEPZ Gate, M. A Aziz Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11301676347,
+  "lat": 22.2943947,
+  "lon": 91.7825859,
+  "tags": {
+    "name": "Arif Telecom Brandshop EPZ, M. A Aziz Rd, Chattogram",
+    "shop": "mobile_phone"
+  }
+},
+{
+  "type": "node",
+  "id": 11301677217,
+  "lat": 22.2965703,
+  "lon": 91.7802200,
+  "tags": {
+    "name": "A.R Electronics, CEPZ Connecting Rd, Chattogram",
+    "shop": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11301677220,
+  "lat": 22.2949139,
+  "lon": 91.7828416,
+  "tags": {
+    "amenity": "bank",
+    "name": "City Bank ATM - Zhanak Plaza CEPZ, Gawsia bullding C.E.P.Z, Bondor, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11301695314,
+  "lat": 22.2938912,
+  "lon": 91.7816163,
+  "tags": {
+    "name": "Hoque Watch & Mobile Servicing, Adjacent To EPZ Circel, South Halishahor, Chattogram",
+    "shop": "mobile_phone"
+  }
+},
+{
+  "type": "node",
+  "id": 11301702623,
+  "lat": 22.2938093,
+  "lon": 91.7821083,
+  "tags": {
+    "name": "BSP Chittagong Port (EPZ), E.P.Z Moor, South Middle Halishahor, Bandar, Chattogram",
+    "shop": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11301714216,
+  "lat": 22.2936099,
+  "lon": 91.7819999,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Hotel Ayat & Birani House, CEPZ Circle, South Halishahor, Free Port, Bandar, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11306687728,
+  "lat": 22.2976494,
+  "lon": 91.7772674,
+  "tags": {
+    "man_made": "works",
+    "name": "Intimate Creations Limited, Chittagong Export Processing Zone, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11306715997,
+  "lat": 22.2971219,
+  "lon": 91.7727290,
+  "tags": {
+    "man_made": "works",
+    "name": "CEPZ Central Effluent Treatment Plant, Chittagong Coastal Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11306717967,
+  "lat": 22.2970902,
+  "lon": 91.7781221,
+  "tags": {
+    "man_made": "works",
+    "name": "M.N.C. Apparels Ltd., CEPZ Connecting Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11306722455,
+  "lat": 22.2983802,
+  "lon": 91.7754781,
+  "tags": {
+    "man_made": "works",
+    "name": "Modiste (CEPZ) Ltd., Chittagong Export Processing Zone, South Halishahar, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11306733703,
+  "lat": 22.2970430,
+  "lon": 91.7772745,
+  "tags": {
+    "man_made": "works",
+    "name": "M.N.C. Apparels Ltd., CEPZ Connecting Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11306738281,
+  "lat": 22.2981511,
+  "lon": 91.7765036,
+  "tags": {
+    "man_made": "works",
+    "name": "B.M.S Rope Co. Ltd., Chittagong Export Processing Zone, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11306738955,
+  "lat": 22.3010930,
+  "lon": 91.7745171,
+  "tags": {
+    "name": "Unity Style & Accessories Ltd, EPZ North, CEPZ North Pocket Gate, Chattogram",
+    "shop": "wholesale"
+  }
+},
+{
+  "type": "node",
+  "id": 11306744963,
+  "lat": 22.3014245,
+  "lon": 91.7722120,
+  "tags": {
+    "man_made": "works",
+    "name": "Sagor Par, EPZ No. 3 Pocket Gate, Unnamed Road, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11383112052,
+  "lat": 22.2924970,
+  "lon": 91.7731176,
+  "tags": {
+    "man_made": "works",
+    "name": "Bangladesh Towel Industries (Pvt) Ltd., Plot 63/64, Sector 1, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11383117084,
+  "lat": 22.2930043,
+  "lon": 91.7795359,
+  "tags": {
+    "name": "Deputy Custom Commissioner office - BEPZA, C.E.P.Z., Chattogram",
+    "office": "government"
+  }
+},
+{
+  "type": "node",
+  "id": 11383123100,
+  "lat": 22.2928743,
+  "lon": 91.7816517,
+  "tags": {
+    "amenity": "bank",
+    "name": "Agrani Bank Limited, Shop No- 51, 2nd Floor, Bay Shopping Center, EPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11383129677,
+  "lat": 22.2927512,
+  "lon": 91.7799033,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Sri Sri Krishna Temple, EPZ, Chattogram",
+    "religion": "hindu"
+  }
+},
+{
+  "type": "node",
+  "id": 11383140848,
+  "lat": 22.2921290,
+  "lon": 91.7820400,
+  "tags": {
+    "leisure": "park",
+    "name": "Sailors Colony 1 Shishu Park, Ground Floor, EPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11383148430,
+  "lat": 22.2916610,
+  "lon": 91.7807072,
+  "tags": {
+    "amenity": "school",
+    "name": "Nawbahini Ideal Government Primary School, CEPZ Entry Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11383148830,
+  "lat": 22.2928230,
+  "lon": 91.7804019,
+  "tags": {
+    "amenity": "bank",
+    "name": "Dhaka Bank Limited, Zone Office, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11383149514,
+  "lat": 22.2933273,
+  "lon": 91.7817791,
+  "tags": {
+    "name": "Chittagong Export Processing Zone, CEPZ Bus Stop, Chattogram",
+    "office": "government"
+  }
+},
+{
+  "type": "node",
+  "id": 11383153107,
+  "lat": 22.2927709,
+  "lon": 91.7809749,
+  "tags": {
+    "amenity": "bank",
+    "name": "Standard Chartered Bank - ATM, CEPZ Entry Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11383153197,
+  "lat": 22.2931860,
+  "lon": 91.7810185,
+  "tags": {
+    "name": "Regency Garments Limited Unit 1, CEPZ Entry Rd, Chattogram",
+    "shop": "wholesale"
+  }
+},
+{
+  "type": "node",
+  "id": 11384941768,
+  "lat": 22.2879011,
+  "lon": 91.7835944,
+  "tags": {
+    "amenity": "bank",
+    "name": "Islami Bank Limited ATM, Bondortila, M.A Aziz Road, CEPZ Area, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11384944750,
+  "lat": 22.2899325,
+  "lon": 91.7827812,
+  "tags": {
+    "name": "Ovi Optical & Watch, Shop No:9, Block-B, Sailors Colony, Market-2, CEPZ, Chattogram",
+    "shop": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11384971388,
+  "lat": 22.2906357,
+  "lon": 91.7824896,
+  "tags": {
+    "name": "FS Fashion, Ground Floor, Noubahini Shopping Complex, Sailors Colony Market-2 CEPZ, Chattogram",
+    "shop": "clothes"
+  }
+},
+{
+  "type": "node",
+  "id": 11384987350,
+  "lat": 22.2907716,
+  "lon": 91.7801181,
+  "tags": {
+    "amenity": "college",
+    "name": "BN College Building, Zone Office,CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11384987371,
+  "lat": 22.2910595,
+  "lon": 91.7802998,
+  "tags": {
+    "amenity": "school",
+    "name": "Bangladesh Navy School and College, EPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11384999289,
+  "lat": 22.2882324,
+  "lon": 91.7834184,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Darussalam Jame Masjid, Sayed corporation (1st floor) Bondartila, CEPZ Area, Chattogram",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "node",
+  "id": 11385008577,
+  "lat": 22.2880574,
+  "lon": 91.7833798,
+  "tags": {
+    "name": "SF Security & Logistic Services Limited., Bondortila, M.A Aziz Road, CEPZ Area, Chattogram",
+    "shop": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11385044380,
+  "lat": 22.2867033,
+  "lon": 91.7811788,
+  "tags": {
+    "amenity": "school",
+    "name": "AL Hera Islami Academy and Madrasah,Bandartila, BEPZA School and College, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11385095348,
+  "lat": 22.2893125,
+  "lon": 91.7799127,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Baitul Aman Jame Masjid, M.A Aziz Road, Bandar, Adjacent to EPZ, Chattogram",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "node",
+  "id": 11385115661,
+  "lat": 22.2879047,
+  "lon": 91.7788903,
+  "tags": {
+    "man_made": "works",
+    "name": "Youngone (CEPZ) Ltd, BEPZA College Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11385119518,
+  "lat": 22.2889849,
+  "lon": 91.7773643,
+  "tags": {
+    "craft": "electrician",
+    "name": "BEPZA Substation (33KV/11KV),CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11385132403,
+  "lat": 22.2913215,
+  "lon": 91.7781796,
+  "tags": {
+    "man_made": "works",
+    "name": "Sewtech Fashions Limited (B-10), SFB-10 Factory Building, Factory Bay Area, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11385146623,
+  "lat": 22.2896751,
+  "lon": 91.7793770,
+  "tags": {
+    "man_made": "works",
+    "name": "Delmas Apparels (Pvt.) Ltd., Cepz, Plot- 5, Sector-2/A, Rd No 1, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11385158063,
+  "lat": 22.2896644,
+  "lon": 91.7772602,
+  "tags": {
+    "man_made": "works",
+    "name": "Z&Z Intimates Ltd, Plot/1-3, Road -02, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11385161925,
+  "lat": 22.2907189,
+  "lon": 91.7769705,
+  "tags": {
+    "man_made": "works",
+    "name": "Fenix sportswear ltd, CEPZ Circle, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11385171770,
+  "lat": 22.2919805,
+  "lon": 91.7796319,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Phara Raung Khraytaw Kyaung, Buddhist temple, BEPZA College Rd, Chattogram",
+    "religion": "buddhist"
+  }
+},
+{
+  "type": "node",
+  "id": 11385187259,
+  "lat": 22.2884854,
+  "lon": 91.7793543,
+  "tags": {
+    "man_made": "works",
+    "name": "Youngone (CEPZ) Ltd, BEPZA College Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11385188840,
+  "lat": 22.2893610,
+  "lon": 91.7778131,
+  "tags": {
+    "man_made": "works",
+    "name": "HZ International Co., Ltd.,CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11385203260,
+  "lat": 22.2865395,
+  "lon": 91.7802646,
+  "tags": {
+    "amenity": "college",
+    "name": "BEPZA Public School & College, Chattogram EPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11385212532,
+  "lat": 22.2876160,
+  "lon": 91.7774065,
+  "tags": {
+    "name": "Md Tarikul Islam district : Netrokona, CEPZ, Chattogram",
+    "shop": "wholesale"
+  }
+},
+{
+  "type": "node",
+  "id": 11385216973,
+  "lat": 22.2867500,
+  "lon": 91.7798800,
+  "tags": {
+    "historic": "pillory",
+    "name": "Central Sahid Minar, BEPZA College Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11385221730,
+  "lat": 22.2905007,
+  "lon": 91.7750301,
+  "tags": {
+    "man_made": "works",
+    "name": "Globe Textile Mills Ltd., CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11385227669,
+  "lat": 22.2869153,
+  "lon": 91.7778124,
+  "tags": {
+    "man_made": "works",
+    "name": "Midas safety Industrial Hand Protection Ltd. Unit - 2, CEPZ Entry Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11385227670,
+  "lat": 22.2860152,
+  "lon": 91.7776170,
+  "tags": {
+    "man_made": "works",
+    "name": "M/S Monavi Textile Complex, CEPZ Entry Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11385230223,
+  "lat": 22.2911857,
+  "lon": 91.7757302,
+  "tags": {
+    "man_made": "works",
+    "name": "Siams Superior Ltd. (Habib Group), CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11393264657,
+  "lat": 22.2884868,
+  "lon": 91.7744152,
+  "tags": {
+    "name": "Cold Play School Product Limited,Plot-29-32, Sector-3, CEPZ, Chattogram",
+    "office": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11393267559,
+  "lat": 22.2884778,
+  "lon": 91.7748462,
+  "tags": {
+    "man_made": "works",
+    "name": "Excelsior Shoes Ltd, CEPZ Exit Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11393276768,
+  "lat": 22.2871304,
+  "lon": 91.7723891,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Swaad Restaurant CEPZ, E.P.Z Investors club, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11393284437,
+  "lat": 22.2855480,
+  "lon": 91.7758761,
+  "tags": {
+    "man_made": "works",
+    "name": "Lalmai Sportswear Ltd., CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11393290409,
+  "lat": 22.2914349,
+  "lon": 91.7749347,
+  "tags": {
+    "man_made": "works",
+    "name": "Presentation Apparels Ltd.,Plot-27, Sector-01 Road-04, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11393298713,
+  "lat": 22.2863602,
+  "lon": 91.7833776,
+  "tags": {
+    "amenity": "marketplace",
+    "name": "Al-Madina Super Market, Bondortila, Sailors Colony-1, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11393301298,
+  "lat": 22.2864780,
+  "lon": 91.7756439,
+  "tags": {
+    "man_made": "works",
+    "name": "Youngone Sports Shoes Ltd.,7-20 Road - 3, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11393309575,
+  "lat": 22.2900694,
+  "lon": 91.7743016,
+  "tags": {
+    "man_made": "works",
+    "name": "UP Apparels & Textiles (BD) Ltd., Plot: 41-42, Road No: 04, Sector: 1, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11393316763,
+  "lat": 22.2890713,
+  "lon": 91.7742463,
+  "tags": {
+    "man_made": "works",
+    "name": "Peninsula Garments Ltd., Manufacturer, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11393321940,
+  "lat": 22.2802309,
+  "lon": 91.7848590,
+  "tags": {
+    "name": "Ambition Ideal School & College, Akmol Ali road, EPZ Sekh Mozib road., Chattogram",
+    "office": "educational_institution"
+  }
+},
+{
+  "type": "node",
+  "id": 11393323746,
+  "lat": 22.2841700,
+  "lon": 91.7821160,
+  "tags": {
+    "amenity": "pharmacy",
+    "healthcare": "pharmacy",
+    "name": "Bismillah Homeo Hall, BEPZA College Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11393330913,
+  "lat": 22.2863315,
+  "lon": 91.7813435,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Sri Sri Magadeswari Mother Temple, CEPZ, Chattogram",
+    "religion": "hindu"
+  }
+},
+{
+  "type": "node",
+  "id": 11393381926,
+  "lat": 22.2843654,
+  "lon": 91.7814380,
+  "tags": {
+    "name": "Karimiya Madrasa Chittagong, BEPZA College Rd, Chattogram",
+    "office": "educational_institution"
+  }
+},
+{
+  "type": "node",
+  "id": 11393383963,
+  "lat": 22.2845239,
+  "lon": 91.7774738,
+  "tags": {
+    "amenity": "school",
+    "name": "Al Hera Islami Academy and Madrasah, BEPZA Residential Area, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11395323370,
+  "lat": 22.2830482,
+  "lon": 91.7825822,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Hospital gate bazer, BEPZA College Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11395424063,
+  "lat": 22.2835534,
+  "lon": 91.7732286,
+  "tags": {
+    "man_made": "works",
+    "name": "Luna Lite Company (BD) Ltd, Lighting manufacturer, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11395425792,
+  "lat": 22.2827678,
+  "lon": 91.7732866,
+  "tags": {
+    "man_made": "works",
+    "name": "UFM (BD) Limited, Clothing manufacturer, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11395428899,
+  "lat": 22.2820596,
+  "lon": 91.7734346,
+  "tags": {
+    "emergency": "fire_service_inlet",
+    "name": "HKD International (CEPZ) Ltd. Fire Pump Room, HKD International, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11395436409,
+  "lat": 22.2833913,
+  "lon": 91.7796067,
+  "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "CMH Chittagong Hospital, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11395445421,
+  "lat": 22.2840439,
+  "lon": 91.7739187,
+  "tags": {
+    "man_made": "works",
+    "name": "Mithun Knitting And Dyeing ( CEPZ ) Ltd., C.E.P.Z, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11395450930,
+  "lat": 22.2817610,
+  "lon": 91.7752346,
+  "tags": {
+    "man_made": "works",
+    "name": "GH Haewae company ltd, Papella, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11395456309,
+  "lat": 22.2793186,
+  "lon": 91.7742712,
+  "tags": {
+    "man_made": "works",
+    "name": "Kenpark Bangladesh Pvt. Ltd., CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11395460398,
+  "lat": 22.2794082,
+  "lon": 91.7733258,
+  "tags": {
+    "name": "SJ industrial bd limited, Factory equipment supplier, CEPZ, Chattogram",
+    "office": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11395462754,
+  "lat": 22.2792449,
+  "lon": 91.7776053,
+  "tags": {
+    "name": "Mordern Oishi Jewelers, CEPZ, Chattogram",
+    "shop": "jewelry"
+  }
+},
+{
+  "type": "node",
+  "id": 11395464107,
+  "lat": 22.2791052,
+  "lon": 91.7768650,
+  "tags": {
+    "amenity": "school",
+    "name": "Parash Pathar B Ed College, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11395464470,
+  "lat": 22.2814644,
+  "lon": 91.7746079,
+  "tags": {
+    "man_made": "works",
+    "name": "Regency, Unit 5,Industry, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11395464607,
+  "lat": 22.2812959,
+  "lon": 91.7726285,
+  "tags": {
+    "name": "HKD International (CEPZ) Ltd. Substation Room, HKD International, Chattogram",
+    "office": "forestry"
+  }
+},
+{
+  "type": "node",
+  "id": 11395469285,
+  "lat": 22.2799501,
+  "lon": 91.7766470,
+  "tags": {
+    "man_made": "works",
+    "name": "Siams Superior Ltd., CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11409054546,
+  "lat": 22.2815056,
+  "lon": 91.7834224,
+  "tags": {
+    "name": "Bismillah Mobile Servicing & Software & Hardware Centre, EPZ, Madrji Shah Road, Railbeat, Chattogram",
+    "shop": "mobile_phone"
+  }
+},
+{
+  "type": "node",
+  "id": 11409054547,
+  "lat": 22.2780091,
+  "lon": 91.7721352,
+  "tags": {
+    "name": "Patanga fish suppliers , EPZ, Chattogram",
+    "shop": "wholesale"
+  }
+},
+{
+  "type": "node",
+  "id": 11409068779,
+  "lat": 22.2781798,
+  "lon": 91.7768983,
+  "tags": {
+    "amenity": "school",
+    "name": "Chor Mera dusra Vidyalay, Akmol Ali Road, Khalpar, EPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11409073015,
+  "lat": 22.2748156,
+  "lon": 91.7723213,
+  "tags": {
+    "name": "Akmol Ali Sea Beach, EPZ, Chattogram",
+    "tourism": "attraction"
+  }
+},
+{
+  "type": "node",
+  "id": 11409081750,
+  "lat": 22.2772101,
+  "lon": 91.7764903,
+  "tags": {
+    "name": "Razaul Computer and Studio, Akmol Ali Road, Khalpar, EPZ, Chattogram",
+    "shop": "photo"
+  }
+},
+{
+  "type": "node",
+  "id": 11409099910,
+  "lat": 22.2771979,
+  "lon": 91.7771291,
+  "tags": {
+    "name": "Polok bahar jewellers, Akmol Ali Road, EPZ, Chattogram",
+    "shop": "jewelry"
+  }
+},
+{
+  "type": "node",
+  "id": 11409191000,
+  "lat": 22.2774580,
+  "lon": 91.7813466,
+  "tags": {
+    "name": "Janany Medicine shop, CEPZ Area, Chattogram",
+    "shop": "medical_supply"
+  }
+},
+{
+  "type": "node",
+  "id": 11409244561,
+  "lat": 22.2775029,
+  "lon": 91.7775988,
+  "tags": {
+    "name": "Masud Enterprises, CEPZ Area, Chattogram",
+    "shop": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11409263302,
+  "lat": 22.2779764,
+  "lon": 91.7775949,
+  "tags": {
+    "amenity": "school",
+    "name": "KHALPAR PUBLIC SCHOOL, CEPZ Area, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11409292717,
+  "lat": 22.2801626,
+  "lon": 91.7849489,
+  "tags": {
+    "amenity": "pharmacy",
+    "healthcare": "pharmacy",
+    "name": "Ma Pharmacy, Akmal Ali Road South Halishahar EPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11409302241,
+  "lat": 22.2788645,
+  "lon": 91.7847608,
+  "tags": {
+    "name": "Best grocery store in Chittagong CEPZ Mor, Cement Crossing Bazar Rd, Chattogram",
+    "shop": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11409327176,
+  "lat": 22.2782730,
+  "lon": 91.7853333,
+  "tags": {
+    "name": "M/S M S Enterprise, Cement Crossing, EPZ, Chattogram",
+    "shop": "mall"
+  }
+},
+{
+  "type": "node",
+  "id": 11411527017,
+  "lat": 22.2733915,
+  "lon": 91.7823306,
+  "tags": {
+    "amenity": "school",
+    "name": "ABC Public School, EPZ, S Alam B Alam Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11411575556,
+  "lat": 22.2731635,
+  "lon": 91.7820862,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Netrakona Madinatul Uloom Madrasha, EPZ, S Alam B Alam Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11411602487,
+  "lat": 22.2737081,
+  "lon": 91.7852986,
+  "tags": {
+    "name": "Promise Telecom KEPZ Chittagong, S Alam B Alam Rd, Chattogram",
+    "office": "telecommunication"
+  }
+},
+{
+  "type": "node",
+  "id": 11430347428,
+  "lat": 22.2725808,
+  "lon": 91.7867918,
+  "tags": {
+    "amenity": "bank",
+    "name": "Mutual Trust Bank Limited, Karnaphuli EPZ Branch, Mohajan Ghata, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11430383028,
+  "lat": 22.2690090,
+  "lon": 91.7833796,
+  "tags": {
+    "amenity": "college",
+    "name": "BEPZA Public school and College, Housing Colony Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11430482052,
+  "lat": 22.2691836,
+  "lon": 91.7877575,
+  "tags": {
+    "name": "New Kangaroo Market, Shop no:- A(1-2), 1st floor, KEPZ, Ali Plaza, Chattogram",
+    "shop": "wholesale"
+  }
+},
+{
+  "type": "node",
+  "id": 11690000895,
+  "lat": 22.2641399,
+  "lon": 91.8660336,
+  "tags": {
+    "name": "KEPZ Booster Pump Station, CWASA, Daulatpur, Anwara-Banshkhali Rd, Chattogram",
+    "office": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11734277245,
+  "lat": 22.2781756,
+  "lon": 91.7938788,
+  "tags": {
+    "man_made": "works",
+    "name": "EUSEBIO SPORTING BANGLADESH LTD, Plot 38-47, Karnaphuli Epz, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734279551,
+  "lat": 22.2783050,
+  "lon": 91.7907059,
+  "tags": {
+    "man_made": "works",
+    "name": "Naturub Accessories Bangladesh (Pvt) Ltd, PLOT 55-60, SECTOR 02, KEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734304964,
+  "lat": 22.2761589,
+  "lon": 91.7921562,
+  "tags": {
+    "name": "CBC Optical Industries - BD co Ltd, Plot No 16-17, sector-3, Karnaphuli EPZ, Chattogram",
+    "office": "company"
+  }
+},
+{
+  "type": "node",
+  "id": 11734312238,
+  "lat": 22.2791179,
+  "lon": 91.7895993,
+  "tags": {
+    "man_made": "works",
+    "name": "GeeBee (Bangladesh) Ltd. U2, KEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734327198,
+  "lat": 22.2791862,
+  "lon": 91.7919262,
+  "tags": {
+    "man_made": "works",
+    "name": "Legend Textiles Ltd, Karnaphuli Epz, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734327200,
+  "lat": 22.2761048,
+  "lon": 91.7939012,
+  "tags": {
+    "name": "Venkat Limited, Sector: 3, KEPZ, North Patenga, Chattogram",
+    "office": "company"
+  }
+},
+{
+  "type": "node",
+  "id": 11734334392,
+  "lat": 22.2795909,
+  "lon": 91.7921196,
+  "tags": {
+    "man_made": "works",
+    "name": "Finesse Apparels Limited, Plot 103 - 104, Sector 3, Karnaphuli EPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734340392,
+  "lat": 22.2719835,
+  "lon": 91.7874553,
+  "tags": {
+    "man_made": "works",
+    "name": "Karnaphuli EPZ Main Gate, M. A Aziz Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734341172,
+  "lat": 22.2777389,
+  "lon": 91.7922386,
+  "tags": {
+    "name": "PAOLO FOOTWEAR BD LTD., Karnaphuli EPZ, Chattogram",
+    "office": "company"
+  }
+},
+{
+  "type": "node",
+  "id": 11734345325,
+  "lat": 22.2734434,
+  "lon": 91.7916125,
+  "tags": {
+    "man_made": "works",
+    "name": "Denim Expert Ltd. Garment exporter, Plot No : 96-100 Sector 3 Karnaphuli EPZ North, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734347660,
+  "lat": 22.2719497,
+  "lon": 91.7900283,
+  "tags": {
+    "name": "Campvalley Global Ltd., Unit-2, Plot 17-19, Sector- 1, Karpaphuli EPZ, Chattogram",
+    "office": "company"
+  }
+},
+{
+  "type": "node",
+  "id": 11734360970,
+  "lat": 22.2773378,
+  "lon": 91.7900943,
+  "tags": {
+    "man_made": "works",
+    "name": "HKD Outdoor Innovations Ltd.,Plot 55 57 63 65 Sector 01 Kepz, Airport Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734367599,
+  "lat": 22.2717019,
+  "lon": 91.7880502,
+  "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Karnaphuli EPZ Hospital, M. A Aziz Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734368716,
+  "lat": 22.2715056,
+  "lon": 91.7876415,
+  "tags": {
+    "amenity": "marketplace",
+    "name": "Karnaphuli EPZ Market, M. A Aziz Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734371310,
+  "lat": 22.2725348,
+  "lon": 91.7873007,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Satkania Bhat Ghor, North Side Of Karnfuli EPZ Gate, Main Road, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734382509,
+  "lat": 22.2711167,
+  "lon": 91.7877910,
+  "tags": {
+    "name": "M/s. Shaki Plastic World, KEPZ Gate, Steel Mill Bazar, North Patenga, Chattogram",
+    "office": "energy_supplier"
+  }
+},
+{
+  "type": "node",
+  "id": 11734385342,
+  "lat": 22.2729658,
+  "lon": 91.7917532,
+  "tags": {
+    "name": "March Sports War Company Limited, SFB-4. North Patenga. KEPZ, Chattogram",
+    "office": "company"
+  }
+},
+{
+  "type": "node",
+  "id": 11734396070,
+  "lat": 22.2718250,
+  "lon": 91.7891078,
+  "tags": {
+    "name": "Karnaphuly Export Processing Zone Scarves Complex, 40 North Patenga Ward, Chattogram",
+    "office": "government"
+  }
+},
+{
+  "type": "node",
+  "id": 11734396797,
+  "lat": 22.2722062,
+  "lon": 91.7896436,
+  "tags": {
+    "name": "Karnaphuli Export Processing Zone, Karnafully EPZ, Chattogram",
+    "office": "government"
+  }
+},
+{
+  "type": "node",
+  "id": 11734396798,
+  "lat": 22.2739412,
+  "lon": 91.7901479,
+  "tags": {
+    "man_made": "works",
+    "name": "Bangladesh Pou Hung Industrial Ltd., Karnaphuli EPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734396799,
+  "lat": 22.2747757,
+  "lon": 91.7935270,
+  "tags": {
+    "man_made": "works",
+    "name": "Kenpark Bangladesh Apparel (Pvt) Ltd (K-2), KEPZ, CTG., Potenga Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734402699,
+  "lat": 22.2603614,
+  "lon": 91.7915976,
+  "tags": {
+    "addr:street": "Sea Beach Rd, Chattogram",
+    "amenity": "hospital",
+    "name": "Karnaphuli EPZ Hospital"
+  }
+},
+{
+  "type": "node",
+  "id": 11734753614,
+  "lat": 22.2796228,
+  "lon": 91.7854446,
+  "tags": {
+    "amenity": "pharmacy",
+    "healthcare": "pharmacy",
+    "name": "Al-Makka Pharmacy, Akmal Ali Road.Epz., M. A Aziz Rd, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734809724,
+  "lat": 22.2790162,
+  "lon": 91.7865896,
+  "tags": {
+    "highway": "services",
+    "name": "SR Parcel Services Limited, Cement Crossing More, Airport Road, CEPZ Branch, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734837811,
+  "lat": 22.2907979,
+  "lon": 91.7873755,
+  "tags": {
+    "amenity": "university",
+    "name": "Muhhamad Romiz Mhamud, Galachipa , Mawlana Abdul Hakim Road, Bandartila EPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11734844203,
+  "lat": 22.2887040,
+  "lon": 91.7859226,
+  "tags": {
+    "name": "Mollik Jewellers, Ashar Baper Goli, South Halishahar, Bandar, Bandartila EPZ, Chattogram",
+    "shop": "jewelry"
+  }
+},
+{
+  "type": "node",
+  "id": 11734844422,
+  "lat": 22.2855651,
+  "lon": 91.7857402,
+  "tags": {
+    "name": "Bangladesh Human Rights Commission(EPZ Thana & 39 no ward Chittagong), M. A Aziz Rd, Chattogram",
+    "office": "government"
+  }
+},
+{
+  "type": "node",
+  "id": 11734874578,
+  "lat": 22.2889604,
+  "lon": 91.7879822,
+  "tags": {
+    "name": "Khan Jahan Ali Store, Mawlana Abdul Hakim Road, Bandartila EPZ, Chattogram",
+    "shop": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11734875582,
+  "lat": 22.2909469,
+  "lon": 91.7901866,
+  "tags": {
+    "name": "New Friends General Store, EPZ, Labor Colony Road, Adjacent to Railbit, Chattogram",
+    "shop": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11734883164,
+  "lat": 22.2909882,
+  "lon": 91.7828059,
+  "tags": {
+    "name": "Shah Amanat International Telecom Network, Masjid Market, Navy Colony, EPZ, Bandar, Chattogram",
+    "office": "telecommunication"
+  }
+},
+{
+  "type": "node",
+  "id": 11734886302,
+  "lat": 22.2892792,
+  "lon": 91.7835176,
+  "tags": {
+    "name": "Redx Logistics Ltd - Chittagong Epz Hub, TCB Bhaban, M. A Aziz Rd, Chattogram",
+    "office": "company"
+  }
+},
+{
+  "type": "node",
+  "id": 11734889232,
+  "lat": 22.2884102,
+  "lon": 91.7836590,
+  "tags": {
+    "name": "RFL Best Buy - Bandortila, South Halishahar, Bandartila, CEPZ Chittagong,Chattogram",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "node",
+  "id": 11740084553,
+  "lat": 22.2933094,
+  "lon": 91.7877111,
+  "tags": {
+    "name": "Saom Tailors & Training Center, F.M Sawdagar Road, Newmooring, EPZ, Bandar, Chattogram",
+    "shop": "clothes"
+  }
+},
+{
+  "type": "node",
+  "id": 11740086849,
+  "lat": 22.2942029,
+  "lon": 91.7830261,
+  "tags": {
+    "name": "Janata Glass House & Thai Aluminium, CEPZ Gate, South Halishahar, EPZ, Chattogram",
+    "shop": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11740090335,
+  "lat": 22.2930924,
+  "lon": 91.7895640,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Hazrat Abdul Aziz (rh) Mazar Sharif Mosque, South Halishahor, EPZ, Bandar, Chattogram",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "node",
+  "id": 11740129666,
+  "lat": 22.2939899,
+  "lon": 91.7828551,
+  "tags": {
+    "name": "Ma-Moni Electronics & Mobile Shop Mobile Market, E.P.Z Gate, CEPZ, Bandar, Chattogram",
+    "shop": "mobile_phone"
+  }
+},
+{
+  "type": "node",
+  "id": 11740134208,
+  "lat": 22.2934044,
+  "lon": 91.7864024,
+  "tags": {
+    "name": "M/s. Mahbub & Brothers, Fakir Mohammad Sawdagar Road, South Halishahor, EPZ, Bandar, Chattogram",
+    "shop": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11740134695,
+  "lat": 22.2926206,
+  "lon": 91.7825458,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Hotel Zaman & Birani House, East Side Of Bay Shopping Center, South Halishahar, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11740134798,
+  "lat": 22.2922549,
+  "lon": 91.7825761,
+  "tags": {
+    "name": "Realme Showroom, Android Store-2, EPZ, Chattaogram, C.E.P.Z Gate, South Halishahor, Chattogram",
+    "shop": "mobile_phone"
+  }
+},
+{
+  "type": "node",
+  "id": 11740134825,
+  "lat": 22.2961093,
+  "lon": 91.7841402,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "M/S Grameen Crockeries, Abdul Mabud Swodaghor Road, EPZ, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11740135178,
+  "lat": 22.2938384,
+  "lon": 91.7894237,
+  "tags": {
+    "name": "Maa Babar Doya Tailors & Cloth Store, Newmooring Road, South Halishahor, EPZ, Bandar, Chattogram",
+    "shop": "clothes"
+  }
+},
+{
+  "type": "node",
+  "id": 11740135333,
+  "lat": 22.2920453,
+  "lon": 91.7826825,
+  "tags": {
+    "name": "Bipul Enterprise Chittagong EPZ Counter, North Side of EPZ Police Station, Bandar, Chattogram",
+    "shop": "ticket"
+  }
+},
+{
+  "type": "node",
+  "id": 11740143633,
+  "lat": 22.2935380,
+  "lon": 91.7867477,
+  "tags": {
+    "name": "Iqbal Enterprise, Mourium Tower, F.M Sawdagar Road, New Mooring, EPZ, Bandar, CEPZ, Chattogram",
+    "shop": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11740194199,
+  "lat": 22.2933975,
+  "lon": 91.7826636,
+  "tags": {
+    "name": "New Asia Electronics,A-4, Shahansha Tower, Opposite CEPZ Gate, CEPZ, Chattogram",
+    "shop": "electronics"
+  }
+},
+{
+  "type": "node",
+  "id": 11740213157,
+  "lat": 22.2930239,
+  "lon": 91.7880624,
+  "tags": {
+    "name": "Brothers Tailors & Cloth Store, F.M Sawdagar Road, Newmooring, EPZ, Bandar, Chattogram",
+    "shop": "clothes"
+  }
+},
+{
+  "type": "node",
+  "id": 11740216081,
+  "lat": 22.2929247,
+  "lon": 91.7826161,
+  "tags": {
+    "name": "Jamal Telecom Center, New Mooring Road, EPZ, South Halishahor, Bandar, Chattogram",
+    "office": "telecommunication"
+  }
+},
+{
+  "type": "node",
+  "id": 11740218386,
+  "lat": 22.2936489,
+  "lon": 91.7858941,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Haji sha jamal Sawdagar jame mosque, EPZ, Bandar, Chattogram",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "node",
+  "id": 11740219777,
+  "lat": 22.2982519,
+  "lon": 91.7851934,
+  "tags": {
+    "name": "CEPZ SY, Nitol Motors Ltd., M. A Aziz Rd, Chattogram",
+    "shop": "motorcycle_repair"
+  }
+},
+{
+  "type": "node",
+  "id": 11740220569,
+  "lat": 22.2933164,
+  "lon": 91.7872084,
+  "tags": {
+    "name": "Pranto General Store, F.M Sawdagar Road, New Mooring, EPZ, Bandar, Chattogram",
+    "shop": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11740221094,
+  "lat": 22.2932464,
+  "lon": 91.7884785,
+  "tags": {
+    "name": "Sumaiya Telecom & Cosmetics Center, Fakir Mohammad Sawdagar Road, New Mooring, EPZ, Chattogram",
+    "office": "telecommunication"
+  }
+},
+{
+  "type": "node",
+  "id": 11740222085,
+  "lat": 22.2930537,
+  "lon": 91.7826276,
+  "tags": {
+    "name": "Sandhani Life Insurance, Branch Office, New Mooring Road, F.M Sawdagar Road, EPZ Gate, Chattogram",
+    "office": "insurance"
+  }
+},
+{
+  "type": "node",
+  "id": 11740232655,
+  "lat": 22.2931788,
+  "lon": 91.7829254,
+  "tags": {
+    "name": "Mohochen Aulia Jewellers, New Mooring Road, EPZ, South Halishahar, Bandar, Chattogram",
+    "shop": "jewelry"
+  }
+},
+{
+  "type": "node",
+  "id": 11740232656,
+  "lat": 22.2956159,
+  "lon": 91.7837272,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Cafe Jam Jam Hotel & Restaurant, Barrister College, EPZ Road, Dhokin HaliShohor, E.P.Z., Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11740272609,
+  "lat": 22.2968150,
+  "lon": 91.7841808,
+  "tags": {
+    "name": "Samsung smart plaza, CEPZ, M. A Aziz Road, Chattogram",
+    "shop": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11740276596,
+  "lat": 22.2979823,
+  "lon": 91.7848981,
+  "tags": {
+    "name": "R.S. REFRIGERATOR SERVICE SINGER Authorized Service Center,South Halisahar, EPZ, Chattogram",
+    "shop": "electronics"
+  }
+},
+{
+  "type": "node",
+  "id": 11740280945,
+  "lat": 22.2932149,
+  "lon": 91.7880398,
+  "tags": {
+    "amenity": "pharmacy",
+    "healthcare": "pharmacy",
+    "name": "Rakib Homeo Center, F.M Sawdagar Road, New Mooring ,EPZ, Bandar, Ershad Market, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11740329594,
+  "lat": 22.2939139,
+  "lon": 91.7867851,
+  "tags": {
+    "amenity": "school",
+    "name": "MUSIC LEARNING POINT School, F.M Sawdagar Road, New Mooring, EPZ, Bandar, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11740617892,
+  "lat": 22.3010304,
+  "lon": 91.7911368,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Hill Chadiganga Bouddha Bihar, Saltgola Crossing, Bandar, CEPZ, Chattogram",
+    "religion": "buddhist"
+  }
+},
+{
+  "type": "node",
+  "id": 11740649391,
+  "lat": 22.2968487,
+  "lon": 91.7870094,
+  "tags": {
+    "name": "M/s Sumon Shah Electronics, Abdul Mabud Swodaghor Road, EPZ, South Halishahar, Chattogram",
+    "shop": "electronics"
+  }
+},
+{
+  "type": "node",
+  "id": 11916074754,
+  "lat": 23.4496736,
+  "lon": 91.1839683,
+  "tags": {
+    "addr:city": "Cumilla",
+    "addr:housenumber": "EPZ, 1st Gate Road",
+    "addr:street": "Medical Road",
+    "mobile": "01828395654",
+    "name": "Shwapno Cumilla EPZ",
+    "not:brand:wikidata": "Q115664015",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "node",
+  "id": 12169756322,
+  "lat": 23.9502730,
+  "lon": 90.2740145,
+  "tags": {
+    "highway": "bus_stop",
+    "name": "Dhaka EPZ Bus Stand"
+  }
+},
+{
+  "type": "node",
+  "id": 12169804599,
+  "lat": 22.2933303,
+  "lon": 91.7819202,
+  "tags": {
+    "highway": "bus_stop",
+    "name": "CEPZ Bus Stop"
+  }
+},
+{
+  "type": "node",
+  "id": 12309263250,
+  "lat": 23.9468394,
+  "lon": 90.2759219,
+  "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Dhaka EPZ Hospital"
+  }
+},
+{
+  "type": "node",
+  "id": 12309263251,
+  "lat": 23.9474203,
+  "lon": 90.2760803,
+  "tags": {
+    "man_made": "works",
+    "name": "New EPZ shanta denim ltd, Garment exporter"
+  }
+},
+{
+  "type": "node",
+  "id": 12309263289,
+  "lat": 23.9533510,
+  "lon": 90.2734090,
+  "tags": {
+    "amenity": "bank",
+    "name": "Uttara Bank Limited | AERE - EPZ Branch"
+  }
+},
+{
+  "type": "node",
+  "id": 12309276749,
+  "lat": 23.9485514,
+  "lon": 90.2772866,
+  "tags": {
+    "man_made": "works",
+    "name": "SBC Garments Accessories Mfg. (BD) Ltd., DEPZ"
+  }
+},
+{
+  "type": "node",
+  "id": 12311707692,
+  "lat": 23.9463920,
+  "lon": 90.2720836,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "EPZ Residential Area Mosque",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "node",
+  "id": 12311724946,
+  "lat": 23.9515097,
+  "lon": 90.2727698,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "DEPZ Mosque",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "node",
+  "id": 12311755723,
+  "lat": 23.9413444,
+  "lon": 90.2711034,
+  "tags": {
+    "amenity": "post_depot",
+    "name": "Sundarban Courier Service,DEPZ, Courier service"
+  }
+},
+{
+  "type": "node",
+  "id": 12311757052,
+  "lat": 23.9502014,
+  "lon": 90.2739953,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "Dhaka EPZ Bus Stand, Bus stop",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 12311782716,
+  "lat": 23.9515983,
+  "lon": 90.2686496,
+  "tags": {
+    "man_made": "works",
+    "name": "Avery Dennison Bangladesh (DEPZ Old Zone), Manufacturer"
+  }
+},
+{
+  "type": "node",
+  "id": 12311790514,
+  "lat": 23.9519354,
+  "lon": 90.2731817,
+  "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Dhaka EPZ Hospital, Hospital"
+  }
+},
+{
+  "type": "node",
+  "id": 12328480923,
+  "lat": 23.9756997,
+  "lon": 90.2654993,
+  "tags": {
+    "name": "PRAASAD EPZ GOLF RESORT, Resort hotel",
+    "tourism": "hotel"
+  }
+},
+{
+  "type": "node",
+  "id": 12531218258,
+  "lat": 24.5119706,
+  "lon": 90.3905523,
+  "tags": {
+    "name": "Akij Economic Zone",
+    "website": "https://directorsdirectory.com/akij-economic-zone/"
+  }
+},
+{
+  "type": "node",
+  "id": 12535567102,
+  "lat": 23.6643122,
+  "lon": 90.6328456,
+  "tags": {
+    "name": "Aman Economic Zone",
+    "website": "https://directorsdirectory.com/aman-economic-zone/"
+  }
+},
+{
+  "type": "node",
+  "id": 12540915983,
+  "lat": 22.7458133,
+  "lon": 91.4734922,
+  "tags": {
+    "name": "National Special Economic Zone (under construction)",
+    "website": "https://directorsdirectory.com/national-special-economic-zone-bangladesh/"
+  }
+},
+{
+  "type": "node",
+  "id": 12651846164,
+  "lat": 24.7873631,
+  "lon": 89.9345604,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Jamalpur Economic Zone Central Jame Masjid, Mosque",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "node",
+  "id": 13133070146,
+  "lat": 25.8579708,
+  "lon": 88.8647527,
+  "tags": {
+    "name": "Nilphamari EPZ BTCL, Government office",
+    "office": "government"
+  }
+},
+{
+  "type": "node",
+  "id": 13133083853,
+  "lat": 25.8602510,
+  "lon": 88.8680973,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "UEPZ Jame Masjid, Mosque",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "node",
+  "id": 13133095036,
+  "lat": 25.8583320,
+  "lon": 88.8647013,
+  "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Uttara EPZ Medical Center, Hospital"
+  }
+},
+{
+  "type": "node",
+  "id": 13133099428,
+  "lat": 25.8598331,
+  "lon": 88.8647291,
+  "tags": {
+    "name": "UEPZ Customs Office, Government office",
+    "office": "government"
+  }
+},
+{
+  "type": "node",
+  "id": 13136173405,
+  "lat": 25.8697621,
+  "lon": 88.8700466,
+  "tags": {
+    "name": "BURO Bangladesh - Uttara EPZ Branch, Non-profit organization",
+    "office": "association"
+  }
+},
+{
+  "type": "way",
+  "id": 105621313,
+  "center": {
+    "lat": 22.2485828,
+    "lon": 91.8520382
+  },
+  "tags": {
+    "name": "KEPZ Lake View",
+    "natural": "water",
+    "tidal": "no",
+    "water": "lake"
+  }
+},
+{
+  "type": "way",
+  "id": 149076819,
+  "center": {
+    "lat": 23.4489736,
+    "lon": 91.1846395
+  },
+  "tags": {
+    "highway": "secondary",
+    "name": "EPZ Road",
+    "oneway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 223059928,
+  "center": {
+    "lat": 22.2935462,
+    "lon": 91.7790784
+  },
+  "tags": {
+    "building": "yes",
+    "name": "CEPZ Post Office",
+    "source": "Bing"
+  }
+},
+{
+  "type": "way",
+  "id": 223761470,
+  "center": {
+    "lat": 22.2853677,
+    "lon": 91.7788479
+  },
+  "tags": {
+    "building": "yes",
+    "name": "BEPZA Residential Area, BEPZA College Rd, Chattogram",
+    "source": "bing"
+  }
+},
+{
+  "type": "way",
+  "id": 241761685,
+  "center": {
+    "lat": 23.4381676,
+    "lon": 91.1744510
+  },
+  "tags": {
+    "highway": "secondary",
+    "name": "EPZ Road",
+    "oneway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 241761826,
+  "center": {
+    "lat": 23.4421779,
+    "lon": 91.1803422
+  },
+  "tags": {
+    "highway": "secondary",
+    "name": "EPZ Road",
+    "oneway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 241761955,
+  "center": {
+    "lat": 23.4480157,
+    "lon": 91.1864581
+  },
+  "tags": {
+    "building": "yes",
+    "name": "EPZ Building"
+  }
+},
+{
+  "type": "way",
+  "id": 246332153,
+  "center": {
+    "lat": 23.4416651,
+    "lon": 91.1817971
+  },
+  "tags": {
+    "highway": "service",
+    "name": "EPZ INSIDE ROAD"
+  }
+},
+{
+  "type": "way",
+  "id": 246332154,
+  "center": {
+    "lat": 23.4408918,
+    "lon": 91.1832522
+  },
+  "tags": {
+    "highway": "service",
+    "name": "EPZ INSIDE ROAD"
+  }
+},
+{
+  "type": "way",
+  "id": 246332156,
+  "center": {
+    "lat": 23.4424103,
+    "lon": 91.1845134
+  },
+  "tags": {
+    "highway": "service",
+    "name": "EPZ INSIDE ROAD"
+  }
+},
+{
+  "type": "way",
+  "id": 285882436,
+  "center": {
+    "lat": 23.9454251,
+    "lon": 90.2817886
+  },
+  "tags": {
+    "landuse": "industrial",
+    "name": "Dhaka New EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 409866916,
+  "center": {
+    "lat": 24.0953742,
+    "lon": 89.0543973
+  },
+  "tags": {
+    "highway": "unclassified",
+    "name": "Uttar Baghoil to EPZ Road"
+  }
+},
+{
+  "type": "way",
+  "id": 439766735,
+  "center": {
+    "lat": 23.7443340,
+    "lon": 90.3844686
+  },
+  "tags": {
+    "addr:city": "Dhaka",
+    "addr:housenumber": "19/D",
+    "addr:postcode": "1205",
+    "addr:street": "Road # 6, Dhanmondi",
+    "building": "office",
+    "designation": "Government Office",
+    "name": "BEPZA Complex",
+    "source": "www.bepza.gov.bd"
+  }
+},
+{
+  "type": "way",
+  "id": 440512507,
+  "center": {
+    "lat": 23.9470071,
+    "lon": 90.2798666
+  },
+  "tags": {
+    "bicycle": "yes",
+    "foot": "yes",
+    "highway": "service",
+    "horse": "no",
+    "motor_vehicle": "yes",
+    "name": "BEPZA Road",
+    "oneway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 440512745,
+  "center": {
+    "lat": 23.9471246,
+    "lon": 90.2771989
+  },
+  "tags": {
+    "addr:postcode": "1349",
+    "building": "yes",
+    "name": "BEPZA School and College"
+  }
+},
+{
+  "type": "way",
+  "id": 440515173,
+  "center": {
+    "lat": 23.9534429,
+    "lon": 90.2900323
+  },
+  "tags": {
+    "description": "Garments workers residential training place with",
+    "landuse": "residential",
+    "name": "BEPZA Quarters"
+  }
+},
+{
+  "type": "way",
+  "id": 510079795,
+  "center": {
+    "lat": 23.6779338,
+    "lon": 90.5235220
+  },
+  "tags": {
+    "highway": "unclassified",
+    "name": "EPZ Road"
+  }
+},
+{
+  "type": "way",
+  "id": 513888126,
+  "center": {
+    "lat": 22.2845100,
+    "lon": 91.7770306
+  },
+  "tags": {
+    "name": "BEPZA Colony Pond, BEPZA College Rd, Chattogram",
+    "natural": "water",
+    "water": "pond"
+  }
+},
+{
+  "type": "way",
+  "id": 514086234,
+  "center": {
+    "lat": 22.2848950,
+    "lon": 91.7830581
+  },
+  "tags": {
+    "building": "yes",
+    "name": "Nere bepza school & College, BEPZA Residential Area, Chattogram"
+  }
+},
+{
+  "type": "way",
+  "id": 514399809,
+  "center": {
+    "lat": 22.2721709,
+    "lon": 91.7901327
+  },
+  "tags": {
+    "landuse": "industrial",
+    "name": "Karnaphuly EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 514591322,
+  "center": {
+    "lat": 22.2753475,
+    "lon": 91.7906239
+  },
+  "tags": {
+    "building": "industrial",
+    "name": "Strong Footwear Ltd., Plot 37-39, Sector-2, Karnaphuli EPZ, M. A Aziz Rd, Chattogram"
+  }
+},
+{
+  "type": "way",
+  "id": 515143137,
+  "center": {
+    "lat": 22.2928676,
+    "lon": 91.7815753
+  },
+  "tags": {
+    "building": "yes",
+    "name": "AB Bank Limited - Chittagong EPZ Branch"
+  }
+},
+{
+  "type": "way",
+  "id": 515143145,
+  "center": {
+    "lat": 22.2926639,
+    "lon": 91.7799103
+  },
+  "tags": {
+    "building": "yes",
+    "name": "DHL CEPZ Service Point ডিএইচএল সিইপিজেড পরিষেবা পয়েন্ট",
+    "office": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 516755508,
+  "center": {
+    "lat": 22.2944085,
+    "lon": 91.7793461
+  },
+  "tags": {
+    "building": "mosque",
+    "name": "Hazrat Abu Bakr Siddique (RA) Jame Masjid, CEPZ Exit Rd, Chattogram"
+  }
+},
+{
+  "type": "way",
+  "id": 529415060,
+  "center": {
+    "lat": 24.8385185,
+    "lon": 88.9101718
+  },
+  "tags": {
+    "landuse": "commercial",
+    "name": "Naogaon Special Agro-Economic Zone Ltd",
+    "operator": "Naogaon Special Agro-Economic Zone Ltd"
+  }
+},
+{
+  "type": "way",
+  "id": 589404560,
+  "center": {
+    "lat": 23.9501531,
+    "lon": 90.2732250
+  },
+  "tags": {
+    "building": "industrial",
+    "name": "Dhaka Export Processing Zone"
+  }
+},
+{
+  "type": "way",
+  "id": 589404564,
+  "center": {
+    "lat": 23.9501191,
+    "lon": 90.2741228
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553811,
+  "center": {
+    "lat": 23.9498544,
+    "lon": 90.2735907
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553812,
+  "center": {
+    "lat": 23.9498183,
+    "lon": 90.2727034
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553815,
+  "center": {
+    "lat": 23.9526520,
+    "lon": 90.2718680
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553816,
+  "center": {
+    "lat": 23.9513219,
+    "lon": 90.2729282
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553817,
+  "center": {
+    "lat": 23.9511986,
+    "lon": 90.2715738
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553818,
+  "center": {
+    "lat": 23.9499322,
+    "lon": 90.2719465
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553819,
+  "center": {
+    "lat": 23.9487735,
+    "lon": 90.2728980
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553820,
+  "center": {
+    "lat": 23.9493538,
+    "lon": 90.2722470
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553821,
+  "center": {
+    "lat": 23.9493518,
+    "lon": 90.2711182
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553822,
+  "center": {
+    "lat": 23.9517737,
+    "lon": 90.2703537
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553823,
+  "center": {
+    "lat": 23.9518117,
+    "lon": 90.2668849
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553824,
+  "center": {
+    "lat": 23.9506431,
+    "lon": 90.2679594
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553825,
+  "center": {
+    "lat": 23.9505691,
+    "lon": 90.2711289
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553826,
+  "center": {
+    "lat": 23.9494015,
+    "lon": 90.2715602
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589553827,
+  "center": {
+    "lat": 23.9505462,
+    "lon": 90.2727424
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589558568,
+  "center": {
+    "lat": 23.9462805,
+    "lon": 90.2721634
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "EPZ Residential Area Mosque",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "way",
+  "id": 589558589,
+  "center": {
+    "lat": 23.9527492,
+    "lon": 90.2654186
+  },
+  "tags": {
+    "highway": "service",
+    "name": "Old EPZ"
+  }
+},
+{
+  "type": "way",
+  "id": 589566421,
+  "center": {
+    "lat": 23.9455935,
+    "lon": 90.2820662
+  },
+  "tags": {
+    "bicycle": "yes",
+    "foot": "yes",
+    "highway": "service",
+    "horse": "no",
+    "motor_vehicle": "yes",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 589566422,
+  "center": {
+    "lat": 23.9459114,
+    "lon": 90.2837665
+  },
+  "tags": {
+    "bicycle": "yes",
+    "foot": "yes",
+    "highway": "service",
+    "horse": "no",
+    "motor_vehicle": "yes",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 589566423,
+  "center": {
+    "lat": 23.9475315,
+    "lon": 90.2831505
+  },
+  "tags": {
+    "bicycle": "yes",
+    "foot": "yes",
+    "highway": "service",
+    "horse": "no",
+    "motor_vehicle": "yes",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 589566424,
+  "center": {
+    "lat": 23.9488233,
+    "lon": 90.2815441
+  },
+  "tags": {
+    "bicycle": "yes",
+    "foot": "yes",
+    "highway": "service",
+    "horse": "no",
+    "motor_vehicle": "yes",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 589566427,
+  "center": {
+    "lat": 23.9470517,
+    "lon": 90.2798623
+  },
+  "tags": {
+    "bicycle": "yes",
+    "foot": "yes",
+    "highway": "service",
+    "horse": "no",
+    "motor_vehicle": "yes",
+    "name": "BEPZA Road",
+    "oneway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 589835070,
+  "center": {
+    "lat": 23.9463995,
+    "lon": 90.2758661
+  },
+  "tags": {
+    "amenity": "school",
+    "building": "yes",
+    "name": "BEPZA Public School & College"
+  }
+},
+{
+  "type": "way",
+  "id": 590019762,
+  "center": {
+    "lat": 23.9482371,
+    "lon": 90.2773908
+  },
+  "tags": {
+    "highway": "service",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 590019765,
+  "center": {
+    "lat": 23.9472871,
+    "lon": 90.2782137
+  },
+  "tags": {
+    "highway": "unclassified",
+    "name": "BEPZA Road",
+    "oneway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 590019767,
+  "center": {
+    "lat": 23.9472913,
+    "lon": 90.2782877
+  },
+  "tags": {
+    "highway": "unclassified",
+    "name": "BEPZA Road",
+    "oneway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 590019769,
+  "center": {
+    "lat": 23.9453960,
+    "lon": 90.2803526
+  },
+  "tags": {
+    "bicycle": "yes",
+    "foot": "yes",
+    "highway": "service",
+    "horse": "no",
+    "motor_vehicle": "yes",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 590019770,
+  "center": {
+    "lat": 23.9485395,
+    "lon": 90.2797422
+  },
+  "tags": {
+    "bicycle": "yes",
+    "foot": "yes",
+    "highway": "service",
+    "horse": "no",
+    "motor_vehicle": "yes",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 590019771,
+  "center": {
+    "lat": 23.9470962,
+    "lon": 90.2800674
+  },
+  "tags": {
+    "bicycle": "yes",
+    "foot": "yes",
+    "highway": "service",
+    "horse": "no",
+    "lane": "1",
+    "motor_vehicle": "yes",
+    "name": "BEPZA Road",
+    "oneway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 590019772,
+  "center": {
+    "lat": 23.9470817,
+    "lon": 90.2799618
+  },
+  "tags": {
+    "bicycle": "yes",
+    "foot": "yes",
+    "highway": "service",
+    "horse": "no",
+    "lane": "1",
+    "motor_vehicle": "yes",
+    "name": "BEPZA Road",
+    "oneway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 590019777,
+  "center": {
+    "lat": 23.9435022,
+    "lon": 90.2819142
+  },
+  "tags": {
+    "highway": "service",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 590019784,
+  "center": {
+    "lat": 23.9482654,
+    "lon": 90.2805202
+  },
+  "tags": {
+    "highway": "service",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 591121914,
+  "center": {
+    "lat": 23.9422864,
+    "lon": 90.2826247
+  },
+  "tags": {
+    "highway": "service",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 591121916,
+  "center": {
+    "lat": 23.9438316,
+    "lon": 90.2814896
+  },
+  "tags": {
+    "highway": "service",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 591121918,
+  "center": {
+    "lat": 23.9435959,
+    "lon": 90.2797551
+  },
+  "tags": {
+    "highway": "service",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 591121920,
+  "center": {
+    "lat": 23.9437136,
+    "lon": 90.2806388
+  },
+  "tags": {
+    "highway": "service",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 591121923,
+  "center": {
+    "lat": 23.9439525,
+    "lon": 90.2823406
+  },
+  "tags": {
+    "highway": "service",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 591121926,
+  "center": {
+    "lat": 23.9441335,
+    "lon": 90.2836990
+  },
+  "tags": {
+    "highway": "service",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 591121928,
+  "center": {
+    "lat": 23.9420599,
+    "lon": 90.2809166
+  },
+  "tags": {
+    "highway": "service",
+    "name": "BEPZA Road"
+  }
+},
+{
+  "type": "way",
+  "id": 709150908,
+  "center": {
+    "lat": 24.7916282,
+    "lon": 89.9331554
+  },
+  "tags": {
+    "landuse": "industrial",
+    "name": "Jamalpur Economic Zone",
+    "source": "field survey"
+  }
+},
+{
+  "type": "way",
+  "id": 826618612,
+  "center": {
+    "lat": 22.2737550,
+    "lon": 88.0988646
+  },
+  "tags": {
+    "landuse": "industrial",
+    "name": "Falta Special Economic Zone"
+  }
+},
+{
+  "type": "way",
+  "id": 1034585043,
+  "center": {
+    "lat": 24.0880405,
+    "lon": 89.0482186
+  },
+  "tags": {
+    "amenity": "bank",
+    "atm": "yes",
+    "branch": "EPZ Branch",
+    "brand": "Rupali Bank Limited",
+    "level": "2",
+    "name": "Rupali Bank Limited, EPZ Branch",
+    "opening_hours": "Mo-Th,Su 10:00-16:00; PH closed",
+    "operator": "Govt",
+    "wheelchair": "no"
+  }
+},
+{
+  "type": "way",
+  "id": 1042087274,
+  "center": {
+    "lat": 22.2906326,
+    "lon": 91.7792158
+  },
+  "tags": {
+    "landuse": "industrial",
+    "name": "UPGD CEPZ power plant",
+    "operator": "United Power Generation & Distribution Co. Ltd.",
+    "plant:method": "combustion",
+    "plant:output:electricity": "72 MW",
+    "plant:source": "oil",
+    "power": "plant"
+  }
+},
+{
+  "type": "way",
+  "id": 1050038322,
+  "center": {
+    "lat": 22.2852072,
+    "lon": 91.7803368
+  },
+  "tags": {
+    "building": "yes",
+    "name": "Investors Residence, BEPZA College Rd, CEPZ, Chattogram"
+  }
+},
+{
+  "type": "way",
+  "id": 1050438993,
+  "center": {
+    "lat": 22.3001555,
+    "lon": 91.7773689
+  },
+  "tags": {
+    "building": "yes",
+    "name": "Jemina Accessories (BD) Ltd. CEPZ, CEPZ Connecting Rd, Chattogram",
+    "shop": "fashion_accessories"
+  }
+},
+{
+  "type": "way",
+  "id": 1068206474,
+  "center": {
+    "lat": 22.2928923,
+    "lon": 91.7811383
+  },
+  "tags": {
+    "amenity": "fire_station",
+    "mobile": "+880 01958237575",
+    "name": "CEPZ Fire Station",
+    "operator": "Fire service and Civil Defence",
+    "phone": "+880 02333340419",
+    "website": "https://www.fireservice.gov.bd/"
+  }
+},
+{
+  "type": "way",
+  "id": 1117523026,
+  "center": {
+    "lat": 22.2884918,
+    "lon": 91.7791768
+  },
+  "tags": {
+    "building": "yes",
+    "man_made": "works",
+    "name": "Youngone (CEPZ) Ltd, BEPZA College Rd, Chattogram"
+  }
+},
+{
+  "type": "way",
+  "id": 1354358828,
+  "center": {
+    "lat": 23.4424821,
+    "lon": 91.1890635
+  },
+  "tags": {
+    "highway": "service",
+    "name": "EPZ INSIDE ROAD"
+  }
+},
+{
+  "type": "way",
+  "id": 1354560360,
+  "center": {
+    "lat": 23.4470992,
+    "lon": 91.1846605
+  },
+  "tags": {
+    "highway": "secondary",
+    "name": "EPZ Road",
+    "oneway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1356374623,
+  "center": {
+    "lat": 23.5813960,
+    "lon": 90.6526540
+  },
+  "tags": {
+    "landuse": "industrial",
+    "name": "Cumilla Economic Zone",
+    "website": "https://directorsdirectory.com/cumilla-economic-zone/"
+  }
+},
+{
+  "type": "way",
+  "id": 1357809924,
+  "center": {
+    "lat": 23.4439689,
+    "lon": 91.1787092
+  },
+  "tags": {
+    "highway": "secondary",
+    "name": "EPZ Road",
+    "oneway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1372941215,
+  "center": {
+    "lat": 23.6435839,
+    "lon": 90.5878103
+  },
+  "tags": {
+    "landuse": "industrial",
+    "name": "Meghna Industrial Economic Zone",
+    "website": "https://directorsdirectory.com/meghna-industrial-economic-zone/"
+  }
+},
+{
+  "type": "way",
+  "id": 1465027664,
+  "center": {
+    "lat": 23.4428184,
+    "lon": 91.1816273
+  },
+  "tags": {
+    "highway": "service",
+    "name": "EPZ INSIDE ROAD"
+  }
+},
+{
+  "type": "way",
+  "id": 1488017121,
+  "center": {
+    "lat": 22.2279628,
+    "lon": 91.8475086
+  },
+  "tags": {
+    "barrier": "gate",
+    "locked": "yes",
+    "name": "KEPZ South Gate",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "relation",
+  "id": 10321539,
+  "center": {
+    "lat": 22.4912271,
+    "lon": 89.6003720
+  },
+  "tags": {
+    "building": "yes",
+    "name": "Zone Services Complex, Mongla EPZ",
+    "type": "multipolygon"
+  }
+}
+
+  ]
+}

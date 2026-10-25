@@ -1,0 +1,27 @@
+{
+  "method": "GET",
+  "url": "https://api.worldbank.org/v2/country/BGD/indicator/LP.LPI.OVRL.XQ;LP.LPI.TIME.XQ;IS.SHP.GOOD.TU;IS.SHP.GCNW.XQ;TX.VAL.MRCH.CD.WT?format=json&source=2&date=2007:2026&per_page=1000",
+  "params": {
+    "format": "json",
+    "source": 2,
+    "date": "2007:2026",
+    "per_page": 1000
+  },
+  "headers": {
+    "host": "api.worldbank.org",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "five WDI indicators for Bangladesh, 2007-2026 (multi-indicator needs source=2)",
+  "captured_at": "2026-10-25T22:19:04.029314+00:00",
+  "status": 200,
+  "content_type": "application/json;charset=utf-8",
+  "transformed": false
+}

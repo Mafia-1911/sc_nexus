@@ -1,0 +1,18 @@
+{
+  "url": "holidays.country_holidays('BD')",
+  "years": [
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026,
+    2027
+  ],
+  "captured_at": "2026-10-25T22:45:47.236661+00:00",
+  "status": null,
+  "content_type": "",
+  "transformed": false
+}

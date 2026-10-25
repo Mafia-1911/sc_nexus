@@ -1,0 +1,27 @@
+{
+  "method": "GET",
+  "url": "https://cmr.earthdata.nasa.gov/search/granules.json?short_name=SENTINEL-1A_SLC&bounding_box=91.5,21.7,91.95,22.3&temporal=2026-10-15T23:32:25Z,&page_size=10",
+  "params": {
+    "short_name": "SENTINEL-1A_SLC",
+    "bounding_box": "91.5,21.7,91.95,22.3",
+    "temporal": "2026-10-15T23:32:25Z,",
+    "page_size": 10
+  },
+  "headers": {
+    "host": "cmr.earthdata.nasa.gov",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-25T23:32:25.086281+00:00",
+  "status": 200,
+  "content_type": "application/json;charset=utf-8",
+  "transformed": false
+}

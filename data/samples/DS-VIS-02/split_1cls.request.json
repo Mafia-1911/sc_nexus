@@ -1,0 +1,22 @@
+{
+  "method": "GET",
+  "url": "https://raw.githubusercontent.com/amazon-science/spot-diff/main/split_csv/1cls.csv",
+  "params": null,
+  "headers": {
+    "host": "raw.githubusercontent.com",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-25T23:22:41.439873+00:00",
+  "status": 200,
+  "content_type": "text/plain; charset=utf-8",
+  "transformed": false
+}

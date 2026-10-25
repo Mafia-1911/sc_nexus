@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-SAT-05",
+  "title": "DS-SAT-05 · NASA Earthdata (proposed): raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "cmr_flood_nrt_granules": {
+      "type": "object",
+      "properties": {
+        "feed": {
+          "type": "object",
+          "properties": {
+            "updated": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "entry": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "producer_granule_id": {
+                    "type": "string"
+                  },
+                  "time_start": {
+                    "type": "string"
+                  },
+                  "updated": {
+                    "type": "string"
+                  },
+                  "dataset_id": {
+                    "type": "string"
+                  },
+                  "data_center": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "coordinate_system": {
+                    "type": "string"
+                  },
+                  "day_night_flag": {
+                    "type": "string"
+                  },
+                  "time_end": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "original_format": {
+                    "type": "string"
+                  },
+                  "granule_size": {
+                    "type": "string"
+                  },
+                  "browse_flag": {
+                    "type": "boolean"
+                  },
+                  "polygons": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "collection_concept_id": {
+                    "type": "string"
+                  },
+                  "online_access_flag": {
+                    "type": "boolean"
+                  },
+                  "links": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "rel": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "hreflang": {
+                          "type": "string"
+                        },
+                        "href": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "inherited": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "href",
+                        "hreflang",
+                        "rel"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "browse_flag",
+                  "collection_concept_id",
+                  "coordinate_system",
+                  "data_center",
+                  "dataset_id",
+                  "day_night_flag",
+                  "granule_size",
+                  "id",
+                  "links",
+                  "online_access_flag",
+                  "original_format",
+                  "polygons",
+                  "producer_granule_id",
+                  "time_end",
+                  "time_start",
+                  "title",
+                  "updated"
+                ]
+              }
+            }
+          },
+          "required": [
+            "entry",
+            "id",
+            "title",
+            "updated"
+          ]
+        }
+      },
+      "required": [
+        "feed"
+      ]
+    },
+    "cmr_s1_granules_ctg": {
+      "type": "object",
+      "properties": {
+        "feed": {
+          "type": "object",
+          "properties": {
+            "updated": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "entry": {
+              "type": "array"
+            }
+          },
+          "required": [
+            "entry",
+            "id",
+            "title",
+            "updated"
+          ]
+        }
+      },
+      "required": [
+        "feed"
+      ]
+    }
+  }
+}

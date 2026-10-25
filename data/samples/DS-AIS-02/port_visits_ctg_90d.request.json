@@ -1,0 +1,61 @@
+{
+  "method": "POST",
+  "url": "https://gateway.api.globalfishingwatch.org/v3/events?offset=0&limit=1000",
+  "params": {
+    "offset": 0,
+    "limit": 1000
+  },
+  "headers": {
+    "host": "gateway.api.globalfishingwatch.org",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)",
+    "authorization": "***REDACTED***",
+    "content-length": "216",
+    "content-type": "application/json"
+  },
+  "json": {
+    "datasets": [
+      "public-global-port-visits-events:latest"
+    ],
+    "startDate": "2026-07-27",
+    "endDate": "2026-10-25",
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            91.5,
+            21.7
+          ],
+          [
+            91.95,
+            21.7
+          ],
+          [
+            91.95,
+            22.36
+          ],
+          [
+            91.5,
+            22.36
+          ],
+          [
+            91.5,
+            21.7
+          ]
+        ]
+      ]
+    }
+  },
+  "data": null,
+  "timeout_s": 120,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "port visits in the Chattogram envelope, 2026-07-27..2026-10-25",
+  "captured_at": "2026-10-25T23:14:26.993553+00:00",
+  "status": 201,
+  "content_type": "application/json; charset=utf-8",
+  "transformed": false
+}

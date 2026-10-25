@@ -1,0 +1,24 @@
+{
+  "method": "GET",
+  "url": "https://api.github.com/repos/CIOL-SUST/SupplyGraph/git/trees/main?recursive=1",
+  "params": {
+    "recursive": "1"
+  },
+  "headers": {
+    "host": "api.github.com",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)",
+    "accept": "application/vnd.github+json"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-25T23:31:37.489905+00:00",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "transformed": false
+}

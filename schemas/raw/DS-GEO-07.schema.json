@@ -1,0 +1,1232 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-GEO-07",
+  "title": "DS-GEO-07 · Basemap tiles (OpenFreeMap, Protomaps): raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "style_liberty": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "integer"
+        },
+        "sources": {
+          "type": "object",
+          "properties": {
+            "ne2_shaded": {
+              "type": "object",
+              "properties": {
+                "maxzoom": {
+                  "type": "integer"
+                },
+                "tileSize": {
+                  "type": "integer"
+                },
+                "tiles": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "maxzoom",
+                "tileSize",
+                "tiles",
+                "type"
+              ]
+            },
+            "openmaptiles": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "url"
+              ]
+            }
+          },
+          "required": [
+            "ne2_shaded",
+            "openmaptiles"
+          ]
+        },
+        "sprite": {
+          "type": "string"
+        },
+        "glyphs": {
+          "type": "string"
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "paint": {
+                "type": "object",
+                "properties": {
+                  "background-color": {
+                    "type": "string"
+                  },
+                  "raster-opacity": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "fill-color": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": [
+                                "integer",
+                                "string"
+                              ]
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "fill-opacity": {
+                    "type": "number"
+                  },
+                  "fill-outline-color": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": [
+                                "integer",
+                                "string"
+                              ]
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "line-color": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": [
+                                "integer",
+                                "string"
+                              ]
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "line-dasharray": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "fill-antialias": {
+                    "type": "boolean"
+                  },
+                  "fill-pattern": {
+                    "type": "string"
+                  },
+                  "fill-translate-anchor": {
+                    "type": "string"
+                  },
+                  "line-gap-width": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": [
+                            "integer",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "line-opacity": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": [
+                                "number",
+                                "string"
+                              ]
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "line-width": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "fill-extrusion-base": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "fill-extrusion-color": {
+                    "type": "string"
+                  },
+                  "fill-extrusion-height": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "fill-extrusion-opacity": {
+                    "type": "number"
+                  },
+                  "text-color": {
+                    "type": "string"
+                  },
+                  "text-halo-color": {
+                    "type": "string"
+                  },
+                  "text-halo-width": {
+                    "type": "number"
+                  },
+                  "text-halo-blur": {
+                    "type": "number"
+                  }
+                }
+              },
+              "source": {
+                "type": "string"
+              },
+              "maxzoom": {
+                "type": "integer"
+              },
+              "source-layer": {
+                "type": "string"
+              },
+              "filter": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": [
+                        "boolean",
+                        "integer",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": [
+                              "boolean",
+                              "integer",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              "minzoom": {
+                "type": "number"
+              },
+              "layout": {
+                "type": "object",
+                "properties": {
+                  "line-cap": {
+                    "type": "string"
+                  },
+                  "line-join": {
+                    "type": "string"
+                  },
+                  "icon-image": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": [
+                                "integer",
+                                "string"
+                              ]
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "symbol-placement": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": [
+                                "integer",
+                                "string"
+                              ]
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "icon-rotate": {
+                    "type": "integer"
+                  },
+                  "symbol-spacing": {
+                    "type": "integer"
+                  },
+                  "text-field": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "text-font": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "text-letter-spacing": {
+                    "type": "number"
+                  },
+                  "text-max-width": {
+                    "type": "number"
+                  },
+                  "text-size": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": [
+                                "integer",
+                                "string"
+                              ]
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": [
+                                  "number",
+                                  "string"
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "text-anchor": {
+                    "type": "string"
+                  },
+                  "text-offset": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "icon-size": {
+                    "type": "number"
+                  },
+                  "text-rotation-alignment": {
+                    "type": "string"
+                  },
+                  "icon-rotation-alignment": {
+                    "type": "string"
+                  },
+                  "text-optional": {
+                    "type": "boolean"
+                  },
+                  "text-padding": {
+                    "type": "integer"
+                  },
+                  "text-transform": {
+                    "type": "string"
+                  },
+                  "icon-allow-overlap": {
+                    "type": "boolean"
+                  },
+                  "icon-optional": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "required": [
+              "id",
+              "type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "glyphs",
+        "layers",
+        "sources",
+        "sprite",
+        "version"
+      ]
+    },
+    "tilejson": {
+      "type": "object",
+      "properties": {
+        "tilejson": {
+          "type": "string"
+        },
+        "tiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "vector_layers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "fields": {
+                "type": "object",
+                "properties": {
+                  "class": {
+                    "type": "string"
+                  },
+                  "ele": {
+                    "type": "string"
+                  },
+                  "ele_ft": {
+                    "type": "string"
+                  },
+                  "iata": {
+                    "type": "string"
+                  },
+                  "icao": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "name:af": {
+                    "type": "string"
+                  },
+                  "name:am": {
+                    "type": "string"
+                  },
+                  "name:ar": {
+                    "type": "string"
+                  },
+                  "name:az": {
+                    "type": "string"
+                  },
+                  "name:be": {
+                    "type": "string"
+                  },
+                  "name:bg": {
+                    "type": "string"
+                  },
+                  "name:bn": {
+                    "type": "string"
+                  },
+                  "name:br": {
+                    "type": "string"
+                  },
+                  "name:bs": {
+                    "type": "string"
+                  },
+                  "name:ca": {
+                    "type": "string"
+                  },
+                  "name:co": {
+                    "type": "string"
+                  },
+                  "name:cs": {
+                    "type": "string"
+                  },
+                  "name:cy": {
+                    "type": "string"
+                  },
+                  "name:da": {
+                    "type": "string"
+                  },
+                  "name:de": {
+                    "type": "string"
+                  },
+                  "name:el": {
+                    "type": "string"
+                  },
+                  "name:en": {
+                    "type": "string"
+                  },
+                  "name:eo": {
+                    "type": "string"
+                  },
+                  "name:es": {
+                    "type": "string"
+                  },
+                  "name:et": {
+                    "type": "string"
+                  },
+                  "name:eu": {
+                    "type": "string"
+                  },
+                  "name:fa": {
+                    "type": "string"
+                  },
+                  "name:fi": {
+                    "type": "string"
+                  },
+                  "name:fr": {
+                    "type": "string"
+                  },
+                  "name:fy": {
+                    "type": "string"
+                  },
+                  "name:ga": {
+                    "type": "string"
+                  },
+                  "name:gd": {
+                    "type": "string"
+                  },
+                  "name:he": {
+                    "type": "string"
+                  },
+                  "name:hi": {
+                    "type": "string"
+                  },
+                  "name:hr": {
+                    "type": "string"
+                  },
+                  "name:hu": {
+                    "type": "string"
+                  },
+                  "name:hy": {
+                    "type": "string"
+                  },
+                  "name:id": {
+                    "type": "string"
+                  },
+                  "name:is": {
+                    "type": "string"
+                  },
+                  "name:it": {
+                    "type": "string"
+                  },
+                  "name:ja": {
+                    "type": "string"
+                  },
+                  "name:ja-Hira": {
+                    "type": "string"
+                  },
+                  "name:ja-Latn": {
+                    "type": "string"
+                  },
+                  "name:ka": {
+                    "type": "string"
+                  },
+                  "name:kk": {
+                    "type": "string"
+                  },
+                  "name:kn": {
+                    "type": "string"
+                  },
+                  "name:ko": {
+                    "type": "string"
+                  },
+                  "name:ko-Latn": {
+                    "type": "string"
+                  },
+                  "name:ku": {
+                    "type": "string"
+                  },
+                  "name:la": {
+                    "type": "string"
+                  },
+                  "name:latin": {
+                    "type": "string"
+                  },
+                  "name:lb": {
+                    "type": "string"
+                  },
+                  "name:lt": {
+                    "type": "string"
+                  },
+                  "name:lv": {
+                    "type": "string"
+                  },
+                  "name:mk": {
+                    "type": "string"
+                  },
+                  "name:ml": {
+                    "type": "string"
+                  },
+                  "name:mt": {
+                    "type": "string"
+                  },
+                  "name:nl": {
+                    "type": "string"
+                  },
+                  "name:no": {
+                    "type": "string"
+                  },
+                  "name:nonlatin": {
+                    "type": "string"
+                  },
+                  "name:oc": {
+                    "type": "string"
+                  },
+                  "name:pa": {
+                    "type": "string"
+                  },
+                  "name:pl": {
+                    "type": "string"
+                  },
+                  "name:pnb": {
+                    "type": "string"
+                  },
+                  "name:pt": {
+                    "type": "string"
+                  },
+                  "name:rm": {
+                    "type": "string"
+                  },
+                  "name:ro": {
+                    "type": "string"
+                  },
+                  "name:ru": {
+                    "type": "string"
+                  },
+                  "name:sk": {
+                    "type": "string"
+                  },
+                  "name:sl": {
+                    "type": "string"
+                  },
+                  "name:sq": {
+                    "type": "string"
+                  },
+                  "name:sr": {
+                    "type": "string"
+                  },
+                  "name:sr-Latn": {
+                    "type": "string"
+                  },
+                  "name:sv": {
+                    "type": "string"
+                  },
+                  "name:ta": {
+                    "type": "string"
+                  },
+                  "name:te": {
+                    "type": "string"
+                  },
+                  "name:th": {
+                    "type": "string"
+                  },
+                  "name:tr": {
+                    "type": "string"
+                  },
+                  "name:uk": {
+                    "type": "string"
+                  },
+                  "name:ur": {
+                    "type": "string"
+                  },
+                  "name:vi": {
+                    "type": "string"
+                  },
+                  "name:zh": {
+                    "type": "string"
+                  },
+                  "name:zh-Hans": {
+                    "type": "string"
+                  },
+                  "name:zh-Hant": {
+                    "type": "string"
+                  },
+                  "name_de": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string"
+                  },
+                  "name_int": {
+                    "type": "string"
+                  },
+                  "ref": {
+                    "type": "string"
+                  },
+                  "adm0_l": {
+                    "type": "string"
+                  },
+                  "adm0_r": {
+                    "type": "string"
+                  },
+                  "admin_level": {
+                    "type": "string"
+                  },
+                  "claimed_by": {
+                    "type": "string"
+                  },
+                  "disputed": {
+                    "type": "string"
+                  },
+                  "disputed_name": {
+                    "type": "string"
+                  },
+                  "maritime": {
+                    "type": "string"
+                  },
+                  "name:tok": {
+                    "type": "string"
+                  },
+                  "colour": {
+                    "type": "string"
+                  },
+                  "hide_3d": {
+                    "type": "string"
+                  },
+                  "render_height": {
+                    "type": "string"
+                  },
+                  "render_min_height": {
+                    "type": "string"
+                  },
+                  "housenumber": {
+                    "type": "string"
+                  },
+                  "subclass": {
+                    "type": "string"
+                  },
+                  "customary_ft": {
+                    "type": "string"
+                  },
+                  "rank": {
+                    "type": "string"
+                  },
+                  "capital": {
+                    "type": "string"
+                  },
+                  "iso_a2": {
+                    "type": "string"
+                  },
+                  "agg_stop": {
+                    "type": "string"
+                  },
+                  "indoor": {
+                    "type": "string"
+                  },
+                  "layer": {
+                    "type": "string"
+                  },
+                  "level": {
+                    "type": "string"
+                  },
+                  "access": {
+                    "type": "string"
+                  },
+                  "bicycle": {
+                    "type": "string"
+                  },
+                  "brunnel": {
+                    "type": "string"
+                  },
+                  "expressway": {
+                    "type": "string"
+                  },
+                  "foot": {
+                    "type": "string"
+                  },
+                  "horse": {
+                    "type": "string"
+                  },
+                  "mtb_scale": {
+                    "type": "string"
+                  },
+                  "network": {
+                    "type": "string"
+                  },
+                  "official": {
+                    "type": "string"
+                  },
+                  "oneway": {
+                    "type": "string"
+                  },
+                  "ramp": {
+                    "type": "string"
+                  },
+                  "service": {
+                    "type": "string"
+                  },
+                  "surface": {
+                    "type": "string"
+                  },
+                  "toll": {
+                    "type": "string"
+                  },
+                  "ref_length": {
+                    "type": "string"
+                  },
+                  "route_10_colour": {
+                    "type": "string"
+                  },
+                  "route_10_name": {
+                    "type": "string"
+                  },
+                  "route_10_network": {
+                    "type": "string"
+                  },
+                  "route_10_ref": {
+                    "type": "string"
+                  },
+                  "route_11_colour": {
+                    "type": "string"
+                  },
+                  "route_11_name": {
+                    "type": "string"
+                  },
+                  "route_11_network": {
+                    "type": "string"
+                  },
+                  "route_11_ref": {
+                    "type": "string"
+                  },
+                  "route_12_colour": {
+                    "type": "string"
+                  },
+                  "route_12_name": {
+                    "type": "string"
+                  },
+                  "route_12_network": {
+                    "type": "string"
+                  },
+                  "route_12_ref": {
+                    "type": "string"
+                  },
+                  "route_13_colour": {
+                    "type": "string"
+                  },
+                  "route_13_name": {
+                    "type": "string"
+                  },
+                  "route_13_network": {
+                    "type": "string"
+                  },
+                  "route_13_ref": {
+                    "type": "string"
+                  },
+                  "route_14_colour": {
+                    "type": "string"
+                  },
+                  "route_14_name": {
+                    "type": "string"
+                  },
+                  "route_14_network": {
+                    "type": "string"
+                  },
+                  "route_14_ref": {
+                    "type": "string"
+                  },
+                  "route_15_colour": {
+                    "type": "string"
+                  },
+                  "route_15_name": {
+                    "type": "string"
+                  },
+                  "route_15_network": {
+                    "type": "string"
+                  },
+                  "route_15_ref": {
+                    "type": "string"
+                  },
+                  "route_16_colour": {
+                    "type": "string"
+                  },
+                  "route_16_name": {
+                    "type": "string"
+                  },
+                  "route_16_network": {
+                    "type": "string"
+                  },
+                  "route_16_ref": {
+                    "type": "string"
+                  },
+                  "route_17_name": {
+                    "type": "string"
+                  },
+                  "route_17_network": {
+                    "type": "string"
+                  },
+                  "route_17_ref": {
+                    "type": "string"
+                  },
+                  "route_18_name": {
+                    "type": "string"
+                  },
+                  "route_18_network": {
+                    "type": "string"
+                  },
+                  "route_18_ref": {
+                    "type": "string"
+                  },
+                  "route_19_name": {
+                    "type": "string"
+                  },
+                  "route_19_network": {
+                    "type": "string"
+                  },
+                  "route_1_colour": {
+                    "type": "string"
+                  },
+                  "route_1_name": {
+                    "type": "string"
+                  },
+                  "route_1_network": {
+                    "type": "string"
+                  },
+                  "route_1_ref": {
+                    "type": "string"
+                  },
+                  "route_20_name": {
+                    "type": "string"
+                  },
+                  "route_20_network": {
+                    "type": "string"
+                  },
+                  "route_21_name": {
+                    "type": "string"
+                  },
+                  "route_21_network": {
+                    "type": "string"
+                  },
+                  "route_2_colour": {
+                    "type": "string"
+                  },
+                  "route_2_name": {
+                    "type": "string"
+                  },
+                  "route_2_network": {
+                    "type": "string"
+                  },
+                  "route_2_ref": {
+                    "type": "string"
+                  },
+                  "route_3_colour": {
+                    "type": "string"
+                  },
+                  "route_3_name": {
+                    "type": "string"
+                  },
+                  "route_3_network": {
+                    "type": "string"
+                  },
+                  "route_3_ref": {
+                    "type": "string"
+                  },
+                  "route_4_colour": {
+                    "type": "string"
+                  },
+                  "route_4_name": {
+                    "type": "string"
+                  },
+                  "route_4_network": {
+                    "type": "string"
+                  },
+                  "route_4_ref": {
+                    "type": "string"
+                  },
+                  "route_5_colour": {
+                    "type": "string"
+                  },
+                  "route_5_name": {
+                    "type": "string"
+                  },
+                  "route_5_network": {
+                    "type": "string"
+                  },
+                  "route_5_ref": {
+                    "type": "string"
+                  },
+                  "route_6_colour": {
+                    "type": "string"
+                  },
+                  "route_6_name": {
+                    "type": "string"
+                  },
+                  "route_6_network": {
+                    "type": "string"
+                  },
+                  "route_6_ref": {
+                    "type": "string"
+                  },
+                  "route_7_colour": {
+                    "type": "string"
+                  },
+                  "route_7_name": {
+                    "type": "string"
+                  },
+                  "route_7_network": {
+                    "type": "string"
+                  },
+                  "route_7_ref": {
+                    "type": "string"
+                  },
+                  "route_8_colour": {
+                    "type": "string"
+                  },
+                  "route_8_name": {
+                    "type": "string"
+                  },
+                  "route_8_network": {
+                    "type": "string"
+                  },
+                  "route_8_ref": {
+                    "type": "string"
+                  },
+                  "route_9_colour": {
+                    "type": "string"
+                  },
+                  "route_9_name": {
+                    "type": "string"
+                  },
+                  "route_9_network": {
+                    "type": "string"
+                  },
+                  "route_9_ref": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "intermittent": {
+                    "type": "string"
+                  }
+                }
+              },
+              "minzoom": {
+                "type": "integer"
+              },
+              "maxzoom": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "fields",
+              "id",
+              "maxzoom",
+              "minzoom"
+            ]
+          }
+        },
+        "attribution": {
+          "type": "string"
+        },
+        "bounds": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "center": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "maxzoom": {
+          "type": "integer"
+        },
+        "minzoom": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "attribution",
+        "bounds",
+        "center",
+        "description",
+        "maxzoom",
+        "minzoom",
+        "name",
+        "tilejson",
+        "tiles",
+        "vector_layers",
+        "version"
+      ]
+    }
+  }
+}

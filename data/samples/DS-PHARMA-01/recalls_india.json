@@ -1,0 +1,5471 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-10-14",
+    "results": {
+      "skip": 0,
+      "limit": 100,
+      "total": 109
+    }
+  },
+  "results": [
+    {
+      "status": "Ongoing",
+      "city": "Madurai",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M018"
+        ],
+        "brand_name": [
+          "FOCUS PI"
+        ],
+        "generic_name": [
+          "HYPROMELLOSE EYE DROPS 0.7%"
+        ],
+        "manufacturer_name": [
+          "COVALENT MEDICAL"
+        ],
+        "product_ndc": [
+          "82724-007"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "OPHTHALMIC"
+        ],
+        "substance_name": [
+          "HYPROMELLOSE 2910 (4000 MPA.S)"
+        ],
+        "rxcui": [
+          "2743251"
+        ],
+        "spl_id": [
+          "7d464072-62dd-4b68-8558-9008989000ad"
+        ],
+        "spl_set_id": [
+          "e9b2afdd-049a-3987-e053-2a95a90a6cbb"
+        ],
+        "package_ndc": [
+          "82724-007-19"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "RN3152OP35"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "99903",
+      "recalling_firm": "Aurolab Trust",
+      "address_1": "1 Sivagangai Main Road",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "VA",
+      "recall_number": "D-0874-2026",
+      "product_description": "FOCUS PI Hypromellose 0.7% Formula, 0.3 FL O (10 mL) per vial, STERILE, Manufactured for: Covalent Management, Inc., Manassas, VA 20109.  NDC: 82724-007-19",
+      "product_quantity": "25,220 bottles",
+      "reason_for_recall": "Lack of Assurance of Sterility",
+      "recall_initiation_date": "20260917",
+      "center_classification_date": "20260928",
+      "report_date": "20261007",
+      "code_info": "Batch# 6B093FI, Exp. 04/01/28; Batch# 6F511F1, Exp. 05/15/28",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Tehsil Baddi, District Solan",
+      "state": "",
+      "country": "India",
+      "classification": "Class III",
+      "openfda": {
+        "application_number": [
+          "ANDA202862"
+        ],
+        "brand_name": [
+          "OLANZAPINE"
+        ],
+        "generic_name": [
+          "OLANZAPINE"
+        ],
+        "manufacturer_name": [
+          "Macleods Pharmaceuticals Limited"
+        ],
+        "product_ndc": [
+          "33342-067",
+          "33342-068",
+          "33342-069",
+          "33342-070",
+          "33342-071",
+          "33342-072"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "OLANZAPINE"
+        ],
+        "rxcui": [
+          "200034",
+          "283639",
+          "312077",
+          "312078",
+          "312079",
+          "314154"
+        ],
+        "spl_id": [
+          "2b861570-6b18-4b2b-89aa-29ebde7770f5"
+        ],
+        "spl_set_id": [
+          "8e095987-bdea-42f2-9550-c7155cf07d30"
+        ],
+        "package_ndc": [
+          "33342-067-07",
+          "33342-067-44",
+          "33342-067-12",
+          "33342-067-11",
+          "33342-068-07",
+          "33342-068-44",
+          "33342-068-12",
+          "33342-068-11",
+          "33342-069-07",
+          "33342-069-44",
+          "33342-069-12",
+          "33342-069-11",
+          "33342-070-07",
+          "33342-070-15",
+          "33342-070-12",
+          "33342-070-44",
+          "33342-070-11",
+          "33342-071-07",
+          "33342-071-15",
+          "33342-071-12",
+          "33342-071-44",
+          "33342-071-11",
+          "33342-072-07",
+          "33342-072-15",
+          "33342-072-12",
+          "33342-072-44",
+          "33342-072-11"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0333342067074",
+          "0333342070074",
+          "0333342069078",
+          "0333342072078",
+          "0333342071071",
+          "0333342068071"
+        ],
+        "nui": [
+          "N0000175430"
+        ],
+        "pharm_class_epc": [
+          "Atypical Antipsychotic [EPC]"
+        ],
+        "unii": [
+          "N7U69T4SZR"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "99773",
+      "recalling_firm": "Macleods Pharmaceuticals Limited",
+      "address_1": "Village Theda",
+      "address_2": "Post Office Lodhimajra",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0867-2026",
+      "product_description": "Olanzapine Tablets, USP 5 mg, 30-count bottle, Rx Only, Manufactured For: Macleods Pharma USA, Inc. Princeton, NJ, 08540; Manufactured by: Macleods Pharmaceuticals, Ltd, Baddi, Himachal Pradesh, INDIA, NDC 33342-068-07.",
+      "product_quantity": "22,032 30-count bottles",
+      "reason_for_recall": "Failed Impurities/Degradation Specifications:Organic and unspecified impurities above specification.",
+      "recall_initiation_date": "20260827",
+      "center_classification_date": "20260922",
+      "report_date": "20260930",
+      "code_info": "Lot: BOB22321A, Exp 07-31-2027.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Kalyan",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA211320"
+        ],
+        "brand_name": [
+          "CHLORTHALIDONE"
+        ],
+        "generic_name": [
+          "CHLORTHALIDONE"
+        ],
+        "manufacturer_name": [
+          "Rising Pharma Holdings, Inc."
+        ],
+        "product_ndc": [
+          "64980-599",
+          "64980-600"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "CHLORTHALIDONE"
+        ],
+        "rxcui": [
+          "197499",
+          "197500"
+        ],
+        "spl_id": [
+          "6404aaa7-05c8-4f96-a091-3f07248ffbd5"
+        ],
+        "spl_set_id": [
+          "71b1d074-0521-4cd1-beb5-fedd61f52eca"
+        ],
+        "package_ndc": [
+          "64980-599-01",
+          "64980-599-10",
+          "64980-600-01"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0364980599108",
+          "0364980599016",
+          "0364980600019"
+        ],
+        "nui": [
+          "N0000175359",
+          "N0000175420"
+        ],
+        "pharm_class_pe": [
+          "Increased Diuresis [PE]"
+        ],
+        "pharm_class_epc": [
+          "Thiazide-like Diuretic [EPC]"
+        ],
+        "unii": [
+          "Q0MQD1073Q"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "99806",
+      "recalling_firm": "Inventia Healthcare Limited",
+      "address_1": "Additional Ambernath Midc",
+      "address_2": "Ambernath East; F1-F1/1-F75/1",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S. Nationwide",
+      "recall_number": "D-0852-2026",
+      "product_description": "Chlorthalidone Tablets, USP, 25 mg, 100 Tablets per bottle, Rx only, Manufactured by: Inventia Healthcare Limited.   NDC:  64980-599-01",
+      "product_quantity": "13567 bottles",
+      "reason_for_recall": "Failed Dissolution Specifications",
+      "recall_initiation_date": "20260903",
+      "center_classification_date": "20260917",
+      "report_date": "20260923",
+      "code_info": "Batch # RISA24002; Exp Date: 04/2027",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Jadcherla, Mahabubnagar District",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "NDA215179"
+        ],
+        "brand_name": [
+          "PEMRYDI RTU"
+        ],
+        "generic_name": [
+          "PEMETREXED DISODIUM"
+        ],
+        "manufacturer_name": [
+          "Amneal Pharmaceuticals LLC"
+        ],
+        "product_ndc": [
+          "70121-2453",
+          "70121-2461",
+          "70121-2462"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "INTRAVENOUS"
+        ],
+        "substance_name": [
+          "PEMETREXED DISODIUM HEMIPENTAHYDRATE"
+        ],
+        "rxcui": [
+          "2637958",
+          "2637964",
+          "2637966",
+          "2637967",
+          "2637968",
+          "2637969"
+        ],
+        "spl_id": [
+          "b6a00be1-95d1-4b91-93bf-4430a57eeff6"
+        ],
+        "spl_set_id": [
+          "0f006b06-ab85-423d-ba0c-dfc3fc25844e"
+        ],
+        "package_ndc": [
+          "70121-2453-1",
+          "70121-2461-1",
+          "70121-2462-1"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0370121246213",
+          "0370121246114",
+          "0370121245315"
+        ],
+        "unii": [
+          "F4GSH45R4C"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "99530",
+      "recalling_firm": "Shilpa Medicare Limited",
+      "address_1": "Plot No. S20 to S26, Pharmaceutical Formulations SEZ",
+      "address_2": "TSIIC Green Industrial Park, Polepally (Village)",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA.",
+      "recall_number": "D-0764-2026",
+      "product_description": "PEMRYDI RTU (pemetrexed injection), 100 mg/10 mL (10 mg/mL),  Single-dose vial, Rx only, Manufactured by: Zydus Lifesciences Limited, Ahmedabad, India; Distributed by: Amneal Pharmaceuticals LC, Bridgewater, NY 08807.  NDC: 70121-2453-1",
+      "product_quantity": "18,434 10mL vials",
+      "reason_for_recall": "Discolored solution. The firm has received market complaints reporting green to dark green discoloration in certain vials",
+      "recall_initiation_date": "20260729",
+      "center_classification_date": "20260814",
+      "report_date": "20260826",
+      "code_info": "Lot: P400172; Lot PA00050A, Exp 09/30/2027",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Jadcherla, Mahabubnagar District",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "NDA215179"
+        ],
+        "brand_name": [
+          "PEMRYDI RTU"
+        ],
+        "generic_name": [
+          "PEMETREXED DISODIUM"
+        ],
+        "manufacturer_name": [
+          "Amneal Pharmaceuticals LLC"
+        ],
+        "product_ndc": [
+          "70121-2453",
+          "70121-2461",
+          "70121-2462"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "INTRAVENOUS"
+        ],
+        "substance_name": [
+          "PEMETREXED DISODIUM HEMIPENTAHYDRATE"
+        ],
+        "rxcui": [
+          "2637958",
+          "2637964",
+          "2637966",
+          "2637967",
+          "2637968",
+          "2637969"
+        ],
+        "spl_id": [
+          "b6a00be1-95d1-4b91-93bf-4430a57eeff6"
+        ],
+        "spl_set_id": [
+          "0f006b06-ab85-423d-ba0c-dfc3fc25844e"
+        ],
+        "package_ndc": [
+          "70121-2453-1",
+          "70121-2461-1",
+          "70121-2462-1"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0370121246213",
+          "0370121246114",
+          "0370121245315"
+        ],
+        "unii": [
+          "F4GSH45R4C"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "99530",
+      "recalling_firm": "Shilpa Medicare Limited",
+      "address_1": "Plot No. S20 to S26, Pharmaceutical Formulations SEZ",
+      "address_2": "TSIIC Green Industrial Park, Polepally (Village)",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA.",
+      "recall_number": "D-0765-2026",
+      "product_description": "PEMRYDI RTU(pemetrexed injection), 500 mg/50 mL (10 mg/mL), Single-dose vial, Rx only, Manufactured by: Zydus Lifesciences Limited, Ahmedabad, India; Distributed by: Amneal Pharmaceuticals LC, Bridgewater, NY 08807.  NDC: 70121-2461-1",
+      "product_quantity": "9,489 50mL vials",
+      "reason_for_recall": "Discolored solution. The firm has received market complaints reporting green to dark green discoloration in certain vials",
+      "recall_initiation_date": "20260729",
+      "center_classification_date": "20260814",
+      "report_date": "20260826",
+      "code_info": "Lot: P400157, Exp 08/31/2026; Lot PA00047A, Exp 09/30/2027",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Kadi",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99547",
+      "recalling_firm": "Shoolin Pharma Chem LLP",
+      "address_1": "408 B/H Ratnamani Tubes",
+      "address_2": "Block/Survey No; Nr Maruti Inox",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "",
+      "distribution_pattern": "Distributed Nationwide in the USA",
+      "recall_number": "D-0759-2026",
+      "product_description": "SILDENAFIL CITRATE USP, 0.100 KG, 100 gm-bag Net Wt, RX ONLY \"FOR Prescription Compounding Only\", Shoolin Pharma Chem LLP, Block/Survey no 408, B/H Ratnamani Tubes, Near Maruti Inox, Indrad, Kadi, Mahesana, Gujarat, 382715, India,  (CAS NO. 171599-83-0) NDC 85702-001-05",
+      "product_quantity": "25KG, 250-1gm bags",
+      "reason_for_recall": "CGMP Deviations:Noted during FDA inspection",
+      "recall_initiation_date": "20260803",
+      "center_classification_date": "20260813",
+      "report_date": "20260819",
+      "code_info": "Batch SDC2505001, Date of Expiry: April 30, 2030.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Kadi",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99547",
+      "recalling_firm": "Shoolin Pharma Chem LLP",
+      "address_1": "408 B/H Ratnamani Tubes",
+      "address_2": "Block/Survey No; Nr Maruti Inox",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "",
+      "distribution_pattern": "Distributed Nationwide in the USA",
+      "recall_number": "D-0760-2026",
+      "product_description": "TADALAFIL USP, 0.100 KG, 0.1KG(100gm)-bag, Rx only, \"For Prescription Compounding Only\",  Shoolin Pharma Chem LLP, Block/Survey no 408, B/H Ratnamani Tubes, Near Maruti Inox, Indrad, Kadi, Mahesania, Gujarat, 382715, India, (CAS NO 1715996-29-5), NDC 85702-002-02.",
+      "product_quantity": "1KG - 100-0.1KG(100gm) bags",
+      "reason_for_recall": "CGMP Deviations:Noted during FDA inspection",
+      "recall_initiation_date": "20260803",
+      "center_classification_date": "20260813",
+      "report_date": "20260819",
+      "code_info": "Lot: TLF2506001, Date of Expiry: May 31, 2028.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Kadi",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99547",
+      "recalling_firm": "Shoolin Pharma Chem LLP",
+      "address_1": "408 B/H Ratnamani Tubes",
+      "address_2": "Block/Survey No; Nr Maruti Inox",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "",
+      "distribution_pattern": "Distributed Nationwide in the USA",
+      "recall_number": "D-0761-2026",
+      "product_description": "TADALAFIL USP, 0.500 KG, 0.500KG(500gm)-bag, Rx only, \"For Prescription Compounding Only\",  Shoolin Pharma Chem LLP, Block/Survey no 408, B/H Ratnamani Tubes, Near Maruti Inox, Indrad, Kadi, Mahesania, Gujarat, 382715, India, (CAS NO 171596-29-5), NDC 85702-002-04.",
+      "product_quantity": "20 KG, 40 X 0.500KG(500gm) bags",
+      "reason_for_recall": "CGMP Deviations:Noted during FDA inspection",
+      "recall_initiation_date": "20260803",
+      "center_classification_date": "20260813",
+      "report_date": "20260819",
+      "code_info": "Batch TLF2506001, Date of Expiry: May 31, 2028.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Kadi",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99547",
+      "recalling_firm": "Shoolin Pharma Chem LLP",
+      "address_1": "408 B/H Ratnamani Tubes",
+      "address_2": "Block/Survey No; Nr Maruti Inox",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "",
+      "distribution_pattern": "Distributed Nationwide in the USA",
+      "recall_number": "D-0763-2026",
+      "product_description": "SILDENAFIL CITRATE USP, 1.00KG, 1.00KG-bag Net Wt. Rx only \" For Prescription Compounding Only\",  Shoolin Pharma Chem LLP, Block/Survey no 408, B/H Ratnamani Tubes, Near Maruti Inox, Indrad, Kadi, Mahesania, Gujarat, 382715, India, (CAS NO. 171599-83-0) NDC 85702-001-08.",
+      "product_quantity": "25 KG, 25 X 1.00 KG bags",
+      "reason_for_recall": "CGMP Deviations:Noted during FDA inspection",
+      "recall_initiation_date": "20260803",
+      "center_classification_date": "20260813",
+      "report_date": "20260819",
+      "code_info": "Lot: SDC2505001, Date of Expiry: April 30, 2030.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Kadi",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99547",
+      "recalling_firm": "Shoolin Pharma Chem LLP",
+      "address_1": "408 B/H Ratnamani Tubes",
+      "address_2": "Block/Survey No; Nr Maruti Inox",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "",
+      "distribution_pattern": "Distributed Nationwide in the USA",
+      "recall_number": "D-0762-2026",
+      "product_description": "TADALAFIL USP, 1.00 KG, 1KG(1000gm)-bag, Rx only, \"For Prescription Compounding Only\",  Shoolin Pharma Chem LLP, Block/Survey no 408, B/H Ratnamani Tubes, Near Maruti Inox, Indrad, Kadi, Mahesania, Gujarat, 382715, India, (CAS NO 171596-29-5), NDC 85702-001-08",
+      "product_quantity": "1KG - 20 X 1KG(1000gm) bags",
+      "reason_for_recall": "CGMP Deviations:Noted during FDA inspection",
+      "recall_initiation_date": "20260803",
+      "center_classification_date": "20260813",
+      "report_date": "20260819",
+      "code_info": "Batch TLF2506001, Date of Expiry: May 31, 2028.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Mumbai",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class I",
+      "openfda": {
+        "application_number": [
+          "ANDA077829"
+        ],
+        "brand_name": [
+          "CETIRIZINE HYDROCHLORIDE"
+        ],
+        "generic_name": [
+          "CETIRIZINE HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "Rising Pharma Holdings, Inc."
+        ],
+        "product_ndc": [
+          "16571-401"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "CETIRIZINE HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "1014676"
+        ],
+        "spl_id": [
+          "37fb3dd8-d5bf-46e4-8331-0c8c1eac540d"
+        ],
+        "spl_set_id": [
+          "6493d4f6-dead-45ec-ade1-28ce624af33d"
+        ],
+        "package_ndc": [
+          "16571-401-10"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "64O047KTOA"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "99321",
+      "recalling_firm": "JB Chemicals and Pharmaceuticals Ltd",
+      "address_1": "Neelam Centre A Wing A B Wing",
+      "address_2": "4th Floor; Hind Cycle Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0732-2026",
+      "product_description": "Cetirizine Hydrochloride Tablets USP 5 mg, 100-count bottle, Manufactured by: Unique Pharmaceuticals Labs, (A Div. of J.B. Chemicals & Pharmaceuticals, Ltd.), Mumbai 400 030, India. Distributed by: Rising Pharma Holdings, Inc., East Brunswick, NJ 08816, NDC 16571-401-10.",
+      "product_quantity": "34,020 100-count bottles.",
+      "reason_for_recall": "Cross Contamination with Other Products: Customer complaints for appearance of  discolored tablets and red dots observed on Cetirizine Hydrochloride Tablets USP 5 mg. Determined to be Ranitidine.",
+      "recall_initiation_date": "20260624",
+      "center_classification_date": "20260803",
+      "report_date": "20260729",
+      "code_info": "Lots: GY825029, GY825030, GY825031, GY825032, expires: 2028-OCT"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bengaluru",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA215488"
+        ],
+        "brand_name": [
+          "METHOHEXITAL SODIUM"
+        ],
+        "generic_name": [
+          "METHOHEXITAL SODIUM"
+        ],
+        "manufacturer_name": [
+          "Heritage Pharmaceuticals Inc. d/b/a Avet Pharmaceuticals Inc."
+        ],
+        "product_ndc": [
+          "23155-893"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "INTRAMUSCULAR",
+          "INTRAVENOUS",
+          "RECTAL"
+        ],
+        "substance_name": [
+          "METHOHEXITAL SODIUM"
+        ],
+        "rxcui": [
+          "1244233"
+        ],
+        "spl_id": [
+          "8dd0a3ad-e10f-4877-84f2-9a39960e534d"
+        ],
+        "spl_set_id": [
+          "f76d4ab9-2f6c-420b-afec-b9cdfdc083ce"
+        ],
+        "package_ndc": [
+          "23155-893-31"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0323155893311",
+          "0011100004492"
+        ],
+        "unii": [
+          "60200PNZ7Q"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "99220",
+      "recalling_firm": "ONESOURCE SPECIALTY PHARMA LIMITED",
+      "address_1": "Plot No.: 2-D1, Obadenahalli Industrial Area, Doddaballapura",
+      "address_2": "3rd Phase; Kasa, Doddaballapura Taluk",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide within the United States",
+      "recall_number": "D-0662-2026",
+      "product_description": "Methohexital Sodium for Injection, USP 500 mg Multiple Dose Vial, Rx Only, Manufactured by: OneSource Specialty, Pharma Limited, Bengaluru - 561 203, India, Manufactured for: Avet Pharmaceuticals Inc., East Brunswick, NJ 08816, NDC 23155-893-31",
+      "product_quantity": "4284 vials",
+      "reason_for_recall": "Failed Impurities/Degradation Specifications",
+      "recall_initiation_date": "20260607",
+      "center_classification_date": "20260707",
+      "report_date": "20260715",
+      "code_info": "Lot #: 7000612A, Exp. Date 1/2028"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Sangli",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99232",
+      "recalling_firm": "Shimoga Chemicals",
+      "address_1": "W57 A Shimoga Chemicals, Kupwad Midc",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "CA & FL only",
+      "recall_number": "D-0691-2026",
+      "product_description": "Clomiphene Citrate USP Active Pharmaceutical Ingredient (CAS : 50-41-9), Net Weight a)1 KG (NDC 84849-000-01), b) 500 g (NDC 84849-000-02), (c) 100 g (NDC 84849-000-03), Rx Only, Shimoga Chemicals Address -W-57A, MIDC Kupwad Samgli, Maharashtra, 416436, India.",
+      "product_quantity": "N/A",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20260519",
+      "center_classification_date": "20260715",
+      "report_date": "20260715",
+      "code_info": "Lot #: a) CC/004/24-25, Exp Date September 2029; CC0032526, Exp. Date August 2030 b) CC0442526, Exp. Date Aug 2030; CC/005/24-25, Exp. Date November 2029 c) CC0032526, Exp. Date August 2030; CC/009/24-25, Exp. Date January 2030;CC/005/24-25, Exp. Date November 2029."
+    },
+    {
+      "status": "Ongoing",
+      "city": "Navi Mumbai",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99312",
+      "recalling_firm": "Reliance Life Sciences Private Limited",
+      "address_1": "Ttc Area Of Midc",
+      "address_2": "R - 282 Dhirubhai Ambani Life Sciences Centre; Thane Belapur Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0672-2026",
+      "product_description": "Pemetrexed for Injection 500mg/Vial, 1 50 mL Single-Dose Vial per carton, For intravenous use only, Rx only,  Manufactured for: Somerset Therapeutics, LLC., Somerset, NJ 08873 NDC: 70069-0835-01",
+      "product_quantity": "5,020 vials",
+      "reason_for_recall": "Lack of Sterility Assurance",
+      "recall_initiation_date": "20260624",
+      "center_classification_date": "20260708",
+      "report_date": "20260715",
+      "code_info": "Lot, expiry:            RPTH0125A Jan 31, 2028;   RPTH0225A Jan 31, 2028;   RPTH0325A Jan 31, 2028;   RPTH0725A Apr 30, 2028;"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Navi Mumbai",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99312",
+      "recalling_firm": "Reliance Life Sciences Private Limited",
+      "address_1": "Ttc Area Of Midc",
+      "address_2": "R - 282 Dhirubhai Ambani Life Sciences Centre; Thane Belapur Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0673-2026",
+      "product_description": "Bortezomib for Injection 3.5mg/Vial, 10 mL per Single-Dose Vial, For Intravenous or Subcutaneous Use, Manufactured for: Somerset Therapeutics, LLC., Somerset, NJ 08873. NDC: 70069-0836-01",
+      "product_quantity": "11,400 vials",
+      "reason_for_recall": "Lack of Sterility Assurance",
+      "recall_initiation_date": "20260624",
+      "center_classification_date": "20260708",
+      "report_date": "20260715",
+      "code_info": "Lot, expiry:     RBIH0125A Jan 31, 2028; RBIH0225A Feb 29, 2028; RBIH0325A Feb 29, 2028; RBIH0525A Mar 31, 2028"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Navi Mumbai",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99312",
+      "recalling_firm": "Reliance Life Sciences Private Limited",
+      "address_1": "Ttc Area Of Midc",
+      "address_2": "R - 282 Dhirubhai Ambani Life Sciences Centre; Thane Belapur Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0671-2026",
+      "product_description": "Pemetrexed for Injection 100mg/Vial, 1 10 mL Single-Dose Vial per carton, For intravenous use only, Rx only,  Manufactured for: Somerset Therapeutics, LLC., Somerset, NJ 08873 NDC: 70069-0834-01",
+      "product_quantity": "12,000 vials",
+      "reason_for_recall": "Lack of Sterility Assurance",
+      "recall_initiation_date": "20260624",
+      "center_classification_date": "20260708",
+      "report_date": "20260715",
+      "code_info": "Lot, expiry:     RPTL0325A Dec 31, 2027;   RPTL0425A Dec 31, 2027;   RPTL0624B Nov 30,2027;   RPTL0625A Mar 31, 2028"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Navi Mumbai",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99312",
+      "recalling_firm": "Reliance Life Sciences Private Limited",
+      "address_1": "Ttc Area Of Midc",
+      "address_2": "R - 282 Dhirubhai Ambani Life Sciences Centre; Thane Belapur Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0674-2026",
+      "product_description": "Azacitidine for Injection 100mg/Vial, 1 10 mL Single-Dose Vial per carton, For Subcutaneous  and Intravenous Use, Rx only,  Manufactured for: Somerset Therapeutics, LLC., Somerset, NJ 08873 NDC: 70069-0857-01",
+      "product_quantity": "8,001 vials",
+      "reason_for_recall": "Lack of Sterility Assurance",
+      "recall_initiation_date": "20260624",
+      "center_classification_date": "20260708",
+      "report_date": "20260715",
+      "code_info": "Lot, expiry:            RAZM0425A  Jun 30, 2027;   RAZM0525A Jun 30, 2027;   RAZM0725A Jun 30, 2027;   RAZM0825A Jun 30, 2027;   RAZM0925A Jul 31, 2027;   RAZM1125A Jul 31, 2027;   RAZM1225A Jul 31, 2027;   RAZM1425A Jul 31, 2027;   RAZM1525A Jul 31, 2027;   RAZM1625A Aug 31, 2027;   RAZM1725A Aug 31, 2027;   RAZM2025A Sep 30, 2027"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Hyderabad",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA204787"
+        ],
+        "brand_name": [
+          "LACOSAMIDE"
+        ],
+        "generic_name": [
+          "LACOSAMIDE"
+        ],
+        "manufacturer_name": [
+          "Camber Pharmaceuticals, Inc."
+        ],
+        "product_ndc": [
+          "31722-812",
+          "31722-813",
+          "31722-814",
+          "31722-815"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "LACOSAMIDE"
+        ],
+        "rxcui": [
+          "809987",
+          "809992",
+          "809996",
+          "810000"
+        ],
+        "spl_id": [
+          "54d629b7-e234-69f1-e063-6294a90ab0e7"
+        ],
+        "spl_set_id": [
+          "c5b91128-f838-4e98-9684-5f477fc7af06"
+        ],
+        "package_ndc": [
+          "31722-812-60",
+          "31722-812-18",
+          "31722-812-05",
+          "31722-812-32",
+          "31722-813-60",
+          "31722-813-18",
+          "31722-813-05",
+          "31722-813-32",
+          "31722-814-60",
+          "31722-814-18",
+          "31722-814-05",
+          "31722-814-32",
+          "31722-815-60",
+          "31722-815-18",
+          "31722-815-05",
+          "31722-815-32"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0331722815604",
+          "0331722813600",
+          "0331722814607",
+          "0331722812603"
+        ],
+        "nui": [
+          "N0000008486"
+        ],
+        "pharm_class_pe": [
+          "Decreased Central Nervous System Disorganized Electrical Activity [PE]"
+        ],
+        "unii": [
+          "563KS2PQY5"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "99200",
+      "recalling_firm": "Annora Pharma Private Limited",
+      "address_1": "Sy. No.261, Plot No. 13 And 14, Annaram Village, Gummadidal Mandal",
+      "address_2": "Jinnaram Mandal, Sangareddy District, Medak",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0626-2026",
+      "product_description": "Lacosamide Tablets, USP, C V, 100mg, Rx only, 60-count bottle, By: Annora Pharma Pvt., Ltd, Sangareddy -502313, Telangana, India, Manufactured for: Camber Pharmaceuticals, Inc., Piscataway, NJ 08854, NDC 31722-813-60.",
+      "product_quantity": "31,392 60-count bottles",
+      "reason_for_recall": "Presence of a Foreign Tablets: Complaint received, possible mix-up of Selexipag 1000 mcg tablet in a bottle of Lacosamide Tablets USP, 100mg.",
+      "recall_initiation_date": "20260604",
+      "center_classification_date": "20260625",
+      "report_date": "20260701",
+      "code_info": "Lot: A253999, A254000, Expires: 09/30/2027."
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dadra And Nagar Haveli",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99137",
+      "recalling_firm": "Dabur India Limited",
+      "address_1": "225 - 4 - 1 Saily Village",
+      "address_2": "Survey No",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0640-2026",
+      "product_description": "Med Pride, HYDROCORTISONE CREAM 1%, Net Wt. 1 oz (28.3g) tubes, Manufactured for: Shield Line LLC, 59 Hook Road, Bayonne, NJ 07002 USA, Made in India, UPC 3 52410 30503 0.",
+      "product_quantity": "4,944 tubes",
+      "reason_for_recall": "CGMP Deviations; deficiencies observed during FDA inspection",
+      "recall_initiation_date": "20260602",
+      "center_classification_date": "20260626",
+      "report_date": "20260624",
+      "code_info": "Lot# 001, 002, 013, 016, 031, 032, 033, 045, 046, 047, Within Expiry.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dadra And Nagar Haveli",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99137",
+      "recalling_firm": "Dabur India Limited",
+      "address_1": "225 - 4 - 1 Saily Village",
+      "address_2": "Survey No",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0633-2026",
+      "product_description": "Rapidol, Triple Antibiotic First Aid Ointment, Bacitracin Zinc 400 units, Neomycin Sulfate 3.5 mg, Polymyxin-B Sulfate 5,000 units, net wt. 2oz (57g) tubes, Distributed by/por: Pharmadel LLC, New Castle, DE 19720, Made in India, UPC 8 10096 77162 9.",
+      "product_quantity": "84 tubes",
+      "reason_for_recall": "CGMP Deviations; deficiencies observed during FDA inspection",
+      "recall_initiation_date": "20260602",
+      "center_classification_date": "20260626",
+      "report_date": "20260624",
+      "code_info": "Lot# 0004, within expiry",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dadra And Nagar Haveli",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99137",
+      "recalling_firm": "Dabur India Limited",
+      "address_1": "225 - 4 - 1 Saily Village",
+      "address_2": "Survey No",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0641-2026",
+      "product_description": "Med Pride, Triple Antibiotic Ointment, Bacitracin Zinc (equivalent to 400 units), Neomycin Sulfate 5 mg, Polymixin B 5000 units, 0.9g packets, 144 packets per box, 130g, Manufactured for: Shield Line LLC, 59 Hook Road, Bayonne, NJ 07002 USA, Made in India, UPC 1 03 52410 30253 1.",
+      "product_quantity": "3006 tubes",
+      "reason_for_recall": "CGMP Deviations; deficiencies observed during FDA inspection",
+      "recall_initiation_date": "20260602",
+      "center_classification_date": "20260626",
+      "report_date": "20260624",
+      "code_info": "Lot# 011, 014, 015, 016, 017, 018, 019, 020, 021, 022, 026, Within Expiry.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dadra And Nagar Haveli",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99137",
+      "recalling_firm": "Dabur India Limited",
+      "address_1": "225 - 4 - 1 Saily Village",
+      "address_2": "Survey No",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0630-2026",
+      "product_description": "Lucky Super Soft, First Aid Triple Antibiotic Ointment, Bacitracin zinc 400 units, neomycin sulphate 3.5 mg, polymyxin B sulphate 5000 units, Net Wt. 0.5 oz (14g) tubes, Manufactured for Delta Brands Inc., 580 White Plains Rd., Tarrytown, NY 10591 USA, Made in India, UPC 8 08829 10372 4.",
+      "product_quantity": "2503 tubes",
+      "reason_for_recall": "CGMP Deviations; deficiencies observed during FDA inspection",
+      "recall_initiation_date": "20260602",
+      "center_classification_date": "20260626",
+      "report_date": "20260624",
+      "code_info": "Lot# 0002, Lot# 0003, within expiry",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dadra And Nagar Haveli",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99137",
+      "recalling_firm": "Dabur India Limited",
+      "address_1": "225 - 4 - 1 Saily Village",
+      "address_2": "Survey No",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0637-2026",
+      "product_description": "Med Pride, Bacitracin Zinc Ointment, 1oz (28.3g) per tube, 72 tubes per case, Manufactured for: Shield Line LLC, 59 Hook Road, Bayonne, NJ 07002 USA, Made in India, UPC X004WB4LKT.",
+      "product_quantity": "1185 tubes",
+      "reason_for_recall": "CGMP Deviations; deficiencies observed during FDA inspection",
+      "recall_initiation_date": "20260602",
+      "center_classification_date": "20260626",
+      "report_date": "20260624",
+      "code_info": "Lot# 022, 023 ,024, Within Expiry.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Kalyan",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA211320"
+        ],
+        "brand_name": [
+          "CHLORTHALIDONE"
+        ],
+        "generic_name": [
+          "CHLORTHALIDONE"
+        ],
+        "manufacturer_name": [
+          "Rising Pharma Holdings, Inc."
+        ],
+        "product_ndc": [
+          "64980-599",
+          "64980-600"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "CHLORTHALIDONE"
+        ],
+        "rxcui": [
+          "197499",
+          "197500"
+        ],
+        "spl_id": [
+          "6404aaa7-05c8-4f96-a091-3f07248ffbd5"
+        ],
+        "spl_set_id": [
+          "71b1d074-0521-4cd1-beb5-fedd61f52eca"
+        ],
+        "package_ndc": [
+          "64980-599-01",
+          "64980-599-10",
+          "64980-600-01"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0364980599108",
+          "0364980599016",
+          "0364980600019"
+        ],
+        "nui": [
+          "N0000175359",
+          "N0000175420"
+        ],
+        "pharm_class_pe": [
+          "Increased Diuresis [PE]"
+        ],
+        "pharm_class_epc": [
+          "Thiazide-like Diuretic [EPC]"
+        ],
+        "unii": [
+          "Q0MQD1073Q"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "99136",
+      "recalling_firm": "Inventia Healthcare Limited",
+      "address_1": "Additional Ambernath Midc",
+      "address_2": "Ambernath East; F1-F1/1-F75/1",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S. Nationwide.",
+      "recall_number": "D-0610-2026",
+      "product_description": "Chlorthalidone Tablets, USP, 25 mg, [100 or 1000] Tablets pr bottle, Rx only, Manufactured by: Inventia Healthcare Limited, Additional Ambernath, M.I.D.C., Ambernath (East) - 421506, INDIA.  Distributed by: Risiong Pharma Holdings, Inc., East Brunswick, NJ 08816.  NDC 100-tablet bottle: 64980-599-01; NDC 1000-tablet bottle: 64980-599-10",
+      "product_quantity": "11,460 bottles",
+      "reason_for_recall": "Failed Dissolution Specifications",
+      "recall_initiation_date": "20260605",
+      "center_classification_date": "20260622",
+      "report_date": "20260624",
+      "code_info": "[100 tablet bottle] Batch RISA24001; [1000 tablet bottle]  Batch RISB24002; Exp. 04/2027",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dadra And Nagar Haveli",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99137",
+      "recalling_firm": "Dabur India Limited",
+      "address_1": "225 - 4 - 1 Saily Village",
+      "address_2": "Survey No",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0629-2026",
+      "product_description": "Lucky Super Soft, Antifungal Athlete's Foot Cream, Clotrimazole 1% Cream, Net Wt. 1.5 oz (42.5g) Tubes, Manufactured for Delta Brands Inc., 580 White Plains Rd., Tarrytown, NY 10591 USA, Made in India, UPC 8 08829 10461 5.",
+      "product_quantity": "1102 tubes",
+      "reason_for_recall": "CGMP Deviations; deficiencies observed during FDA inspection",
+      "recall_initiation_date": "20260602",
+      "center_classification_date": "20260626",
+      "report_date": "20260624",
+      "code_info": "Lot# 0001, 0002, within expiry",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dadra And Nagar Haveli",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99137",
+      "recalling_firm": "Dabur India Limited",
+      "address_1": "225 - 4 - 1 Saily Village",
+      "address_2": "Survey No",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0639-2026",
+      "product_description": "Med Pride, HYDROCORTISONE CREAM 1%, Net Wt. 16oz (454g) tubes, Manufactured for: Shield Line LLC, 59 Hook Road, Bayonne, NJ 07002 USA, Made in India, UPC 3 52410 305061.",
+      "product_quantity": "4,738 tubes",
+      "reason_for_recall": "CGMP Deviations; deficiencies observed during FDA inspection",
+      "recall_initiation_date": "20260602",
+      "center_classification_date": "20260626",
+      "report_date": "20260624",
+      "code_info": "Lot# 003, 004, 005, 006, 007, 008, 009, 010, 011, 012, 014, 015, 017, 018, 019, 020, 021, 022, 023, 024, 025, 026, 027, 028, 029, 030, 034, 035, 036, 037, 038, 039, 041, 042, 043, 044, 048, 049, 050, 051, 052, 053, 054, 055, 056, 057, 058, 059, 060, 061, 062, 063, 064, Within Expiry.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dadra And Nagar Haveli",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99137",
+      "recalling_firm": "Dabur India Limited",
+      "address_1": "225 - 4 - 1 Saily Village",
+      "address_2": "Survey No",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0636-2026",
+      "product_description": "Med Pride, Bacitracin Zinc Ointment, 500 units, 1oz (28.3g) tubes, Manufactured for: Shield Line LLC, 59 Hook Road, Bayonne, NJ 07002 USA, Made in India, UPC 3 52410 30354 8.",
+      "product_quantity": "4374 tubes",
+      "reason_for_recall": "CGMP Deviations; deficiencies observed during FDA inspection",
+      "recall_initiation_date": "20260602",
+      "center_classification_date": "20260626",
+      "report_date": "20260624",
+      "code_info": "Lot# 001, 002, 003, 004, 005, 006, 010, 011, 012, 013, 014, 016, 017, 018, 019, 020, Within Expiry.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dadra And Nagar Haveli",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99137",
+      "recalling_firm": "Dabur India Limited",
+      "address_1": "225 - 4 - 1 Saily Village",
+      "address_2": "Survey No",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0632-2026",
+      "product_description": "Lil Drug Store, Triple Antibiotic Ointment, Bacitracin Zinc (400 units), Neomycin Sulfate (3.5 mg), Polymyxin-B Sulfate (5000 units), net wt. 0.5 oz (14.2g), Product distributed by: Lil' Drug Store Products, Inc., 9300 Earhart Lane SW, Cedar Rapids, IA 52404, Made in India, UPC 3 66715 97310 8.",
+      "product_quantity": "1225 tubes",
+      "reason_for_recall": "CGMP Deviations; deficiencies observed during FDA inspection",
+      "recall_initiation_date": "20260602",
+      "center_classification_date": "20260626",
+      "report_date": "20260624",
+      "code_info": "Lot# 0005, within expiry",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dadra And Nagar Haveli",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99137",
+      "recalling_firm": "Dabur India Limited",
+      "address_1": "225 - 4 - 1 Saily Village",
+      "address_2": "Survey No",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0638-2026",
+      "product_description": "Med Pride, 1% Clotrimazole Antifungal Cream, Net Wt. 1oz (28.3g), Manufactured for: Shield Line LLC, 59 Hook Road, Bayonne, NJ 07002 USA, Made in India, UPC 3 524103 0244 2.",
+      "product_quantity": "5755 tubes",
+      "reason_for_recall": "CGMP Deviations; deficiencies observed during FDA inspection",
+      "recall_initiation_date": "20260602",
+      "center_classification_date": "20260626",
+      "report_date": "20260624",
+      "code_info": "Lot# 001, 002, 003, 004, 005, 006, 007, 008, 009, 010, 011, 012, 013, Within Expiry.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dadra And Nagar Haveli",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99137",
+      "recalling_firm": "Dabur India Limited",
+      "address_1": "225 - 4 - 1 Saily Village",
+      "address_2": "Survey No",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0642-2026",
+      "product_description": "Med Pride, Triple Antibiotic Ointment, Bacitracin Zinc 400 units, Neomycin Sulfate 5 mg, Polymyxin B 5000 units, 1oz (28.3g) tubes, Manufactured for: Shield Line LLC, 59 Hook Road, Bayonne, NJ 07002 USA, Made in India, UPC 3 52410 30255 8.",
+      "product_quantity": "8996 tubes",
+      "reason_for_recall": "CGMP Deviations; deficiencies observed during FDA inspection",
+      "recall_initiation_date": "20260602",
+      "center_classification_date": "20260626",
+      "report_date": "20260624",
+      "code_info": "Lot# 001, 002, 003, 004, 005, 006, 007, 008, 009, 010, 012, 013, 023, 024, 025, 027, 028, 029, 031, 032, 033, 034, 035, Within Expiry.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dadra And Nagar Haveli",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99137",
+      "recalling_firm": "Dabur India Limited",
+      "address_1": "225 - 4 - 1 Saily Village",
+      "address_2": "Survey No",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0631-2026",
+      "product_description": "Circle K, triple antibiotic ointment, Bacitracin Zinc (400 units), Neomycin Sulfate (3.5 mg), Polymyxin-B Sulfate (5000 units), net wt. 0.5 oz (14.2g) tubes, Product manufactured for Lil' Drug Store Products, Inc., 9300 Earhart Lane SW, Cedar Rapids, IA 52404, Made in India, UPC 1 94283 65181 0.",
+      "product_quantity": "2420 tubes",
+      "reason_for_recall": "CGMP Deviations; deficiencies observed during FDA inspection",
+      "recall_initiation_date": "20260602",
+      "center_classification_date": "20260626",
+      "report_date": "20260624",
+      "code_info": "Lot# 0001, and Lot# 0005, within expiry",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dadra And Nagar Haveli",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99137",
+      "recalling_firm": "Dabur India Limited",
+      "address_1": "225 - 4 - 1 Saily Village",
+      "address_2": "Survey No",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0634-2026",
+      "product_description": "Cura Hongos, Crema Antifungica, Clotrimazole 1%, 2oz (57g) tubes, Dist by/por: Pharmadel LLC, New Castle, DE 19720, Made in India, UPC 8 52924 00683 1.",
+      "product_quantity": "84 tubes",
+      "reason_for_recall": "CGMP Deviations; deficiencies observed during FDA inspection",
+      "recall_initiation_date": "20260602",
+      "center_classification_date": "20260626",
+      "report_date": "20260624",
+      "code_info": "Lot# 0003, within expiry",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dadra And Nagar Haveli",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99137",
+      "recalling_firm": "Dabur India Limited",
+      "address_1": "225 - 4 - 1 Saily Village",
+      "address_2": "Survey No",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0635-2026",
+      "product_description": "Med Pride, Bacitracin Zinc Ointment, 500 units, 0.9g packets Net Wt 130g, 144 count box, Manufactured for: Shield Line LLC, 59 Hook Road, Bayonne, NJ 07002 USA, Made in India, UPC 3 52410 30352 4.",
+      "product_quantity": "1087 tubes",
+      "reason_for_recall": "CGMP Deviations; deficiencies observed during FDA inspection",
+      "recall_initiation_date": "20260602",
+      "center_classification_date": "20260626",
+      "report_date": "20260624",
+      "code_info": "Lot# 007, 008, 009, 015, 016, Within Expiry.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Aurangabad",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA208706"
+        ],
+        "brand_name": [
+          "DULOXETINE"
+        ],
+        "generic_name": [
+          "DULOXETINE"
+        ],
+        "manufacturer_name": [
+          "Ajanta Pharma USA Inc."
+        ],
+        "product_ndc": [
+          "27241-097",
+          "27241-098",
+          "27241-164",
+          "27241-099"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "DULOXETINE HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "596926",
+          "596930",
+          "596934",
+          "616402"
+        ],
+        "spl_id": [
+          "ae1a8c02-c1fc-474a-9411-cebecd99e339"
+        ],
+        "spl_set_id": [
+          "2dde979d-b6f8-41d1-96fb-325c75ea3a74"
+        ],
+        "package_ndc": [
+          "27241-097-06",
+          "27241-097-10",
+          "27241-097-90",
+          "27241-097-05",
+          "27241-098-03",
+          "27241-098-09",
+          "27241-098-10",
+          "27241-164-30",
+          "27241-099-03",
+          "27241-099-90",
+          "27241-099-40"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0327241164309",
+          "0327241099038",
+          "0327241097065",
+          "0327241098031"
+        ],
+        "unii": [
+          "9044SC542W"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98785",
+      "recalling_firm": "Ajanta Pharma Ltd.",
+      "address_1": "B-4/5/6 MIDC Industrial Area",
+      "address_2": "Paithan",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide within U.S",
+      "recall_number": "D-0514-2026",
+      "product_description": "Duloxetine Delayed-Release Capsules, 30 mg, Rx Only, a) 90 Capsules, NDC 27241-098-09, b) 30 capsules, NDC 27241-098-03, c) 1000 Capsules, NDC 27241-098-10, Marketed by: Ajanta Pharma USA Inc., Bridgewater, NJ 08807, Made in India",
+      "product_quantity": "312,894 packs",
+      "reason_for_recall": "CGMP Deviations: Presence of N-nitroso-Duloxetine impurity above FDA recommended limit of 0.83 ppm, identified at the 12-month and 18-month long-term stability intervals.",
+      "recall_initiation_date": "20260429",
+      "center_classification_date": "20260504",
+      "report_date": "20260513",
+      "code_info": "Lot#: a) PA10774, Exp. May 2026; b) PA10794, PA12174, Exp. Jun 2026; c) PA10804, Exp. Jun-26.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Mumbai",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA218531"
+        ],
+        "brand_name": [
+          "ENALAPRIL MALEATE"
+        ],
+        "generic_name": [
+          "ENALAPRIL MALEATE"
+        ],
+        "manufacturer_name": [
+          "Rising Pharma Holdings, Inc."
+        ],
+        "product_ndc": [
+          "64980-685",
+          "64980-686",
+          "64980-687",
+          "64980-688"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "ENALAPRIL MALEATE"
+        ],
+        "rxcui": [
+          "858804",
+          "858810",
+          "858813",
+          "858817"
+        ],
+        "spl_id": [
+          "6f4c73c0-8b68-485d-87f6-cd77746aada8"
+        ],
+        "spl_set_id": [
+          "71e9fff3-7283-437e-b107-72fc16f09989"
+        ],
+        "package_ndc": [
+          "64980-685-01",
+          "64980-685-10",
+          "64980-686-01",
+          "64980-686-10",
+          "64980-687-01",
+          "64980-687-10",
+          "64980-688-01",
+          "64980-688-10"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "9O25354EPJ"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98794",
+      "recalling_firm": "JB Chemicals and Pharmaceuticals Ltd",
+      "address_1": "Neelam Centre A Wing A B Wing",
+      "address_2": "4th Floor; Hind Cycle Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0520-2026",
+      "product_description": "Enalapril Maleate Tablets, USP, 20 mg, 1,000-count bottle, Rx only, Manufactured by: Unique Pharmaceutical Laboratories (A Div. of J.B. Chemicals & Pharmaceuticals Ltd.), Mumbai 400 030, India, Distributed by: Rising Pharma Holdings, Inc., East Brunswick, NJ 08816, NDC 64980-688-10.",
+      "product_quantity": "675 bottles",
+      "reason_for_recall": "Failed Impurities/Degradation Specifications:Out of specification result occurred in Organic Impurities Test",
+      "recall_initiation_date": "20260423",
+      "center_classification_date": "20260505",
+      "report_date": "20260513",
+      "code_info": "Lot #: GEH25023, Expires: 6/30/2027",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Aurangabad",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA208706"
+        ],
+        "brand_name": [
+          "DULOXETINE"
+        ],
+        "generic_name": [
+          "DULOXETINE"
+        ],
+        "manufacturer_name": [
+          "Ajanta Pharma USA Inc."
+        ],
+        "product_ndc": [
+          "27241-097",
+          "27241-098",
+          "27241-164",
+          "27241-099"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "DULOXETINE HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "596926",
+          "596930",
+          "596934",
+          "616402"
+        ],
+        "spl_id": [
+          "ae1a8c02-c1fc-474a-9411-cebecd99e339"
+        ],
+        "spl_set_id": [
+          "2dde979d-b6f8-41d1-96fb-325c75ea3a74"
+        ],
+        "package_ndc": [
+          "27241-097-06",
+          "27241-097-10",
+          "27241-097-90",
+          "27241-097-05",
+          "27241-098-03",
+          "27241-098-09",
+          "27241-098-10",
+          "27241-164-30",
+          "27241-099-03",
+          "27241-099-90",
+          "27241-099-40"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0327241164309",
+          "0327241099038",
+          "0327241097065",
+          "0327241098031"
+        ],
+        "unii": [
+          "9044SC542W"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98785",
+      "recalling_firm": "Ajanta Pharma Ltd.",
+      "address_1": "B-4/5/6 MIDC Industrial Area",
+      "address_2": "Paithan",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide within U.S",
+      "recall_number": "D-0516-2026",
+      "product_description": "Duloxetine Delayed-Release Capsules, 20 mg, Rx Only, 60 capsules, Marketed by: Ajanta Pharma USA Inc., Bridgewater, NJ 08807, Made in India, NDC 27241-097-06.",
+      "product_quantity": "117,168 packs",
+      "reason_for_recall": "CGMP Deviations: Presence of N-nitroso-Duloxetine impurity above FDA recommended limit of 0.83 ppm, identified at the 12-month and 18-month long-term stability intervals.",
+      "recall_initiation_date": "20260429",
+      "center_classification_date": "20260504",
+      "report_date": "20260513",
+      "code_info": "Lot#: PA10734, Exp. Jun 2026.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Aurangabad",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA208706"
+        ],
+        "brand_name": [
+          "DULOXETINE"
+        ],
+        "generic_name": [
+          "DULOXETINE"
+        ],
+        "manufacturer_name": [
+          "Ajanta Pharma USA Inc."
+        ],
+        "product_ndc": [
+          "27241-097",
+          "27241-098",
+          "27241-164",
+          "27241-099"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "DULOXETINE HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "596926",
+          "596930",
+          "596934",
+          "616402"
+        ],
+        "spl_id": [
+          "ae1a8c02-c1fc-474a-9411-cebecd99e339"
+        ],
+        "spl_set_id": [
+          "2dde979d-b6f8-41d1-96fb-325c75ea3a74"
+        ],
+        "package_ndc": [
+          "27241-097-06",
+          "27241-097-10",
+          "27241-097-90",
+          "27241-097-05",
+          "27241-098-03",
+          "27241-098-09",
+          "27241-098-10",
+          "27241-164-30",
+          "27241-099-03",
+          "27241-099-90",
+          "27241-099-40"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0327241164309",
+          "0327241099038",
+          "0327241097065",
+          "0327241098031"
+        ],
+        "unii": [
+          "9044SC542W"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98785",
+      "recalling_firm": "Ajanta Pharma Ltd.",
+      "address_1": "B-4/5/6 MIDC Industrial Area",
+      "address_2": "Paithan",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide within U.S",
+      "recall_number": "D-0515-2026",
+      "product_description": "Duloxetine Delayed-Release Capsules, 60 mg, Rx Only, 30 capsules, Marketed by: Ajanta Pharma USA Inc., Bridgewater, NJ 08807, Made in India, NDC 27241-099-03",
+      "product_quantity": "77,376 packs.",
+      "reason_for_recall": "CGMP Deviations: Presence of N-nitroso-Duloxetine impurity above FDA recommended limit of 0.83 ppm, identified at the 12-month and 18-month long-term stability intervals.",
+      "recall_initiation_date": "20260429",
+      "center_classification_date": "20260504",
+      "report_date": "20260513",
+      "code_info": "Lot#: PA07434, Exp. May 2026.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Mahabubnagar",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA202882"
+        ],
+        "brand_name": [
+          "PANTOPRAZOLE SODIUM"
+        ],
+        "generic_name": [
+          "PANTOPRAZOLE"
+        ],
+        "manufacturer_name": [
+          "Camber Pharmaceuticals, Inc."
+        ],
+        "product_ndc": [
+          "31722-712",
+          "31722-713"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "PANTOPRAZOLE SODIUM"
+        ],
+        "rxcui": [
+          "251872",
+          "314200"
+        ],
+        "spl_id": [
+          "48f42a12-2eac-e5dd-e063-6294a90aa92d"
+        ],
+        "spl_set_id": [
+          "9daa1483-5a36-44db-9e0d-904d100da262"
+        ],
+        "package_ndc": [
+          "31722-712-90",
+          "31722-712-32",
+          "31722-712-31",
+          "31722-713-90",
+          "31722-713-32",
+          "31722-713-31",
+          "31722-713-10"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0331722713900",
+          "0331722712903"
+        ],
+        "unii": [
+          "6871619Q5X"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98671",
+      "recalling_firm": "Hetero Labs Limited (Unit V)",
+      "address_1": "Unit V, Sy. No.: 439,440,441&458",
+      "address_2": "Tsiic Formulation Sez, Polepally Village",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "N/A",
+      "distribution_pattern": "Nationwide in the USA.",
+      "recall_number": "D-0484-2026",
+      "product_description": "Pantoprazole Sodium, Delayed-Release Tablets, USP, 40 mg, 1000-count bottle, Rx only, Manufactured for: Camber Pharmaceuticals, Inc., Piscataway, NJ 08854, By: Hetero, Hetero Labs Limited, Unit V, Polepally, Jadcherta, Mahabubager-509 301, India, NDC 31722-713-10",
+      "product_quantity": "4,740 1,000-count bottles.",
+      "reason_for_recall": "Discoloration: Firm received five (5) complaints stating that, \"Tablets discolored darker than normal and have lighter-colored spots.\"",
+      "recall_initiation_date": "20260326",
+      "center_classification_date": "20260417",
+      "report_date": "20260429",
+      "code_info": "Batch # FD253967, Exp Date: 06/26/2027",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Hyderabad",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class III",
+      "openfda": {
+        "application_number": [
+          "ANDA205977"
+        ],
+        "brand_name": [
+          "PITAVASTATIN CALCIUM"
+        ],
+        "generic_name": [
+          "PITAVASTATIN CALCIUM"
+        ],
+        "manufacturer_name": [
+          "NorthStar RxLLC"
+        ],
+        "product_ndc": [
+          "72603-479",
+          "72603-480"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "PITAVASTATIN CALCIUM"
+        ],
+        "rxcui": [
+          "861648",
+          "861652"
+        ],
+        "spl_id": [
+          "27e1ba97-23bf-fc12-e063-6394a90a1699"
+        ],
+        "spl_set_id": [
+          "98e3f1df-5b38-4169-a340-adb145eac459"
+        ],
+        "package_ndc": [
+          "72603-479-01",
+          "72603-480-01"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "IYD54XEG3W"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98543",
+      "recalling_firm": "Annora Pharma Private Limited",
+      "address_1": "Sy. No.261, Plot No. 13 And 14, Annaram Village, Gummadidal Mandal",
+      "address_2": "Jinnaram Mandal, Sangareddy District, Medak",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "TN",
+      "recall_number": "D-0391-2026",
+      "product_description": "Pitavastatin Tablets, 2 mg, packaged in 90-count bottles, Rx only, Manufactured for: Northstar Rx LLC, Memphis, TN 38141, Manufactured by: Annora Pharma Pvt. LTd., Sengareddy - 502313, Telengana, India, NDC 72603-479-01.",
+      "product_quantity": "770 bottles",
+      "reason_for_recall": "Presence of foreign tablets/capsules: one Pitavastatin tablet 1mg found in bottle of Pitavastatin tablets 2mg",
+      "recall_initiation_date": "20260203",
+      "center_classification_date": "20260316",
+      "report_date": "20260325",
+      "code_info": "Lot #: A252487, Exp 05/31/2027",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bhiwadi",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "98253",
+      "recalling_firm": "Wizcure Pharmaa Private Limited",
+      "address_1": "H - 881",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Distributed Nationwide in the USA",
+      "recall_number": "D-0352-2026",
+      "product_description": "BioGlo Fluorescein Sodium Ophthalmic Strips USP, 100 diagnostic strips, Manufactured by Omni Lens PVT. Ltd., 5 - Samrudhhi, Opp. Sakar-III, Navrangpura, Ahmedabad, Gujarat, India - 380014, Email:info@omnilens.in, Manufactured for & disibruted by: HUB Pharmaceuticals, LLC, 8767 E Via de Ventura #175, Scottsdale, AZ, 85258, NDC 17238-900-11.",
+      "product_quantity": "184,320 containers",
+      "reason_for_recall": "Lack of Assurance of Sterility: Products have not been manufactured in conformance with current good manufacturing practices.",
+      "recall_initiation_date": "20251231",
+      "center_classification_date": "20260225",
+      "report_date": "20260304",
+      "code_info": "All lots"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bhiwadi",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "98253",
+      "recalling_firm": "Wizcure Pharmaa Private Limited",
+      "address_1": "H - 881",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Distributed Nationwide in the USA",
+      "recall_number": "D-0351-2026",
+      "product_description": "Bio Glo Fluorescein Sodium Ophthalmic Strips USP, 300 diagnostic strips, Manufactured Omni Lens Pvt Ltd 5 - Samruddhi, Opp. Sakar - III,  Navrangpura, Ahmedabad - 380014, India, Email:info@omnilens.in, Manufactured for & distributed by: HUB Pharmaceuticals, LLC, 8767 E Via de Ventura #175, Scottsdale, AZ, 85258, NDC 17238-900-30.",
+      "product_quantity": "50,400 Boxes",
+      "reason_for_recall": "Lack of Assurance of Sterility: Products have not been manufactured in conformance with current good manufacturing practices.",
+      "recall_initiation_date": "20251231",
+      "center_classification_date": "20260225",
+      "report_date": "20260304",
+      "code_info": "All lots"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bhiwadi",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "98253",
+      "recalling_firm": "Wizcure Pharmaa Private Limited",
+      "address_1": "H - 881",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Distributed Nationwide in the USA",
+      "recall_number": "D-0346-2026",
+      "product_description": "Vista Tears Polyethylene Glycol 400 0.4% w/v, Propylene Glycol 0.3% w/v Eye Drops, Dry Eye Relief, Lubricant Drops, Sterile 10 ml (1/3 fl. oz.), Manufactured by: RA/Drugs/ MFG/2019/196283, Omni Lens Pvt. Ltd. 5, Samrudhhi, Opposite:Sakar-III, Navrangpura, Ahmedabad-380014, INDIA. Manufactured for and distributed by hi-health, 15207 N. 75th Street, Suite #104, Scottsdale, AZ, 85260. NDC 77790-001-10.",
+      "product_quantity": "5,760 cartons",
+      "reason_for_recall": "Lack of Assurance of Sterility: Products have not been manufactured in conformance with current good manufacturing practices.",
+      "recall_initiation_date": "20251231",
+      "center_classification_date": "20260225",
+      "report_date": "20260304",
+      "code_info": "All lots"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bhiwadi",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M018"
+        ],
+        "brand_name": [
+          "VISTA HYPROMELLOSE DRY EYE RELIEF"
+        ],
+        "generic_name": [
+          "HYPROMELLOSE"
+        ],
+        "manufacturer_name": [
+          "Red Wedding LLC"
+        ],
+        "product_ndc": [
+          "77790-002"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "OPHTHALMIC"
+        ],
+        "substance_name": [
+          "HYPROMELLOSE 2910 (50 MPA.S)"
+        ],
+        "spl_id": [
+          "47e991f9-4722-d647-e063-6294a90a022b"
+        ],
+        "spl_set_id": [
+          "b2c4954c-ed53-778a-e053-2a95a90ae0d0"
+        ],
+        "package_ndc": [
+          "77790-002-10"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "1IVH67816N"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98253",
+      "recalling_firm": "Wizcure Pharmaa Private Limited",
+      "address_1": "H - 881",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Distributed Nationwide in the USA",
+      "recall_number": "D-0347-2026",
+      "product_description": "Vista Gel Hypromellose USP 0.3% w/v, Eye Drops Dry Eye Relief Lubricating Gel, 10 ml. (1/3 fl. oz), Wizcure Pharmaa PVT. LTD, H-881, Phase-3, RIICO Industrial Area, Bhiwadi-301019, India, Manufactured for and distributed by: hi-health, 15207 N. 75th Street, Suite #104, Scottsdale, AZ, 85260, NDC 77790-002-10.",
+      "product_quantity": "17,280 cartons",
+      "reason_for_recall": "Lack of Assurance of Sterility: Products have not been manufactured in conformance with current good manufacturing practices.",
+      "recall_initiation_date": "20251231",
+      "center_classification_date": "20260225",
+      "report_date": "20260304",
+      "code_info": "All lots"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bhiwadi",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M018"
+        ],
+        "brand_name": [
+          "VISTA GONIO EYE LUBRICANT"
+        ],
+        "generic_name": [
+          "HYPROMELLOSE OPHTHALMIC SOLUTION"
+        ],
+        "manufacturer_name": [
+          "Red Wedding LLC"
+        ],
+        "product_ndc": [
+          "77790-022"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "OPHTHALMIC"
+        ],
+        "substance_name": [
+          "HYPROMELLOSE 2208 (100 MPA.S)"
+        ],
+        "spl_id": [
+          "312ea999-0542-99ea-e063-6294a90ae29e"
+        ],
+        "spl_set_id": [
+          "00da365d-2988-9c9e-e063-6294a90a8931"
+        ],
+        "package_ndc": [
+          "77790-022-15"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "B1QE5P712K"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98253",
+      "recalling_firm": "Wizcure Pharmaa Private Limited",
+      "address_1": "H - 881",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Distributed Nationwide in the USA",
+      "recall_number": "D-0349-2026",
+      "product_description": "Vista Gonio Eye Lubricant, Hypromellose Ophthalmic Solution USP (Sterile Drops. Dry Eye Relief, 15 ml. (1/2 fl. oz.), Wizcure Pharmaa Pvt. Ltd., H-881, Phase-3, RIICO Industrial Area, Bhiwadi-901019, INDIA, Manufactured for and distributed by: hi-health, 15207 N. 75th Street, Suite #104, Scottsdale, AZ, 85260, NDC 77790-022-15.",
+      "product_quantity": "139,104 cartons",
+      "reason_for_recall": "Lack of Assurance of Sterility: Products have not been manufactured in conformance with current good manufacturing practices.",
+      "recall_initiation_date": "20251231",
+      "center_classification_date": "20260225",
+      "report_date": "20260304",
+      "code_info": "All lots"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bhiwadi",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M018"
+        ],
+        "brand_name": [
+          "VISTA MEIBO TEARS PROPYLENE GLYCOL 0.6% W/V ADVANCED DRY EYE RELIEF LUBRICATING DROPS 10 ML"
+        ],
+        "generic_name": [
+          "PROPYLENE GLYCOL"
+        ],
+        "manufacturer_name": [
+          "Red Wedding LLC"
+        ],
+        "product_ndc": [
+          "77790-003"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "OPHTHALMIC"
+        ],
+        "substance_name": [
+          "PROPYLENE GLYCOL"
+        ],
+        "rxcui": [
+          "2265162"
+        ],
+        "spl_id": [
+          "303f2250-5eed-0cae-e063-6394a90a7c08"
+        ],
+        "spl_set_id": [
+          "b2c2fd0f-b944-6b0b-e053-2995a90aa216"
+        ],
+        "package_ndc": [
+          "77790-003-10"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0091241453205"
+        ],
+        "unii": [
+          "6DC9Q167V3"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98253",
+      "recalling_firm": "Wizcure Pharmaa Private Limited",
+      "address_1": "H - 881",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Distributed Nationwide in the USA",
+      "recall_number": "D-0348-2026",
+      "product_description": "Vista Meibo Tears Propylene Glycol 0.6% w/v Eye Drops Advanced Dry Eye Relief Revitalizing Formula, 10 ml (1/3 fl.oz.), Wizcure Pharmaa PVT. LTD., H-881, Phase 3, RIICO Industrial Area, Bhiwadi-301019, India, Manufactured for and distributed by: hi-health, 15207 N. 75th Street, Suite #104, Scottsdale, AZ 85260, NDC 77790-003-10.",
+      "product_quantity": "11,520 cartons",
+      "reason_for_recall": "Lack of Assurance of Sterility: Products have not been manufactured in conformance with current good manufacturing practices.",
+      "recall_initiation_date": "20251231",
+      "center_classification_date": "20260225",
+      "report_date": "20260304",
+      "code_info": "All lots"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bhiwadi",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "brand_name": [
+          "C20H10NA2O5 FLUORESCEIN SODIUM OPHTHALMIC STRIPS"
+        ],
+        "generic_name": [
+          "FLUORESCEIN SODIUM"
+        ],
+        "manufacturer_name": [
+          "Vistamerica USA"
+        ],
+        "product_ndc": [
+          "83851-100"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "OPHTHALMIC"
+        ],
+        "substance_name": [
+          "FLUORESCEIN SODIUM"
+        ],
+        "spl_id": [
+          "386aaf96-81c0-bd6f-e063-6394a90ad761"
+        ],
+        "spl_set_id": [
+          "292abb69-84ad-4f61-e063-6394a90a1447"
+        ],
+        "package_ndc": [
+          "83851-100-10",
+          "83851-100-30",
+          "83851-100-05"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "93X55PE38X"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98253",
+      "recalling_firm": "Wizcure Pharmaa Private Limited",
+      "address_1": "H - 881",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Distributed Nationwide in the USA",
+      "recall_number": "D-0350-2026",
+      "product_description": "CHNaO Fluorescein Sodium Ophthalmic Strips, USP 1mg, packaged as a) 100-count box, NDC 83851-100-10; b) 300-count box, NDC 83851-100-30.  Manufactured by Wizcure Pharmaa PVT. LTD, H-681, Phase 3, RIICO Industrial Area, Bhiwadi- 301019 INDIA, Vistamerica USA, 20 Perkins Dr. Prescott, AZ 86301, Vistamerica USA, Made in India,",
+      "product_quantity": "10,080 boxes",
+      "reason_for_recall": "Lack of Assurance of Sterility: Products have not been manufactured in conformance with current good manufacturing practices.",
+      "recall_initiation_date": "20251231",
+      "center_classification_date": "20260225",
+      "report_date": "20260304",
+      "code_info": "All lots"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Hyderabad",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA216629"
+        ],
+        "brand_name": [
+          "FUROSEMIDE"
+        ],
+        "generic_name": [
+          "FUROSEMIDE"
+        ],
+        "manufacturer_name": [
+          "Rising Pharma Holdings, Inc."
+        ],
+        "product_ndc": [
+          "64980-562",
+          "64980-563",
+          "64980-564"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "FUROSEMIDE"
+        ],
+        "rxcui": [
+          "197732",
+          "310429",
+          "313988"
+        ],
+        "spl_id": [
+          "458b3c62-666c-43f2-8feb-ee8e6cbe8931"
+        ],
+        "spl_set_id": [
+          "6101b9b4-f3ef-438e-a857-b4ea55ffc679"
+        ],
+        "package_ndc": [
+          "64980-562-01",
+          "64980-562-10",
+          "64980-563-01",
+          "64980-563-10",
+          "64980-564-01",
+          "64980-564-50"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0364980564014"
+        ],
+        "nui": [
+          "N0000175366",
+          "N0000175590"
+        ],
+        "pharm_class_pe": [
+          "Increased Diuresis at Loop of Henle [PE]"
+        ],
+        "pharm_class_epc": [
+          "Loop Diuretic [EPC]"
+        ],
+        "unii": [
+          "7LXU5N7ZO5"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98289",
+      "recalling_firm": "Graviti Pharmaceuticals Private Limited",
+      "address_1": "E & 621 Patancheru Mandal",
+      "address_2": "Isnapur Village Rd; Survey No 621",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S. Nationwide",
+      "recall_number": "D-0293-2026",
+      "product_description": "Furosemide Tablets, USP 40 mg, 1,000 Tablets, Rx Only, Manufactured for: Rising Pharmaceuticals Inc., East Brunswick, NJ 08816, Manufactured by: Graviti Pharmaceuticals Pvt. Ltd. Telangana - 502307, India, NDC 64980-563-10.",
+      "product_quantity": "4212 bottles",
+      "reason_for_recall": "Presence of Foreign Substance",
+      "recall_initiation_date": "20260110",
+      "center_classification_date": "20260121",
+      "report_date": "20260128",
+      "code_info": "Lot# FUB125042G; Exp. 05/13/2027",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Panchmahal",
+      "state": "",
+      "country": "India",
+      "classification": "Class III",
+      "openfda": {
+        "application_number": [
+          "ANDA204973"
+        ],
+        "brand_name": [
+          "FESOTERODINE FUMARATE"
+        ],
+        "generic_name": [
+          "FESOTERODINE FUMARATE"
+        ],
+        "manufacturer_name": [
+          "Alembic Pharmaceuticals Inc."
+        ],
+        "product_ndc": [
+          "62332-175",
+          "62332-176"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "FESOTERODINE FUMARATE"
+        ],
+        "rxcui": [
+          "810071",
+          "810077"
+        ],
+        "spl_id": [
+          "2fc9ba3f-2336-45b8-9020-bffc1298a6e0"
+        ],
+        "spl_set_id": [
+          "299db62d-9658-4796-b449-657fa859c5cd"
+        ],
+        "package_ndc": [
+          "62332-175-30",
+          "62332-175-90",
+          "62332-175-91",
+          "62332-175-10",
+          "62332-176-30",
+          "62332-176-90",
+          "62332-176-91",
+          "62332-176-10",
+          "2405003360"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0362332176304",
+          "0362332175307"
+        ],
+        "unii": [
+          "EOS72165S7"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98119",
+      "recalling_firm": "Alembic Pharmaceuticals Limited",
+      "address_1": "Formulation Division, Village Panelav, P.O. Tajpura, Near Baska, Taluka Halol",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "",
+      "distribution_pattern": "US Nationwide and PR.",
+      "recall_number": "D-0248-2026",
+      "product_description": "Fesoterodine Fumarate, Extended-release Tablets, 8 mg, 30 Tablets, Rx only, Manufactured by: Alembic Pharmaceuticals Limited, Panelav 389350, Gujarat, India, Manufactured for: Alembic Pharmaceuticals, Inc., Bedminster, NJ 07921, USA, NDC 62332-176-30",
+      "product_quantity": "",
+      "reason_for_recall": "Failed Impurities/Degradation Specifications: Due to levels of 'Diester Impurity' exceeding the specification limit.",
+      "recall_initiation_date": "20251216",
+      "center_classification_date": "20260102",
+      "report_date": "20260114",
+      "code_info": "Lot# 2405003360, Exp Date: Jan 31, 2026",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bardej, Goa",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M016"
+        ],
+        "brand_name": [
+          "ZINC OXIDE 20%"
+        ],
+        "generic_name": [
+          "ZINC OXIDE"
+        ],
+        "manufacturer_name": [
+          "Trifecta Pharmaceuticals USA"
+        ],
+        "product_ndc": [
+          "69396-086"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "ZINC OXIDE"
+        ],
+        "rxcui": [
+          "198911"
+        ],
+        "spl_id": [
+          "0f4e022b-3f1e-96dc-e063-6294a90ad3b7"
+        ],
+        "spl_set_id": [
+          "fcef17f1-84e7-a288-e053-6294a90a064b"
+        ],
+        "package_ndc": [
+          "69396-086-02"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0040232454912"
+        ],
+        "unii": [
+          "SOI2LOH54Z"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97935",
+      "recalling_firm": "Blossom Pharmaceuticals",
+      "address_1": "Plot No. 21/22 Bardez Blossom Pharmaceuticals Karaswada-Tivim",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA Nationwide",
+      "recall_number": "D-0212-2026",
+      "product_description": "Globe Zinc Oxide Ointment USP Zinc Oxide 20% Skin Protectant, Net Wt. 2 oz (56.7 g), Distributed by: Trifecta Pharmaceuticals USA 101 NE, Third Avenue, Suite 1500, Ft. Lauderdale, FL 33301, NDC 69396-086-02.",
+      "product_quantity": "33000 containers",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20251031",
+      "center_classification_date": "20251202",
+      "report_date": "20251210",
+      "code_info": "Lot #: A502404, Exp. Date 2/27; A502405, Exp. Date 2/27; AS02502, Exp. Date 2/28.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bardej, Goa",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M016"
+        ],
+        "brand_name": [
+          "NIVAGEN ZINC OXIDE"
+        ],
+        "generic_name": [
+          "ZINC OXIDE"
+        ],
+        "manufacturer_name": [
+          "Nivagen Pharmaceuticals, Inc."
+        ],
+        "product_ndc": [
+          "75834-170"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "ZINC OXIDE"
+        ],
+        "rxcui": [
+          "198911"
+        ],
+        "spl_id": [
+          "9b087880-cd9b-4a0e-be76-dcb0ad2fd11f"
+        ],
+        "spl_set_id": [
+          "7b42655b-2163-4637-9f5d-1d2efa1bdf1d"
+        ],
+        "package_ndc": [
+          "75834-170-01",
+          "75834-170-02",
+          "75834-170-15"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "SOI2LOH54Z"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97935",
+      "recalling_firm": "Blossom Pharmaceuticals",
+      "address_1": "Plot No. 21/22 Bardez Blossom Pharmaceuticals Karaswada-Tivim",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA Nationwide",
+      "recall_number": "D-0206-2026",
+      "product_description": "Nivagen Pharmaceuticals, Zinc Oxide Ointment USP, Zinc Oxide 20% Skin Protectant, Net Wt. 15 oz (425g), Made in India, Manufactured for: Nivagen Pharmaceuticals, Inc., Sacramento, CA 95827, USA, NDC 75834-170-15.",
+      "product_quantity": "912 containers",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20251031",
+      "center_classification_date": "20251202",
+      "report_date": "20251210",
+      "code_info": "Lot #: A352318",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bardej, Goa",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M016"
+        ],
+        "brand_name": [
+          "DYNASHIELD"
+        ],
+        "generic_name": [
+          "ZINC OXIDE"
+        ],
+        "manufacturer_name": [
+          "Dynarex Corporation"
+        ],
+        "product_ndc": [
+          "67777-407"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "ZINC OXIDE"
+        ],
+        "rxcui": [
+          "1427410"
+        ],
+        "spl_id": [
+          "4e3e4630-9843-775a-e063-6294a90a3ca0"
+        ],
+        "spl_set_id": [
+          "59fd865c-b81d-43ad-8fa0-c37ca0557769"
+        ],
+        "package_ndc": [
+          "67777-407-01",
+          "67777-407-02",
+          "67777-407-03",
+          "67777-407-10",
+          "67777-407-04",
+          "67777-407-11",
+          "67777-407-12",
+          "67777-407-13"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0616784119519",
+          "0840117346543",
+          "0616784119618"
+        ],
+        "unii": [
+          "SOI2LOH54Z"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97935",
+      "recalling_firm": "Blossom Pharmaceuticals",
+      "address_1": "Plot No. 21/22 Bardez Blossom Pharmaceuticals Karaswada-Tivim",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA Nationwide",
+      "recall_number": "D-0202-2026",
+      "product_description": "Dynashield Skin Protectant, Net Wt. 16 oz (453.6 g), Manufactured for: Dyrnarex Corporation, 10 Glenshaw Street, Orangeburg, NY  10962, USA, Made in India, NDC 67777-407-04.",
+      "product_quantity": "1560 containers",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20251031",
+      "center_classification_date": "20251202",
+      "report_date": "20251210",
+      "code_info": "Lot #: A092334, Exp. Date 6/26 & A092421, Exp. Date 7/27",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bardej, Goa",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M007"
+        ],
+        "brand_name": [
+          "SALINE ENEMA"
+        ],
+        "generic_name": [
+          "SODIUM PHOSPHATE MONOBASIC, SODIUM PHOSPHATE DIBASIC"
+        ],
+        "manufacturer_name": [
+          "Dynarex Corporation"
+        ],
+        "product_ndc": [
+          "67777-402"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "RECTAL"
+        ],
+        "substance_name": [
+          "SODIUM PHOSPHATE, DIBASIC",
+          "SODIUM PHOSPHATE, MONOBASIC"
+        ],
+        "rxcui": [
+          "283100"
+        ],
+        "spl_id": [
+          "351f54a7-a9af-92ca-e063-6394a90a6ce6"
+        ],
+        "spl_set_id": [
+          "7c7b68af-4ef2-4f84-9279-9f7a91c8d9c5"
+        ],
+        "package_ndc": [
+          "67777-402-01",
+          "67777-402-02"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0616784471914"
+        ],
+        "unii": [
+          "GR686LBA74",
+          "3980JIH2SW"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97935",
+      "recalling_firm": "Blossom Pharmaceuticals",
+      "address_1": "Plot No. 21/22 Bardez Blossom Pharmaceuticals Karaswada-Tivim",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA Nationwide",
+      "recall_number": "D-0203-2026",
+      "product_description": "Wecare Enema, 4.5 Fl Oz/133mL,  Manufactured for: Dynarex Corporation, 11 Dynarex Corporation, MIddletown, NY 10941 USA, Made in India, NDC 67777-402-01.",
+      "product_quantity": "18912 containers",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20251031",
+      "center_classification_date": "20251202",
+      "report_date": "20251210",
+      "code_info": "Lot #: A022310, Exp. Date 2/26; A022335, Exp. Date 10/26; A022406, Exp Date 12/27 & A022505, Exp Date 12/27",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bardej, Goa",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M017"
+        ],
+        "brand_name": [
+          "MENTHOL AND ZINC OXIDE"
+        ],
+        "generic_name": [
+          "MENTHOL AND ZINC OXIDE"
+        ],
+        "manufacturer_name": [
+          "Dynarex Corporation"
+        ],
+        "product_ndc": [
+          "67777-234"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "MENTHOL",
+          "ZINC OXIDE"
+        ],
+        "rxcui": [
+          "2123045"
+        ],
+        "spl_id": [
+          "2758f00d-dee3-2463-e063-6294a90a53c2"
+        ],
+        "spl_set_id": [
+          "d0e43651-4215-465b-9ace-1bc23126b109"
+        ],
+        "package_ndc": [
+          "67777-234-02",
+          "67777-234-01",
+          "67777-234-04",
+          "67777-234-03"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0616784127514"
+        ],
+        "unii": [
+          "L7T10EIP3A",
+          "SOI2LOH54Z"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97935",
+      "recalling_firm": "Blossom Pharmaceuticals",
+      "address_1": "Plot No. 21/22 Bardez Blossom Pharmaceuticals Karaswada-Tivim",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA Nationwide",
+      "recall_number": "D-0213-2026",
+      "product_description": "Wecare Calasoothe, Net wt. 4 oz (113 g), Manufactured for: Dynarex Corporation, 10 Glenshaw Street, Orangeburg, NY 10962, NDC 67777-234-04.",
+      "product_quantity": "2400 containers",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20251031",
+      "center_classification_date": "20251202",
+      "report_date": "20251210",
+      "code_info": "Lot #: A482305",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bardej, Goa",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M016"
+        ],
+        "brand_name": [
+          "DYNASHIELD"
+        ],
+        "generic_name": [
+          "ZINC OXIDE"
+        ],
+        "manufacturer_name": [
+          "Dynarex Corporation"
+        ],
+        "product_ndc": [
+          "67777-407"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "ZINC OXIDE"
+        ],
+        "rxcui": [
+          "1427410"
+        ],
+        "spl_id": [
+          "4e3e4630-9843-775a-e063-6294a90a3ca0"
+        ],
+        "spl_set_id": [
+          "59fd865c-b81d-43ad-8fa0-c37ca0557769"
+        ],
+        "package_ndc": [
+          "67777-407-01",
+          "67777-407-02",
+          "67777-407-03",
+          "67777-407-10",
+          "67777-407-04",
+          "67777-407-11",
+          "67777-407-12",
+          "67777-407-13"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0616784119519",
+          "0840117346543",
+          "0616784119618"
+        ],
+        "unii": [
+          "SOI2LOH54Z"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97935",
+      "recalling_firm": "Blossom Pharmaceuticals",
+      "address_1": "Plot No. 21/22 Bardez Blossom Pharmaceuticals Karaswada-Tivim",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA Nationwide",
+      "recall_number": "D-0207-2026",
+      "product_description": "Dynashield, 4 oz cream (113 g), Manufactured for: Dynarex Corporation, 10 Glenshaw Street, Orangeburg, NY 10852, USA, Made in India, NDC 67777-407-03.",
+      "product_quantity": "7944 containers",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20251031",
+      "center_classification_date": "20251202",
+      "report_date": "20251210",
+      "code_info": "Lot #: A092421, Exp. Date 7/27, A092340, Exp. Date 10/26 & A092346, Exp. Date 11/26.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bardej, Goa",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M016"
+        ],
+        "brand_name": [
+          "NIVAGEN ZINC OXIDE"
+        ],
+        "generic_name": [
+          "ZINC OXIDE"
+        ],
+        "manufacturer_name": [
+          "Nivagen Pharmaceuticals, Inc."
+        ],
+        "product_ndc": [
+          "75834-170"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "ZINC OXIDE"
+        ],
+        "rxcui": [
+          "198911"
+        ],
+        "spl_id": [
+          "9b087880-cd9b-4a0e-be76-dcb0ad2fd11f"
+        ],
+        "spl_set_id": [
+          "7b42655b-2163-4637-9f5d-1d2efa1bdf1d"
+        ],
+        "package_ndc": [
+          "75834-170-01",
+          "75834-170-02",
+          "75834-170-15"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "SOI2LOH54Z"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97935",
+      "recalling_firm": "Blossom Pharmaceuticals",
+      "address_1": "Plot No. 21/22 Bardez Blossom Pharmaceuticals Karaswada-Tivim",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA Nationwide",
+      "recall_number": "D-0209-2026",
+      "product_description": "Nivagen, Zinc Oxide Ointment USP, Zinc Oxide 20 %, Net Wt. 1 oz. (28.4g), Nivagen Pharmaceuticals, Inc., Sacramento, CA 95827, USA, Made in India, NDC 75834-170-02.",
+      "product_quantity": "7920 bottles",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20251031",
+      "center_classification_date": "20251202",
+      "report_date": "20251210",
+      "code_info": "Lot #: A352505",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Pithampur, District Dhar",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA214596"
+        ],
+        "brand_name": [
+          "PHYTONADIONE"
+        ],
+        "generic_name": [
+          "PHYTONADIONE"
+        ],
+        "manufacturer_name": [
+          "Cipla USA Inc."
+        ],
+        "product_ndc": [
+          "69097-708",
+          "69097-709"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "INTRAMUSCULAR",
+          "INTRAVENOUS",
+          "SUBCUTANEOUS"
+        ],
+        "substance_name": [
+          "PHYTONADIONE"
+        ],
+        "rxcui": [
+          "312424",
+          "1670192"
+        ],
+        "spl_id": [
+          "b3dd9cac-1295-48b6-b9b1-48d36cb732b9"
+        ],
+        "spl_set_id": [
+          "1add4de5-0f9c-453e-9dd5-abb8077b566a"
+        ],
+        "package_ndc": [
+          "69097-709-96",
+          "69097-708-96",
+          "69097-708-31"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "nui": [
+          "N0000175965",
+          "N0000175982",
+          "M0022806",
+          "N0000180191",
+          "N0000175966"
+        ],
+        "pharm_class_pe": [
+          "Increased Prothrombin Activity [PE]",
+          "Reversed Anticoagulation Activity [PE]"
+        ],
+        "pharm_class_cs": [
+          "Vitamin K [CS]"
+        ],
+        "pharm_class_epc": [
+          "Vitamin K [EPC]",
+          "Warfarin Reversal Agent [EPC]"
+        ],
+        "unii": [
+          "A034SE7857"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97909",
+      "recalling_firm": "Cipla Limited",
+      "address_1": "Plot No. 9 & 10, Pharma Zone Phase Ii",
+      "address_2": "Section Iiii, Indore Special Economic Zone",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0197-2026",
+      "product_description": "Phytonadione Injectable Emulsion, USP 10mg/mL, 10x1 mL Single-Dose Vial/carton, Rx Only, Mfd. by: Cipla Ltd. India At M/s Immacule Lifesciences PVT. Ltd. India. Mfd. for: Cipla USA, Inc. Warren, NJ 07059. Vial NDC# 69097-708-31; Carton NDC 69097-708-96",
+      "product_quantity": "4,438 10x1mL cartons",
+      "reason_for_recall": "Failed Stability Specifications: Observed OOS results: eg results for colour index",
+      "recall_initiation_date": "20251031",
+      "center_classification_date": "20251128",
+      "report_date": "20251210",
+      "code_info": "Batch # PH0072404A, PH0082404A, Exp. Date December 31, 2025",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bardej, Goa",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M005"
+        ],
+        "brand_name": [
+          "CLOTRIMAZOLE"
+        ],
+        "generic_name": [
+          "CLOTRIMAZOLE"
+        ],
+        "manufacturer_name": [
+          "TRIFECTA PHARMACEUTICALS USA LLC"
+        ],
+        "product_ndc": [
+          "69396-087"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "CLOTRIMAZOLE"
+        ],
+        "rxcui": [
+          "309367"
+        ],
+        "spl_id": [
+          "4bf9a459-7b08-9a01-e063-6294a90ac7b9"
+        ],
+        "spl_set_id": [
+          "e0a2a907-9c3a-4c4e-e053-2995a90abb91"
+        ],
+        "package_ndc": [
+          "69396-087-01",
+          "69396-087-55"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0094922042002"
+        ],
+        "nui": [
+          "N0000175487",
+          "M0002083"
+        ],
+        "pharm_class_epc": [
+          "Azole Antifungal [EPC]"
+        ],
+        "pharm_class_cs": [
+          "Azoles [CS]"
+        ],
+        "unii": [
+          "G07GZ97H65"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97935",
+      "recalling_firm": "Blossom Pharmaceuticals",
+      "address_1": "Plot No. 21/22 Bardez Blossom Pharmaceuticals Karaswada-Tivim",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA Nationwide",
+      "recall_number": "D-0210-2026",
+      "product_description": "Globe Clotrimazole Cream, USP, 1 %, Net Wt. 1 oz (28.4g), Distributed by: Trifecta Pharmaceuticals USA, 101 NE Third Avenue, Suite 1500, Ft. Lauderdale, FL 33301 USA, Made in India, NDC 69396-087-01.",
+      "product_quantity": "12150 bottles",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20251031",
+      "center_classification_date": "20251202",
+      "report_date": "20251210",
+      "code_info": "Lot #: A472408",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bardej, Goa",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "97935",
+      "recalling_firm": "Blossom Pharmaceuticals",
+      "address_1": "Plot No. 21/22 Bardez Blossom Pharmaceuticals Karaswada-Tivim",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA Nationwide",
+      "recall_number": "D-0201-2026",
+      "product_description": "Lanashield Skin Barrier, 4 oz. (113 g), Manfuactured for: Dynarex Corporation, 10 Gleshaw Street, Orangeburg, NY 10962 USA, Made in India, UPC 616784126319.",
+      "product_quantity": "9600 containers",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20251031",
+      "center_classification_date": "20251202",
+      "report_date": "20251210",
+      "code_info": "Lot #: A162301, Exp. Date 9/26; A162401, Exp. Date 4/27 & A162202, Exp. Date 11/25.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bardej, Goa",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M016"
+        ],
+        "brand_name": [
+          "NIVAGEN ZINC OXIDE"
+        ],
+        "generic_name": [
+          "ZINC OXIDE"
+        ],
+        "manufacturer_name": [
+          "Nivagen Pharmaceuticals, Inc."
+        ],
+        "product_ndc": [
+          "75834-170"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "ZINC OXIDE"
+        ],
+        "rxcui": [
+          "198911"
+        ],
+        "spl_id": [
+          "9b087880-cd9b-4a0e-be76-dcb0ad2fd11f"
+        ],
+        "spl_set_id": [
+          "7b42655b-2163-4637-9f5d-1d2efa1bdf1d"
+        ],
+        "package_ndc": [
+          "75834-170-01",
+          "75834-170-02",
+          "75834-170-15"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "SOI2LOH54Z"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97935",
+      "recalling_firm": "Blossom Pharmaceuticals",
+      "address_1": "Plot No. 21/22 Bardez Blossom Pharmaceuticals Karaswada-Tivim",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA Nationwide",
+      "recall_number": "D-0208-2026",
+      "product_description": "Nivagen, Zinc Oxide Ointment, Net Wt. 1 oz. (28.4g), Nivagen Pharmaceuticals, Inc., Sacramento, CA 95827, USA Made in India, NDC 75834-170-01.",
+      "product_quantity": "13536 containers",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20251031",
+      "center_classification_date": "20251202",
+      "report_date": "20251210",
+      "code_info": "Lot #: A352405",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bardej, Goa",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M005"
+        ],
+        "brand_name": [
+          "CLOTRIMAZOLE"
+        ],
+        "generic_name": [
+          "CLOTRIMAZOLE"
+        ],
+        "manufacturer_name": [
+          "TRIFECTA PHARMACEUTICALS USA LLC"
+        ],
+        "product_ndc": [
+          "69396-087"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "CLOTRIMAZOLE"
+        ],
+        "rxcui": [
+          "309367"
+        ],
+        "spl_id": [
+          "4bf9a459-7b08-9a01-e063-6294a90ac7b9"
+        ],
+        "spl_set_id": [
+          "e0a2a907-9c3a-4c4e-e053-2995a90abb91"
+        ],
+        "package_ndc": [
+          "69396-087-01",
+          "69396-087-55"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0094922042002"
+        ],
+        "nui": [
+          "N0000175487",
+          "M0002083"
+        ],
+        "pharm_class_epc": [
+          "Azole Antifungal [EPC]"
+        ],
+        "pharm_class_cs": [
+          "Azoles [CS]"
+        ],
+        "unii": [
+          "G07GZ97H65"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97935",
+      "recalling_firm": "Blossom Pharmaceuticals",
+      "address_1": "Plot No. 21/22 Bardez Blossom Pharmaceuticals Karaswada-Tivim",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA Nationwide",
+      "recall_number": "D-0211-2026",
+      "product_description": "Globe Clotrimazole Cream USP, 1 % Antifungal Cream, Net Wt., 5 oz. (142 g, Distributed by: Trifecta Pharmaceuticals USA, 101 NE Third Avenue, Suite 1500, Ft. Lauderdale, FL 33301, USA, NDC 69396-087-55.",
+      "product_quantity": "14700 bottles",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20251031",
+      "center_classification_date": "20251202",
+      "report_date": "20251210",
+      "code_info": "Lot #: A472418",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bardej, Goa",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "97935",
+      "recalling_firm": "Blossom Pharmaceuticals",
+      "address_1": "Plot No. 21/22 Bardez Blossom Pharmaceuticals Karaswada-Tivim",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA Nationwide",
+      "recall_number": "D-0204-2026",
+      "product_description": "Dynagel, Moisturizing Wound Hydrogel, Net Wt. 3oz (84.7 g), Manufactured for: Dynarex Corporation, 16 Glenshaw Street, Orangeburg, NY 10962, UPC 61784128016.",
+      "product_quantity": "8184 bottles",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20251031",
+      "center_classification_date": "20251202",
+      "report_date": "20251210",
+      "code_info": "Lot #: A322301, Exp. Date 7/26 & A322302, Exp. Date 8/26",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bardej, Goa",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M016"
+        ],
+        "brand_name": [
+          "ZINC OXIDE"
+        ],
+        "generic_name": [
+          "ZINC OXIDE OINTMENT"
+        ],
+        "manufacturer_name": [
+          "Dynarex Corporation"
+        ],
+        "product_ndc": [
+          "67777-223"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "ZINC OXIDE"
+        ],
+        "rxcui": [
+          "198911"
+        ],
+        "spl_id": [
+          "4f5b6507-0292-edc3-e063-6294a90a3c79"
+        ],
+        "spl_set_id": [
+          "11d79dd6-35f7-4399-e063-6294a90ac7dd"
+        ],
+        "package_ndc": [
+          "67777-223-01",
+          "67777-223-11",
+          "67777-223-02",
+          "67777-223-03",
+          "67777-223-13",
+          "67777-223-04",
+          "67777-223-05",
+          "67777-223-06"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0616784119113",
+          "0616784119014",
+          "0616784119212"
+        ],
+        "unii": [
+          "SOI2LOH54Z"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97935",
+      "recalling_firm": "Blossom Pharmaceuticals",
+      "address_1": "Plot No. 21/22 Bardez Blossom Pharmaceuticals Karaswada-Tivim",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA Nationwide",
+      "recall_number": "D-0205-2026",
+      "product_description": "WeCare, Zinc Oxide Ointment, Net Wt. 15 oz/425 g, Manuactured for: Dynarex Corporation, 11 Dynarex Drive, Middletown, NY 10941, Made in India, NDC 67777-223-05.",
+      "product_quantity": "2592 bottles",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20251031",
+      "center_classification_date": "20251202",
+      "report_date": "20251210",
+      "code_info": "Lot #: A062434, Exp. Date 6/27 & A062449, Exp. Date 7/27",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Panchmahal",
+      "state": "",
+      "country": "India",
+      "classification": "Class III",
+      "openfda": {
+        "application_number": [
+          "ANDA204973"
+        ],
+        "brand_name": [
+          "FESOTERODINE FUMARATE"
+        ],
+        "generic_name": [
+          "FESOTERODINE FUMARATE"
+        ],
+        "manufacturer_name": [
+          "Alembic Pharmaceuticals Inc."
+        ],
+        "product_ndc": [
+          "62332-175",
+          "62332-176"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "FESOTERODINE FUMARATE"
+        ],
+        "rxcui": [
+          "810071",
+          "810077"
+        ],
+        "spl_id": [
+          "2fc9ba3f-2336-45b8-9020-bffc1298a6e0"
+        ],
+        "spl_set_id": [
+          "299db62d-9658-4796-b449-657fa859c5cd"
+        ],
+        "package_ndc": [
+          "62332-175-30",
+          "62332-175-90",
+          "62332-175-91",
+          "62332-175-10",
+          "62332-176-30",
+          "62332-176-90",
+          "62332-176-91",
+          "62332-176-10",
+          "2405006633"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0362332176304",
+          "0362332175307"
+        ],
+        "unii": [
+          "EOS72165S7"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97812",
+      "recalling_firm": "Alembic Pharmaceuticals Limited",
+      "address_1": "Formulation Division, Village Panelav, P.O. Tajpura, Near Baska, Taluka Halol",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "Nationwide in the USA.",
+      "recall_number": "D-0156-2026",
+      "product_description": "Fesoterodine Fumarate, Extended-release Tablets, 4 mg, 30-count bottle, Rx only, Manufactured by: Alembic Pharmaceuticals Limited, Panelav 389350, Gujarat, India, Manufactured for: Alembic Pharmaceuticals, Inc., Bedminster, NJ 07921, USA, NDC 62332-175-30",
+      "product_quantity": "4,884 30-count bottles",
+      "reason_for_recall": "Failed Impurities/Degradation Specifications: Due to levels of 'Diester Impurity' exceeding the specification limit.",
+      "recall_initiation_date": "20251010",
+      "center_classification_date": "20251114",
+      "report_date": "20251126",
+      "code_info": "Lot # 2405006633, Exp Date: 03/31/2026",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Hyderabad",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "97629",
+      "recalling_firm": "Graviti Pharmaceuticals Private Limited",
+      "address_1": "E & 621 Patancheru Mandal",
+      "address_2": "Isnapur Village Rd; Survey No 621",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Product was distributed to 1 distributor and 16 wholesalers/pharmacy retailers nationwide.",
+      "recall_number": "D-0037-2026",
+      "product_description": "Bupropion Hydrochloride Extended-Release Tablets USP (XL), 300 mg, 30-count bottles, Rx Only, Mfd. by: Graviti Pharmaceuticals Private Limited, Sangareddy, Telangana, India, Dist. by: Rising Phar, NDC 16571-863-03.",
+      "product_quantity": "46,512/30 count bottles",
+      "reason_for_recall": "Failed Tablet/Capsule Specifications",
+      "recall_initiation_date": "20250915",
+      "center_classification_date": "20251021",
+      "report_date": "20251029",
+      "code_info": "Batch # BPB124341A, Exp date: 10/2026",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Mumbai",
+      "state": "",
+      "country": "India",
+      "classification": "Class III",
+      "openfda": {
+        "application_number": [
+          "ANDA077829"
+        ],
+        "brand_name": [
+          "CETIRIZINE HYDROCHLORIDE"
+        ],
+        "generic_name": [
+          "CETIRIZINE HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "Rising Pharma Holdings, Inc."
+        ],
+        "product_ndc": [
+          "16571-402"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "CETIRIZINE HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "1014678"
+        ],
+        "spl_id": [
+          "538948d8-34aa-4460-8d66-ee8fcf4c60ab"
+        ],
+        "spl_set_id": [
+          "5481ccb3-b311-4b25-b923-4fe8522ea92b"
+        ],
+        "package_ndc": [
+          "16571-402-10",
+          "16571-402-30",
+          "16571-402-50"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "64O047KTOA"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97573",
+      "recalling_firm": "JB Chemicals and Pharmaceuticals Ltd",
+      "address_1": "Neelam Centre A Wing A B Wing",
+      "address_2": "4th Floor; Hind Cycle Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S. Nationwide",
+      "recall_number": "D-0032-2026",
+      "product_description": "Cetirizine Hydrochloride Tablets USP 10 mg, 100 Tablets bottles, Manufactured by: Unique Pharmaceuticals Labs, (A Div. of J.B. Chemicals & Pharmaceuticals, Ltd.), Mumbai 400 030, India. Distributed by: Rising Pharma Holdings, Inc., East Brunswick, NJ 08816, NDC 16571-402-10.",
+      "product_quantity": "9936 bottles",
+      "reason_for_recall": "Tablet/Capsules Imprinted with Wrong ID",
+      "recall_initiation_date": "20250912",
+      "center_classification_date": "20251017",
+      "report_date": "20251029",
+      "code_info": "Lot # PY925014A; Exp. 1/31/2028",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dabhel, Daman",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "97766",
+      "recalling_firm": "USV Private Limited",
+      "address_1": "H-13, 16, 16a, 17, 18, 19, 20, 21 & E-22, Oidc, Mahatma Gandhi Udyog Nagar",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide within the United States",
+      "recall_number": "D-0034-2026",
+      "product_description": "Olopatadine Hydrochloride Ophthalmic Solution USP 0.1 %, 5 mL (0.17 FL OZ) bottles, Manufactured for: SOLA PHARMACEUTICALS LLC, Baton Rouge, LA 70810, NDC 70512-0520-05",
+      "product_quantity": "8,952 bottles",
+      "reason_for_recall": "Failed Impurities/Degradation Specifications: The result for 'Any individual unspecified impurity' exceeds the specification limit.",
+      "recall_initiation_date": "20251009",
+      "center_classification_date": "20251020",
+      "report_date": "20251029",
+      "code_info": "Lot #:  35000409, Exp. Date 01/2026",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Mumbai",
+      "state": "",
+      "country": "India",
+      "classification": "Class III",
+      "openfda": {
+        "application_number": [
+          "ANDA077829"
+        ],
+        "brand_name": [
+          "CETIRIZINE HYDROCHLORIDE"
+        ],
+        "generic_name": [
+          "CETIRIZINE HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "Rising Pharma Holdings, Inc."
+        ],
+        "product_ndc": [
+          "16571-402"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "CETIRIZINE HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "1014678"
+        ],
+        "spl_id": [
+          "538948d8-34aa-4460-8d66-ee8fcf4c60ab"
+        ],
+        "spl_set_id": [
+          "5481ccb3-b311-4b25-b923-4fe8522ea92b"
+        ],
+        "package_ndc": [
+          "16571-402-10",
+          "16571-402-30",
+          "16571-402-50"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "64O047KTOA"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97573",
+      "recalling_firm": "JB Chemicals and Pharmaceuticals Ltd",
+      "address_1": "Neelam Centre A Wing A B Wing",
+      "address_2": "4th Floor; Hind Cycle Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S. Nationwide",
+      "recall_number": "D-0033-2026",
+      "product_description": "Cetirizine Hydrochloride Tablets USP 10 mg, 500 Tablets bottles, Manufactured by: Unique Pharmaceuticals Labs, (A Div. of J.B. Chemicals & Pharmaceuticals, Ltd.), Mumbai 400 030, India. Distributed by: Rising Pharma Holdings, Inc., East Brunswick, NJ 08816, NDC 16571-402-50",
+      "product_quantity": "13,440 bottles",
+      "reason_for_recall": "Tablet/Capsules Imprinted with Wrong ID",
+      "recall_initiation_date": "20250912",
+      "center_classification_date": "20251017",
+      "report_date": "20251029",
+      "code_info": "Lot # PY925014, PY925013, Exp. 1/31/2028",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Siddipet (District)",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA217166"
+        ],
+        "brand_name": [
+          "KETOROLAC TROMETHAMINE"
+        ],
+        "generic_name": [
+          "KETOROLAC TROMETHAMINE"
+        ],
+        "manufacturer_name": [
+          "Camber Pharmaceuticals, Inc."
+        ],
+        "product_ndc": [
+          "31722-305",
+          "31722-306",
+          "31722-307"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "INTRAMUSCULAR",
+          "INTRAVENOUS"
+        ],
+        "substance_name": [
+          "KETOROLAC TROMETHAMINE"
+        ],
+        "rxcui": [
+          "860092",
+          "1665459",
+          "1665461"
+        ],
+        "spl_id": [
+          "23a5daec-e083-eec0-e063-6394a90a2411"
+        ],
+        "spl_set_id": [
+          "478aff0b-29fd-43b2-a701-5236b8f8e3df"
+        ],
+        "package_ndc": [
+          "31722-305-25",
+          "31722-305-10",
+          "31722-306-25",
+          "31722-307-25",
+          "31722-307-02"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "4EVE5946BQ"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97711",
+      "recalling_firm": "Aspiro Pharma Limited",
+      "address_1": "Survey No. 321, Biotech Park, Phase Iii",
+      "address_2": "Karkapatla Village, Markook (Mandal)",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide within the United States",
+      "recall_number": "D-0036-2026",
+      "product_description": "Ketorolac Tromethamine Injection, USP, 60 mg/2 mL (30 mg/mL), 2 mL Single-Dose Vial, For Intramuscular Use Only, Rx only, Mfd. for: Camber Pharmaceuticals, Inc., Piscataway, NJ 08854, Mfd. by: ASPIRO PHARMA LIMITED, Telangana - 502281, INDIA., U.S. Contact Number: 1-866-495-1995, NDC 31722-307-25 (Carton), 31722-307-02 (Vial label).",
+      "product_quantity": "",
+      "reason_for_recall": "Presence of Particulate Matter: Particulate matter identified as glass",
+      "recall_initiation_date": "20251001",
+      "center_classification_date": "20251021",
+      "report_date": "20251029",
+      "code_info": "Lot #: AS1240347A, Exp Date 09/2026; AS1240144A, Exp Date 05/2026; AS1240145A, AS1240146A, Exp Date 06/2026; AS1250295A, Exp Date 05/2027.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Panchmahal",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA215076"
+        ],
+        "brand_name": [
+          "DOXEPIN HYDROCHLORIDE"
+        ],
+        "generic_name": [
+          "DOXEPIN HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "Alembic Pharmaceuticals Inc."
+        ],
+        "product_ndc": [
+          "62332-637",
+          "62332-638",
+          "62332-645",
+          "62332-639",
+          "62332-640"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "DOXEPIN HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "1000048",
+          "1000058",
+          "1000070",
+          "1000076",
+          "1000097"
+        ],
+        "spl_id": [
+          "c3977b05-a9fc-4cc4-adfc-731abe6613dd"
+        ],
+        "spl_set_id": [
+          "4920401a-cde5-404b-82aa-c3c0e8911065"
+        ],
+        "package_ndc": [
+          "62332-637-31",
+          "62332-637-91",
+          "62332-638-31",
+          "62332-638-91",
+          "62332-645-31",
+          "62332-645-91",
+          "62332-639-31",
+          "62332-639-91",
+          "62332-640-31",
+          "62332-640-91",
+          "2305015142"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0362332645312"
+        ],
+        "unii": [
+          "3U9A0FE9N5"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97323",
+      "recalling_firm": "Alembic Pharmaceuticals Limited",
+      "address_1": "Formulation Division, Village Panelav, P.O. Tajpura, Near Baska, Taluka Halol",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "N/A",
+      "distribution_pattern": "Nationwide in the USA.",
+      "recall_number": "D-0566-2025",
+      "product_description": "Doxepin Hydrochloride Capsules, USP, 10 mg, 100 Capsules, Rx only, Manufactured by: Alembic Pharmaceuticals Limited, Panela v 389350, Gujarat, India, Manufactured for: Alembic Pharmaceuticals, Inc., Bedminster, NJ 07921, USA, NDC 62332-637-31",
+      "product_quantity": "9,492 bottles",
+      "reason_for_recall": "CGMP Deviations: Presence of Nitrosamine Drug Substance Related Impurity above the proposed interim limit.",
+      "recall_initiation_date": "20250725",
+      "center_classification_date": "20250801",
+      "report_date": "20250813",
+      "code_info": "Lot: 2305015142, Exp. Date: 9/30/2025",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Aurangabad, Maharashtra State",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA077259"
+        ],
+        "brand_name": [
+          "TIMOLOL MALEATE"
+        ],
+        "generic_name": [
+          "TIMOLOL MALEATE"
+        ],
+        "manufacturer_name": [
+          "Rising Pharma Holdings, Inc."
+        ],
+        "product_ndc": [
+          "64980-513",
+          "64980-514"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "OPHTHALMIC"
+        ],
+        "substance_name": [
+          "TIMOLOL MALEATE"
+        ],
+        "rxcui": [
+          "1923428",
+          "1992303"
+        ],
+        "spl_id": [
+          "ce38c2fa-e404-40e3-b684-8c31a58245be"
+        ],
+        "spl_set_id": [
+          "2ed21930-1e05-46de-8acd-cb6f4798a7fa"
+        ],
+        "package_ndc": [
+          "64980-513-05",
+          "64980-513-01",
+          "64980-513-15",
+          "64980-514-05",
+          "64980-514-01",
+          "64980-514-15"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0364980513050"
+        ],
+        "unii": [
+          "P8Y54F701R"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97219",
+      "recalling_firm": "FDC Limited",
+      "address_1": "B-8 MIDC Industrial Area",
+      "address_2": "Waluj District",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S Nationwide.",
+      "recall_number": "D-0543-2025",
+      "product_description": "Timolol Maleate Ophthalmic Solution USP, 0.5%, Sterile, 5mL bottles, Rx only, Manufactured by: FDC Limited, Waluj, Aurangabad, Maharashtra, India, Distributed by: Rising Pharmaceuticals Inc, New Jersey, NDC 64980-514-05.",
+      "product_quantity": "154,176 bottles",
+      "reason_for_recall": "Defective Container: spike of the cap becomes lodged in the nozzle of the product bottle.",
+      "recall_initiation_date": "20250705",
+      "center_classification_date": "20250729",
+      "report_date": "20250806",
+      "code_info": "Lot#: 083L061, Exp.: 11/2025.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Mumbai",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class III",
+      "openfda": {
+        "application_number": [
+          "ANDA201022"
+        ],
+        "brand_name": [
+          "FAMCICLOVIR"
+        ],
+        "generic_name": [
+          "FAMCICLOVIR"
+        ],
+        "manufacturer_name": [
+          "Macleods Pharmaceuticals Limited"
+        ],
+        "product_ndc": [
+          "33342-024",
+          "33342-025",
+          "33342-026"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "FAMCICLOVIR"
+        ],
+        "rxcui": [
+          "198382",
+          "199192",
+          "199193"
+        ],
+        "spl_id": [
+          "b783e311-5fb2-4ab3-b10a-36c87c2a7d5f"
+        ],
+        "spl_set_id": [
+          "eeeee9c4-8566-4100-8ca4-3df936a3365d"
+        ],
+        "package_ndc": [
+          "33342-024-07",
+          "33342-025-07",
+          "33342-026-07"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0333342026071",
+          "0333342024077",
+          "0333342025074"
+        ],
+        "nui": [
+          "N0000020060",
+          "N0000180187",
+          "N0000175459"
+        ],
+        "pharm_class_moa": [
+          "DNA Polymerase Inhibitors [MoA]"
+        ],
+        "pharm_class_epc": [
+          "Herpes Simplex Virus Nucleoside Analog DNA Polymerase Inhibitor [EPC]"
+        ],
+        "unii": [
+          "QIC03ANI02"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "97058",
+      "recalling_firm": "Macleods Pharmaceuticals Ltd",
+      "address_1": "304 Atlanta Arcade",
+      "address_2": "Church Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S. Nationwide.",
+      "recall_number": "D-0509-2025",
+      "product_description": "Famciclovir Tablets, USP 500 mg, 30-count bottles, Rx Only, Manufactured for: Macleods Pharma USA, Inc., Manufactured by: Macleods Pharmaceuticals Ltd., Daman, India NDC# 33342-026-07.",
+      "product_quantity": "9,888/ 30 count bottles",
+      "reason_for_recall": "Presence of Foreign Substance- Black hair strand found attached to a tablet in a sealed bottle.",
+      "recall_initiation_date": "20250611",
+      "center_classification_date": "20250707",
+      "report_date": "20250716",
+      "code_info": "Lot # 12250247B, Exp. 01/31/2027",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Panchmahal",
+      "state": "",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA204519"
+        ],
+        "brand_name": [
+          "CELECOXIB"
+        ],
+        "generic_name": [
+          "CELECOXIB"
+        ],
+        "manufacturer_name": [
+          "Alembic Pharmaceuticals Inc."
+        ],
+        "product_ndc": [
+          "62332-140",
+          "62332-141",
+          "62332-142",
+          "62332-143"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "CELECOXIB"
+        ],
+        "rxcui": [
+          "205322",
+          "205323",
+          "349514",
+          "686379"
+        ],
+        "spl_id": [
+          "e9735930-e6ae-4b7e-909a-c58948cabbad"
+        ],
+        "spl_set_id": [
+          "806e5f8a-f986-4f88-ba3e-8265f86afa48"
+        ],
+        "package_ndc": [
+          "62332-140-30",
+          "62332-140-60",
+          "62332-140-91",
+          "62332-140-08",
+          "62332-141-30",
+          "62332-141-31",
+          "62332-141-91",
+          "62332-141-08",
+          "62332-141-60",
+          "62332-141-71",
+          "62332-142-30",
+          "62332-142-31",
+          "62332-142-91",
+          "62332-142-71",
+          "62332-142-08",
+          "62332-142-60",
+          "62332-143-30",
+          "62332-143-60",
+          "62332-143-71",
+          "62332-143-10",
+          "2405014780"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0362332142309",
+          "0362332143306",
+          "0362332141302",
+          "0362332140305"
+        ],
+        "nui": [
+          "N0000000160",
+          "M0001335",
+          "N0000175722"
+        ],
+        "pharm_class_moa": [
+          "Cyclooxygenase Inhibitors [MoA]"
+        ],
+        "pharm_class_cs": [
+          "Anti-Inflammatory Agents, Non-Steroidal [CS]"
+        ],
+        "pharm_class_epc": [
+          "Nonsteroidal Anti-inflammatory Drug [EPC]"
+        ],
+        "unii": [
+          "JCX84Q7J1L"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "96840",
+      "recalling_firm": "Alembic Pharmaceuticals Limited",
+      "address_1": "Formulation Division, Village Panelav, P.O. Tajpura, Near Baska, Taluka Halol",
+      "address_2": "",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Distributed Nationwide and in PR",
+      "recall_number": "D-0459-2025",
+      "product_description": "Celecoxib Capsules, 200 mg, 500-count bottle, Rx only, Manufactured by: Alembic Pharmaceuticals Limited (Formulation Division), Panelav 389350, Gujarat, India, Manufactured for: Alembic Pharmaceuticals, Inc., Bedminster, NJ 07921, USA, NDC 62332-142-71",
+      "product_quantity": "2,946 500-count bottles",
+      "reason_for_recall": "Presence of Foreign Tablets/Capsules; customer complaint found one Tadalafil 5mg tablet inside a sealed 500-count bottle of Celecoxib 200mg capsule",
+      "recall_initiation_date": "20250509",
+      "center_classification_date": "20250606",
+      "report_date": "20250618",
+      "code_info": "Batch 2405014780, Exp. Date: Sep. 30, 2027",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Mumbai",
+      "state": "",
+      "country": "India",
+      "classification": "Class III",
+      "openfda": {
+        "application_number": [
+          "ANDA211417"
+        ],
+        "brand_name": [
+          "LEVOTHYROXINE SODIUM"
+        ],
+        "generic_name": [
+          "LEVOTHYROXINE SODIUM"
+        ],
+        "manufacturer_name": [
+          "Macleods Pharmaceuticals Limited"
+        ],
+        "product_ndc": [
+          "33342-393",
+          "33342-394",
+          "33342-395",
+          "33342-396",
+          "33342-397",
+          "33342-398",
+          "33342-399",
+          "33342-400",
+          "33342-401",
+          "33342-402",
+          "33342-403",
+          "33342-404"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "LEVOTHYROXINE SODIUM"
+        ],
+        "rxcui": [
+          "892246",
+          "892251",
+          "892255",
+          "966220",
+          "966221",
+          "966222",
+          "966224",
+          "966225",
+          "966248",
+          "966249",
+          "966253",
+          "966270"
+        ],
+        "spl_id": [
+          "3a77ca51-7d8a-4755-aabc-3801cc772a10"
+        ],
+        "spl_set_id": [
+          "b8c20f76-3ee6-4b29-b77f-ed4ad1baaed9"
+        ],
+        "package_ndc": [
+          "33342-393-10",
+          "33342-393-11",
+          "33342-393-44",
+          "33342-394-10",
+          "33342-394-11",
+          "33342-394-44",
+          "33342-395-10",
+          "33342-395-11",
+          "33342-395-44",
+          "33342-396-10",
+          "33342-396-11",
+          "33342-396-44",
+          "33342-397-10",
+          "33342-397-11",
+          "33342-397-44",
+          "33342-398-10",
+          "33342-398-11",
+          "33342-398-44",
+          "33342-399-10",
+          "33342-399-11",
+          "33342-399-44",
+          "33342-400-10",
+          "33342-400-11",
+          "33342-400-44",
+          "33342-401-10",
+          "33342-401-11",
+          "33342-401-44",
+          "33342-402-10",
+          "33342-402-11",
+          "33342-402-44",
+          "33342-403-10",
+          "33342-403-11",
+          "33342-403-44",
+          "33342-404-10",
+          "33342-404-11",
+          "33342-404-44"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0333342393104",
+          "0333342397102",
+          "0333342404107",
+          "0333342393111",
+          "0333342400109",
+          "0333342403100",
+          "0333342393449",
+          "0333342394101",
+          "0333342402103",
+          "0333342396105",
+          "0333342395108",
+          "0333342398109",
+          "0333342399106"
+        ],
+        "unii": [
+          "9J765S329G"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "96979",
+      "recalling_firm": "Macleods Pharmaceuticals Ltd",
+      "address_1": "304 Atlanta Arcade",
+      "address_2": "Church Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0470-2025",
+      "product_description": "Levothyroxine Sodium Tablets, USP 112 mcg (0.112mg), 1000 tablets, Rx Only, Manufactured for: Macleods Pharma USA, Inc. Princeton, NJ 08540. Manufactured by: Macleods Pharmaceuticals Ltd. Sarigam, Valsad, Gujarat, India, NDC 33342-398-44.",
+      "product_quantity": "1,344- 1000 count bottles",
+      "reason_for_recall": "Presence of a foreign substance: black hair found embedded in tablet.",
+      "recall_initiation_date": "20250529",
+      "center_classification_date": "20250612",
+      "report_date": "20250618",
+      "code_info": "Lot #: MLF2401A, Exp 01/31/2026",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Panchmahal",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA210560"
+        ],
+        "brand_name": [
+          "BROMFENAC OPHTHALMIC SOLUTION 0.09%"
+        ],
+        "generic_name": [
+          "BROMFENAC OPHTHALMIC SOLUTION 0.09%"
+        ],
+        "manufacturer_name": [
+          "Alembic Pharmaceuticals Inc."
+        ],
+        "product_ndc": [
+          "62332-508"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "OPHTHALMIC"
+        ],
+        "substance_name": [
+          "BROMFENAC SODIUM"
+        ],
+        "rxcui": [
+          "578018"
+        ],
+        "spl_id": [
+          "824d37d0-e25f-4df8-be0e-d9a65046fc10"
+        ],
+        "spl_set_id": [
+          "225070ee-d862-4d41-84b8-5bd7a8a03fd7"
+        ],
+        "package_ndc": [
+          "62332-508-17"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "8ECV571Y37"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "96836",
+      "recalling_firm": "Alembic Pharmaceuticals Limited",
+      "address_1": "Formulation Division, Village Panelav, P.O. Tajpura, Near Baska, Taluka Halol",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "US Nationwide",
+      "recall_number": "D-0447-2025",
+      "product_description": "Bromfenac Ophthalmic Solution 0.09%, 1.7 mL bottle, Rx only, Sterile, Manufactured for: Alembic Pharmaceuticals, Inc., Bedminster, NJ 07921, USA, Manufactured by Alembic Pharmaceuticals Limitied, Gujarat, India, Made in India, NDC 62332-508-17",
+      "product_quantity": "N/A",
+      "reason_for_recall": "Failed Impurities/Degradation Specifications",
+      "recall_initiation_date": "20250507",
+      "center_classification_date": "20250527",
+      "report_date": "20250604",
+      "code_info": "Lot 7230309, Exp Date: 5/31/2025; Lot 7230310, Exp Date: 5/31/2025; Lot 7230311, Exp Date: 5/31/2025"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0438-2025",
+      "product_description": "Nature Mint Anticavity Fluoride Toothpaste, Sodium monofluorophosphate 0.76%, NET WT 0.85 OZ (24 grams) Tube, Made in India, Dist. by Bob Barker Co. Inc., Fuquay-Varina, NC 27526, NDC 53247-131-03",
+      "product_quantity": "616,160 Tubes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot B0014, B0015, B0022, B0023, Exp Date: 05/31/2026; Lot B0024, B0025, B0026, B0027, B0033, B0034, B0035, B0039, B0040, B0041, B0045, Exp Date: 06/30/2026; Lot B0046, Exp Date: 07/31/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0439-2025",
+      "product_description": "Nature Mint Anticavity Fluoride Toothpaste, Sodium monofluorophosphate 0.76%, NET WT 1.5 OZ (43 grams) Tube, Made in India, Dist. by Bob Barker Co. Inc., Fuquay-Varina, NC 27526, NDC 53247-131-04",
+      "product_quantity": "150,768 Tubes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot B0004, Exp Date: 05/31/2026; B0060, Exp Date: 07/31/2026; Lot B0067, B0071, B0072, Exp Date: 08/31/2026; Lot B0107, B0108, Exp Date: 09/30/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0440-2025",
+      "product_description": "Nature Mint, Anticavity Fluoride Toothpaste, Sodium monofluorophosphate 0.76%, NET WT 2.75 OZ (78g) Tube, Made in India, Dist. by Bob Barker Co. Inc., Fuquay-Varina, NC 27526, NDC 53247-131-05",
+      "product_quantity": "160,848 Tubes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot B0032, B0047, B0048, B0055, B0056, Exp Date: 07/31/2026; B0102, B0103, B0104, B0105, B0106, B0107, Exp Date: 09/30/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0434-2025",
+      "product_description": "Maximum Security, Anticavity Gel Toothpaste, Sodium Fluoride 0.22%, Fresh Mint Flavor, NET WT 1.5 OZ (43 g) Tube, Made in India, Dist. by Bob Barker Co. Inc., Fuquay-Varina, NC 27526, NDC 53247-132-04",
+      "product_quantity": "216,720 Tubes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot B0013, Exp Date: 05/31/2026; Lot B0018, Exp Date: 06/30/2026; Lot B0053, B0054, Exp Date: 07/31/2026; Lot B0090, B0091, B0092, B0093, B0094, B0095, B0096, B0097, B0098, B0099, B0100, B0101, Exp Date: 09/30/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0431-2025",
+      "product_description": "Maximum Security Anticavity Gel Toothpaste, Sodium Fluoride 0.22%, Fresh Mint Flavor, Net Wt 0.6 OZ (17 g) Tube, Made in India, Dist. by Bob Barker Co. Inc., Fuquay-Varina, NC 27526, NDC 53247-132-02",
+      "product_quantity": "391,680 Tubes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot B0009, B0017, Exp Date: 05/31/2026; Lot B0018, B0019, B0036, B0037, B0038, Exp Date: 06/30/2026; Lot B0049, Exp Date: 07/31/2026; B0063, Exp Date: 08/31/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0427-2025",
+      "product_description": "Optim V, Anti-Itch Cream, Benzocaine 20% & Resorcinol 3% - External analgesic, Net Wt. Peso Neto 1 oz (28g) Tube, Distributed by: Pharmadel LLC, New Castle, DE 19720, Made in India, NDC 55758-300-01, UPC 8 59424 00420 6.",
+      "product_quantity": "6,372 Tubes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot SP24A, Exp: 09/30/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M017"
+        ],
+        "brand_name": [
+          "ARTRIDON"
+        ],
+        "generic_name": [
+          "MENTHOL, METHYL SALICYLATE"
+        ],
+        "manufacturer_name": [
+          "Pharmadel LLC"
+        ],
+        "product_ndc": [
+          "55758-030"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "MENTHOL, UNSPECIFIED FORM",
+          "METHYL SALICYLATE"
+        ],
+        "spl_id": [
+          "47d1b2df-a895-c049-e063-6394a90a467d"
+        ],
+        "spl_set_id": [
+          "73572156-4cce-0669-e053-2991aa0aaecc"
+        ],
+        "package_ndc": [
+          "55758-030-05"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "L7T10EIP3A",
+          "LAV5U5022Y"
+        ],
+        "upc": [
+          "810096771513"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0421-2025",
+      "product_description": "Artridon Glucosamine (menthol 2% and Methyl Salicylate 15% - Topical Analgesic), for arthritis joint pain relief, 5 oz (142g) Tube, Dist by/por: Pharmadel LLC, New Castle, DE, 19720, Made in India, NDC 55758-030-05, UPC 8 10096 77151 3.",
+      "product_quantity": "9,984 Tubes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot SP25A, Exp Date: 09/30/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M017"
+        ],
+        "brand_name": [
+          "RAPIDOL"
+        ],
+        "generic_name": [
+          "HYDROCORTISONE"
+        ],
+        "manufacturer_name": [
+          "Pharmadel LLC"
+        ],
+        "product_ndc": [
+          "55758-420"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "HYDROCORTISONE"
+        ],
+        "rxcui": [
+          "106258"
+        ],
+        "spl_id": [
+          "491142b7-44da-7a1a-e063-6394a90a1942"
+        ],
+        "spl_set_id": [
+          "19a1f1e2-bc6b-7153-e063-6294a90ab115"
+        ],
+        "package_ndc": [
+          "55758-420-02",
+          "55758-420-03"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "nui": [
+          "N0000175576",
+          "N0000175450"
+        ],
+        "pharm_class_epc": [
+          "Corticosteroid [EPC]"
+        ],
+        "pharm_class_moa": [
+          "Corticosteroid Hormone Receptor Agonists [MoA]"
+        ],
+        "unii": [
+          "WI4X0X7BPJ"
+        ],
+        "upc": [
+          "810096771582"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0428-2025",
+      "product_description": "Rapidol Maximum Strength, Hydrocortisone 1% Anti-Itch Cream, NET WT 2 oz (60g) Tube, Distributed by: Pharmadel LLC, New Castle, DE, 19720, NDC 55758-420-02, UPC 8 10096 77158 2.",
+      "product_quantity": "10,000 Tubes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot SP26A, Exp: 09/30/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0424-2025",
+      "product_description": "Kingskin, SacaCallos, 17% Salicylic acid, 0.5 fl oz (14.8mL) Bottle, Dist. by: Pharmadel LLC, New Castle, DE 19720, Made in India, NDC 55758-423-15, UPC 8 10096 77163 6.",
+      "product_quantity": "9,000 Bottles",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot SP28A, Exp Date: 09/30/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0435-2025",
+      "product_description": "Nature Mint, Anticavity Fluoride Toothpaste, Sodium monofluorophosphate 0.76%, NET WT 4.6 OZ (130 grams) Tube, Made in India, Dist. by Bob Barker Co. Inc., Fuquay-Varina, NC 27526, NDC 53247-131-06",
+      "product_quantity": "19,500 Tubes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot B0027, B0031, Exp Date: 06/30/2026; Lot B0032, Exp Date: 07/31/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0432-2025",
+      "product_description": "Maximum Security, Anticavity Gel Toothpaste, Sodium Fluoride 0.22%, Fresh Mint Flavor, NET WT 0.85 oz (24 g) Tube, Made in India, Dist. by Bob Barker Co. Inc. Fuquay-Varnia, NC 27526, NDC 53247-132-03",
+      "product_quantity": "615, 600 Tubes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot B0008, B0009, B0017, Exp Date: 05/31/2026; Lot B0042, B0043, B0044, Exp Date: 06/30/2026; Lot B0049, B0050, B0051, B0054, B0058, B0059, Exp Date: 07/31/2026; Lot B0061, B0062, B0063, B0064, B0065, B0068, B0069, Exp Date: 08/31/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0433-2025",
+      "product_description": "Maximum Security, Anticavity Gel Toothpaste, Sodium Fluoride 0.22%, Fresh Mint Flavor, NET WT 0.15 OZ (4.25 g) Sachets, Made in India, Dist. by Bob Barker Co. Inc., Fuquay-Varina, NC 27526, NDC 53247-132-01",
+      "product_quantity": "1,559,000 Sachets",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot B0010, B0017, Exp Date: 05/31/2026; Lot B0028, B0029, B0030, Exp Date: 06/30/2026; Lot B0052, Exp Date: 07/31/2026; Lot B0091, Exp Date: 09/30/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0436-2025",
+      "product_description": "Nature Mint, Anticavity Fluoride Toothpaste, Sodium monofluorophosphate 0.76%, NET WT 0.6 OZ (17g) Tube, Made in India, Dist. by Bob Barker Co. Inc., Fuquay-Varina, NC 27526, NDC 53247-131-02",
+      "product_quantity": "498,960 Tubes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot B0015, B0016, Exp Date: 05/31/2026; Lot B0020, B0021, B0022, Exp Date: 06/30/2026; Lot B0056, B0057, Exp Date: 07/31/2026; Lot B0108, B0109, B0110, Exp Date: 09/30/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0437-2025",
+      "product_description": "Nature Mint, Anticavity Fluoride Toothpaste, Sodium monofluorophosphate 0.76%, NET WT 6.4 OZ (181 grams) Box, Made in India, Dist. by Bob Barker Co. Inc., Fuquay-Varina, NC 27526, NDC 53247-131-07",
+      "product_quantity": "4,176 boxes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot B0067, Exp Date: 08/31/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0423-2025",
+      "product_description": "CURA HONGOS, Antifungal Cream, Clotrimazole 1%, Net Wt/ Peso Neto 2 oz (56.7g) Tube, Distributed by: Pharmadel LLC, New Castle, DE 19720, Made in India, UPC 8 997110 011052.",
+      "product_quantity": "10,788 Tubes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot SP23A, Exp Date: 03/31/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0425-2025",
+      "product_description": "KOFAL Original, Penetrating Pain Relieving Ointment (methyl salicylate 12% - Topical Analgesic), 4 oz (113 g) Jar, Distributed by: Pharmadel LLC, Georgetown, DE 199747, NDC 55758-106-04, UPC 8 9971100128 0.",
+      "product_quantity": "16,248 Jars",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lost SP21A, Exp Date: 03/31/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M004"
+        ],
+        "brand_name": [
+          "RAPIDOL"
+        ],
+        "generic_name": [
+          "BACITRACIN ZINC, NEOMYCIN SULFATE, POLYMYXIN B SULFATE"
+        ],
+        "manufacturer_name": [
+          "Pharmadel LLC"
+        ],
+        "product_ndc": [
+          "55758-440"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "POLYMYXIN B SULFATE",
+          "BACITRACIN ZINC",
+          "NEOMYCIN SULFATE"
+        ],
+        "rxcui": [
+          "204602"
+        ],
+        "spl_id": [
+          "43d00a9a-fb44-69c9-e063-6394a90adc7e"
+        ],
+        "spl_set_id": [
+          "1ad22205-f8c3-b142-e063-6394a90a0044"
+        ],
+        "package_ndc": [
+          "55758-440-02",
+          "55758-440-03"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "19371312D4",
+          "89Y4M234ES",
+          "057Y626693"
+        ],
+        "upc": [
+          "810096771629"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0429-2025",
+      "product_description": "Rapidol, Triple Antibiotic First Aid Ointment, Bacitracin Zinc/ Neomycin Sulfate/ Polymyxin B Sulfate, Net Wt 2 oz (56g) Tube, Distributed by: Pharmadel LLC, New Castle, DE, 19720, Made in India, NDC 55758-440-02, UPC 8 10096 77162 9.",
+      "product_quantity": "9,336 Tubes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot SP27A, Exp: 09/30/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M017"
+        ],
+        "brand_name": [
+          "KOFAL"
+        ],
+        "generic_name": [
+          "METHYL SALICYLATE"
+        ],
+        "manufacturer_name": [
+          "Pharmadel LLC"
+        ],
+        "product_ndc": [
+          "55758-109"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "METHYL SALICYLATE"
+        ],
+        "rxcui": [
+          "1101920",
+          "2273244"
+        ],
+        "spl_id": [
+          "4df1cbb9-f4cc-64ca-e063-6394a90a4286"
+        ],
+        "spl_set_id": [
+          "9cac377d-97bc-f0b7-e053-2a95a90a2e12"
+        ],
+        "package_ndc": [
+          "55758-109-02"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "LAV5U5022Y"
+        ],
+        "upc": [
+          "899711001013"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0426-2025",
+      "product_description": "KOFAL, Athletes, Penetrating Pain Relief, External Analgesic Ointment (methyl salicylate 10.5% - External Analgesic), 2 oz (60 g) Jar, Distributed by: Pharmadel LLC, New Castle, DE 19720, NDC 55758-109-02, UPC 8 99711 00101 3.",
+      "product_quantity": "11,808 Jars",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot SP30A, Exp Date: 09/30/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0430-2025",
+      "product_description": "Cinnafresh anticavity gel toothpaste, sodium fluoride 0.22%, Bold Cinnamon Flavor, NET WT. 0.85 OZ (24 grams) Tube, Made in India, Dist. by Bob Barker Co. Inc., Fuquay-Varina, NC 27526, NDC 53247-133-01",
+      "product_quantity": "383,904 Tubes",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot B0011, B0012, Exp Date: 05/31/2026; Lot B0070, B0074, Exp Date: 08/31/2026; Lot B0075, B0077, B0078, B0079, B0080, B0081, B0082, B0083, B0084, B0085, Exp Date: 09/30/2026"
+    },
+    {
+      "status": "Terminated",
+      "city": "Ta. Kadi, District Mehsana",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96797",
+      "recalling_firm": "KENIL HEALTHCARE PRIVATE LIMITED",
+      "address_1": "Plot 319",
+      "address_2": "Village Acharasan, Ankhol-Vamaj Road",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "DE and NC",
+      "recall_number": "D-0422-2025",
+      "product_description": "CURA HONGOS, Antifungal, 1% Clotrimazole, Topical Lotion, 0.76 fl oz (22.5 mL) Bottle, Dist by/por: Pharmadel LLC, New Castle, DE 19720, Made in India, NDC 55758-34-01, UPC 8 10096 77170 4.",
+      "product_quantity": "10,128 Bottles",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250424",
+      "center_classification_date": "20250519",
+      "termination_date": "20260219",
+      "report_date": "20250528",
+      "code_info": "Lot SP31A, Exp Date: 09/30/2026"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Aurangabad, Maharashtra State",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA077259"
+        ],
+        "brand_name": [
+          "TIMOLOL MALEATE"
+        ],
+        "generic_name": [
+          "TIMOLOL MALEATE"
+        ],
+        "manufacturer_name": [
+          "Rising Pharma Holdings, Inc."
+        ],
+        "product_ndc": [
+          "64980-513",
+          "64980-514"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "OPHTHALMIC"
+        ],
+        "substance_name": [
+          "TIMOLOL MALEATE"
+        ],
+        "rxcui": [
+          "1923428",
+          "1992303"
+        ],
+        "spl_id": [
+          "ce38c2fa-e404-40e3-b684-8c31a58245be"
+        ],
+        "spl_set_id": [
+          "2ed21930-1e05-46de-8acd-cb6f4798a7fa"
+        ],
+        "package_ndc": [
+          "64980-513-05",
+          "64980-513-01",
+          "64980-513-15",
+          "64980-514-05",
+          "64980-514-01",
+          "64980-514-15"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0364980513050"
+        ],
+        "unii": [
+          "P8Y54F701R"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "96740",
+      "recalling_firm": "FDC Limited",
+      "address_1": "B-8 MIDC Industrial Area",
+      "address_2": "Waluj District",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S. Nationwide",
+      "recall_number": "D-0403-2025",
+      "product_description": "Timolol Maleate Ophthalmic Solution USP, 0.5%, Sterile, 10mL bottles, Rx only, Manufactured by: FDC Limited, Waluj, Aurangabad, Maharashtra, India, Distributed by: Rising Pharmaceuticals Inc, New Jersey, NDC 64980-514-01.",
+      "product_quantity": "60428 bottles",
+      "reason_for_recall": "Defective Container: Unable to get the solution out of the bottle as the spike of the cap was lodged in the nozzle of the product bottle.",
+      "recall_initiation_date": "20250418",
+      "center_classification_date": "20250505",
+      "report_date": "20250514",
+      "code_info": "Lot #: 083I098, Exp. Date 08/31/2025",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bengaluru",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA209101"
+        ],
+        "brand_name": [
+          "HALOPERIDOL DECANOATE"
+        ],
+        "generic_name": [
+          "HALOPERIDOL DECANOATE"
+        ],
+        "manufacturer_name": [
+          "BluePoint Laboratories"
+        ],
+        "product_ndc": [
+          "68001-578",
+          "68001-579",
+          "68001-580",
+          "68001-581",
+          "68001-582"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "INTRAMUSCULAR"
+        ],
+        "substance_name": [
+          "HALOPERIDOL DECANOATE"
+        ],
+        "rxcui": [
+          "859871",
+          "1719803",
+          "1719862"
+        ],
+        "spl_id": [
+          "048557ea-f859-f0f2-e063-6294a90af5ab"
+        ],
+        "spl_set_id": [
+          "f2d14406-2ad4-4c5b-9c24-a026f27b415d"
+        ],
+        "package_ndc": [
+          "68001-579-59",
+          "68001-579-48",
+          "68001-580-41",
+          "68001-581-41",
+          "68001-581-48",
+          "68001-581-82",
+          "68001-578-59",
+          "68001-578-48",
+          "68001-582-41"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0368001578592",
+          "0368001581417",
+          "0368001579599",
+          "0368001582414"
+        ],
+        "unii": [
+          "AC20PJ4101"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "96569",
+      "recalling_firm": "Somerset Therapeutics Private Limited",
+      "address_1": "54/1 Budihal Village",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S. Nationwide",
+      "recall_number": "D-0356-2025",
+      "product_description": "Haloperidol Decanoate Injection 50mg/mL, 1mL Single-Dose Vial, Rx Only, Manufactured by: Somerset Therapeutics Limited, Kamataka India, Manufactured for: BluePoint Laboratories NDC 68001-580-41",
+      "product_quantity": "4956 vials",
+      "reason_for_recall": "Lack of Assurance of Sterility: Media fill with bacterial contamination",
+      "recall_initiation_date": "20250321",
+      "center_classification_date": "20250408",
+      "report_date": "20250416",
+      "code_info": "A240467B, exp. date 07/2026"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bengaluru",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA207522"
+        ],
+        "brand_name": [
+          "METHOCARBAMOL"
+        ],
+        "generic_name": [
+          "METHOCARBAMOL"
+        ],
+        "manufacturer_name": [
+          "Somerset Therapeutics, LLC"
+        ],
+        "product_ndc": [
+          "70069-101"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "INTRAMUSCULAR",
+          "INTRAVENOUS"
+        ],
+        "substance_name": [
+          "METHOCARBAMOL"
+        ],
+        "rxcui": [
+          "238175"
+        ],
+        "spl_id": [
+          "dd175ad9-9f83-4ef1-b745-65e44f5e12c4"
+        ],
+        "spl_set_id": [
+          "68dd9c24-4d41-48be-9f54-fceb787bb443"
+        ],
+        "package_ndc": [
+          "70069-101-25",
+          "70069-101-10",
+          "70069-101-05"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0370069101018",
+          "0370069101100",
+          "0370069101254",
+          "0370069101056"
+        ],
+        "nui": [
+          "N0000175730",
+          "N0000175737"
+        ],
+        "pharm_class_pe": [
+          "Centrally-mediated Muscle Relaxation [PE]"
+        ],
+        "pharm_class_epc": [
+          "Muscle Relaxant [EPC]"
+        ],
+        "unii": [
+          "125OD7737X"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "96569",
+      "recalling_firm": "Somerset Therapeutics Private Limited",
+      "address_1": "54/1 Budihal Village",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S. Nationwide",
+      "recall_number": "D-0354-2025",
+      "product_description": "Methocarbamol Injection USP\t1,000 mg/10 mL (100 mg/mL), 10 mL Single Dose Vial, Rx Only, Manufactured for: Somerset Therapeutics, LLC, Somerset, NJ 08873, NDC 70069-101-25 (immediate carton) and 70069-101-05 (5x10 mL carton)",
+      "product_quantity": "506,080 vials",
+      "reason_for_recall": "Lack of Assurance of Sterility: Media fill with bacterial contamination",
+      "recall_initiation_date": "20250321",
+      "center_classification_date": "20250408",
+      "report_date": "20250416",
+      "code_info": "NDC 70069-101-25; A240304, A240305, A240320, A240322, A240334, A240335, A240340, exp. date 05/2026;  A240342, A240347, A240385, A240391, exp. date 06/2026;   NDC 70069-101-05;  A240326, exp. date 05/2026"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bengaluru",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96569",
+      "recalling_firm": "Somerset Therapeutics Private Limited",
+      "address_1": "54/1 Budihal Village",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S. Nationwide",
+      "recall_number": "D-0358-2025",
+      "product_description": "Haloperidol Decanoate Injection, 100 mg/mL, 1mL Single-Dose Vial, Rx Only, Manufactured for: Somerset Therapeutics, LLC, Somerset, NJ 08873, NDC 70069-383-10",
+      "product_quantity": "240 vials",
+      "reason_for_recall": "Lack of Assurance of Sterility: Media fill with bacterial contamination",
+      "recall_initiation_date": "20250321",
+      "center_classification_date": "20250408",
+      "report_date": "20250416",
+      "code_info": "A240482D, exp. date 08/2026"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bengaluru",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "96569",
+      "recalling_firm": "Somerset Therapeutics Private Limited",
+      "address_1": "54/1 Budihal Village",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S. Nationwide",
+      "recall_number": "D-0355-2025",
+      "product_description": "Haloperidol Decanoate Injection 50mg/mL, 1mL Single-Dose Vial, Rx Only, Manufactured for: Somerset Therapeutics, LLC, Somerset, NJ 08873, NDC 70069-381-01 (individual carton) and NDC 70069-381-10 (10x1 mL carton)",
+      "product_quantity": "997 vials",
+      "reason_for_recall": "Lack of Assurance of Sterility: Media fill with bacterial contamination",
+      "recall_initiation_date": "20250321",
+      "center_classification_date": "20250408",
+      "report_date": "20250416",
+      "code_info": "NDC 70069-381-01; A240467A, exp. date 07/2026;  NDC 70069-381-10; A240467C, exp. date 07/2026"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bengaluru",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA209101"
+        ],
+        "brand_name": [
+          "HALOPERIDOL DECANOATE"
+        ],
+        "generic_name": [
+          "HALOPERIDOL DECANOATE"
+        ],
+        "manufacturer_name": [
+          "BluePoint Laboratories"
+        ],
+        "product_ndc": [
+          "68001-578",
+          "68001-579",
+          "68001-580",
+          "68001-581",
+          "68001-582"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "INTRAMUSCULAR"
+        ],
+        "substance_name": [
+          "HALOPERIDOL DECANOATE"
+        ],
+        "rxcui": [
+          "859871",
+          "1719803",
+          "1719862"
+        ],
+        "spl_id": [
+          "048557ea-f859-f0f2-e063-6294a90af5ab"
+        ],
+        "spl_set_id": [
+          "f2d14406-2ad4-4c5b-9c24-a026f27b415d"
+        ],
+        "package_ndc": [
+          "68001-579-59",
+          "68001-579-48",
+          "68001-580-41",
+          "68001-581-41",
+          "68001-581-48",
+          "68001-581-82",
+          "68001-578-59",
+          "68001-578-48",
+          "68001-582-41"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0368001578592",
+          "0368001581417",
+          "0368001579599",
+          "0368001582414"
+        ],
+        "unii": [
+          "AC20PJ4101"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "96569",
+      "recalling_firm": "Somerset Therapeutics Private Limited",
+      "address_1": "54/1 Budihal Village",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S. Nationwide",
+      "recall_number": "D-0357-2025",
+      "product_description": "Haloperidol Decanoate Injection 100mg/mL, 1mL Single-Dose Vial, Rx Only, Manufactured by: Somerset Therapeutics Limited, Kamataka, India, Manufactured for: BluePoint Laboratories  NDC 68001-581-41 (individual carton) and NDC 68001-581-48 (5x1 mL cartons)",
+      "product_quantity": "23,960 vials",
+      "reason_for_recall": "Lack of Assurance of Sterility: Media fill with bacterial contamination",
+      "recall_initiation_date": "20250321",
+      "center_classification_date": "20250408",
+      "report_date": "20250416",
+      "code_info": "NDC 68001-581-41; A240482A, exp. date 08/2026;  NDC 68001-581-48; A240482B, exp. date 08/2026"
+    }
+  ]
+}

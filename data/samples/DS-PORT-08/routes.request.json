@@ -1,0 +1,41 @@
+{
+  "url": "searoute.searoute()",
+  "origin": [
+    "BDCGP",
+    [
+      91.8333,
+      22.3333
+    ]
+  ],
+  "destinations": {
+    "LKCMB Colombo": [
+      79.85,
+      6.95
+    ],
+    "SGSIN Singapore": [
+      103.85,
+      1.26
+    ],
+    "MYPKG Port Klang": [
+      101.39,
+      3.0
+    ],
+    "BDMGL Mongla (sea approach)": [
+      89.6,
+      22.48
+    ],
+    "NLRTM Rotterdam": [
+      4.05,
+      51.95
+    ],
+    "USLAX Los Angeles": [
+      -118.27,
+      33.73
+    ]
+  },
+  "units": "naut",
+  "captured_at": "2026-10-25T22:45:46.350131+00:00",
+  "status": null,
+  "content_type": "application/geo+json",
+  "transformed": false
+}

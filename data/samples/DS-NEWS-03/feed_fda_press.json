@@ -1,0 +1,270 @@
+{
+ "feed": {
+  "title": "FDA Press Releases RSS Feed",
+  "link": "http://www.fda.gov/",
+  "language": "en",
+  "updated": null
+ },
+ "items": [
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-launches-new-program-advance-neuroscience-medical-product-development",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-launches-new-program-advance-neuroscience-medical-product-development",
+   "title": "FDA Launches New Program to Advance Neuroscience Medical Product Development",
+   "published": "2026-10-22T16:58:19+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "FDA announces the launch of the Neuroscience Advancement and Innovation Nexus (NAIN), a new agency program aligned with the Trump Administration’s efforts to accelerate medical innovation and deliver breakthrough treatments.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-its-kind-chronic-hepatitis-b-treatment",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-its-kind-chronic-hepatitis-b-treatment",
+   "title": "FDA Approves First-of-Its-Kind Chronic Hepatitis B Treatment",
+   "published": "2026-10-20T19:40:38+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "FDA today approved Hibsago (bepirovirsen) injection, in combination with existing antiviral therapy, to treat chronic hepatitis B virus (HBV) infection in certain adults without cirrhosis.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-approves-once-weekly-generic-hormone-therapy-patch-women",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-approves-once-weekly-generic-hormone-therapy-patch-women",
+   "title": "FDA Approves Once-Weekly Generic Hormone Therapy Patch for Women",
+   "published": "2026-10-20T15:57:36+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "Today, the U.S. Food and Drug Administration approved the first generic of Climara Pro (estradiol and levonorgestrel transdermal system, 0.045 mg per day/0.015 mg), a transdermal hormone therapy patch for women with an intact uterus applied once a week.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-issues-final-guidance-prescription-drug-apps-and-software",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-issues-final-guidance-prescription-drug-apps-and-software",
+   "title": "FDA Issues Final Guidance on Prescription Drug Apps and Software",
+   "published": "2026-10-20T13:03:14+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "The U.S. Food and Drug Administration today released final guidance establishing a clear framework for how drug companies can develop, distribute, and label apps used alongside their prescription medicines.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-approves-immunotherapy-may-allow-certain-patients-rectal-cancer-avoid-chemotherapy-radiation-and",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-approves-immunotherapy-may-allow-certain-patients-rectal-cancer-avoid-chemotherapy-radiation-and",
+   "title": "FDA Approves Immunotherapy That May Allow Certain Patients with Rectal Cancer to Avoid Chemotherapy, Radiation and Surgery",
+   "published": "2026-10-19T16:19:38+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "The U.S. Food and Drug Administration today granted accelerated approval for a new use of the immunotherapy Jemperli (dostarlimab-gxly) that may allow some patients with locally advanced rectal cancer to avoid common treatments that can have a lasting impact on their daily life.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-launches-rare-disease-framework-initiative-develop-holistic-fit-purpose-framework-rare-disease",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-launches-rare-disease-framework-initiative-develop-holistic-fit-purpose-framework-rare-disease",
+   "title": "FDA Launches the Rare Disease Framework Initiative to Develop a Holistic, Fit-For-Purpose Framework for Rare Disease Drug Development",
+   "published": "2026-10-14T15:50:52+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "The U.S. Food and Drug Administration, a division within the U.S. Department of Health and Human Services (HHS), today announced the Rare Disease Framework Initiative to reimagine the development of drugs and biologics for rare diseases.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-treatment-certain-people-bcg-unresponsive-bladder-cancer",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-treatment-certain-people-bcg-unresponsive-bladder-cancer",
+   "title": "FDA Approves First Treatment for Certain People With BCG-Unresponsive Bladder Cancer",
+   "published": "2026-10-14T15:14:51+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "FDA Approves First Treatment for Certain People With BCG-Unresponsive Bladder Cancer",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-seeks-public-input-support-ibogaine-research",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-seeks-public-input-support-ibogaine-research",
+   "title": "FDA Seeks Public Input to Support Ibogaine Research",
+   "published": "2026-10-05T13:02:06+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "The U.S. Food and Drug Administration today announced a request for information (RFI) describing approaches the agency is considering for the design of early-phase clinical trials of ibogaine drug products and seeking public input on those approaches.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-heart-valve-designed-grow-children",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-heart-valve-designed-grow-children",
+   "title": "FDA Approves First Heart Valve Designed to Grow with Children",
+   "published": "2026-10-01T19:02:08+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "The U.S. Food and Drug Administration today approved the Autus Size-Adjustable Valve, a surgically implanted pulmonary heart valve for pediatric patients with congenital pulmonary valve disease.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-launches-nationwide-effort-expand-scientific-expertise-and-consumer-voices-advisory-committees",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-launches-nationwide-effort-expand-scientific-expertise-and-consumer-voices-advisory-committees",
+   "title": "FDA Launches Nationwide Effort to Expand Scientific Expertise and Consumer Voices to Advisory Committees",
+   "published": "2026-09-30T13:26:33+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "The U.S. Food and Drug Administration today announced a broad, nationwide recruitment effort to expand the range of qualified voices and perspectives on its advisory committees— the independent bodies that inform some of the most consequential decisions in American public health.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-investigation-leads-charges-against-two-indian-nationals-involved-transnational-counterfeit-drug",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-investigation-leads-charges-against-two-indian-nationals-involved-transnational-counterfeit-drug",
+   "title": "FDA Investigation Leads to Charges Against Two Indian Nationals Involved in Transnational Counterfeit Drug Distribution Scheme",
+   "published": "2026-09-29T21:01:07+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "The U.S. Attorney’s Office for the Middle District of Florida and the Criminal Division of the U.S. Department of Justice today announced federal charges against Swapnadip Roy, 33, and Vicky Ramancha, 37, both Indian nationals.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-treatment-mct8-deficiency",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-treatment-mct8-deficiency",
+   "title": "FDA Approves First Treatment for MCT8 Deficiency",
+   "published": "2026-09-28T21:43:18+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "The U.S. Food and Drug Administration today approved Emcitate (tiratricol) tablets for oral suspension to treat peripheral thyrotoxicosis (excess thyroid hormone levels in the blood that causes symptoms, such as rapid heart rate, increased blood pressure and adverse effects on metabolism) in patient",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-intends-evaluate-changes-pmta-regulatory-framework",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-intends-evaluate-changes-pmta-regulatory-framework",
+   "title": "FDA intends to evaluate changes to the PMTA regulatory framework",
+   "published": "2026-09-28T21:00:01+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "FDA is carefully reviewing its experience implementing the Premarket Tobacco Product Application (PMTA) rule, as well as recent judicial developments, including a federal lawsuit filed in the U.S. District Court for the Northern District of Texas challenging the current regulatory framework.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/federal-court-enters-consent-decree-against-gold-star-distribution-inc-following-persistent",
+   "link": "http://www.fda.gov/news-events/press-announcements/federal-court-enters-consent-decree-against-gold-star-distribution-inc-following-persistent",
+   "title": "Federal Court Enters Consent Decree Against Gold Star Distribution, Inc. Following Persistent Insanitary Warehouse Conditions",
+   "published": "2026-09-23T19:50:17+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "A U.S. Food and Drug Administration investigation resulted in a federal court order, dated Sept. 21, 2026, stopping a warehouse operator from distributing FDA-regulated products including food, drugs, medical devices, and cosmetics until it fixes its operations to meet federal legal requirements.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-updates-regulations-advance-innovative-alternatives-animal-testing",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-updates-regulations-advance-innovative-alternatives-animal-testing",
+   "title": "FDA Updates Regulations to Advance Innovative Alternatives to Animal Testing",
+   "published": "2026-09-21T12:58:34+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "The FDA today issued a direct final rule that updates its regulations to clarify that non-animal methods can be used where appropriate for testing the safety of drugs and biological products intended for human use before they’re tried in humans.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-gene-therapy-pediatric-patients-sanfilippo-syndrome-type",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-gene-therapy-pediatric-patients-sanfilippo-syndrome-type",
+   "title": "FDA Approves First Gene Therapy for Pediatric Patients with Sanfilippo Syndrome Type A",
+   "published": "2026-09-17T18:26:43+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "The U.S. Food and Drug Administration today approved Fayuvi (rebisufligene etisparvovec-hopf), the first treatment for pediatric patients with mucopolysaccharidosis type IIIA (MPS IIIA), also known as Sanfilippo syndrome type A.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-launches-expedited-ind-pilot-begins-accepting-applications",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-launches-expedited-ind-pilot-begins-accepting-applications",
+   "title": "FDA Launches Expedited IND Pilot, Begins Accepting Applications",
+   "published": "2026-09-15T13:53:31+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "The U.S. Food and Drug Administration today announced the final design of the Expedited Investigational New Drug (IND) Pilot.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-takes-steps-maintain-newborn-access-life-saving-starter-nutrition-products",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-takes-steps-maintain-newborn-access-life-saving-starter-nutrition-products",
+   "title": "FDA Takes Steps to Maintain Newborn Access to Life-Saving Starter Nutrition Products",
+   "published": "2026-09-04T20:18:49+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "The U.S. Food and Drug Administration today announced it is taking action, consistent with the Trump administration’s commitment to protecting vulnerable patients and maintaining access to critical medical products, to help address a potential supply gap of neonatal starter parenteral nutrition (PN)",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-grants-accelerated-approval-new-breast-cancer-treatment",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-grants-accelerated-approval-new-breast-cancer-treatment",
+   "title": "FDA Grants Accelerated Approval to a New Breast Cancer Treatment",
+   "published": "2026-09-04T19:38:04+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "The U.S. Food and Drug Administration today expanded treatment options for adult patients with advanced breast cancer, reflecting the FDA’s commitment to advancing medical innovation and getting new treatments to patients who need them.",
+   "has_full_content": false
+  },
+  {
+   "id": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-drug-treat-alexander-disease",
+   "link": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-drug-treat-alexander-disease",
+   "title": "FDA Approves First Drug to Treat Alexander Disease",
+   "published": "2026-09-03T19:48:27+00:00",
+   "updated": null,
+   "authors": [
+    "FDA"
+   ],
+   "tags": [],
+   "snippet": "The U.S. Food and Drug Administration has approved Zanvastro (zilganersen) injection for the treatment of Alexander disease in pediatric and adult patients.",
+   "has_full_content": false
+  }
+ ]
+}

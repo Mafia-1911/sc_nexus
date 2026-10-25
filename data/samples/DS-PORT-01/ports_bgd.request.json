@@ -1,0 +1,27 @@
+{
+  "method": "GET",
+  "url": "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/PortWatch_ports_database/FeatureServer/0/query?where=ISO3%3D%27BGD%27&outFields=%2A&outSR=4326&f=json",
+  "params": {
+    "where": "ISO3='BGD'",
+    "outFields": "*",
+    "outSR": 4326,
+    "f": "json"
+  },
+  "headers": {
+    "host": "services9.arcgis.com",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-25T22:12:36.282181+00:00",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "transformed": false
+}

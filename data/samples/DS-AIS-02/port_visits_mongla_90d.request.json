@@ -1,0 +1,61 @@
+{
+  "method": "POST",
+  "url": "https://gateway.api.globalfishingwatch.org/v3/events?offset=0&limit=200",
+  "params": {
+    "offset": 0,
+    "limit": 200
+  },
+  "headers": {
+    "host": "gateway.api.globalfishingwatch.org",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)",
+    "authorization": "***REDACTED***",
+    "content-length": "214",
+    "content-type": "application/json"
+  },
+  "json": {
+    "datasets": [
+      "public-global-port-visits-events:latest"
+    ],
+    "startDate": "2026-07-27",
+    "endDate": "2026-10-25",
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            89.4,
+            21.6
+          ],
+          [
+            89.7,
+            21.6
+          ],
+          [
+            89.7,
+            22.55
+          ],
+          [
+            89.4,
+            22.55
+          ],
+          [
+            89.4,
+            21.6
+          ]
+        ]
+      ]
+    }
+  },
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-25T23:14:26.993553+00:00",
+  "status": 201,
+  "content_type": "application/json; charset=utf-8",
+  "transformed": false
+}

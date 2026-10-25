@@ -1,0 +1,286 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-SUP-03",
+  "title": "DS-SUP-03 · DataCo Smart Supply Chain: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "public_api_dataset": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "doi": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "prefix": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "prefix",
+            "status"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "version": {
+          "type": "integer"
+        },
+        "contributors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "institution": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              "contribution": {
+                "type": "string"
+              },
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "profile_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "contribution",
+              "first_name",
+              "institution",
+              "last_name"
+            ]
+          }
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "version": {
+                "type": "integer"
+              },
+              "available": {
+                "type": "boolean"
+              },
+              "publish_date": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "available",
+              "publish_date",
+              "version"
+            ]
+          }
+        },
+        "articles": {
+          "type": "array"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ]
+          }
+        },
+        "institutions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "ror_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "ror_id"
+            ]
+          }
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "method": {
+          "type": "string"
+        },
+        "size": {
+          "type": "integer"
+        },
+        "owner": {
+          "type": "object",
+          "properties": {
+            "profile_id": {
+              "type": "string"
+            },
+            "first_name": {
+              "type": "string"
+            },
+            "last_name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "first_name",
+            "last_name",
+            "profile_id"
+          ]
+        },
+        "channel": {
+          "type": "string"
+        },
+        "owner_id": {
+          "type": "string"
+        },
+        "publish_date": {
+          "type": "string"
+        },
+        "data_licence": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "short_name": {
+              "type": "string"
+            },
+            "full_name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "category",
+            "description",
+            "full_name",
+            "id",
+            "short_name",
+            "url"
+          ]
+        },
+        "related_links": {
+          "type": "array"
+        },
+        "funders": {
+          "type": "array"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "modified_on": {
+          "type": "string"
+        },
+        "created_on": {
+          "type": "string"
+        },
+        "confidential": {
+          "type": "boolean"
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "view": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "view"
+          ]
+        },
+        "repository": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "articles",
+        "available",
+        "categories",
+        "channel",
+        "confidential",
+        "contributors",
+        "created_on",
+        "customer_id",
+        "data_licence",
+        "description",
+        "doi",
+        "funders",
+        "id",
+        "institutions",
+        "links",
+        "method",
+        "modified_on",
+        "name",
+        "owner",
+        "owner_id",
+        "publish_date",
+        "related_links",
+        "repository",
+        "size",
+        "version",
+        "versions"
+      ]
+    }
+  }
+}

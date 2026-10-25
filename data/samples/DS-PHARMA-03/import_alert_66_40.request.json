@@ -1,0 +1,22 @@
+{
+  "method": "GET",
+  "url": "https://www.accessdata.fda.gov/cms_ia/importalert_189.html",
+  "params": null,
+  "headers": {
+    "host": "www.accessdata.fda.gov",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "66-40: drugs from firms not meeting CGMP",
+  "captured_at": "2026-10-25T23:32:02.761164+00:00",
+  "status": 200,
+  "content_type": "text/html",
+  "transformed": false
+}

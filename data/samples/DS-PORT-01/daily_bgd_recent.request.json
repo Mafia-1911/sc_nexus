@@ -1,0 +1,28 @@
+{
+  "method": "GET",
+  "url": "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Daily_Ports_Data/FeatureServer/0/query?where=ISO3%3D%27BGD%27+AND+date+%3E%3D+DATE+%272026-06-27%27&outFields=%2A&orderByFields=date+DESC&resultRecordCount=1000&f=json",
+  "params": {
+    "where": "ISO3='BGD' AND date >= DATE '2026-06-27'",
+    "outFields": "*",
+    "orderByFields": "date DESC",
+    "resultRecordCount": 1000,
+    "f": "json"
+  },
+  "headers": {
+    "host": "services9.arcgis.com",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "Bangladesh ports since 2026-06-27",
+  "captured_at": "2026-10-25T22:12:36.282181+00:00",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "transformed": false
+}

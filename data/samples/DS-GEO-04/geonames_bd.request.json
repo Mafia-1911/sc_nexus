@@ -1,0 +1,22 @@
+{
+  "method": "GET",
+  "url": "https://download.geonames.org/export/dump/BD.zip",
+  "params": null,
+  "headers": {
+    "host": "download.geonames.org",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "sample keeps ports, admin units, towns ≥ 50k",
+  "captured_at": "2026-10-25T22:45:18.026370+00:00",
+  "status": 200,
+  "content_type": "application/zip",
+  "transformed": true
+}

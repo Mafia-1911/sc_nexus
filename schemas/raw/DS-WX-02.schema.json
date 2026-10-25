@@ -1,0 +1,870 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-WX-02",
+  "title": "DS-WX-02 · GDACS API: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "event_remal": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "bbox": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "geometry": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "required": [
+            "coordinates",
+            "type"
+          ]
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "eventtype": {
+              "type": "string"
+            },
+            "eventid": {
+              "type": "integer"
+            },
+            "episodeid": {
+              "type": "integer"
+            },
+            "eventname": {
+              "type": "string"
+            },
+            "glide": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "htmldescription": {
+              "type": "string"
+            },
+            "icon": {
+              "type": "string"
+            },
+            "iconoverall": {
+              "type": "string"
+            },
+            "url": {
+              "type": "object",
+              "properties": {
+                "geometry": {
+                  "type": "string"
+                },
+                "report": {
+                  "type": "string"
+                },
+                "media": {
+                  "type": "string"
+                },
+                "eventnews": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "eventnews",
+                "geometry",
+                "media",
+                "report"
+              ]
+            },
+            "alertlevel": {
+              "type": "string"
+            },
+            "alertscore": {
+              "type": "integer"
+            },
+            "episodealertlevel": {
+              "type": "string"
+            },
+            "episodealertscore": {
+              "type": "number"
+            },
+            "istemporary": {
+              "type": "string"
+            },
+            "iscurrent": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "fromdate": {
+              "type": "string"
+            },
+            "todate": {
+              "type": "string"
+            },
+            "datemodified": {
+              "type": "string"
+            },
+            "iso3": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "sourceid": {
+              "type": "string"
+            },
+            "polygonlabel": {
+              "type": "string"
+            },
+            "Class": {
+              "type": "string"
+            },
+            "countryonland": {
+              "type": "string"
+            },
+            "affectedcountries": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "iso2": {
+                    "type": "string"
+                  },
+                  "iso3": {
+                    "type": "string"
+                  },
+                  "countryname": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "countryname",
+                  "iso2",
+                  "iso3"
+                ]
+              }
+            },
+            "severitydata": {
+              "type": "object",
+              "properties": {
+                "severity": {
+                  "type": "number"
+                },
+                "severitytext": {
+                  "type": "string"
+                },
+                "severityunit": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "severity",
+                "severitytext",
+                "severityunit"
+              ]
+            },
+            "episodes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "details": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "details"
+                ]
+              }
+            },
+            "impacts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "source": {
+                    "type": "string"
+                  },
+                  "resource": {
+                    "type": "object",
+                    "properties": {
+                      "timeline": {
+                        "type": "string"
+                      },
+                      "buffer39": {
+                        "type": "string"
+                      },
+                      "locations": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "buffer39",
+                      "locations",
+                      "timeline"
+                    ]
+                  }
+                },
+                "required": [
+                  "resource",
+                  "source"
+                ]
+              }
+            },
+            "images": {
+              "type": "object",
+              "properties": {
+                "rainmap": {
+                  "type": "string"
+                },
+                "overviewmap": {
+                  "type": "string"
+                },
+                "rainaccumulationmap": {
+                  "type": "string"
+                },
+                "thumbnailmap_cached": {
+                  "type": "string"
+                },
+                "storm_surge_animation_ECMWF": {
+                  "type": "string"
+                },
+                "storm_surge_maxheight_ECMWF": {
+                  "type": "string"
+                },
+                "inundationHeight_ECMWF": {
+                  "type": "string"
+                },
+                "stormsurge_background_ECMWF": {
+                  "type": "string"
+                },
+                "storm_surge_animation_HWRF": {
+                  "type": "string"
+                },
+                "storm_surge_maxheight_HWRF": {
+                  "type": "string"
+                },
+                "inundationHeight_HWRF": {
+                  "type": "string"
+                },
+                "stormsurge_background_HWRF": {
+                  "type": "string"
+                },
+                "storm_surge_maxwind_ECMWF": {
+                  "type": "string"
+                },
+                "storm_surge_maxwind_HWRF": {
+                  "type": "string"
+                },
+                "inundationHeight_GFS": {
+                  "type": "string"
+                },
+                "storm_surge_animation_GFS": {
+                  "type": "string"
+                },
+                "storm_surge_maxheight_GFS": {
+                  "type": "string"
+                },
+                "storm_surge_maxwind_GFS": {
+                  "type": "string"
+                },
+                "stormsurge_background_GFS": {
+                  "type": "string"
+                },
+                "overviewmap_zoomed": {
+                  "type": "string"
+                },
+                "overviewmap_zoom": {
+                  "type": "string"
+                },
+                "storm_surge_maxheight_end_ECMWF": {
+                  "type": "string"
+                },
+                "storm_surge_maxheight_end_GFS": {
+                  "type": "string"
+                },
+                "storm_surge_maxheight_end_HWRF": {
+                  "type": "string"
+                },
+                "meteoimages": {
+                  "type": "string"
+                },
+                "mslpimages": {
+                  "type": "string"
+                },
+                "calculation_surge_maxwind_image": {
+                  "type": "string"
+                },
+                "calculation_surge_maxheight_end_image": {
+                  "type": "string"
+                },
+                "calculation_surge_animation_image": {
+                  "type": "string"
+                },
+                "calculation_surge_maxheight_image": {
+                  "type": "string"
+                },
+                "calculation_surge_maxwind_image_final": {
+                  "type": "string"
+                },
+                "calculation_surge_maxheight_end_image_final": {
+                  "type": "string"
+                },
+                "calculation_surge_animation_image_final": {
+                  "type": "string"
+                },
+                "calculation_surge_maxheight_image_final": {
+                  "type": "string"
+                },
+                "storm_surge_animation_HOLLAND": {
+                  "type": "string"
+                },
+                "storm_surge_maxheight_HOLLAND": {
+                  "type": "string"
+                },
+                "inundationHeight_HOLLAND": {
+                  "type": "string"
+                },
+                "stormsurge_background_HOLLAND": {
+                  "type": "string"
+                },
+                "storm_surge_maxwind_HOLLAND": {
+                  "type": "string"
+                },
+                "storm_surge_maxheight_end_HOLLAND": {
+                  "type": "string"
+                },
+                "storm_surge_maxrain_ECMWF": {
+                  "type": "string"
+                },
+                "storm_surge_maxrain_GFS": {
+                  "type": "string"
+                },
+                "storm_surge_maxrain_HWRF": {
+                  "type": "string"
+                },
+                "calculation_surge_maxrain_image_final": {
+                  "type": "string"
+                },
+                "calculation_surge_maxrain_image": {
+                  "type": "string"
+                },
+                "storm_surge_maxwind2_ECMWF": {
+                  "type": "string"
+                },
+                "storm_surge_maxwind2_HWRF": {
+                  "type": "string"
+                },
+                "storm_surge_maxwind2_GFS": {
+                  "type": "string"
+                },
+                "calculation_surge_maxwind2_image": {
+                  "type": "string"
+                },
+                "calculation_surge_maxwind2_image_final": {
+                  "type": "string"
+                },
+                "inundationHeight": {
+                  "type": "string"
+                },
+                "stormsurge_background_episode": {
+                  "type": "string"
+                },
+                "storm_surge_animation_v2": {
+                  "type": "string"
+                },
+                "storm_surge_maxheight_v2": {
+                  "type": "string"
+                },
+                "inundationHeight_episode_v2": {
+                  "type": "string"
+                },
+                "stormsurge_background_episode_v2": {
+                  "type": "string"
+                },
+                "inundationHeight_episode": {
+                  "type": "string"
+                },
+                "inundationHeight_v2": {
+                  "type": "string"
+                },
+                "storm_surge_animation": {
+                  "type": "string"
+                },
+                "storm_surge_animation_episode_v2": {
+                  "type": "string"
+                },
+                "storm_surge_maxheight_episode": {
+                  "type": "string"
+                },
+                "storm_surge_maxheight": {
+                  "type": "string"
+                },
+                "storm_surge_animation_episode": {
+                  "type": "string"
+                },
+                "storm_surge_maxheight_episode_v2": {
+                  "type": "string"
+                },
+                "stormsurge_background": {
+                  "type": "string"
+                },
+                "stormsurge_background_v2": {
+                  "type": "string"
+                },
+                "storm_surge_maxwind2_HOLLAND": {
+                  "type": "string"
+                },
+                "event_icon_map": {
+                  "type": "string"
+                },
+                "event_overall_icon_map": {
+                  "type": "string"
+                },
+                "event_icon": {
+                  "type": "string"
+                },
+                "thumbnailmap": {
+                  "type": "string"
+                },
+                "cloudmap": {
+                  "type": "string"
+                },
+                "cloudmap_zoom": {
+                  "type": "string"
+                },
+                "cloudmap_proj": {
+                  "type": "string"
+                },
+                "cloudmap_zoom_proj": {
+                  "type": "string"
+                },
+                "npp_icon": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "calculation_surge_animation_image",
+                "calculation_surge_animation_image_final",
+                "calculation_surge_maxheight_end_image",
+                "calculation_surge_maxheight_end_image_final",
+                "calculation_surge_maxheight_image",
+                "calculation_surge_maxheight_image_final",
+                "calculation_surge_maxrain_image",
+                "calculation_surge_maxrain_image_final",
+                "calculation_surge_maxwind2_image",
+                "calculation_surge_maxwind2_image_final",
+                "calculation_surge_maxwind_image",
+                "calculation_surge_maxwind_image_final",
+                "cloudmap",
+                "cloudmap_proj",
+                "cloudmap_zoom",
+                "cloudmap_zoom_proj",
+                "event_icon",
+                "event_icon_map",
+                "event_overall_icon_map",
+                "inundationHeight",
+                "inundationHeight_ECMWF",
+                "inundationHeight_GFS",
+                "inundationHeight_HOLLAND",
+                "inundationHeight_HWRF",
+                "inundationHeight_episode",
+                "inundationHeight_episode_v2",
+                "inundationHeight_v2",
+                "meteoimages",
+                "mslpimages",
+                "npp_icon",
+                "overviewmap",
+                "overviewmap_zoom",
+                "overviewmap_zoomed",
+                "rainaccumulationmap",
+                "rainmap",
+                "storm_surge_animation",
+                "storm_surge_animation_ECMWF",
+                "storm_surge_animation_GFS",
+                "storm_surge_animation_HOLLAND",
+                "storm_surge_animation_HWRF",
+                "storm_surge_animation_episode",
+                "storm_surge_animation_episode_v2",
+                "storm_surge_animation_v2",
+                "storm_surge_maxheight",
+                "storm_surge_maxheight_ECMWF",
+                "storm_surge_maxheight_GFS",
+                "storm_surge_maxheight_HOLLAND",
+                "storm_surge_maxheight_HWRF",
+                "storm_surge_maxheight_end_ECMWF",
+                "storm_surge_maxheight_end_GFS",
+                "storm_surge_maxheight_end_HOLLAND",
+                "storm_surge_maxheight_end_HWRF",
+                "storm_surge_maxheight_episode",
+                "storm_surge_maxheight_episode_v2",
+                "storm_surge_maxheight_v2",
+                "storm_surge_maxrain_ECMWF",
+                "storm_surge_maxrain_GFS",
+                "storm_surge_maxrain_HWRF",
+                "storm_surge_maxwind2_ECMWF",
+                "storm_surge_maxwind2_GFS",
+                "storm_surge_maxwind2_HOLLAND",
+                "storm_surge_maxwind2_HWRF",
+                "storm_surge_maxwind_ECMWF",
+                "storm_surge_maxwind_GFS",
+                "storm_surge_maxwind_HOLLAND",
+                "storm_surge_maxwind_HWRF",
+                "stormsurge_background",
+                "stormsurge_background_ECMWF",
+                "stormsurge_background_GFS",
+                "stormsurge_background_HOLLAND",
+                "stormsurge_background_HWRF",
+                "stormsurge_background_episode",
+                "stormsurge_background_episode_v2",
+                "stormsurge_background_v2",
+                "thumbnailmap",
+                "thumbnailmap_cached"
+              ]
+            },
+            "additionalinfos": {
+              "type": "object"
+            },
+            "documents": {
+              "type": "object"
+            },
+            "cyclonesurge": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "source": {
+                    "type": "string"
+                  },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "boolean"
+                        },
+                        "overall": {
+                          "type": "boolean"
+                        },
+                        "bulletinid": {
+                          "type": "string"
+                        },
+                        "episodedate": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "bulletinid",
+                        "episodedate",
+                        "last",
+                        "overall",
+                        "url"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "data",
+                  "source"
+                ]
+              }
+            }
+          },
+          "required": [
+            "Class",
+            "additionalinfos",
+            "affectedcountries",
+            "alertlevel",
+            "alertscore",
+            "country",
+            "countryonland",
+            "cyclonesurge",
+            "datemodified",
+            "description",
+            "documents",
+            "episodealertlevel",
+            "episodealertscore",
+            "episodeid",
+            "episodes",
+            "eventid",
+            "eventname",
+            "eventtype",
+            "fromdate",
+            "glide",
+            "htmldescription",
+            "icon",
+            "iconoverall",
+            "images",
+            "impacts",
+            "iscurrent",
+            "iso3",
+            "istemporary",
+            "name",
+            "polygonlabel",
+            "severitydata",
+            "source",
+            "sourceid",
+            "todate",
+            "url"
+          ]
+        }
+      },
+      "required": [
+        "bbox",
+        "geometry",
+        "properties",
+        "type"
+      ]
+    },
+    "search_bgd": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "bbox": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "geometry": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "coordinates": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "required": [
+                  "coordinates",
+                  "type"
+                ]
+              },
+              "properties": {
+                "type": "object",
+                "properties": {
+                  "eventtype": {
+                    "type": "string"
+                  },
+                  "eventid": {
+                    "type": "integer"
+                  },
+                  "episodeid": {
+                    "type": "integer"
+                  },
+                  "eventname": {
+                    "type": "string"
+                  },
+                  "glide": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "htmldescription": {
+                    "type": "string"
+                  },
+                  "icon": {
+                    "type": "string"
+                  },
+                  "iconoverall": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "object",
+                    "properties": {
+                      "geometry": {
+                        "type": "string"
+                      },
+                      "report": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "details",
+                      "geometry",
+                      "report"
+                    ]
+                  },
+                  "alertlevel": {
+                    "type": "string"
+                  },
+                  "alertscore": {
+                    "type": "integer"
+                  },
+                  "episodealertlevel": {
+                    "type": "string"
+                  },
+                  "episodealertscore": {
+                    "type": "number"
+                  },
+                  "istemporary": {
+                    "type": "string"
+                  },
+                  "iscurrent": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "fromdate": {
+                    "type": "string"
+                  },
+                  "todate": {
+                    "type": "string"
+                  },
+                  "datemodified": {
+                    "type": "string"
+                  },
+                  "iso3": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "sourceid": {
+                    "type": "string"
+                  },
+                  "polygonlabel": {
+                    "type": "string"
+                  },
+                  "Class": {
+                    "type": "string"
+                  },
+                  "affectedcountries": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "iso2": {
+                          "type": "string"
+                        },
+                        "iso3": {
+                          "type": "string"
+                        },
+                        "countryname": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "countryname",
+                        "iso2",
+                        "iso3"
+                      ]
+                    }
+                  },
+                  "severitydata": {
+                    "type": "object",
+                    "properties": {
+                      "severity": {
+                        "type": "number"
+                      },
+                      "severitytext": {
+                        "type": "string"
+                      },
+                      "severityunit": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "severity",
+                      "severitytext",
+                      "severityunit"
+                    ]
+                  },
+                  "countryonland": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "Class",
+                  "affectedcountries",
+                  "alertlevel",
+                  "alertscore",
+                  "country",
+                  "datemodified",
+                  "description",
+                  "episodealertlevel",
+                  "episodealertscore",
+                  "episodeid",
+                  "eventid",
+                  "eventname",
+                  "eventtype",
+                  "fromdate",
+                  "glide",
+                  "htmldescription",
+                  "icon",
+                  "iconoverall",
+                  "iscurrent",
+                  "iso3",
+                  "istemporary",
+                  "name",
+                  "polygonlabel",
+                  "severitydata",
+                  "source",
+                  "sourceid",
+                  "todate",
+                  "url"
+                ]
+              }
+            },
+            "required": [
+              "bbox",
+              "geometry",
+              "properties",
+              "type"
+            ]
+          }
+        },
+        "bbox": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "bbox",
+        "features",
+        "type"
+      ]
+    }
+  }
+}

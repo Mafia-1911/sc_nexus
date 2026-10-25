@@ -1,0 +1,537 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-PORT-04",
+  "title": "DS-PORT-04 · World Port Index (NGA Pub 150): raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "wpi_all_json": {
+      "type": "object",
+      "properties": {
+        "ports": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "portNumber": {
+                "type": "integer"
+              },
+              "portName": {
+                "type": "string"
+              },
+              "regionNumber": {
+                "type": "integer"
+              },
+              "regionName": {
+                "type": "string"
+              },
+              "countryCode": {
+                "type": "string"
+              },
+              "countryName": {
+                "type": "string"
+              },
+              "latitude": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "string"
+              },
+              "publicationNumber": {
+                "type": "string"
+              },
+              "chartNumber": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "navArea": {
+                "type": "string"
+              },
+              "harborSize": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "harborType": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "shelter": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "erTide": {
+                "type": "string"
+              },
+              "erSwell": {
+                "type": "string"
+              },
+              "erIce": {
+                "type": "string"
+              },
+              "erOther": {
+                "type": "string"
+              },
+              "overheadLimits": {
+                "type": "string"
+              },
+              "chDepth": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "anDepth": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "cpDepth": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "otDepth": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "tide": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "maxVesselLength": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "maxVesselBeam": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "maxVesselDraft": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "goodHoldingGround": {
+                "type": "string"
+              },
+              "turningArea": {
+                "type": "string"
+              },
+              "firstPortOfEntry": {
+                "type": "string"
+              },
+              "usRep": {
+                "type": "string"
+              },
+              "ptCompulsory": {
+                "type": "string"
+              },
+              "ptAvailable": {
+                "type": "null"
+              },
+              "ptLocalAssist": {
+                "type": "null"
+              },
+              "ptAdvisable": {
+                "type": "string"
+              },
+              "tugsSalvage": {
+                "type": "string"
+              },
+              "tugsAssist": {
+                "type": "string"
+              },
+              "qtPratique": {
+                "type": "string"
+              },
+              "qtOther": {
+                "type": "string"
+              },
+              "cmTelephone": {
+                "type": "string"
+              },
+              "cmTelegraph": {
+                "type": "string"
+              },
+              "cmRadio": {
+                "type": "string"
+              },
+              "cmRadioTel": {
+                "type": "string"
+              },
+              "cmAir": {
+                "type": "string"
+              },
+              "cmRail": {
+                "type": "string"
+              },
+              "loWharves": {
+                "type": "string"
+              },
+              "loAnchor": {
+                "type": "string"
+              },
+              "loMedMoor": {
+                "type": "string"
+              },
+              "loBeachMoor": {
+                "type": "string"
+              },
+              "loIceMoor": {
+                "type": "string"
+              },
+              "medFacilities": {
+                "type": "string"
+              },
+              "garbageDisposal": {
+                "type": "string"
+              },
+              "degauss": {
+                "type": "string"
+              },
+              "dirtyBallast": {
+                "type": "string"
+              },
+              "crFixed": {
+                "type": "string"
+              },
+              "crMobile": {
+                "type": "string"
+              },
+              "crFloating": {
+                "type": "string"
+              },
+              "lifts100": {
+                "type": "string"
+              },
+              "lifts50": {
+                "type": "string"
+              },
+              "lifts25": {
+                "type": "string"
+              },
+              "lifts0": {
+                "type": "string"
+              },
+              "srLongshore": {
+                "type": "string"
+              },
+              "srElectrical": {
+                "type": "string"
+              },
+              "srSteam": {
+                "type": "string"
+              },
+              "srNavigEquip": {
+                "type": "string"
+              },
+              "srElectRepair": {
+                "type": "string"
+              },
+              "suProvisions": {
+                "type": "string"
+              },
+              "suWater": {
+                "type": "string"
+              },
+              "suFuel": {
+                "type": "string"
+              },
+              "suDiesel": {
+                "type": "string"
+              },
+              "suDeck": {
+                "type": "string"
+              },
+              "suEngine": {
+                "type": "string"
+              },
+              "repairCode": {
+                "type": "string"
+              },
+              "drydock": {
+                "type": "string"
+              },
+              "railway": {
+                "type": "string"
+              },
+              "qtSanitation": {
+                "type": "string"
+              },
+              "suAviationFuel": {
+                "type": "string"
+              },
+              "harborUse": {
+                "type": "string"
+              },
+              "ukcMgmtSystem": {
+                "type": "string"
+              },
+              "portSecurity": {
+                "type": "string"
+              },
+              "etaMessage": {
+                "type": "string"
+              },
+              "searchAndRescue": {
+                "type": "string"
+              },
+              "tss": {
+                "type": "string"
+              },
+              "vts": {
+                "type": "string"
+              },
+              "cht": {
+                "type": "string"
+              },
+              "globalId": {
+                "type": "string"
+              },
+              "loRoro": {
+                "type": "string"
+              },
+              "loSolidBulk": {
+                "type": "string"
+              },
+              "loContainer": {
+                "type": "string"
+              },
+              "loBreakBulk": {
+                "type": "string"
+              },
+              "loOilTerm": {
+                "type": "string"
+              },
+              "loLongTerm": {
+                "type": "string"
+              },
+              "loOther": {
+                "type": "string"
+              },
+              "loDangCargo": {
+                "type": "string"
+              },
+              "loLiquidBulk": {
+                "type": "string"
+              },
+              "srIceBreaking": {
+                "type": "string"
+              },
+              "srDiving": {
+                "type": "string"
+              },
+              "cranesContainer": {
+                "type": "string"
+              },
+              "unloCode": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "dnc": {
+                "type": "string"
+              },
+              "s121WaterBody": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "s57Enc": {
+                "type": "null"
+              },
+              "s101Enc": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "dodWaterBody": {
+                "type": "string"
+              },
+              "alternateName": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "entranceWidth": {
+                "type": [
+                  "null",
+                  "number"
+                ]
+              },
+              "lngTerminalDepth": {
+                "type": [
+                  "null",
+                  "number"
+                ]
+              },
+              "offMaxVesselLength": {
+                "type": [
+                  "null",
+                  "number"
+                ]
+              },
+              "offMaxVesselBeam": {
+                "type": [
+                  "null",
+                  "number"
+                ]
+              },
+              "offMaxVesselDraft": {
+                "type": [
+                  "null",
+                  "number"
+                ]
+              },
+              "ycoord": {
+                "type": "number"
+              },
+              "xcoord": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "alternateName",
+              "anDepth",
+              "chDepth",
+              "chartNumber",
+              "cht",
+              "cmAir",
+              "cmRadio",
+              "cmRadioTel",
+              "cmRail",
+              "cmTelegraph",
+              "cmTelephone",
+              "countryCode",
+              "countryName",
+              "cpDepth",
+              "crFixed",
+              "crFloating",
+              "crMobile",
+              "cranesContainer",
+              "degauss",
+              "dirtyBallast",
+              "dnc",
+              "dodWaterBody",
+              "drydock",
+              "entranceWidth",
+              "erIce",
+              "erOther",
+              "erSwell",
+              "erTide",
+              "etaMessage",
+              "firstPortOfEntry",
+              "garbageDisposal",
+              "globalId",
+              "goodHoldingGround",
+              "harborSize",
+              "harborType",
+              "harborUse",
+              "latitude",
+              "lifts0",
+              "lifts100",
+              "lifts25",
+              "lifts50",
+              "lngTerminalDepth",
+              "loAnchor",
+              "loBeachMoor",
+              "loBreakBulk",
+              "loContainer",
+              "loDangCargo",
+              "loIceMoor",
+              "loLiquidBulk",
+              "loLongTerm",
+              "loMedMoor",
+              "loOilTerm",
+              "loOther",
+              "loRoro",
+              "loSolidBulk",
+              "loWharves",
+              "longitude",
+              "maxVesselBeam",
+              "maxVesselDraft",
+              "maxVesselLength",
+              "medFacilities",
+              "navArea",
+              "offMaxVesselBeam",
+              "offMaxVesselDraft",
+              "offMaxVesselLength",
+              "otDepth",
+              "overheadLimits",
+              "portName",
+              "portNumber",
+              "portSecurity",
+              "ptAdvisable",
+              "ptAvailable",
+              "ptCompulsory",
+              "ptLocalAssist",
+              "publicationNumber",
+              "qtOther",
+              "qtPratique",
+              "qtSanitation",
+              "railway",
+              "regionName",
+              "regionNumber",
+              "repairCode",
+              "s101Enc",
+              "s121WaterBody",
+              "s57Enc",
+              "searchAndRescue",
+              "shelter",
+              "srDiving",
+              "srElectRepair",
+              "srElectrical",
+              "srIceBreaking",
+              "srLongshore",
+              "srNavigEquip",
+              "srSteam",
+              "suAviationFuel",
+              "suDeck",
+              "suDiesel",
+              "suEngine",
+              "suFuel",
+              "suProvisions",
+              "suWater",
+              "tide",
+              "tss",
+              "tugsAssist",
+              "tugsSalvage",
+              "turningArea",
+              "ukcMgmtSystem",
+              "unloCode",
+              "usRep",
+              "vts",
+              "xcoord",
+              "ycoord"
+            ]
+          }
+        }
+      },
+      "required": [
+        "ports"
+      ]
+    }
+  }
+}

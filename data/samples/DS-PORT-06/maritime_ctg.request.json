@@ -1,0 +1,24 @@
+{
+  "method": "POST",
+  "url": "https://overpass-api.de/api/interpreter",
+  "params": null,
+  "headers": {
+    "host": "overpass-api.de",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)",
+    "content-type": "application/x-www-form-urlencoded",
+    "content-length": "717"
+  },
+  "json": null,
+  "data": "data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%0A%28%0A++nwr%5B%22seamark%3Atype%22~%22%5E%28anchorage%7Canchor_berth%7Charbour%7Cmooring%7Cberth%7Cpilot_boarding%7Crestricted_area%7Cfairway%29%24%22%5D%2821.7%2C91.5%2C22.36%2C91.95%29%3B%0A++nwr%5B%22harbour%22%5D%2821.7%2C91.5%2C22.36%2C91.95%29%3B%0A++nwr%5B%22landuse%22~%22%5E%28port%7Charbour%29%24%22%5D%2821.7%2C91.5%2C22.36%2C91.95%29%3B%0A++nwr%5B%22industrial%22~%22%5E%28port%7Ccontainer_terminal%29%24%22%5D%2821.7%2C91.5%2C22.36%2C91.95%29%3B%0A++nwr%5B%22man_made%22~%22%5E%28pier%7Cquay%7Cbreakwater%29%24%22%5D%2821.7%2C91.5%2C22.36%2C91.95%29%3B%0A++nwr%5B%22waterway%22%3D%22dock%22%5D%2821.7%2C91.5%2C22.36%2C91.95%29%3B%0A%29%3B%0Aout+tags+center%3B",
+  "timeout_s": 120,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "Chattogram outer anchorage + Karnaphuli river envelope",
+  "captured_at": "2026-10-25T22:47:40.005731+00:00",
+  "status": 200,
+  "content_type": "application/json",
+  "transformed": false
+}

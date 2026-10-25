@@ -1,0 +1,27 @@
+{
+  "method": "GET",
+  "url": "https://stac.dataspace.copernicus.eu/v1/search?collections=sentinel-2-l2a&bbox=91.5,21.7,91.95,22.3&datetime=2026-08-26T23:28:17Z%2F2026-10-25T23:28:17Z&limit=100",
+  "params": {
+    "collections": "sentinel-2-l2a",
+    "bbox": "91.5,21.7,91.95,22.3",
+    "datetime": "2026-08-26T23:28:17Z/2026-10-25T23:28:17Z",
+    "limit": 100
+  },
+  "headers": {
+    "host": "stac.dataspace.copernicus.eu",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-25T23:28:17.682354+00:00",
+  "status": 200,
+  "content_type": "application/geo+json",
+  "transformed": false
+}

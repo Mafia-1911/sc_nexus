@@ -1,0 +1,25 @@
+{
+  "method": "GET",
+  "url": "https://data.mendeley.com/public-api/datasets/8gx2fvg2k6?version=5",
+  "params": {
+    "version": 5
+  },
+  "headers": {
+    "host": "data.mendeley.com",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)",
+    "cookie": "mdata.sid1=s%3AtLr7RHD2-toG8lP4rxrlVKnwO85ALGcS.tNTZfMixQgq624IH66EILz%2BAfjUBGGIJ990AyS48qPU; __cf_bm=YdjjuiOvBcmFbAfeJlJpPfVxEqQSrEH8pYRnb_jf4ks-1792971104.0360613-1.0.1.1-1aMKiY2vwxhrnHKITmMFtTzZ5qehaOQpxD.eDilVNGWfPAl47Q.DLlBvuHNfSuw9tr77lWHO3VVF5q6kiLUFA_3xWSSDG24obxcEiTr0kbdWkC423FOncvHewrsuzb_v"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-25T23:31:43.877771+00:00",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "transformed": false
+}

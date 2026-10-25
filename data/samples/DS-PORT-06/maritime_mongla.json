@@ -1,0 +1,515 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-25T22:48:50Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 244830522,
+  "center": {
+    "lat": 22.4708968,
+    "lon": 89.6005094
+  },
+  "tags": {
+    "highway": "service",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 245395959,
+  "center": {
+    "lat": 22.4901234,
+    "lon": 89.5920145
+  },
+  "tags": {
+    "alt_name": "মংলা বন্দর",
+    "industrial": "port",
+    "landuse": "industrial",
+    "name": "মোংলা সমুদ্র বন্দর",
+    "name:en": "Mongla Sea Port",
+    "wikidata": "Q1025642",
+    "wikimedia_commons": "Category:Port of Mongla",
+    "wikipedia": "bn:মোংলা বন্দর"
+  }
+},
+{
+  "type": "way",
+  "id": 318277780,
+  "center": {
+    "lat": 22.2994557,
+    "lon": 89.6158995
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 553864780,
+  "center": {
+    "lat": 22.3663382,
+    "lon": 89.6305998
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 747268429,
+  "center": {
+    "lat": 22.4710318,
+    "lon": 89.6005552
+  },
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "man_made": "pier",
+    "name": "Mongla Ferry Ghat",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 747533479,
+  "center": {
+    "lat": 22.4808626,
+    "lon": 89.5917008
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 747533492,
+  "center": {
+    "lat": 22.4732265,
+    "lon": 89.5992891
+  },
+  "tags": {
+    "highway": "service",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 747533493,
+  "center": {
+    "lat": 22.4730158,
+    "lon": 89.5989232
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 747533495,
+  "center": {
+    "lat": 22.4726803,
+    "lon": 89.5974117
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 747533497,
+  "center": {
+    "lat": 22.4724336,
+    "lon": 89.5967169
+  },
+  "tags": {
+    "highway": "footway",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 747533504,
+  "center": {
+    "lat": 22.4730822,
+    "lon": 89.5983079
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 747533739,
+  "center": {
+    "lat": 22.5323114,
+    "lon": 89.5808551
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 747534343,
+  "center": {
+    "lat": 22.5246354,
+    "lon": 89.5823610
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 747535478,
+  "center": {
+    "lat": 22.5300952,
+    "lon": 89.5813338
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 747749370,
+  "center": {
+    "lat": 22.4726427,
+    "lon": 89.6036716
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 747775648,
+  "center": {
+    "lat": 22.4788048,
+    "lon": 89.5918240
+  },
+  "tags": {
+    "highway": "service",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 748837967,
+  "center": {
+    "lat": 22.2977239,
+    "lon": 89.6145930
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 748911144,
+  "center": {
+    "lat": 22.5117039,
+    "lon": 89.5863731
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 748912248,
+  "center": {
+    "lat": 22.5028937,
+    "lon": 89.5888227
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 748912249,
+  "center": {
+    "lat": 22.5040131,
+    "lon": 89.5887830
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 748912250,
+  "center": {
+    "lat": 22.5044285,
+    "lon": 89.5889154
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 748912251,
+  "center": {
+    "lat": 22.5050371,
+    "lon": 89.5886116
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 748912252,
+  "center": {
+    "lat": 22.5080348,
+    "lon": 89.5876815
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 748912254,
+  "center": {
+    "lat": 22.4986167,
+    "lon": 89.5896792
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 748912260,
+  "center": {
+    "lat": 22.5100755,
+    "lon": 89.5870351
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 749122788,
+  "center": {
+    "lat": 21.9467549,
+    "lon": 89.5979429
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 749122791,
+  "center": {
+    "lat": 21.9463853,
+    "lon": 89.5946200
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 749126802,
+  "center": {
+    "lat": 21.9343433,
+    "lon": 89.6065789
+  },
+  "tags": {
+    "man_made": "pier",
+    "waterway": "canal"
+  }
+},
+{
+  "type": "way",
+  "id": 906457595,
+  "center": {
+    "lat": 22.4814236,
+    "lon": 89.5916951
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 906457596,
+  "center": {
+    "lat": 22.5045200,
+    "lon": 89.5795685
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 921156616,
+  "center": {
+    "lat": 22.4608388,
+    "lon": 89.4354050
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 971656718,
+  "center": {
+    "lat": 21.9481066,
+    "lon": 89.6124483
+  },
+  "tags": {
+    "man_made": "pier",
+    "waterway": "canal"
+  }
+},
+{
+  "type": "way",
+  "id": 1183371182,
+  "center": {
+    "lat": 22.4729134,
+    "lon": 89.5983394
+  },
+  "tags": {
+    "highway": "service",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1183371183,
+  "center": {
+    "lat": 22.4729061,
+    "lon": 89.5982971
+  },
+  "tags": {
+    "highway": "service",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1183371184,
+  "center": {
+    "lat": 22.4729272,
+    "lon": 89.5984222
+  },
+  "tags": {
+    "highway": "service",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1183371185,
+  "center": {
+    "lat": 22.4729204,
+    "lon": 89.5983835
+  },
+  "tags": {
+    "highway": "service",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1183371186,
+  "center": {
+    "lat": 22.4729365,
+    "lon": 89.5983842
+  },
+  "tags": {
+    "highway": "service",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1183371187,
+  "center": {
+    "lat": 22.4730525,
+    "lon": 89.5982949
+  },
+  "tags": {
+    "highway": "service",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1314362970,
+  "center": {
+    "lat": 22.4684910,
+    "lon": 89.5837545
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1314362971,
+  "center": {
+    "lat": 22.4684999,
+    "lon": 89.5838708
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1328293698,
+  "center": {
+    "lat": 22.2272225,
+    "lon": 89.4964504
+  },
+  "tags": {
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1348165052,
+  "center": {
+    "lat": 21.8174163,
+    "lon": 89.4598030
+  },
+  "tags": {
+    "floating": "yes",
+    "man_made": "pier"
+  }
+},
+{
+  "type": "way",
+  "id": 1348165053,
+  "center": {
+    "lat": 21.8172361,
+    "lon": 89.4622178
+  },
+  "tags": {
+    "floating": "yes",
+    "man_made": "pier"
+  }
+}
+
+  ]
+}

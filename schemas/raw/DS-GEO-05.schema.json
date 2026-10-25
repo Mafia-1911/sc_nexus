@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-GEO-05",
+  "title": "DS-GEO-05 · Emission factors (UK DESNZ; GLEC method): raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "desnz_flat": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Scope": {
+            "type": "string"
+          },
+          "Level 1": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Level 2": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Level 3": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Level 4": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Column Text": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "UOM": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "GHG/Unit": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "GHG Conversion Factor 2026": {
+            "type": [
+              "null",
+              "number"
+            ]
+          }
+        },
+        "required": [
+          "Column Text",
+          "GHG Conversion Factor 2026",
+          "GHG/Unit",
+          "ID",
+          "Level 1",
+          "Level 2",
+          "Level 3",
+          "Level 4",
+          "Scope",
+          "UOM"
+        ]
+      }
+    }
+  }
+}

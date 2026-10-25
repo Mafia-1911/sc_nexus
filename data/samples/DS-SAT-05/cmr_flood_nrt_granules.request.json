@@ -1,0 +1,27 @@
+{
+  "method": "GET",
+  "url": "https://cmr.earthdata.nasa.gov/search/granules.json?short_name=MCDWD_L3_NRT&bounding_box=88.0,20.5,92.7,26.7&temporal=2026-10-15T23:32:25Z,&page_size=20",
+  "params": {
+    "short_name": "MCDWD_L3_NRT",
+    "bounding_box": "88.0,20.5,92.7,26.7",
+    "temporal": "2026-10-15T23:32:25Z,",
+    "page_size": 20
+  },
+  "headers": {
+    "host": "cmr.earthdata.nasa.gov",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "MODIS NRT global flood product tiles over Bangladesh",
+  "captured_at": "2026-10-25T23:32:25.086281+00:00",
+  "status": 200,
+  "content_type": "application/json;charset=utf-8",
+  "transformed": false
+}

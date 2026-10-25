@@ -1,0 +1,1098 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-WX-03",
+  "title": "DS-WX-03 · IBTrACS cyclone tracks: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "last3years": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "SID": {
+            "type": "string"
+          },
+          "SEASON": {
+            "type": "integer"
+          },
+          "NUMBER": {
+            "type": "integer"
+          },
+          "BASIN": {
+            "type": "string"
+          },
+          "SUBBASIN": {
+            "type": "string"
+          },
+          "NAME": {
+            "type": "string"
+          },
+          "ISO_TIME": {
+            "type": "string"
+          },
+          "NATURE": {
+            "type": "string"
+          },
+          "LAT": {
+            "type": "number"
+          },
+          "LON": {
+            "type": "number"
+          },
+          "WMO_WIND": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "WMO_PRES": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "WMO_AGENCY": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "TRACK_TYPE": {
+            "type": "string"
+          },
+          "DIST2LAND": {
+            "type": "integer"
+          },
+          "LANDFALL": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "IFLAG": {
+            "type": "string"
+          },
+          "USA_AGENCY": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "USA_ATCF_ID": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "USA_LAT": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "USA_LON": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "USA_RECORD": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "USA_STATUS": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "USA_WIND": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_PRES": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_SSHS": {
+            "type": "integer"
+          },
+          "USA_R34_NE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_R34_SE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_R34_SW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_R34_NW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_R50_NE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_R50_SE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_R50_SW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_R50_NW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_R64_NE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_R64_SE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_R64_SW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_R64_NW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_POCI": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_ROCI": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_RMW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_EYE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "TOKYO_LAT": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "TOKYO_LON": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "TOKYO_GRADE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "TOKYO_WIND": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "TOKYO_PRES": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "TOKYO_R50_DIR": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "TOKYO_R50_LONG": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "TOKYO_R50_SHORT": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "TOKYO_R30_DIR": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "TOKYO_R30_LONG": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "TOKYO_R30_SHORT": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "TOKYO_LAND": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "CMA_LAT": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "CMA_LON": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "CMA_CAT": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "CMA_WIND": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "CMA_PRES": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "HKO_LAT": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "HKO_LON": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "HKO_CAT": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "HKO_WIND": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "HKO_PRES": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "KMA_LAT": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "KMA_LON": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "KMA_CAT": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "KMA_WIND": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "KMA_PRES": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "KMA_R50_DIR": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "KMA_R50_LONG": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "KMA_R50_SHORT": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "KMA_R30_DIR": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "KMA_R30_LONG": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "KMA_R30_SHORT": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "NEWDELHI_LAT": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "NEWDELHI_LON": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "NEWDELHI_GRADE": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "NEWDELHI_WIND": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "NEWDELHI_PRES": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "NEWDELHI_CI": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "NEWDELHI_DP": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "NEWDELHI_POCI": {
+            "type": "null"
+          },
+          "REUNION_LAT": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "REUNION_LON": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "REUNION_TYPE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "REUNION_WIND": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "REUNION_PRES": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "REUNION_TNUM": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "REUNION_CI": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "REUNION_RMW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "REUNION_R34_NE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "REUNION_R34_SE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "REUNION_R34_SW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "REUNION_R34_NW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "REUNION_R50_NE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "REUNION_R50_SE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "REUNION_R50_SW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "REUNION_R50_NW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "REUNION_R64_NE": {
+            "type": "null"
+          },
+          "REUNION_R64_SE": {
+            "type": "null"
+          },
+          "REUNION_R64_SW": {
+            "type": "null"
+          },
+          "REUNION_R64_NW": {
+            "type": "null"
+          },
+          "BOM_LAT": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "BOM_LON": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "BOM_TYPE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_WIND": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_PRES": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_TNUM": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "BOM_CI": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "BOM_RMW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_R34_NE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_R34_SE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_R34_SW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_R34_NW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_R50_NE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_R50_SE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_R50_SW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_R50_NW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_R64_NE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_R64_SE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_R64_SW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_R64_NW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_ROCI": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_POCI": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_EYE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_POS_METHOD": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_PRES_METHOD": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "NADI_LAT": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "NADI_LON": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "NADI_CAT": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "NADI_WIND": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "NADI_PRES": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "WELLINGTON_LAT": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "WELLINGTON_LON": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "WELLINGTON_WIND": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "WELLINGTON_PRES": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "DS824_LAT": {
+            "type": "null"
+          },
+          "DS824_LON": {
+            "type": "null"
+          },
+          "DS824_STAGE": {
+            "type": "null"
+          },
+          "DS824_WIND": {
+            "type": "null"
+          },
+          "DS824_PRES": {
+            "type": "null"
+          },
+          "TD9636_LAT": {
+            "type": "null"
+          },
+          "TD9636_LON": {
+            "type": "null"
+          },
+          "TD9636_STAGE": {
+            "type": "null"
+          },
+          "TD9636_WIND": {
+            "type": "null"
+          },
+          "TD9636_PRES": {
+            "type": "null"
+          },
+          "TD9635_LAT": {
+            "type": "null"
+          },
+          "TD9635_LON": {
+            "type": "null"
+          },
+          "TD9635_WIND": {
+            "type": "null"
+          },
+          "TD9635_PRES": {
+            "type": "null"
+          },
+          "TD9635_ROCI": {
+            "type": "null"
+          },
+          "NEUMANN_LAT": {
+            "type": "null"
+          },
+          "NEUMANN_LON": {
+            "type": "null"
+          },
+          "NEUMANN_CLASS": {
+            "type": "null"
+          },
+          "NEUMANN_WIND": {
+            "type": "null"
+          },
+          "NEUMANN_PRES": {
+            "type": "null"
+          },
+          "MLC_LAT": {
+            "type": "null"
+          },
+          "MLC_LON": {
+            "type": "null"
+          },
+          "MLC_CLASS": {
+            "type": "null"
+          },
+          "MLC_WIND": {
+            "type": "null"
+          },
+          "MLC_PRES": {
+            "type": "null"
+          },
+          "USA_GUST": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_GUST": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "BOM_GUST_PER": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "REUNION_GUST": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "REUNION_GUST_PER": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_SEAHGT": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_SEARAD_NE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_SEARAD_SE": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_SEARAD_SW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "USA_SEARAD_NW": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "STORM_SPEED": {
+            "type": "integer"
+          },
+          "STORM_DIR": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "BASIN",
+          "BOM_CI",
+          "BOM_EYE",
+          "BOM_GUST",
+          "BOM_GUST_PER",
+          "BOM_LAT",
+          "BOM_LON",
+          "BOM_POCI",
+          "BOM_POS_METHOD",
+          "BOM_PRES",
+          "BOM_PRES_METHOD",
+          "BOM_R34_NE",
+          "BOM_R34_NW",
+          "BOM_R34_SE",
+          "BOM_R34_SW",
+          "BOM_R50_NE",
+          "BOM_R50_NW",
+          "BOM_R50_SE",
+          "BOM_R50_SW",
+          "BOM_R64_NE",
+          "BOM_R64_NW",
+          "BOM_R64_SE",
+          "BOM_R64_SW",
+          "BOM_RMW",
+          "BOM_ROCI",
+          "BOM_TNUM",
+          "BOM_TYPE",
+          "BOM_WIND",
+          "CMA_CAT",
+          "CMA_LAT",
+          "CMA_LON",
+          "CMA_PRES",
+          "CMA_WIND",
+          "DIST2LAND",
+          "DS824_LAT",
+          "DS824_LON",
+          "DS824_PRES",
+          "DS824_STAGE",
+          "DS824_WIND",
+          "HKO_CAT",
+          "HKO_LAT",
+          "HKO_LON",
+          "HKO_PRES",
+          "HKO_WIND",
+          "IFLAG",
+          "ISO_TIME",
+          "KMA_CAT",
+          "KMA_LAT",
+          "KMA_LON",
+          "KMA_PRES",
+          "KMA_R30_DIR",
+          "KMA_R30_LONG",
+          "KMA_R30_SHORT",
+          "KMA_R50_DIR",
+          "KMA_R50_LONG",
+          "KMA_R50_SHORT",
+          "KMA_WIND",
+          "LANDFALL",
+          "LAT",
+          "LON",
+          "MLC_CLASS",
+          "MLC_LAT",
+          "MLC_LON",
+          "MLC_PRES",
+          "MLC_WIND",
+          "NADI_CAT",
+          "NADI_LAT",
+          "NADI_LON",
+          "NADI_PRES",
+          "NADI_WIND",
+          "NAME",
+          "NATURE",
+          "NEUMANN_CLASS",
+          "NEUMANN_LAT",
+          "NEUMANN_LON",
+          "NEUMANN_PRES",
+          "NEUMANN_WIND",
+          "NEWDELHI_CI",
+          "NEWDELHI_DP",
+          "NEWDELHI_GRADE",
+          "NEWDELHI_LAT",
+          "NEWDELHI_LON",
+          "NEWDELHI_POCI",
+          "NEWDELHI_PRES",
+          "NEWDELHI_WIND",
+          "NUMBER",
+          "REUNION_CI",
+          "REUNION_GUST",
+          "REUNION_GUST_PER",
+          "REUNION_LAT",
+          "REUNION_LON",
+          "REUNION_PRES",
+          "REUNION_R34_NE",
+          "REUNION_R34_NW",
+          "REUNION_R34_SE",
+          "REUNION_R34_SW",
+          "REUNION_R50_NE",
+          "REUNION_R50_NW",
+          "REUNION_R50_SE",
+          "REUNION_R50_SW",
+          "REUNION_R64_NE",
+          "REUNION_R64_NW",
+          "REUNION_R64_SE",
+          "REUNION_R64_SW",
+          "REUNION_RMW",
+          "REUNION_TNUM",
+          "REUNION_TYPE",
+          "REUNION_WIND",
+          "SEASON",
+          "SID",
+          "STORM_DIR",
+          "STORM_SPEED",
+          "SUBBASIN",
+          "TD9635_LAT",
+          "TD9635_LON",
+          "TD9635_PRES",
+          "TD9635_ROCI",
+          "TD9635_WIND",
+          "TD9636_LAT",
+          "TD9636_LON",
+          "TD9636_PRES",
+          "TD9636_STAGE",
+          "TD9636_WIND",
+          "TOKYO_GRADE",
+          "TOKYO_LAND",
+          "TOKYO_LAT",
+          "TOKYO_LON",
+          "TOKYO_PRES",
+          "TOKYO_R30_DIR",
+          "TOKYO_R30_LONG",
+          "TOKYO_R30_SHORT",
+          "TOKYO_R50_DIR",
+          "TOKYO_R50_LONG",
+          "TOKYO_R50_SHORT",
+          "TOKYO_WIND",
+          "TRACK_TYPE",
+          "USA_AGENCY",
+          "USA_ATCF_ID",
+          "USA_EYE",
+          "USA_GUST",
+          "USA_LAT",
+          "USA_LON",
+          "USA_POCI",
+          "USA_PRES",
+          "USA_R34_NE",
+          "USA_R34_NW",
+          "USA_R34_SE",
+          "USA_R34_SW",
+          "USA_R50_NE",
+          "USA_R50_NW",
+          "USA_R50_SE",
+          "USA_R50_SW",
+          "USA_R64_NE",
+          "USA_R64_NW",
+          "USA_R64_SE",
+          "USA_R64_SW",
+          "USA_RECORD",
+          "USA_RMW",
+          "USA_ROCI",
+          "USA_SEAHGT",
+          "USA_SEARAD_NE",
+          "USA_SEARAD_NW",
+          "USA_SEARAD_SE",
+          "USA_SEARAD_SW",
+          "USA_SSHS",
+          "USA_STATUS",
+          "USA_WIND",
+          "WELLINGTON_LAT",
+          "WELLINGTON_LON",
+          "WELLINGTON_PRES",
+          "WELLINGTON_WIND",
+          "WMO_AGENCY",
+          "WMO_PRES",
+          "WMO_WIND"
+        ]
+      }
+    }
+  }
+}

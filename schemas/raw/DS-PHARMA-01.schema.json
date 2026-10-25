@@ -1,0 +1,541 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-PHARMA-01",
+  "title": "DS-PHARMA-01 · openFDA drug enforcement and shortages: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "recalls_india": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "type": "object",
+          "properties": {
+            "disclaimer": {
+              "type": "string"
+            },
+            "terms": {
+              "type": "string"
+            },
+            "license": {
+              "type": "string"
+            },
+            "last_updated": {
+              "type": "string"
+            },
+            "results": {
+              "type": "object",
+              "properties": {
+                "skip": {
+                  "type": "integer"
+                },
+                "limit": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "limit",
+                "skip",
+                "total"
+              ]
+            }
+          },
+          "required": [
+            "disclaimer",
+            "last_updated",
+            "license",
+            "results",
+            "terms"
+          ]
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "classification": {
+                "type": "string"
+              },
+              "openfda": {
+                "type": "object",
+                "properties": {
+                  "application_number": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "brand_name": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "generic_name": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "manufacturer_name": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "product_ndc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "product_type": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "route": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "substance_name": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "rxcui": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "spl_id": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "spl_set_id": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "package_ndc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "is_original_packager": {
+                    "type": "array",
+                    "items": {
+                      "type": "boolean"
+                    }
+                  },
+                  "unii": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "upc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "nui": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "pharm_class_epc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "pharm_class_pe": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "pharm_class_cs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "pharm_class_moa": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "product_type": {
+                "type": "string"
+              },
+              "event_id": {
+                "type": "string"
+              },
+              "recalling_firm": {
+                "type": "string"
+              },
+              "address_1": {
+                "type": "string"
+              },
+              "address_2": {
+                "type": "string"
+              },
+              "postal_code": {
+                "type": "string"
+              },
+              "voluntary_mandated": {
+                "type": "string"
+              },
+              "initial_firm_notification": {
+                "type": "string"
+              },
+              "distribution_pattern": {
+                "type": "string"
+              },
+              "recall_number": {
+                "type": "string"
+              },
+              "product_description": {
+                "type": "string"
+              },
+              "product_quantity": {
+                "type": "string"
+              },
+              "reason_for_recall": {
+                "type": "string"
+              },
+              "recall_initiation_date": {
+                "type": "string"
+              },
+              "center_classification_date": {
+                "type": "string"
+              },
+              "report_date": {
+                "type": "string"
+              },
+              "code_info": {
+                "type": "string"
+              },
+              "more_code_info": {
+                "type": "string"
+              },
+              "termination_date": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "address_1",
+              "address_2",
+              "center_classification_date",
+              "city",
+              "classification",
+              "code_info",
+              "country",
+              "distribution_pattern",
+              "event_id",
+              "initial_firm_notification",
+              "openfda",
+              "postal_code",
+              "product_description",
+              "product_quantity",
+              "product_type",
+              "reason_for_recall",
+              "recall_initiation_date",
+              "recall_number",
+              "recalling_firm",
+              "report_date",
+              "state",
+              "status",
+              "voluntary_mandated"
+            ]
+          }
+        }
+      },
+      "required": [
+        "meta",
+        "results"
+      ]
+    },
+    "shortages": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "type": "object",
+          "properties": {
+            "disclaimer": {
+              "type": "string"
+            },
+            "terms": {
+              "type": "string"
+            },
+            "license": {
+              "type": "string"
+            },
+            "last_updated": {
+              "type": "string"
+            },
+            "results": {
+              "type": "object",
+              "properties": {
+                "skip": {
+                  "type": "integer"
+                },
+                "limit": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "limit",
+                "skip",
+                "total"
+              ]
+            }
+          },
+          "required": [
+            "disclaimer",
+            "last_updated",
+            "license",
+            "results",
+            "terms"
+          ]
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "update_type": {
+                "type": "string"
+              },
+              "initial_posting_date": {
+                "type": "string"
+              },
+              "package_ndc": {
+                "type": "string"
+              },
+              "generic_name": {
+                "type": "string"
+              },
+              "contact_info": {
+                "type": "string"
+              },
+              "availability": {
+                "type": "string"
+              },
+              "openfda": {
+                "type": "object",
+                "properties": {
+                  "application_number": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "brand_name": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "generic_name": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "manufacturer_name": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "product_ndc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "product_type": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "route": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "substance_name": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "rxcui": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "spl_id": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "spl_set_id": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "package_ndc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "unii": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "nui": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "pharm_class_epc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "pharm_class_cs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "pharm_class_moa": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "pharm_class_pe": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "brand_name",
+                  "generic_name",
+                  "manufacturer_name",
+                  "package_ndc",
+                  "product_ndc",
+                  "product_type",
+                  "route",
+                  "rxcui",
+                  "spl_id",
+                  "spl_set_id",
+                  "substance_name",
+                  "unii"
+                ]
+              },
+              "update_date": {
+                "type": "string"
+              },
+              "therapeutic_category": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "dosage_form": {
+                "type": "string"
+              },
+              "presentation": {
+                "type": "string"
+              },
+              "company_name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "related_info": {
+                "type": "string"
+              },
+              "shortage_reason": {
+                "type": "string"
+              },
+              "discontinued_date": {
+                "type": "string"
+              },
+              "related_info_link": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "company_name",
+              "contact_info",
+              "dosage_form",
+              "generic_name",
+              "initial_posting_date",
+              "package_ndc",
+              "presentation",
+              "status",
+              "therapeutic_category",
+              "update_date",
+              "update_type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "meta",
+        "results"
+      ]
+    }
+  }
+}

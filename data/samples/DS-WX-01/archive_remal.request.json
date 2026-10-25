@@ -1,0 +1,29 @@
+{
+  "method": "GET",
+  "url": "https://archive-api.open-meteo.com/v1/archive?latitude=22.29&longitude=91.81&timezone=UTC&hourly=temperature_2m,precipitation,wind_speed_10m,wind_gusts_10m,wind_direction_10m,pressure_msl&start_date=2024-05-24&end_date=2024-05-29",
+  "params": {
+    "latitude": 22.29,
+    "longitude": 91.81,
+    "timezone": "UTC",
+    "hourly": "temperature_2m,precipitation,wind_speed_10m,wind_gusts_10m,wind_direction_10m,pressure_msl",
+    "start_date": "2024-05-24",
+    "end_date": "2024-05-29"
+  },
+  "headers": {
+    "host": "archive-api.open-meteo.com",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "Cyclone Remal window, ERA5-based archive",
+  "captured_at": "2026-10-25T22:19:10.124433+00:00",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "transformed": false
+}

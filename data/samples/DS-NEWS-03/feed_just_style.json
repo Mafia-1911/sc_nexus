@@ -1,0 +1,169 @@
+{
+ "feed": {
+  "title": "Just Style",
+  "link": "https://www.just-style.com/",
+  "language": "en-US",
+  "updated": "Fri, 23 Oct 2026 11:36:50 +0000"
+ },
+ "items": [
+  {
+   "id": "https://www.just-style.com/?p=220985",
+   "link": "https://www.just-style.com/news/uk-clothing-sales-slump-as-warm-weather-hits-autumn-demand/",
+   "title": "UK clothing sales slump as warm weather hits autumn demand",
+   "published": "2026-10-23T09:46:03+00:00",
+   "updated": null,
+   "authors": [
+    "Isatou Ndure"
+   ],
+   "tags": [
+    "News",
+    "Office for National Statistics"
+   ],
+   "snippet": "UK retail sales fell more sharply than expected in September as unseasonably warm weather dampened demand for autumn and winter clothing.",
+   "has_full_content": true
+  },
+  {
+   "id": "https://www.just-style.com/?p=220987",
+   "link": "https://www.just-style.com/news/brc-uk-consumers-retail/",
+   "title": "BRC demands budget tax cut as UK consumer confidence slumps",
+   "published": "2026-10-23T09:42:32+00:00",
+   "updated": null,
+   "authors": [
+    "Jangoulun Singsit"
+   ],
+   "tags": [
+    "News",
+    "BRC Consumer Sentiment Monitor"
+   ],
+   "snippet": "UK consumer confidence deteriorated further in October, with expectations for the state of the economy and personal finances both falling.",
+   "has_full_content": true
+  },
+  {
+   "id": "https://www.just-style.com/?p=220298",
+   "link": "https://www.just-style.com/features/six-ways-brands-factories-can-tackle-climate-linked-worker-risk/",
+   "title": "Six ways brands, factories can tackle climate-linked worker risk",
+   "published": "2026-10-23T09:14:50+00:00",
+   "updated": null,
+   "authors": [
+    "Hannah Abdulla"
+   ],
+   "tags": [
+    "Features",
+    "Cascale",
+    "Fair Labor Association",
+    "heat"
+   ],
+   "snippet": "Jeff Vockrodt of the FLA says the burden of climate change and the associated impact on factory workers should not fall on suppliers alone.",
+   "has_full_content": true
+  },
+  {
+   "id": "https://www.just-style.com/?p=220968",
+   "link": "https://www.just-style.com/news/very-group-fy26-result/",
+   "title": "Very Group reports record FY26 despite ‘persistent weakness’ in fashion",
+   "published": "2026-10-23T09:03:13+00:00",
+   "updated": null,
+   "authors": [
+    "Jangoulun Singsit"
+   ],
+   "tags": [
+    "News"
+   ],
+   "snippet": "The Very Group reported a record earnings performance in fiscal 2026 (FY26) despite \"persistent weakness\" in its fashion offering.",
+   "has_full_content": true
+  },
+  {
+   "id": "https://www.just-style.com/?p=220952",
+   "link": "https://www.just-style.com/news/locus-robotics-young-shoppers-retail/",
+   "title": "Gen Z shopping habits driving returns, spikes in demand",
+   "published": "2026-10-22T10:32:57+00:00",
+   "updated": null,
+   "authors": [
+    "Jangoulun Singsit"
+   ],
+   "tags": [
+    "News"
+   ],
+   "snippet": "Younger consumers are dramatically reshaping shopping and returns behaviours, according to new research released by Locus Robotics.",
+   "has_full_content": true
+  },
+  {
+   "id": "https://www.just-style.com/?p=220935",
+   "link": "https://www.just-style.com/news/sainsburys-h1-sales-clothing/",
+   "title": "Weak clothing dampens H1 sales at Sainsbury’s as it reports $219m loss",
+   "published": "2026-10-22T09:53:45+00:00",
+   "updated": null,
+   "authors": [
+    "Jangoulun Singsit"
+   ],
+   "tags": [
+    "News"
+   ],
+   "snippet": "Sainsbury’s reported a statutory loss after tax of £164m ($219m) in H1 FY26/27, reflecting subdued performance in its Tu clothing business.",
+   "has_full_content": true
+  },
+  {
+   "id": "https://www.just-style.com/?p=220939",
+   "link": "https://www.just-style.com/news/abb-ai-fashion-logistics/",
+   "title": "ABB adds closed-loop physical AI to fashion logistics automation",
+   "published": "2026-10-22T09:46:02+00:00",
+   "updated": null,
+   "authors": [
+    "Jangoulun Singsit"
+   ],
+   "tags": [
+    "News",
+    "ABB Robotics"
+   ],
+   "snippet": "ABB Robotics has launched a vision-based AI solution aimed at automating and optimising fashion logistics processes.",
+   "has_full_content": true
+  },
+  {
+   "id": "https://www.just-style.com/?p=220851",
+   "link": "https://www.just-style.com/features/why-dryrobe-turned-down-a-dream-corporate-offer/",
+   "title": "Why Dryrobe turned down a ‘dream’ corporate offer",
+   "published": "2026-10-22T09:09:29+00:00",
+   "updated": null,
+   "authors": [
+    "Rachel Lawler"
+   ],
+   "tags": [
+    "Features",
+    "Blue Earth Summit",
+    "Dryrobe"
+   ],
+   "snippet": "Dryrobe’s founder and owner Gideon Bright reveals he turned down a “corporate dream exit” to safeguard the brand’s values.",
+   "has_full_content": true
+  },
+  {
+   "id": "https://www.just-style.com/?p=220415",
+   "link": "https://www.just-style.com/features/traceability-is-becoming-core-infrastructure-cascale-report-argues/",
+   "title": "Traceability is becoming ‘core infrastructure’ Cascale report argues",
+   "published": "2026-10-22T08:54:21+00:00",
+   "updated": null,
+   "authors": [
+    "Rachel Lawler"
+   ],
+   "tags": [
+    "Features",
+    "Cascale"
+   ],
+   "snippet": "In a new report, Cascale says traceability and standardised data are becoming essential for managing risks and understanding performance.",
+   "has_full_content": true
+  },
+  {
+   "id": "https://www.just-style.com/?p=220915",
+   "link": "https://www.just-style.com/news/cotton-brazil-ica-istanbul/",
+   "title": "Cotton Brazil launches ‘Hanging by a Thread’ movement at ICA Istanbul",
+   "published": "2026-10-21T10:51:43+00:00",
+   "updated": null,
+   "authors": [
+    "Jangoulun Singsit"
+   ],
+   "tags": [
+    "News"
+   ],
+   "snippet": "Cotton Brazil has launched the “Hanging by a Thread” movement at the ICA Trade Event Istanbul 2026, highlighting the impacts of microplastics",
+   "has_full_content": true
+  }
+ ]
+}

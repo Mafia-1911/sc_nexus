@@ -1,0 +1,2390 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-25T22:55:00Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 318758616,
+  "lat": 23.9667981,
+  "lon": 91.1086197,
+  "tags": {
+    "name": "ব্রাহ্মণবাড়িয়া স্টেশন",
+    "name:ar": "محطة براهمنباريا",
+    "name:bn": "ব্রাহ্মনবাড়িয়া স্টেশন",
+    "name:en": "Bramhonbaria Station",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 399490803,
+  "lat": 23.8910103,
+  "lon": 91.1718464,
+  "tags": {
+    "name": "ভাতশালা",
+    "name:en": "Bhatshala",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 399602851,
+  "lat": 23.9636205,
+  "lon": 91.2645929,
+  "tags": {
+    "name": "মুকুন্দপুর",
+    "name:en": "Mukundahpur",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 399602854,
+  "lat": 23.8933208,
+  "lon": 91.2207969,
+  "tags": {
+    "internet_access": "no",
+    "name": "আজমপুর",
+    "name:en": "Azampur",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "pole",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 540027670,
+  "lat": 22.3542406,
+  "lon": 91.7952957,
+  "tags": {
+    "name": "পাহাড়তলী",
+    "name:en": "Pahartoli",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station",
+    "ref": "PHT",
+    "start_date": "1895",
+    "wikidata": "Q60454848"
+  }
+},
+{
+  "type": "node",
+  "id": 540028232,
+  "lat": 23.0131035,
+  "lon": 91.4031816,
+  "tags": {
+    "name": "ফেনী জংশন",
+    "name:en": "Feni Junction",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 715178157,
+  "lat": 23.8269305,
+  "lon": 91.4309512,
+  "tags": {
+    "name": "Jirania",
+    "network": "IR",
+    "operator": "NFR",
+    "railway": "station",
+    "ref": "JRNA"
+  }
+},
+{
+  "type": "node",
+  "id": 715178411,
+  "lat": 23.7929171,
+  "lon": 91.2785939,
+  "tags": {
+    "loc_name": "Badhar Ghat",
+    "loc_name:en": "Badhar Ghat",
+    "name": "Agartala",
+    "name:bn": "আগরতলা",
+    "name:hi": "अगरतला",
+    "name:ja": "アガルタラ",
+    "name:pa": "ਅਗਰਤਲਾ",
+    "network": "IR",
+    "operator": "NFR",
+    "railway": "station",
+    "ref": "AGTL",
+    "start_date": "2008",
+    "wikidata": "Q15178297",
+    "wikipedia": "en:Agartala railway station"
+  }
+},
+{
+  "type": "node",
+  "id": 819613071,
+  "lat": 23.6244687,
+  "lon": 90.4983013,
+  "tags": {
+    "name": "চাষাড়া",
+    "name:en": "Chasara",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 1210735993,
+  "lat": 23.9311541,
+  "lon": 91.8611485,
+  "tags": {
+    "name": "Ambassa",
+    "network": "IR",
+    "operator": "NFR",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "ABSA",
+    "wikidata": "Q24948164",
+    "wikipedia": "en:Ambassa railway station"
+  }
+},
+{
+  "type": "node",
+  "id": 1210736286,
+  "lat": 23.8849008,
+  "lon": 91.7120232,
+  "tags": {
+    "name": "Mungiakami",
+    "network": "IR",
+    "operator": "NFR",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "MGKM",
+    "wikidata": "Q63356665"
+  }
+},
+{
+  "type": "node",
+  "id": 1472696992,
+  "lat": 23.9980388,
+  "lon": 90.4203120,
+  "tags": {
+    "name": "জয়দেবপুর জংশন",
+    "name:en": "Joydebpur Junction",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "wheelchair": "limited",
+    "wikidata": "Q15229798",
+    "wikipedia": "bn:জয়দেবপুর রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 1858241659,
+  "lat": 23.5105401,
+  "lon": 91.4798796,
+  "tags": {
+    "disused": "yes",
+    "name": "Udaipur",
+    "network": "IR",
+    "operator": "NFR",
+    "railway": "station",
+    "ref": "UDPU",
+    "wikidata": "Q24907744",
+    "wikipedia": "en:Udaipur railway station"
+  }
+},
+{
+  "type": "node",
+  "id": 2389086138,
+  "lat": 23.2255213,
+  "lon": 90.6550190,
+  "tags": {
+    "addr:city": "Chandpur",
+    "addr:street": "Kali Bari Road",
+    "name": "চাঁদপুর কোর্ট",
+    "name:bn": "চাঁদপুর কোর্ট",
+    "name:en": "Chandpur Court",
+    "operator": "Bangladesh Railway",
+    "operator:bn": "বাংলাদেশ রেলওয়ে",
+    "public_transport": "station",
+    "railway": "station",
+    "wikidata": "Q60454836",
+    "wikipedia": "bn:চাঁদপুর কোর্ট রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 2544500337,
+  "lat": 22.8276953,
+  "lon": 91.1014625,
+  "tags": {
+    "name": "সোনাপুর",
+    "name:en": "Sonapur",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2545059305,
+  "lat": 23.9304400,
+  "lon": 90.6743700,
+  "tags": {
+    "name": "জিনারদী",
+    "name:en": "Jinardi",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2568262632,
+  "lat": 22.3685144,
+  "lon": 91.8265257,
+  "tags": {
+    "name": "ষোলশহর জংশন",
+    "name:en": "Sholashohor Junction",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2568270463,
+  "lat": 22.6293612,
+  "lon": 91.7876819,
+  "tags": {
+    "name": "নাজির হাট",
+    "name:en": "Nazir Hat",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2568274941,
+  "lat": 22.3958667,
+  "lon": 91.8719498,
+  "tags": {
+    "name": "জান আলী হাট",
+    "name:en": "Jan ali Hat",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2571248397,
+  "lat": 22.9920794,
+  "lon": 91.1006125,
+  "tags": {
+    "name": "বজরা",
+    "name:en": "Bajra",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2571319154,
+  "lat": 23.2357256,
+  "lon": 91.0293581,
+  "tags": {
+    "name": "চিতোষী",
+    "name:en": "Chitoshi",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2571324804,
+  "lat": 23.2451995,
+  "lon": 90.9433168,
+  "tags": {
+    "name": "মেহের",
+    "name:en": "Meher",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2571330813,
+  "lat": 22.9439118,
+  "lon": 91.1206903,
+  "tags": {
+    "addr:postcode": "3821",
+    "internet_access": "no",
+    "name": "চৌমুহনী",
+    "name:en": "Chowmuhani",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2571343421,
+  "lat": 23.7402697,
+  "lon": 91.1555601,
+  "tags": {
+    "name": "কসবা",
+    "name:en": "Kasba",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station",
+    "wikidata": "Q60433065",
+    "wikipedia": "bn:কসবা রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 2571375836,
+  "lat": 23.2581807,
+  "lon": 90.8482297,
+  "tags": {
+    "name": "হাজীগঞ্জ",
+    "name:en": "Hajiganj",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2571507697,
+  "lat": 22.8606549,
+  "lon": 91.1049378,
+  "tags": {
+    "alt_name": "মাইজদী কোর্ট",
+    "name": "মাইজদী কোর্ট",
+    "name:en": "Maijdee Court",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2571837941,
+  "lat": 23.1653428,
+  "lon": 91.2012300,
+  "tags": {
+    "addr:city": "Cumilla",
+    "internet_access": "no",
+    "name": "নাঙ্গলকোট",
+    "name:bn": "নাঙ্গলকোট",
+    "name:en": "Nangolkot",
+    "network": "Laksam - Chattagram Railway",
+    "operator": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2571841077,
+  "lat": 22.3659368,
+  "lon": 91.8117245,
+  "tags": {
+    "name": "পলিটেকনিক হল্ট",
+    "name:en": "Polytechnic Halt",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2572038881,
+  "lat": 23.0405978,
+  "lon": 91.0979441,
+  "tags": {
+    "name": "সোনাইমুড়ি",
+    "name:en": "Sonaimuri",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2665437088,
+  "lat": 23.6766774,
+  "lon": 91.2728164,
+  "tags": {
+    "name": "Bishalgarh",
+    "network": "IR",
+    "operator": "NFR",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "BLGH",
+    "wikidata": "Q29026217",
+    "wikipedia": "en:Bishalgarh railway station"
+  }
+},
+{
+  "type": "node",
+  "id": 2671658260,
+  "lat": 23.8261502,
+  "lon": 91.1937550,
+  "tags": {
+    "name": "গঙ্গাসাগর",
+    "name:en": "Gangasagar",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2671771172,
+  "lat": 23.8985731,
+  "lon": 90.4081317,
+  "tags": {
+    "name": "টঙ্গী জংশন",
+    "name:en": "Tongi Junction",
+    "name:hi": "टंगी जंक्शन",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2689538357,
+  "lat": 23.8114171,
+  "lon": 91.3074081,
+  "tags": {
+    "name": "Jogendranagar",
+    "network": "IR",
+    "operator": "NFR",
+    "railway": "station",
+    "ref": "JGNR",
+    "wikidata": "Q63356352"
+  }
+},
+{
+  "type": "node",
+  "id": 3281638676,
+  "lat": 23.7436934,
+  "lon": 91.2773921,
+  "tags": {
+    "name": "Sekerkote",
+    "operator": "NFR",
+    "railway": "station",
+    "ref": "SKKE",
+    "wikidata": "Q29026215",
+    "wikipedia": "en:Sekerkote railway station"
+  }
+},
+{
+  "type": "node",
+  "id": 3680546772,
+  "lat": 23.5189880,
+  "lon": 91.1683188,
+  "tags": {
+    "name": "সদর রসুলপুর",
+    "name:en": "Sadam Rasulpur",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 3708384897,
+  "lat": 23.5800828,
+  "lon": 91.1522854,
+  "tags": {
+    "name": "রাজাপুর",
+    "name:en": "Rajapur",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 3708384898,
+  "lat": 22.3676605,
+  "lon": 91.7814916,
+  "tags": {
+    "name": "কৈবল্যধাম রেলওয়ে স্টেশন",
+    "name:en": "Kaibalyadham",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station",
+    "wikidata": "Q89854272",
+    "wikipedia": "bn:কৈবল্যধাম রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 3741251292,
+  "lat": 22.8856473,
+  "lon": 91.5387908,
+  "tags": {
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 4104184789,
+  "lat": 23.6179830,
+  "lon": 90.5055750,
+  "tags": {
+    "name": "নারায়ণগঞ্জ",
+    "name:en": "Narayanganj Railway station",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 4385477451,
+  "lat": 23.3563557,
+  "lon": 91.1515684,
+  "tags": {
+    "alt_name": "লালমাই রেলওয়ে স্টেশন",
+    "name": "লালমাই",
+    "name:bn": "লালমাই",
+    "name:en": "Lalmai Railway Station",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 4634173176,
+  "lat": 22.3350119,
+  "lon": 91.8264671,
+  "tags": {
+    "addr:city": "Chattogram",
+    "addr:postcode": "4000",
+    "addr:street": "Station Road",
+    "name": "বটতলি রেলওয়ে স্টেশন",
+    "name:bn": "বটতলি রেলওয়ে স্টেশন",
+    "name:en": "Battali Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "wikidata": "Q101218681"
+  }
+},
+{
+  "type": "node",
+  "id": 4774174062,
+  "lat": 23.7319508,
+  "lon": 90.4262749,
+  "tags": {
+    "amenity": "vending_machine",
+    "check_date": "2026-05-28",
+    "check_date:wheelchair": "2026-05-28",
+    "name": "কমলাপুর রেলওয়ে স্টেশন",
+    "name:bn": "কমলাপুর রেলস্টেশন",
+    "name:en": "Kamalapur Railway Station",
+    "operator": "Bangladesh Railway",
+    "railway": "station",
+    "vending": "public_transport_tickets",
+    "wheelchair": "limited",
+    "wikipedia": "en:Kamlapur railway station"
+  }
+},
+{
+  "type": "node",
+  "id": 4885599919,
+  "lat": 23.8615463,
+  "lon": 91.6183175,
+  "tags": {
+    "name": "Teliamura",
+    "network": "IR",
+    "operator": "NFR",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "TLMR",
+    "wikidata": "Q28172955"
+  }
+},
+{
+  "type": "node",
+  "id": 5463769106,
+  "lat": 23.4304710,
+  "lon": 91.4967565,
+  "tags": {
+    "name": "Garjee",
+    "network": "IR",
+    "operator": "NFR",
+    "railway": "station",
+    "ref": "JRJE",
+    "wikidata": "Q29026223"
+  }
+},
+{
+  "type": "node",
+  "id": 5798480633,
+  "lat": 23.8692316,
+  "lon": 91.2060188,
+  "tags": {
+    "name": "আখাউড়া",
+    "name:en": "Akhaura",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 5798481056,
+  "lat": 23.9405987,
+  "lon": 90.6199068,
+  "tags": {
+    "name": "ঘোড়াশাল ফ্ল্যাগ",
+    "name:en": "Ghorashal Flag",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station",
+    "wikidata": "Q63213703",
+    "wikipedia": "bn:ঘোড়াশাল ফ্ল্যাগ রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 5798586244,
+  "lat": 23.8156515,
+  "lon": 90.4104813,
+  "tags": {
+    "alt_name": "ঢাকা ক্যান্টনমেন্ট",
+    "name": "ঢাকা সেনানিবাস",
+    "name:en": "Dhaka Cantonment",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 5798601925,
+  "lat": 23.8520709,
+  "lon": 90.4083790,
+  "tags": {
+    "name": "ঢাকা বিমানবন্দর রেলওয়ে স্টেশন",
+    "name:bn": "ঢাকা বিমানবন্দর রেলওয়ে স্টেশন",
+    "name:en": "Dhaka Airport Railway Station",
+    "name:zh": "达卡机场火车站",
+    "name:zh-Hans": "达卡机场火车站",
+    "name:zh-Hant": "達卡機場火車站",
+    "public_transport": "station",
+    "railway": "station",
+    "wikidata": "Q4698879",
+    "wikipedia": "en:Dhaka Airport railway station"
+  }
+},
+{
+  "type": "node",
+  "id": 6127549667,
+  "lat": 22.4587184,
+  "lon": 91.8117664,
+  "tags": {
+    "name": "ফতেহাবাদ রেলওয়ে জংশন",
+    "name:en": "Fatehabad railway junction",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 6132064561,
+  "lat": 22.3234038,
+  "lon": 91.7811027,
+  "tags": {
+    "name": "হালিশহর রেলওয়ে স্টেশন",
+    "name:en": "HaliShahar Station",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "wikidata": "Q105939407",
+    "wikipedia": "bn:হালিশহর রেলওয়ে স্টেশন (বাংলাদেশ)"
+  }
+},
+{
+  "type": "node",
+  "id": 6152586446,
+  "lat": 23.5984072,
+  "lon": 91.3591951,
+  "tags": {
+    "name": "Bishramganj",
+    "network": "IR",
+    "operator": "NFR",
+    "railway": "station",
+    "ref": "BHRM",
+    "wikidata": "Q29026220",
+    "wikipedia": "en:Bishramganj railway station"
+  }
+},
+{
+  "type": "node",
+  "id": 6152588047,
+  "lat": 23.1901429,
+  "lon": 91.5967894,
+  "tags": {
+    "name": "Jolaibari",
+    "network": "IR",
+    "operator": "NFR",
+    "railway": "station",
+    "ref": "JIBI"
+  }
+},
+{
+  "type": "node",
+  "id": 6152588816,
+  "lat": 23.2479453,
+  "lon": 91.4844914,
+  "tags": {
+    "name": "Belonia",
+    "network": "IR",
+    "operator": "NFR",
+    "railway": "station",
+    "ref": "BENA",
+    "wikidata": "Q66741993"
+  }
+},
+{
+  "type": "node",
+  "id": 6153037078,
+  "lat": 23.4636412,
+  "lon": 91.1667328,
+  "tags": {
+    "alt_name": "কুমিল্লা রেলওয়ে স্টেশন",
+    "name": "কুমিল্লা",
+    "name:en": "Cumilla Railway Station",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 6215456871,
+  "lat": 22.6235800,
+  "lon": 91.6601993,
+  "tags": {
+    "alt_name": "সীতাকুন্ড রেলওয়ে স্টেশন",
+    "name": "সীতাকুন্ড",
+    "name:en": "Sitakunda Railway Station",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6273931341,
+  "lat": 22.3272445,
+  "lon": 91.7761069,
+  "tags": {
+    "name": "মহিলা পলিটেকনিক",
+    "name:en": "Mohila Polytechnic",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "phone": "+88031635162",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6292785236,
+  "lat": 23.7784275,
+  "lon": 90.3800503,
+  "tags": {
+    "name": "আগারগাঁও",
+    "name:bn": "আগারগাঁও",
+    "name:en": "Agargaon",
+    "name:hi": "अगरगांव",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "Station 9",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q86799951",
+    "wikipedia": "bn:আগারগাঁও মেট্রো স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 6292785237,
+  "lat": 23.7909631,
+  "lon": 90.3755087,
+  "tags": {
+    "name": "শেওড়াপাড়া",
+    "name:bn": "শেওড়াপাড়া",
+    "name:en": "Shewrapara",
+    "name:hi": "शेवड़ापाड़ा",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "Station 8",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q113968661",
+    "wikipedia": "bn:শেওড়াপাড়া মেট্রো স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 6292785240,
+  "lat": 23.8083649,
+  "lon": 90.3682614,
+  "tags": {
+    "name": "মিরপুর ১০",
+    "name:en": "Mirpur 10",
+    "name:hi": "मीरपुर 10",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "Station 6",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q87791117",
+    "wikipedia": "bn:মিরপুর ১০ মেট্রো স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 6292785241,
+  "lat": 23.8261574,
+  "lon": 90.3641863,
+  "tags": {
+    "name": "পল্লবী",
+    "name:en": "Pallabi",
+    "name:hi": "पल्लवी",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "Station 4",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q87790875",
+    "wikipedia": "bn:পল্লবী মেট্রো স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 6887820126,
+  "lat": 23.0876732,
+  "lon": 91.2974301,
+  "tags": {
+    "addr:city": "Comilla",
+    "addr:postcode": "3583",
+    "name": "গুণবতী",
+    "name:en": "Gunboti",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 6936877960,
+  "lat": 23.0618468,
+  "lon": 91.6458607,
+  "tags": {
+    "name": "Manu Bazar",
+    "operator": "NFR",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "MUBR",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7278458807,
+  "lat": 23.9378022,
+  "lon": 90.6338798,
+  "tags": {
+    "name": "ঘোড়াশাল",
+    "name:en": "Ghorashal",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q60474006",
+    "wikipedia": "bn:ঘোড়াশাল রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 7501088366,
+  "lat": 22.3519421,
+  "lon": 91.7662001,
+  "tags": {
+    "name": "ক্রিকেট স্টেডিয়াম রেলওয়ে স্টেশন",
+    "name:en": "Cricket Stadium Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q123485819"
+  }
+},
+{
+  "type": "node",
+  "id": 7501223185,
+  "lat": 22.4171053,
+  "lon": 91.8138157,
+  "tags": {
+    "name": "চট্টগ্রাম ক্যান্টনমেন্ট",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7501223186,
+  "lat": 22.4762802,
+  "lon": 91.8063002,
+  "tags": {
+    "name": "জোবরা",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7501223187,
+  "lat": 22.5056951,
+  "lon": 91.8039941,
+  "tags": {
+    "name": "হাটহাজারী",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7501223188,
+  "lat": 22.5347502,
+  "lon": 91.7931407,
+  "tags": {
+    "name": "চারিয়া মাদ্রাসা",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7501223189,
+  "lat": 22.5538220,
+  "lon": 91.7905556,
+  "tags": {
+    "name": "সরকার হাট",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7501223190,
+  "lat": 22.6004986,
+  "lon": 91.7925095,
+  "tags": {
+    "name": "কাটিরহাট",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7501246016,
+  "lat": 22.4446792,
+  "lon": 91.8183546,
+  "tags": {
+    "name": "চৌধুরীরহাট",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7501325290,
+  "lat": 22.3781750,
+  "lon": 91.9171693,
+  "tags": {
+    "name": "গোমদণ্ডী",
+    "name:en": "Gomdandi",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "GMDI",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7501325291,
+  "lat": 22.3526807,
+  "lon": 91.9434811,
+  "tags": {
+    "name": "বেঙ্গুরা",
+    "name:en": "Bhengura",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "BNGR",
+    "train": "yes",
+    "wheelchair": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 7551936296,
+  "lat": 23.7014965,
+  "lon": 90.4289640,
+  "tags": {
+    "name": "গেণ্ডারিয়া",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q60473897"
+  }
+},
+{
+  "type": "node",
+  "id": 7551953690,
+  "lat": 23.6850312,
+  "lon": 90.4423994,
+  "tags": {
+    "name": "শ্যামপুর বড়ইতলা",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q97252615"
+  }
+},
+{
+  "type": "node",
+  "id": 7551955995,
+  "lat": 23.6507692,
+  "lon": 90.4738721,
+  "tags": {
+    "name": "ফতুল্লা",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7740073824,
+  "lat": 23.1355060,
+  "lon": 91.2372613,
+  "tags": {
+    "name": "হাসানপুর",
+    "name:en": "Hasanpur",
+    "network": "Dhaka-Chittagong Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7743824571,
+  "lat": 23.7622433,
+  "lon": 90.3950111,
+  "tags": {
+    "addr:city": "Dhaka",
+    "name": "তেজগাঁও রেল ষ্টেশন",
+    "name:en": "Tejgaon Railway Station",
+    "name:hi": "तेजगांव",
+    "network": "Railway Network",
+    "operator": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q60454803"
+  }
+},
+{
+  "type": "node",
+  "id": 7747004790,
+  "lat": 23.0584519,
+  "lon": 91.3393681,
+  "tags": {
+    "name": "শর্শদী রেল ষ্টেশন",
+    "name:en": "Sharshadi Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7752573779,
+  "lat": 23.2443516,
+  "lon": 90.7562587,
+  "tags": {
+    "name": "মধুরোড স্টেশন",
+    "name:bn": "মধুরোড স্টেশন",
+    "name:en": "Madhu Road",
+    "operator": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q60433095",
+    "wikipedia": "মধুরোড রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 7752609038,
+  "lat": 23.2309202,
+  "lon": 90.6430506,
+  "tags": {
+    "addr:city": "Chandpur",
+    "name": "চাঁদপুর",
+    "name:bn": "চাঁদপুর",
+    "name:en": "Chandpur",
+    "operator": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q60433093",
+    "wikipedia": "bn:চাঁদপুর রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 8737635813,
+  "lat": 23.6107437,
+  "lon": 90.3267322,
+  "tags": {
+    "name": "নিমতলা",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q111909065",
+    "wikipedia": "bn: নিমতলা রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 8737654105,
+  "lat": 23.6486484,
+  "lon": 90.4155907,
+  "tags": {
+    "name": "কেরানীগঞ্জ",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q111909064",
+    "wikipedia": "bn:কেরানীগঞ্জ রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 8753544766,
+  "lat": 23.7920599,
+  "lon": 91.1727717,
+  "tags": {
+    "name": "Imambari Railway Station",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 9228599493,
+  "lat": 23.6879655,
+  "lon": 91.1523503,
+  "tags": {
+    "name": "Mondorbag Railway station",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 9606070054,
+  "lat": 23.1711282,
+  "lon": 91.1287603,
+  "tags": {
+    "addr:city": "Comilla",
+    "addr:city:en": "Cumilla",
+    "name": "Khila Train Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9655483827,
+  "lat": 23.1132213,
+  "lon": 91.1154238,
+  "tags": {
+    "addr:city": "Cumilla",
+    "addr:postcode": "3570",
+    "name": "নাথেরপেটুয়া রেলওয়ে স্টেশন",
+    "name:en": "Natherpetua Train Station",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q60433087",
+    "wikipedia": "bn:নাথেরপেটুয়া রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 9851701312,
+  "lat": 22.3340209,
+  "lon": 91.8295576,
+  "tags": {
+    "alt_name": "Chittagong Railway Station",
+    "name": "চট্টগ্রাম রেলওয়ে স্টেশন",
+    "name:en": "Chattogram Railway Station",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "CTG",
+    "wikidata": "Q54317615",
+    "wikipedia": "bn:চট্টগ্রাম রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 9851837844,
+  "lat": 22.4106646,
+  "lon": 91.7557496,
+  "tags": {
+    "name": "ফৌজদারহাট",
+    "name:en": "Faujdarhat",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 9883942694,
+  "lat": 22.4708073,
+  "lon": 91.7949231,
+  "tags": {
+    "name": "চট্টগ্রাম বিশ্ববিদ্যালয় রেলওয়ে স্টেশন",
+    "name:en": "Chittagong University Railway Station",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 10038487203,
+  "lat": 23.0772091,
+  "lon": 91.1080754,
+  "tags": {
+    "addr:city": "Cumilla",
+    "name": "বিপুলাসার স্টেশন",
+    "name:en": "Bipulashar Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q60474072",
+    "wikipedia": "bn:বিপুলাসার রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 10040504046,
+  "lat": 22.7537301,
+  "lon": 91.5981104,
+  "tags": {
+    "name": "Mirersharai",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 10139464266,
+  "lat": 23.0903909,
+  "lon": 91.4313018,
+  "tags": {
+    "name": "আনন্দপুর",
+    "name:en": "Anandapur",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10139535698,
+  "lat": 23.2416662,
+  "lon": 91.4501419,
+  "tags": {
+    "name": "Belonia Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10139557255,
+  "lat": 23.2161430,
+  "lon": 91.4453042,
+  "tags": {
+    "addr:city": "পরশুরাম",
+    "name": "পরশুরাম রেলওয়ে স্টেশন",
+    "name:en": "Parshuram Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10140023315,
+  "lat": 23.1475271,
+  "lon": 91.4312649,
+  "tags": {
+    "addr:city": "Feni",
+    "name": "ফুলগাজী রেলওয়ে স্টেশন",
+    "name:en": "Fulgazi Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10168063117,
+  "lat": 22.6772297,
+  "lon": 91.6343025,
+  "tags": {
+    "name": "বারৈয়াঢালা রেলওয়ে স্টেশন",
+    "name:en": "Baraiyadhala Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q89855832",
+    "wikipedia": "bn:বারৈয়াঢালা রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 10223064287,
+  "lat": 23.3224074,
+  "lon": 91.5322665,
+  "tags": {
+    "name": "Shantirbazar Railway Station",
+    "network": "IR",
+    "operator": "NFR",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "STRB",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10225268201,
+  "lat": 22.5787319,
+  "lon": 91.6818726,
+  "tags": {
+    "name": "বাড়বকুণ্ড রেলওয়ে স্টেশন",
+    "name:en": "Barabkunda Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q60474088",
+    "wikipedia": "bn:বাড়বকুণ্ড রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 10236153518,
+  "lat": 23.5555550,
+  "lon": 91.4214589,
+  "tags": {
+    "name": "Bagma",
+    "network": "IR",
+    "operator": "NFR",
+    "railway": "station",
+    "ref": "BAGMA"
+  }
+},
+{
+  "type": "node",
+  "id": 10292253837,
+  "lat": 23.8597207,
+  "lon": 90.3651833,
+  "tags": {
+    "name": "উত্তরা মধ্য",
+    "name:bn": "উত্তরা মধ্য",
+    "name:en": "Uttara Center",
+    "name:hi": "उत्तरा मध्य",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "Station 2",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q87790476",
+    "wikipedia": "bn:উত্তরা মধ্য মেট্রো স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 10292253840,
+  "lat": 23.8691067,
+  "lon": 90.3675303,
+  "tags": {
+    "name": "উত্তরা উত্তর",
+    "name:bn": "উত্তরা উত্তর",
+    "name:en": "Uttara North",
+    "name:hi": "उत्तरा उत्तर",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "Station 1",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q86800436",
+    "wikipedia": "bn:উত্তরা উত্তর মেট্রো স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 10292253843,
+  "lat": 23.8459044,
+  "lon": 90.3631526,
+  "tags": {
+    "name": "উত্তরা দক্ষিণ",
+    "name:bn": "উত্তরা দক্ষিণ",
+    "name:en": "Uttara South",
+    "name:hi": "उत्तरा दक्षिण",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "Station 3",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q87790699",
+    "wikipedia": "bn:উত্তরা দক্ষিণ মেট্রো স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 10294007258,
+  "lat": 23.7992408,
+  "lon": 90.3719878,
+  "tags": {
+    "name": "কাজীপাড়া",
+    "name:en": "Kazipara",
+    "name:hi": "काज़ीपाड़ा",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "Station 7",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q113968521",
+    "wikipedia": "bn:কাজীপাড়া মেট্রো স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 10294007262,
+  "lat": 23.8190959,
+  "lon": 90.3652809,
+  "tags": {
+    "name": "মিরপুর ১১",
+    "name:en": "Mirpur 11",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "Station 5",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q87791011",
+    "wikipedia": "bn:মিরপুর ১১ মেট্রো স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 10294553569,
+  "lat": 23.7316827,
+  "lon": 90.3968231,
+  "tags": {
+    "alt_name": "Dhaka University",
+    "name": "ঢাকা বিশ্ববিদ্যালয়",
+    "name:bn": "ঢাকা বিশ্ববিদ্যালয়",
+    "name:en": "Dhaka University",
+    "name:hi": "ढाका विश्वविद्यालय",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "Station 14",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q118235254",
+    "wikipedia": "en:Dhaka University metro station"
+  }
+},
+{
+  "type": "node",
+  "id": 10294553574,
+  "lat": 23.7300126,
+  "lon": 90.4074836,
+  "tags": {
+    "alt_name": "Bangladesh Secretariat",
+    "name": "বাংলাদেশ সচিবালয়",
+    "name:bn": "বাংলাদেশ সচিবালয়",
+    "name:en": "Bangladesh Secretariat",
+    "name:hi": "बांग्लादेश सचिवालय",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "15",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q118702863",
+    "wikipedia": "en:Bangladesh Secretariat metro station"
+  }
+},
+{
+  "type": "node",
+  "id": 10294553581,
+  "lat": 23.7394650,
+  "lon": 90.3959846,
+  "tags": {
+    "name": "শাহবাগ",
+    "name:bn": "শাহবাগ",
+    "name:en": "Shahbagh",
+    "name:hi": "शाहबाग",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "13",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "limited",
+    "wikidata": "Q118702611",
+    "wikipedia": "en:Shahbag metro station"
+  }
+},
+{
+  "type": "node",
+  "id": 10294553594,
+  "lat": 23.7590394,
+  "lon": 90.3871113,
+  "tags": {
+    "addr:city": "Dhaka",
+    "addr:street": "বিমানবন্দর সড়ক",
+    "name": "ফার্মগেট",
+    "name:bn": "ফার্মগেট",
+    "name:en": "Farmgate",
+    "name:hi": "फार्मगेट",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "11",
+    "station": "subway",
+    "subway": "yes",
+    "train": "yes",
+    "wikidata": "Q115951774",
+    "wikipedia": "en:Farmgate metro station"
+  }
+},
+{
+  "type": "node",
+  "id": 10294553601,
+  "lat": 23.7663936,
+  "lon": 90.3830971,
+  "tags": {
+    "name": "বিজয় সরণি",
+    "name:bn": "বিজয় সরণি",
+    "name:en": "Bijoy Sarawni",
+    "name:hi": "विजय शरणी",
+    "name_1": "Bijoy Sarawni",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "10",
+    "station": "subway",
+    "subway": "yes",
+    "train": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q115951628",
+    "wikipedia": "en:Bijoy Sarani metro station"
+  }
+},
+{
+  "type": "node",
+  "id": 10294576119,
+  "lat": 23.7512656,
+  "lon": 90.3927762,
+  "tags": {
+    "name": "কারওয়ান বাজার",
+    "name:bn": "কারওয়ান বাজার",
+    "name:en": "Karwan Bazar",
+    "name:hi": "कारवान बाजार",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "12",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q118707324",
+    "wikipedia": "en:Karwan Bazar metro station"
+  }
+},
+{
+  "type": "node",
+  "id": 10777946497,
+  "lat": 23.2348542,
+  "lon": 90.6977024,
+  "tags": {
+    "name": "মৈশাদী",
+    "name:bn": "মৈশাদী",
+    "name:en": "Maishadi",
+    "operator": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q60474069",
+    "wikipedia": "bn:মৈশাদী হল্ট রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 10778012875,
+  "lat": 23.2406238,
+  "lon": 90.7248881,
+  "tags": {
+    "addr:city": "Chandpur",
+    "name": "শাহতলী",
+    "name:en": "Shahatoli",
+    "operator": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q60474068",
+    "wikipedia": "bn:শাহতলী রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 10989402187,
+  "lat": 22.7530353,
+  "lon": 91.5984207,
+  "tags": {
+    "name": "BaroTakia Railway Station Bazar, Mirsharai, Chittagong",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10997298523,
+  "lat": 23.7280587,
+  "lon": 90.4190551,
+  "tags": {
+    "addr:city": "ঢাকা",
+    "addr:postcode": "1000",
+    "addr:street": "মতিঝিল সড়ক",
+    "level": "1",
+    "name": "মতিঝিল",
+    "name:bn": "মতিঝিল",
+    "name:en": "Motijheel",
+    "name:hi": "मतिझील",
+    "network": "Dhaka Metro",
+    "operator": "Dhaka Mass Transit Company Ltd.",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "Station 16",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q86800867",
+    "wikipedia": "en:Motijheel metro station"
+  }
+},
+{
+  "type": "node",
+  "id": 11038627874,
+  "lat": 22.6229855,
+  "lon": 91.6603870,
+  "tags": {
+    "name": "Sitakund Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11147895677,
+  "lat": 22.4299733,
+  "lon": 91.7488463,
+  "tags": {
+    "name": "ভাটিয়ারী রেলওয়ে স্টেশন",
+    "name:en": "Bhatiary Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q89854455",
+    "wikipedia": "bn:ভাটিয়ারী রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 11282732069,
+  "lat": 23.4347096,
+  "lon": 91.1710214,
+  "tags": {
+    "addr:city": "Cumilla",
+    "name": "ময়নামতি রেলওয়ে স্টেশন",
+    "name:en": "Mainamati Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "website": "https://railway.gov.bd/"
+  }
+},
+{
+  "type": "node",
+  "id": 11282795146,
+  "lat": 23.3061365,
+  "lon": 91.1381948,
+  "tags": {
+    "addr:city": "Cumilla",
+    "name": "আলীশ্বর রেলওয়ে স্টেশন",
+    "name:en": "Alishwar Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11738293269,
+  "lat": 23.9534876,
+  "lon": 90.7985386,
+  "tags": {
+    "name": "খানাবাড়ি রেল স্টেশন",
+    "name:en": "Khanabari railway station",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 11738295269,
+  "lat": 23.9925823,
+  "lon": 90.8670217,
+  "tags": {
+    "name:en": "Methikanda railway station, raipura",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 12043375503,
+  "lat": 23.7317633,
+  "lon": 90.4259670,
+  "tags": {
+    "name": "Railway Residential Hotel Dhaka Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12078072052,
+  "lat": 23.7956681,
+  "lon": 90.4009238,
+  "tags": {
+    "name": "বনানী রেলওয়ে স্টেশন",
+    "name:bn": "বনানী রেলওয়ে স্টেশন",
+    "name:en": "Banani railway station",
+    "name:hi": "बनानी",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12082596681,
+  "lat": 23.8523202,
+  "lon": 90.4081911,
+  "tags": {
+    "alt_name": "Dhaka Bimanbandar",
+    "alt_name:en": "Dhaka Bimanbandar",
+    "name": "ঢাকা বিমানবন্দর",
+    "name:en": "Dhaka Airport Railway Station",
+    "name:hi": "ढाका विमानबंदर",
+    "name:zh": "达卡机场火车站停车场",
+    "name:zh-Hans": "达卡机场火车站停车场",
+    "name:zh-Hant": "達卡機場火車站停車場",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q4698879",
+    "wikipedia": "bn:ঢাকা বিমানবন্দর রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "node",
+  "id": 12288998618,
+  "lat": 23.7990985,
+  "lon": 91.2407550,
+  "tags": {
+    "name": "Nischintapur",
+    "name:bn": "নিশ্চিন্তপুর",
+    "name:en": "Nischintapur",
+    "name:hi": "निश्चिंतपुर",
+    "network": "IR",
+    "operator": "NFR",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "NCTPA",
+    "start_date": "2023-11-01"
+  }
+},
+{
+  "type": "node",
+  "id": 12307928802,
+  "lat": 23.0137920,
+  "lon": 91.7011609,
+  "tags": {
+    "name": "Sabroom",
+    "network": "IR",
+    "operator": "NFR",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "SBRM",
+    "train": "yes",
+    "wikidata": "Q29026228"
+  }
+},
+{
+  "type": "node",
+  "id": 12520587006,
+  "lat": 23.9355818,
+  "lon": 90.7726170,
+  "tags": {
+    "name:en": "Amirganj",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 12520596261,
+  "lat": 23.9696807,
+  "lon": 90.8245137,
+  "tags": {
+    "name:en": "Hatubhanga",
+    "railway": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13245621570,
+  "lat": 23.8776983,
+  "lon": 90.3566677,
+  "tags": {
+    "name": "Metro Rail Depot",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13362930362,
+  "lat": 23.9198349,
+  "lon": 91.9017652,
+  "tags": {
+    "name": "Jawaharnagar",
+    "network": "IR",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "JWNR",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13432204290,
+  "lat": 23.6385282,
+  "lon": 91.1468792,
+  "tags": {
+    "addr:city": "Cumilla",
+    "addr:postcode": "3500",
+    "addr:street": "Shashidal",
+    "name": "Shashidal Railway Station",
+    "name:bn": "শশীদল রেলওয়ে স্টেশন",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q60474034"
+  }
+},
+{
+  "type": "node",
+  "id": 13505328863,
+  "lat": 23.9662394,
+  "lon": 91.1077741,
+  "tags": {
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 14238816191,
+  "lat": 23.9308931,
+  "lon": 91.8611424,
+  "tags": {
+    "addr:city": "Dhalai Tripura",
+    "addr:district": "Dhalai",
+    "addr:housenumber": "Ambassa",
+    "addr:postcode": "799289",
+    "addr:street": "Ambassa to Railstation Road",
+    "name": "Ambassa Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 429426172,
+  "center": {
+    "lat": 23.7305059,
+    "lon": 90.4263124
+  },
+  "tags": {
+    "addr:street": "Kamalapur",
+    "building": "yes",
+    "name": "কমলাপুর রেলওয়ে স্টেশন",
+    "name:en": "Kamalapur Railway Station",
+    "name:hi": "कमलापुर",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "tram": "yes",
+    "wikidata": "Q6355669",
+    "wikipedia": "en:Kamalapur railway station"
+  }
+},
+{
+  "type": "way",
+  "id": 498544296,
+  "center": {
+    "lat": 23.8158586,
+    "lon": 90.4105383
+  },
+  "tags": {
+    "building": "yes",
+    "name": "ঢাকা ক্যান্টনমেন্ট",
+    "name:en": "Dhaka Cantonment",
+    "name:hi": "ढाका छावनी",
+    "phone": "+88028924239",
+    "public_transport": "station",
+    "railway": "station",
+    "wikidata": "Q43401161",
+    "wikipedia": "bn:ঢাকা ক্যান্টনমেন্ট রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "way",
+  "id": 500682375,
+  "center": {
+    "lat": 23.7629386,
+    "lon": 90.3951208
+  },
+  "tags": {
+    "building": "yes",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 517512359,
+  "center": {
+    "lat": 22.5051698,
+    "lon": 91.7158141
+  },
+  "tags": {
+    "building": "yes",
+    "name": "কুমিরা রেলওয়ে স্টেশন",
+    "name:en": "Kumira Railway Staion",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q60454847",
+    "wikipedia": "bn:কুমিরা রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "way",
+  "id": 527475744,
+  "center": {
+    "lat": 22.9383273,
+    "lon": 91.5146934
+  },
+  "tags": {
+    "building": "yes",
+    "name": "মুহরীগঞ্জ",
+    "name:en": "Muhurigang",
+    "railway": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 527493247,
+  "center": {
+    "lat": 22.8848560,
+    "lon": 91.5387042
+  },
+  "tags": {
+    "addr:city": "Chinki Astana Station Road, Zorargonj",
+    "building": "yes",
+    "name": "চিনকি আস্তানা",
+    "name:en": "Chinky Astana",
+    "railway": "station",
+    "wikidata": "Q60454844",
+    "wikipedia": "bn:চিনকি আস্তানা রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "way",
+  "id": 540585903,
+  "center": {
+    "lat": 23.8985757,
+    "lon": 90.4081360
+  },
+  "tags": {
+    "addr:city": "Tongi",
+    "building": "yes",
+    "name": "টঙ্গী জংশন",
+    "name:en": "Tongi Junction",
+    "railway": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 540660002,
+  "center": {
+    "lat": 23.9362082,
+    "lon": 90.4765388
+  },
+  "tags": {
+    "building": "yes",
+    "name": "পুবাইল",
+    "name:en": "Pubail",
+    "railway": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 552808356,
+  "center": {
+    "lat": 22.6233298,
+    "lon": 91.6602688
+  },
+  "tags": {
+    "building": "yes",
+    "name": "Sitakunda Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 610603355,
+  "center": {
+    "lat": 23.9308242,
+    "lon": 90.7211580
+  },
+  "tags": {
+    "building": "yes",
+    "name": "নরসিংদী রেলওয়ে স্টেশন",
+    "name:en": "Narshingdi Railway Station",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 638925229,
+  "center": {
+    "lat": 23.7957958,
+    "lon": 90.4008853
+  },
+  "tags": {
+    "building": "yes",
+    "name": "বনানী রেল স্টেশন",
+    "name:en": "Banani Rail Station",
+    "public_transport": "station",
+    "railway": "station",
+    "wikidata": "Q60473899"
+  }
+},
+{
+  "type": "way",
+  "id": 684475470,
+  "center": {
+    "lat": 23.9284377,
+    "lon": 90.5541017
+  },
+  "tags": {
+    "name": "আড়ীখোলা",
+    "railway": "station",
+    "wikidata": "Q63197857"
+  }
+},
+{
+  "type": "way",
+  "id": 1125768748,
+  "center": {
+    "lat": 23.7590439,
+    "lon": 90.3870844
+  },
+  "tags": {
+    "building": "train_station",
+    "layer": "3",
+    "name": "ফার্মগেট মেট্রো স্টেশন",
+    "name:en": "Farmgate Metro Station",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1125773738,
+  "center": {
+    "lat": 23.7665451,
+    "lon": 90.3831114
+  },
+  "tags": {
+    "building": "train_station",
+    "layer": "3",
+    "name": "বিজয় সরণি মেট্রো স্টেশন",
+    "name:en": "Bijoy Sarani Metro Station",
+    "noaddress": "yes",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1205403453,
+  "center": {
+    "lat": 23.2549152,
+    "lon": 91.1236957
+  },
+  "tags": {
+    "building": "train_station",
+    "name": "লাকসাম",
+    "name:en": "Laksham Junction",
+    "operator": "বাংলাদেশ রেলওয়ে",
+    "operator:en": "Bangladesh Railway",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q18344863",
+    "wikipedia": "bn:লাকসাম জংশন রেলওয়ে স্টেশন"
+  }
+},
+{
+  "type": "way",
+  "id": 1217710239,
+  "center": {
+    "lat": 23.1132013,
+    "lon": 91.1154083
+  },
+  "tags": {
+    "building": "yes",
+    "name": "Natherpetua Train Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1309798480,
+  "center": {
+    "lat": 23.2162175,
+    "lon": 91.4451840
+  },
+  "tags": {
+    "building": "yes",
+    "name": "পরশুরাম রেলওয়ে স্টেশন",
+    "name:en": "Parshuram Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "source": "microsoft/BuildingFootprints",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347910985,
+  "center": {
+    "lat": 23.2452693,
+    "lon": 90.9433411
+  },
+  "tags": {
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1416023748,
+  "center": {
+    "lat": 23.6486214,
+    "lon": 90.4152748
+  },
+  "tags": {
+    "building:levels": "2",
+    "name": "Keraniganj Elevated Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes",
+    "wikidata": "Q111909064",
+    "wikipedia": "en:Keraniganj railway station"
+  }
+},
+{
+  "type": "way",
+  "id": 1464319526,
+  "center": {
+    "lat": 23.6386576,
+    "lon": 91.1470805
+  },
+  "tags": {
+    "area:railway": "station",
+    "landuse": "railway",
+    "public_transport": "station",
+    "railway": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1490179943,
+  "center": {
+    "lat": 22.4170936,
+    "lon": 91.8137746
+  },
+  "tags": {
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
+  }
+}
+
+  ]
+}

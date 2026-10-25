@@ -1,0 +1,46 @@
+Change,Country,Location,Name,NameWoDiacritics,Subdivision,Function,Status,Date,IATA,Coordinates,Remarks,_part
+,BD,AKH,Akhaura,Akhaura,,----5---,AI,9805,,,,UNLOCODE CodeListPart1.csv
+,BD,ASJ,Ashuganj,Ashuganj,04,1-------,RL,1407,,2402N 09101E,,UNLOCODE CodeListPart1.csv
+,BD,BHL,Bhola,Bhola,13,--3-----,RL,1801,,2347N 09025E,,UNLOCODE CodeListPart1.csv
+,BD,BNP,Benapole,Benapole,,1-------,RL,0901,,2303N 08854E,,UNLOCODE CodeListPart1.csv
+,BD,BRG,Bogura,Bogura,,-----6--,RL,1807,,2451N 08922E,,UNLOCODE CodeListPart1.csv
+,BD,BZL,Barisal,Barisal,,1--4----,AI,1807,,,,UNLOCODE CodeListPart1.csv
+,BD,CDG,Chuadanga,Chuadanga,27,-----6--,RL,1007,,2360N 08870E,,UNLOCODE CodeListPart1.csv
+,BD,CGP,Chattogram,Chattogram,10,1--45---,AI,1901,,2220N 09150E,,UNLOCODE CodeListPart1.csv
+,BD,CHL,Chalna,Chalna,,1-------,QQ,8103,,,,UNLOCODE CodeListPart1.csv
+,BD,CLA,Cumilla,Cumilla,,---4----,AI,1807,,,,UNLOCODE CodeListPart1.csv
+,BD,CXB,Cox's Bazar,Cox's Bazar,,---4----,AI,0212,,2126N 09159E,,UNLOCODE CodeListPart1.csv
+,BD,DAC,Dhaka,Dhaka,13,---45---,AI,1601,,2410N 09025E,,UNLOCODE CodeListPart1.csv
+,BD,DHA,Narsingdi,Narsingdi,13,-----6--,RL,1107,,2355N 09043E,,UNLOCODE CodeListPart1.csv
+,BD,FNI,Feni,Feni,10,--3-----,RL,1307,,2301N 09124E,,UNLOCODE CodeListPart1.csv
+,BD,GAZ,Gazipur,Gazipur,,--3-----,RL,1307,,2342N 09057E,,UNLOCODE CodeListPart1.csv
+,BD,GPG,Gopalganj,Gopalganj,13,--3-----,RL,1401,,2313N 09003E,,UNLOCODE CodeListPart1.csv
+,BD,IRD,Ishurdi,Ishurdi,,---4----,AI,9601,,,,UNLOCODE CodeListPart1.csv
+,BD,JSR,Jashore,Jashore,,---4----,AI,1807,,,,UNLOCODE CodeListPart1.csv
+,BD,KAM,Kamalapur/Dhaka,Kamalapur/Dhaka,,--3-----,RL,9709,,,,UNLOCODE CodeListPart1.csv
+,BD,KHL,Khulna,Khulna,,1-------,AI,9601,,,,UNLOCODE CodeListPart1.csv
+,BD,KUS,Kushtia,Kushtia,,-----6--,RL,1107,,2545N 08950E,,UNLOCODE CodeListPart1.csv
+,BD,LAK,Laksham,Laksham,,----5---,AI,9805,,,,UNLOCODE CodeListPart1.csv
+,BD,MBB,Moulvi Bazar,Moulvi Bazar,60,-----6--,RL,1307,,2429N 09147E,,UNLOCODE CodeListPart1.csv
+,BD,MGL,Mongla,Mongla,,1-------,RL,9601,,,,UNLOCODE CodeListPart1.csv
+,BD,MNK,Manikganj,Manikganj,13,--3-----,RL,1107,,2351N 09000E,,UNLOCODE CodeListPart1.csv
+,BD,MON,Monella,Monella,,0-------,RL,9307,,,,UNLOCODE CodeListPart1.csv
+,BD,MUN,Munshiganj,Munshiganj,35,1-------,RL,2307,,2333N 09032E,,UNLOCODE CodeListPart1.csv
+,BD,MYM,Mymensingh,Mymensingh,,----5---,AI,9805,,,,UNLOCODE CodeListPart1.csv
+,BD,NAR,Narayanganj,Narayanganj,,123-----,QQ,8103,,,,UNLOCODE CodeListPart1.csv
+,BD,PAN,Pabna,Pabna,,--3-----,RL,9901,,,,UNLOCODE CodeListPart1.csv
+,BD,PAR,Parbatipur,Parbatipur,,----5---,AI,9805,,,,UNLOCODE CodeListPart1.csv
+,BD,PAY,Payra Port,Payra Port,06,1-------,AA,1601,,2156N 09016E,,UNLOCODE CodeListPart1.csv
+,BD,PCR,Panchashar,Panchashar,40,1----6--,RL,2207,,2334N 09030E,,UNLOCODE CodeListPart1.csv
+,BD,PGN,Pangaon,Pangaon,13,1-3-----,RL,1407,,2339N 09027E,,UNLOCODE CodeListPart1.csv
+,BD,RAU,Rangpur,Rangpur,,---4----,AI,9912,,,,UNLOCODE CodeListPart1.csv
+,BD,RJH,Rajshahi,Rajshahi,,---4----,AI,9912,,,,UNLOCODE CodeListPart1.csv
+,BD,SAJ,Sirajganj,Sirajganj,,---4----,AI,9912,,,,UNLOCODE CodeListPart1.csv
+,BD,SAV,Savar,Savar,13,-----6--,RL,1201,,2350N 09015E,,UNLOCODE CodeListPart1.csv
+,BD,SDW,Sandwip,Sandwip,,---4----,AI,9912,,,,UNLOCODE CodeListPart1.csv
+,BD,SPD,Saidpur,Saidpur,,---4----,AI,9912,,,,UNLOCODE CodeListPart1.csv
+,BD,SSU,Sherpur Sadar Upazila,Sherpur Sadar Upazila,13,--3-----,RL,1401,,2500N 09001E,,UNLOCODE CodeListPart1.csv
+,BD,TEJ,Tejgaon,Tejgaon,,-----6--,RL,1307,,2346N 09024E,,UNLOCODE CodeListPart1.csv
+,BD,TKR,Thakurgaon,Thakurgaon,,---4----,AI,9601,,,,UNLOCODE CodeListPart1.csv
+,BD,ZHM,Shamshernagar,Shamshernagar,,---4----,AI,9912,,,,UNLOCODE CodeListPart1.csv
+,BD,ZYL,Sylhet,Sylhet,,---4----,AI,9601,,,,UNLOCODE CodeListPart1.csv

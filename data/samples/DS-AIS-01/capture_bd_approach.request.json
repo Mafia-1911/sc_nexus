@@ -1,0 +1,25 @@
+{
+  "url": "wss://stream.aisstream.io/v0/stream",
+  "subscription": {
+    "APIKey": "***REDACTED***",
+    "BoundingBoxes": [
+      [
+        [
+          19.5,
+          88.0
+        ],
+        [
+          22.5,
+          92.5
+        ]
+      ]
+    ]
+  },
+  "seconds": 600,
+  "max_frames": 50000,
+  "compression": "permessage-deflate",
+  "captured_at": "2026-10-25T22:59:33.105243+00:00",
+  "status": null,
+  "content_type": "application/x-ndjson",
+  "transformed": false
+}

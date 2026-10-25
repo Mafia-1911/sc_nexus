@@ -1,0 +1,24 @@
+{
+  "method": "POST",
+  "url": "https://overpass-api.de/api/interpreter",
+  "params": null,
+  "headers": {
+    "host": "overpass-api.de",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)",
+    "content-type": "application/x-www-form-urlencoded",
+    "content-length": "158"
+  },
+  "json": null,
+  "data": "data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%0A%28%0A++nwr%5B%22barrier%22%3D%22toll_booth%22%5D%2820.5%2C88.0%2C26.7%2C92.7%29%3B%0A%29%3B%0Aout+tags+center%3B",
+  "timeout_s": 120,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-25T22:53:18.755516+00:00",
+  "status": 200,
+  "content_type": "application/json",
+  "transformed": false
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-GEO-01",
+  "title": "DS-GEO-01 · Geofabrik Bangladesh extract: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "state": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string"
+        },
+        "sequenceNumber": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "sequenceNumber",
+        "timestamp"
+      ]
+    }
+  }
+}

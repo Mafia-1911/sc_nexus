@@ -1,0 +1,347 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-25T22:36:34Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 4331663794,
+  "lat": 23.8173688,
+  "lon": 90.3739716,
+  "tags": {
+    "addr:city": "Dhaka",
+    "addr:housename": "প্রকল্প অফিস",
+    "addr:suburb": "Mirpur-11",
+    "amenity": "clinic",
+    "identifier": "623",
+    "name": "Icddrb field office(আই সি ডি ডি আর বি ফিল্ড অফিস)"
+  }
+},
+{
+  "type": "node",
+  "id": 5132371088,
+  "lat": 22.4569764,
+  "lon": 91.7359235,
+  "tags": {
+    "name": "BM Container Depot Ltd",
+    "office": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 5553831528,
+  "lat": 22.2600743,
+  "lon": 91.7960069,
+  "tags": {
+    "building": "office",
+    "name": "Vertex Off-Dock Logistic Services Ltd"
+  }
+},
+{
+  "type": "node",
+  "id": 5584945996,
+  "lat": 23.7466347,
+  "lon": 90.3616358,
+  "tags": {
+    "addr:city": "Dhaka",
+    "addr:street": "Partex Goli",
+    "description": "An Integrated Child Development Program which is working at Meherpur district and Rayerbazar, Dhaka. Goal of the Shishuder Jonno Program is Children Learn and Develop to Their Full Potential.",
+    "name": "Shishuder Jonno-ICDP",
+    "office": "ngo",
+    "opening_hours": "Su-Th 09:00-17:00",
+    "population": "28640",
+    "population:date": "2017",
+    "smoking": "no",
+    "working Area": "Rayerbazar;Mohammadpur Town Hall Camp & Chand Uddayan"
+  }
+},
+{
+  "type": "node",
+  "id": 8892527533,
+  "lat": 24.4708830,
+  "lon": 88.0602923,
+  "tags": {
+    "name": "ICDS Raghunathganj",
+    "office": "company"
+  }
+},
+{
+  "type": "node",
+  "id": 11385027263,
+  "lat": 22.2874899,
+  "lon": 91.7837339,
+  "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "ICDDR, B Tuberculosis Diagnosis and Treatment Centre, Shop-06, Shardar Plaza, Bandartila, Chattogram"
+  }
+},
+{
+  "type": "node",
+  "id": 11834763996,
+  "lat": 23.7416423,
+  "lon": 90.3854890,
+  "tags": {
+    "club": "yes",
+    "name": "Dhanmondi Ideal College Dhanmondi Photography Club ICDPC, Central Rd, Dhaka"
+  }
+},
+{
+  "type": "node",
+  "id": 11939534365,
+  "lat": 23.7767666,
+  "lon": 90.3991358,
+  "tags": {
+    "name": "OPD Department (ICDDRB)",
+    "office": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12043345113,
+  "lat": 23.7289963,
+  "lon": 90.4255110,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "Kamlapur Container Depot Bus stop",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 12043385270,
+  "lat": 23.7275743,
+  "lon": 90.4259914,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Kamalapur ICD Masjid",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "node",
+  "id": 12043386528,
+  "lat": 23.7254232,
+  "lon": 90.4285611,
+  "tags": {
+    "amenity": "fire_station",
+    "name": "Dhaka Inland Container Depot (ICD) Fire Station"
+  }
+},
+{
+  "type": "node",
+  "id": 12043404595,
+  "lat": 23.7280115,
+  "lon": 90.4259004,
+  "tags": {
+    "name": "Customs House ICD",
+    "office": "government"
+  }
+},
+{
+  "type": "node",
+  "id": 12057038789,
+  "lat": 23.7155492,
+  "lon": 90.4314844,
+  "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "ICDDRB, Kamalapur Field office"
+  }
+},
+{
+  "type": "node",
+  "id": 12514066331,
+  "lat": 23.7718248,
+  "lon": 90.3697846,
+  "tags": {
+    "name": "National Institute of Kidney Diseases and Urology (NICDU), Government office",
+    "office": "government"
+  }
+},
+{
+  "type": "node",
+  "id": 13743283919,
+  "lat": 23.7214115,
+  "lon": 90.4214759,
+  "tags": {
+    "air_conditioning": "yes",
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "icddr,b diagnostic laboratories at Motijheel",
+    "operator": "icddr,b"
+  }
+},
+{
+  "type": "way",
+  "id": 344745760,
+  "center": {
+    "lat": 23.6786676,
+    "lon": 90.4276330
+  },
+  "tags": {
+    "highway": "trunk",
+    "name": "Pangaon Container Terminal Road",
+    "name:en": "Pangaon Container Terminal Road",
+    "ref": "N810"
+  }
+},
+{
+  "type": "way",
+  "id": 404360081,
+  "center": {
+    "lat": 23.6561387,
+    "lon": 90.4539573
+  },
+  "tags": {
+    "industrial": "port",
+    "landuse": "industrial",
+    "name": "Pangaon Inland Container Port",
+    "port": "cargo",
+    "port:type": "inland"
+  }
+},
+{
+  "type": "way",
+  "id": 517855121,
+  "center": {
+    "lat": 22.4556400,
+    "lon": 91.7371222
+  },
+  "tags": {
+    "building": "yes",
+    "man_made": "works",
+    "name": "BM Container Depot Limited"
+  }
+},
+{
+  "type": "way",
+  "id": 757725730,
+  "center": {
+    "lat": 22.4556113,
+    "lon": 91.7373961
+  },
+  "tags": {
+    "landuse": "commercial",
+    "name": "BM Container Depot Ltd"
+  }
+},
+{
+  "type": "way",
+  "id": 1075187115,
+  "center": {
+    "lat": 22.2762558,
+    "lon": 91.7981432
+  },
+  "tags": {
+    "area": "yes",
+    "barrier": "wall",
+    "highway": "service",
+    "industrial": "port",
+    "name": "South Container Yard",
+    "name:bn": "সাউথ কনটেইনার ইয়ার্ড",
+    "operator": "Red Sea Gateway Terminal Bangladesh",
+    "port": "container_yard",
+    "source": "Esri World Imagery",
+    "surface": "concrete"
+  }
+},
+{
+  "type": "way",
+  "id": 1075187123,
+  "center": {
+    "lat": 22.2777386,
+    "lon": 91.7971249
+  },
+  "tags": {
+    "barrier": "wall",
+    "industrial": "port",
+    "name": "South Container Yard",
+    "name:bn": "সাউথ কনটেইনার ইয়ার্ড",
+    "operator": "Red Sea Gateway Terminal Bangladesh",
+    "port": "container_yard",
+    "source": "Esri World Imagery",
+    "surface": "concrete"
+  }
+},
+{
+  "type": "way",
+  "id": 1086857907,
+  "center": {
+    "lat": 23.6697970,
+    "lon": 90.4371749
+  },
+  "tags": {
+    "highway": "trunk",
+    "name": "Pangaon Container Terminal Road",
+    "name:en": "Pangaon Container Terminal Road",
+    "ref": "N810"
+  }
+},
+{
+  "type": "way",
+  "id": 1086857908,
+  "center": {
+    "lat": 23.6734184,
+    "lon": 90.4331349
+  },
+  "tags": {
+    "highway": "trunk",
+    "name": "Pangaon Container Terminal Road",
+    "name:en": "Pangaon Container Terminal Road",
+    "oneway": "yes",
+    "ref": "N810"
+  }
+},
+{
+  "type": "way",
+  "id": 1198860779,
+  "center": {
+    "lat": 26.4351533,
+    "lon": 90.2709720
+  },
+  "tags": {
+    "addr:city": "Dimalgaon, Assam",
+    "addr:postcode": "783370",
+    "addr:street": "police reserve road",
+    "building": "yes",
+    "name": "ICDS, DIRECTOR OF SOCIAL WELFARE"
+  }
+},
+{
+  "type": "way",
+  "id": 1546085698,
+  "center": {
+    "lat": 23.5739711,
+    "lon": 90.5121013
+  },
+  "tags": {
+    "industrial": "port",
+    "landuse": "industrial",
+    "name": "SAPL ICD",
+    "operator": "Summit Group",
+    "usage": "transportation"
+  }
+},
+{
+  "type": "way",
+  "id": 1546751098,
+  "center": {
+    "lat": 22.2680067,
+    "lon": 91.8239867
+  },
+  "tags": {
+    "area": "yes",
+    "man_made": "pier",
+    "name": "Patenga Container Terminal Jetty",
+    "surface": "concrete"
+  }
+}
+
+  ]
+}

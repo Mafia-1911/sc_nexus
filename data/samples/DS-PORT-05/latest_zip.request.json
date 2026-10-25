@@ -1,0 +1,22 @@
+{
+  "method": "GET",
+  "url": "https://unlocode.unece.org/downloads/unlocode-latest.zip",
+  "params": null,
+  "headers": {
+    "host": "unlocode.unece.org",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 120,
+  "max_bytes": 60000000,
+  "purpose": "main",
+  "note": "Pre-Release (Latest); sample keeps only Bangladesh rows as CSV",
+  "captured_at": "2026-10-25T22:17:20.759145+00:00",
+  "status": 200,
+  "content_type": "application/zip",
+  "transformed": true
+}

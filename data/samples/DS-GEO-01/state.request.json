@@ -1,0 +1,22 @@
+{
+  "method": "GET",
+  "url": "https://download.geofabrik.de/asia/bangladesh-updates/state.txt",
+  "params": null,
+  "headers": {
+    "host": "download.geofabrik.de",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "replication state: data cut-off and sequence",
+  "captured_at": "2026-10-25T22:45:50.541786+00:00",
+  "status": 200,
+  "content_type": "text/plain",
+  "transformed": false
+}

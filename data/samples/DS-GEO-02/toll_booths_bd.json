@@ -1,0 +1,2037 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-25T22:54:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 262300271,
+  "lat": 24.0390233,
+  "lon": 91.0016079,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "টোল প্লাজা আশুগঞ্জ",
+    "name:en": "Toll plaza Ashuganj"
+  }
+},
+{
+  "type": "node",
+  "id": 566370416,
+  "lat": 22.7013066,
+  "lon": 88.2427291,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 567774615,
+  "lat": 25.2728630,
+  "lon": 91.6910300,
+  "tags": {
+    "barrier": "toll_booth",
+    "bicycle": "yes",
+    "currency:INR": "yes",
+    "foot": "yes",
+    "motor_vehicle": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 569317565,
+  "lat": 26.1368767,
+  "lon": 89.8331950,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 569930439,
+  "lat": 22.5730223,
+  "lon": 88.1816833,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 569930467,
+  "lat": 22.5646229,
+  "lon": 88.3165641,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 663941252,
+  "lat": 22.5647853,
+  "lon": 88.3167084,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 663941253,
+  "lat": 22.5649705,
+  "lon": 88.3168504,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1049088034,
+  "lat": 22.3167953,
+  "lon": 91.7862727,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1179950698,
+  "lat": 22.5733681,
+  "lon": 88.1817174,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1313568444,
+  "lat": 26.5689581,
+  "lon": 88.2753729,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Paschim Madati"
+  }
+},
+{
+  "type": "node",
+  "id": 1313568450,
+  "lat": 26.5690750,
+  "lon": 88.2752612,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Paschim Madati"
+  }
+},
+{
+  "type": "node",
+  "id": 1314562570,
+  "lat": 26.6839828,
+  "lon": 88.3228898,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1314562576,
+  "lat": 26.6840613,
+  "lon": 88.3228651,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1330190347,
+  "lat": 22.6988287,
+  "lon": 88.2888271,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Dankuni"
+  }
+},
+{
+  "type": "node",
+  "id": 1330190349,
+  "lat": 22.6988901,
+  "lon": 88.2889466,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Dankuni"
+  }
+},
+{
+  "type": "node",
+  "id": 1330190767,
+  "lat": 23.1787004,
+  "lon": 88.0263132,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Palsit"
+  }
+},
+{
+  "type": "node",
+  "id": 1330190768,
+  "lat": 23.1787454,
+  "lon": 88.0264309,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Palsit"
+  }
+},
+{
+  "type": "node",
+  "id": 1330216635,
+  "lat": 22.6541133,
+  "lon": 88.3250505,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Nivedita Setu"
+  }
+},
+{
+  "type": "node",
+  "id": 1330216657,
+  "lat": 22.6544995,
+  "lon": 88.3251393,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Nivedita Setu"
+  }
+},
+{
+  "type": "node",
+  "id": 1352836576,
+  "lat": 23.3907053,
+  "lon": 88.3575190,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1702627611,
+  "lat": 22.3138291,
+  "lon": 91.8555133,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1738181880,
+  "lat": 24.3514804,
+  "lon": 89.2995280,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2163741765,
+  "lat": 22.5644750,
+  "lon": 88.3164567,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2619274063,
+  "lat": 22.9666106,
+  "lon": 88.4031586,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 3219870951,
+  "lat": 24.0623149,
+  "lon": 89.0188404,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 3388662721,
+  "lat": 22.6442786,
+  "lon": 90.1844232,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 3415873800,
+  "lat": 22.0640267,
+  "lon": 88.0891654,
+  "tags": {
+    "barrier": "toll_booth",
+    "bicycle": "yes",
+    "foot": "yes",
+    "motor_vehicle": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 3415898297,
+  "lat": 22.0641062,
+  "lon": 88.0891587,
+  "tags": {
+    "barrier": "toll_booth",
+    "bicycle": "yes",
+    "foot": "yes",
+    "motor_vehicle": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 3606516362,
+  "lat": 24.1507328,
+  "lon": 88.1863944,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Shibpur Toll Plaza"
+  }
+},
+{
+  "type": "node",
+  "id": 3897173093,
+  "lat": 26.2456806,
+  "lon": 92.5414966,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 3897173094,
+  "lat": 26.2458836,
+  "lon": 92.5414003,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 4161598524,
+  "lat": 23.5309727,
+  "lon": 90.7132242,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Daudkandi Toll Plaza"
+  }
+},
+{
+  "type": "node",
+  "id": 5294615243,
+  "lat": 23.7151438,
+  "lon": 90.4289281,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Tole Plaza"
+  }
+},
+{
+  "type": "node",
+  "id": 5501702894,
+  "lat": 26.4763138,
+  "lon": 90.7121428,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5501702895,
+  "lat": 26.4762041,
+  "lon": 90.7121065,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5501703010,
+  "lat": 26.4763139,
+  "lon": 89.7564903,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Guabari"
+  }
+},
+{
+  "type": "node",
+  "id": 5501703011,
+  "lat": 26.4769261,
+  "lon": 89.7566217,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Guabari"
+  }
+},
+{
+  "type": "node",
+  "id": 5879361132,
+  "lat": 24.4104408,
+  "lon": 90.6304284,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Bridge Toll Box"
+  }
+},
+{
+  "type": "node",
+  "id": 6139259753,
+  "lat": 23.7229381,
+  "lon": 90.4137833,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Tole Plaza"
+  }
+},
+{
+  "type": "node",
+  "id": 6503676200,
+  "lat": 25.1957885,
+  "lon": 88.1826863,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 7768114154,
+  "lat": 23.7107113,
+  "lon": 90.4403229,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 7770747651,
+  "lat": 23.7044207,
+  "lon": 90.4350662,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 7771657740,
+  "lat": 23.7228798,
+  "lon": 90.4135397,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 7784928896,
+  "lat": 22.2232742,
+  "lon": 91.8372519,
+  "tags": {
+    "barrier": "toll_booth",
+    "currency:BDT": "yes",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7784928897,
+  "lat": 22.2228909,
+  "lon": 91.8371352,
+  "tags": {
+    "barrier": "toll_booth",
+    "currency:BDT": "yes",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7889080570,
+  "lat": 23.6493455,
+  "lon": 90.3501338,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 8797688087,
+  "lat": 26.5739213,
+  "lon": 88.5226129,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Panikauri Toll Plaza"
+  }
+},
+{
+  "type": "node",
+  "id": 8797688089,
+  "lat": 26.5739598,
+  "lon": 88.5226642,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Panikauri Toll Plaza"
+  }
+},
+{
+  "type": "node",
+  "id": 9024520946,
+  "lat": 25.1958547,
+  "lon": 88.1824332,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9024835325,
+  "lat": 24.5632126,
+  "lon": 88.0197465,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9024835379,
+  "lat": 24.5632199,
+  "lon": 88.0200013,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9025016686,
+  "lat": 24.1505766,
+  "lon": 88.1862688,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Shibpur Toll Plaza"
+  }
+},
+{
+  "type": "node",
+  "id": 9026328441,
+  "lat": 26.5602304,
+  "lon": 88.9193031,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9026450468,
+  "lat": 26.6873720,
+  "lon": 88.2304866,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9049141711,
+  "lat": 25.9927125,
+  "lon": 91.8604593,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9049141781,
+  "lat": 25.9927451,
+  "lon": 91.8603024,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9138955052,
+  "lat": 23.8923635,
+  "lon": 90.5922343,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9417003718,
+  "lat": 23.6291025,
+  "lon": 88.3598171,
+  "tags": {
+    "barrier": "toll_booth",
+    "payment:fasttag": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9445196356,
+  "lat": 23.4852156,
+  "lon": 90.2681826,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9544772817,
+  "lat": 26.5603263,
+  "lon": 88.9192307,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9835432496,
+  "lat": 23.4852375,
+  "lon": 90.2680645,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9878291028,
+  "lat": 22.2421816,
+  "lon": 91.8208098,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 10045466628,
+  "lat": 24.8434713,
+  "lon": 92.4046806,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 10628556167,
+  "lat": 26.1212943,
+  "lon": 91.9378829,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 10628556169,
+  "lat": 26.1214151,
+  "lon": 91.9377734,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 10660674826,
+  "lat": 22.9669933,
+  "lon": 88.4055312,
+  "tags": {
+    "access": "yes",
+    "barrier": "toll_booth",
+    "operational_status": "closed"
+  }
+},
+{
+  "type": "node",
+  "id": 11185692737,
+  "lat": 23.8396172,
+  "lon": 90.4184380,
+  "tags": {
+    "barrier": "toll_booth",
+    "currency:BDT": "yes",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11185692746,
+  "lat": 23.8452546,
+  "lon": 90.4130685,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 11185692751,
+  "lat": 23.8452775,
+  "lon": 90.4130986,
+  "tags": {
+    "barrier": "toll_booth",
+    "currency:BDT": "yes",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11185692775,
+  "lat": 23.8196063,
+  "lon": 90.4174579,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 11186095739,
+  "lat": 23.8199911,
+  "lon": 90.4181530,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 11186095749,
+  "lat": 23.7907508,
+  "lon": 90.4005798,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 11186095751,
+  "lat": 23.7739513,
+  "lon": 90.3979650,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 11186095752,
+  "lat": 23.7627230,
+  "lon": 90.3939951,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 11297362272,
+  "lat": 26.3089917,
+  "lon": 91.7162796,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 11297362273,
+  "lat": 26.3089775,
+  "lon": 91.7161253,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 11518538349,
+  "lat": 26.5650014,
+  "lon": 90.2382016,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 11518538350,
+  "lat": 26.5651212,
+  "lon": 90.2382155,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 11875004530,
+  "lat": 26.4766822,
+  "lon": 89.7565816,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Guabari"
+  }
+},
+{
+  "type": "node",
+  "id": 11875004531,
+  "lat": 26.4765655,
+  "lon": 89.7565699,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Guabari"
+  }
+},
+{
+  "type": "node",
+  "id": 11875132553,
+  "lat": 26.4439556,
+  "lon": 89.9426843,
+  "tags": {
+    "barrier": "toll_booth",
+    "source": "Esri World imagery (retreived 05/2024)"
+  }
+},
+{
+  "type": "node",
+  "id": 11875132554,
+  "lat": 26.4441451,
+  "lon": 89.9427135,
+  "tags": {
+    "barrier": "toll_booth",
+    "source": "Esri World imagery (retreived 05/2024)"
+  }
+},
+{
+  "type": "node",
+  "id": 12328420092,
+  "lat": 24.8436117,
+  "lon": 92.4046339,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12673337653,
+  "lat": 26.3050908,
+  "lon": 89.6188548,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12943067127,
+  "lat": 23.3818441,
+  "lon": 90.0029758,
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "shed",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "layer": "1",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes",
+    "payment:notes": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12943067128,
+  "lat": 23.3817907,
+  "lon": 90.0029567,
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "shed",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "layer": "1",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes",
+    "payment:notes": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12943067129,
+  "lat": 23.3817451,
+  "lon": 90.0029417,
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "shed",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "layer": "1",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes",
+    "payment:notes": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12943067130,
+  "lat": 23.3816962,
+  "lon": 90.0029174,
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "shed",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "layer": "1",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes",
+    "payment:notes": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12943067131,
+  "lat": 23.3816043,
+  "lon": 90.0028704,
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "shed",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "layer": "1",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes",
+    "payment:notes": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12943067132,
+  "lat": 23.3815050,
+  "lon": 90.0028395,
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "shed",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "layer": "1",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes",
+    "payment:notes": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12943067133,
+  "lat": 23.3814626,
+  "lon": 90.0028141,
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "shed",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "layer": "1",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes",
+    "payment:notes": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12943067134,
+  "lat": 23.3814058,
+  "lon": 90.0027809,
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "shed",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "layer": "1",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes",
+    "payment:notes": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12943162391,
+  "lat": 23.3816499,
+  "lon": 90.0028913,
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "shed",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "layer": "1",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes",
+    "payment:notes": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12943162392,
+  "lat": 23.3815569,
+  "lon": 90.0028523,
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "shed",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "layer": "1",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes",
+    "payment:notes": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12996705030,
+  "lat": 22.3139538,
+  "lon": 91.8556781,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025927589,
+  "lat": 23.4851781,
+  "lon": 90.2683861,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025927590,
+  "lat": 23.4851882,
+  "lon": 90.2683312,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025927591,
+  "lat": 23.4851975,
+  "lon": 90.2682810,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025927592,
+  "lat": 23.4852069,
+  "lon": 90.2682300,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025927593,
+  "lat": 23.4852252,
+  "lon": 90.2681312,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025957381,
+  "lat": 23.6492619,
+  "lon": 90.3504318,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025957382,
+  "lat": 23.6492741,
+  "lon": 90.3503884,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025957383,
+  "lat": 23.6493021,
+  "lon": 90.3502884,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025957384,
+  "lat": 23.6492889,
+  "lon": 90.3503356,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025957385,
+  "lat": 23.6493128,
+  "lon": 90.3502504,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025957386,
+  "lat": 23.6493610,
+  "lon": 90.3500785,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025957387,
+  "lat": 23.6493776,
+  "lon": 90.3500192,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025957388,
+  "lat": 23.6493907,
+  "lon": 90.3499727,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025957389,
+  "lat": 23.6494050,
+  "lon": 90.3499216,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025957390,
+  "lat": 23.6494167,
+  "lon": 90.3498800,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13025961215,
+  "lat": 23.6493283,
+  "lon": 90.3501950,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13109513692,
+  "lat": 23.1928010,
+  "lon": 89.7035666,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13109513693,
+  "lat": 23.1927444,
+  "lon": 89.7036950,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13158699122,
+  "lat": 23.6175873,
+  "lon": 90.6098898,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13158699123,
+  "lat": 23.6175589,
+  "lon": 90.6098381,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13158699124,
+  "lat": 23.6175276,
+  "lon": 90.6097808,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13158699129,
+  "lat": 23.6170817,
+  "lon": 90.6099966,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13158699130,
+  "lat": 23.6170585,
+  "lon": 90.6099549,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13158699131,
+  "lat": 23.6170248,
+  "lon": 90.6098942,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13158699132,
+  "lat": 23.6169977,
+  "lon": 90.6098454,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13158699133,
+  "lat": 23.6169672,
+  "lon": 90.6097906,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13158699134,
+  "lat": 23.6169389,
+  "lon": 90.6097396,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13194282487,
+  "lat": 23.5406158,
+  "lon": 89.5376207,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13194282488,
+  "lat": 23.5406662,
+  "lon": 89.5376684,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13194313398,
+  "lat": 24.3514385,
+  "lon": 89.2995417,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13194313399,
+  "lat": 24.3515195,
+  "lon": 89.2995183,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13194313400,
+  "lat": 24.3515520,
+  "lon": 89.2995048,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13194379885,
+  "lat": 22.7769137,
+  "lon": 89.5933289,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13194379886,
+  "lat": 22.7765424,
+  "lon": 89.5933764,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13194379887,
+  "lat": 22.7765997,
+  "lon": 89.5933690,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13194379888,
+  "lat": 22.7766496,
+  "lon": 89.5933627,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13194379889,
+  "lat": 22.7766996,
+  "lon": 89.5933563,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13194379890,
+  "lat": 22.7767503,
+  "lon": 89.5933498,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13194379891,
+  "lat": 22.7767926,
+  "lon": 89.5933444,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13194379892,
+  "lat": 22.7768435,
+  "lon": 89.5933379,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13196199790,
+  "lat": 23.4067714,
+  "lon": 90.2534198,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13196199791,
+  "lat": 23.4068085,
+  "lon": 90.2533740,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13196199792,
+  "lat": 23.4068380,
+  "lon": 90.2533375,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13196199793,
+  "lat": 23.4068660,
+  "lon": 90.2533029,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13196199794,
+  "lat": 23.4069028,
+  "lon": 90.2532573,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13196199795,
+  "lat": 23.4069333,
+  "lon": 90.2532197,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13196199796,
+  "lat": 23.4069655,
+  "lon": 90.2531798,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13196199797,
+  "lat": 23.4069944,
+  "lon": 90.2531441,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13227408996,
+  "lat": 22.9676392,
+  "lon": 88.4096937,
+  "tags": {
+    "access": "yes",
+    "barrier": "toll_booth",
+    "bicycle": "yes",
+    "foot": "yes",
+    "horse": "unknown",
+    "motor_vehicle": "yes",
+    "name": "Toll gate",
+    "operational_status": "closed"
+  }
+},
+{
+  "type": "node",
+  "id": 13458053178,
+  "lat": 22.4556363,
+  "lon": 90.3411608,
+  "tags": {
+    "access": "permit",
+    "barrier": "toll_booth",
+    "currency:BDT": "yes",
+    "currency:Taka": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13458053179,
+  "lat": 22.4557318,
+  "lon": 90.3412642,
+  "tags": {
+    "barrier": "toll_booth",
+    "currency:BDT": "yes",
+    "currency:Taka": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13460668721,
+  "lat": 22.4557320,
+  "lon": 90.3412207,
+  "tags": {
+    "barrier": "toll_booth",
+    "currency:BDT": "yes",
+    "currency:Taka": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13460668722,
+  "lat": 22.4557317,
+  "lon": 90.3413053,
+  "tags": {
+    "barrier": "toll_booth",
+    "currency:BDT": "yes",
+    "currency:Taka": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13460668727,
+  "lat": 22.4556364,
+  "lon": 90.3411205,
+  "tags": {
+    "barrier": "toll_booth",
+    "currency:BDT": "yes",
+    "currency:Taka": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13460668730,
+  "lat": 22.4556366,
+  "lon": 90.3410778,
+  "tags": {
+    "barrier": "toll_booth",
+    "currency:BDT": "yes",
+    "currency:Taka": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13674982993,
+  "lat": 22.2406544,
+  "lon": 91.7924621,
+  "tags": {
+    "barrier": "toll_booth",
+    "bicycle": "no",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13674982994,
+  "lat": 22.2406664,
+  "lon": 91.7925586,
+  "tags": {
+    "barrier": "toll_booth",
+    "bicycle": "no",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13675036748,
+  "lat": 22.2371424,
+  "lon": 91.7925680,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13675036749,
+  "lat": 22.2223603,
+  "lon": 91.8379172,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13852280573,
+  "lat": 24.3954289,
+  "lon": 89.8056733,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13852280574,
+  "lat": 24.3954764,
+  "lon": 89.8056797,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13852280575,
+  "lat": 24.3955310,
+  "lon": 89.8056925,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13852280576,
+  "lat": 24.3955787,
+  "lon": 89.8057032,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13852280577,
+  "lat": 24.3956379,
+  "lon": 89.8057118,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13852280578,
+  "lat": 24.3956833,
+  "lon": 89.8057257,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13852280581,
+  "lat": 24.3978984,
+  "lon": 89.7480551,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13852280582,
+  "lat": 24.3978452,
+  "lon": 89.7480752,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13852280583,
+  "lat": 24.3977902,
+  "lon": 89.7480905,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13852280584,
+  "lat": 24.3977327,
+  "lon": 89.7481070,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13852280585,
+  "lat": 24.3976813,
+  "lon": 89.7481236,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13852280586,
+  "lat": 24.3976346,
+  "lon": 89.7481388,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 14026919872,
+  "lat": 22.8795853,
+  "lon": 88.0131419,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 14265434725,
+  "lat": 22.8485130,
+  "lon": 88.4251517,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "way",
+  "id": 506954730,
+  "center": {
+    "lat": 23.7165267,
+    "lon": 90.4270971
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "yes",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 527000681,
+  "center": {
+    "lat": 24.3516767,
+    "lon": 89.2994527
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 528308282,
+  "center": {
+    "lat": 22.3138945,
+    "lon": 91.8555858
+  },
+  "tags": {
+    "access": "yes",
+    "barrier": "toll_booth",
+    "building": "yes",
+    "currency:BDT": "yes",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 530961283,
+  "center": {
+    "lat": 24.0686347,
+    "lon": 89.0416892
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "bicycle": "yes",
+    "building": "roof",
+    "foot": "yes",
+    "horse": "yes",
+    "motor_vehicle": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 532658518,
+  "center": {
+    "lat": 24.6339900,
+    "lon": 91.6845736
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 536299308,
+  "center": {
+    "lat": 23.5776441,
+    "lon": 90.5127883
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 539767060,
+  "center": {
+    "lat": 24.7578874,
+    "lon": 90.4348607
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "yes",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 540959827,
+  "center": {
+    "lat": 25.8010223,
+    "lon": 89.4457300
+  },
+  "tags": {
+    "area": "yes",
+    "barrier": "toll_booth",
+    "building": "yes",
+    "name": "Tista Bridge Toll Plaza টোল প্লাজা"
+  }
+},
+{
+  "type": "way",
+  "id": 636437305,
+  "center": {
+    "lat": 22.7767219,
+    "lon": 89.5933548
+  },
+  "tags": {
+    "access": "permit",
+    "addr:city": "Khulna",
+    "addr:housenumber": "Jabusa, Rupsha",
+    "addr:street": "Khulna City Bypass",
+    "barrier": "toll_booth",
+    "bicycle": "permit",
+    "building": "yes",
+    "foot": "yes",
+    "motor_vehicle": "permit",
+    "name": "Rupsha Bridge Toll Plaza"
+  }
+},
+{
+  "type": "way",
+  "id": 657257877,
+  "center": {
+    "lat": 24.0532547,
+    "lon": 90.9885796
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sayed Nazrul Islam Bridge Toll Plaza"
+  }
+},
+{
+  "type": "way",
+  "id": 1021021084,
+  "center": {
+    "lat": 23.6291891,
+    "lon": 88.3600593
+  },
+  "tags": {
+    "area": "yes",
+    "barrier": "toll_booth",
+    "building": "roof",
+    "description": "Sali Bamandanga Toll Plaza",
+    "layer": "-1",
+    "payment:fasttag": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1074751474,
+  "center": {
+    "lat": 23.7061510,
+    "lon": 90.4431901
+  },
+  "tags": {
+    "access": "customers",
+    "barrier": "toll_booth",
+    "bicycle": "no",
+    "building": "service",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "layer": "-1",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1074751475,
+  "center": {
+    "lat": 23.7070302,
+    "lon": 90.4413260
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "yes",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "layer": "-1",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1107938437,
+  "center": {
+    "lat": 22.6661145,
+    "lon": 90.3468821
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "yes",
+    "currency:BDT": "yes",
+    "layer": "1",
+    "opening_hours": "24/7",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1207086860,
+  "center": {
+    "lat": 23.8395789,
+    "lon": 90.4183986
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "yes",
+    "currency:BDT": "yes",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1207086861,
+  "center": {
+    "lat": 23.7625643,
+    "lon": 90.3939338
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "yes",
+    "layer": "1",
+    "motor_vehicle": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1267635528,
+  "center": {
+    "lat": 22.6463396,
+    "lon": 89.7963214
+  },
+  "tags": {
+    "addr:street": "Doratana Highway",
+    "barrier": "toll_booth",
+    "building": "transportation",
+    "building:colour": "white",
+    "building:levels": "1",
+    "building:material": "cement_block",
+    "building:use": "office",
+    "height": "3.048",
+    "name": "Doratana Bridge Toll Plaza",
+    "nohousenumber": "yes",
+    "roof:orientation": "across",
+    "roof:shape": "flat",
+    "source": "BDRCS"
+  }
+},
+{
+  "type": "way",
+  "id": 1272850156,
+  "center": {
+    "lat": 26.4440474,
+    "lon": 89.9426925
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1408350245,
+  "center": {
+    "lat": 23.3816360,
+    "lon": 90.0028901
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "shed",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "layer": "1",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes",
+    "payment:notes": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1408375868,
+  "center": {
+    "lat": 24.3955347,
+    "lon": 89.8056942
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "bicycle": "no",
+    "building": "shed",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "layer": "1",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes",
+    "payment:notes": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1408375869,
+  "center": {
+    "lat": 24.3977786,
+    "lon": 89.7480918
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "bicycle": "no",
+    "building": "shed",
+    "currency:BDT": "yes",
+    "foot": "no",
+    "horse": "no",
+    "layer": "1",
+    "motor_vehicle": "yes",
+    "payment:cash": "yes",
+    "payment:notes": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1467281677,
+  "center": {
+    "lat": 22.4556841,
+    "lon": 90.3411883
+  },
+  "tags": {
+    "barrier": "toll_booth",
+    "building": "yes",
+    "currency:Taka": "yes",
+    "layer": "1"
+  }
+}
+
+  ]
+}

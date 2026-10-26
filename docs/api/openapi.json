@@ -3209,6 +3209,18 @@
             }
           },
           {
+            "description": "Only shipments not yet delivered or cancelled",
+            "in": "query",
+            "name": "active",
+            "required": false,
+            "schema": {
+              "default": false,
+              "description": "Only shipments not yet delivered or cancelled",
+              "title": "Active",
+              "type": "boolean"
+            }
+          },
+          {
             "description": "Scenario key for synthetic rows; omit for real data only",
             "in": "query",
             "name": "scenario",

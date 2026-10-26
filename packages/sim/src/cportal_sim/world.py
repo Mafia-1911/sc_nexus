@@ -525,7 +525,12 @@ class WorldBuilder:
         for (a, b), hours in zip(pairwise(hops), sea_h, strict=True):
             legs.append((TransportMode.SEA, location_id(a), location_id(b), hours))
         legs.append((TransportMode.ROAD, location_id(gateway), buyer["facility"].location_id, 24.0))
-        status = ShipmentStatus.IN_TRANSIT if dep < w.start else ShipmentStatus.PLANNED
+        if eta <= w.start:
+            status = ShipmentStatus.DELIVERED
+        elif dep < w.start:
+            status = ShipmentStatus.IN_TRANSIT
+        else:
+            status = ShipmentStatus.PLANNED
         record = ShipmentRecord(
             id=shipment_id,
             **self.lin(ref, available_at=dep - timedelta(days=7)),

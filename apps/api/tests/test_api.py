@@ -171,3 +171,37 @@ def test_ws_live_streams_scenario_positions(client: TestClient) -> None:
         snapshot = ws.receive_json()
     assert snapshot["type"] == "positions" and snapshot["features"]
     assert snapshot["scenario"] == "baseline" and snapshot["mode"] in ("synthetic", "mixed")
+
+
+def test_active_shipments_exclude_delivered(client: TestClient) -> None:
+    every = client.get("/api/v1/shipments", params={"limit": 500}).json()["data"]
+    active = client.get("/api/v1/shipments", params={"limit": 500, "active": True}).json()["data"]
+    assert {s["status"] for s in every} >= {"delivered", "in_transit"}
+    assert active and not {s["status"] for s in active} & {"delivered", "cancelled"}
+
+
+def test_replay_clock_ignores_newer_real_positions(client: TestClient) -> None:
+    """Real positions newer than the replay must not freeze the clock (the socket's trigger)."""
+    from cportal_api.live import positions_snapshot
+    from cportal_core.models import AisPositionLatest
+    from sqlalchemy import delete, false, func, select, update
+
+    real = AisPositionLatest.is_synthetic == false()
+    with session_scope(URL) as session:
+        replay_source(session, "DS-AIS-01")
+        session.execute(
+            update(AisPositionLatest)
+            .where(real)
+            .values(ts=func.now() + text("'30 days'::interval"))
+        )
+    try:
+        with Session(create_engine(URL)) as session:
+            snapshot = positions_snapshot("baseline", session)
+            replay_max = session.scalar(
+                select(func.max(AisPositionLatest.ts)).where(AisPositionLatest.is_synthetic)
+            )
+        assert snapshot["mode"] == "mixed" and replay_max is not None
+        assert snapshot["ts"] == replay_max.isoformat()
+    finally:
+        with session_scope(URL) as session:
+            session.execute(delete(AisPositionLatest).where(real))

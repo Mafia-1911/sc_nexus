@@ -10,6 +10,7 @@ from __future__ import annotations
 from typing import Annotated, Any
 from uuid import UUID
 
+from cportal_core.enums import ShipmentStatus
 from cportal_core.models import (
     Batch,
     Facility,
@@ -120,10 +121,14 @@ def list_shipments(
     session: SessionDep,
     scope: ScopeDep,
     limit: Annotated[int, Query(ge=1, le=500)] = 100,
+    active: Annotated[
+        bool, Query(description="Only shipments not yet delivered or cancelled")
+    ] = False,
 ) -> Envelope[list[ShipmentOut]]:
-    rows = session.scalars(
-        select(Shipment).where(scope.rows(Shipment)).order_by(Shipment.planned_eta).limit(limit)
-    ).all()
+    q = select(Shipment).where(scope.rows(Shipment))
+    if active:
+        q = q.where(Shipment.status.not_in([ShipmentStatus.DELIVERED, ShipmentStatus.CANCELLED]))
+    rows = session.scalars(q.order_by(Shipment.planned_eta).limit(limit)).all()
     return Envelope(data=[_shipment(s) for s in rows], meta=meta(rows, scope))
 
 

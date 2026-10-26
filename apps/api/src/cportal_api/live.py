@@ -18,9 +18,14 @@ def positions_snapshot(scenario: str | None, session: Session) -> dict[str, Any]
         session.scalar(select(Scenario.id).where(Scenario.key == scenario)) if scenario else None
     )
     scope = Scope(scenario if scenario_id else None, scenario_id)
-    newest = session.scalar(
-        select(func.max(AisPositionLatest.ts)).where(scope.rows(AisPositionLatest))
+    # The clock (and the socket's change detection) follows the scenario's own replay: real
+    # positions in scope can be newer than the replay clock and would otherwise freeze it.
+    clock = (
+        AisPositionLatest.scenario_id == scenario_id
+        if scenario_id
+        else scope.rows(AisPositionLatest)
     )
+    newest = session.scalar(select(func.max(AisPositionLatest.ts)).where(clock))
     rows = session.execute(
         select(AisPositionLatest, Vessel.name, Vessel.ship_type_group)
         .outerjoin(Vessel, Vessel.id == AisPositionLatest.vessel_id)

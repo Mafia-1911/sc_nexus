@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+/* "Tidewater" design tokens (docs/brief/05-ui-design.md §2; contrast- and CVD-validated
+   2026-10-26). Change a hex value only after re-running a contrast and CVD validator. */
+
+/* Light: "Shallows" */
+:root {
+  color-scheme: light;
+  --bg: #f3f8fa;
+  --surface: #ffffff;
+  --surface-2: #e8f1f5;
+  --chart-surface: #fafcfd;
+  --border: #c9dce5;
+  --border-strong: #6f8a9b;
+  --text: #0a2233;
+  --text-muted: #4a6578;
+  --primary: #0b7a80;
+  --on-primary: #ffffff;
+  --focus: #0b7a80;
+  --info: #1f6fa8;
+  --ok: #1e7a4f;
+  --warn: #9a5b00;
+  --danger: #b83a44;
+  --accent-sand: #bd8400;
+  --series-1: #1f6fc5;
+  --series-2: #e5603f;
+  --series-3: #0e9f95;
+  --series-4: #bd8400;
+  --series-5: #db6f9e;
+  --series-6: #2f8a2f;
+  --series-7: #6650d2;
+  /* map restyle */
+  --map-water: #cfe6ee;
+  --map-land: #f3f8fa;
+}
+
+/* Dark: "Abyss" (OS setting, unless the user forced light) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #06131f;
+    --surface: #0b1f31;
+    --surface-2: #112a40;
+    --chart-surface: #0c1f30;
+    --border: #1d3b55;
+    --border-strong: #5a7f9e;
+    --text: #e3eef4;
+    --text-muted: #93afc2;
+    --primary: #3cc4bf;
+    --on-primary: #04222a;
+    --focus: #8fe3da;
+    --info: #6fb7e9;
+    --ok: #5cc995;
+    --warn: #f2b65e;
+    --danger: #f2777a;
+    --accent-sand: #e6d3a3;
+    --series-1: #3d88e0;
+    --series-2: #e06a48;
+    --series-3: #16a89c;
+    --series-4: #c08300;
+    --series-5: #d7699a;
+    --series-6: #2f9a3a;
+    --series-7: #8e82ea;
+    --map-water: #0b2a3f;
+    --map-land: #0a1a28;
+  }
+}
+
+/* Explicit toggle wins both ways */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #06131f;
+  --surface: #0b1f31;
+  --surface-2: #112a40;
+  --chart-surface: #0c1f30;
+  --border: #1d3b55;
+  --border-strong: #5a7f9e;
+  --text: #e3eef4;
+  --text-muted: #93afc2;
+  --primary: #3cc4bf;
+  --on-primary: #04222a;
+  --focus: #8fe3da;
+  --info: #6fb7e9;
+  --ok: #5cc995;
+  --warn: #f2b65e;
+  --danger: #f2777a;
+  --accent-sand: #e6d3a3;
+  --series-1: #3d88e0;
+  --series-2: #e06a48;
+  --series-3: #16a89c;
+  --series-4: #c08300;
+  --series-5: #d7699a;
+  --series-6: #2f9a3a;
+  --series-7: #8e82ea;
+  --map-water: #0b2a3f;
+  --map-land: #0a1a28;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-info: var(--info);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --color-sand: var(--accent-sand);
+  --color-series-1: var(--series-1);
+  --color-series-2: var(--series-2);
+  --color-series-3: var(--series-3);
+  --radius-card: 14px;
+  --radius-control: 10px;
+  --font-sans: var(--font-inter), var(--font-bengali), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Visible focus (05 §8): 2 px ring + 2 px offset */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* "Tide" shimmer for skeletons; off under reduced motion (05 §3, §8) */
+@keyframes tide {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-2) 0, var(--surface) 50%, var(--surface-2) 100%);
+  background-size: 200px 100%;
+  animation: tide 1.4s ease-out infinite;
+  border-radius: var(--radius-control);
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* MapLibre controls and popups follow the theme (its stylesheet is light-only and loads after
+   this one, hence the .maplibregl-map prefix). */
+.maplibregl-map .maplibregl-ctrl-group,
+.maplibregl-map .maplibregl-ctrl-attrib.maplibregl-compact,
+.maplibregl-map .maplibregl-popup-content {
+  background: var(--surface);
+  color: var(--text);
+}
+.maplibregl-map .maplibregl-ctrl-group:not(:empty) {
+  box-shadow: 0 0 0 1px var(--border);
+}
+.maplibregl-map .maplibregl-ctrl-group button + button {
+  border-top-color: var(--border);
+}
+.maplibregl-map .maplibregl-ctrl-attrib,
+.maplibregl-map .maplibregl-ctrl-attrib a {
+  color: var(--text-muted);
+}
+.maplibregl-map .maplibregl-popup-content {
+  border: 1px solid var(--border);
+  font-family: var(--font-sans);
+}
+.maplibregl-map .maplibregl-popup-tip {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .maplibregl-ctrl-icon,
+  :root:not([data-theme="light"]) .maplibregl-ctrl-attrib-button {
+    filter: invert(0.9);
+  }
+}
+:root[data-theme="dark"] .maplibregl-ctrl-icon,
+:root[data-theme="dark"] .maplibregl-ctrl-attrib-button {
+  filter: invert(0.9);
+}

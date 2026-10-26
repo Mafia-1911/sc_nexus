@@ -18,3 +18,4 @@ Template: `docs/brief/07-decisions.md` §3. Status values: proposed, accepted, s
 | [ADR-012](ADR-012-lineage-time-and-point-in-time-features.md) | Lineage, time and point-in-time features | accepted |
 | [ADR-013](ADR-013-local-osm-extraction-instead-of-overpass.md) | Local OSM extraction instead of Overpass | accepted |
 | [ADR-014](ADR-014-name-packs-and-the-brand-variable.md) | Name packs and the brand variable | accepted |
+| [ADR-015](ADR-015-web-app-next-16-cache-components-typed-client-live-socket.md) | Web app: Next.js 16 with Cache Components, a typed server client and a live socket | accepted |

@@ -4,16 +4,32 @@ A supply-chain resilience platform proven on Bangladesh's Chattogram–Dhaka cor
 and pharma shippers. The full specification is in [`docs/brief/`](docs/brief/00-INDEX.md); agents
 start from [`AGENTS.md`](AGENTS.md), and progress lives in [`docs/STATUS.md`](docs/STATUS.md).
 
-**Current milestone: M1 (Architecture), at gate G1.** The domain model, canonical parsers for
-every P0 source, the synthetic world with a calibrated Chattogram port simulation, and the API
-skeleton exist. The web app and worker arrive in M2.
+**Current milestone: M2 (Backbone), at gate G2.** One command brings up the database, API,
+worker (live fetches, AIS replay, outbox jobs) and the web app with the Control Tower and the
+Data & Models page. Capabilities C1–C5 start in M3.
+
+![Control Tower, hero scenario](docs/screenshots/control-tower-light.png)
 
 > Synthetic data is never presented as real: every row carries `data_mode` and `is_synthetic`,
 > every API response carries a `meta.mode` badge, and synthetic firms are fictional.
 
-## Quickstart (laptop, no Docker needed)
+## Quickstart (Docker)
 
-Requires [uv](https://docs.astral.sh/uv/) (it fetches Python 3.12 itself) and GNU make.
+Requires Docker with Compose and GNU make; your user must be in the `docker` group.
+
+```bash
+make demo                  # build + start db, api, worker, web; seed both scenarios (~2 min)
+```
+
+Then open http://127.0.0.1:3000 (API docs at http://127.0.0.1:8000/docs). `make up` starts the
+stack without re-seeding, `make down` stops it (data stays in the `pgdata` volume). Keys are
+optional: `make up` creates `.env` from `.env.example` if it is missing, and sources without a
+key stay in replay or synthetic mode. `CPORTAL_LIVE=0 make up` keeps the worker offline.
+
+## Quickstart (laptop, no Docker)
+
+Requires [uv](https://docs.astral.sh/uv/) (it fetches Python 3.12 itself), Node 20.9+ and GNU
+make.
 
 ```bash
 make setup                 # uv sync: workspace + dev tools
@@ -21,13 +37,8 @@ cp .env.example .env       # then fill in the keys you have (see the comments)
 make db-local              # user-level Postgres 16 + PostGIS + pgvector (installs on first run)
 make seed                  # migrate, replay real samples, seed the synthetic scenarios (~30 s)
 make api                   # http://127.0.0.1:8000/docs
-```
-
-With Docker instead (your user must be in the `docker` group):
-
-```bash
-make up                    # db + migrations + api on http://127.0.0.1:8000
-make seed-docker           # reference replay + scenarios into the compose database
+make worker                # in a second terminal: live fetches, AIS replay, jobs
+make web-setup && make web # in a third: http://127.0.0.1:3000
 ```
 
 `make db-local` and the compose `db` both use port 5432: run one at a time
@@ -40,8 +51,10 @@ make seed-docker           # reference replay + scenarios into the compose datab
 | Domain model v1 (51 tables) | `packages/core` | ORM, canonical records, loader; [ERD](docs/ERD.md); migrations in `db/alembic` |
 | Sources (48 probed) | `packages/connectors` | `uv run probe`, parsers per source, `uv run ingest --replay all` |
 | Synthetic world + port DES | `packages/sim` | `uv run seed`, `uv run calibrate` → [CALIBRATION.md](docs/data-sources/CALIBRATION.md) |
-| API | `apps/api` | `/api/v1`, OpenAPI in [docs/api/openapi.json](docs/api/openapi.json) |
-| Decisions | [docs/adr/](docs/adr/README.md), [DECISIONS.md](docs/DECISIONS.md) | ADR-001…014 |
+| API | `apps/api` | `/api/v1`, `/ws/live`; OpenAPI in [docs/api/openapi.json](docs/api/openapi.json) |
+| Worker | `apps/worker` | live fetches with two strikes, AIS replay, outbox and jobs |
+| Web | `apps/web` | Next.js 16; Control Tower, Data & Models; types from the OpenAPI file (`npm run gen:api`) |
+| Decisions | [docs/adr/](docs/adr/README.md), [DECISIONS.md](docs/DECISIONS.md) | ADR-001…015 |
 
 Scenarios: `baseline` and `cyclone_supplier_delay` (the hero: a synthetic cyclone closes
 Chattogram while "Fabric Mill X" floods). Select one with `?scenario=` on any API read; omit it
@@ -64,7 +77,8 @@ Source cards and the probe report are in [`docs/data-sources/`](docs/data-source
 ## Checks
 
 ```bash
-make check  # ruff, import boundaries, mypy, pytest (DB tests run when Postgres is up)
+make check  # ruff, import boundaries, mypy, pytest (DB tests run when Postgres is up), tsc, ESLint
+make e2e    # Playwright smoke against http://127.0.0.1:3000; screenshots → docs/screenshots
 make calibrate  # port DES vs real marginals
 make erd    # regenerate the ERD from the models
 ```

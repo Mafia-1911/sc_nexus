@@ -79,3 +79,27 @@ CPA berths, tides and draught from the user's PDF anchor the berth model. A brie
 **Open:** Docker group; Q-05 guardrail confirmation; Ollama before M4.
 
 **Next:** M2 (worker, web shell with Control Tower and Data & Models, compose, smoke test).
+
+## Session 3 · 2026-10-26 → 27 · M2 Backbone → G2
+
+**Asked:** Docker access granted; brand "ShipperFast"; continue building M2 (Ollama now
+installed). The user asked whether a GNN is used: not yet, it is the C1 stretch under Q-12 (M3).
+
+**Done:**
+- Worker: live fetches with two strikes, AIS replay of the hero scenario, outbox and jobs
+  (commit `530498c`).
+- Web app (Next.js 16, Tidewater theme): shell, Control Tower, Data & Models, placeholders;
+  typed server client from the OpenAPI file; live map over `/ws/live` (ADR-015).
+- Compose now runs db, migrate, api, worker and web; `make demo` verified from empty volumes;
+  Playwright smoke green; screenshots committed.
+- Bugs found by looking at the screenshots and fixed with tests where possible: MapLibre
+  worker URL, map container height, dropped first snapshot, frozen replay clock, past-ETA
+  shipments, worker shutdown on SIGTERM, a stale server process serving an old build.
+
+**Findings:** Next 16 Cache Components need every request-bound read (cookies, env brand,
+API) behind `connection()` and `<Suspense>`; static placeholder pages need a dynamic marker
+for runtime titles.
+
+**Open:** G2 review; Q-12 at M3 start; Ollama model at M4.
+
+**Next:** M3 (C1 thin slice) after G2.

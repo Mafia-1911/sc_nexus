@@ -1,55 +1,69 @@
-# STATUS (updated 2026-10-26 BST by Claude Code, Opus 5.5)
+# STATUS (updated 2026-10-27 BST by Claude Code, Opus 5.5)
 
-Milestone: **M1 Architecture complete → gate G1 (soft: summary posted, work continues unless
-the user objects).** Next: M2 Backbone (hard gate G2).
+Milestone: **M2 Backbone complete → gate G2 (hard stop: waiting for the user's review).**
+Next after approval: M3 (C1 supplier risk graph), starting with Q-12 (GNN scope).
 
-Done (M1, branch `m1-architecture`):
-- Domain model v1: 51 tables (SQLAlchemy 2 + GeoAlchemy2 + pgvector) with lineage on every
-  domain table (`data_mode`, `available_at`, …) and the SC-01…SC-12 changes; one Alembic
-  migration (round-trip tested); generated [ERD](ERD.md).
-- Canonical records (37 Pydantic types) contract-tested against the tables; idempotent loader
-  (deterministic UUIDv5 ids, coalescing upserts).
-- Parsers for every P0 source plus the CPA berthing PDF, ReliefWeb; `uv run ingest --replay
-  all` loads 24 sources (all real, offline) with FKs intact.
-- `packages/sim`: world v0 (fictional firms at real clusters, golden-path structure, orders,
-  DCSA shipments, AQL batches), name packs (Q-05 guardrail), SimPy port DES with real CPA
-  berths, tides, channel slots, lighterage and lighters, calibrated: dwell KS D 0.097 vs GFW,
-  presence 71.7 vs 70.7 ([CALIBRATION.md](data-sources/CALIBRATION.md)).
-- Twins for 11 sources render each wire format through the real parsers; scenarios
-  `baseline` and `cyclone_supplier_delay` with projection KPIs; `make seed` ≈ 30 s (< 60 s).
-- `apps/api`: 31 OpenAPI paths, `{data, meta}` envelope with LIVE/REPLAY/SYNTHETIC/mixed
-  badges, scenario scope, problem+json, cursor pagination, 202 jobs, read p95 < 300 ms.
-- docker-compose (db with PostGIS + pgvector, migrate, api, seed) written and validated;
-  not built yet (Docker socket permission).
-- ADR-001…014; decisions up to A-043; import-linter boundary contracts; 206+ tests green.
+Done (M2, branch `m2-backbone`):
+- **Worker** (`apps/worker`, `make worker` or the compose `worker` service): APScheduler jobs
+  for the 7 verified live sources (GDELT GKG, RSS, ReliefWeb, openFDA, World Bank, Open-Meteo,
+  GDACS) on their card cadences; two strikes then a 6 h cool-down and a `source.degraded`
+  outbox event (ADR-011); raw archives with secrets redacted; outbox drained on
+  LISTEN/NOTIFY with `FOR UPDATE SKIP LOCKED`; `scenario.run` job; JSON logs; stops cleanly
+  on SIGTERM.
+- **AIS replay:** the hero scenario's port DES re-rendered as aisstream frames through the real
+  parser every 5 s (30×, 48 h loop), pushed to `ais_position_latest` with `pg_notify`.
+- **API:** `/api/v1/kpis` (5 KPIs, each with its own badge), `/ws/live` (position snapshots
+  when the scenario's replay clock moves), `/shipments?active=true`, richer `/sources`
+  (licence, cadence, effective mode, failures, last error).
+- **Web** (`apps/web`, ADR-015): Next.js 16 (Cache Components), Tailwind v4 Tidewater tokens,
+  light/dark with a persisted toggle, scenario switcher (hero, baseline, real only), brand
+  from `CPORTAL_BRAND_NAME`. Control Tower: KPI strip, live MapLibre anchorage map with legend
+  and replay clock, disruption feed, open shipments. Data & Models: 48 sources with status,
+  mode, freshness, rows and licence (NC flagged), scenario projections, models placeholder,
+  attributions. Six other pages are labelled placeholders for M3–M8.
+- **Compose:** `make demo` builds and starts db, migrate, api, worker and web, seeds, and
+  restarts the worker; verified from empty volumes in a throwaway project (≈ 2 min; seed 32 s).
+- **Tests:** 213 Python tests (incl. the replay-clock and active-shipment regressions), ruff,
+  import-linter, mypy, `tsc`, ESLint; Playwright smoke (4 tests) green against compose.
+  Screenshots (1280 px, light and dark) in [docs/screenshots/](screenshots/).
+- Docs: ADR-015, decisions Q-07 answer and A-044…A-050, README quickstart.
+
+Fixed during M2 checks: MapLibre 6's worker URL under the bundler, the map container collapsing
+to 0 px under MapLibre's CSS, the first snapshot arriving before the map loaded, real AIS rows
+freezing the replay clock, past-ETA shipments shown as in transit, the worker ignoring SIGTERM
+for up to 30 s.
 
 In progress:
 - Nothing half-written.
 
-Next (M2, ordered):
-1. Worker: APScheduler, outbox consumer, jobs (`job.queued`), live fetch for verified sources
-   with the two-strikes fallback; AIS Parquet lake.
-2. Web shell (Next.js App Router, Tailwind v4, shadcn/ui, Tidewater tokens from 05-ui-design):
-   Control Tower (MapLibre map of the anchorage, KPI strip, alert feed stub), Data & Models.
-3. Generated TS types from `docs/api/openapi.json`; `/ws/live` streaming positions.
-4. Compose: worker + web; `make up && make seed && make demo`; Playwright smoke test.
+Next (after G2):
+1. M3 / C1: thin slice of the supplier risk graph (graph from the synthetic world, criticality
+   metrics, what-if closure job, Supplier Network page). Ask Q-12 (GNN scope) first.
+2. M4 / C2: trade-news intelligence with the local LLM (Ollama 0.40 is installed; no model
+   pulled yet; ≈ 7 GB RAM suggests a 3–4 B model, to be proposed then).
 
-Blockers (owner: user):
-- Docker socket: `sudo usermod -aG docker $USER`, then log out and in. Needed to build and run
-  compose (G2). Until then the local Postgres (`make db-local`) runs everything.
-- Ollama (or llama.cpp) for C2 in M4 (Q-03): not installed yet; not needed for M2.
+Blockers: none.
 
 Waiting on user:
-- Confirm the Q-05 guardrail default (real names never on adverse synthetic attributes).
-- Optional: more CPA berthing PDFs into `data/inbox/DS-PORT-07/` (real berth-level labels).
+- **G2 review** of the running stack (`make demo`, then http://127.0.0.1:3000).
+- Q-12 at M3 start; the Ollama model choice at M4.
+- Optional: more CPA berthing PDFs into `data/inbox/DS-PORT-07/`; Copernicus login.
 
-Data modes: DS-AIS-01=synthetic (no Bangladesh coverage), DS-AIS-02=replay, DS-SAT-04=replay,
-DS-PORT-01=replay, DS-PORT-05=replay, DS-PORT-07=replay (manual PDFs), DS-WX-01=live,
-DS-WX-02=live, DS-WX-05=live, DS-NEWS-02=live, DS-NEWS-03=live, DS-NEWS-04=live,
-DS-PHARMA-01=live, DS-TRADE-03=live, DS-GEO-03=live, DS-GEO-07=live; M1 loads every source in
-replay mode from its committed samples.
+Known limits (honest list):
+- The basemap needs internet (OpenFreeMap); the offline Protomaps extract is planned for M8.
+- AIS is synthetic replay: aisstream has no Bangladesh coverage (A-019, U-01).
+- KPIs "mean wait" and "orders at risk" are observed or rule-based, not forecasts; forecasts
+  arrive with C4 (M6) and Nexus (M8). The hero scenario's port effect is modest in DES v0.
+- The e2e test checks the map's vessel count and idle state, not pixels; screenshots were
+  reviewed by eye.
+
+Data modes: DS-AIS-01=synthetic (replay of the scenario DES), DS-AIS-02=replay,
+DS-SAT-04=replay, DS-PORT-01=replay, DS-PORT-05=replay, DS-PORT-07=replay (manual PDF),
+DS-WX-01=live, DS-WX-02=live, DS-NEWS-02=live, DS-NEWS-03=live, DS-NEWS-04=live,
+DS-PHARMA-01=live, DS-TRADE-03=live; the rest replay from committed samples or are off
+(see the Data & Models page).
 
 Model versions active: none (baselines register from M3).
 
-Demo health: golden path not built yet (M8). Scenario `cyclone_supplier_delay` seeds; its port
-effect is modest in DES v0 (+3.8 % vessel-hours, hero vessel +13.8 h) until M6 backtests Remal.
+Demo health: `make demo` → Control Tower shows the hero scenario (Cyclone SYN-01 + Mill X
+delay) with moving vessels; golden path script comes in M8.

@@ -1,0 +1,28 @@
+{
+  "method": "GET",
+  "url": "https://www.kaggle.com/api/v1/datasets/list?search=mvtec+ad&sortBy=votes&page=1",
+  "params": {
+    "search": "mvtec ad",
+    "sortBy": "votes",
+    "page": 1
+  },
+  "headers": {
+    "host": "www.kaggle.com",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)",
+    "authorization": "***REDACTED***",
+    "cookie": "ka_sessionid=b008f9d44faa7919abe455b20f76d5cf; GCLB=CNCMo7GB9uTCVRAD"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-26T00:22:02.837207+00:00",
+  "status": 200,
+  "content_type": "application/json",
+  "transformed": false
+}

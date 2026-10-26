@@ -123,10 +123,20 @@ DS-PORT-06:
   next: two strikes on availability; extract the same tags locally from the Geofabrik PBF (DS-GEO-01) in M1. Anchorage zones come from GFW cells (DS-AIS-02)
 
 DS-PORT-07:
-  signup: none
-  bd_coverage: unknown (sites unreachable to scripted clients)
-  failure_modes: TLS fails for cpa.gov.bd, mpa.gov.bd (and bpc.gov.bd, biwtc.gov.bd); cpa.gov.bd serves a certificate for afccl.gov.bd without its intermediate
-  next: a human checks in a browser what is public (berthing schedule, outer-anchorage list) and the terms; until then queue numbers come from the press via C2 ("news as sensor") or the synthetic DES
+  signup: none; a person downloads the PDF in a browser from the CPA berthing-information page (https://cpa.gov.bd/pages/common-documents/ → 'বার্থিং-এর তথ্য')
+  protocol: PDF (Word 'Microsoft Print To PDF', 2 pages, real text layer, no OCR needed)
+  licence: Government of Bangladesh public document; no terms stated; the user confirmed at G0 that CPA publishes it publicly
+  attribution: Chittagong Port Authority (cpa.gov.bd)
+  nc: false
+  freshness: daily report ('Berthing position & performance of vessels' dated D, issued D+1)
+  cadence: daily (manual download)
+  history: one report in hand (positions on 2026-01-05); more as PDFs are dropped into data/inbox/DS-PORT-07/
+  bd_coverage: 'Chattogram only. Report of 2026-01-05: 41 vessel rows, 26 with IMO numbers; 23 at named berths (J/1–J/13 general cargo jetties, CCT/NCT/PCT container terminals, DOJ oil jetties, DDJ, WBT, SM) and 18 long-stay craft at buoys (BB: trawlers, laid-up and court-attached vessels)'
+  failure_modes: TLS still broken for scripted clients (A-018), so no automated fetch; data arrives by manual download
+  quirks: 'dates are dd/mm without a year (infer from the report date: arrival before it, expected leaving after it); long stays use dd/mm/yy; name suffixes carry flags (''*'' prefix, (GL), (F1), (RENAMED:…), (Attach by High Court: date)); the right-hand column names the next vessel planned for that berth; ''R/A'' appears in the arrival column (meaning unknown); the header holds the day''s tide table (H.W./L.W. local time and height in m) and the permissible fresh-water draught (inward/outward 10.00 m)'
+  mapping: port_call(method=cpa_report, vessel by IMO, anchorage wait ← berthing − arrival at day precision, berth_zone ← jetty, departure_planned ← leaving, quality_flags.date_precision=day); port_zone(berth) names; port.max_draught_m ← permissible draught (valid_from = report date); tide → port_state_snapshot.tide
+  synthetic_twin: the port DES uses these berth names and classes; anchorage-wait marginals are checked against these rows in CALIBRATION.md
+  next: M1 parser (pdfplumber, columns by position) → canonical rows + contract test; the user drops more daily PDFs to build a real label history
 
 DS-PORT-08:
   signup: none
@@ -217,6 +227,23 @@ DS-WX-04:
   mapping: calendar features; a manual `holiday_override` table (kind public | extended_closure | truck_ban, with notice URL) fills the gap
   next: M1 seeds the override table from the Cabinet Division notices and police truck-ban notices, each cited
 
+DS-WX-05:
+  signup: https://firms.modaps.eosdis.nasa.gov/api/map_key/ (free MAP_KEY)
+  protocol: REST (CSV); the key sits in the URL path
+  limits_documented: 5,000 transactions per 10 minutes per MAP_KEY (mapkey_status)
+  limits_observed: area API day range 1–5
+  licence: NASA open data, no restrictions; cite FIRMS
+  attribution: NASA FIRMS (LANCE / ESDIS)
+  nc: false
+  freshness: 'near real time: latest VIIRS NOAA-20 detection 2026-10-25 20:27Z at probe time 2026-10-26 00:21Z (≈ 4 h)'
+  history: NRT from 2026-07-01 (VIIRS) / 2026-08-01 (MODIS); standard-processing archive back to 2000-11 (MODIS) and 2012-01 (VIIRS S-NPP)
+  bd_coverage: 3 VIIRS NOAA-20 hotspots in the Bangladesh envelope over 2 days, all at its western edge in India (lon 88.1–88.2); none inside Bangladesh (post-monsoon low season)
+  failure_modes: bad key → 400 'Invalid MAP_KEY.'; day range 99 → 400 'Invalid day range. Expects [1..5].'
+  quirks: 375 m pixels; persistent industrial heat sources (brick kilns, flares) show all year, so mask static sources before calling a hotspot a fire event; acq_time is HHMM UTC
+  mapping: disruption_event candidate (FIRE_EXPLOSION) only when a hotspot lies inside a facility buffer and is corroborated (news, repeat detection); otherwise evidence on event_mention
+  synthetic_twin: scenario library (supplier fire) emits FIRMS-shaped rows near the fictional facility
+  next: C2 (M4) corroboration signal; static-source mask from 30 days of SP data
+
 DS-NEWS-01:
   signup: none
   limits_documented: 'informal: "Please limit requests to one every 5 seconds" (the API''s own 429 body)'
@@ -250,10 +277,19 @@ DS-NEWS-03:
   mapping: article(url, title, published_at, snippet ≤ 300, source_name ← feed id, discovered_via 'rss')
 
 DS-NEWS-04:
-  signup: https://apidoc.reliefweb.int/parameters#appname (request a pre-approved appname)
-  licence: free (per-report source licences)
+  signup: https://apidoc.reliefweb.int/parameters#appname (appname approved at G0; RELIEFWEB_APPNAME)
+  pagination: limit, offset
+  licence: free; each report keeps its source's terms; credit ReliefWeb and the source
+  attribution: ReliefWeb (UN OCHA) + the report's source
+  nc: false
+  freshness: minutes (latest Bangladesh report created 2026-10-26 05:03Z, the probe day)
+  history: 18,063 reports with primary country Bangladesh; 113 Bangladesh disasters
+  bd_coverage: 18,063 reports; 113 disasters, 3 ongoing at probe time (dengue, flash floods Jul 2026, measles); includes Tropical Cyclone Remal - May 2024
   failure_modes: no appname → 400; unapproved appname → 403
-  next: request an appname (approval takes time); GDACS covers hazards meanwhile
+  quirks: the default response has only id, score and title, so request fields[include][]; country codes are lower-case ISO3; disaster names embed month and year
+  mapping: article(url ← url_alias, source_name ← source.shortname, published_at ← date.original, title, lang ← language.code); disruption_event link via disaster name / GLIDE (external_id)
+  synthetic_twin: scenario library emits ReliefWeb-shaped situation reports
+  next: 'C2 (M4): ingest Bangladesh reports every 6 h'
 
 DS-NEWS-06:
   signup: none
@@ -356,9 +392,16 @@ DS-GEO-02:
   next: two strikes → local PBF extraction in M1/M5
 
 DS-GEO-03:
-  signup: https://openrouteservice.org/dev/#/signup
+  signup: https://account.heigit.org (HeiGIT runs openrouteservice; its dashboard calls the key a HeiGIT key)
+  limits_observed: x-ratelimit-limit 200, remaining 199 after one call (window not stated in the headers)
+  licence: ORS terms (free tier, not for production volume); routes from OpenStreetMap (ODbL)
+  attribution: openrouteservice.org | OpenStreetMap contributors
+  nc: false
+  freshness: graph built 2026-09-23 from OSM data of 2026-09-13 (engine 9.10.0)
+  bd_coverage: 'Chattogram port → Kamalapur ICD (HGV): 244.8 km, 3.30 h free-flow. Real truck times are much longer, so ORS gives distance and route shape, not duration'
   failure_modes: no key → 401
-  next: optional validation of C3 travel times
+  mapping: route_option validation (distance_km, geom); C3 compares its corridor-graph distances
+  next: 'C3 (M5): validation set of ~20 origin-destination pairs, well inside the rate limit'
 
 DS-GEO-04:
   signup: none
@@ -396,12 +439,15 @@ DS-GEO-07:
   next: for an offline demo, serve Geofabrik's Bangladesh Shortbread MBTiles (348 MB) locally
 
 DS-VIS-01:
-  signup: none (direct links on the downloads page)
-  licence: CC BY-NC-SA 4.0; "not allowed to use the dataset for commercial purposes"
+  signup: Kaggle account + API token (KAGGLE_API_TOKEN) for downloads; search works without a token
+  licence: CC BY-NC-SA 4.0 (MVTec); the Kaggle mirror's label 'Data files © Original Authors' does not change it
   nc: true
+  history: static 2019 release; mirror ipythonx/mvtec-ad updated 2022-02-20
   bd_coverage: n/a (benchmark images)
-  failure_modes: "pill, capsule, carpet and the full 4.9 GB archive → 404 'Seite nicht gefunden' on mydrive.ch; only leather (524,889,948 bytes, xz) downloads"
-  next: two strikes → VisA capsules + Roboflow tablets carry the pharma pack; ask MVTec or try the page in a browser for fresh links
+  failure_modes: official mydrive.ch links → 404 in M0 (two strikes, not retried); Kaggle search without a token → 200 (public listing)
+  quirks: the mirror holds the full release (5.27 GB, 15 categories) in the original layout <category>/{train,test,ground_truth}; 43,258 downloads
+  mapping: inspection_image(source_dataset=mvtec_ad, category ← folder, label ← test/<defect>) for pill, capsule, carpet, leather
+  next: 'M7: fetch only the four categories needed'
 
 DS-VIS-02:
   signup: none

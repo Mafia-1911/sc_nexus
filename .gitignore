@@ -36,3 +36,6 @@ node_modules/
 .idea/
 .vscode/
 .DS_Store
+
+# Manual drops (e.g. CPA berthing PDFs) before parsing; parsed copies go to data/raw
+data/inbox/

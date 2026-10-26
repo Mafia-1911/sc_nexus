@@ -1,0 +1,42 @@
+{
+  "method": "GET",
+  "url": "https://api.reliefweb.int/v2/reports?appname=***REDACTED***&filter[field]=primary_country.iso3&filter[value]=bgd&sort[]=date.created:desc&limit=20&fields[include][]=title&fields[include][]=date.created&fields[include][]=date.original&fields[include][]=country.iso3&fields[include][]=primary_country.iso3&fields[include][]=disaster.name&fields[include][]=disaster_type.name&fields[include][]=source.shortname&fields[include][]=url_alias&fields[include][]=origin&fields[include][]=format.name&fields[include][]=language.code",
+  "params": {
+    "appname": "***REDACTED***",
+    "filter[field]": "primary_country.iso3",
+    "filter[value]": "bgd",
+    "sort[]": "date.created:desc",
+    "limit": 20,
+    "fields[include][]": [
+      "title",
+      "date.created",
+      "date.original",
+      "country.iso3",
+      "primary_country.iso3",
+      "disaster.name",
+      "disaster_type.name",
+      "source.shortname",
+      "url_alias",
+      "origin",
+      "format.name",
+      "language.code"
+    ]
+  },
+  "headers": {
+    "host": "api.reliefweb.int",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-26T14:19:56.919675+00:00",
+  "status": 200,
+  "content_type": "application/json",
+  "transformed": false
+}

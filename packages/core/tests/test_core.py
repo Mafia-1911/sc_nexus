@@ -31,6 +31,21 @@ def test_settings_accept_aliases_and_quoted_names(env_file: Path) -> None:
     assert sorted(s.secret_values()) == ["abc123", "def456"]
 
 
+def test_post_g0_aliases_and_brand(env_file: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("CPORTAL_BRAND_NAME", raising=False)
+    env_file.write_text(
+        'HEIGIT_KEY="ors1"\nNASA_FIRMS_MAPKEY="firms1"\nKAGGLE_APIKEY="KGAT_x"\n'
+        "RELIEFWEB_APPNAME=cportal-app\n"
+    )
+    s = Settings()
+    assert s.secret("ORS_API_KEY") == "ors1"
+    assert s.secret("FIRMS_MAP_KEY") == "firms1"
+    assert s.secret("KAGGLE_API_TOKEN") == "KGAT_x"
+    assert s.secret("RELIEFWEB_APPNAME") == "cportal-app"
+    assert s.brand_name == "Supply Chain Nexus"
+    assert "cportal-app" in s.secret_values()  # quotas are per appname, so it is redacted too
+
+
 def test_environment_wins_over_dotenv(env_file: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     env_file.write_text("GFW_API_TOKEN=from-file\n")
     monkeypatch.setenv("GFW_API_TOKEN", "from-env")

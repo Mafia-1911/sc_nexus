@@ -68,6 +68,22 @@ class Settings(BaseSettings):
     cportal_env: str = "dev"
     # Optional contact (URL or e-mail) for the User-Agent; Nominatim and Overpass ask for one.
     cportal_contact: str = ""
+    # Q-07: the product name is a variable; the repo codename stays "Cportal".
+    brand_name: str = Field(
+        default="Supply Chain Nexus", validation_alias=AliasChoices("CPORTAL_BRAND_NAME")
+    )
+    # Q-05: which display names the synthetic world uses (config/name_packs/<pack>.yaml).
+    name_pack: str = Field(default="fictional", validation_alias=AliasChoices("CPORTAL_NAME_PACK"))
+
+    database_url: str = Field(
+        default="postgresql+psycopg://cportal:cportal@localhost:5432/cportal",
+        validation_alias=AliasChoices("DATABASE_URL"),
+    )
+    # Q-03: local LLM only (ADR-008). Any OpenAI-compatible local server works (Ollama default).
+    llm_base_url: str = Field(
+        default="http://localhost:11434/v1", validation_alias=AliasChoices("LLM_BASE_URL")
+    )
+    llm_model: str = Field(default="qwen3:4b", validation_alias=AliasChoices("LLM_MODEL"))
 
     # Source credentials, by DS-ID. Empty means "not provided yet": the probe records it under
     # "needs you" and moves on.
@@ -86,13 +102,20 @@ class Settings(BaseSettings):
     roboflow_api_key: SecretStr | None = _credential(  # DS-VIS-04, DS-VIS-05
         "ROBOFLOW_API_KEY", "ROBOFLOW_APIKEY"
     )
-    earthdata_token: SecretStr | None = _credential(  # not in the brief's registry yet
+    earthdata_token: SecretStr | None = _credential(  # DS-SAT-05 (proposed)
         "EARTHDATA_TOKEN", "NASA_EARTHDATA_TOKEN"
     )
-    ors_api_key: SecretStr | None = _credential("ORS_API_KEY")  # DS-GEO-03
-    reliefweb_appname: str = Field(  # DS-NEWS-04: a pre-approved identifier, not a secret
-        default="", validation_alias=AliasChoices("RELIEFWEB_APPNAME")
+    firms_map_key: SecretStr | None = _credential(  # DS-WX-05 (proposed)
+        "FIRMS_MAP_KEY", "NASA_FIRMS_MAPKEY", "NASA_FIRMS_MAP_KEY"
     )
+    # DS-GEO-03: HeiGIT runs openrouteservice, so its dashboard calls the ORS key a HeiGIT key.
+    ors_api_key: SecretStr | None = _credential("ORS_API_KEY", "HEIGIT_KEY", "HEIGIT_API_KEY")
+    kaggle_api_token: SecretStr | None = _credential(  # DS-VIS-01 mirror, DS-SUP-03
+        "KAGGLE_API_TOKEN", "KAGGLE_APIKEY"
+    )
+    # DS-NEWS-04: a pre-approved identifier. Kept secret anyway: quotas are per appname and
+    # ReliefWeb echoes it in every response's links.
+    reliefweb_appname: SecretStr | None = _credential("RELIEFWEB_APPNAME")
 
     @classmethod
     def settings_customise_sources(

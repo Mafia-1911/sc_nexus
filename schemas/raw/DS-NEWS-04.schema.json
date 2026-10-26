@@ -1,0 +1,448 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-NEWS-04",
+  "title": "DS-NEWS-04 · ReliefWeb API v2: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "disasters_bgd": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "integer"
+        },
+        "href": {
+          "type": "string"
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "href"
+              ]
+            },
+            "next": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "href"
+              ]
+            }
+          },
+          "required": [
+            "next",
+            "self"
+          ]
+        },
+        "took": {
+          "type": "integer"
+        },
+        "totalCount": {
+          "type": "integer"
+        },
+        "count": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "score": {
+                "type": "integer"
+              },
+              "fields": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "glide": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ]
+                    }
+                  },
+                  "date": {
+                    "type": "object",
+                    "properties": {
+                      "created": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "created"
+                    ]
+                  }
+                },
+                "required": [
+                  "date",
+                  "glide",
+                  "name",
+                  "status",
+                  "type"
+                ]
+              },
+              "href": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "fields",
+              "href",
+              "id",
+              "score"
+            ]
+          }
+        }
+      },
+      "required": [
+        "count",
+        "data",
+        "href",
+        "links",
+        "time",
+        "took",
+        "totalCount"
+      ]
+    },
+    "reports_bgd": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "integer"
+        },
+        "href": {
+          "type": "string"
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "href"
+              ]
+            },
+            "next": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "href"
+              ]
+            }
+          },
+          "required": [
+            "next",
+            "self"
+          ]
+        },
+        "took": {
+          "type": "integer"
+        },
+        "totalCount": {
+          "type": "integer"
+        },
+        "count": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "score": {
+                "type": "number"
+              },
+              "fields": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title"
+                ]
+              },
+              "href": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "fields",
+              "href",
+              "id",
+              "score"
+            ]
+          }
+        }
+      },
+      "required": [
+        "count",
+        "data",
+        "href",
+        "links",
+        "time",
+        "took",
+        "totalCount"
+      ]
+    },
+    "reports_bgd_fields": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "integer"
+        },
+        "href": {
+          "type": "string"
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "href"
+              ]
+            },
+            "next": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "href"
+              ]
+            }
+          },
+          "required": [
+            "next",
+            "self"
+          ]
+        },
+        "took": {
+          "type": "integer"
+        },
+        "totalCount": {
+          "type": "integer"
+        },
+        "count": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "score": {
+                "type": "integer"
+              },
+              "fields": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "origin": {
+                    "type": "string"
+                  },
+                  "primary_country": {
+                    "type": "object",
+                    "properties": {
+                      "iso3": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "iso3"
+                    ]
+                  },
+                  "country": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "iso3": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "iso3"
+                      ]
+                    }
+                  },
+                  "source": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "shortname": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "shortname"
+                      ]
+                    }
+                  },
+                  "language": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ]
+                    }
+                  },
+                  "format": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ]
+                    }
+                  },
+                  "disaster": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ]
+                    }
+                  },
+                  "disaster_type": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ]
+                    }
+                  },
+                  "url_alias": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "object",
+                    "properties": {
+                      "original": {
+                        "type": "string"
+                      },
+                      "created": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "created",
+                      "original"
+                    ]
+                  }
+                },
+                "required": [
+                  "country",
+                  "date",
+                  "format",
+                  "language",
+                  "primary_country",
+                  "source",
+                  "title",
+                  "url_alias"
+                ]
+              },
+              "href": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "fields",
+              "href",
+              "id",
+              "score"
+            ]
+          }
+        }
+      },
+      "required": [
+        "count",
+        "data",
+        "href",
+        "links",
+        "time",
+        "took",
+        "totalCount"
+      ]
+    }
+  }
+}

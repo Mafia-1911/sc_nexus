@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-WX-05",
+  "title": "DS-WX-05 · NASA FIRMS active fires (proposed): raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "viirs_noaa20_bgd_2d": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "bright_ti4": {
+            "type": "number"
+          },
+          "scan": {
+            "type": "number"
+          },
+          "track": {
+            "type": "number"
+          },
+          "acq_date": {
+            "type": "string"
+          },
+          "acq_time": {
+            "type": "integer"
+          },
+          "satellite": {
+            "type": "string"
+          },
+          "instrument": {
+            "type": "string"
+          },
+          "confidence": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "bright_ti5": {
+            "type": "number"
+          },
+          "frp": {
+            "type": "number"
+          },
+          "daynight": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "acq_date",
+          "acq_time",
+          "bright_ti4",
+          "bright_ti5",
+          "confidence",
+          "daynight",
+          "frp",
+          "instrument",
+          "latitude",
+          "longitude",
+          "satellite",
+          "scan",
+          "track",
+          "version"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,390 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-VIS-01",
+  "title": "DS-VIS-01 · MVTec AD: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "kaggle_mirror_files": {
+      "type": "object",
+      "properties": {
+        "nextPageTokenNullable": {
+          "type": "string"
+        },
+        "datasetFiles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "nameNullable": {
+                "type": "string"
+              },
+              "ref": {
+                "type": "string"
+              },
+              "datasetRef": {
+                "type": "string"
+              },
+              "hasDatasetRef": {
+                "type": "boolean"
+              },
+              "ownerRef": {
+                "type": "string"
+              },
+              "hasOwnerRef": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              },
+              "hasName": {
+                "type": "boolean"
+              },
+              "creationDate": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "hasDescription": {
+                "type": "boolean"
+              },
+              "fileType": {
+                "type": "string"
+              },
+              "hasFileType": {
+                "type": "boolean"
+              },
+              "url": {
+                "type": "string"
+              },
+              "hasUrl": {
+                "type": "boolean"
+              },
+              "totalBytes": {
+                "type": "integer"
+              },
+              "columns": {
+                "type": "array"
+              }
+            },
+            "required": [
+              "columns",
+              "creationDate",
+              "datasetRef",
+              "description",
+              "fileType",
+              "hasDatasetRef",
+              "hasDescription",
+              "hasFileType",
+              "hasName",
+              "hasOwnerRef",
+              "hasUrl",
+              "name",
+              "nameNullable",
+              "ownerRef",
+              "ref",
+              "totalBytes",
+              "url"
+            ]
+          }
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "hasErrorMessage": {
+          "type": "boolean"
+        },
+        "nextPageToken": {
+          "type": "string"
+        },
+        "hasNextPageToken": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "datasetFiles",
+        "errorMessage",
+        "hasErrorMessage",
+        "hasNextPageToken",
+        "nextPageToken",
+        "nextPageTokenNullable"
+      ]
+    },
+    "kaggle_search_mvtec_ad": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "subtitleNullable": {
+            "type": "string"
+          },
+          "creatorNameNullable": {
+            "type": "string"
+          },
+          "creatorUrlNullable": {
+            "type": "string"
+          },
+          "totalBytesNullable": {
+            "type": "integer"
+          },
+          "urlNullable": {
+            "type": "string"
+          },
+          "licenseNameNullable": {
+            "type": "string"
+          },
+          "ownerNameNullable": {
+            "type": "string"
+          },
+          "ownerRefNullable": {
+            "type": "string"
+          },
+          "titleNullable": {
+            "type": "string"
+          },
+          "currentVersionNumberNullable": {
+            "type": "integer"
+          },
+          "usabilityRatingNullable": {
+            "type": "number"
+          },
+          "thumbnailImageUrlNullable": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "ref": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "hasSubtitle": {
+            "type": "boolean"
+          },
+          "creatorName": {
+            "type": "string"
+          },
+          "hasCreatorName": {
+            "type": "boolean"
+          },
+          "creatorUrl": {
+            "type": "string"
+          },
+          "hasCreatorUrl": {
+            "type": "boolean"
+          },
+          "totalBytes": {
+            "type": "integer"
+          },
+          "hasTotalBytes": {
+            "type": "boolean"
+          },
+          "url": {
+            "type": "string"
+          },
+          "hasUrl": {
+            "type": "boolean"
+          },
+          "lastUpdated": {
+            "type": "string"
+          },
+          "downloadCount": {
+            "type": "integer"
+          },
+          "isPrivate": {
+            "type": "boolean"
+          },
+          "isFeatured": {
+            "type": "boolean"
+          },
+          "licenseName": {
+            "type": "string"
+          },
+          "hasLicenseName": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          },
+          "hasDescription": {
+            "type": "boolean"
+          },
+          "ownerName": {
+            "type": "string"
+          },
+          "hasOwnerName": {
+            "type": "boolean"
+          },
+          "ownerRef": {
+            "type": "string"
+          },
+          "hasOwnerRef": {
+            "type": "boolean"
+          },
+          "kernelCount": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "hasTitle": {
+            "type": "boolean"
+          },
+          "topicCount": {
+            "type": "integer"
+          },
+          "viewCount": {
+            "type": "integer"
+          },
+          "voteCount": {
+            "type": "integer"
+          },
+          "currentVersionNumber": {
+            "type": "integer"
+          },
+          "hasCurrentVersionNumber": {
+            "type": "boolean"
+          },
+          "usabilityRating": {
+            "type": "number"
+          },
+          "hasUsabilityRating": {
+            "type": "boolean"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "nameNullable": {
+                  "type": "string"
+                },
+                "fullPathNullable": {
+                  "type": "string"
+                },
+                "ref": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "hasName": {
+                  "type": "boolean"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "hasDescription": {
+                  "type": "boolean"
+                },
+                "fullPath": {
+                  "type": "string"
+                },
+                "hasFullPath": {
+                  "type": "boolean"
+                },
+                "competitionCount": {
+                  "type": "integer"
+                },
+                "datasetCount": {
+                  "type": "integer"
+                },
+                "scriptCount": {
+                  "type": "integer"
+                },
+                "totalCount": {
+                  "type": "integer"
+                },
+                "descriptionNullable": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "competitionCount",
+                "datasetCount",
+                "description",
+                "fullPath",
+                "fullPathNullable",
+                "hasDescription",
+                "hasFullPath",
+                "hasName",
+                "name",
+                "nameNullable",
+                "ref",
+                "scriptCount",
+                "totalCount"
+              ]
+            }
+          },
+          "files": {
+            "type": "array"
+          },
+          "versions": {
+            "type": "array"
+          },
+          "thumbnailImageUrl": {
+            "type": "string"
+          },
+          "hasThumbnailImageUrl": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "creatorName",
+          "creatorNameNullable",
+          "creatorUrl",
+          "creatorUrlNullable",
+          "currentVersionNumber",
+          "currentVersionNumberNullable",
+          "description",
+          "downloadCount",
+          "files",
+          "hasCreatorName",
+          "hasCreatorUrl",
+          "hasCurrentVersionNumber",
+          "hasDescription",
+          "hasLicenseName",
+          "hasOwnerName",
+          "hasOwnerRef",
+          "hasSubtitle",
+          "hasThumbnailImageUrl",
+          "hasTitle",
+          "hasTotalBytes",
+          "hasUrl",
+          "hasUsabilityRating",
+          "id",
+          "isFeatured",
+          "isPrivate",
+          "kernelCount",
+          "lastUpdated",
+          "licenseName",
+          "licenseNameNullable",
+          "ownerName",
+          "ownerNameNullable",
+          "ownerRef",
+          "ownerRefNullable",
+          "ref",
+          "subtitle",
+          "subtitleNullable",
+          "tags",
+          "thumbnailImageUrl",
+          "thumbnailImageUrlNullable",
+          "title",
+          "titleNullable",
+          "topicCount",
+          "totalBytes",
+          "totalBytesNullable",
+          "url",
+          "urlNullable",
+          "usabilityRating",
+          "usabilityRatingNullable",
+          "versions",
+          "viewCount",
+          "voteCount"
+        ]
+      }
+    }
+  }
+}

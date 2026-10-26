@@ -1,0 +1,26 @@
+{
+  "method": "GET",
+  "url": "https://api.openrouteservice.org/v2/directions/driving-hgv?api_key=%2A%2A%2AREDACTED%2A%2A%2A&start=91.8333,22.3333&end=90.4294,23.7337",
+  "params": {
+    "api_key": "***REDACTED***",
+    "start": "91.8333,22.3333",
+    "end": "90.4294,23.7337"
+  },
+  "headers": {
+    "host": "api.openrouteservice.org",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-26T00:22:00.156892+00:00",
+  "status": 200,
+  "content_type": "application/geo+json;charset=UTF-8",
+  "transformed": false
+}

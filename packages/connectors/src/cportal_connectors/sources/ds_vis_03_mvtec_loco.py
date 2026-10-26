@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from cportal_connectors import kaggle
 from cportal_connectors.base import Connector
 from cportal_connectors.harness import ProbeContext
 from cportal_connectors.landing import landing_and_files
@@ -19,6 +20,9 @@ class MvtecLoco(Connector):
             r"\.tar\.(xz|gz)$",
             max_files=2,
         )
+        if ctx.has("KAGGLE_API_TOKEN"):
+            found = kaggle.search(ctx, "kaggle_search_mvtec_loco", "mvtec loco")
+            ctx.metric("kaggle_mirrors", kaggle.summarise(found.parsed))
 
 
 CONNECTOR = MvtecLoco()

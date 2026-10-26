@@ -4,42 +4,91 @@
 
 | Field | Value |
 |---|---|
-| status | needs-registration |
+| status | verified |
 | tier | P1 |
 | used by | C2 |
-| default mode | False |
-| fallback (two strikes) | DS-WX-02 |
+| default mode | live |
+| fallback (two strikes) | synthetic |
 | auth | appname (`RELIEFWEB_APPNAME`) |
-| sign-up | https://apidoc.reliefweb.int/parameters#appname (request a pre-approved appname) |
+| sign-up | https://apidoc.reliefweb.int/parameters#appname (appname approved at G0; RELIEFWEB_APPNAME) |
 | protocol | REST |
-| pagination | — |
+| pagination | limit, offset |
 | limits (documented) | — |
 | limits (observed) | — |
-| licence / terms | free (per-report source licences) |
-| attribution | — |
-| NC? | — |
-| freshness / latency | — |
-| history depth | — |
+| licence / terms | free; each report keeps its source's terms; credit ReliefWeb and the source |
+| attribution | ReliefWeb (UN OCHA) + the report's source |
+| NC? | no |
+| freshness / latency | minutes (latest Bangladesh report created 2026-10-26 05:03Z, the probe day) |
+| history depth | 18,063 reports with primary country Bangladesh; 113 Bangladesh disasters |
 | update cadence | — |
-| Bangladesh coverage | — |
+| Bangladesh coverage | 18,063 reports; 113 disasters, 3 ongoing at probe time (dengue, flash floods Jul 2026, measles); includes Tropical Cyclone Remal - May 2024 |
 | failure modes observed | no appname → 400; unapproved appname → 403 |
-| quirks | — |
-| mapping to canonical | — |
-| synthetic twin | — |
-| next | request an appname (approval takes time); GDACS covers hazards meanwhile |
-| raw schema | — (inferred with genson; field profiles below) |
+| quirks | the default response has only id, score and title, so request fields[include][]; country codes are lower-case ISO3; disaster names embed month and year |
+| mapping to canonical | article(url ← url_alias, source_name ← source.shortname, published_at ← date.original, title, lang ← language.code); disruption_event link via disaster name / GLIDE (external_id) |
+| synthetic twin | scenario library emits ReliefWeb-shaped situation reports |
+| next | C2 (M4): ingest Bangladesh reports every 6 h |
+| raw schema | [DS-NEWS-04.schema.json](../../schemas/raw/DS-NEWS-04.schema.json) (inferred with genson; field profiles below) |
 
 ## Probe evidence
 
 <!-- probe-evidence:start -->
 
-_Generated from the probe run of 2026-10-25T23:28:38Z (`data/raw/_probes/DS-NEWS-04/20261025T232838Z/`, local and gitignored). Regenerate with `uv run probe --card DS-NEWS-04`._
+_Generated from the probe run of 2026-10-26T14:19:56Z (`data/raw/_probes/DS-NEWS-04/20261026T141956Z/`, local and gitignored). Regenerate with `uv run probe --card DS-NEWS-04`._
 
 | Call | Purpose | Request | HTTP | ms | Bytes | Records | Observed |
 |---|---|---|---|---|---|---|---|
-| `no_appname` | no_key | `GET https://api.reliefweb.int/v2/reports?query[value]=Bangladesh+cyclone&limit=5&sort[]=date:desc` | 400 | 1042 | 105 |  | {"status":400,"time":17,"error":{"type":"BadRequestHttpException","message":"Missing appname parameter"}} |
-| `unapproved_appname` | bad_key | `GET https://api.reliefweb.int/v2/reports?query[value]=Bangladesh+cyclone&limit=5&sort[]=date:desc&appname=cportal…` | 403 | 346 | 218 |  | {"status":403,"time":22,"error":{"type":"AccessDeniedHttpException","message":"You are not using an approved appname. Kindly request an appname from ReliefWeb here: https:\/\/apidoc.reliefweb.int\/parameters#appname"}} |
+| `no_appname` | no_key | `GET https://api.reliefweb.int/v2/reports?query[value]=Bangladesh+cyclone&limit=5&sort[]=date:desc` | 400 | 968 | 105 |  | {"status":400,"time":19,"error":{"type":"BadRequestHttpException","message":"Missing appname parameter"}} |
+| `unapproved_appname` | bad_key | `GET https://api.reliefweb.int/v2/reports?query[value]=Bangladesh+cyclone&limit=5&sort[]=date:desc&appname=cportal…` | 403 | 312 | 218 |  | {"status":403,"time":29,"error":{"type":"AccessDeniedHttpException","message":"You are not using an approved appname. Kindly request an appname from ReliefWeb here: https:\/\/apidoc.reliefweb.int\/parameters#appname"}} |
+| `reports_bgd` | main | `GET https://api.reliefweb.int/v2/reports?query[value]=Bangladesh+cyclone&limit=5&sort[]=date:desc&appname=***REDA…` | 200 | 318 | 1,379 | 5 | default response: id, score and title only |
+| `reports_bgd_fields` | main | `GET https://api.reliefweb.int/v2/reports?appname=***REDACTED***&filter[field]=primary_country.iso3&filter[value]=…` | 200 | 345 | 15,631 | 20 |  |
+| `disasters_bgd` | main | `GET https://api.reliefweb.int/v2/disasters?appname=***REDACTED***&filter[field]=country.iso3&filter[value]=bgd&so…` | 200 | 302 | 6,517 | 20 |  |
 
-**Needs you:** RELIEFWEB_APPNAME not set in `.env`.
+**Measured:**
+
+- `reports_bgd_total`: 18063
+- `disasters_bgd_total`: 113
+- `latest_report_created`: 2026-10-26T05:03:07+00:00
+
+**Fields of `reports_bgd`** (5 records):
+
+| Field | Type | Unit | Null % | Distinct | Example | Meaning |
+|---|---|---|---|---|---|---|
+| `id` | string |  | 0.0 | 5 | 4235481 |  |
+| `score` | number |  | 0.0 | 3 | 7.403413 |  |
+| `fields.title` | string |  | 0.0 | 5 | Bangladesh: Epidemiological Highlights - Epi Week 39; 27 Se… |  |
+| `href` | string |  | 0.0 | 5 | https://api.reliefweb.int/v2/reports/4235481 |  |
+
+**Fields of `reports_bgd_fields`** (20 records):
+
+| Field | Type | Unit | Null % | Distinct | Example | Meaning |
+|---|---|---|---|---|---|---|
+| `id` | string |  | 0.0 | 20 | 4235481 |  |
+| `score` | integer |  | 0.0 | 1 | 1 |  |
+| `fields.title` | string |  | 0.0 | 20 | Bangladesh: Epidemiological Highlights - Epi Week 39; 27 Se… |  |
+| `fields.origin` | string |  | 10.0 | 18 | https://www.who.int/bangladesh/publications-detail/weekly-e… |  |
+| `fields.primary_country.iso3` | string |  | 0.0 | 1 | bgd |  |
+| `fields.country` | array |  | 0.0 | 2 | [{"iso3": "bgd"}, {"iso3": "mmr"}] |  |
+| `fields.source` | array |  | 0.0 | 9 | [{"shortname": "WHO"}] |  |
+| `fields.language` | array |  | 0.0 | 1 | [{"code": "en"}] |  |
+| `fields.format` | array |  | 0.0 | 6 | [{"name": "Situation Report"}] |  |
+| `fields.disaster` | array |  | 65.0 | 3 | [{"name": "Bangladesh: Measles Outbreak - Mar 2026"}] |  |
+| `fields.disaster_type` | array |  | 65.0 | 2 | [{"name": "Epidemic"}] |  |
+| `fields.url_alias` | string |  | 0.0 | 20 | https://reliefweb.int/report/bangladesh/bangladesh-epidemio… |  |
+| `fields.date.original` | string |  | 0.0 | 11 | 2026-10-26T00:00:00+00:00 |  |
+| `fields.date.created` | string |  | 0.0 | 20 | 2026-10-26T05:03:07+00:00 |  |
+| `href` | string |  | 0.0 | 20 | https://api.reliefweb.int/v2/reports/4235481 |  |
+
+**Fields of `disasters_bgd`** (20 records):
+
+| Field | Type | Unit | Null % | Distinct | Example | Meaning |
+|---|---|---|---|---|---|---|
+| `id` | string |  | 0.0 | 20 | 52700 |  |
+| `score` | integer |  | 0.0 | 1 | 1 |  |
+| `fields.name` | string |  | 0.0 | 20 | Bangladesh: Dengue Outbreak - Sep 2026 |  |
+| `fields.status` | string |  | 0.0 | 2 | ongoing |  |
+| `fields.glide` | string |  | 0.0 | 20 | EP-2026-000174-BGD |  |
+| `fields.type` | array |  | 0.0 | 8 | [{"name": "Epidemic"}] |  |
+| `fields.date.created` | string |  | 0.0 | 20 | 2026-09-16T01:11:24+00:00 |  |
+| `href` | string |  | 0.0 | 20 | https://api.reliefweb.int/v2/disasters/52700 |  |
 
 <!-- probe-evidence:end -->

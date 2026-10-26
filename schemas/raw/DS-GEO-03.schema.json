@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-GEO-03",
+  "title": "DS-GEO-03 · OpenRouteService (HGV): raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "ctg_to_kamalapur": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "bbox": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "bbox": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "type": {
+                "type": "string"
+              },
+              "properties": {
+                "type": "object",
+                "properties": {
+                  "segments": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "distance": {
+                          "type": "number"
+                        },
+                        "duration": {
+                          "type": "number"
+                        },
+                        "steps": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "distance": {
+                                "type": "number"
+                              },
+                              "duration": {
+                                "type": "number"
+                              },
+                              "type": {
+                                "type": "integer"
+                              },
+                              "instruction": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "way_points": {
+                                "type": "array",
+                                "items": {
+                                  "type": "integer"
+                                }
+                              },
+                              "exit_number": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "distance",
+                              "duration",
+                              "instruction",
+                              "name",
+                              "type",
+                              "way_points"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "distance",
+                        "duration",
+                        "steps"
+                      ]
+                    }
+                  },
+                  "way_points": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "summary": {
+                    "type": "object",
+                    "properties": {
+                      "distance": {
+                        "type": "number"
+                      },
+                      "duration": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "distance",
+                      "duration"
+                    ]
+                  }
+                },
+                "required": [
+                  "segments",
+                  "summary",
+                  "way_points"
+                ]
+              },
+              "geometry": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "coordinates": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "coordinates",
+                  "type"
+                ]
+              }
+            },
+            "required": [
+              "bbox",
+              "geometry",
+              "properties",
+              "type"
+            ]
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "attribution": {
+              "type": "string"
+            },
+            "service": {
+              "type": "string"
+            },
+            "timestamp": {
+              "type": "integer"
+            },
+            "query": {
+              "type": "object",
+              "properties": {
+                "coordinates": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "profile": {
+                  "type": "string"
+                },
+                "profileName": {
+                  "type": "string"
+                },
+                "format": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "coordinates",
+                "format",
+                "profile",
+                "profileName"
+              ]
+            },
+            "engine": {
+              "type": "object",
+              "properties": {
+                "version": {
+                  "type": "string"
+                },
+                "build_date": {
+                  "type": "string"
+                },
+                "graph_date": {
+                  "type": "string"
+                },
+                "osm_date": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "build_date",
+                "graph_date",
+                "osm_date",
+                "version"
+              ]
+            }
+          },
+          "required": [
+            "attribution",
+            "engine",
+            "query",
+            "service",
+            "timestamp"
+          ]
+        }
+      },
+      "required": [
+        "bbox",
+        "features",
+        "metadata",
+        "type"
+      ]
+    }
+  }
+}

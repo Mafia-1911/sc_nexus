@@ -1,0 +1,35 @@
+{
+  "method": "GET",
+  "url": "https://api.reliefweb.int/v2/disasters?appname=***REDACTED***&filter[field]=country.iso3&filter[value]=bgd&sort[]=date.created:desc&limit=20&fields[include][]=name&fields[include][]=date.created&fields[include][]=type.name&fields[include][]=status&fields[include][]=glide",
+  "params": {
+    "appname": "***REDACTED***",
+    "filter[field]": "country.iso3",
+    "filter[value]": "bgd",
+    "sort[]": "date.created:desc",
+    "limit": 20,
+    "fields[include][]": [
+      "name",
+      "date.created",
+      "type.name",
+      "status",
+      "glide"
+    ]
+  },
+  "headers": {
+    "host": "api.reliefweb.int",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-10-26T14:19:56.919675+00:00",
+  "status": 200,
+  "content_type": "application/json",
+  "transformed": false
+}

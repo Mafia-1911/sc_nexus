@@ -4,41 +4,42 @@
 
 | Field | Value |
 |---|---|
-| status | needs-registration |
+| status | verified |
 | tier | P1 |
 | used by | C3 |
-| default mode | False |
+| default mode | live |
 | fallback (two strikes) | DS-GEO-01 |
 | auth | api-key (`ORS_API_KEY`) |
-| sign-up | https://openrouteservice.org/dev/#/signup |
+| sign-up | https://account.heigit.org (HeiGIT runs openrouteservice; its dashboard calls the key a HeiGIT key) |
 | protocol | REST |
 | pagination | — |
 | limits (documented) | — |
-| limits (observed) | — |
-| licence / terms | — |
-| attribution | — |
-| NC? | — |
-| freshness / latency | — |
+| limits (observed) | x-ratelimit-limit 200, remaining 199 after one call (window not stated in the headers) |
+| licence / terms | ORS terms (free tier, not for production volume); routes from OpenStreetMap (ODbL) |
+| attribution | openrouteservice.org \| OpenStreetMap contributors |
+| NC? | no |
+| freshness / latency | graph built 2026-09-23 from OSM data of 2026-09-13 (engine 9.10.0) |
 | history depth | — |
 | update cadence | — |
-| Bangladesh coverage | — |
+| Bangladesh coverage | Chattogram port → Kamalapur ICD (HGV): 244.8 km, 3.30 h free-flow. Real truck times are much longer, so ORS gives distance and route shape, not duration |
 | failure modes observed | no key → 401 |
 | quirks | — |
-| mapping to canonical | — |
+| mapping to canonical | route_option validation (distance_km, geom); C3 compares its corridor-graph distances |
 | synthetic twin | — |
-| next | optional validation of C3 travel times |
-| raw schema | — (inferred with genson; field profiles below) |
+| next | C3 (M5): validation set of ~20 origin-destination pairs, well inside the rate limit |
+| raw schema | [DS-GEO-03.schema.json](../../schemas/raw/DS-GEO-03.schema.json) (inferred with genson; field profiles below) |
 
 ## Probe evidence
 
 <!-- probe-evidence:start -->
 
-_Generated from the probe run of 2026-10-25T23:28:40Z (`data/raw/_probes/DS-GEO-03/20261025T232840Z/`, local and gitignored). Regenerate with `uv run probe --card DS-GEO-03`._
+_Generated from the probe run of 2026-10-26T00:22:00Z (`data/raw/_probes/DS-GEO-03/20261026T002200Z/`, local and gitignored). Regenerate with `uv run probe --card DS-GEO-03`._
 
 | Call | Purpose | Request | HTTP | ms | Bytes | Records | Observed |
 |---|---|---|---|---|---|---|---|
-| `no_key` | no_key | `GET https://api.openrouteservice.org/v2/directions/driving-hgv?start=91.8333,22.3333&end=90.4294,23.7337` | 401 | 708 | 46 |  | { "error": "Authorization field missing" } |
+| `no_key` | no_key | `GET https://api.openrouteservice.org/v2/directions/driving-hgv?start=91.8333,22.3333&end=90.4294,23.7337` | 401 | 832 | 46 |  | { "error": "Authorization field missing" } |
+| `ctg_to_kamalapur` | main | `GET https://api.openrouteservice.org/v2/directions/driving-hgv?api_key=%2A%2A%2AREDACTED%2A%2A%2A&start=91.8333,2…` | 200 | 652 | 55,145 |  |  |
 
-**Needs you:** ORS_API_KEY not set in `.env`.
+Rate-limit headers seen: `x-ratelimit-limit: 200`, `x-ratelimit-remaining: 199`, `x-ratelimit-reset: 1792974122`
 
 <!-- probe-evidence:end -->

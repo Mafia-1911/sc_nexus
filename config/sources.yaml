@@ -23,7 +23,7 @@ sources:
   DS-PORT-04: {name: World Port Index (NGA Pub 150), tier: P1, status: verified, mode: off, fallback: DS-PORT-05, used_by: [C4, C3], auth: none, protocol: REST, base_url: "https://msi.nga.mil/api/publications/world-port-index", min_interval_s: 2, bd_coverage: none}
   DS-PORT-05: {name: UN/LOCODE, tier: P0, status: verified, mode: replay, fallback: replay, used_by: [core], auth: none, protocol: file-download, base_url: "https://unlocode.unece.org/downloads/unlocode-latest.zip", min_interval_s: 2}
   DS-PORT-06: {name: OSM Overpass API (port geometry), tier: P0, status: verified, mode: replay, fallback: DS-GEO-01, used_by: [C4, C3], auth: none, protocol: REST, base_url: "https://overpass-api.de/api/interpreter", min_interval_s: 5}
-  DS-PORT-07: {name: Chittagong / Mongla Port Authority websites, tier: P1, status: blocked, mode: off, fallback: synthetic, used_by: [C4, C2], auth: none, protocol: HTML, min_interval_s: 5}
+  DS-PORT-07: {name: "Chittagong Port Authority berthing report (PDF) + port authority websites", tier: P1, status: manual, mode: replay, fallback: synthetic, used_by: [C4, C2], auth: none, protocol: PDF (manual download), min_interval_s: 5}
   DS-PORT-08: {name: searoute (Eurostat MARNET), tier: P0, status: verified, mode: live, fallback: live, used_by: [C3, NX], auth: none, protocol: offline package}
   DS-PORT-09: {name: GFW named anchorages, tier: P1, status: needs-registration, mode: off, fallback: DS-AIS-02, used_by: [C4], auth: account-download, protocol: file-download, nc: true}
 
@@ -39,12 +39,13 @@ sources:
   DS-WX-02: {name: GDACS API, tier: P0, status: verified, mode: live, fallback: replay, used_by: [C2, NX], auth: none, protocol: REST, base_url: "https://www.gdacs.org/gdacsapi/api", min_interval_s: 2}
   DS-WX-03: {name: IBTrACS cyclone tracks, tier: P1, status: verified, mode: replay, fallback: replay, used_by: [C2, NX], auth: none, protocol: file-download, min_interval_s: 2}
   DS-WX-04: {name: holidays package (Bangladesh) + Islamic calendar, tier: P0, status: verified, mode: live, fallback: manual, used_by: [C3, C4], auth: none, protocol: offline package}
+  DS-WX-05: {name: "NASA FIRMS active fires (VIIRS/MODIS NRT) - proposed, not in the brief", tier: P1, status: verified, mode: live, fallback: synthetic, used_by: [C2, NX], auth: api-key, env: [FIRMS_MAP_KEY], protocol: REST, base_url: "https://firms.modaps.eosdis.nasa.gov/api", min_interval_s: 2}
 
   # 2.5 News, events and macro -----------------------------------------------------------------
   DS-NEWS-01: {name: GDELT DOC 2.0 API, tier: P0, status: blocked, mode: off, fallback: DS-NEWS-02, used_by: [C2], auth: none, protocol: REST, base_url: "https://api.gdeltproject.org/api/v2/doc/doc", min_interval_s: 10}
   DS-NEWS-02: {name: GDELT 2.0 Events + GKG raw files, tier: P0, status: verified, mode: live, fallback: replay, used_by: [C2], auth: none, protocol: file-download, base_url: "http://data.gdeltproject.org/gdeltv2", min_interval_s: 2}
   DS-NEWS-03: {name: Curated RSS feeds (config/feeds.yaml), tier: P0, status: verified, mode: live, fallback: replay, used_by: [C2], auth: none, protocol: RSS, min_interval_s: 2}
-  DS-NEWS-04: {name: ReliefWeb API v2, tier: P1, status: needs-registration, mode: off, fallback: DS-WX-02, used_by: [C2], auth: appname, env: [RELIEFWEB_APPNAME], protocol: REST, base_url: "https://api.reliefweb.int/v2", min_interval_s: 2}
+  DS-NEWS-04: {name: ReliefWeb API v2, tier: P1, status: verified, mode: live, fallback: synthetic, used_by: [C2], auth: appname, env: [RELIEFWEB_APPNAME], protocol: REST, base_url: "https://api.reliefweb.int/v2", min_interval_s: 2}
   DS-NEWS-05: {name: ACLED, tier: P2, status: unprobed, mode: off, used_by: [C2], auth: oauth, protocol: REST, nc: true}
   DS-NEWS-06: {name: NY Fed Global Supply Chain Pressure Index, tier: P1, status: verified, mode: replay, fallback: replay, used_by: [C1, NX], auth: none, protocol: file-download, min_interval_s: 2}
   DS-NEWS-07: {name: NGA MSI broadcast warnings, tier: P2, status: unprobed, mode: off, used_by: [C2], auth: none, protocol: REST}
@@ -70,14 +71,14 @@ sources:
   # 2.8 Geo, routing and emissions -------------------------------------------------------------
   DS-GEO-01: {name: Geofabrik Bangladesh OSM extract, tier: P0, status: verified, mode: replay, fallback: replay, used_by: [C3, C4], auth: none, protocol: file-download, base_url: "https://download.geofabrik.de/asia", min_interval_s: 2}
   DS-GEO-02: {name: OSM Overpass API (ICDs, depots, bridges), tier: P0, status: verified, mode: replay, fallback: DS-GEO-01, used_by: [C3], auth: none, protocol: REST, base_url: "https://overpass-api.de/api/interpreter", min_interval_s: 5}
-  DS-GEO-03: {name: OpenRouteService (HGV), tier: P1, status: needs-registration, mode: off, fallback: DS-GEO-01, used_by: [C3], auth: api-key, env: [ORS_API_KEY], protocol: REST, min_interval_s: 2}
+  DS-GEO-03: {name: OpenRouteService (HGV), tier: P1, status: verified, mode: live, fallback: DS-GEO-01, used_by: [C3], auth: api-key, env: [ORS_API_KEY], protocol: REST, base_url: "https://api.openrouteservice.org", min_interval_s: 2}
   DS-GEO-04: {name: Nominatim + GeoNames dump, tier: P0, status: verified, mode: live, fallback: replay, used_by: [C2, core], auth: none, protocol: REST + file-download, min_interval_s: 1.1}
   DS-GEO-05: {name: Emission factors (UK DESNZ; GLEC method), tier: P0, status: verified, mode: replay, fallback: replay, used_by: [C3, NX], auth: none, protocol: file-download, min_interval_s: 2}
   DS-GEO-06: {name: Bangladesh cost tables (manual), tier: P1, status: manual, mode: replay, fallback: manual, used_by: [C3], auth: none, protocol: manual}
   DS-GEO-07: {name: Basemap tiles (OpenFreeMap; Geofabrik Shortbread offline), tier: P0, status: verified, mode: live, fallback: replay, used_by: [web], auth: none, protocol: vector tiles, min_interval_s: 1}
 
   # 2.9 Vision ---------------------------------------------------------------------------------
-  DS-VIS-01: {name: MVTec AD, tier: P0, status: blocked, mode: off, fallback: DS-VIS-02, used_by: [C5], auth: none, protocol: file-download, min_interval_s: 2, nc: true}
+  DS-VIS-01: {name: MVTec AD (Kaggle mirror ipythonx/mvtec-ad), tier: P0, status: verified, mode: replay, fallback: DS-VIS-02, used_by: [C5], auth: api-key, env: [KAGGLE_API_TOKEN], protocol: file-download, base_url: "https://www.kaggle.com/api/v1", min_interval_s: 2, nc: true}
   DS-VIS-02: {name: VisA, tier: P0, status: verified, mode: replay, fallback: replay, used_by: [C5], auth: none, protocol: file-download, min_interval_s: 2}
   DS-VIS-03: {name: MVTec LOCO AD, tier: P1, status: blocked, mode: off, fallback: DS-VIS-05, used_by: [C5], auth: none, protocol: file-download, nc: true}
   DS-VIS-04: {name: Fabric and garment defect datasets, tier: P0, status: verified, mode: replay, fallback: DS-VIS-02, used_by: [C5], auth: mixed, env: [ROBOFLOW_API_KEY], protocol: file-download, min_interval_s: 2}

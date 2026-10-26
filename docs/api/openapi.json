@@ -260,6 +260,22 @@
         "title": "Envelope[GraphOut]",
         "type": "object"
       },
+      "Envelope_KpiStrip_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/KpiStrip"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[KpiStrip]",
+        "type": "object"
+      },
       "Envelope_Page_PortCallOut__": {
         "properties": {
           "data": {
@@ -765,6 +781,81 @@
           "poll"
         ],
         "title": "JobAccepted",
+        "type": "object"
+      },
+      "Kpi": {
+        "properties": {
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": [
+          "key",
+          "label",
+          "value",
+          "meta"
+        ],
+        "title": "Kpi",
+        "type": "object"
+      },
+      "KpiStrip": {
+        "properties": {
+          "kpis": {
+            "items": {
+              "$ref": "#/components/schemas/Kpi"
+            },
+            "title": "Kpis",
+            "type": "array"
+          }
+        },
+        "required": [
+          "kpis"
+        ],
+        "title": "KpiStrip",
         "type": "object"
       },
       "Meta": {
@@ -1389,6 +1480,17 @@
       },
       "SourceOut": {
         "properties": {
+          "cadence": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cadence"
+          },
           "default_mode": {
             "anyOf": [
               {
@@ -1403,6 +1505,23 @@
           "ds_id": {
             "title": "Ds Id",
             "type": "string"
+          },
+          "effective_mode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Mode in use after two strikes",
+            "title": "Effective Mode"
+          },
+          "failures": {
+            "default": 0,
+            "title": "Failures",
+            "type": "integer"
           },
           "fallback": {
             "anyOf": [
@@ -1427,6 +1546,17 @@
             "description": "Hours since the last successful run",
             "title": "Freshness H"
           },
+          "last_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Error"
+          },
           "last_success_ts": {
             "anyOf": [
               {
@@ -1439,6 +1569,17 @@
             ],
             "title": "Last Success Ts"
           },
+          "licence": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Licence"
+          },
           "name": {
             "title": "Name",
             "type": "string"
@@ -1446,6 +1587,17 @@
           "nc": {
             "title": "Nc",
             "type": "boolean"
+          },
+          "records_last_run": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Records Last Run"
           },
           "status": {
             "title": "Status",
@@ -1472,8 +1624,8 @@
     }
   },
   "info": {
-    "description": "Cportal (Supply Chain Nexus) API. Every data response carries `meta` with the data mode (live, replay, synthetic): synthetic rows are never presented as real.",
-    "title": "Supply Chain Nexus API",
+    "description": "Cportal (ShipperFast) API. Every data response carries `meta` with the data mode (live, replay, synthetic): synthetic rows are never presented as real.",
+    "title": "ShipperFast API",
     "version": "0.1.0"
   },
   "openapi": "3.1.0",
@@ -2009,6 +2161,68 @@
         "summary": "Get Job",
         "tags": [
           "jobs"
+        ]
+      }
+    },
+    "/api/v1/kpis": {
+      "get": {
+        "operationId": "kpis_api_v1_kpis_get",
+        "parameters": [
+          {
+            "description": "Scenario key for synthetic rows; omit for real data only",
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "baseline",
+              "description": "Scenario key for synthetic rows; omit for real data only",
+              "title": "Scenario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_KpiStrip_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Kpis",
+        "tags": [
+          "kpis"
         ]
       }
     },

@@ -17,11 +17,12 @@ from urllib.parse import urlsplit
 
 import yaml
 from cportal_core.paths import config_dir
-from cportal_core.schemas.records import ArticleRecord
+from cportal_core.schemas.records import ArticleRecord, Record
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.decoders import rss
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.live import LiveError, LiveHttp
 from cportal_connectors.parsers.news import parse_rss
 
 SNIPPET_CHARS = 300
@@ -71,6 +72,7 @@ def _when(entry: dict[str, Any]) -> str | None:
 class CuratedRss(Connector):
     ds_id = "DS-NEWS-03"
     title = "Curated RSS feeds"
+    live_every_min = 30
     parsers = {
         f"feed_{feed}.json": partial(parse_rss, feed_id=feed)
         for feed in (
@@ -158,6 +160,32 @@ class CuratedRss(Connector):
             "full_content_items": sum(bool(e.get("content")) for e in entries),
             "language": (doc.get("feed") or {}).get("language"),
         }
+
+    def live(self, http: LiveHttp) -> list[Record]:
+        """Every active feed, honouring robots.txt crawl delays. Only metadata and ≤ 300-char
+        snippets are archived and parsed (03 §5). One dead feed does not fail the source."""
+        out: list[Record] = []
+        errors: list[str] = []
+        active = [f for f in feeds() if f["status"] == "active"]
+        last_hit: dict[str, float] = {}
+        for feed in active:
+            host = urlsplit(feed["url"]).netloc
+            delay = float(feed.get("crawl_delay_s", 0))
+            if host in last_hit and (wait := delay - (time.monotonic() - last_hit[host])) > 0:
+                time.sleep(wait)
+            try:
+                body = http.get(
+                    f"feed_{feed['id']}", feed["url"], ext="json", archive_transform=metadata_only
+                )
+            except LiveError as exc:
+                errors.append(str(exc))
+                continue
+            finally:
+                last_hit[host] = time.monotonic()
+            out += parse_rss(metadata_only(body), http.ctx(), feed_id=feed["id"])
+        if active and len(errors) == len(active):
+            raise LiveError("; ".join(errors))
+        return out
 
 
 CONNECTOR = CuratedRss()

@@ -102,7 +102,10 @@ def _maybe_literal(value: Any) -> Any:
 
 
 def parse_gdacs(body: bytes, ctx: ParseContext) -> list[Record]:
-    """GDACS GeoJSON (a FeatureCollection, or a single Feature for one event)."""
+    """GDACS GeoJSON (a FeatureCollection, or a single Feature for one event). GDACS answers
+    204 with an empty body when nothing matches (PROBE_REPORT), which means "no events"."""
+    if not body.strip():
+        return []
     doc = json.loads(body)
     features = doc.get("features") if doc.get("type") == "FeatureCollection" else [doc]
     out: list[Record] = []

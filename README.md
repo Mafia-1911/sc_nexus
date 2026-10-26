@@ -1,4 +1,4 @@
-# Supply Chain Nexus (codename Cportal)
+# ShipperFast (codename Cportal)
 
 A supply-chain resilience platform proven on Bangladesh's Chattogram–Dhaka corridor for garment
 and pharma shippers. The full specification is in [`docs/brief/`](docs/brief/00-INDEX.md); agents

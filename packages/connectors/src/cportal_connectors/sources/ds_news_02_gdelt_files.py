@@ -7,12 +7,13 @@ from datetime import UTC, datetime, timedelta
 from functools import partial
 from typing import Any
 
-from cportal_core.schemas.records import ArticleRecord
+from cportal_core.schemas.records import ArticleRecord, Record
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.decoders import csv_records, zip_member
 from cportal_connectors.harness import ProbeContext
-from cportal_connectors.parsers.news import parse_gdelt_gkg
+from cportal_connectors.live import LiveError, LiveHttp
+from cportal_connectors.parsers.news import parse_gdelt_gkg, select_gkg_rows
 
 ROOT = "http://data.gdeltproject.org/gdeltv2"
 # GDELT 2.0 Event export, 61 tab-separated columns, no header (GDELT-Event_Codebook-V2.0).
@@ -133,6 +134,7 @@ def _bg_gkg(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 class GdeltFiles(Connector):
     ds_id = "DS-NEWS-02"
     title = "GDELT 2.0 Events and GKG raw files"
+    live_every_min = 15
     parsers = {
         "gkg_bd.tsv": partial(parse_gdelt_gkg, columns=GKG_COLUMNS),
         "gkg_translation_bd.tsv": partial(parse_gdelt_gkg, columns=GKG_COLUMNS),
@@ -313,6 +315,16 @@ class GdeltFiles(Connector):
                     "translation_bengali_outlets",
                     dict(Counter(r.get("SourceCommonName") for r in ben).most_common(10)),
                 )
+
+    def live(self, http: LiveHttp) -> list[Record]:
+        """The newest 15-minute GKG file, filtered to rows worth keeping."""
+        manifest = http.get("lastupdate", f"{ROOT}/lastupdate.txt", ext="txt")
+        url = _latest(manifest, ".gkg.csv.zip")
+        if url is None:
+            raise LiveError("lastupdate.txt lists no GKG file")
+        body = http.get("gkg_latest", url, ext="zip", timeout_s=120)
+        text = zip_member(body, r"\.csv$").decode("utf-8", "replace")
+        return parse_gdelt_gkg(select_gkg_rows(text, GKG_COLUMNS), http.ctx(), GKG_COLUMNS)
 
 
 CONNECTOR = GdeltFiles()

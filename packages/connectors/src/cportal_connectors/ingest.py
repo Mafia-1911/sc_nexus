@@ -22,6 +22,7 @@ from sqlalchemy import update
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
 
+from cportal_connectors.cards import facts as card_facts
 from cportal_connectors.registry import connectors, registry
 
 # Reference data first; everything else may point at its rows.
@@ -48,7 +49,12 @@ def ordered(ds_ids: Sequence[str]) -> list[str]:
 def sync_data_sources(session: Session) -> int:
     """Mirror config/sources.yaml into `data_source` for the Data & Models page."""
     rows = []
+    facts = card_facts()
+    available = connectors()
     for ds_id, entry in registry().items():
+        connector = available.get(ds_id)
+        every = connector.live_every_min if connector else None
+        licence = facts.get(ds_id, {}).get("licence")
         rows.append(
             {
                 "id": stable_id("data_source", ds_id),
@@ -58,7 +64,9 @@ def sync_data_sources(session: Session) -> int:
                 "status": str(entry.get("status", "unprobed")),
                 "default_mode": str(entry.get("mode")) if entry.get("mode") else None,
                 "fallback": str(entry.get("fallback")) if entry.get("fallback") else None,
-                "nc": bool(entry.get("nc", False)),
+                "nc": bool(entry.get("nc", False) or facts.get(ds_id, {}).get("nc") is True),
+                "licence": str(licence)[:2000] if licence else None,
+                "cadence": f"every {every} min" if every and entry.get("mode") == "live" else None,
                 "source_id": "registry",
                 "data_mode": DataMode.REPLAY.value,
                 "is_synthetic": False,
@@ -69,7 +77,16 @@ def sync_data_sources(session: Session) -> int:
         index_elements=["id"],
         set_={
             c: stmt.excluded[c]
-            for c in ("name", "tier", "status", "default_mode", "fallback", "nc")
+            for c in (
+                "name",
+                "tier",
+                "status",
+                "default_mode",
+                "fallback",
+                "nc",
+                "licence",
+                "cadence",
+            )
         },
     )
     session.execute(stmt)

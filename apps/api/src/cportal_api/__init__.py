@@ -1,1 +1,1 @@
-"""Cportal API (Supply Chain Nexus): FastAPI app factory in `cportal_api.main`."""
+"""Cportal API (ShipperFast): FastAPI app factory in `cportal_api.main`."""

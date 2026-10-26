@@ -1,0 +1,18 @@
+[project]
+name = "cportal-worker"
+version = "0.1.0"
+description = "Worker (02 §3): schedules, live fetches with two strikes, AIS replay, outbox and jobs"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "apscheduler>=3.11,<4",
+    "cportal-connectors",
+    "cportal-core",
+    "cportal-sim",
+]
+
+[project.scripts]
+cportal-worker = "cportal_worker.main:main"
+
+[build-system]
+requires = ["uv_build>=0.9,<0.14"]
+build-backend = "uv_build"

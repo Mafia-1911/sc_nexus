@@ -9,6 +9,7 @@ from cportal_core.schemas.records import DisruptionEventRecord
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.live import LiveCall, LiveHttp
 from cportal_connectors.parsers.hazards import parse_openfda_recalls, parse_openfda_shortages
 
 BASE = "https://api.fda.gov"
@@ -17,6 +18,7 @@ BASE = "https://api.fda.gov"
 class OpenFda(Connector):
     ds_id = "DS-PHARMA-01"
     title = "openFDA drug enforcement and shortages"
+    live_every_min = 1440
     parsers = {
         "recalls_india.json": parse_openfda_recalls,
         "shortages.json": parse_openfda_shortages,
@@ -156,6 +158,30 @@ class OpenFda(Connector):
                 classes.get(rec.get("classification", "?"), 0) + 1
             )
         ctx.metric("recalls_india_by_class", classes)
+
+    def live_calls(self, http: LiveHttp) -> list[LiveCall]:
+        key = {"api_key": k} if (k := http.secret("OPENFDA_API_KEY")) else {}
+        year = datetime.now(UTC).year
+        window = f"[{year - 1}0101 TO {year}1231]"
+        return [
+            LiveCall(
+                "recalls_south_asia",
+                f"{BASE}/drug/enforcement.json",
+                parse_openfda_recalls,
+                params={
+                    **key,
+                    "search": f'(country:"India" OR country:"Bangladesh") AND report_date:{window}',
+                    "limit": 100,
+                    "sort": "report_date:desc",
+                },
+            ),
+            LiveCall(
+                "shortages",
+                f"{BASE}/drug/shortages.json",
+                parse_openfda_shortages,
+                params={**key, "limit": 100},
+            ),
+        ]
 
 
 CONNECTOR = OpenFda()

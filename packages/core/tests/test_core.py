@@ -42,7 +42,7 @@ def test_post_g0_aliases_and_brand(env_file: Path, monkeypatch: pytest.MonkeyPat
     assert s.secret("FIRMS_MAP_KEY") == "firms1"
     assert s.secret("KAGGLE_API_TOKEN") == "KGAT_x"
     assert s.secret("RELIEFWEB_APPNAME") == "cportal-app"
-    assert s.brand_name == "Supply Chain Nexus"
+    assert s.brand_name == "ShipperFast"
     assert "cportal-app" in s.secret_values()  # quotas are per appname, so it is redacted too
 
 

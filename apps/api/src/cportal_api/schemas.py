@@ -84,6 +84,12 @@ class SourceOut(BaseModel):
     nc: bool
     last_success_ts: datetime | None
     freshness_h: float | None = Field(None, description="Hours since the last successful run")
+    licence: str | None = None
+    cadence: str | None = None
+    effective_mode: str | None = Field(None, description="Mode in use after two strikes")
+    failures: int = 0
+    last_error: str | None = None
+    records_last_run: int | None = None
 
 
 class ScenarioOut(BaseModel):
@@ -217,3 +223,16 @@ class BrandOut(BaseModel):
     banner: str | None
     has_real_names: bool
     version: str
+
+
+class Kpi(BaseModel):
+    key: str
+    label: str
+    value: float | int | None
+    unit: str | None = None
+    detail: str | None = None
+    meta: Meta
+
+
+class KpiStrip(BaseModel):
+    kpis: list[Kpi]

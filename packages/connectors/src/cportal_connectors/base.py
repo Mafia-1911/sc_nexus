@@ -22,6 +22,7 @@ from cportal_connectors.canonical import ParseContext, Parser, sample_bytes, sam
 
 if TYPE_CHECKING:
     from cportal_connectors.harness import ProbeContext
+    from cportal_connectors.live import LiveCall, LiveHttp
 
 Purpose = Literal[
     "main",  # the minimal meaningful call
@@ -95,6 +96,8 @@ class Connector:
     record_types: ClassVar[tuple[type[Record], ...]] = ()
     # Sources with no canonical rows (e.g. basemap tiles): sample file → validator that raises.
     checks: ClassVar[Mapping[str, Callable[[bytes], Any]]] = {}
+    # Live cadence in minutes (02 §10) for sources whose registry mode is `live`; None = never.
+    live_every_min: ClassVar[int | None] = None
 
     def probe_calls(self, ctx: ProbeContext) -> Iterable[ProbeCall]:
         return ()
@@ -102,6 +105,27 @@ class Connector:
     def probe(self, ctx: ProbeContext) -> None:
         for call in self.probe_calls(ctx):
             ctx.http(call)
+
+    def live_calls(self, http: LiveHttp) -> Iterable[LiveCall]:
+        """The requests one live refresh makes; each response goes through its parser."""
+        return ()
+
+    def live(self, http: LiveHttp) -> list[Record]:
+        """Fetch and parse one live refresh. Multi-step sources override this."""
+        from cportal_connectors.live import LiveError  # live imports base: import at call time
+
+        out: list[Record] = []
+        for call in self.live_calls(http):
+            body = http.get(
+                call.name, call.url, call.params, call.headers, call.ext, call.timeout_s
+            )
+            try:
+                out += call.parser(body, http.ctx())
+            except (ValueError, KeyError, TypeError) as exc:  # a malformed answer is a strike
+                raise LiveError(
+                    f"{call.name}: unparseable response ({type(exc).__name__})"
+                ) from exc
+        return out
 
     def replay(self, names: Iterable[str] | None = None) -> list[Record]:
         """Parse committed samples through the real parsers (replay mode, 02 §8)."""

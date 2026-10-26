@@ -1,4 +1,4 @@
-# Cportal / Supply Chain Nexus. up/e2e/demo arrive with M2.
+# Cportal (product brand: ShipperFast, CPORTAL_BRAND_NAME).
 .DEFAULT_GOAL := help
 UV ?= uv
 DS ?=
@@ -52,12 +52,12 @@ synth-ais: ## Synthetic Chattogram AIS for the last 7 days (scenario "baseline",
 	$(UV) run ais-synth --scenario baseline --hours 168 --seed 42
 
 db-local: ## Start a user-level Postgres 16 + PostGIS + pgvector (no Docker; installs on first run)
-	@test -x $$HOME/.local/share/cportal/pg/bin/pg_ctl || scripts/db-local.sh install
-	@test -f $$HOME/.local/share/cportal/pgdata/PG_VERSION || scripts/db-local.sh init
-	@scripts/db-local.sh start
+	@test -x $$HOME/.local/share/cportal/pg/bin/pg_ctl || bash scripts/db-local.sh install
+	@test -f $$HOME/.local/share/cportal/pgdata/PG_VERSION || bash scripts/db-local.sh init
+	@bash scripts/db-local.sh start
 
 db-local-stop: ## Stop the user-level Postgres
-	scripts/db-local.sh stop
+	bash scripts/db-local.sh stop
 
 migrate: ## Apply Alembic migrations to DATABASE_URL
 	$(UV) run alembic -c db/alembic.ini upgrade head

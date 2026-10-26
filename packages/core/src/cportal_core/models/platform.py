@@ -127,6 +127,11 @@ class DataSource(Lineage, Base):
     nc: Mapped[bool] = mapped_column(default=False)
     cadence: Mapped[str | None] = mapped_column(String(64))
     last_success_ts: Mapped[dt.datetime | None]
+    # Runtime state for the two-strikes rule (ADR-011), written by the worker.
+    last_attempt_ts: Mapped[dt.datetime | None]
+    failures: Mapped[int] = mapped_column(Integer, default=0, server_default=text("0"))
+    effective_mode: Mapped[str | None] = mapped_column(String(16))
+    last_error: Mapped[str | None] = mapped_column(Text)
 
 
 class IngestionRun(Lineage, Base):

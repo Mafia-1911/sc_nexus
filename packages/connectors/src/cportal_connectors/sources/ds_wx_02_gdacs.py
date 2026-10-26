@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
 from cportal_core.areas import bbox
@@ -10,6 +10,7 @@ from cportal_core.schemas.records import DisruptionEventRecord
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.live import LiveCall, LiveHttp
 from cportal_connectors.parsers.hazards import parse_gdacs
 
 API = "https://www.gdacs.org/gdacsapi/api"
@@ -31,6 +32,7 @@ def _wkt(name: str) -> str:
 class Gdacs(Connector):
     ds_id = "DS-WX-02"
     title = "GDACS API"
+    live_every_min = 60
     parsers = {"search_bgd.json": parse_gdacs, "event_remal.json": parse_gdacs}
     record_types = (DisruptionEventRecord,)
     field_notes = {
@@ -204,6 +206,25 @@ class Gdacs(Connector):
                 if e.get("eventtype") == "TC"
             ],
         )
+
+    def live_calls(self, http: LiveHttp) -> list[LiveCall]:
+        today = datetime.now(UTC).date()
+        return [
+            LiveCall(
+                "search_bgd",
+                f"{API}/Events/geteventlist/search",
+                parse_gdacs,
+                params={
+                    "eventlist": "TC;FL;EQ",
+                    "country": "Bangladesh",
+                    "fromDate": (today - timedelta(days=60)).isoformat(),
+                    "toDate": today.isoformat(),
+                    "pageSize": 100,
+                    "pageNumber": 1,
+                    "caller": CALLER,
+                },
+            )
+        ]
 
 
 CONNECTOR = Gdacs()

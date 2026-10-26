@@ -64,7 +64,7 @@ def client() -> Iterator[TestClient]:
 
 def test_meta_and_brand(client: TestClient) -> None:
     body = client.get("/api/v1/meta").json()
-    assert body["brand"] == "Supply Chain Nexus" and body["name_pack"] == "fictional"
+    assert body["brand"] == "ShipperFast" and body["name_pack"] == "fictional"
     assert body["banner"] is None
 
 
@@ -148,3 +148,26 @@ def test_read_latency_budget(client: TestClient, path: str) -> None:
         timings.append((time.perf_counter() - t0) * 1000)
     p95 = statistics.quantiles(timings, n=20)[-1]
     assert p95 < 300, f"{path}: p95 {p95:.0f} ms"
+
+
+def test_kpi_strip(client: TestClient) -> None:
+    body = client.get("/api/v1/kpis").json()["data"]["kpis"]
+    kpi = {k["key"]: k for k in body}
+    assert list(kpi) == [
+        "vessels_at_anchorage",
+        "mean_wait_24h",
+        "active_disruptions",
+        "orders_at_risk",
+        "co2e_week",
+    ]
+    assert kpi["vessels_at_anchorage"]["value"] > 0
+    assert kpi["vessels_at_anchorage"]["meta"]["mode"] == "synthetic"
+    assert kpi["co2e_week"]["value"] is None and "M5" in kpi["co2e_week"]["detail"]
+
+
+def test_ws_live_streams_scenario_positions(client: TestClient) -> None:
+    with client.websocket_connect("/ws/live?scenario=baseline") as ws:
+        assert ws.receive_json()["type"] == "hello"
+        snapshot = ws.receive_json()
+    assert snapshot["type"] == "positions" and snapshot["features"]
+    assert snapshot["scenario"] == "baseline" and snapshot["mode"] in ("synthetic", "mixed")

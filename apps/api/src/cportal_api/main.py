@@ -7,7 +7,6 @@ from __future__ import annotations
 
 import asyncio
 import json
-from datetime import UTC, datetime
 
 from cportal_core import __version__
 from cportal_core.db import engine
@@ -18,7 +17,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import text
 
-from cportal_api.routers import events, network, ports, scenarios, sources
+from cportal_api.deps import SessionDep
+from cportal_api.live import positions_snapshot
+from cportal_api.routers import events, kpis, network, ports, scenarios, sources
 from cportal_api.schemas import BrandOut, Problem
 
 PROBLEM = "application/problem+json"
@@ -34,7 +35,7 @@ def create_app() -> FastAPI:
         title=f"{brand_name()} API",
         version=__version__,
         description=(
-            "Cportal (Supply Chain Nexus) API. Every data response carries `meta` with the data "
+            f"Cportal ({brand_name()}) API. Every data response carries `meta` with the data "
             "mode (live, replay, synthetic): synthetic rows are never presented as real."
         ),
         responses={404: {"model": Problem}, 422: {"model": Problem}},
@@ -81,22 +82,27 @@ def create_app() -> FastAPI:
             version=__version__,
         )
 
-    for router in (sources.router, scenarios.router, ports.router, events.router, network.router):
+    routers = (sources, scenarios, ports, events, network, kpis)
+    for module in routers:
+        router = module.router
         api.include_router(router)
     app.include_router(api)
 
     @app.websocket("/ws/live")
-    async def live(ws: WebSocket) -> None:
-        """M1 stub: hello + heartbeat. M2 streams throttled positions and alerts (02 §10)."""
+    async def live(ws: WebSocket, session: SessionDep, scenario: str = "baseline") -> None:
+        """Vessel positions for one scenario, pushed when the replay clock moves, at most once a
+        second (02 §10). Real AIS would arrive the same way; today the worker's replay feeds it."""
         await ws.accept()
         await ws.send_text(json.dumps({"type": "hello", "brand": brand_name()}))
+        last_ts: str | None = None
         try:
             while True:
-                await asyncio.sleep(15)
-                await ws.send_text(
-                    json.dumps({"type": "heartbeat", "ts": datetime.now(UTC).isoformat()})
-                )
-        except WebSocketDisconnect:
+                payload = await asyncio.to_thread(positions_snapshot, scenario, session)
+                if payload["ts"] != last_ts:
+                    last_ts = payload["ts"]
+                    await ws.send_text(json.dumps(payload, default=str))
+                await asyncio.sleep(1.0)
+        except (WebSocketDisconnect, RuntimeError):
             return
 
     return app

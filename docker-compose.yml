@@ -21,6 +21,7 @@ services:
 
   migrate:
     build: .
+    image: cportal-app:latest   # one image for migrate, api, seed and worker
     command: ["uv", "run", "--no-sync", "alembic", "-c", "db/alembic.ini", "upgrade", "head"]
     environment: &app-env
       DATABASE_URL: postgresql+psycopg://cportal:cportal@db:5432/cportal
@@ -29,7 +30,7 @@ services:
       db: {condition: service_healthy}
 
   api:
-    build: .
+    image: cportal-app:latest
     environment: *app-env
     ports:
       - "127.0.0.1:8000:8000"
@@ -42,7 +43,7 @@ services:
       retries: 10
 
   seed:
-    build: .
+    image: cportal-app:latest
     profiles: ["seed"]
     command: ["uv", "run", "--no-sync", "seed"]
     environment: *app-env

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from cportal_core.models import DataSource
+from cportal_core.models import DataSource, IngestionRun
 from fastapi import APIRouter, HTTPException
 from sqlalchemy import select
 
@@ -14,7 +14,7 @@ from cportal_api.schemas import Envelope, SourceOut
 router = APIRouter(prefix="/sources", tags=["sources"])
 
 
-def _out(row: DataSource, now: datetime) -> SourceOut:
+def _out(row: DataSource, now: datetime, records: int | None = None) -> SourceOut:
     age = (now - row.last_success_ts).total_seconds() / 3600 if row.last_success_ts else None
     return SourceOut(
         ds_id=row.ds_id,
@@ -26,14 +26,33 @@ def _out(row: DataSource, now: datetime) -> SourceOut:
         nc=row.nc,
         last_success_ts=row.last_success_ts,
         freshness_h=round(age, 2) if age is not None else None,
+        licence=row.licence,
+        cadence=row.cadence,
+        effective_mode=row.effective_mode,
+        failures=row.failures,
+        last_error=row.last_error,
+        records_last_run=records,
     )
+
+
+def _latest_records(session: SessionDep) -> dict[str, int]:
+    """Rows written by each source's most recent successful run."""
+    latest = (
+        select(IngestionRun.source_id, IngestionRun.records)
+        .where(IngestionRun.status == "succeeded", IngestionRun.is_synthetic.is_(False))
+        .distinct(IngestionRun.source_id)
+        .order_by(IngestionRun.source_id, IngestionRun.started_at.desc())
+    )
+    return {source: records for source, records in session.execute(latest).all()}
 
 
 @router.get("", response_model=Envelope[list[SourceOut]])
 def list_sources(session: SessionDep) -> Envelope[list[SourceOut]]:
     now = datetime.now(UTC)
     rows = session.scalars(select(DataSource).order_by(DataSource.ds_id)).all()
-    return Envelope(data=[_out(r, now) for r in rows], meta=meta(note="registry mirror"))
+    records = _latest_records(session)
+    out = [_out(r, now, records.get(r.ds_id)) for r in rows]
+    return Envelope(data=out, meta=meta(note="registry mirror"))
 
 
 @router.get("/health", response_model=Envelope[list[SourceOut]])

@@ -8,6 +8,7 @@ from cportal_core.schemas.records import CountryIndicatorRecord
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.live import LiveCall, LiveHttp
 from cportal_connectors.parsers.geo import parse_worldbank_indicators
 
 BASE = "https://api.worldbank.org/v2"
@@ -23,6 +24,7 @@ INDICATORS = {
 class WorldBank(Connector):
     ds_id = "DS-TRADE-03"
     title = "World Bank Indicators API v2"
+    live_every_min = 1440
     parsers = {"indicators_bgd.json": parse_worldbank_indicators}
     record_types = (CountryIndicatorRecord,)
     field_notes = {
@@ -110,6 +112,16 @@ class WorldBank(Connector):
         for entry in coverage.values():
             entry["years_with_value"] = sorted(entry["years_with_value"])
         ctx.metric("bgd_coverage", coverage)
+
+    def live_calls(self, http: LiveHttp) -> list[LiveCall]:
+        return [
+            LiveCall(
+                "indicators_bgd",
+                f"{BASE}/country/BGD/indicator/{';'.join(INDICATORS)}",
+                parse_worldbank_indicators,
+                params={"format": "json", "source": 2, "date": "2007:2026", "per_page": 1000},
+            )
+        ]
 
 
 CONNECTOR = WorldBank()

@@ -11,6 +11,7 @@ from cportal_core.schemas.records import WeatherObservationRecord
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.live import LiveCall, LiveHttp
 from cportal_connectors.parsers.hazards import parse_open_meteo
 
 FORECAST = "https://api.open-meteo.com/v1/forecast"
@@ -34,6 +35,7 @@ def _point(name: str) -> dict[str, float]:
 class OpenMeteo(Connector):
     ds_id = "DS-WX-01"
     title = "Open-Meteo forecast, archive and marine APIs"
+    live_every_min = 180
     parsers = {
         "forecast_port.json": partial(
             parse_open_meteo, point_name="ctg_port", kind=WeatherKind.FORECAST
@@ -172,6 +174,26 @@ class OpenMeteo(Connector):
                 continue
             out[key] = round(sum(v is None for v in values) / len(values), 3)
         return out
+
+    def live_calls(self, http: LiveHttp) -> list[LiveCall]:
+        port, anchorage = _point("ctg_port_river"), _point("ctg_outer_anchorage")
+        common = {"timezone": "UTC"}
+        return [
+            LiveCall(
+                "forecast_port",
+                FORECAST,
+                partial(parse_open_meteo, point_name="ctg_port", kind=WeatherKind.FORECAST),
+                params={**port, **common, "hourly": WEATHER_VARS, "forecast_days": 7},
+            ),
+            LiveCall(
+                "marine_anchorage",
+                MARINE,
+                partial(
+                    parse_open_meteo, point_name="ctg_anchorage", kind=WeatherKind.MARINE_FORECAST
+                ),
+                params={**anchorage, **common, "hourly": MARINE_VARS, "forecast_days": 7},
+            ),
+        ]
 
 
 CONNECTOR = OpenMeteo()

@@ -75,6 +75,29 @@ def _gkg_themes(v2: str, limit: int = 40) -> list[str]:
     return list(themes)[:limit]
 
 
+_GKG_TOPIC = re.compile(r"MARITIME|SHIPPING|PORT|TRADE|ECON_|SUPPLY|STRIKE|TRANSPORT")
+
+
+def select_gkg_rows(text: str, columns: list[str], limit: int = 400) -> bytes:
+    """Rows worth keeping from a 15-minute GKG file: Bangladesh-located, Bengali-source, or
+    maritime/trade-themed (the same rule built the committed sample). GCAM and Quotations are
+    blanked: they are large and quote article text (03 §5)."""
+    index = {c: i for i, c in enumerate(columns)}
+    blank = {index["GCAM"], index["Quotations"]}
+    kept: list[str] = []
+    for line in text.splitlines():
+        row = line.split("\t")
+        if len(row) != len(columns):
+            continue
+        located = "#BG#" in row[index["V2Locations"]] + row[index["Locations"]]
+        bengali = "srclc:ben" in row[index["TranslationInfo"]]
+        if located or bengali or _GKG_TOPIC.search(row[index["V2Themes"]]):
+            kept.append("\t".join("" if i in blank else v for i, v in enumerate(row)))
+            if len(kept) >= limit:
+                break
+    return ("\n".join(kept) + "\n").encode() if kept else b""
+
+
 def parse_gdelt_gkg(body: bytes, ctx: ParseContext, columns: list[str]) -> list[Record]:
     """GKG rows (tab-separated, no header). Only web documents (collection 1) become articles."""
     index = {c: i for i, c in enumerate(columns)}

@@ -6,6 +6,7 @@ from cportal_core.schemas.records import ArticleRecord
 
 from cportal_connectors.base import Connector, ProbeCall
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.live import LiveCall, LiveHttp
 from cportal_connectors.parsers.news import parse_reliefweb_reports
 
 ROOT = "https://api.reliefweb.int/v2"
@@ -30,6 +31,7 @@ REPORT_FIELDS = [
 class ReliefWeb(Connector):
     ds_id = "DS-NEWS-04"
     title = "ReliefWeb API v2"
+    live_every_min = 360
     parsers = {"reports_bgd_fields.json": parse_reliefweb_reports}
     record_types = (ArticleRecord,)
     needs = ("RELIEFWEB_APPNAME",)
@@ -98,6 +100,26 @@ class ReliefWeb(Connector):
             )
             dates = [((r.get("fields") or {}).get("date") or {}).get("created") for r in rows]
             ctx.metric("latest_report_created", max((d for d in dates if d), default=None))
+
+    def live_calls(self, http: LiveHttp) -> list[LiveCall]:
+        appname = http.secret("RELIEFWEB_APPNAME")
+        if not appname:
+            return []
+        return [
+            LiveCall(
+                "reports_bgd_fields",
+                API,
+                parse_reliefweb_reports,
+                params={
+                    "appname": appname,
+                    "filter[field]": "primary_country.iso3",
+                    "filter[value]": "bgd",
+                    "sort[]": "date.created:desc",
+                    "limit": 50,
+                    "fields[include][]": REPORT_FIELDS,
+                },
+            )
+        ]
 
 
 CONNECTOR = ReliefWeb()

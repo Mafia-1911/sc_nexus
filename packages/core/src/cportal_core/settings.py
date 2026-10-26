@@ -70,7 +70,7 @@ class Settings(BaseSettings):
     cportal_contact: str = ""
     # Q-07: the product name is a variable; the repo codename stays "Cportal".
     brand_name: str = Field(
-        default="Supply Chain Nexus", validation_alias=AliasChoices("CPORTAL_BRAND_NAME")
+        default="ShipperFast", validation_alias=AliasChoices("CPORTAL_BRAND_NAME")
     )
     # Q-05: which display names the synthetic world uses (config/name_packs/<pack>.yaml).
     name_pack: str = Field(default="fictional", validation_alias=AliasChoices("CPORTAL_NAME_PACK"))
@@ -152,7 +152,7 @@ class Settings(BaseSettings):
 
     def user_agent(self) -> str:
         contact = f"; +{self.cportal_contact}" if self.cportal_contact else ""
-        return f"Cportal/{__version__} (Supply Chain Nexus research prototype{contact})"
+        return f"Cportal/{__version__} ({self.brand_name} research prototype{contact})"
 
 
 @cache

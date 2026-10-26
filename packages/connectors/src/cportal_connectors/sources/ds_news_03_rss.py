@@ -11,15 +11,18 @@ import json
 import re
 import time
 from datetime import UTC, datetime
+from functools import partial
 from typing import Any
 from urllib.parse import urlsplit
 
 import yaml
 from cportal_core.paths import config_dir
+from cportal_core.schemas.records import ArticleRecord
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.decoders import rss
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.news import parse_rss
 
 SNIPPET_CHARS = 300
 BD_TERMS = re.compile(r"(?i)bangladesh|chattogram|chittagong|dhaka|mongla|payra|\bRMG\b|garment")
@@ -68,6 +71,25 @@ def _when(entry: dict[str, Any]) -> str | None:
 class CuratedRss(Connector):
     ds_id = "DS-NEWS-03"
     title = "Curated RSS feeds"
+    parsers = {
+        f"feed_{feed}.json": partial(parse_rss, feed_id=feed)
+        for feed in (
+            "container_news",
+            "daily_star_business",
+            "daily_star_top",
+            "dhaka_tribune",
+            "fda_press",
+            "gcaptain",
+            "hellenic_shipping",
+            "just_style",
+            "loadstar",
+            "splash247",
+            "tbs_economy",
+            "tbs_top",
+            "textile_today",
+        )
+    }
+    record_types = (ArticleRecord,)
     field_notes = {
         "feed_daily_star_business:entries[].link": FieldNote("", "Canonical article URL"),
     }

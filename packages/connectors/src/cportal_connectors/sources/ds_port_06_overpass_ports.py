@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+from functools import partial
+
 from cportal_core.areas import BBox, bbox
+from cportal_core.schemas.records import PortZoneRecord
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.harness import ProbeContext
@@ -14,6 +17,7 @@ from cportal_connectors.overpass import (
     query_call,
     union,
 )
+from cportal_connectors.parsers.ports import parse_overpass_port_zones
 
 MARITIME = [
     'nwr["seamark:type"~"^(anchorage|anchor_berth|harbour|mooring|berth|pilot_boarding|'
@@ -49,6 +53,12 @@ def _ctg_envelope() -> BBox:
 class OverpassPorts(Connector):
     ds_id = "DS-PORT-06"
     title = "OSM Overpass: port geometry"
+    parsers = {
+        "maritime_ctg.json": partial(parse_overpass_port_zones, locode="BDCGP"),
+        "maritime_mongla.json": partial(parse_overpass_port_zones, locode="BDMGL"),
+        "maritime_payra.json": partial(parse_overpass_port_zones, locode="BDPAY"),
+    }
+    record_types = (PortZoneRecord,)
     field_notes = {
         "maritime_ctg:id": FieldNote("", "OSM element ID; unique only together with type"),
         "maritime_ctg:center.lat": FieldNote("deg", "Centroid (ways/relations) from `out center`"),

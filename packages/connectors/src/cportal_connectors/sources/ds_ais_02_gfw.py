@@ -8,9 +8,16 @@ from __future__ import annotations
 import statistics
 from collections import Counter
 from datetime import UTC, datetime, timedelta
+from functools import partial
 from typing import Any
 
 from cportal_core.areas import BBox, bbox
+from cportal_core.schemas.records import (
+    PortCallRecord,
+    PortCallStopRecord,
+    VesselRecord,
+    ZonePresenceDailyRecord,
+)
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.gfw import (
@@ -24,6 +31,11 @@ from cportal_connectors.gfw import (
     report,
 )
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.maritime import (
+    parse_gfw_port_visits,
+    parse_gfw_presence,
+    parse_gfw_vessel_identity,
+)
 
 
 def ctg_envelope() -> BBox:
@@ -39,6 +51,13 @@ def ctg_envelope() -> BBox:
 class GlobalFishingWatch(Connector):
     ds_id = "DS-AIS-02"
     title = "Global Fishing Watch API v3"
+    parsers = {
+        "port_visits_ctg_90d.json": parse_gfw_port_visits,
+        "port_visits_mongla_90d.json": parse_gfw_port_visits,
+        "presence_ctg_anchorage_daily.zip": partial(parse_gfw_presence, area="ctg_outer_anchorage"),
+        "vessel_identity.json": parse_gfw_vessel_identity,
+    }
+    record_types = (VesselRecord, PortCallRecord, PortCallStopRecord, ZonePresenceDailyRecord)
     needs = ("GFW_API_TOKEN",)
     field_notes = {
         "port_visits_ctg_90d:start": FieldNote("UTC ISO 8601", "Visit start"),

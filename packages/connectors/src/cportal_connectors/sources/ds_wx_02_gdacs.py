@@ -6,9 +6,11 @@ from datetime import UTC, datetime
 from typing import Any
 
 from cportal_core.areas import bbox
+from cportal_core.schemas.records import DisruptionEventRecord
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.hazards import parse_gdacs
 
 API = "https://www.gdacs.org/gdacsapi/api"
 CALLER = "cportal"  # the API's documented `caller` parameter identifies the client
@@ -29,6 +31,8 @@ def _wkt(name: str) -> str:
 class Gdacs(Connector):
     ds_id = "DS-WX-02"
     title = "GDACS API"
+    parsers = {"search_bgd.json": parse_gdacs, "event_remal.json": parse_gdacs}
+    record_types = (DisruptionEventRecord,)
     field_notes = {
         "search_bgd:properties.alertlevel": FieldNote("", "Green / Orange / Red"),
         "search_bgd:properties.eventtype": FieldNote(

@@ -13,9 +13,12 @@ import re
 import zipfile
 from typing import Any
 
+from cportal_core.schemas.records import LocationRecord, PortRecord
+
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.decoders import text_of
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.ports import parse_unlocode_csv
 
 HOST = "https://unlocode.unece.org"
 LATEST_ZIP = f"{HOST}/downloads/unlocode-latest.zip"
@@ -86,6 +89,8 @@ def bd_extract(body: bytes) -> bytes:
 class UnLocode(Connector):
     ds_id = "DS-PORT-05"
     title = "UN/LOCODE (UNECE)"
+    parsers = {"latest_zip.csv": parse_unlocode_csv}
+    record_types = (LocationRecord, PortRecord)
     field_notes = {
         "latest_zip:Location": FieldNote("", "3-char location code; full code = Country+Location"),
         "latest_zip:Function": FieldNote(

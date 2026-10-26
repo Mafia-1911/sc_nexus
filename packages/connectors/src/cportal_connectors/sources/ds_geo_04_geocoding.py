@@ -7,9 +7,12 @@ import io
 from collections import Counter
 from typing import Any
 
+from cportal_core.schemas.records import LocationRecord
+
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.decoders import csv_records, zip_member
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.geo import parse_geonames_tsv
 
 NOMINATIM = "https://nominatim.openstreetmap.org"
 GEONAMES_BD = "https://download.geonames.org/export/dump/BD.zip"
@@ -89,6 +92,9 @@ def _geonames_sample(body: bytes) -> bytes:
 class Geocoding(Connector):
     ds_id = "DS-GEO-04"
     title = "Nominatim + GeoNames dump"
+    # GeoNames is the gazetteer; Nominatim responses are a lookup cache, not loaded.
+    parsers = {"geonames_bd.tsv": parse_geonames_tsv}
+    record_types = (LocationRecord,)
     field_notes = {
         "search_chattogram_port:place_id": FieldNote(
             "", "Nominatim-internal, unstable; key on osm_type+osm_id instead"

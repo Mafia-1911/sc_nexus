@@ -1,8 +1,8 @@
 """domain model v1
 
-Revision ID: f33b4f1f4edb
+Revision ID: 7cac335df2f7
 Revises:
-Create Date: 2026-10-26 14:31:23.391025+00:00
+Create Date: 2026-10-26 14:51:07.972430+00:00
 """
 
 from collections.abc import Sequence
@@ -14,7 +14,7 @@ from alembic import op
 from geoalchemy2 import Geometry
 from sqlalchemy.dialects import postgresql
 
-revision: str = "f33b4f1f4edb"
+revision: str = "7cac335df2f7"
 down_revision: str | None = None
 branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
@@ -591,7 +591,7 @@ def upgrade() -> None:
             server_default=sa.text("'{}'"),
             nullable=False,
         ),
-        sa.Column("size_bytes", sa.Integer(), nullable=True),
+        sa.Column("size_bytes", sa.BigInteger(), nullable=True),
         sa.Column("source_id", sa.String(length=32), nullable=False),
         sa.Column("source_record_id", sa.String(length=256), nullable=True),
         sa.Column("data_mode", sa.String(length=9), nullable=False),

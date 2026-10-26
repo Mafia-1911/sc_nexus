@@ -1,7 +1,10 @@
 """Connector contract shared by every DS-ID module, plus the per-source token bucket.
 
-M0 implements `probe()` only (03-data-sources.md §3). `fetch_raw()`, `parse()` and the synthetic
-twin join the contract in M1, once the canonical schema is fixed at G1.
+- `probe()` (M0): call the source, save evidence (03-data-sources.md §3).
+- `parsers` (M1): sample file → parser into canonical records; `replay()` runs them over the
+  committed samples. Live fetching reuses the same parsers (M2 worker jobs).
+- Synthetic twins live in `packages/sim` and render the source's own wire format, which goes
+  through the same parsers (ADR-010).
 """
 
 from __future__ import annotations
@@ -11,6 +14,11 @@ import time
 from collections.abc import Callable, Iterable, Mapping
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, ClassVar, Literal
+
+from cportal_core.enums import DataMode
+from cportal_core.schemas.records import Record
+
+from cportal_connectors.canonical import ParseContext, Parser, sample_bytes, sample_fetched_at
 
 if TYPE_CHECKING:
     from cportal_connectors.harness import ProbeContext
@@ -81,6 +89,12 @@ class Connector:
     needs: ClassVar[tuple[str, ...]] = ()
     # Units and meanings for the card's field table, keyed by "<call>:<field path>".
     field_notes: ClassVar[Mapping[str, FieldNote]] = {}
+    # Committed sample file name (data/samples/<DS-ID>/) → parser into canonical records.
+    parsers: ClassVar[Mapping[str, Parser]] = {}
+    # The canonical record types this source produces (checked by the contract tests).
+    record_types: ClassVar[tuple[type[Record], ...]] = ()
+    # Sources with no canonical rows (e.g. basemap tiles): sample file → validator that raises.
+    checks: ClassVar[Mapping[str, Callable[[bytes], Any]]] = {}
 
     def probe_calls(self, ctx: ProbeContext) -> Iterable[ProbeCall]:
         return ()
@@ -88,6 +102,16 @@ class Connector:
     def probe(self, ctx: ProbeContext) -> None:
         for call in self.probe_calls(ctx):
             ctx.http(call)
+
+    def replay(self, names: Iterable[str] | None = None) -> list[Record]:
+        """Parse committed samples through the real parsers (replay mode, 02 §8)."""
+        out: list[Record] = []
+        for name in names or self.parsers:
+            ctx = ParseContext(
+                self.ds_id, DataMode.REPLAY, fetched_at=sample_fetched_at(self.ds_id, name)
+            )
+            out += self.parsers[name](sample_bytes(self.ds_id, name), ctx)
+        return out
 
 
 @dataclass

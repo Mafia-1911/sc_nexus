@@ -6,8 +6,19 @@ import json
 from datetime import UTC, date, datetime, timedelta
 from typing import Any
 
+from cportal_core.schemas.records import (
+    DisruptionEventRecord,
+    ExternalIdRecord,
+    PortActivityDailyRecord,
+)
+
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.ports import (
+    parse_portwatch_daily,
+    parse_portwatch_disruptions,
+    parse_portwatch_ports,
+)
 
 HUB_SEARCH = "https://portwatch.imf.org/api/search/v1/collections/dataset/items"
 SERVICES = "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services"
@@ -24,6 +35,12 @@ def _stat(kind: str, field: str, alias: str) -> dict[str, str]:
 class PortWatch(Connector):
     ds_id = "DS-PORT-01"
     title = "IMF PortWatch"
+    parsers = {
+        "daily_bgd_recent.json": parse_portwatch_daily,
+        "ports_bgd.json": parse_portwatch_ports,
+        "disruptions_bgd.json": parse_portwatch_disruptions,
+    }
+    record_types = (PortActivityDailyRecord, ExternalIdRecord, DisruptionEventRecord)
     field_notes = {
         "daily_bgd_recent:date": FieldNote("date (UTC day)", "Day of the port-call estimate"),
         "daily_bgd_recent:portcalls": FieldNote("calls/day", "All port calls, all vessel types"),

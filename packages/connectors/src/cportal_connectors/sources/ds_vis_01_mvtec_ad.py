@@ -10,10 +10,13 @@ from __future__ import annotations
 
 import re
 
+from cportal_core.schemas.records import ImageDatasetRecord
+
 from cportal_connectors import kaggle
 from cportal_connectors.base import Connector, ProbeCall
 from cportal_connectors.decoders import text_of
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.vision import parse_kaggle_mvtec
 
 PAGE = "https://www.mvtec.com/company/research/datasets/mvtec-ad"
 # The full release is ~4.9 GB: 15 categories, 5,354 images.
@@ -23,6 +26,8 @@ FULL_SIZE_BYTES = 4_000_000_000
 class MvtecAd(Connector):
     ds_id = "DS-VIS-01"
     title = "MVTec AD"
+    parsers = {"kaggle_search_mvtec_ad.json": parse_kaggle_mvtec}
+    record_types = (ImageDatasetRecord,)
     needs = ("KAGGLE_API_TOKEN",)
 
     def probe(self, ctx: ProbeContext) -> None:

@@ -5,9 +5,12 @@ from __future__ import annotations
 from collections import Counter
 from typing import Any
 
+from cportal_core.schemas.records import ImageDatasetRecord, InspectionImageRecord
+
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.decoders import csv_decoder
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.vision import parse_visa_split
 from cportal_connectors.vision import archive_head
 
 TAR = "https://amazon-visual-anomaly.s3.us-west-2.amazonaws.com/VisA_20220922.tar"
@@ -17,6 +20,8 @@ RAW = "https://raw.githubusercontent.com/amazon-science/spot-diff/main"
 class Visa(Connector):
     ds_id = "DS-VIS-02"
     title = "VisA"
+    parsers = {"split_1cls.txt": parse_visa_split}
+    record_types = (ImageDatasetRecord, InspectionImageRecord)
     field_notes = {
         "split_1cls:object": FieldNote("", "Category folder, e.g. capsules"),
         "split_1cls:split": FieldNote("", "train / test"),

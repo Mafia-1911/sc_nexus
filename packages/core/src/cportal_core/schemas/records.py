@@ -389,6 +389,22 @@ class PortCallStopRecord(Record):
     end_ts: AwareDatetime | None = None
 
 
+class PortStateSnapshotRecord(Record):
+    table = "port_state_snapshot"
+
+    port_id: UUID
+    ts: AwareDatetime
+    queue_by_type: dict[str, Any] = Field(default_factory=dict)
+    berth_occupancy: dict[str, Any] = Field(default_factory=dict)
+    arrivals_24h: int | None = Field(default=None, ge=0)
+    departures_24h: int | None = Field(default=None, ge=0)
+    mean_wait_h_24h: float | None = Field(default=None, ge=0)
+    weather: dict[str, Any] = Field(default_factory=dict)
+    tide: dict[str, Any] = Field(default_factory=dict)
+    sar_count: int | None = Field(default=None, ge=0)
+    sar_age_h: float | None = Field(default=None, ge=0)
+
+
 class PortActivityDailyRecord(Record):
     table = "port_activity_daily"
 
@@ -678,6 +694,7 @@ RECORD_TYPES: tuple[type[Record], ...] = (
     AisPositionRecord,
     PortCallRecord,
     PortCallStopRecord,
+    PortStateSnapshotRecord,
     PortActivityDailyRecord,
     ZonePresenceDailyRecord,
     SatelliteObservationRecord,

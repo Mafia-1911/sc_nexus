@@ -8,9 +8,11 @@ import time
 from typing import Any
 
 import searoute
+from cportal_core.schemas.records import LaneRecord, LocationRecord
 
 from cportal_connectors.base import Connector, FieldNote
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.ports import parse_searoute_routes
 
 # Origin is the UN/LOCODE BDCGP coordinate (2220N 09150E, probed in DS-PORT-05). Destinations are
 # approximate public port positions, used only to exercise the network and record distances.
@@ -28,6 +30,8 @@ DESTINATIONS = {
 class Searoute(Connector):
     ds_id = "DS-PORT-08"
     title = "searoute (Eurostat MARNET sea lanes)"
+    parsers = {"routes.json": parse_searoute_routes}
+    record_types = (LocationRecord, LaneRecord)
     field_notes = {
         "routes:properties.length": FieldNote("nautical miles", "Route length on MARNET"),
         "routes:properties.duration_hours": FieldNote("h", "At the package's default speed"),

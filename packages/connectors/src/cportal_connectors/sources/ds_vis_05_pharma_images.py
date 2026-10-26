@@ -5,8 +5,11 @@ MVTec `pill`/`capsule` (DS-VIS-01) and VisA `capsules` (DS-VIS-02) complete the 
 
 from __future__ import annotations
 
+from cportal_core.schemas.records import ImageDatasetRecord
+
 from cportal_connectors.base import Connector, ProbeCall
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.vision import parse_roboflow_project
 from cportal_connectors.vision import ROBOFLOW_API, roboflow_project
 
 PROJECTS = {
@@ -19,6 +22,15 @@ PROJECTS = {
 class PharmaImages(Connector):
     ds_id = "DS-VIS-05"
     title = "Pharma tablet defect datasets (Roboflow Universe)"
+    parsers = {
+        name: parse_roboflow_project
+        for name in (
+            "defect_tablet_detection.json",
+            "defective_tablets.json",
+            "pharmaceutical_tablet_defects.json",
+        )
+    }
+    record_types = (ImageDatasetRecord,)
     needs = ("ROBOFLOW_API_KEY",)
 
     def probe(self, ctx: ProbeContext) -> None:

@@ -7,17 +7,22 @@ from __future__ import annotations
 
 from collections import Counter
 from datetime import UTC, datetime, timedelta
+from functools import partial
 
 from cportal_core.areas import bbox
+from cportal_core.schemas.records import SatelliteObservationRecord
 
 from cportal_connectors.base import Connector, FieldNote
 from cportal_connectors.gfw import SAR, entries, report
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.maritime import parse_gfw_sar
 
 
 class GfwSar(Connector):
     ds_id = "DS-SAT-04"
     title = "GFW SAR vessel detections"
+    parsers = {"sar_ctg_daily.zip": partial(parse_gfw_sar, area="ctg_outer_anchorage")}
+    record_types = (SatelliteObservationRecord,)
     needs = ("GFW_API_TOKEN",)
     field_notes = {
         "sar_ctg_daily:detections": FieldNote("count", "SAR detections in the cell/period"),

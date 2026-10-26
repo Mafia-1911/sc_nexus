@@ -4,8 +4,11 @@ from __future__ import annotations
 
 from typing import Any
 
+from cportal_core.schemas.records import CountryIndicatorRecord
+
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.geo import parse_worldbank_indicators
 
 BASE = "https://api.worldbank.org/v2"
 INDICATORS = {
@@ -20,6 +23,8 @@ INDICATORS = {
 class WorldBank(Connector):
     ds_id = "DS-TRADE-03"
     title = "World Bank Indicators API v2"
+    parsers = {"indicators_bgd.json": parse_worldbank_indicators}
+    record_types = (CountryIndicatorRecord,)
     field_notes = {
         "indicators_bgd:value": FieldNote("per indicator", "Annual value; null when not reported"),
         "indicators_bgd:date": FieldNote("year", "Reporting year as a string"),

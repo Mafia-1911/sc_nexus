@@ -6,9 +6,12 @@ institutional repositories. This probe proves reachability, licence and size for
 
 from __future__ import annotations
 
+from cportal_core.schemas.records import ImageDatasetRecord
+
 from cportal_connectors.base import Connector, ProbeCall
 from cportal_connectors.decoders import html_outline
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.vision import parse_roboflow_project
 from cportal_connectors.vision import roboflow_project
 
 PAGES = {
@@ -26,6 +29,8 @@ PAGES = {
 class FabricDatasets(Connector):
     ds_id = "DS-VIS-04"
     title = "Fabric and garment defect datasets"
+    parsers = {"stitchnet_roboflow.json": parse_roboflow_project}
+    record_types = (ImageDatasetRecord,)
     needs = ("ROBOFLOW_API_KEY",)
 
     def probe(self, ctx: ProbeContext) -> None:

@@ -6,7 +6,11 @@ and bridge queries are scoped to the Dhaka region or the Dhaka–Chattogram corr
 
 from __future__ import annotations
 
+from functools import partial
+
 from cportal_core.areas import bbox
+from cportal_core.enums import LocationKind
+from cportal_core.schemas.records import LocationRecord
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.harness import ProbeContext
@@ -18,6 +22,7 @@ from cportal_connectors.overpass import (
     query_call,
     union,
 )
+from cportal_connectors.parsers.geo import parse_overpass_sites
 
 TAG_KEYS = [
     "landuse",
@@ -35,6 +40,13 @@ TAG_KEYS = [
 class OverpassInland(Connector):
     ds_id = "DS-GEO-02"
     title = "OSM Overpass: inland logistics infrastructure"
+    parsers = {
+        "container_sites_bd.json": partial(parse_overpass_sites, kind=LocationKind.DEPOT),
+        "epz_bd.json": partial(parse_overpass_sites, kind=LocationKind.EPZ),
+        "rail_hubs_corridor.json": partial(parse_overpass_sites, kind=LocationKind.RAIL_HUB),
+        "toll_booths_bd.json": partial(parse_overpass_sites, kind=LocationKind.TOLL_POINT),
+    }
+    record_types = (LocationRecord,)
     field_notes = {
         "container_sites_bd:tags.name": FieldNote("", "Free-text name; ICD naming is inconsistent"),
         "container_sites_bd:center.lon": FieldNote("deg", "Centroid of ways/relations"),

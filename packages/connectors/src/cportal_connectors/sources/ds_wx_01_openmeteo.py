@@ -2,12 +2,16 @@
 
 from __future__ import annotations
 
+from functools import partial
 from typing import Any
 
 from cportal_core.areas import bbox
+from cportal_core.enums import WeatherKind
+from cportal_core.schemas.records import WeatherObservationRecord
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.hazards import parse_open_meteo
 
 FORECAST = "https://api.open-meteo.com/v1/forecast"
 ARCHIVE = "https://archive-api.open-meteo.com/v1/archive"
@@ -30,6 +34,21 @@ def _point(name: str) -> dict[str, float]:
 class OpenMeteo(Connector):
     ds_id = "DS-WX-01"
     title = "Open-Meteo forecast, archive and marine APIs"
+    parsers = {
+        "forecast_port.json": partial(
+            parse_open_meteo, point_name="ctg_port", kind=WeatherKind.FORECAST
+        ),
+        "marine_anchorage.json": partial(
+            parse_open_meteo, point_name="ctg_anchorage", kind=WeatherKind.MARINE_FORECAST
+        ),
+        "archive_remal.json": partial(
+            parse_open_meteo, point_name="ctg_port", kind=WeatherKind.ARCHIVE
+        ),
+        "marine_history_remal.json": partial(
+            parse_open_meteo, point_name="ctg_anchorage", kind=WeatherKind.MARINE_ARCHIVE
+        ),
+    }
+    record_types = (WeatherObservationRecord,)
     field_notes = {
         "marine_anchorage:hourly.sea_level_height_msl": FieldNote(
             "m vs global MSL", "Tides + inverted barometer + steric (MeteoFrance SMOC); not LAT"

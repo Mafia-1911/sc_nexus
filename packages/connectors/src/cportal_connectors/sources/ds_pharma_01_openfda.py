@@ -5,8 +5,11 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any
 
+from cportal_core.schemas.records import DisruptionEventRecord
+
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.hazards import parse_openfda_recalls, parse_openfda_shortages
 
 BASE = "https://api.fda.gov"
 
@@ -14,6 +17,11 @@ BASE = "https://api.fda.gov"
 class OpenFda(Connector):
     ds_id = "DS-PHARMA-01"
     title = "openFDA drug enforcement and shortages"
+    parsers = {
+        "recalls_india.json": parse_openfda_recalls,
+        "shortages.json": parse_openfda_shortages,
+    }
+    record_types = (DisruptionEventRecord,)
     needs = ()  # OPENFDA_API_KEY is optional: 1,000 requests/day per IP without it
     field_notes = {
         "recalls_india:recall_number": FieldNote("", "FDA recall number (unique per product)"),

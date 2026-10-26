@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+from cportal_core.schemas.records import ArticleRecord
+
 from cportal_connectors.base import Connector, ProbeCall
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.news import parse_reliefweb_reports
 
 ROOT = "https://api.reliefweb.int/v2"
 API = f"{ROOT}/reports"
@@ -27,6 +30,8 @@ REPORT_FIELDS = [
 class ReliefWeb(Connector):
     ds_id = "DS-NEWS-04"
     title = "ReliefWeb API v2"
+    parsers = {"reports_bgd_fields.json": parse_reliefweb_reports}
+    record_types = (ArticleRecord,)
     needs = ("RELIEFWEB_APPNAME",)
 
     def probe(self, ctx: ProbeContext) -> None:

@@ -12,9 +12,11 @@ from collections import Counter
 from typing import Any
 
 import openpyxl
+from cportal_core.schemas.records import EmissionFactorRecord
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.geo import parse_desnz_flat
 
 CONTENT_API = "https://www.gov.uk/api/content/government/publications/greenhouse-gas-reporting-conversion-factors-{year}"
 FREIGHT_LEVEL1 = {
@@ -59,6 +61,8 @@ def freight_csv(body: bytes) -> bytes:
 class EmissionFactors(Connector):
     ds_id = "DS-GEO-05"
     title = "Emission factors (UK DESNZ; GLEC method)"
+    parsers = {"desnz_flat.csv": parse_desnz_flat}
+    record_types = (EmissionFactorRecord,)
     field_notes = {
         "desnz_flat:Level 1": FieldNote("", "Top category, e.g. 'Freighting goods'"),
         "desnz_flat:Level 2": FieldNote("", "Mode, e.g. 'HGV (all diesel)', 'Rail', 'Cargo ship'"),

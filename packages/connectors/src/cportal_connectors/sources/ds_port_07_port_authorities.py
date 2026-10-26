@@ -8,9 +8,17 @@ from __future__ import annotations
 
 import re
 
+from cportal_core.schemas.records import (
+    PortCallRecord,
+    PortStateSnapshotRecord,
+    PortZoneRecord,
+    VesselRecord,
+)
+
 from cportal_connectors.base import Connector, ProbeCall
 from cportal_connectors.decoders import html_outline
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.cpa import parse_cpa_berthing
 
 SITES = {"cpa": "https://cpa.gov.bd", "mpa": "https://mpa.gov.bd"}
 INTERESTING = re.compile(
@@ -22,6 +30,9 @@ INTERESTING = re.compile(
 class PortAuthorities(Connector):
     ds_id = "DS-PORT-07"
     title = "Chittagong / Mongla Port Authority websites"
+    # Manual drops of the CPA berthing report (A-027); more PDFs go to data/inbox/DS-PORT-07/.
+    parsers = {"cpa_berthing_2026-01-05.pdf": parse_cpa_berthing}
+    record_types = (PortZoneRecord, VesselRecord, PortCallRecord, PortStateSnapshotRecord)
 
     def probe(self, ctx: ProbeContext) -> None:
         for site, root in SITES.items():

@@ -101,6 +101,8 @@ class FacilityType(StrEnum):
 
 
 class ShipTypeGroup(StrEnum):
+    # AIS types 70-79 and GFW "cargo" do not say container vs bulk; `cargo` is that coarse group.
+    CARGO = "cargo"
     CONTAINER = "container"
     TANKER = "tanker"
     DRY_BULK = "dry_bulk"

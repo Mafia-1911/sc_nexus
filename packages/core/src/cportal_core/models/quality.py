@@ -6,7 +6,7 @@ import datetime as dt
 from typing import Any
 from uuid import UUID
 
-from sqlalchemy import CheckConstraint, Integer, String, text
+from sqlalchemy import BigInteger, CheckConstraint, Integer, String, text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from cportal_core.enums import BatchStatus, ImageSplit, Severity
@@ -29,7 +29,7 @@ class ImageDataset(Lineage, Base):
     classes: Mapped[list[Any]] = mapped_column(default=list, server_default=text("'[]'"))
     n_images: Mapped[int | None]
     splits: Mapped[dict[str, Any]] = mapped_column(default=dict, server_default=text("'{}'"))
-    size_bytes: Mapped[int | None]
+    size_bytes: Mapped[int | None] = mapped_column(BigInteger)  # datasets exceed 2 GiB
 
 
 class Batch(Lineage, Base):

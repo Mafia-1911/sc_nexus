@@ -5,6 +5,8 @@ from __future__ import annotations
 from collections import Counter
 from typing import Any
 
+from cportal_core.schemas.records import ArticleRecord
+
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.harness import ProbeContext
 
@@ -15,6 +17,9 @@ CTG_PORT = "(Chattogram OR Chittagong) port"
 class GdeltDoc(Connector):
     ds_id = "DS-NEWS-01"
     title = "GDELT DOC 2.0 API"
+    # No real sample (429 from this network, A-013): the contract runs on the synthetic twin,
+    # which renders the documented ArtList JSON through parsers.news.parse_gdelt_doc.
+    record_types = (ArticleRecord,)
     field_notes = {
         "artlist_ctg_port:url": FieldNote("", "Article URL (dedupe key, after normalisation)"),
         "artlist_ctg_port:seendate": FieldNote("YYYYMMDDTHHMMSSZ (UTC)", "When GDELT saw it"),

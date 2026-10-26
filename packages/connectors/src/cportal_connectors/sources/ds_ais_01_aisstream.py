@@ -15,12 +15,14 @@ from itertools import pairwise
 from typing import Any
 
 from cportal_core.areas import bbox, bbox_names
+from cportal_core.schemas.records import AisPositionRecord, VesselRecord
 from websockets.exceptions import ConnectionClosed
 from websockets.sync.client import connect
 
 from cportal_connectors.aisstream import URL, decode, position, subscription
 from cportal_connectors.base import Connector, FieldNote, Purpose
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.maritime import parse_aisstream_jsonl
 
 CAPTURE_S = 600
 WORLD = [[[-90.0, -180.0], [90.0, 180.0]]]
@@ -58,6 +60,11 @@ def session(sub: dict[str, Any], seconds: float, max_frames: int) -> dict[str, A
 class AisStream(Connector):
     ds_id = "DS-AIS-01"
     title = "aisstream.io live AIS"
+    parsers = {
+        "format_position_report.jsonl": parse_aisstream_jsonl,
+        "format_ship_static_data.jsonl": parse_aisstream_jsonl,
+    }
+    record_types = (AisPositionRecord, VesselRecord)
     needs = ("AISSTREAM_API_KEY",)
     field_notes = {
         "capture_bd_approach:MessageType": FieldNote("", "PositionReport, ShipStaticData, ..."),

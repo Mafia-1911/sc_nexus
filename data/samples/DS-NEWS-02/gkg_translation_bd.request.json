@@ -1,0 +1,18 @@
+{
+  "method": "GET",
+  "url": "http://data.gdeltproject.org/gdeltv2/20261025221500.translation.gkg.csv.zip",
+  "params": null,
+  "headers": {
+    "host": "data.gdeltproject.org",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 180,
+  "max_bytes": 80000000,
+  "purpose": "main",
+  "note": "60 of 1188 rows: Bangladesh-located (0), Bengali-source (0), then maritime/trade themes; GCAM and Quotations blanked"
+}

@@ -6,9 +6,11 @@ import importlib.metadata as md
 import json
 
 import holidays
+from cportal_core.schemas.records import HolidayRecord
 
 from cportal_connectors.base import Connector, FieldNote
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.hazards import parse_holidays
 
 YEARS = range(2019, 2028)
 
@@ -16,6 +18,8 @@ YEARS = range(2019, 2028)
 class BdHolidays(Connector):
     ds_id = "DS-WX-04"
     title = "holidays package: Bangladesh"
+    parsers = {"bd_holidays.json": parse_holidays}
+    record_types = (HolidayRecord,)
     field_notes = {
         "bd_holidays:date": FieldNote("ISO date (local)", "Holiday date in Asia/Dhaka"),
         "bd_holidays:name": FieldNote("", "Holiday name; '(estimated)' marks computed Hijri dates"),

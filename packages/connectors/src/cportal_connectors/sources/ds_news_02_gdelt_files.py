@@ -4,11 +4,15 @@ from __future__ import annotations
 
 from collections import Counter
 from datetime import UTC, datetime, timedelta
+from functools import partial
 from typing import Any
+
+from cportal_core.schemas.records import ArticleRecord
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.decoders import csv_records, zip_member
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.news import parse_gdelt_gkg
 
 ROOT = "http://data.gdeltproject.org/gdeltv2"
 # GDELT 2.0 Event export, 61 tab-separated columns, no header (GDELT-Event_Codebook-V2.0).
@@ -129,6 +133,11 @@ def _bg_gkg(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 class GdeltFiles(Connector):
     ds_id = "DS-NEWS-02"
     title = "GDELT 2.0 Events and GKG raw files"
+    parsers = {
+        "gkg_bd.tsv": partial(parse_gdelt_gkg, columns=GKG_COLUMNS),
+        "gkg_translation_bd.tsv": partial(parse_gdelt_gkg, columns=GKG_COLUMNS),
+    }
+    record_types = (ArticleRecord,)
     field_notes = {
         "export_latest:ActionGeo_CountryCode": FieldNote(
             "FIPS 10-4", "Where the event happened; Bangladesh is BG"

@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+from cportal_core.schemas.records import LocationRecord
+
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.decoders import html_outline
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.geo import parse_osmosis_poly
 
 BASE = "https://download.geofabrik.de/asia"
 
@@ -12,6 +15,8 @@ BASE = "https://download.geofabrik.de/asia"
 class Geofabrik(Connector):
     ds_id = "DS-GEO-01"
     title = "Geofabrik Bangladesh extract"
+    parsers = {"poly.poly": parse_osmosis_poly}
+    record_types = (LocationRecord,)
     field_notes = {
         "state:sequenceNumber": FieldNote("", "Replication sequence of the diff stream"),
         "state:timestamp": FieldNote("ISO 8601 (escaped colons)", "Data cut-off of the extract"),

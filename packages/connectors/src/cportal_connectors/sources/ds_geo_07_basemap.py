@@ -9,6 +9,7 @@ from cportal_core.areas import bbox
 
 from cportal_connectors.base import Connector, FieldNote, ProbeCall
 from cportal_connectors.harness import ProbeContext
+from cportal_connectors.parsers.geo import check_style, check_tilejson
 
 OFM = "https://tiles.openfreemap.org"
 PROTOMAPS_BUILDS = "https://build-metadata.protomaps.dev/builds.json"
@@ -25,6 +26,8 @@ def tile_xy(lon: float, lat: float, z: int) -> tuple[int, int]:
 class Basemap(Connector):
     ds_id = "DS-GEO-07"
     title = "Basemap tiles (OpenFreeMap, Protomaps)"
+    # No canonical rows: the contract is a usable TileJSON and MapLibre style.
+    checks = {"tilejson.json": check_tilejson, "style_liberty.json": check_style}
     field_notes = {
         "style_liberty:sources.openmaptiles.url": FieldNote("", "TileJSON URL the style uses"),
         "tilejson:tiles": FieldNote("", "Tile URL template; includes a dated build path"),

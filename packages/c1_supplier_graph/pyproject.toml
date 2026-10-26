@@ -1,0 +1,22 @@
+[project]
+name = "cportal-c1"
+version = "0.1.0"
+description = "C1 supplier risk graph: dependency analytics, TTS/TTR, cascade what-if, risk baseline"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "cportal-core",
+    "networkx>=3.4",
+    "numpy>=2.0",
+    "pyyaml>=6.0",
+    "scipy>=1.14",
+]
+
+[project.scripts]
+c1 = "cportal_c1.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.9,<0.14"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "cportal_c1"

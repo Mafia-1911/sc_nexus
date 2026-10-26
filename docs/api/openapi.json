@@ -154,6 +154,36 @@
         "title": "BrandOut",
         "type": "object"
       },
+      "CriticalOut": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/NodeMetrics"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "metric": {
+            "title": "Metric",
+            "type": "string"
+          },
+          "tts_below_ttr": {
+            "description": "Nodes whose TTS is shorter than their TTR",
+            "items": {
+              "type": "string"
+            },
+            "title": "Tts Below Ttr",
+            "type": "array"
+          }
+        },
+        "required": [
+          "metric",
+          "items",
+          "tts_below_ttr"
+        ],
+        "title": "CriticalOut",
+        "type": "object"
+      },
       "DatasetOut": {
         "properties": {
           "classes": {
@@ -212,6 +242,92 @@
         "title": "DatasetOut",
         "type": "object"
       },
+      "DisruptionIn": {
+        "properties": {
+          "capacity_pct": {
+            "default": 0.0,
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Capacity Pct",
+            "type": "number"
+          },
+          "duration_d": {
+            "exclusiveMinimum": 0.0,
+            "maximum": 180.0,
+            "title": "Duration D",
+            "type": "number"
+          },
+          "extra_lead_time_d": {
+            "default": 0.0,
+            "maximum": 60.0,
+            "minimum": 0.0,
+            "title": "Extra Lead Time D",
+            "type": "number"
+          },
+          "node_id": {
+            "title": "Node Id",
+            "type": "string"
+          },
+          "start_d": {
+            "default": 0.0,
+            "maximum": 90.0,
+            "minimum": 0.0,
+            "title": "Start D",
+            "type": "number"
+          }
+        },
+        "required": [
+          "node_id",
+          "duration_d"
+        ],
+        "title": "DisruptionIn",
+        "type": "object"
+      },
+      "Driver": {
+        "description": "One feature's share of a node's risk score. The score is additive, so these are its\nexact Shapley values against the mean node (SHAP with an interventional baseline).",
+        "properties": {
+          "contribution": {
+            "title": "Contribution",
+            "type": "number"
+          },
+          "feature": {
+            "title": "Feature",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "feature",
+          "label",
+          "value",
+          "contribution"
+        ],
+        "title": "Driver",
+        "type": "object"
+      },
+      "Envelope_CriticalOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CriticalOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[CriticalOut]",
+        "type": "object"
+      },
       "Envelope_EventOut_": {
         "properties": {
           "data": {
@@ -244,22 +360,6 @@
         "title": "Envelope[FeatureCollection]",
         "type": "object"
       },
-      "Envelope_GraphOut_": {
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/GraphOut"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/Meta"
-          }
-        },
-        "required": [
-          "data",
-          "meta"
-        ],
-        "title": "Envelope[GraphOut]",
-        "type": "object"
-      },
       "Envelope_KpiStrip_": {
         "properties": {
           "data": {
@@ -274,6 +374,22 @@
           "meta"
         ],
         "title": "Envelope[KpiStrip]",
+        "type": "object"
+      },
+      "Envelope_NodeDetailOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/NodeDetailOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[NodeDetailOut]",
         "type": "object"
       },
       "Envelope_Page_PortCallOut__": {
@@ -324,6 +440,22 @@
         "title": "Envelope[SourceOut]",
         "type": "object"
       },
+      "Envelope_SupplyGraphOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/SupplyGraphOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[SupplyGraphOut]",
+        "type": "object"
+      },
       "Envelope_Union_PortStateOut__NoneType__": {
         "properties": {
           "data": {
@@ -345,6 +477,22 @@
           "meta"
         ],
         "title": "Envelope[Union[PortStateOut, NoneType]]",
+        "type": "object"
+      },
+      "Envelope_WhatIfOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/WhatIfOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[WhatIfOut]",
         "type": "object"
       },
       "Envelope_list_ActivityOut__": {
@@ -733,30 +881,224 @@
         "title": "FeatureCollection",
         "type": "object"
       },
-      "GraphOut": {
+      "GraphEdgeOut": {
         "properties": {
-          "edges": {
+          "kind": {
+            "enum": [
+              "supply",
+              "import",
+              "export"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "mode": {
+            "title": "Mode",
+            "type": "string"
+          },
+          "products": {
             "items": {
-              "additionalProperties": true,
-              "type": "object"
+              "type": "string"
             },
-            "title": "Edges",
+            "title": "Products",
             "type": "array"
           },
-          "nodes": {
-            "items": {
-              "additionalProperties": true,
-              "type": "object"
-            },
-            "title": "Nodes",
-            "type": "array"
+          "relationships": {
+            "title": "Relationships",
+            "type": "integer"
+          },
+          "share": {
+            "description": "Largest supply share on this link",
+            "title": "Share",
+            "type": "number"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "target": {
+            "title": "Target",
+            "type": "string"
           }
         },
         "required": [
-          "nodes",
-          "edges"
+          "source",
+          "target",
+          "kind",
+          "products",
+          "share",
+          "mode",
+          "relationships"
         ],
-        "title": "GraphOut",
+        "title": "GraphEdgeOut",
+        "type": "object"
+      },
+      "GraphNodeOut": {
+        "properties": {
+          "cluster": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cluster"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "dominated_orders": {
+            "title": "Dominated Orders",
+            "type": "integer"
+          },
+          "dominated_value_usd": {
+            "title": "Dominated Value Usd",
+            "type": "number"
+          },
+          "downstream_open_order_value_usd": {
+            "title": "Downstream Open Order Value Usd",
+            "type": "number"
+          },
+          "id": {
+            "description": "Facility UUID, or port:<LOCODE>",
+            "title": "Id",
+            "type": "string"
+          },
+          "industry": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Industry"
+          },
+          "is_fictional": {
+            "title": "Is Fictional",
+            "type": "boolean"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "lon": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lon"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "organization": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Always the fictional name (risk view, Q-05)",
+            "title": "Organization"
+          },
+          "risk_band": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Risk Band"
+          },
+          "risk_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Risk Score"
+          },
+          "ttr_d": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ttr D"
+          },
+          "tts_capped": {
+            "title": "Tts Capped",
+            "type": "boolean"
+          },
+          "tts_d": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tts D"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "type",
+          "name",
+          "organization",
+          "industry",
+          "country",
+          "cluster",
+          "lat",
+          "lon",
+          "is_fictional",
+          "risk_score",
+          "risk_band",
+          "dominated_value_usd",
+          "dominated_orders",
+          "downstream_open_order_value_usd",
+          "tts_d",
+          "tts_capped",
+          "ttr_d"
+        ],
+        "title": "GraphNodeOut",
         "type": "object"
       },
       "JobAccepted": {
@@ -934,6 +1276,36 @@
         "title": "Meta",
         "type": "object"
       },
+      "Mitigation": {
+        "properties": {
+          "action_type": {
+            "title": "Action Type",
+            "type": "string"
+          },
+          "detail": {
+            "title": "Detail",
+            "type": "string"
+          },
+          "targets": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Targets",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "action_type",
+          "title",
+          "detail"
+        ],
+        "title": "Mitigation",
+        "type": "object"
+      },
       "ModelOut": {
         "properties": {
           "capability": {
@@ -978,6 +1350,357 @@
           "metrics"
         ],
         "title": "ModelOut",
+        "type": "object"
+      },
+      "NodeDetailOut": {
+        "properties": {
+          "customers": {
+            "additionalProperties": {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "description": "Product \u2192 plants supplied",
+            "title": "Customers",
+            "type": "object"
+          },
+          "dominated_orders": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Dominated Orders",
+            "type": "array"
+          },
+          "events": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Events",
+            "type": "array"
+          },
+          "inputs": {
+            "additionalProperties": {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "description": "Product \u2192 qualified suppliers",
+            "title": "Inputs",
+            "type": "object"
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/NodeMetrics"
+          },
+          "whatif_defaults": {
+            "$ref": "#/components/schemas/DisruptionIn"
+          }
+        },
+        "required": [
+          "metrics",
+          "inputs",
+          "customers",
+          "events",
+          "dominated_orders",
+          "whatif_defaults"
+        ],
+        "title": "NodeDetailOut",
+        "type": "object"
+      },
+      "NodeMetrics": {
+        "properties": {
+          "betweenness": {
+            "title": "Betweenness",
+            "type": "number"
+          },
+          "dominated_order_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Dominated Order Ids",
+            "type": "array"
+          },
+          "dominated_orders": {
+            "title": "Dominated Orders",
+            "type": "integer"
+          },
+          "dominated_products": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Dominated Products",
+            "type": "array"
+          },
+          "dominated_value_usd": {
+            "title": "Dominated Value Usd",
+            "type": "number"
+          },
+          "downstream_open_order_value_usd": {
+            "title": "Downstream Open Order Value Usd",
+            "type": "number"
+          },
+          "downstream_orders": {
+            "title": "Downstream Orders",
+            "type": "integer"
+          },
+          "downstream_products": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Downstream Products",
+            "type": "array"
+          },
+          "features": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Features",
+            "type": "object"
+          },
+          "hhi_inputs": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Hhi Inputs",
+            "type": "object"
+          },
+          "industry": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Industry"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "model_version": {
+            "title": "Model Version",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "node_id": {
+            "title": "Node Id",
+            "type": "string"
+          },
+          "pagerank_rev": {
+            "title": "Pagerank Rev",
+            "type": "number"
+          },
+          "performance_impact_usd": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Performance Impact Usd"
+          },
+          "risk_band": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Risk Band"
+          },
+          "risk_drivers": {
+            "items": {
+              "$ref": "#/components/schemas/Driver"
+            },
+            "title": "Risk Drivers",
+            "type": "array"
+          },
+          "risk_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Risk Score"
+          },
+          "single_sourced_inputs": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Single Sourced Inputs",
+            "type": "array"
+          },
+          "sole_source_for": {
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "title": "Sole Source For",
+            "type": "array"
+          },
+          "ttr_d": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ttr D"
+          },
+          "ttr_p90_d": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ttr P90 D"
+          },
+          "ttr_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ttr Source"
+          },
+          "tts_capped": {
+            "default": false,
+            "title": "Tts Capped",
+            "type": "boolean"
+          },
+          "tts_d": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tts D"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "node_id",
+          "kind",
+          "type",
+          "name",
+          "industry",
+          "downstream_products",
+          "downstream_orders",
+          "downstream_open_order_value_usd",
+          "dominated_products",
+          "dominated_orders",
+          "dominated_value_usd",
+          "betweenness",
+          "pagerank_rev",
+          "hhi_inputs",
+          "single_sourced_inputs",
+          "sole_source_for",
+          "tts_d",
+          "ttr_d",
+          "ttr_p90_d",
+          "ttr_source",
+          "performance_impact_usd",
+          "risk_score",
+          "risk_band",
+          "model_version"
+        ],
+        "title": "NodeMetrics",
+        "type": "object"
+      },
+      "OrderImpactOut": {
+        "properties": {
+          "buyer": {
+            "title": "Buyer",
+            "type": "string"
+          },
+          "cause": {
+            "title": "Cause",
+            "type": "string"
+          },
+          "delay_d": {
+            "title": "Delay D",
+            "type": "number"
+          },
+          "due": {
+            "title": "Due",
+            "type": "string"
+          },
+          "facility": {
+            "title": "Facility",
+            "type": "string"
+          },
+          "facility_name": {
+            "title": "Facility Name",
+            "type": "string"
+          },
+          "late": {
+            "title": "Late",
+            "type": "boolean"
+          },
+          "order_id": {
+            "title": "Order Id",
+            "type": "string"
+          },
+          "product": {
+            "title": "Product",
+            "type": "string"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "revenue_usd": {
+            "title": "Revenue Usd",
+            "type": "number"
+          }
+        },
+        "required": [
+          "order_id",
+          "reference",
+          "buyer",
+          "product",
+          "facility",
+          "facility_name",
+          "due",
+          "revenue_usd",
+          "delay_d",
+          "late",
+          "cause"
+        ],
+        "title": "OrderImpactOut",
         "type": "object"
       },
       "Page_PortCallOut_": {
@@ -1620,6 +2343,256 @@
         ],
         "title": "SourceOut",
         "type": "object"
+      },
+      "SupplyGraphOut": {
+        "properties": {
+          "edges": {
+            "items": {
+              "$ref": "#/components/schemas/GraphEdgeOut"
+            },
+            "title": "Edges",
+            "type": "array"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/GraphNodeOut"
+            },
+            "title": "Nodes",
+            "type": "array"
+          }
+        },
+        "required": [
+          "nodes",
+          "edges"
+        ],
+        "title": "SupplyGraphOut",
+        "type": "object"
+      },
+      "WhatIfOut": {
+        "properties": {
+          "capacity_pct": {
+            "title": "Capacity Pct",
+            "type": "number"
+          },
+          "disrupted": {
+            "items": {
+              "$ref": "#/components/schemas/DisruptionIn"
+            },
+            "title": "Disrupted",
+            "type": "array"
+          },
+          "duration_d": {
+            "title": "Duration D",
+            "type": "number"
+          },
+          "first_impact_d": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Impact D"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "impacted_orders": {
+            "items": {
+              "$ref": "#/components/schemas/OrderImpactOut"
+            },
+            "title": "Impacted Orders",
+            "type": "array"
+          },
+          "mc_runs": {
+            "title": "Mc Runs",
+            "type": "integer"
+          },
+          "mitigations": {
+            "items": {
+              "$ref": "#/components/schemas/Mitigation"
+            },
+            "title": "Mitigations",
+            "type": "array"
+          },
+          "model_version": {
+            "title": "Model Version",
+            "type": "string"
+          },
+          "orders_late": {
+            "title": "Orders Late",
+            "type": "integer"
+          },
+          "orders_late_p50": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Orders Late P50"
+          },
+          "orders_late_p90": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Orders Late P90"
+          },
+          "recovery_d": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recovery D"
+          },
+          "recovery_d_p50": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recovery D P50"
+          },
+          "recovery_d_p90": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recovery D P90"
+          },
+          "revenue_at_risk_usd": {
+            "title": "Revenue At Risk Usd",
+            "type": "number"
+          },
+          "revenue_at_risk_usd_p50": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revenue At Risk Usd P50"
+          },
+          "revenue_at_risk_usd_p90": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revenue At Risk Usd P90"
+          },
+          "scenario": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scenario"
+          },
+          "seed": {
+            "title": "Seed",
+            "type": "integer"
+          },
+          "timeline": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Timeline",
+            "type": "array"
+          },
+          "tts_d": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tts D"
+          }
+        },
+        "required": [
+          "disrupted",
+          "duration_d",
+          "capacity_pct",
+          "mc_runs",
+          "seed",
+          "first_impact_d",
+          "recovery_d",
+          "tts_d",
+          "orders_late",
+          "revenue_at_risk_usd",
+          "timeline",
+          "impacted_orders",
+          "mitigations",
+          "model_version",
+          "id",
+          "scenario"
+        ],
+        "title": "WhatIfOut",
+        "type": "object"
+      },
+      "WhatIfRequest": {
+        "properties": {
+          "disruptions": {
+            "items": {
+              "$ref": "#/components/schemas/DisruptionIn"
+            },
+            "maxItems": 10,
+            "minItems": 1,
+            "title": "Disruptions",
+            "type": "array"
+          },
+          "mc_runs": {
+            "default": 0,
+            "maximum": 500.0,
+            "minimum": 0.0,
+            "title": "Mc Runs",
+            "type": "integer"
+          },
+          "seed": {
+            "default": 42,
+            "title": "Seed",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "disruptions"
+        ],
+        "title": "WhatIfRequest",
+        "type": "object"
       }
     }
   },
@@ -1934,7 +2907,7 @@
     },
     "/api/v1/graph": {
       "get": {
-        "description": "Facilities (nodes) and supply edges, for Sigma.js. Neutral view: display names apply.",
+        "description": "Facilities and ports with their risk, plus material and export flows (network and\nmap views). Sea imports are drawn supplier \u2192 hub \u2192 Chattogram \u2192 plant.",
         "operationId": "supply_graph_api_v1_graph_get",
         "parameters": [
           {
@@ -1980,7 +2953,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Envelope_GraphOut_"
+                  "$ref": "#/components/schemas/Envelope_SupplyGraphOut_"
                 }
               }
             },
@@ -2013,14 +2986,79 @@
         ]
       }
     },
-    "/api/v1/graph/analytics": {
+    "/api/v1/graph/critical": {
       "get": {
-        "operationId": "graph_analytics_api_v1_graph_analytics_get",
+        "description": "The criticality leaderboard (C1-R01, C1-R03): single points of failure first.",
+        "operationId": "critical_api_v1_graph_critical_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "metric",
+            "required": false,
+            "schema": {
+              "default": "dominance",
+              "pattern": "^(dominance|downstream|tts_gap|risk)$",
+              "title": "Metric",
+              "type": "string"
+            }
+          },
+          {
+            "description": "garments | pharma",
+            "in": "query",
+            "name": "industry",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "garments | pharma",
+              "title": "Industry"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Scenario key for synthetic rows; omit for real data only",
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "baseline",
+              "description": "Scenario key for synthetic rows; omit for real data only",
+              "title": "Scenario"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_CriticalOut_"
+                }
               }
             },
             "description": "Successful Response"
@@ -2044,34 +3082,132 @@
               }
             },
             "description": "Unprocessable Entity"
-          },
-          "501": {
-            "description": "M3"
           }
         },
-        "summary": "Graph Analytics",
+        "summary": "Critical",
         "tags": [
           "graph"
         ]
       }
     },
-    "/api/v1/graph/what-if": {
+    "/api/v1/graph/nodes/{node_id}": {
+      "get": {
+        "description": "One node: risk with drivers, inputs and their concentration, customers, linked events,\nthe orders it alone can stop, and pre-filled what-if defaults (C1-AC06).",
+        "operationId": "node_detail_api_v1_graph_nodes__node_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "node_id",
+            "required": true,
+            "schema": {
+              "title": "Node Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Scenario key for synthetic rows; omit for real data only",
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "baseline",
+              "description": "Scenario key for synthetic rows; omit for real data only",
+              "title": "Scenario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_NodeDetailOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Node Detail",
+        "tags": [
+          "graph"
+        ]
+      }
+    },
+    "/api/v1/graph/whatif": {
       "post": {
-        "description": "Queue a C1 cascade what-if (e.g. {\"close_port\": \"BDCGP\", \"days\": 3}).",
-        "operationId": "graph_what_if_api_v1_graph_what_if_post",
+        "description": "A cascade what-if (C1-R02). Deterministic (`mc_runs` = 0) answers now; with Monte\nCarlo runs it is queued (202) and its result appears at `/graph/whatif/{id}`.",
+        "operationId": "run_whatif_api_v1_graph_whatif_post",
+        "parameters": [
+          {
+            "description": "Scenario key for synthetic rows; omit for real data only",
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "baseline",
+              "description": "Scenario key for synthetic rows; omit for real data only",
+              "title": "Scenario"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "additionalProperties": true,
-                "title": "Body",
-                "type": "object"
+                "$ref": "#/components/schemas/WhatIfRequest"
               }
             }
           },
           "required": true
         },
         "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_WhatIfOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
           "202": {
             "content": {
               "application/json": {
@@ -2080,6 +3216,78 @@
                 }
               }
             },
+            "description": "Monte Carlo runs as a job"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Run Whatif",
+        "tags": [
+          "graph"
+        ]
+      }
+    },
+    "/api/v1/graph/whatif/{whatif_id}": {
+      "get": {
+        "operationId": "get_whatif_api_v1_graph_whatif__whatif_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "whatif_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Whatif Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Scenario key for synthetic rows; omit for real data only",
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "baseline",
+              "description": "Scenario key for synthetic rows; omit for real data only",
+              "title": "Scenario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_WhatIfOut_"
+                }
+              }
+            },
             "description": "Successful Response"
           },
           "404": {
@@ -2103,7 +3311,7 @@
             "description": "Unprocessable Entity"
           }
         },
-        "summary": "Graph What If",
+        "summary": "Get Whatif",
         "tags": [
           "graph"
         ]

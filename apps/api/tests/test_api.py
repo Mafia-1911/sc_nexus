@@ -13,6 +13,7 @@ from alembic import command
 from alembic.config import Config
 from cportal_api.deps import get_session
 from cportal_api.main import create_app
+from cportal_c1 import store as c1_store
 from cportal_connectors.ingest import replay_source, sync_data_sources
 from cportal_core.db import session_scope
 from cportal_core.names import load_pack
@@ -46,6 +47,8 @@ def client() -> Iterator[TestClient]:
         with session_scope(URL) as session:
             replay_source(session, ds_id)
     seed_scenario("baseline", URL)
+    with session_scope(URL) as session:  # what the worker's c1:refresh does
+        c1_store.refresh(session, c1_store.scenario_row(session, "baseline"))  # type: ignore[arg-type]
     factory = sessionmaker(engine, expire_on_commit=False)
 
     def override() -> Iterator[Session]:
@@ -103,7 +106,8 @@ def test_port_state_positions_events_graph(client: TestClient) -> None:
     graph = client.get("/api/v1/graph", params={"industry": "garments"}).json()["data"]
     assert graph["nodes"] and graph["edges"]
     fictional = set(load_pack("fictional").names.values())
-    assert {n["organization"] for n in graph["nodes"]} <= fictional
+    assert {n["organization"] for n in graph["nodes"] if n["organization"]} <= fictional
+    assert {e["kind"] for e in graph["edges"]} == {"supply", "import", "export"}
 
 
 def test_problems_and_stubs(client: TestClient) -> None:
@@ -116,10 +120,11 @@ def test_problems_and_stubs(client: TestClient) -> None:
 
 
 def test_jobs_are_accepted_and_pollable(client: TestClient) -> None:
-    accepted = client.post("/api/v1/graph/what-if", json={"close_port": "BDCGP", "days": 3})
+    body = {"disruptions": [{"node_id": "port:BDCGP", "duration_d": 3}], "mc_runs": 50}
+    accepted = client.post("/api/v1/graph/whatif", json=body)
     assert accepted.status_code == 202
     job = client.get(accepted.json()["poll"]).json()
-    assert job["status"] == "queued" and job["kind"] == "c1.what_if"
+    assert job["status"] == "queued" and job["kind"] == "c1.whatif"
 
 
 def test_quality_view_uses_the_guarded_name(
@@ -136,7 +141,13 @@ def test_quality_view_uses_the_guarded_name(
 
 @pytest.mark.parametrize(
     "path",
-    ["/api/v1/ports/BDCGP/calls", "/api/v1/vessels/positions", "/api/v1/graph", "/api/v1/events"],
+    [
+        "/api/v1/ports/BDCGP/calls",
+        "/api/v1/vessels/positions",
+        "/api/v1/graph",
+        "/api/v1/graph/critical",
+        "/api/v1/events",
+    ],
 )
 def test_read_latency_budget(client: TestClient, path: str) -> None:
     """02 §11: interactive reads p95 < 300 ms (in-process client, local Postgres)."""
@@ -205,3 +216,49 @@ def test_replay_clock_ignores_newer_real_positions(client: TestClient) -> None:
     finally:
         with session_scope(URL) as session:
             session.execute(delete(AisPositionLatest).where(real))
+
+
+def test_c1_leaderboard_and_node_detail(client: TestClient) -> None:
+    """C1-R01/R03/R04: ranked single points of failure, each with drivers and defaults."""
+    body = client.get("/api/v1/graph/critical", params={"industry": "garments"}).json()
+    items = body["data"]["items"]
+    assert body["meta"]["mode"] == "synthetic" and body["meta"]["model_version"]
+    assert items[0]["node_id"] == "port:BDCGP"  # every export crosses Chattogram
+    mill_x = next(i for i in items if "Orivell" in i["name"])  # the planted denim SPOF
+    assert items.index(mill_x) < 10 and mill_x["dominated_orders"] > 0
+    assert mill_x["node_id"] in body["data"]["tts_below_ttr"]
+    detail = client.get(f"/api/v1/graph/nodes/{mill_x['node_id']}").json()["data"]
+    assert detail["metrics"]["risk_drivers"] and detail["dominated_orders"]
+    assert "G-DENIM_FABRIC" in detail["customers"] and "G-COTTON_YARN" in detail["inputs"]
+    assert detail["whatif_defaults"]["node_id"] == mill_x["node_id"]
+    assert client.get("/api/v1/graph/nodes/nope").status_code == 404
+    real_only = client.get("/api/v1/graph/critical", params={"scenario": ""})
+    assert real_only.status_code == 404  # the network is synthetic: no scenario, no graph
+
+
+def test_c1_whatif_runs_and_is_stored(client: TestClient) -> None:
+    items = client.get("/api/v1/graph/critical").json()["data"]["items"]
+    mill_x = next(i for i in items if "Orivell" in i["name"])
+    body = {"disruptions": [{"node_id": mill_x["node_id"], "duration_d": 21}]}
+    t0 = time.perf_counter()
+    response = client.post("/api/v1/graph/whatif", json=body)
+    assert response.status_code == 200 and time.perf_counter() - t0 < 2.0  # C1-AC04
+    result = response.json()["data"]
+    assert result["orders_late"] > 0 and result["timeline"] and result["mitigations"]
+    assert result["tts_d"] is not None
+    stored = client.get(f"/api/v1/graph/whatif/{result['id']}").json()["data"]
+    assert stored["revenue_at_risk_usd"] == result["revenue_at_risk_usd"]
+    bad = {"disruptions": [{"node_id": "port:XXXXX", "duration_d": 2}]}
+    assert client.post("/api/v1/graph/whatif", json=bad).status_code == 404
+
+
+def test_c1_views_keep_fictional_names_under_the_real_pack(
+    client: TestClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Risk is adverse (Q-05): the bd_demo pack never puts real names on the graph."""
+    from cportal_core import names
+
+    monkeypatch.setattr(names, "load_pack", lambda pack=None: load_pack(pack or "bd_demo"))
+    nodes = client.get("/api/v1/graph").json()["data"]["nodes"]
+    real = {load_pack("bd_demo").names[k] for k in load_pack("bd_demo").real_keys}
+    assert nodes and not ({n["organization"] for n in nodes} & real)

@@ -1,0 +1,80 @@
+# C1 assumptions (supplier risk graph). Every number here is an ESTIMATE, shown in the UI as an
+# assumption, until a source replaces it: TTR from C2 events, transit from C3/C4, hazard from
+# IBTrACS tracks (DS-WX-03), country risk from WGI (DS-RISK-01, whose committed sample is an
+# error response, so it is not used yet).
+version: 1
+horizon_d: 120                 # open orders due within this window drive demand (world pack)
+
+ports:                         # display coordinates; rows from DS-PORT-05 win when loaded
+  BDCGP: {name: "Chattogram port", lat: 22.3080, lon: 91.8000, role: gateway}
+  SGSIN: {name: "Singapore (transshipment)", lat: 1.2640, lon: 103.8400, role: hub}
+  LKCMB: {name: "Colombo (transshipment)", lat: 6.9500, lon: 79.8500, role: hub}
+gateway: BDCGP                 # every import by sea and every export crosses it
+
+# Imports by sea call at a transshipment hub, then Chattogram. Hubs are substitutable: when one
+# closes, cargo reroutes via another at `hub_reroute_d` extra days.
+import_hub:
+  by_city: {ahmedabad: LKCMB, hyderabad: LKCMB, mumbai: LKCMB, kolkata: null, shaoxing: SGSIN, shijiazhuang: SGSIN, memphis: SGSIN}
+  by_country: {IN: LKCMB, CN: SGSIN, US: SGSIN}
+hub_reroute_d: 4
+
+transit_d:                     # physical transit into the consuming plant (the pipeline)
+  road: 1.5
+  sea_by_country: {IN: 15, CN: 22, US: 44}
+  sea_default: 20
+  gateway_dwell: 4             # import dwell at Chattogram incl. customs (C4 replaces it)
+export_lead_d:                 # plant gate-out to the buyer's DC; order due dates are DC dates
+  by_country: {NL: 32, US: 34, LK: 6}
+  default: 30
+order_slack_d: 2               # an order is late when its delay exceeds this buffer
+gateway_clearing_ratio: 0.5    # after a closure, the backlog takes this × closure days to clear
+
+# Time to recover (p50, p90 days) by node type; Simchi-Levi et al. take TTR from suppliers, we
+# start from these and let linked C2 events override them.
+ttr_d:
+  gateway: [5, 10]
+  hub: [3, 7]
+  raw_material_supplier: [30, 60]
+  spinning_mill: [21, 45]
+  fabric_mill: [21, 42]
+  trims_supplier: [10, 21]
+  garment_factory: [14, 30]
+  api_manufacturer: [30, 75]
+  excipient_supplier: [14, 30]
+  packaging_supplier: [10, 21]
+  pharma_plant: [30, 60]
+  default: [14, 30]
+
+tts_cap_d: 180                 # TTS above this is reported as "≥ 180 d"
+ramp_d: 7                      # days before qualified alternatives raise volumes
+surge: 1.25                    # catch-up production rate after a shortage (× normal)
+default_cover_d: 7             # input cover when a plant has no inventory row
+
+# Exposure to cyclone, surge and flood by cluster, 0–1, ordinal ESTIMATES: coastal Chattogram
+# (Remal 2024, Mocha 2023) highest, Dhaka-area clusters lower. To be derived from IBTrACS tracks.
+hazard:
+  gateway: 0.8
+  cepz: 0.8
+  kepz: 0.8
+  mongla_epz: 0.7
+  narayanganj: 0.5
+  adamjee_epz: 0.5
+  gazaria_api_park: 0.5
+  savar: 0.4
+  dhaka_epz: 0.4
+  tongi: 0.4
+  gazipur: 0.3
+  bhaluka: 0.3
+  overseas: 0.3
+  default: 0.4
+
+# Transparent risk baseline (C1 §5 L1): risk = 100 × Σ weight × feature (features in 0–1).
+# Weights sum to 1; a learned model (LightGBM, GNN) must beat this to replace it.
+risk_weights:
+  dominance: 0.30     # share of the industry's open-order value lost if the node fails
+  reach: 0.10         # share of open-order value that depends on the node at all
+  tts_gap: 0.15       # (TTR − TTS) / TTR, clipped to 0–1
+  hazard: 0.15
+  quality: 0.10       # AQL lot rejection rate of the node's deliveries (30 days)
+  events: 0.20        # severity × confidence of open disruption events linked to the node
+risk_bands: {high: 40, medium: 20}

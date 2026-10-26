@@ -84,7 +84,8 @@ export interface paths {
         };
         /**
          * Supply Graph
-         * @description Facilities (nodes) and supply edges, for Sigma.js. Neutral view: display names apply.
+         * @description Facilities and ports with their risk, plus material and export flows (network and
+         *     map views). Sea imports are drawn supplier → hub → Chattogram → plant.
          */
         get: operations["supply_graph_api_v1_graph_get"];
         put?: never;
@@ -95,15 +96,18 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/graph/analytics": {
+    "/api/v1/graph/critical": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Graph Analytics */
-        get: operations["graph_analytics_api_v1_graph_analytics_get"];
+        /**
+         * Critical
+         * @description The criticality leaderboard (C1-R01, C1-R03): single points of failure first.
+         */
+        get: operations["critical_api_v1_graph_critical_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -112,7 +116,28 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/graph/what-if": {
+    "/api/v1/graph/nodes/{node_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Node Detail
+         * @description One node: risk with drivers, inputs and their concentration, customers, linked events,
+         *     the orders it alone can stop, and pre-filled what-if defaults (C1-AC06).
+         */
+        get: operations["node_detail_api_v1_graph_nodes__node_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/graph/whatif": {
         parameters: {
             query?: never;
             header?: never;
@@ -122,10 +147,28 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Graph What If
-         * @description Queue a C1 cascade what-if (e.g. {"close_port": "BDCGP", "days": 3}).
+         * Run Whatif
+         * @description A cascade what-if (C1-R02). Deterministic (`mc_runs` = 0) answers now; with Monte
+         *     Carlo runs it is queued (202) and its result appears at `/graph/whatif/{id}`.
          */
-        post: operations["graph_what_if_api_v1_graph_what_if_post"];
+        post: operations["run_whatif_api_v1_graph_whatif_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/graph/whatif/{whatif_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Whatif */
+        get: operations["get_whatif_api_v1_graph_whatif__whatif_id__get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -637,6 +680,18 @@ export interface components {
             /** Version */
             version: string;
         };
+        /** CriticalOut */
+        CriticalOut: {
+            /** Items */
+            items: components["schemas"]["NodeMetrics"][];
+            /** Metric */
+            metric: string;
+            /**
+             * Tts Below Ttr
+             * @description Nodes whose TTS is shorter than their TTR
+             */
+            tts_below_ttr: string[];
+        };
         /** DatasetOut */
         DatasetOut: {
             /** Classes */
@@ -654,6 +709,48 @@ export interface components {
             /** Title */
             title: string;
         };
+        /** DisruptionIn */
+        DisruptionIn: {
+            /**
+             * Capacity Pct
+             * @default 0
+             */
+            capacity_pct: number;
+            /** Duration D */
+            duration_d: number;
+            /**
+             * Extra Lead Time D
+             * @default 0
+             */
+            extra_lead_time_d: number;
+            /** Node Id */
+            node_id: string;
+            /**
+             * Start D
+             * @default 0
+             */
+            start_d: number;
+        };
+        /**
+         * Driver
+         * @description One feature's share of a node's risk score. The score is additive, so these are its
+         *     exact Shapley values against the mean node (SHAP with an interventional baseline).
+         */
+        Driver: {
+            /** Contribution */
+            contribution: number;
+            /** Feature */
+            feature: string;
+            /** Label */
+            label: string;
+            /** Value */
+            value: number;
+        };
+        /** Envelope[CriticalOut] */
+        Envelope_CriticalOut_: {
+            data: components["schemas"]["CriticalOut"];
+            meta: components["schemas"]["Meta"];
+        };
         /** Envelope[EventOut] */
         Envelope_EventOut_: {
             data: components["schemas"]["EventOut"];
@@ -664,14 +761,14 @@ export interface components {
             data: components["schemas"]["FeatureCollection"];
             meta: components["schemas"]["Meta"];
         };
-        /** Envelope[GraphOut] */
-        Envelope_GraphOut_: {
-            data: components["schemas"]["GraphOut"];
-            meta: components["schemas"]["Meta"];
-        };
         /** Envelope[KpiStrip] */
         Envelope_KpiStrip_: {
             data: components["schemas"]["KpiStrip"];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[NodeDetailOut] */
+        Envelope_NodeDetailOut_: {
+            data: components["schemas"]["NodeDetailOut"];
             meta: components["schemas"]["Meta"];
         };
         /** Envelope[Page[PortCallOut]] */
@@ -689,9 +786,19 @@ export interface components {
             data: components["schemas"]["SourceOut"];
             meta: components["schemas"]["Meta"];
         };
+        /** Envelope[SupplyGraphOut] */
+        Envelope_SupplyGraphOut_: {
+            data: components["schemas"]["SupplyGraphOut"];
+            meta: components["schemas"]["Meta"];
+        };
         /** Envelope[Union[PortStateOut, NoneType]] */
         Envelope_Union_PortStateOut__NoneType__: {
             data: components["schemas"]["PortStateOut"] | null;
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[WhatIfOut] */
+        Envelope_WhatIfOut_: {
+            data: components["schemas"]["WhatIfOut"];
             meta: components["schemas"]["Meta"];
         };
         /** Envelope[list[ActivityOut]] */
@@ -813,16 +920,75 @@ export interface components {
              */
             type: "FeatureCollection";
         };
-        /** GraphOut */
-        GraphOut: {
-            /** Edges */
-            edges: {
-                [key: string]: unknown;
-            }[];
-            /** Nodes */
-            nodes: {
-                [key: string]: unknown;
-            }[];
+        /** GraphEdgeOut */
+        GraphEdgeOut: {
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "supply" | "import" | "export";
+            /** Mode */
+            mode: string;
+            /** Products */
+            products: string[];
+            /** Relationships */
+            relationships: number;
+            /**
+             * Share
+             * @description Largest supply share on this link
+             */
+            share: number;
+            /** Source */
+            source: string;
+            /** Target */
+            target: string;
+        };
+        /** GraphNodeOut */
+        GraphNodeOut: {
+            /** Cluster */
+            cluster: string | null;
+            /** Country */
+            country: string;
+            /** Dominated Orders */
+            dominated_orders: number;
+            /** Dominated Value Usd */
+            dominated_value_usd: number;
+            /** Downstream Open Order Value Usd */
+            downstream_open_order_value_usd: number;
+            /**
+             * Id
+             * @description Facility UUID, or port:<LOCODE>
+             */
+            id: string;
+            /** Industry */
+            industry: string | null;
+            /** Is Fictional */
+            is_fictional: boolean;
+            /** Kind */
+            kind: string;
+            /** Lat */
+            lat: number | null;
+            /** Lon */
+            lon: number | null;
+            /** Name */
+            name: string;
+            /**
+             * Organization
+             * @description Always the fictional name (risk view, Q-05)
+             */
+            organization: string | null;
+            /** Risk Band */
+            risk_band: string | null;
+            /** Risk Score */
+            risk_score: number | null;
+            /** Ttr D */
+            ttr_d: number | null;
+            /** Tts Capped */
+            tts_capped: boolean;
+            /** Tts D */
+            tts_d: number | null;
+            /** Type */
+            type: string;
         };
         /** JobAccepted */
         JobAccepted: {
@@ -887,6 +1053,17 @@ export interface components {
              */
             sources?: string[];
         };
+        /** Mitigation */
+        Mitigation: {
+            /** Action Type */
+            action_type: string;
+            /** Detail */
+            detail: string;
+            /** Targets */
+            targets?: string[];
+            /** Title */
+            title: string;
+        };
         /** ModelOut */
         ModelOut: {
             /** Capability */
@@ -903,6 +1080,130 @@ export interface components {
             name: string;
             /** Version */
             version: string;
+        };
+        /** NodeDetailOut */
+        NodeDetailOut: {
+            /**
+             * Customers
+             * @description Product → plants supplied
+             */
+            customers: {
+                [key: string]: {
+                    [key: string]: unknown;
+                }[];
+            };
+            /** Dominated Orders */
+            dominated_orders: {
+                [key: string]: unknown;
+            }[];
+            /** Events */
+            events: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Inputs
+             * @description Product → qualified suppliers
+             */
+            inputs: {
+                [key: string]: {
+                    [key: string]: unknown;
+                }[];
+            };
+            metrics: components["schemas"]["NodeMetrics"];
+            whatif_defaults: components["schemas"]["DisruptionIn"];
+        };
+        /** NodeMetrics */
+        NodeMetrics: {
+            /** Betweenness */
+            betweenness: number;
+            /** Dominated Order Ids */
+            dominated_order_ids?: string[];
+            /** Dominated Orders */
+            dominated_orders: number;
+            /** Dominated Products */
+            dominated_products: string[];
+            /** Dominated Value Usd */
+            dominated_value_usd: number;
+            /** Downstream Open Order Value Usd */
+            downstream_open_order_value_usd: number;
+            /** Downstream Orders */
+            downstream_orders: number;
+            /** Downstream Products */
+            downstream_products: string[];
+            /** Features */
+            features?: {
+                [key: string]: number;
+            };
+            /** Hhi Inputs */
+            hhi_inputs: {
+                [key: string]: number;
+            };
+            /** Industry */
+            industry: string | null;
+            /** Kind */
+            kind: string;
+            /** Model Version */
+            model_version: string;
+            /** Name */
+            name: string;
+            /** Node Id */
+            node_id: string;
+            /** Pagerank Rev */
+            pagerank_rev: number;
+            /** Performance Impact Usd */
+            performance_impact_usd: number | null;
+            /** Risk Band */
+            risk_band: string | null;
+            /** Risk Drivers */
+            risk_drivers?: components["schemas"]["Driver"][];
+            /** Risk Score */
+            risk_score: number | null;
+            /** Single Sourced Inputs */
+            single_sourced_inputs: string[];
+            /** Sole Source For */
+            sole_source_for: {
+                [key: string]: string;
+            }[];
+            /** Ttr D */
+            ttr_d: number | null;
+            /** Ttr P90 D */
+            ttr_p90_d: number | null;
+            /** Ttr Source */
+            ttr_source: string | null;
+            /**
+             * Tts Capped
+             * @default false
+             */
+            tts_capped: boolean;
+            /** Tts D */
+            tts_d: number | null;
+            /** Type */
+            type: string;
+        };
+        /** OrderImpactOut */
+        OrderImpactOut: {
+            /** Buyer */
+            buyer: string;
+            /** Cause */
+            cause: string;
+            /** Delay D */
+            delay_d: number;
+            /** Due */
+            due: string;
+            /** Facility */
+            facility: string;
+            /** Facility Name */
+            facility_name: string;
+            /** Late */
+            late: boolean;
+            /** Order Id */
+            order_id: string;
+            /** Product */
+            product: string;
+            /** Reference */
+            reference: string;
+            /** Revenue Usd */
+            revenue_usd: number;
         };
         /** Page[PortCallOut] */
         Page_PortCallOut_: {
@@ -1115,6 +1416,80 @@ export interface components {
             /** Tier */
             tier: string;
         };
+        /** SupplyGraphOut */
+        SupplyGraphOut: {
+            /** Edges */
+            edges: components["schemas"]["GraphEdgeOut"][];
+            /** Nodes */
+            nodes: components["schemas"]["GraphNodeOut"][];
+        };
+        /** WhatIfOut */
+        WhatIfOut: {
+            /** Capacity Pct */
+            capacity_pct: number;
+            /** Disrupted */
+            disrupted: components["schemas"]["DisruptionIn"][];
+            /** Duration D */
+            duration_d: number;
+            /** First Impact D */
+            first_impact_d: number | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Impacted Orders */
+            impacted_orders: components["schemas"]["OrderImpactOut"][];
+            /** Mc Runs */
+            mc_runs: number;
+            /** Mitigations */
+            mitigations: components["schemas"]["Mitigation"][];
+            /** Model Version */
+            model_version: string;
+            /** Orders Late */
+            orders_late: number;
+            /** Orders Late P50 */
+            orders_late_p50?: number | null;
+            /** Orders Late P90 */
+            orders_late_p90?: number | null;
+            /** Recovery D */
+            recovery_d: number | null;
+            /** Recovery D P50 */
+            recovery_d_p50?: number | null;
+            /** Recovery D P90 */
+            recovery_d_p90?: number | null;
+            /** Revenue At Risk Usd */
+            revenue_at_risk_usd: number;
+            /** Revenue At Risk Usd P50 */
+            revenue_at_risk_usd_p50?: number | null;
+            /** Revenue At Risk Usd P90 */
+            revenue_at_risk_usd_p90?: number | null;
+            /** Scenario */
+            scenario: string | null;
+            /** Seed */
+            seed: number;
+            /** Timeline */
+            timeline: {
+                [key: string]: unknown;
+            }[];
+            /** Tts D */
+            tts_d: number | null;
+        };
+        /** WhatIfRequest */
+        WhatIfRequest: {
+            /** Disruptions */
+            disruptions: components["schemas"]["DisruptionIn"][];
+            /**
+             * Mc Runs
+             * @default 0
+             */
+            mc_runs: number;
+            /**
+             * Seed
+             * @default 42
+             */
+            seed: number;
+        };
     };
     responses: never;
     parameters: never;
@@ -1313,7 +1688,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Envelope_GraphOut_"];
+                    "application/json": components["schemas"]["Envelope_SupplyGraphOut_"];
                 };
             };
             /** @description Not Found */
@@ -1336,9 +1711,16 @@ export interface operations {
             };
         };
     };
-    graph_analytics_api_v1_graph_analytics_get: {
+    critical_api_v1_graph_critical_get: {
         parameters: {
-            query?: never;
+            query?: {
+                metric?: string;
+                /** @description garments | pharma */
+                industry?: string | null;
+                limit?: number;
+                /** @description Scenario key for synthetic rows; omit for real data only */
+                scenario?: string | null;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -1351,7 +1733,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["Envelope_CriticalOut_"];
                 };
             };
             /** @description Not Found */
@@ -1372,37 +1754,126 @@ export interface operations {
                     "application/json": components["schemas"]["Problem"];
                 };
             };
-            /** @description M3 */
-            501: {
+        };
+    };
+    node_detail_api_v1_graph_nodes__node_id__get: {
+        parameters: {
+            query?: {
+                /** @description Scenario key for synthetic rows; omit for real data only */
+                scenario?: string | null;
+            };
+            header?: never;
+            path: {
+                node_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["Envelope_NodeDetailOut_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
             };
         };
     };
-    graph_what_if_api_v1_graph_what_if_post: {
+    run_whatif_api_v1_graph_whatif_post: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description Scenario key for synthetic rows; omit for real data only */
+                scenario?: string | null;
+            };
             header?: never;
             path?: never;
             cookie?: never;
         };
         requestBody: {
             content: {
-                "application/json": {
-                    [key: string]: unknown;
-                };
+                "application/json": components["schemas"]["WhatIfRequest"];
             };
         };
         responses: {
             /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_WhatIfOut_"];
+                };
+            };
+            /** @description Monte Carlo runs as a job */
             202: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
                     "application/json": components["schemas"]["JobAccepted"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    get_whatif_api_v1_graph_whatif__whatif_id__get: {
+        parameters: {
+            query?: {
+                /** @description Scenario key for synthetic rows; omit for real data only */
+                scenario?: string | null;
+            };
+            header?: never;
+            path: {
+                whatif_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_WhatIfOut_"];
                 };
             };
             /** @description Not Found */

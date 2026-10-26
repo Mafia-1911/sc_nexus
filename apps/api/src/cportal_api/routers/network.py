@@ -1,8 +1,8 @@
-"""/graph (C1), /routes (C3), /shipments (Nexus), /quality (C5), /models, /jobs.
+"""/routes (C3), /shipments (Nexus), /quality (C5), /models, /jobs. (/graph is C1's router.)
 
-Read shapes are fixed now; analytics, planning and inspection are jobs that arrive with their
-capability (M3–M7). Organization names go through the active name pack; views that attach
-adverse attributes (quality) ask for the guarded, fictional name (Q-05).
+Read shapes are fixed now; planning and inspection are jobs that arrive with their capability
+(M5–M7). Organization names go through the active name pack; views that attach adverse
+attributes (quality) ask for the guarded, fictional name (Q-05).
 """
 
 from __future__ import annotations
@@ -18,10 +18,8 @@ from cportal_core.models import (
     Job,
     ModelVersion,
     Organization,
-    Product,
     Shipment,
     ShipmentLeg,
-    SupplyEdge,
 )
 from cportal_core.names import display_name
 from fastapi import APIRouter, HTTPException, Query, status
@@ -33,76 +31,12 @@ from cportal_api.schemas import (
     BatchOut,
     DatasetOut,
     Envelope,
-    GraphOut,
     JobAccepted,
     ModelOut,
     ShipmentOut,
 )
 
 router = APIRouter()
-
-
-@router.get("/graph", response_model=Envelope[GraphOut], tags=["graph"])
-def supply_graph(
-    session: SessionDep,
-    scope: ScopeDep,
-    industry: Annotated[str | None, Query(description="garments | pharma")] = None,
-) -> Envelope[GraphOut]:
-    """Facilities (nodes) and supply edges, for Sigma.js. Neutral view: display names apply."""
-    rows = session.execute(
-        select(Facility, Organization)
-        .join(Organization, Organization.id == Facility.organization_id)
-        .where(scope.rows(Facility))
-    ).all()
-    facilities = [(f, o) for f, o in rows if not industry or o.industry in (industry, None)]
-    keep = {f.id for f, _ in facilities}
-    nodes = [
-        {
-            "id": str(f.id),
-            "facility_type": f.facility_type,
-            "cluster": f.cluster,
-            "organization": display_name(o.name_key, o.name),
-            "org_kind": o.kind,
-            "is_fictional": o.is_fictional,
-        }
-        for f, o in facilities
-    ]
-    edges_rows = session.execute(
-        select(SupplyEdge, Product.sku)
-        .join(Product, Product.id == SupplyEdge.product_id)
-        .where(scope.rows(SupplyEdge))
-    ).all()
-    edges = [
-        {
-            "source": str(e.from_facility_id),
-            "target": str(e.to_facility_id),
-            "product": sku,
-            "share": e.share,
-            "lead_time_mean_d": e.lead_time_mean_d,
-            "mode": e.mode,
-        }
-        for e, sku in edges_rows
-        if e.from_facility_id in keep and e.to_facility_id in keep
-    ]
-    return Envelope(
-        data=GraphOut(nodes=nodes, edges=edges), meta=meta([f for f, _ in facilities], scope)
-    )
-
-
-@router.get("/graph/analytics", tags=["graph"], responses={501: {"description": "M3"}})
-def graph_analytics() -> None:
-    raise HTTPException(501, "Dominators, HHI and centralities arrive with C1 (M3).")
-
-
-@router.post(
-    "/graph/what-if",
-    status_code=status.HTTP_202_ACCEPTED,
-    response_model=JobAccepted,
-    tags=["graph"],
-)
-def graph_what_if(session: SessionDep, body: dict[str, Any]) -> JobAccepted:
-    """Queue a C1 cascade what-if (e.g. {"close_port": "BDCGP", "days": 3})."""
-    return enqueue(session, "c1.what_if", body)
 
 
 @router.post(

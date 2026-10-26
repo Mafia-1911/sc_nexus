@@ -22,7 +22,6 @@ from sqlalchemy import select
 log = logging.getLogger(__name__)
 MAX_ATTEMPTS = 5
 NOT_YET = {
-    "c1.what_if": "C1 what-if arrives in M3 (Supplier Network).",
     "c2.extract": "C2 extraction arrives in M4 (Disruption Radar).",
     "c3.plan": "C3 route planning arrives in M5 (Route Planner).",
     "c5.inspect": "C5 inspection arrives in M7 (Quality Lab).",
@@ -36,8 +35,29 @@ def run_scenario(params: dict[str, Any], database_url: str | None) -> dict[str, 
     return {"rows": sum(counts.values()), "tables": counts}
 
 
+def run_c1_metrics(params: dict[str, Any], database_url: str | None) -> dict[str, Any]:
+    from cportal_worker import c1
+
+    return {"written": c1.refresh(params.get("scenario"), database_url, force=True)}
+
+
+def run_c1_whatif(
+    params: dict[str, Any], database_url: str | None, job_id: UUID | None = None
+) -> dict[str, Any]:
+    from cportal_worker import c1
+
+    return c1.what_if(params, database_url, job_id)
+
+
 JOB_HANDLERS: dict[str, Callable[[dict[str, Any], str | None], dict[str, Any]]] = {
     "scenario.run": run_scenario,
+    "c1.metrics": run_c1_metrics,
+}
+# Handlers that record the job id on what they write.
+JOB_HANDLERS_WITH_ID: dict[
+    str, Callable[[dict[str, Any], str | None, UUID | None], dict[str, Any]]
+] = {
+    "c1.whatif": run_c1_whatif,
 }
 
 
@@ -50,13 +70,17 @@ def run_job(job_id: UUID, database_url: str | None = None) -> str:
         job.started_at = datetime.now(UTC)
         kind, params = job.kind, dict(job.params)
     handler = JOB_HANDLERS.get(kind)
+    with_id = JOB_HANDLERS_WITH_ID.get(kind)
     result: dict[str, Any] = {}
     error: str | None = None
-    if handler is None:
+    if handler is None and with_id is None:
         error = NOT_YET.get(kind, f"no handler for job kind {kind!r}")
     else:
         try:
-            result = handler(params, database_url)
+            if with_id is not None:
+                result = with_id(params, database_url, job_id)
+            elif handler is not None:
+                result = handler(params, database_url)
         except Exception as exc:  # recorded on the job; the worker keeps running
             error = f"{type(exc).__name__}: {exc}"[:1000]
     with session_scope(database_url) as session:
@@ -73,8 +97,13 @@ def run_job(job_id: UUID, database_url: str | None = None) -> str:
 def _dispatch(event: OutboxEvent, database_url: str | None) -> None:
     if event.topic == "job.queued":
         run_job(UUID(str(event.payload["job_id"])), database_url)
-    # source.ingested / source.degraded: read by the UI from data_source; feature refresh and
-    # alerting subscribe here from M3 on.
+    elif event.topic.startswith("disruption."):
+        # C1-AC06: a new or changed event moves risk scores and what-if defaults now, not at
+        # the next scheduled refresh.
+        from cportal_worker import c1
+
+        c1.refresh(event.payload.get("scenario"), database_url)
+    # source.ingested / source.degraded: read by the UI from data_source.
 
 
 def drain(database_url: str | None = None, batch: int = 20) -> int:

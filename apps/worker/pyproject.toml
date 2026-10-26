@@ -5,6 +5,7 @@ description = "Worker (02 §3): schedules, live fetches with two strikes, AIS re
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "apscheduler>=3.11,<4",
+    "cportal-c1",
     "cportal-connectors",
     "cportal-core",
     "cportal-sim",

@@ -13,6 +13,7 @@ from datetime import datetime
 from typing import Any, Literal
 from uuid import UUID
 
+from cportal_c1.schemas import DisruptionIn, NodeMetrics, WhatIfResult
 from pydantic import AwareDatetime, BaseModel, Field
 
 ModeLabel = Literal["live", "replay", "synthetic", "mixed", "none"]
@@ -170,9 +171,61 @@ class EventOut(BaseModel):
     data_mode: str
 
 
-class GraphOut(BaseModel):
-    nodes: list[dict[str, Any]]
-    edges: list[dict[str, Any]]
+class GraphNodeOut(BaseModel):
+    id: str = Field(description="Facility UUID, or port:<LOCODE>")
+    kind: str
+    type: str
+    name: str
+    organization: str | None = Field(description="Always the fictional name (risk view, Q-05)")
+    industry: str | None
+    country: str
+    cluster: str | None
+    lat: float | None
+    lon: float | None
+    is_fictional: bool
+    risk_score: float | None
+    risk_band: str | None
+    dominated_value_usd: float
+    dominated_orders: int
+    downstream_open_order_value_usd: float
+    tts_d: float | None
+    tts_capped: bool
+    ttr_d: float | None
+
+
+class GraphEdgeOut(BaseModel):
+    source: str
+    target: str
+    kind: Literal["supply", "import", "export"]
+    products: list[str]
+    share: float = Field(description="Largest supply share on this link")
+    mode: str
+    relationships: int
+
+
+class SupplyGraphOut(BaseModel):
+    nodes: list[GraphNodeOut]
+    edges: list[GraphEdgeOut]
+
+
+class CriticalOut(BaseModel):
+    metric: str
+    items: list[NodeMetrics]
+    tts_below_ttr: list[str] = Field(description="Nodes whose TTS is shorter than their TTR")
+
+
+class NodeDetailOut(BaseModel):
+    metrics: NodeMetrics
+    inputs: dict[str, list[dict[str, Any]]] = Field(description="Product → qualified suppliers")
+    customers: dict[str, list[dict[str, Any]]] = Field(description="Product → plants supplied")
+    events: list[dict[str, Any]]
+    dominated_orders: list[dict[str, Any]]
+    whatif_defaults: DisruptionIn
+
+
+class WhatIfOut(WhatIfResult):
+    id: UUID
+    scenario: str | None
 
 
 class ShipmentOut(BaseModel):

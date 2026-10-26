@@ -24,7 +24,7 @@ from apscheduler.executors.pool import ThreadPoolExecutor
 from apscheduler.schedulers.background import BackgroundScheduler
 from cportal_core.settings import get_settings
 
-from cportal_worker import outbox, sources
+from cportal_worker import c1, outbox, sources
 from cportal_worker.replay import AisReplay
 
 log = logging.getLogger("cportal_worker")
@@ -97,6 +97,14 @@ def build_scheduler(live: bool, replay: AisReplay | None) -> BackgroundScheduler
         tick = float(os.environ.get("CPORTAL_REPLAY_TICK_S", "5"))
         scheduler.add_job(replay.tick, "interval", seconds=tick, id="ais:replay", next_run_time=now)
     scheduler.add_job(outbox.drain, "interval", seconds=60, id="outbox:sweep")
+    # C1 metrics follow their inputs (a re-seed, new events); a cheap fingerprint check first.
+    scheduler.add_job(
+        c1.refresh,
+        "interval",
+        minutes=5,
+        id="c1:refresh",
+        next_run_time=now + timedelta(seconds=15),
+    )
     return scheduler
 
 

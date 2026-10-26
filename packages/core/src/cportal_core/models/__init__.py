@@ -54,6 +54,7 @@ from cportal_core.models.reference import (
     SupplyEdge,
     TradeFlow,
 )
+from cportal_core.models.supply_graph import GraphMetric, WhatIfResult
 
 __all__ = [
     "LINEAGE_COLUMNS",
@@ -73,6 +74,7 @@ __all__ = [
     "ExternalId",
     "Facility",
     "FxRate",
+    "GraphMetric",
     "Holiday",
     "ImageDataset",
     "IngestionRun",
@@ -109,5 +111,6 @@ __all__ = [
     "Vessel",
     "VesselIdentity",
     "WeatherObservation",
+    "WhatIfResult",
     "ZonePresenceDaily",
 ]

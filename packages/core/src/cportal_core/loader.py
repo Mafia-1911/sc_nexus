@@ -68,9 +68,16 @@ def upsert(session: Session, records: Iterable[Record]) -> dict[str, int]:
 
 
 def _upsert_rows(session: Session, table: Table, rows: Sequence[dict[str, Any]]) -> int:
-    # The last occurrence of an id wins within one call (Postgres rejects duplicate keys
-    # inside a single INSERT … ON CONFLICT).
-    unique = list({row["id"]: row for row in rows}.values())
+    # Postgres rejects duplicate keys inside one INSERT … ON CONFLICT, so rows sharing an id
+    # are merged first with the same rule as the upsert: a later non-null value wins, a null
+    # never erases (e.g. a GFW twin and the DES truth describing the same vessel).
+    merged: dict[Any, dict[str, Any]] = {}
+    for row in rows:
+        current = merged.setdefault(row["id"], {})
+        for key, value in row.items():
+            if value is not None or key not in current:
+                current[key] = value
+    unique = list(merged.values())
     written = 0
     for start in range(0, len(unique), CHUNK):
         chunk = unique[start : start + CHUNK]

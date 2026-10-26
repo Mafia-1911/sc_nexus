@@ -1,0 +1,53 @@
+# Default name pack (Q-05): coined names for every synthetic organization. They are invented,
+# not checked against every registry in the world; edit freely. The UI always shows the
+# SYNTHETIC badge next to them (AGENTS.md rule 3).
+version: 1
+pack: fictional
+names:
+  # garment exporters (hero manufacturers)
+  garment_exporter_1: Tidelin Knit Composite
+  garment_exporter_2: Korallo Apparels
+  garment_exporter_3: Estuaro Denim Wear
+  garment_exporter_4: Bayline Fashions
+  garment_exporter_5: Nodira Garments
+  # upstream textile suppliers
+  fabric_mill_1: Vantaro Fabrics
+  fabric_mill_2: Kesaro Knit Fabrics
+  fabric_mill_3: Orivell Denim Mills
+  fabric_mill_4: Talvana Textiles
+  fabric_mill_5: Morvessa Dyeing & Knitting
+  fabric_mill_6: Quillon Fabric Works
+  spinning_mill_1: Lumacot Spinning Mills
+  spinning_mill_2: Ferrowen Spinning
+  spinning_mill_3: Arcadel Yarns
+  trims_supplier_1: Trimora Accessories
+  trims_supplier_2: Zipnora Trims
+  trims_supplier_3: Labelvane Labels
+  trims_supplier_4: Cartonna Packaging
+  # overseas suppliers
+  overseas_garments_ahmedabad: Sabarvale Cotton Traders
+  overseas_garments_memphis: Delta Bend Cotton Co.
+  overseas_garments_shaoxing: Keqora Textile Trading
+  overseas_garments_kolkata: Hooghlyn Yarn Exports
+  # buyers (fictional brands)
+  buyer_garments_1: Veltroa Retail
+  buyer_garments_2: Marenko Stores
+  buyer_garments_3: Halvero Brands
+  buyer_garments_4: Sunpoint Outfitters
+  # pharma (variant)
+  pharma_maker_1: Medivra Pharmaceuticals
+  pharma_maker_2: Curanta Laboratories
+  pharma_maker_3: Healora Pharma
+  api_manufacturer_1: Gazrin Fine Chemicals
+  excipient_supplier_1: Cellora Excipients
+  packaging_supplier_1: Blistra Packaging
+  packaging_supplier_2: Foldana Cartons
+  overseas_pharma_hyderabad: Synthora Actives
+  overseas_pharma_shijiazhuang: Chemvista Pharma Materials
+  overseas_pharma_mumbai: Excelvia Excipients
+  buyer_pharma_1: Lankora Health Distributors
+  # logistics
+  forwarder_1: Bayroute Logistics
+  forwarder_2: Riverlink Forwarding
+  carrier_1: Monsoon Line
+  carrier_2: Coral Feeder Services

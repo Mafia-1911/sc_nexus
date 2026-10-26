@@ -7,6 +7,7 @@ members = [
     "cportal",
     "cportal-connectors",
     "cportal-core",
+    "cportal-sim",
 ]
 
 [[package]]
@@ -178,6 +179,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "cportal-connectors" },
     { name = "cportal-core" },
+    { name = "cportal-sim" },
 ]
 
 [package.dev-dependencies]
@@ -193,6 +195,7 @@ dev = [
 requires-dist = [
     { name = "cportal-connectors", editable = "packages/connectors" },
     { name = "cportal-core", editable = "packages/core" },
+    { name = "cportal-sim", editable = "packages/sim" },
 ]
 
 [package.metadata.requires-dev]
@@ -262,6 +265,25 @@ requires-dist = [
     { name = "pyyaml", specifier = ">=6.0" },
     { name = "shapely", specifier = ">=2.0" },
     { name = "sqlalchemy", specifier = ">=2.0.36" },
+]
+
+[[package]]
+name = "cportal-sim"
+version = "0.1.0"
+source = { editable = "packages/sim" }
+dependencies = [
+    { name = "cportal-connectors" },
+    { name = "cportal-core" },
+    { name = "pyyaml" },
+    { name = "simpy" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "cportal-connectors", editable = "packages/connectors" },
+    { name = "cportal-core", editable = "packages/core" },
+    { name = "pyyaml", specifier = ">=6.0" },
+    { name = "simpy", specifier = ">=4.1" },
 ]
 
 [[package]]
@@ -908,6 +930,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/63/ee/4ccaa854f3b7ecd9181920b913c2d2f4b15053331457b7f615139a9774cc/shapely-2.2.0-cp312-cp312-win32.whl", hash = "sha256:da47a0cc9e630b4dff0db46e8972b29d2d27f337425ce9d4c77fd046ce48eabd", size = 1617174, upload-time = "2026-10-07T09:16:26.277Z" },
     { url = "https://files.pythonhosted.org/packages/f6/26/ba9192f0a72c830aa8cc1c61e207ada57cc54b7de81668b1836f575ee717/shapely-2.2.0-cp312-cp312-win_amd64.whl", hash = "sha256:90895df6542ae039fc6557dec6194e3509e883fbd6f5788e3c3e7a38fe46b257", size = 1791280, upload-time = "2026-10-07T09:16:27.94Z" },
     { url = "https://files.pythonhosted.org/packages/8e/92/4e4f93d7b7db9af2a77126c6c96af2c0c422635e2276f5abb533f67b42df/shapely-2.2.0-cp312-cp312-win_arm64.whl", hash = "sha256:7cf5b3a801b9b4febf774efde2e31280e647388deae8452693d8e6420b3a1ff2", size = 1879393, upload-time = "2026-10-07T09:16:29.684Z" },
+]
+
+[[package]]
+name = "simpy"
+version = "4.1.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/4a/38/fb393d1a5c2f35b65609e8d3c39d1508ada6a767c7e624ffa16ed3e84ffd/simpy-4.1.2.tar.gz", hash = "sha256:76ef36b71e0436ba94e55febc001c78879e493a323f045bbcfbb0b216e9b1fbc", size = 410129, upload-time = "2026-05-24T04:37:12.834Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ee/ed/07a1e054922c16b2c18ca3598771936c344d52337b8aaf0f1e3ed8b223dc/simpy-4.1.2-py3-none-any.whl", hash = "sha256:43071f84b6512c9b4fcb33ef057f240ccb1d1f3b263f9b4f9229d072e310b372", size = 27375, upload-time = "2026-05-24T04:37:11.74Z" },
 ]
 
 [[package]]

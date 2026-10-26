@@ -1,0 +1,77 @@
+# Chattogram port DES v0 (packages/sim/port_des.py). Extends the AIS twin priors for vessel
+# dimensions, anchorage and dock cells, geometry, speeds and AIS reporting.
+# Every number names its source; "estimate" marks a placeholder that `make calibrate` checks
+# against the real targets listed in docs/data-sources/CALIBRATION.md.
+version: 1
+extends: ds_ais_01_synthetic.yaml
+
+# Berths by pool, exactly the CPA codes in the berthing report of 2026-01-05 (DS-PORT-07); a
+# test checks each one exists there. J/1 is not in the report; J/3 was out of commission
+# (w.e.f. 23/12/25); NCT-1 was listed for Pangaon/coastal vessels.
+berths:
+  container: [CCT/1, CCT/2, CCT/3, NCT-2, NCT-3, NCT-4, NCT-5, PCT-1, PCT-2, PCT-3]
+  gcb: [J/2, J/4, J/5, J/6, J/7, J/8, J/9, J/10, J/11, J/12, J/13]
+  oil: [DOJ-3, DOJ-4, DOJ-5, DOJ-6, DOJ-7, DOJ-8]
+
+# How each ocean-going type is handled. `pools` are tried in this order with the given
+# probabilities (CPA report: container ships also berth at J/10, J/11, J/13); `lighterage` is
+# the share discharged into lighters at the anchorage (GFW: 99 % of cargo visits were
+# anchorage-only; the split by type is an estimate). Durations are lognormal (median h, sigma).
+handling:
+  container:
+    pools: {container: 0.7, gcb: 0.3}
+    lighterage: 0.0
+    pre_berth: {median: 22, sigma: 0.7}      # pilot, documents, berth window (estimate)
+    berth: {median: 50, sigma: 0.35}         # CPA: 2–4 days alongside
+  tanker:
+    pools: {oil: 1.0}
+    lighterage: 0.3
+    pre_berth: {median: 30, sigma: 0.8}
+    berth: {median: 50, sigma: 0.4}          # CPA DOJ-5/6: 2–3 days alongside
+    lighter_work: {median: 162, sigma: 0.5}
+  dry_bulk:
+    pools: {gcb: 1.0}
+    lighterage: 0.85
+    pre_berth: {median: 40, sigma: 0.8}
+    berth: {median: 190, sigma: 0.4}         # CPA rice/scrap carriers: 8–13 days alongside
+    lighter_work: {median: 414, sigma: 0.55}
+  general_cargo:
+    pools: {gcb: 1.0}
+    lighterage: 0.5
+    pre_berth: {median: 36, sigma: 0.8}
+    berth: {median: 170, sigma: 0.45}
+    lighter_work: {median: 288, sigma: 0.6}
+  roro:
+    pools: {gcb: 1.0}
+    lighterage: 0.0
+    pre_berth: {median: 18, sigma: 0.6}
+    berth: {median: 30, sigma: 0.4}
+
+# Lighters and coasters: domestic cargo vessels that load from mother vessels at the anchorage.
+# They explain GFW's ~12 cargo visits/day against PortWatch's 6 ocean calls (Little's law on
+# GFW presence: 71 vessels ÷ 5.9 days). Rate, stay and the lighter_work medians above were set
+# by `uv run calibrate --search` on 2026-10-26 (three pooled seeds; the lighterage scale settled
+# at 1.0 around the medians above); see CALIBRATION.md.
+lighters:
+  per_day: 6.5
+  stay: {median: 75, sigma: 1.0}
+  dimensions: {loa: [55, 95], beam: [10, 16], draught: [3.0, 4.5], ais_type: 70}
+
+# Tide (semidiurnal, M2 period). Phase from the CPA tide table for 2026-01-06: high water 03:03
+# and 15:31 local (DS-PORT-07). Vessels deeper than `deep_draught_m` cross the Karnaphuli bar
+# only within `window_h` of high water (estimate of the CPA practice).
+tide:
+  period_h: 12.4206
+  anchor_high_water_local: "2026-01-06T03:03:00+06:00"
+  window_h: 2.5
+  deep_draught_m: 8.5
+
+river_transit_h: 3.0   # anchorage ↔ berth (estimate)
+# The Karnaphuli channel is effectively one-way for large vessels: each move holds the channel
+# in its direction for a slot (estimate), which is what spreads a post-closure backlog over
+# several tide windows.
+channel_slot_h: 0.75
+# During a closure (cyclone signal), vessels at the outer anchorage are ordered to sea and come
+# back after it ends (CPA practice, press reports for Remal 2024; delay is an estimate).
+evacuation_return_h: [6, 18]
+burn_in_days: 30

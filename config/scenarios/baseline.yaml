@@ -1,0 +1,9 @@
+# Baseline world: no disruption. Times are relative to `start` (the world's "now", UTC).
+version: 1
+key: baseline
+name: "Baseline (no disruption)"
+start: "2026-10-26"
+seed: 42
+history_days: 90       # port DES history before `start` (C4 labels, calibration)
+projection_days: 14    # DES projection after `start`
+industries: [garments, pharma]

@@ -1,0 +1,55 @@
+# Garments (RMG) industry pack: the demo's hero (Q-08). Products carry real HS 2022 codes;
+# quantities, lead times and defect rates are ESTIMATES for the synthetic world, marked as such,
+# until C1/C5 calibrate them (Comtrade mirror flows, AQL norms, dataset defect ratios).
+version: 1
+industry: garments
+products:
+  # finished goods
+  TSHIRT:        {name: "Men's knitted cotton T-shirt", hs6: "610910", uom: pcs, unit_value_usd: 3.2}
+  POLO:          {name: "Knitted cotton polo shirt", hs6: "610510", uom: pcs, unit_value_usd: 5.6}
+  DENIM_TROUSER: {name: "Men's cotton denim trousers", hs6: "620342", uom: pcs, unit_value_usd: 9.8}
+  SWEATER:       {name: "Cotton pullover sweater", hs6: "611020", uom: pcs, unit_value_usd: 7.4}
+  # materials and trims
+  KNIT_FABRIC:   {name: "Dyed knitted cotton fabric", hs6: "600622", uom: kg, unit_value_usd: 4.1}
+  DENIM_FABRIC:  {name: "Cotton denim fabric", hs6: "520942", uom: m, unit_value_usd: 3.3}
+  COTTON_YARN:   {name: "Combed cotton yarn", hs6: "520512", uom: kg, unit_value_usd: 3.0}
+  RAW_COTTON:    {name: "Raw cotton, not carded", hs6: "520100", uom: kg, unit_value_usd: 1.9}
+  BUTTON:        {name: "Plastic buttons", hs6: "960621", uom: pcs, unit_value_usd: 0.01}
+  ZIPPER:        {name: "Metal slide fasteners", hs6: "960711", uom: pcs, unit_value_usd: 0.12}
+  LABEL:         {name: "Woven labels", hs6: "580710", uom: pcs, unit_value_usd: 0.02}
+  CARTON:        {name: "Corrugated cartons", hs6: "481910", uom: pcs, unit_value_usd: 0.6}
+bom:  # parent: {component: qty per unit (estimate)}
+  TSHIRT:        {KNIT_FABRIC: 0.22, LABEL: 2, CARTON: 0.02}
+  POLO:          {KNIT_FABRIC: 0.30, BUTTON: 3, LABEL: 2, CARTON: 0.025}
+  DENIM_TROUSER: {DENIM_FABRIC: 1.35, BUTTON: 1, ZIPPER: 1, LABEL: 3, CARTON: 0.05}
+  SWEATER:       {COTTON_YARN: 0.45, LABEL: 2, CARTON: 0.03}
+  KNIT_FABRIC:   {COTTON_YARN: 1.08}
+  DENIM_FABRIC:  {COTTON_YARN: 0.55}
+  COTTON_YARN:   {RAW_COTTON: 1.12}
+# Supply network template. `count` facilities of each type; clusters are picked round-robin.
+facilities:
+  garment_factory: {count: 6, clusters: [gazipur, dhaka_epz, narayanganj, cepz, kepz, adamjee_epz], makes: [TSHIRT, POLO, DENIM_TROUSER, SWEATER]}
+  fabric_mill:     {count: 6, clusters: [gazipur, narayanganj, savar, tongi, gazipur, narayanganj], makes: [KNIT_FABRIC, DENIM_FABRIC]}
+  spinning_mill:   {count: 3, clusters: [bhaluka, bhaluka, gazipur], makes: [COTTON_YARN]}
+  trims_supplier:  {count: 4, clusters: [dhaka_epz, cepz, gazipur, narayanganj], makes: [BUTTON, ZIPPER, LABEL, CARTON]}
+  overseas:        # imported inputs: city → products (sea via the listed hub)
+    - {city: ahmedabad, makes: [RAW_COTTON, COTTON_YARN], via: [LKCMB], transit_d: [12, 18]}
+    - {city: memphis,   makes: [RAW_COTTON],             via: [SGSIN], transit_d: [38, 50]}
+    - {city: shaoxing,  makes: [KNIT_FABRIC, DENIM_FABRIC, ZIPPER], via: [SGSIN], transit_d: [16, 24]}
+    - {city: kolkata,   makes: [COTTON_YARN],            via: [],      transit_d: [5, 9]}
+buyers:  # fictional brands; DCs near real gateway cities
+  - {city: rotterdam,   gateway: NLRTM, via: [SGSIN], products: [TSHIRT, POLO, SWEATER]}
+  - {city: rotterdam,   gateway: NLRTM, via: [LKCMB], products: [DENIM_TROUSER, TSHIRT]}
+  - {city: los_angeles, gateway: USLAX, via: [SGSIN], products: [TSHIRT, DENIM_TROUSER]}
+  - {city: los_angeles, gateway: USLAX, via: [MYPKG], products: [POLO, SWEATER]}
+lead_time_d:  # supplier order-to-delivery, mean and sd (estimates)
+  domestic: {mean: 21, sd: 5}
+  imported: {mean: 35, sd: 8}
+orders:
+  per_buyer_per_month: 3
+  qty_pcs: [20000, 120000]
+  horizon_d: 120
+defects:  # Beta(a, b) per supplier facility type, for incoming-material inspection (estimates)
+  fabric_mill: {a: 2.0, b: 60.0}
+  overseas:    {a: 1.5, b: 70.0}
+  trims_supplier: {a: 1.0, b: 150.0}

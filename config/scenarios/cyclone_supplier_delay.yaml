@@ -1,0 +1,25 @@
+# Hero scenario (Q-09: cyclone + supplier delay, combined). All names are fictional; the
+# cyclone is synthetic, shaped like Remal (May 2024, DS-WX-03 / DS-WX-02) but not a copy.
+version: 1
+key: cyclone_supplier_delay
+extends: baseline
+name: "Cyclone SYN-01 + Fabric Mill X delay"
+cyclone:
+  name: "SYN-01"            # shown as "Tropical Cyclone SYN-01 (synthetic)"
+  alert_issued_h: -12          # GDACS alert relative to start
+  landfall_h: 66               # start + 66 h (≈ 00:00 Dhaka on day 3)
+  landfall: {lat: 22.10, lon: 91.60}
+  alert_level: orange
+  max_wind_kmh: 120
+  min_pressure_hpa: 975
+  surge_m: 1.8
+  # CPA suspends operations while the local signal is up (01-product §5: "est. 36–48 h").
+  port_closure_h: [-18, 24]    # relative to landfall
+supplier_delay:
+  facility_key: fabric_mill_3.fabric_mill.3   # "Fabric Mill X": the concentrated denim mill
+  starts_h: 0                  # relative to landfall: flooding and a power outage
+  lead_time_extra_d: 5
+hero:
+  factory_key: garment_exporter_1.garment_factory.1   # "Factory A" (Gazipur)
+  inbound_product: G-KNIT_FABRIC
+  inbound_from: overseas_garments_shaoxing.export.1

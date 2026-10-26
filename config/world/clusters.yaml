@@ -1,0 +1,34 @@
+# Real industrial clusters and logistics nodes for the synthetic world (03 §4). Fictional
+# facilities are placed within `jitter_km` of these points. Every coordinate cites where it came
+# from (the replayed DS-GEO-02 / DS-GEO-04 rows, queried 2026-10-26).
+version: 1
+clusters:
+  gazipur:          {lat: 23.9984, lon: 90.4223, jitter_km: 6, source: "GeoNames Gazipur (DS-GEO-04)"}
+  tongi:            {lat: 23.9000, lon: 90.4000, jitter_km: 3, source: "GeoNames Tongi (DS-GEO-04)"}
+  dhaka_epz:        {lat: 23.9502, lon: 90.2732, jitter_km: 2, source: "OSM Dhaka Export Processing Zone (DS-GEO-02)", note: "Ashulia/Savar incl. DEPZ"}
+  savar:            {lat: 23.8486, lon: 90.2500, jitter_km: 4, source: "GeoNames Savar (DS-GEO-04)"}
+  narayanganj:      {lat: 23.6135, lon: 90.5030, jitter_km: 4, source: "GeoNames Narayanganj (DS-GEO-04)"}
+  adamjee_epz:      {lat: 23.6782, lon: 90.5172, jitter_km: 1, source: "OSM Adamjee EPZ bus stand (DS-GEO-02), approximate"}
+  cepz:             {lat: 22.2933, lon: 91.7818, jitter_km: 1, source: "OSM Chittagong Export Processing Zone (DS-GEO-02)"}
+  kepz:             {lat: 22.2722, lon: 91.7896, jitter_km: 1, source: "OSM Karnaphuli Export Processing Zone (DS-GEO-02)"}
+  mongla_epz:       {lat: 22.4912, lon: 89.6004, jitter_km: 1, source: "OSM Mongla EPZ zone services complex (DS-GEO-02)"}
+  gazaria_api_park: {lat: 23.5400, lon: 90.6300, jitter_km: 3, source: "GeoNames Gazaria upazila centroid (DS-GEO-04), approximate for the API industrial park"}
+  bhaluka:          {lat: 24.3750, lon: 90.3783, jitter_km: 5, source: "GeoNames Bhaluka upazila (DS-GEO-04)"}
+# Overseas supplier and buyer cities (well-known city centres; approximate).
+overseas:
+  ahmedabad:    {lat: 23.0225, lon: 72.5714, country: IN, gateway: INNSA}
+  kolkata:      {lat: 22.5726, lon: 88.3639, country: IN, gateway: INCCU}
+  hyderabad:    {lat: 17.3850, lon: 78.4867, country: IN, gateway: INNSA}
+  mumbai:       {lat: 19.0760, lon: 72.8777, country: IN, gateway: INNSA}
+  shaoxing:     {lat: 30.0000, lon: 120.5800, country: CN, gateway: CNNGB}
+  shijiazhuang: {lat: 38.0428, lon: 114.5149, country: CN, gateway: CNTXG}
+  memphis:      {lat: 35.1495, lon: -90.0490, country: US, gateway: USSAV}
+  rotterdam:    {lat: 51.9244, lon: 4.4777, country: NL, gateway: NLRTM}
+  los_angeles:  {lat: 34.0522, lon: -118.2437, country: US, gateway: USLAX}
+  colombo:      {lat: 6.9271, lon: 79.8612, country: LK, gateway: LKCMB}
+# Inland logistics nodes by UN/LOCODE (rows come from DS-PORT-05).
+nodes:
+  port: BDCGP
+  alt_port: BDMGL
+  icd_rail: BDKAM       # Kamalapur ICD (Dhaka), rail from Chattogram
+  icd_barge: BDPGN      # Pangaon inland container terminal, barge from Chattogram

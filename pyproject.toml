@@ -7,6 +7,7 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
     "cportal-core",
     "cportal-connectors",
+    "cportal-sim",
 ]
 
 [dependency-groups]
@@ -28,6 +29,7 @@ members = ["packages/*"]
 [tool.uv.sources]
 cportal-core = { workspace = true }
 cportal-connectors = { workspace = true }
+cportal-sim = { workspace = true }
 
 [tool.ruff]
 line-length = 100
@@ -48,7 +50,7 @@ allowed-confusables = ["–", "×", "’", "‘"]
 
 [tool.mypy]
 python_version = "3.12"
-files = ["packages/core/src", "packages/connectors/src"]
+files = ["packages/core/src", "packages/connectors/src", "packages/sim/src"]
 disallow_untyped_defs = true
 check_untyped_defs = true
 no_implicit_optional = true
@@ -56,13 +58,13 @@ warn_unused_ignores = true
 warn_redundant_casts = true
 
 [[tool.mypy.overrides]]
-module = ["genson.*", "feedparser.*", "searoute.*", "openpyxl.*"]
+module = ["genson.*", "feedparser.*", "searoute.*", "openpyxl.*", "simpy.*", "pdfplumber.*"]
 ignore_missing_imports = true
 
 [tool.pyrefly]
 # Editors running pyrefly don't follow uv's editable-install .pth files.
-search-path = ["packages/core/src", "packages/connectors/src"]
+search-path = ["packages/core/src", "packages/connectors/src", "packages/sim/src"]
 
 [tool.pytest.ini_options]
-testpaths = ["packages/core/tests", "packages/connectors/tests"]
+testpaths = ["packages/core/tests", "packages/connectors/tests", "packages/sim/tests", "tests"]
 addopts = "-q"

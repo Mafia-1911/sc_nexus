@@ -1,0 +1,22 @@
+# Real-name pack for the demo video (Q-05, user decision 2026-10-26): well-known Bangladeshi
+# company NAMES on the hero manufacturers only. Every figure attached to them stays synthetic
+# and the UI shows a persistent "illustrative names, synthetic data" banner.
+#
+# Guardrail (flagged to the user, default on): real names never appear next to ADVERSE synthetic
+# attributes (defect rates, recalls, supplier failures, risk scores). In those views the
+# fictional name from `fictional.yaml` is shown instead. Set `allow_adverse: true` below only
+# after the user explicitly asks for it.
+version: 1
+pack: bd_demo
+extends: fictional
+allow_adverse: false
+banner: "Company names are real and used for illustration only. All figures are synthetic."
+names:
+  garment_exporter_1: {name: Ha-Meem Group, source: "https://en.prothomalo.com/amp/story/business/local/1igm3995am"}
+  garment_exporter_2: {name: DBL Group, source: "https://en.prothomalo.com/amp/story/business/local/1igm3995am"}
+  garment_exporter_3: {name: Mondal Group, source: "https://en.prothomalo.com/amp/story/business/local/1igm3995am"}
+  garment_exporter_4: {name: Palmal Group, source: "https://en.prothomalo.com/amp/story/business/local/1igm3995am"}
+  garment_exporter_5: {name: Youngone (Bangladesh), source: "https://en.prothomalo.com/amp/story/business/local/1igm3995am"}
+  pharma_maker_1: {name: Square Pharmaceuticals, source: "https://www.bracepl.com/investments/public/assets/research-new/1779530184-squrpharma_equity_note-final.pdf"}
+  pharma_maker_2: {name: Incepta Pharmaceuticals, source: "https://www.bracepl.com/investments/public/assets/research-new/1779530184-squrpharma_equity_note-final.pdf"}
+  pharma_maker_3: {name: Beximco Pharmaceuticals, source: "https://www.bracepl.com/investments/public/assets/research-new/1779530184-squrpharma_equity_note-final.pdf"}

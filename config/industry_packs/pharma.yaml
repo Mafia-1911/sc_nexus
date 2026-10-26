@@ -1,0 +1,45 @@
+# Pharma industry pack: the demo's variant (Q-08). Real HS 2022 codes; quantities, lead times and
+# defect rates are ESTIMATES until C1/C5 calibrate them.
+version: 1
+industry: pharma
+products:
+  PARACETAMOL_500: {name: "Paracetamol 500 mg tablets", hs6: "300490", uom: pcs, unit_value_usd: 0.012, shelf_life_days: 1095}
+  AMOXICILLIN_500: {name: "Amoxicillin 500 mg capsules", hs6: "300410", uom: pcs, unit_value_usd: 0.05, shelf_life_days: 730}
+  METFORMIN_500:   {name: "Metformin 500 mg tablets", hs6: "300490", uom: pcs, unit_value_usd: 0.02, shelf_life_days: 1095}
+  OMEPRAZOLE_20:   {name: "Omeprazole 20 mg capsules", hs6: "300490", uom: pcs, unit_value_usd: 0.04, shelf_life_days: 730, cold_chain: false}
+  API_PARACETAMOL: {name: "Paracetamol (API)", hs6: "292429", uom: kg, unit_value_usd: 4.5}
+  API_AMOXICILLIN: {name: "Amoxicillin trihydrate (API)", hs6: "294110", uom: kg, unit_value_usd: 28.0}
+  API_METFORMIN:   {name: "Metformin hydrochloride (API)", hs6: "292529", uom: kg, unit_value_usd: 6.0}
+  API_OMEPRAZOLE:  {name: "Omeprazole (API)", hs6: "293339", uom: kg, unit_value_usd: 60.0}
+  EXCIPIENT_MCC:   {name: "Microcrystalline cellulose", hs6: "391290", uom: kg, unit_value_usd: 3.5}
+  CAPSULE_SHELL:   {name: "Empty hard gelatin capsules", hs6: "960290", uom: pcs, unit_value_usd: 0.002}
+  BLISTER_FOIL:    {name: "Aluminium blister foil", hs6: "760720", uom: kg, unit_value_usd: 7.0}
+  PVC_FILM:        {name: "PVC blister film", hs6: "392043", uom: kg, unit_value_usd: 2.4}
+  CARTON:          {name: "Folding cartons", hs6: "481910", uom: pcs, unit_value_usd: 0.03}
+bom:
+  PARACETAMOL_500: {API_PARACETAMOL: 0.0005, EXCIPIENT_MCC: 0.00012, BLISTER_FOIL: 0.00004, PVC_FILM: 0.00008, CARTON: 0.01}
+  AMOXICILLIN_500: {API_AMOXICILLIN: 0.0005, CAPSULE_SHELL: 1, BLISTER_FOIL: 0.00004, PVC_FILM: 0.00008, CARTON: 0.01}
+  METFORMIN_500:   {API_METFORMIN: 0.0005, EXCIPIENT_MCC: 0.0001, BLISTER_FOIL: 0.00004, PVC_FILM: 0.00008, CARTON: 0.01}
+  OMEPRAZOLE_20:   {API_OMEPRAZOLE: 0.00002, CAPSULE_SHELL: 1, BLISTER_FOIL: 0.00004, PVC_FILM: 0.00008, CARTON: 0.01}
+facilities:
+  pharma_plant:       {count: 3, clusters: [gazipur, savar, narayanganj], makes: [PARACETAMOL_500, AMOXICILLIN_500, METFORMIN_500, OMEPRAZOLE_20]}
+  api_manufacturer:   {count: 1, clusters: [gazaria_api_park], makes: [API_PARACETAMOL, API_METFORMIN]}
+  excipient_supplier: {count: 1, clusters: [gazipur], makes: [EXCIPIENT_MCC]}
+  packaging_supplier: {count: 2, clusters: [narayanganj, savar], makes: [CARTON, PVC_FILM]}
+  overseas:
+    - {city: hyderabad,    makes: [API_PARACETAMOL, API_AMOXICILLIN, API_METFORMIN], via: [LKCMB], transit_d: [12, 18]}
+    - {city: shijiazhuang, makes: [API_AMOXICILLIN, API_OMEPRAZOLE, CAPSULE_SHELL],  via: [SGSIN], transit_d: [18, 26]}
+    - {city: mumbai,       makes: [EXCIPIENT_MCC, BLISTER_FOIL],                      via: [LKCMB], transit_d: [12, 18]}
+buyers:
+  - {city: colombo, gateway: LKCMB, via: [], products: [PARACETAMOL_500, AMOXICILLIN_500, METFORMIN_500]}
+lead_time_d:
+  domestic: {mean: 14, sd: 4}
+  imported: {mean: 30, sd: 7}
+orders:
+  per_buyer_per_month: 2
+  qty_pcs: [2000000, 12000000]
+  horizon_d: 120
+defects:
+  pharma_plant:     {a: 1.0, b: 400.0}
+  api_manufacturer: {a: 1.0, b: 250.0}
+  overseas:         {a: 1.2, b: 220.0}

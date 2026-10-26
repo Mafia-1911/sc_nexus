@@ -1,0 +1,19 @@
+[project]
+name = "cportal-sim"
+version = "0.1.0"
+description = "Synthetic world, Chattogram port DES, scenarios and source twins (03 §4)"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "cportal-core",
+    "cportal-connectors",
+    "pyyaml>=6.0",
+    "simpy>=4.1",
+]
+
+[project.scripts]
+seed = "cportal_sim.seed:main"
+calibrate = "cportal_sim.calibrate:main"
+
+[build-system]
+requires = ["uv_build>=0.9,<0.14"]
+build-backend = "uv_build"

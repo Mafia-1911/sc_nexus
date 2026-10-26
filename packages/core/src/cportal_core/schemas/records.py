@@ -18,6 +18,7 @@ from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, field_validato
 from cportal_core.enums import (
     AlertLevel,
     BatchStatus,
+    Capability,
     CargoProfile,
     DataMode,
     DiscoveredVia,
@@ -28,6 +29,7 @@ from cportal_core.enums import (
     HolidayKind,
     ImageSplit,
     Industry,
+    LinkMethod,
     LocationKind,
     OrderStatus,
     OrgKind,
@@ -528,6 +530,17 @@ class DisruptionEventRecord(Record):
     url: str | None = None
 
 
+class EventEntityLinkRecord(Record):
+    table = "event_entity_link"
+
+    event_id: UUID
+    entity_type: str
+    entity_id: UUID
+    link_method: LinkMethod
+    link_confidence: float | None = Field(default=None, ge=0, le=1)
+    impact_hint: dict[str, Any] = Field(default_factory=dict)
+
+
 # --- Vision ------------------------------------------------------------------------------------
 
 
@@ -675,6 +688,15 @@ class ScenarioRecord(Record):
     created_by: str | None = None
 
 
+class ScenarioResultRecord(Record):
+    table = "scenario_result"
+
+    run_scenario_id: UUID
+    capability: Capability
+    kpis: dict[str, Any] = Field(default_factory=dict)
+    artifacts: dict[str, Any] = Field(default_factory=dict)
+
+
 RECORD_TYPES: tuple[type[Record], ...] = (
     LocationRecord,
     PortRecord,
@@ -701,6 +723,7 @@ RECORD_TYPES: tuple[type[Record], ...] = (
     WeatherObservationRecord,
     ArticleRecord,
     DisruptionEventRecord,
+    EventEntityLinkRecord,
     ImageDatasetRecord,
     InspectionImageRecord,
     BatchRecord,
@@ -711,4 +734,5 @@ RECORD_TYPES: tuple[type[Record], ...] = (
     ShipmentLegRecord,
     TransportEventRecord,
     ScenarioRecord,
+    ScenarioResultRecord,
 )

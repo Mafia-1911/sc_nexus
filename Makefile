@@ -4,7 +4,7 @@ UV ?= uv
 DS ?=
 
 .PHONY: help setup test lint fmt type check probe probe-p0 probe-p1 cards collect-ais ais-report synth-ais \
-	db-local db-local-stop migrate revision ingest seed calibrate api openapi
+	db-local db-local-stop migrate revision ingest seed calibrate api openapi up down seed-docker erd
 
 help: ## List targets
 	@grep -E '^[a-z0-9-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-12s %s\n", $$1, $$2}'
@@ -15,9 +15,10 @@ setup: ## Install the uv workspace (Python 3.12 is fetched by uv)
 test: ## Run all tests
 	$(UV) run pytest
 
-lint: ## Ruff lint and format check
+lint: ## Ruff lint, format check and package-boundary contracts
 	$(UV) run ruff check .
 	$(UV) run ruff format --check .
+	$(UV) run lint-imports
 
 fmt: ## Apply ruff fixes and formatting
 	$(UV) run ruff check . --fix
@@ -79,3 +80,15 @@ api: ## Run the API with reload on http://127.0.0.1:8000 (docs at /docs)
 
 openapi: ## Write the OpenAPI contract to docs/api/openapi.json
 	$(UV) run cportal-api-openapi
+
+up: ## docker compose: db + migrate + api (http://127.0.0.1:8000)
+	docker compose up -d --build db migrate api
+
+down: ## Stop the compose stack (data stays in the pgdata volume)
+	docker compose down
+
+seed-docker: ## Seed the compose database (reference replay + scenarios)
+	docker compose --profile seed run --rm seed
+
+erd: ## Regenerate docs/ERD.md (Mermaid) from the ORM models
+	$(UV) run python -m cportal_core.erd

@@ -53,3 +53,29 @@ asked for a status write-up and a push to `github.com/Mafia-1911/sc_nexus`.
 default); Docker group membership; Copernicus login.
 
 **Next:** M1 as listed in `docs/STATUS.md`.
+
+## Session 2 (continued) · 2026-10-26 · M1 Architecture → G1
+
+**Asked:** the user added the ReliefWeb appname and installed Docker, and asked to continue
+from the last checkpoint (status write-up, push, then M1).
+
+**Done:**
+- Docker 29.9 + Compose v5.6 found, but the socket needs `docker` group membership; M1 ran on
+  a user-level Postgres 16 + PostGIS + pgvector (A-023).
+- ReliefWeb verified; its appname turned out to be key-like and is now redacted (A-030; the
+  pre-push secret scan caught it in samples before anything was pushed).
+- Pushed `main` (brief + M0 + post-G0) and `m0-recon` to github.com/Mafia-1911/sc_nexus.
+- M1, in four commits: domain model v1 and migration; parsers for every P0 source plus the CPA
+  PDF and replay ingest; synthetic world, calibrated port DES, twins, scenarios and seed; API
+  skeleton; then compose, import boundaries, ERD, ADR-001…014 and docs.
+- Web searches (2) for the `bd_demo` name pack: Prothom Alo's top RMG exporters, IQVIA-based
+  pharma rankings (cited in `config/name_packs/bd_demo.yaml`).
+
+**Findings:** the DES needs a lighter/coaster population to match GFW (12 cargo visits/day vs
+PortWatch's 6 ocean calls); with it, dwell and anchorage presence match within 13 % and 1 %.
+CPA berths, tides and draught from the user's PDF anchor the berth model. A brief naming clash
+(`mode`) became `data_mode` (A-032).
+
+**Open:** Docker group; Q-05 guardrail confirmation; Ollama before M4.
+
+**Next:** M2 (worker, web shell with Control Tower and Data & Models, compose, smoke test).

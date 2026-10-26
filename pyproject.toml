@@ -14,6 +14,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "httpx>=0.27",
+    "import-linter>=2.1",
     "mypy>=1.13",
     "pytest>=8.3",
     "ruff>=0.8",
@@ -72,3 +73,26 @@ search-path = ["packages/core/src", "packages/connectors/src", "packages/sim/src
 testpaths = ["packages/core/tests", "packages/connectors/tests", "packages/sim/tests", "apps/api/tests", "tests"]
 addopts = "-q"
 filterwarnings = ["ignore:Using `httpx` with `starlette.testclient` is deprecated"]
+
+# Package boundaries (02 §4 import rule). Capability packages (c1…c5) add "imports only core"
+# contracts when they land (M3+).
+[tool.importlinter]
+root_packages = ["cportal_core", "cportal_connectors", "cportal_sim", "cportal_api"]
+
+[[tool.importlinter.contracts]]
+name = "core is the shared kernel and imports no other Cportal package"
+type = "forbidden"
+source_modules = ["cportal_core"]
+forbidden_modules = ["cportal_connectors", "cportal_sim", "cportal_api"]
+
+[[tool.importlinter.contracts]]
+name = "connectors import only core"
+type = "forbidden"
+source_modules = ["cportal_connectors"]
+forbidden_modules = ["cportal_sim", "cportal_api"]
+
+[[tool.importlinter.contracts]]
+name = "the API reads the database, never the generators or connectors"
+type = "forbidden"
+source_modules = ["cportal_api"]
+forbidden_modules = ["cportal_sim", "cportal_connectors"]

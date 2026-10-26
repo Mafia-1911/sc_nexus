@@ -1,0 +1,14 @@
+.git
+.venv
+**/__pycache__
+**/.pytest_cache
+.mypy_cache
+.ruff_cache
+node_modules
+data/raw
+data/lake
+data/synthetic
+data/cache
+data/inbox
+# Secrets never enter an image; services read them at runtime (env_file).
+.env

@@ -1,0 +1,53 @@
+# Local stack (Q-02: laptop first). `make up` starts db + api; `make seed-docker` loads data.
+# The worker and web services arrive in M2.
+name: cportal
+
+services:
+  db:
+    build: ./db
+    environment:
+      POSTGRES_USER: cportal
+      POSTGRES_PASSWORD: cportal
+      POSTGRES_DB: cportal
+    ports:
+      - "127.0.0.1:5432:5432"   # stop `make db-local` first: both use 5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cportal -d cportal"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  migrate:
+    build: .
+    command: ["uv", "run", "--no-sync", "alembic", "-c", "db/alembic.ini", "upgrade", "head"]
+    environment: &app-env
+      DATABASE_URL: postgresql+psycopg://cportal:cportal@db:5432/cportal
+      CPORTAL_ROOT: /app
+    depends_on:
+      db: {condition: service_healthy}
+
+  api:
+    build: .
+    environment: *app-env
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  seed:
+    build: .
+    profiles: ["seed"]
+    command: ["uv", "run", "--no-sync", "seed"]
+    environment: *app-env
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+
+volumes:
+  pgdata:

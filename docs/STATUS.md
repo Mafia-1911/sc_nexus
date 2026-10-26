@@ -1,59 +1,55 @@
-# STATUS (updated 2026-10-26 20:20 BST by Claude Code, Opus 5.5)
+# STATUS (updated 2026-10-26 BST by Claude Code, Opus 5.5)
 
-Milestone: **M1 Architecture, starting.** G0 approved 2026-10-26 (all kickoff questions answered,
-SC-01…SC-12 accepted). G1 is a soft gate (summary, then continue unless the user objects).
+Milestone: **M1 Architecture complete → gate G1 (soft: summary posted, work continues unless
+the user objects).** Next: M2 Backbone (hard gate G2).
 
-Done (this session, after G0):
-- Recorded the G0 answers Q-01…Q-09 and new assumptions A-023…A-029 in `docs/DECISIONS.md`.
-- Probed the new credentials, all verified:
-  - DS-NEWS-04 ReliefWeb (18,063 Bangladesh reports, 113 disasters)
-  - DS-GEO-03 OpenRouteService (HeiGIT key; Chattogram → Kamalapur 244.8 km)
-  - DS-VIS-01 MVTec AD via the Kaggle mirror (5.27 GB, still CC BY-NC-SA 4.0)
-  - new proposed DS-WX-05 NASA FIRMS active fires (MAP_KEY, 5,000 transactions per 10 min)
-- DS-PORT-07 is now `manual`: the CPA berthing report PDF the user downloaded (2026-01-05; 41 rows,
-  26 with IMO numbers, named berths, tide table) is a committed replay sample.
-- Settings: aliases for the user's new `.env` names; `CPORTAL_BRAND_NAME` (Q-07),
-  `CPORTAL_NAME_PACK` (Q-05), `DATABASE_URL`, `LLM_BASE_URL`/`LLM_MODEL` (Q-03).
-- Local Postgres 16 + PostGIS 3.5 + pgvector installed user-level (A-023) so migrations can be
-  tested before Docker works.
-- Cards regenerated (48), PROBE_REPORT tables refreshed plus an "Update after G0" section,
-  `docs/SESSION_LOG.md` started, everything pushed to github.com/Mafia-1911/sc_nexus.
+Done (M1, branch `m1-architecture`):
+- Domain model v1: 51 tables (SQLAlchemy 2 + GeoAlchemy2 + pgvector) with lineage on every
+  domain table (`data_mode`, `available_at`, …) and the SC-01…SC-12 changes; one Alembic
+  migration (round-trip tested); generated [ERD](ERD.md).
+- Canonical records (37 Pydantic types) contract-tested against the tables; idempotent loader
+  (deterministic UUIDv5 ids, coalescing upserts).
+- Parsers for every P0 source plus the CPA berthing PDF, ReliefWeb; `uv run ingest --replay
+  all` loads 24 sources (all real, offline) with FKs intact.
+- `packages/sim`: world v0 (fictional firms at real clusters, golden-path structure, orders,
+  DCSA shipments, AQL batches), name packs (Q-05 guardrail), SimPy port DES with real CPA
+  berths, tides, channel slots, lighterage and lighters, calibrated: dwell KS D 0.097 vs GFW,
+  presence 71.7 vs 70.7 ([CALIBRATION.md](data-sources/CALIBRATION.md)).
+- Twins for 11 sources render each wire format through the real parsers; scenarios
+  `baseline` and `cyclone_supplier_delay` with projection KPIs; `make seed` ≈ 30 s (< 60 s).
+- `apps/api`: 31 OpenAPI paths, `{data, meta}` envelope with LIVE/REPLAY/SYNTHETIC/mixed
+  badges, scenario scope, problem+json, cursor pagination, 202 jobs, read p95 < 300 ms.
+- docker-compose (db with PostGIS + pgvector, migrate, api, seed) written and validated;
+  not built yet (Docker socket permission).
+- ADR-001…014; decisions up to A-043; import-linter boundary contracts; 206+ tests green.
 
-In progress (M1, branch `m1-architecture`):
-- Nothing half-written. Next steps below are ordered.
+In progress:
+- Nothing half-written.
 
-Next (ordered):
-1. ADR-001…010 plus ADR-011 (two-strikes fallback), ADR-012 (`available_at` lineage), ADR-013
-   (local OSM extraction instead of Overpass), ADR-014 (name packs and brand variable).
-2. Domain model v1 in `packages/core`: enums, IDs, lineage mixin, SQLAlchemy 2 + GeoAlchemy2 +
-   pgvector models, Pydantic schemas, Alembic migrations (`db/alembic`), ERD in `docs/`.
-3. Connector `parse()` → canonical rows for every P0 source (replay from `data/samples/`) plus a
-   synthetic twin per source; contract tests real ↔ synthetic ↔ canonical; CPA PDF parser.
-4. `packages/sim`: world v0 (fictional firms at real clusters, garments hero, pharma variant; name
-   packs including the real-name `bd_demo` pack from a web search), SimPy port DES v0 replacing
-   the AIS twin's planner, scenarios (cyclone + supplier delay), `CALIBRATION.md`.
-5. `apps/api` OpenAPI skeleton (every router, stub responses with `meta`, brand in `/api/v1/meta`).
-6. `docker-compose.yml` + `db/Dockerfile` (PostGIS + pgvector), `make up/seed/db-local`.
-7. G1 summary.
+Next (M2, ordered):
+1. Worker: APScheduler, outbox consumer, jobs (`job.queued`), live fetch for verified sources
+   with the two-strikes fallback; AIS Parquet lake.
+2. Web shell (Next.js App Router, Tailwind v4, shadcn/ui, Tidewater tokens from 05-ui-design):
+   Control Tower (MapLibre map of the anchorage, KPI strip, alert feed stub), Data & Models.
+3. Generated TS types from `docs/api/openapi.json`; `/ws/live` streaming positions.
+4. Compose: worker + web; `make up && make seed && make demo`; Playwright smoke test.
 
-Blockers:
-- Docker 29.9 + Compose v5.6 are installed, but the socket is not accessible: the user is not in
-  the `docker` group (user: `sudo usermod -aG docker $USER`, then log out and back in). Until
-  then M1 uses the local Postgres; M2 (`docker compose up`) needs it.
-- Copernicus CDSE login not working (user retrying; DS-SAT-04 GFW SAR covers the need).
+Blockers (owner: user):
+- Docker socket: `sudo usermod -aG docker $USER`, then log out and in. Needed to build and run
+  compose (G2). Until then the local Postgres (`make db-local`) runs everything.
+- Ollama (or llama.cpp) for C2 in M4 (Q-03): not installed yet; not needed for M2.
 
 Waiting on user:
-- Confirm the Q-05 guardrail: with the real-name pack, keep adverse synthetic attributes (defects,
-  recalls, supplier failures, risk scores) on fictional names? (Default until answered: yes.)
+- Confirm the Q-05 guardrail default (real names never on adverse synthetic attributes).
+- Optional: more CPA berthing PDFs into `data/inbox/DS-PORT-07/` (real berth-level labels).
 
 Data modes: DS-AIS-01=synthetic (no Bangladesh coverage), DS-AIS-02=replay, DS-SAT-04=replay,
 DS-PORT-01=replay, DS-PORT-05=replay, DS-PORT-07=replay (manual PDFs), DS-WX-01=live,
 DS-WX-02=live, DS-WX-05=live, DS-NEWS-02=live, DS-NEWS-03=live, DS-NEWS-04=live,
-DS-PHARMA-01=live, DS-TRADE-03=live, DS-GEO-03=live, DS-GEO-07=live (others in config/sources.yaml).
+DS-PHARMA-01=live, DS-TRADE-03=live, DS-GEO-03=live, DS-GEO-07=live; M1 loads every source in
+replay mode from its committed samples.
 
-AIS collector: stopped with the earlier session after 85 min (22:59–00:24 UTC) with 0 vessel
-messages; `make collect-ais` restarts it.
+Model versions active: none (baselines register from M3).
 
-Model versions active: none (M1).
-
-Demo health: golden path not built yet (M8).
+Demo health: golden path not built yet (M8). Scenario `cyclone_supplier_delay` seeds; its port
+effect is modest in DES v0 (+3.8 % vessel-hours, hero vessel +13.8 h) until M6 backtests Remal.

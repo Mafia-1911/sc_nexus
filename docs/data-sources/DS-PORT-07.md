@@ -26,7 +26,7 @@
 | quirks | dates are dd/mm without a year (infer from the report date: arrival before it, expected leaving after it); long stays use dd/mm/yy; name suffixes carry flags ('*' prefix, (GL), (F1), (RENAMED:…), (Attach by High Court: date)); the right-hand column names the next vessel planned for that berth; 'R/A' appears in the arrival column (meaning unknown); the header holds the day's tide table (H.W./L.W. local time and height in m) and the permissible fresh-water draught (inward/outward 10.00 m) |
 | mapping to canonical | port_call(method=cpa_report, vessel by IMO, anchorage wait ← berthing − arrival at day precision, berth_zone ← jetty, departure_planned ← leaving, quality_flags.date_precision=day); port_zone(berth) names; port.max_draught_m ← permissible draught (valid_from = report date); tide → port_state_snapshot.tide |
 | synthetic twin | the port DES uses these berth names and classes; anchorage-wait marginals are checked against these rows in CALIBRATION.md |
-| next | M1 parser (pdfplumber, columns by position) → canonical rows + contract test; the user drops more daily PDFs to build a real label history |
+| next | parser done (M1: berths, port calls with day-precision waits, tide, draught; contract-tested); drop more daily PDFs into data/inbox/DS-PORT-07/ for a real label history |
 | raw schema | — (inferred with genson; field profiles below) |
 
 ## Probe evidence

@@ -3,7 +3,8 @@
 1. Real reference data first: every source with a parser, replayed from committed samples
    (same as `uv run ingest --replay all`), so worlds can point at real ports, berths and lanes.
 2. Each scenario: world, port DES history, source twins, scenario events and projection KPIs,
-   upserted in one transaction per scenario. Re-running is idempotent (deterministic ids).
+   in one transaction per scenario that first removes the scenario's previous synthetic rows,
+   so a changed generator leaves nothing stale behind. Re-running is idempotent.
 
 G1 target: the synthetic world seeds in < 60 s.
 """
@@ -21,11 +22,25 @@ from cportal_connectors.canonical import scenario_uuid
 from cportal_core.db import session_scope
 from cportal_core.enums import DataMode, RunStatus
 from cportal_core.loader import upsert
-from cportal_core.models import IngestionRun
+from cportal_core.models import Base, IngestionRun
+from sqlalchemy import delete
+from sqlalchemy.orm import Session
 
 from cportal_sim.scenarios import build_scenario
 
 DEFAULT_SCENARIOS = ("baseline", "cyclone_supplier_delay")
+# Kept across re-seeds: the scenario row itself, run history and the source registry.
+KEEP = {"scenario", "ingestion_run", "data_source", "model_version"}
+
+
+def clear_scenario(session: Session, scenario_id: object) -> None:
+    """Delete a scenario's synthetic rows, children first. Real rows are never touched."""
+    for table in reversed(Base.metadata.sorted_tables):
+        if table.name in KEEP or "scenario_id" not in table.c or "is_synthetic" not in table.c:
+            continue
+        session.execute(
+            delete(table).where(table.c.scenario_id == scenario_id, table.c.is_synthetic.is_(True))
+        )
 
 
 def seed_scenario(key: str, database_url: str | None = None) -> dict[str, int]:
@@ -33,6 +48,7 @@ def seed_scenario(key: str, database_url: str | None = None) -> dict[str, int]:
     run = build_scenario(key)
     built = time.perf_counter() - t0
     with session_scope(database_url) as session:
+        clear_scenario(session, scenario_uuid(key))
         counts = upsert(session, run.records)
         session.add(
             IngestionRun(

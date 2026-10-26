@@ -27,26 +27,39 @@ bom:  # parent: {component: qty per unit (estimate)}
   DENIM_FABRIC:  {COTTON_YARN: 0.55}
   COTTON_YARN:   {RAW_COTTON: 1.12}
 # Supply network template. `count` facilities of each type; clusters are picked round-robin.
+# `orgs`: how many supplier groups own those facilities (facility i belongs to group
+# (i - 1) % orgs + 1); `makers`: how many exporters own the factories. Sized for C1-AC01
+# (≥ 150 nodes, ≥ 600 edges); counts are a slice of the corridor, not the whole industry.
+makers: 10
 facilities:
-  garment_factory: {count: 6, clusters: [gazipur, dhaka_epz, narayanganj, cepz, kepz, adamjee_epz], makes: [TSHIRT, POLO, DENIM_TROUSER, SWEATER]}
-  fabric_mill:     {count: 6, clusters: [gazipur, narayanganj, savar, tongi, gazipur, narayanganj], makes: [KNIT_FABRIC, DENIM_FABRIC]}
-  spinning_mill:   {count: 3, clusters: [bhaluka, bhaluka, gazipur], makes: [COTTON_YARN]}
-  trims_supplier:  {count: 4, clusters: [dhaka_epz, cepz, gazipur, narayanganj], makes: [BUTTON, ZIPPER, LABEL, CARTON]}
+  garment_factory: {count: 66, clusters: [gazipur, dhaka_epz, narayanganj, cepz, kepz, adamjee_epz, savar, tongi], makes: [TSHIRT, POLO, DENIM_TROUSER, SWEATER]}
+  fabric_mill:     {count: 22, orgs: 10, clusters: [gazipur, narayanganj, savar, tongi, gazipur, narayanganj, bhaluka, savar], makes: [KNIT_FABRIC, DENIM_FABRIC]}
+  spinning_mill:   {count: 8,  orgs: 5, clusters: [bhaluka, bhaluka, gazipur, narayanganj], makes: [COTTON_YARN]}
+  trims_supplier:  {count: 16, orgs: 8, clusters: [dhaka_epz, cepz, gazipur, narayanganj], makes: [BUTTON, ZIPPER, LABEL, CARTON]}
   overseas:        # imported inputs: city → products (sea via the listed hub)
     - {city: ahmedabad, makes: [RAW_COTTON, COTTON_YARN], via: [LKCMB], transit_d: [12, 18]}
     - {city: memphis,   makes: [RAW_COTTON],             via: [SGSIN], transit_d: [38, 50]}
     - {city: shaoxing,  makes: [KNIT_FABRIC, DENIM_FABRIC, ZIPPER], via: [SGSIN], transit_d: [16, 24]}
     - {city: kolkata,   makes: [COTTON_YARN],            via: [],      transit_d: [5, 9]}
+# Planted single points of failure (C1-AC02): each listed facility is the only qualified source
+# of the product for every consumer. C1 must rank them in its top 10 without being told.
+planted_spofs:
+  - {product: DENIM_FABRIC, facility: fabric_mill_3.fabric_mill.3, why: "Fabric Mill X: sole denim source (golden path, 01 §5)"}
+  - {product: ZIPPER, facility: trims_supplier_2.trims_supplier.2, why: "sole qualified zipper source"}
 buyers:  # fictional brands; DCs near real gateway cities
   - {city: rotterdam,   gateway: NLRTM, via: [SGSIN], products: [TSHIRT, POLO, SWEATER]}
   - {city: rotterdam,   gateway: NLRTM, via: [LKCMB], products: [DENIM_TROUSER, TSHIRT]}
   - {city: los_angeles, gateway: USLAX, via: [SGSIN], products: [TSHIRT, DENIM_TROUSER]}
   - {city: los_angeles, gateway: USLAX, via: [MYPKG], products: [POLO, SWEATER]}
+  - {city: rotterdam,   gateway: NLRTM, via: [SGSIN], products: [DENIM_TROUSER, POLO]}
+  - {city: rotterdam,   gateway: NLRTM, via: [LKCMB], products: [SWEATER, TSHIRT]}
+  - {city: los_angeles, gateway: USLAX, via: [SGSIN], products: [TSHIRT, POLO]}
+  - {city: los_angeles, gateway: USLAX, via: [MYPKG], products: [DENIM_TROUSER, SWEATER]}
 lead_time_d:  # supplier order-to-delivery, mean and sd (estimates)
   domestic: {mean: 21, sd: 5}
   imported: {mean: 35, sd: 8}
 orders:
-  per_buyer_per_month: 3
+  per_buyer_per_month: 4
   qty_pcs: [20000, 120000]
   horizon_d: 120
 defects:  # Beta(a, b) per supplier facility type, for incoming-material inspection (estimates)

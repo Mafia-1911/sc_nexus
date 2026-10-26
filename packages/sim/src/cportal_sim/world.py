@@ -57,7 +57,7 @@ from cportal_core.schemas.records import (
     point,
 )
 
-GENERATOR = "cportal-sim/world/0.1.0"
+GENERATOR = "cportal-sim/world/0.2.0"
 SOURCE = "sim"
 KM_PER_DEG = 111.32
 DEFAULT_START = date(2026, 10, 26)
@@ -111,6 +111,10 @@ class World:
     orders: list[CustomerOrderRecord] = field(default_factory=list)
     shipments: list[ShipmentRecord] = field(default_factory=list)
     hero: dict[str, Any] = field(default_factory=dict)
+    # Planted single points of failure (C1-AC02): facility key, product and why.
+    planted: list[dict[str, str]] = field(default_factory=list)
+    # Daily input requirement per (consumer facility key, component SKU), from open orders.
+    need: dict[tuple[str, str], float] = field(default_factory=dict)
 
     def add(self, *records: Record) -> None:
         self.records.extend(records)
@@ -208,6 +212,9 @@ class WorldBuilder:
         org = self.world.orgs[org_key]
         title = cluster.replace("_", " ").title()
         name = f"{org.name} – {title} unit"
+        taken = sum(1 for f in self.world.facilities.values() if f.name.startswith(name))
+        if taken:
+            name = f"{name} {taken + 1}"
         loc_id = self.site(key, f"Site of {name}", lat, lon, cluster)
         record = FacilityRecord(
             id=self.rid("facility", key),
@@ -281,20 +288,22 @@ class WorldBuilder:
         prefix = INDUSTRY_PREFIX[industry]
         makers: dict[str, list[str]] = {}
         maker_org = {"garments": "garment_exporter", "pharma": "pharma_maker"}[industry]
-        n_makers = 5 if industry == "garments" else 3
+        n_makers = pack["makers"]
         for i in range(1, n_makers + 1):
             self.org(f"{maker_org}_{i}", OrgKind.MANUFACTURER, Industry(industry), "BD")
         for ftype, spec in pack["facilities"].items():
             if ftype == "overseas":
                 continue
             kind = FacilityType(ftype)
+            groups = spec.get("orgs", spec["count"])
             for i in range(1, spec["count"] + 1):
                 cluster = spec["clusters"][(i - 1) % len(spec["clusters"])]
                 if kind in (FacilityType.GARMENT_FACTORY, FacilityType.PHARMA_PLANT):
                     org_key = f"{maker_org}_{(i - 1) % n_makers + 1}"
                 else:
-                    org_key = f"{ftype}_{i}"
-                    self.org(org_key, OrgKind.SUPPLIER, Industry(industry), "BD")
+                    org_key = f"{ftype}_{(i - 1) % groups + 1}"
+                    if org_key not in self.world.orgs:
+                        self.org(org_key, OrgKind.SUPPLIER, Industry(industry), "BD")
                 key = f"{org_key}.{ftype}.{i}"
                 facility = self.facility(
                     key, org_key, kind, cluster, {"lines": self.rng.randint(4, 24)}
@@ -344,10 +353,18 @@ class WorldBuilder:
         return out
 
     def supply_edges(self, pack: dict[str, Any], makers: dict[str, list[str]]) -> None:
-        """Each domestic facility of this pack buys every BOM component of what it makes."""
+        """Each domestic facility of this pack buys every BOM component of what it makes.
+
+        Edges are added to the records by `capacities`, once open orders give them volumes."""
         industry = pack["industry"]
         prefix = INDUSTRY_PREFIX[industry]
         lt = pack["lead_time_d"]
+        sole = {f"{prefix}-{s['product']}": s["facility"] for s in pack.get("planted_spofs", [])}
+        for s in pack.get("planted_spofs", []):
+            product = f"{prefix}-{s['product']}"
+            self.world.planted.append(
+                {"facility_key": s["facility"], "product": product, "why": s["why"]}
+            )
         overseas = {
             f"overseas_{industry}_{s['city']}" for s in pack["facilities"].get("overseas", [])
         }
@@ -363,7 +380,7 @@ class WorldBuilder:
                 if not suppliers:
                     continue
                 for supplier_key, share in self._choose_suppliers(
-                    component, suppliers, consumer_key
+                    component, suppliers, consumer_key, sole.get(component)
                 ):
                     imported = supplier_key.split(".")[0] in overseas
                     lead = lt["imported" if imported else "domestic"]
@@ -385,21 +402,16 @@ class WorldBuilder:
                             valid_from=(w.start - timedelta(days=365)).date(),
                         )
                     )
-        w.add(
-            *(
-                e
-                for e in w.edges
-                if e.product_id in {p.id for s, p in w.products.items() if s.startswith(prefix)}
-            )
-        )
 
     def _choose_suppliers(
-        self, component: str, suppliers: list[str], consumer_key: str
+        self, component: str, suppliers: list[str], consumer_key: str, sole: str | None
     ) -> list[tuple[str, float]]:
-        """Shares that sum to 1. Two deliberate structures serve the golden path (01 §5):
-        denim is concentrated on one domestic mill (C1's single point of failure, "Mill X"),
-        and the Gazipur "Factory A" imports knit fabric through Chattogram."""
+        """Shares that sum to 1. Deliberate structures serve the golden path (01 §5) and C1:
+        planted sole sources (the pack's `planted_spofs`, e.g. denim only from "Mill X"), and
+        the Gazipur "Factory A" importing knit fabric through Chattogram."""
         rng = self.rng
+        if sole and sole in suppliers:
+            return [(sole, 1.0)]
         if component == "G-KNIT_FABRIC" and consumer_key == HERO_FACTORY:
             importer = next(
                 (s for s in suppliers if s.startswith("overseas_garments_shaoxing")), None
@@ -407,12 +419,6 @@ class WorldBuilder:
             domestic = [s for s in suppliers if s != importer]
             if importer and domestic:
                 return [(importer, 0.6), (rng.choice(domestic), 0.4)]
-        if component == "G-DENIM_FABRIC":
-            hub = next((s for s in suppliers if s.startswith("fabric_mill_3.")), None)
-            others = [s for s in suppliers if s != hub]
-            if hub and others:
-                share = round(rng.uniform(0.7, 0.85), 2)
-                return [(hub, share), (rng.choice(others), round(1 - share, 2))]
         k = min(len(suppliers), rng.choice([1, 2, 2, 3]))
         picked = rng.sample(suppliers, k)
         weights = [rng.uniform(0.5, 1.5) for _ in picked]
@@ -605,6 +611,67 @@ class WorldBuilder:
                     )
             t = arr
 
+    def capacities(self, pack: dict[str, Any]) -> None:
+        """Daily input requirements from open orders, exploded through the BOM and the supply
+        shares; each edge gets that volume times its supplier's spare-capacity headroom
+        (estimate, 10–60 %). Then the pack's edges join the records."""
+        w, rng = self.world, self.rng
+        prefix = INDUSTRY_PREFIX[pack["industry"]]
+        horizon = pack["orders"]["horizon_d"]
+        bom = {
+            f"{prefix}-{p}": {f"{prefix}-{c}": float(q) for c, q in comps.items()}
+            for p, comps in pack["bom"].items()
+        }
+        by_id = {f.id: k for k, f in w.facilities.items()}
+        sku_of = {p.id: s for s, p in w.products.items()}
+        edges = [e for e in w.edges if sku_of[e.product_id].startswith(prefix)]
+        suppliers: dict[tuple[str, str], list[tuple[str, SupplyEdgeRecord]]] = {}
+        for e in edges:
+            pair = (by_id[e.to_facility_id], sku_of[e.product_id])
+            suppliers.setdefault(pair, []).append((by_id[e.from_facility_id], e))
+        produce: dict[tuple[str, str], float] = {}
+        end = w.start.date() + timedelta(days=horizon)
+        for o in w.orders:
+            sku = sku_of[o.product_id]
+            if not sku.startswith(prefix) or o.status not in ("open", "in_production"):
+                continue
+            if o.facility_id is not None and w.start.date() <= o.due_date <= end:
+                key = (by_id[o.facility_id], sku)
+                produce[key] = produce.get(key, 0.0) + o.qty / horizon
+        # Parents before components (Kahn's order on the BOM), so every requirement is complete
+        # before it is passed upstream.
+        indegree = {p: 0 for p in bom} | {c: 0 for comps in bom.values() for c in comps}
+        for comps in bom.values():
+            for c in comps:
+                indegree[c] += 1
+        order = [p for p, n in indegree.items() if n == 0]
+        for p in order:
+            for c in bom.get(p, {}):
+                indegree[c] -= 1
+                if indegree[c] == 0:
+                    order.append(c)
+        rank = {p: i for i, p in enumerate(order)}
+        for sku in sorted(rank, key=rank.__getitem__):
+            for (facility, made), rate in list(produce.items()):
+                if made != sku or rate <= 0:
+                    continue
+                for component, qty in bom.get(sku, {}).items():
+                    need = rate * qty
+                    w.need[(facility, component)] = w.need.get((facility, component), 0.0) + need
+                    for supplier, edge in suppliers.get((facility, component), []):
+                        key = (supplier, component)
+                        produce[key] = produce.get(key, 0.0) + need * edge.share
+        headroom: dict[str, float] = {}
+        for e in edges:
+            supplier = by_id[e.from_facility_id]
+            h = headroom.setdefault(supplier, round(rng.uniform(1.1, 1.6), 2))
+            need = w.need.get((by_id[e.to_facility_id], sku_of[e.product_id]), 0.0)
+            e.capacity_per_week = round(need * e.share * 7 * h, 3)
+        for supplier, h in headroom.items():
+            unit = w.facilities[supplier]
+            unit.capacity = {**(unit.capacity or {}), "headroom": h}
+        w.add(*edges)
+
     def inventory_and_batches(self, pack: dict[str, Any]) -> None:
         w, rng = self.world, self.rng
         prefix = INDUSTRY_PREFIX[pack["industry"]]
@@ -661,7 +728,9 @@ class WorldBuilder:
             if pair in seen:
                 continue
             seen.add(pair)
-            usage = rng.uniform(200, 3000)
+            usage = w.need.get((by_id[edge.to_facility_id], pack_products[edge.product_id]), 0.0)
+            if usage <= 0:  # no open orders need this input here
+                continue
             cover = rng.uniform(4, 28)
             key = f"{by_id[edge.to_facility_id]}:{pack_products[edge.product_id]}"
             w.add(
@@ -708,6 +777,7 @@ def build_world(
         b.supply_edges(pack, makers)
         buyers = b.buyers(pack)
         b.orders_and_shipments(pack, buyers, makers)
+        b.capacities(pack)
         b.inventory_and_batches(pack)
     w = b.world
     denim = w.products.get("G-DENIM_FABRIC")

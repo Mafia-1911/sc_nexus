@@ -21,17 +21,23 @@ bom:
   AMOXICILLIN_500: {API_AMOXICILLIN: 0.0005, CAPSULE_SHELL: 1, BLISTER_FOIL: 0.00004, PVC_FILM: 0.00008, CARTON: 0.01}
   METFORMIN_500:   {API_METFORMIN: 0.0005, EXCIPIENT_MCC: 0.0001, BLISTER_FOIL: 0.00004, PVC_FILM: 0.00008, CARTON: 0.01}
   OMEPRAZOLE_20:   {API_OMEPRAZOLE: 0.00002, CAPSULE_SHELL: 1, BLISTER_FOIL: 0.00004, PVC_FILM: 0.00008, CARTON: 0.01}
+makers: 4
 facilities:
-  pharma_plant:       {count: 3, clusters: [gazipur, savar, narayanganj], makes: [PARACETAMOL_500, AMOXICILLIN_500, METFORMIN_500, OMEPRAZOLE_20]}
-  api_manufacturer:   {count: 1, clusters: [gazaria_api_park], makes: [API_PARACETAMOL, API_METFORMIN]}
-  excipient_supplier: {count: 1, clusters: [gazipur], makes: [EXCIPIENT_MCC]}
-  packaging_supplier: {count: 2, clusters: [narayanganj, savar], makes: [CARTON, PVC_FILM]}
+  pharma_plant:       {count: 8, clusters: [gazipur, savar, narayanganj, gazipur], makes: [PARACETAMOL_500, AMOXICILLIN_500, METFORMIN_500, OMEPRAZOLE_20]}
+  api_manufacturer:   {count: 3, orgs: 2, clusters: [gazaria_api_park], makes: [API_PARACETAMOL, API_METFORMIN]}
+  excipient_supplier: {count: 2, orgs: 2, clusters: [gazipur, savar], makes: [EXCIPIENT_MCC]}
+  packaging_supplier: {count: 5, orgs: 3, clusters: [narayanganj, savar], makes: [CARTON, PVC_FILM]}
   overseas:
     - {city: hyderabad,    makes: [API_PARACETAMOL, API_AMOXICILLIN, API_METFORMIN], via: [LKCMB], transit_d: [12, 18]}
     - {city: shijiazhuang, makes: [API_AMOXICILLIN, API_OMEPRAZOLE, CAPSULE_SHELL],  via: [SGSIN], transit_d: [18, 26]}
     - {city: mumbai,       makes: [EXCIPIENT_MCC, BLISTER_FOIL],                      via: [LKCMB], transit_d: [12, 18]}
+planted_spofs:
+  - {product: API_PARACETAMOL, facility: api_manufacturer_1.api_manufacturer.1, why: "sole qualified paracetamol API source"}
+  - {product: CAPSULE_SHELL, facility: overseas_pharma_shijiazhuang.export.1, why: "sole capsule-shell source"}
 buyers:
   - {city: colombo, gateway: LKCMB, via: [], products: [PARACETAMOL_500, AMOXICILLIN_500, METFORMIN_500]}
+  - {city: colombo, gateway: LKCMB, via: [], products: [OMEPRAZOLE_20, PARACETAMOL_500]}
+  - {city: colombo, gateway: LKCMB, via: [], products: [AMOXICILLIN_500, METFORMIN_500, OMEPRAZOLE_20]}
 lead_time_d:
   domestic: {mean: 14, sd: 4}
   imported: {mean: 30, sd: 7}

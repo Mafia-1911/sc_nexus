@@ -4,7 +4,8 @@ UV ?= uv
 DS ?=
 
 .PHONY: help setup test lint fmt type check probe probe-p0 probe-p1 cards collect-ais ais-report synth-ais \
-	db-local db-local-stop migrate revision ingest seed calibrate api openapi up down seed-docker erd
+	db-local db-local-stop migrate revision ingest seed calibrate api openapi up down seed-docker erd \
+	worker web-setup web web-check e2e demo
 
 help: ## List targets
 	@grep -E '^[a-z0-9-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-12s %s\n", $$1, $$2}'
@@ -27,7 +28,7 @@ fmt: ## Apply ruff fixes and formatting
 type: ## mypy over the packages
 	$(UV) run mypy
 
-check: lint type test ## Everything CI runs
+check: lint type test web-check ## Everything CI runs
 
 probe: ## Probe one source: make probe DS=DS-WX-01
 	@test -n "$(DS)" || (echo "usage: make probe DS=<DS-ID>"; exit 2)
@@ -81,8 +82,28 @@ api: ## Run the API with reload on http://127.0.0.1:8000 (docs at /docs)
 openapi: ## Write the OpenAPI contract to docs/api/openapi.json
 	$(UV) run cportal-api-openapi
 
-up: ## docker compose: db + migrate + api (http://127.0.0.1:8000)
-	docker compose up -d --build db migrate api
+worker: ## Run the worker locally (live fetches, AIS replay, outbox jobs; CPORTAL_LIVE=0 to stay offline)
+	$(UV) run cportal-worker
+
+web-setup: ## Install the web app and the Playwright browser
+	cd apps/web && npm ci && npx playwright install chromium
+
+web: ## Next dev server on http://127.0.0.1:3000 (API_URL defaults to http://127.0.0.1:8000)
+	cd apps/web && npm run dev -- -p 3000
+
+web-check: ## Web typecheck and lint
+	cd apps/web && npm run typecheck && npm run lint
+
+e2e: ## Playwright smoke test against http://127.0.0.1:3000 (screenshots → docs/screenshots)
+	cd apps/web && npx playwright test
+
+up: ## docker compose: db, migrate, api, worker, web (http://127.0.0.1:3000)
+	@test -f .env || (cp .env.example .env && echo "created .env from .env.example")
+	docker compose up -d --build db migrate api worker web
+
+demo: up seed-docker ## Whole stack plus seeded scenarios; the hero scenario replays on the map
+	docker compose restart worker
+	@echo "ShipperFast demo: http://127.0.0.1:3000"
 
 down: ## Stop the compose stack (data stays in the pgdata volume)
 	docker compose down

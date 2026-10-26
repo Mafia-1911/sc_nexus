@@ -60,17 +60,22 @@ def _dsn(url: str) -> str:
     return url.replace("postgresql+psycopg://", "postgresql://", 1)
 
 
-def listen(stop: threading.Event, database_url: str) -> None:
-    """LISTEN on 'outbox'; drain on every notification and at least every 30 s (catch-up)."""
+def listen(stop: threading.Event, database_url: str, wake: int | None = None) -> None:
+    """LISTEN on 'outbox'; drain on every notification and at least every 30 s (catch-up).
+
+    A byte on `wake` ends the wait at once: select() resumes after a signal (PEP 475), so
+    without it SIGTERM would wait out the 30 s and `docker compose stop` would SIGKILL us."""
     with psycopg.connect(_dsn(database_url), autocommit=True) as conn:
         conn.execute("LISTEN outbox")
         outbox.drain()
+        fds = [conn.fileno()] if wake is None else [conn.fileno(), wake]
         while not stop.is_set():
-            ready, _, _ = select.select([conn.fileno()], [], [], 30)
-            if ready:
+            ready, _, _ = select.select(fds, [], [], 30)
+            if conn.fileno() in ready:
                 for _ in conn.notifies(timeout=0):
                     pass
-            outbox.drain()
+            if not stop.is_set():
+                outbox.drain()
 
 
 def build_scheduler(live: bool, replay: AisReplay | None) -> BackgroundScheduler:
@@ -106,10 +111,12 @@ def main(argv: list[str] | None = None) -> int:
         replay.load()
     scheduler = build_scheduler(live, replay)
     stop = threading.Event()
+    wake_r, wake_w = os.pipe()
 
     def shutdown(signum: int, _frame: object) -> None:
         log.info("stopping", extra={"signal": signum})
         stop.set()
+        os.write(wake_w, b"x")
 
     signal.signal(signal.SIGTERM, shutdown)
     signal.signal(signal.SIGINT, shutdown)
@@ -125,7 +132,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         while not stop.is_set():
             try:
-                listen(stop, settings.database_url)
+                listen(stop, settings.database_url, wake_r)
             except psycopg.OperationalError as exc:  # db restarting: back off and reconnect
                 log.warning("listen connection lost", extra={"error": str(exc)})
                 stop.wait(5)

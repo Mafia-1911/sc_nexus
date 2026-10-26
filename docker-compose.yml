@@ -1,5 +1,5 @@
-# Local stack (Q-02: laptop first). `make up` starts db + api; `make seed-docker` loads data.
-# The worker and web services arrive in M2.
+# Local stack (Q-02: laptop first). `make up` starts everything; `make seed-docker` loads data.
+# http://127.0.0.1:3000 (web) · http://127.0.0.1:8000/docs (api)
 name: cportal
 
 services:
@@ -42,6 +42,40 @@ services:
       timeout: 3s
       retries: 10
 
+  worker:
+    image: cportal-app:latest
+    command: ["uv", "run", "--no-sync", "cportal-worker"]
+    environment:
+      <<: *app-env
+      CPORTAL_LIVE: ${CPORTAL_LIVE:-1}                 # 0: no live fetches, replay only
+      CPORTAL_REPLAY_SCENARIO: ${CPORTAL_REPLAY_SCENARIO:-cyclone_supplier_delay}
+      CPORTAL_REPLAY_SPEED: ${CPORTAL_REPLAY_SPEED:-30}
+    volumes:
+      # Credentials stay on the host (rule 8). The settings loader reads this file leniently;
+      # compose's env_file would not accept quoted names. `make up` creates it if missing.
+      - type: bind
+        source: ./.env
+        target: /app/.env
+        read_only: true
+        bind: {create_host_path: false}
+      - raw:/app/data/raw                              # live-fetch archives
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+
+  web:
+    build:
+      context: ./apps/web
+      args:
+        NEXT_PUBLIC_WS_URL: ws://127.0.0.1:8000/ws/live   # the browser's view of the api
+    image: cportal-web:latest
+    environment:
+      API_URL: http://api:8000                         # server-side fetches stay on the compose network
+      CPORTAL_BRAND_NAME: ${CPORTAL_BRAND_NAME:-ShipperFast}
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      api: {condition: service_healthy}
+
   seed:
     image: cportal-app:latest
     profiles: ["seed"]
@@ -52,3 +86,4 @@ services:
 
 volumes:
   pgdata:
+  raw:

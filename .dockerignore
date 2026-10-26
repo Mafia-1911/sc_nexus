@@ -5,6 +5,7 @@
 .mypy_cache
 .ruff_cache
 node_modules
+apps/web
 data/raw
 data/lake
 data/synthetic

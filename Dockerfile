@@ -9,8 +9,9 @@ COPY packages/core/pyproject.toml packages/core/pyproject.toml
 COPY packages/connectors/pyproject.toml packages/connectors/pyproject.toml
 COPY packages/sim/pyproject.toml packages/sim/pyproject.toml
 COPY apps/api/pyproject.toml apps/api/pyproject.toml
+COPY apps/worker/pyproject.toml apps/worker/pyproject.toml
 RUN mkdir -p packages/core/src/cportal_core packages/connectors/src/cportal_connectors \
-      packages/sim/src/cportal_sim apps/api/src/cportal_api \
+      packages/sim/src/cportal_sim apps/api/src/cportal_api apps/worker/src/cportal_worker \
  && uv sync --frozen --no-dev --no-install-workspace
 COPY . .
 RUN uv sync --frozen --no-dev

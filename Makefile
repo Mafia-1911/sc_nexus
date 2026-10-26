@@ -4,7 +4,7 @@ UV ?= uv
 DS ?=
 
 .PHONY: help setup test lint fmt type check probe probe-p0 probe-p1 cards collect-ais ais-report synth-ais \
-	db-local db-local-stop migrate revision ingest seed calibrate
+	db-local db-local-stop migrate revision ingest seed calibrate api openapi
 
 help: ## List targets
 	@grep -E '^[a-z0-9-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-12s %s\n", $$1, $$2}'
@@ -73,3 +73,9 @@ seed: migrate ## Reference replay + synthetic scenarios (baseline, cyclone_suppl
 
 calibrate: ## Port DES vs real marginals → docs/data-sources/CALIBRATION.md
 	$(UV) run calibrate
+
+api: ## Run the API with reload on http://127.0.0.1:8000 (docs at /docs)
+	$(UV) run uvicorn cportal_api.main:app --reload --port 8000
+
+openapi: ## Write the OpenAPI contract to docs/api/openapi.json
+	$(UV) run cportal-api-openapi

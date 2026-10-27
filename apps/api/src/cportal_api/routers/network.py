@@ -39,17 +39,6 @@ from cportal_api.schemas import (
 router = APIRouter()
 
 
-@router.post(
-    "/routes/plan",
-    status_code=status.HTTP_202_ACCEPTED,
-    response_model=JobAccepted,
-    tags=["routes"],
-)
-def plan_route(session: SessionDep, body: dict[str, Any]) -> JobAccepted:
-    """Queue a C3 Pareto route request (origin, destination, cargo profile, deadline)."""
-    return enqueue(session, "c3.plan", body)
-
-
 @router.get("/shipments", response_model=Envelope[list[ShipmentOut]], tags=["shipments"])
 def list_shipments(
     session: SessionDep,

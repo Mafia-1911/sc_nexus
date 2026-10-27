@@ -8,6 +8,7 @@ members = [
     "cportal-api",
     "cportal-c1",
     "cportal-c2",
+    "cportal-c3",
     "cportal-connectors",
     "cportal-core",
     "cportal-nexus",
@@ -215,6 +216,7 @@ dependencies = [
     { name = "cportal-api" },
     { name = "cportal-c1" },
     { name = "cportal-c2" },
+    { name = "cportal-c3" },
     { name = "cportal-connectors" },
     { name = "cportal-core" },
     { name = "cportal-nexus" },
@@ -238,6 +240,7 @@ requires-dist = [
     { name = "cportal-api", editable = "apps/api" },
     { name = "cportal-c1", editable = "packages/c1_supplier_graph" },
     { name = "cportal-c2", editable = "packages/c2_trade_news" },
+    { name = "cportal-c3", editable = "packages/c3_routing" },
     { name = "cportal-connectors", editable = "packages/connectors" },
     { name = "cportal-core", editable = "packages/core" },
     { name = "cportal-nexus", editable = "packages/nexus" },
@@ -263,6 +266,7 @@ source = { editable = "apps/api" }
 dependencies = [
     { name = "cportal-c1" },
     { name = "cportal-c2" },
+    { name = "cportal-c3" },
     { name = "cportal-core" },
     { name = "fastapi" },
     { name = "uvicorn", extra = ["standard"] },
@@ -272,6 +276,7 @@ dependencies = [
 requires-dist = [
     { name = "cportal-c1", editable = "packages/c1_supplier_graph" },
     { name = "cportal-c2", editable = "packages/c2_trade_news" },
+    { name = "cportal-c3", editable = "packages/c3_routing" },
     { name = "cportal-core", editable = "packages/core" },
     { name = "fastapi", specifier = ">=0.115" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.32" },
@@ -312,6 +317,29 @@ dependencies = [
 requires-dist = [
     { name = "cportal-core", editable = "packages/core" },
     { name = "httpx", specifier = ">=0.27" },
+    { name = "pyyaml", specifier = ">=6.0" },
+]
+
+[[package]]
+name = "cportal-c3"
+version = "0.1.0"
+source = { editable = "packages/c3_routing" }
+dependencies = [
+    { name = "cportal-core" },
+    { name = "httpx" },
+    { name = "networkx" },
+    { name = "numpy" },
+    { name = "osmium" },
+    { name = "pyyaml" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "cportal-core", editable = "packages/core" },
+    { name = "httpx", specifier = ">=0.27" },
+    { name = "networkx", specifier = ">=3.4" },
+    { name = "numpy", specifier = ">=2.0" },
+    { name = "osmium", specifier = ">=4.0" },
     { name = "pyyaml", specifier = ">=6.0" },
 ]
 
@@ -417,6 +445,7 @@ dependencies = [
     { name = "apscheduler" },
     { name = "cportal-c1" },
     { name = "cportal-c2" },
+    { name = "cportal-c3" },
     { name = "cportal-connectors" },
     { name = "cportal-core" },
     { name = "cportal-nexus" },
@@ -428,6 +457,7 @@ requires-dist = [
     { name = "apscheduler", specifier = ">=3.11,<4" },
     { name = "cportal-c1", editable = "packages/c1_supplier_graph" },
     { name = "cportal-c2", editable = "packages/c2_trade_news" },
+    { name = "cportal-c3", editable = "packages/c3_routing" },
     { name = "cportal-connectors", editable = "packages/connectors" },
     { name = "cportal-core", editable = "packages/core" },
     { name = "cportal-nexus", editable = "packages/nexus" },
@@ -851,6 +881,23 @@ wheels = [
 ]
 
 [[package]]
+name = "osmium"
+version = "4.3.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a6/33/c7cb6aa530b887370c6b8d91660d327758562f5dc8dd19d744aea0c74d45/osmium-4.3.2.tar.gz", hash = "sha256:bea7aa809d41659ad29c7b4627ce7e1af4d420d03db45b3a4211cb6192b6926f", size = 540558, upload-time = "2026-10-18T19:24:35.996Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e5/41/f3ce2347b796e941e34c1cb3d8dd716328d3cdb82e618040ff0d471427fc/osmium-4.3.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:ae66a318b8a9ee2463979264156ca4e98713c369e26ff5e3622b177a05073fc1", size = 1313773, upload-time = "2026-10-18T19:22:24.873Z" },
+    { url = "https://files.pythonhosted.org/packages/d4/9d/2dc7ecd73d7e326b845dca886a3424fc3608b48a810ac83e80e859a54da6/osmium-4.3.2-cp312-cp312-macosx_11_0_x86_64.whl", hash = "sha256:ff11a2d870c2ec345d834550afd3227716404180444410b5db122f89c9efcd77", size = 1476447, upload-time = "2026-10-18T19:22:27.823Z" },
+    { url = "https://files.pythonhosted.org/packages/98/a7/9bb3a6d9870bfee34075a0d54c7b76f81eeb408bc3d5510d4ef0098608bf/osmium-4.3.2-cp312-cp312-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:fb7ac18aba1b3913904c34993a40086e4fa56e9f4debe84c9f5a1caeddc550d4", size = 1729726, upload-time = "2026-10-18T19:22:30.771Z" },
+    { url = "https://files.pythonhosted.org/packages/fc/9e/b16036f4e63ba8fddaf149668299659cab1b872b4fa1712863d702c6cf02/osmium-4.3.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:604a3145aa755790b91e3eefac7ddbb74d31f188fddbbbb988877cba50e88eb7", size = 1876654, upload-time = "2026-10-18T19:22:33.591Z" },
+    { url = "https://files.pythonhosted.org/packages/d2/28/31c283a92625248737d6306271885c36eee4d5397f1090028d53093be651/osmium-4.3.2-cp312-cp312-win_amd64.whl", hash = "sha256:3799c91ec427a3298302664179bde83b8fd96ca22dc68218b8d566056c841a71", size = 1918341, upload-time = "2026-10-18T19:22:37.335Z" },
+    { url = "https://files.pythonhosted.org/packages/b5/86/f05647d23cbef5863993f9a12b745a403b97f5a198f500388ccfdedd2f83/osmium-4.3.2-cp312-cp312-win_arm64.whl", hash = "sha256:2ac14ea3ec54793d31700ed5b1e18299da6ec0b43619c928fcb0283edff2e5c6", size = 2049144, upload-time = "2026-10-18T19:22:40.593Z" },
+]
+
+[[package]]
 name = "packaging"
 version = "26.3"
 source = { registry = "https://pypi.org/simple" }
@@ -1135,6 +1182,21 @@ wheels = [
 ]
 
 [[package]]
+name = "requests"
+version = "2.34.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "certifi" },
+    { name = "charset-normalizer" },
+    { name = "idna" },
+    { name = "urllib3" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ac/c3/e2a2b89f2d3e2179abd6d00ebd70bff6273f37fb3e0cc209f48b39d00cbf/requests-2.34.2.tar.gz", hash = "sha256:f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed", size = 142856, upload-time = "2026-05-14T19:25:27.735Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a0/f4/c67b0b3f1b9245e8d266f0f112c500d50e5b4e83cb6f3b71b6528104182a/requests-2.34.2-py3-none-any.whl", hash = "sha256:2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0", size = 73075, upload-time = "2026-05-14T19:25:26.443Z" },
+]
+
+[[package]]
 name = "rich"
 version = "15.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1337,6 +1399,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/d8/89/2bd035df331499589fc92e59375c17c6cea6a500453b2c5f6a6ec9572825/tzlocal-5.4.5.tar.gz", hash = "sha256:ba976898bad27945178c9ca25c222c19e322b30c10342b9f40b46714f70d2d5f", size = 31483, upload-time = "2026-10-22T09:09:26.38Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/7b/c1/9be4e1a8a30db8729a86628073910e56f85aaf8a659e053f376a2e6ea5a8/tzlocal-5.4.5-py3-none-any.whl", hash = "sha256:ecab534f6d65d9deb4c4ea52c121ab6dd5958e9b878e71dcb102578269752454", size = 18215, upload-time = "2026-10-22T09:09:24.447Z" },
+]
+
+[[package]]
+name = "urllib3"
+version = "2.8.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e3/05/b17359e1cefb4f909b5e40b1b90a496d987258916dbbf88e842c729f510e/urllib3-2.8.0.tar.gz", hash = "sha256:63bf2ead4c879426ebf22ef2a781eeb4aa3b4ae798a0435506f8687fd5bb9b63", size = 458972, upload-time = "2026-09-15T19:29:36.253Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl", hash = "sha256:0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3", size = 135717, upload-time = "2026-09-15T19:29:34.577Z" },
 ]
 
 [[package]]

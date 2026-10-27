@@ -54,6 +54,7 @@ from cportal_core.models.reference import (
     SupplyEdge,
     TradeFlow,
 )
+from cportal_core.models.road import RoadEdge
 from cportal_core.models.supply_graph import GraphMetric, WhatIfResult
 
 __all__ = [
@@ -97,6 +98,7 @@ __all__ = [
     "Prediction",
     "Product",
     "Recommendation",
+    "RoadEdge",
     "RouteOption",
     "RouteRequest",
     "SatelliteObservation",

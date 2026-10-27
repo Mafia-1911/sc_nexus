@@ -16,6 +16,9 @@ from cportal_api.deps import get_session
 from cportal_api.main import create_app
 from cportal_c1 import store as c1_store
 from cportal_c2 import service as c2_service
+from cportal_c3 import store as c3_store
+from cportal_c3.osm import RoadSegment
+from cportal_c3.priors import load_priors as c3_priors
 from cportal_connectors.ingest import replay_source, sync_data_sources
 from cportal_core.db import session_scope
 from cportal_core.models import Article
@@ -29,7 +32,33 @@ from sqlalchemy.orm import Session, sessionmaker
 
 URL = "postgresql+psycopg://cportal:cportal@localhost:5432/cportal_test"
 REPO = Path(__file__).resolve().parents[3]
-SOURCES = ["DS-PORT-05", "DS-PORT-08", "DS-PORT-07", "DS-PORT-01", "DS-AIS-02", "DS-WX-02"]
+SOURCES = [
+    "DS-PORT-05",
+    "DS-PORT-08",
+    "DS-PORT-07",
+    "DS-PORT-01",
+    "DS-AIS-02",
+    "DS-WX-02",
+    "DS-GEO-05",
+]
+
+
+def _toy_corridor() -> list[RoadSegment]:
+    places = c3_priors().places
+    xy = {k: (float(v["lon"]), float(v["lat"])) for k, v in places.items()}
+    xy |= {"comilla": (91.18, 23.46), "meghna": (90.62, 23.60), "detour": (90.95, 23.20)}
+    links = [
+        ("BDCGP", "comilla", "trunk"), ("comilla", "meghna", "trunk"), ("meghna", "BDKAM", "trunk"),
+        ("BDKAM", "tongi", "primary"), ("tongi", "gazipur", "primary"),
+        ("comilla", "detour", "secondary"), ("detour", "narayanganj", "secondary"),
+        ("narayanganj", "BDPGN", "secondary"), ("BDPGN", "BDKAM", "primary"),
+        ("narayanganj", "tongi", "secondary"),
+    ]  # fmt: skip
+    ids = {k: i + 1 for i, k in enumerate(xy)}
+    return [
+        RoadSegment(1000 + i, ids[a], ids[b], hw, False, None, None, (xy[a], xy[b]))
+        for i, (a, b, hw) in enumerate(links)
+    ]
 
 
 @pytest.fixture(scope="module")
@@ -78,6 +107,8 @@ def client() -> Iterator[TestClient]:
     with session_scope(URL) as session:  # what the worker's c2:process does
         c2_service.process(session)
         buffer.refresh(session)
+    with session_scope(URL) as session:  # a toy corridor instead of the 340 MB OSM extract
+        c3_store.save_edges(session, _toy_corridor(), "test")
     factory = sessionmaker(engine, expire_on_commit=False)
 
     def override() -> Iterator[Session]:
@@ -327,3 +358,28 @@ def test_c2_alerts_and_buffer_decisions(client: TestClient) -> None:
     assert done["status"] == "dismissed" and done["decided_at"]
     ack = client.post(f"/api/v1/alerts/{alerts[0]['id']}/ack").json()["data"]
     assert ack["status"] == "ack"
+
+
+def test_c3_route_plans(client: TestClient) -> None:
+    """C3-AC02: Chattogram → Gazipur gives ≥ 3 plans, non-dominated first, in < 5 s."""
+    places = client.get("/api/v1/routes/places").json()["data"]
+    assert {"BDCGP", "gazipur", "BDKAM"} <= {p["key"] for p in places}
+    rail = client.get("/api/v1/network/services", params={"mode": "rail"}).json()["data"]
+    assert rail and rail[0]["origin"] == "BDCGP"
+    body = {"origin": "BDCGP", "dest": "gazipur", "deadline": "2030-01-01T00:00:00Z"}
+    t0 = time.perf_counter()
+    response = client.post("/api/v1/routes/optimize", json=body)
+    assert response.status_code == 200 and time.perf_counter() - t0 < 5
+    result = response.json()["data"]
+    plans = result["plans"]
+    assert len(plans) >= 3 and plans[0]["pareto_rank"] == 0
+    assert {"road", "rail", "barge"} <= {m for p in plans for m in p["modes"]}
+    for p in plans:
+        assert p["time_p50_h"] <= p["time_p90_h"] and p["legs"]
+        assert all(leg["factor"]["source"] for leg in p["legs"] if leg["mode"] != "transfer")
+    stored = client.get(f"/api/v1/routes/{result['request_id']}").json()["data"]
+    assert len(stored["options"]) == len(plans)
+    assert (
+        client.post("/api/v1/routes/optimize", json={"origin": "BDCGP", "dest": "mars"}).status_code
+        == 404
+    )

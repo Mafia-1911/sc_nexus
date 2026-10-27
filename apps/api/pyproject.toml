@@ -6,6 +6,7 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
     "cportal-c1",
     "cportal-c2",
+    "cportal-c3",
     "cportal-core",
     "fastapi>=0.115",
     "uvicorn[standard]>=0.32",

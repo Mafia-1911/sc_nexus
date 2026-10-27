@@ -263,6 +263,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/network/services": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Services
+         * @description Rail and barge services (synthetic timetables calibrated to 2025 press facts).
+         */
+        get: operations["services_api_v1_network_services_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/ports": {
         parameters: {
             query?: never;
@@ -462,7 +482,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/routes/plan": {
+    "/api/v1/routes/optimize": {
         parameters: {
             query?: never;
             header?: never;
@@ -471,11 +491,45 @@ export interface paths {
         };
         get?: never;
         put?: never;
+        /** Optimize */
+        post: operations["optimize_api_v1_routes_optimize_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/routes/places": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
         /**
-         * Plan Route
-         * @description Queue a C3 Pareto route request (origin, destination, cargo profile, deadline).
+         * Places
+         * @description Origins and destinations the planner knows (ports, ICDs, industrial clusters).
          */
-        post: operations["plan_route_api_v1_routes_plan_post"];
+        get: operations["places_api_v1_routes_places_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/routes/{request_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Route */
+        get: operations["get_route_api_v1_routes__request_id__get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -865,6 +919,11 @@ export interface components {
             data: components["schemas"]["RecommendationOut"];
             meta: components["schemas"]["Meta"];
         };
+        /** Envelope[RouteResult] */
+        Envelope_RouteResult_: {
+            data: components["schemas"]["RouteResult"];
+            meta: components["schemas"]["Meta"];
+        };
         /** Envelope[ShipmentOut] */
         Envelope_ShipmentOut_: {
             data: components["schemas"]["ShipmentOut"];
@@ -888,6 +947,14 @@ export interface components {
         /** Envelope[WhatIfOut] */
         Envelope_WhatIfOut_: {
             data: components["schemas"]["WhatIfOut"];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[dict[str, Any]] */
+        Envelope_dict_str__Any__: {
+            /** Data */
+            data: {
+                [key: string]: unknown;
+            };
             meta: components["schemas"]["Meta"];
         };
         /** Envelope[list[ActivityOut]] */
@@ -960,6 +1027,14 @@ export interface components {
         Envelope_list_SourceOut__: {
             /** Data */
             data: components["schemas"]["SourceOut"][];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[list[dict[str, Any]]] */
+        Envelope_list_dict_str__Any___: {
+            /** Data */
+            data: {
+                [key: string]: unknown;
+            }[];
             meta: components["schemas"]["Meta"];
         };
         /** EventDetailOut */
@@ -1142,6 +1217,29 @@ export interface components {
         KpiStrip: {
             /** Kpis */
             kpis: components["schemas"]["Kpi"][];
+        };
+        /** LegOut */
+        LegOut: {
+            /** Co2E Kg */
+            co2e_kg: number;
+            /** Coords */
+            coords: number[][];
+            /** Cost Bdt */
+            cost_bdt: number;
+            /** Dest */
+            dest: string;
+            /** Factor */
+            factor: {
+                [key: string]: unknown;
+            } | null;
+            /** Km */
+            km: number;
+            /** Mode */
+            mode: string;
+            /** Note */
+            note: string;
+            /** Origin */
+            origin: string;
         };
         /** MentionOut */
         MentionOut: {
@@ -1368,6 +1466,49 @@ export interface components {
             /** Next Cursor */
             next_cursor?: string | null;
         };
+        /** PlanOut */
+        PlanOut: {
+            /**
+             * Arrival P50
+             * Format: date-time
+             */
+            arrival_p50: string;
+            /**
+             * Arrival P90
+             * Format: date-time
+             */
+            arrival_p90: string;
+            /** Co2E Kg */
+            co2e_kg: number;
+            /** Co2E Kg Per Teu */
+            co2e_kg_per_teu: number;
+            /** Cost Bdt */
+            cost_bdt: number;
+            /** Cost Usd */
+            cost_usd: number;
+            /** Departures */
+            departures: {
+                [key: string]: unknown;
+            }[];
+            /** Explanation */
+            explanation: string;
+            /** Km */
+            km: number;
+            /** Legs */
+            legs: components["schemas"]["LegOut"][];
+            /** Modes */
+            modes: string[];
+            /** Name */
+            name: string;
+            /** On Time Prob */
+            on_time_prob: number | null;
+            /** Pareto Rank */
+            pareto_rank: number;
+            /** Time P50 H */
+            time_p50_h: number;
+            /** Time P90 H */
+            time_p90_h: number;
+        };
         /** PortCallOut */
         PortCallOut: {
             /** Arrival Ts */
@@ -1512,6 +1653,64 @@ export interface components {
             status: string;
             /** Targets */
             targets: unknown[];
+        };
+        /** RouteIn */
+        RouteIn: {
+            /**
+             * Cargo Profile
+             * @default DRY_CONTAINER
+             */
+            cargo_profile: string;
+            /** Deadline */
+            deadline?: string | null;
+            /**
+             * Depart
+             * @description Default: now
+             */
+            depart?: string | null;
+            /**
+             * Dest
+             * @description Place key, e.g. gazipur
+             */
+            dest: string;
+            /** Max Transit H */
+            max_transit_h?: number | null;
+            /**
+             * Origin
+             * @description Place key from config/priors/c3.yaml, e.g. BDCGP
+             */
+            origin: string;
+            /**
+             * Qty Teu
+             * @default 1
+             */
+            qty_teu: number;
+        };
+        /** RouteResult */
+        RouteResult: {
+            /** Cargo Profile */
+            cargo_profile: string;
+            /** Deadline */
+            deadline: string | null;
+            /**
+             * Depart
+             * Format: date-time
+             */
+            depart: string;
+            /** Dest */
+            dest: string;
+            /** Model Version */
+            model_version: string;
+            /** Notes */
+            notes: string[];
+            /** Origin */
+            origin: string;
+            /** Plans */
+            plans: components["schemas"]["PlanOut"][];
+            /** Qty Teu */
+            qty_teu: number;
+            /** Request Id */
+            request_id?: string | null;
         };
         /** ScenarioOut */
         ScenarioOut: {
@@ -2296,6 +2495,46 @@ export interface operations {
             };
         };
     };
+    services_api_v1_network_services_get: {
+        parameters: {
+            query?: {
+                mode?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_list_dict_str__Any___"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
     list_ports_api_v1_ports_get: {
         parameters: {
             query?: never;
@@ -2771,7 +3010,7 @@ export interface operations {
             };
         };
     };
-    plan_route_api_v1_routes_plan_post: {
+    optimize_api_v1_routes_optimize_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -2780,19 +3019,95 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": {
-                    [key: string]: unknown;
-                };
+                "application/json": components["schemas"]["RouteIn"];
             };
         };
         responses: {
             /** @description Successful Response */
-            202: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["JobAccepted"];
+                    "application/json": components["schemas"]["Envelope_RouteResult_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    places_api_v1_routes_places_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_list_dict_str__Any___"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    get_route_api_v1_routes__request_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                request_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_dict_str__Any__"];
                 };
             };
             /** @description Not Found */

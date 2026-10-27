@@ -1,0 +1,23 @@
+[project]
+name = "cportal-c3"
+version = "0.1.0"
+description = "C3 routing: corridor road graph from OSM, rail and barge services, Pareto plans with P50/P90, on-time probability, cost and CO2e"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "cportal-core",
+    "httpx>=0.27",
+    "networkx>=3.4",
+    "numpy>=2.0",
+    "osmium>=4.0",
+    "pyyaml>=6.0",
+]
+
+[project.scripts]
+c3 = "cportal_c3.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.9,<0.14"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "cportal_c3"

@@ -1,0 +1,38 @@
+{
+ "gold": {
+  "articles": 150,
+  "relevant": 17
+ },
+ "rules": {
+  "precision": 0.312,
+  "recall": 0.294,
+  "f1": 0.303,
+  "type_accuracy_on_hits": 0.6,
+  "tp": 5,
+  "fp": 11,
+  "fn": 12,
+  "tn": 122
+ },
+ "llm:qwen3:4b": {
+  "precision": 0.36,
+  "recall": 0.529,
+  "f1": 0.429,
+  "type_accuracy_on_hits": 0.111,
+  "tp": 9,
+  "fp": 16,
+  "fn": 8,
+  "tn": 117,
+  "ungrounded_fields": 117,
+  "seconds_per_article": 7.2
+ },
+ "rules+llm:qwen3:4b": {
+  "precision": 0.3,
+  "recall": 0.529,
+  "f1": 0.383,
+  "type_accuracy_on_hits": 0.444,
+  "tp": 9,
+  "fp": 21,
+  "fn": 8,
+  "tn": 112
+ }
+}

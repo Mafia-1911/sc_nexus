@@ -1,0 +1,143 @@
+# C3 assumptions (routing). Tariffs cite their sources; everything else is an ESTIMATE shown as
+# "modelled" in the UI and replaced by calibration (ORS, C4 dwell) where it exists.
+version: 1
+bbox: {west: 89.3, south: 21.8, east: 92.2, north: 24.6}   # Chattogram–Dhaka corridor + Mongla (Q-13)
+highways: [motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link]   # tertiary left out to fit RAM
+
+places:   # origins, destinations and transfer points (snap to the nearest road node)
+  BDCGP:   {name: Chattogram port (gate), kind: port, lat: 22.3120, lon: 91.8070}
+  BDMGL:   {name: Mongla port (gate), kind: port, lat: 22.4880, lon: 89.6000}
+  BDKAM:   {name: Kamalapur ICD, kind: icd, lat: 23.7320, lon: 90.4260}
+  BDPGN:   {name: Pangaon ICT, kind: icd, lat: 23.6600, lon: 90.4700}
+  gazipur: {name: Gazipur, kind: cluster, lat: 23.9984, lon: 90.4223}
+  tongi:   {name: Tongi, kind: cluster, lat: 23.9000, lon: 90.4000}
+  dhaka_epz: {name: Dhaka EPZ (Ashulia/Savar), kind: cluster, lat: 23.9502, lon: 90.2732}
+  savar:   {name: Savar, kind: cluster, lat: 23.8486, lon: 90.2500}
+  narayanganj: {name: Narayanganj, kind: cluster, lat: 23.6135, lon: 90.5030}
+  adamjee_epz: {name: Adamjee EPZ, kind: cluster, lat: 23.6782, lon: 90.5172}
+  bhaluka: {name: Bhaluka, kind: cluster, lat: 24.3750, lon: 90.3783}
+  cepz:    {name: Chattogram EPZ, kind: cluster, lat: 22.2933, lon: 91.7818}
+  kepz:    {name: Karnaphuli EPZ, kind: cluster, lat: 22.2722, lon: 91.7896}
+
+fx_bdt_per_usd: 122   # estimate (fx_rate table is empty); used only to convert USD tariffs
+cargo_t_per_teu: 10   # cargo mass for CO2e (GLEC counts cargo, not tare); estimate
+
+road:
+  # Free-flow truck speeds by OSM class, km/h (estimates; scaled by `calibration` against ORS HGV).
+  speed_kmh: {motorway: 55, trunk: 45, primary: 35, secondary: 28, tertiary: 22, link: 20, default: 20}
+  calibration: 1.0          # written by `uv run c3 calibrate`
+  sigma: 0.22               # lognormal dispersion of a road leg's travel time
+  # Hour-of-day speed multipliers; "dhaka" applies within dhaka_radius_km of the city centre.
+  dhaka_centre: {lat: 23.7300, lon: 90.4100}
+  dhaka_radius_km: 18
+  profile:
+    dhaka:  [1.0, 1.0, 1.0, 1.0, 1.0, 0.9, 0.75, 0.55, 0.5, 0.55, 0.6, 0.65, 0.7, 0.7, 0.65, 0.6, 0.5, 0.45, 0.45, 0.5, 0.6, 0.8, 0.95, 1.0]
+    corridor: [1.0, 1.0, 1.0, 1.0, 1.0, 0.95, 0.9, 0.85, 0.85, 0.85, 0.9, 0.9, 0.9, 0.9, 0.9, 0.85, 0.8, 0.8, 0.85, 0.9, 0.95, 1.0, 1.0, 1.0]
+  # Heavy vehicles kept out of central Dhaka by day (VERIFY the current DMP notice; garments and
+  # medicines were exempted in recent Eid notices). A truck waits at the edge until it opens.
+  # truck_ban: {start_h: 7, end_h: 22, radius_km: 8, exempt_cargo: []}
+
+  truck_ban: {
+    "standard_daily": {
+      "heavy_vehicles": {
+        "start_h": 8,
+        "end_h": 20,
+        "restricted_hours_description": "8:00 AM to 8:00 PM",
+        "permitted_hours_description": "8:01 PM to 7:59 AM",
+        "zones": [
+          "Mirpur Road Corridor (Gabtoli, Shyamoli, Russell Square, Science Lab)",
+          "VIP & Central Roads (Kazi Nazrul Islam Avenue, Farmgate to Shahbagh, Mohakhali, Moghbazar, Panthapath)",
+          "Eastern Fringe Arteries (Pragati Sarani, Rampura, Malibagh)"
+        ],
+        "exempt_cargo": []
+      },
+      "covered_delivery_vans": {
+        "start_h_morning": 8,
+        "end_h_morning": 11,
+        "start_h_afternoon": 16,
+        "end_h_afternoon": 20,
+        "restricted_hours_description": "Banned 8:00 AM to 11:00 AM and 4:00 PM to 8:00 PM (Permitted 11:00 AM to 4:00 PM and 8:01 PM to 7:59 AM)",
+        "exempt_cargo": []
+      },
+      "industrial_corridor_exemptions": {
+        "permitted_routes": [
+          "Dhaka Elevated Expressway connectors",
+          "Dhaka Airport Cargo Terminals outer highway spurs"
+        ],
+        "exempt_cargo": [
+          "ready-made garments (RMG)",
+          "pharmaceuticals"
+        ],
+        "conditions": "Must carry authorized commercial invoices"
+      }
+    },
+    "festival_framework": {
+      "duration_days": "6 to 7 days during major celebrations (Eid-ul-Fitr, Eid-ul-Azha)",
+      "start_h": 0,
+      "end_h": 24,
+      "restricted_corridors": [
+        "Dhaka–Mymensingh Highway Corridor (Banani/Kuril Flyover to Abdullahpur)",
+        "Dhaka–Chattogram Highway Axis (Jatrabari/Gulistan to Signboard crossing)",
+        "Dhaka–Aricha Highway Connection (Aarong Crossing/Shyamoli to Aminbazar and Gabtoli bridge terminal)",
+        "Dhaka–Mawa Highway (Gulistan to Buriganga Bridge)",
+        "Dhaka–Keraniganj Road (Fulbaria via Tatibazar to Babubazar Bridge)",
+        "Abdullahpur to Dhaur Bridge road segment",
+        "Fulbaria to Sadarghat Launch Terminal Road"
+      ],
+      "exempt_cargo": [
+        "export-oriented garment products",
+        "medicines",
+        "fuel",
+        "emergency food supplies",
+        "agricultural fertilizers",
+        "perishable goods"
+      ],
+      "conditions": "Unrestricted 24/7 movement allowed for exempted cargo fleets with proper manifest/BGMEA/BKMEA paperwork"
+    }
+  }
+
+  # Trailer rate: a prime mover charges up to Tk 35,000 for a 20 ft box on the Dhaka–Chattogram
+  # highway (Maritime Gateway / The Daily Star, date unclear) ≈ Tk 130/km over ~265 km.
+  bdt_per_km: 130
+  min_bdt: 6000
+  reefer_uplift: 1.25       # reefer genset and higher rates (estimate)
+
+transfers:  # dwell before the next leg (P50, P90 hours) and handling (BDT per TEU); estimates
+  BDCGP: {p50_h: 8,  p90_h: 30, bdt: 0,    note: "gate-out incl. release and trailer queue; C4 replaces"}
+  BDMGL: {p50_h: 12, p90_h: 36, bdt: 0,    note: "gate-out"}
+  BDKAM: {p50_h: 24, p90_h: 72, bdt: 2500, note: "ICD delivery"}
+  BDPGN: {p50_h: 12, p90_h: 36, bdt: 2500, note: "ICT delivery"}
+
+services:   # scheduled rail and barge legs (synthetic timetables calibrated to press facts)
+  rail_cgp_kam:
+    mode: rail
+    origin: BDCGP
+    dest: BDKAM
+    departures_h: [6, 18]          # every day
+    cancel_prob: 0.35              # "only one or two pairs of loaded container trains per day" (Financial Express)
+    run_p50_h: 10
+    run_p90_h: 16
+    capacity_teu: 60
+    bdt_per_teu: 28000             # import box Chattogram→Kamalapur ≈ Tk 28,000 (Maritime Gateway / Daily Star)
+    km: 320
+  barge_cgp_pgn:
+    mode: barge
+    origin: BDCGP
+    dest: BDPGN
+    departures_weekdays: [0, 3]    # Mon, Thu (estimate; few vessels)
+    departures_h: [10]
+    cancel_prob: 0.1
+    run_p50_h: 40
+    run_p90_h: 60
+    capacity_teu: 120
+    usd_per_teu: 190               # laden import 20 ft after Medlog's cut (The Loadstar)
+    km: 300
+
+emission_factors:   # rows from DS-GEO-05 (UK DESNZ 2026) matched by vehicle_class and fuel
+  road:   {vehicle_class: "HGV (non-refrigerated, all diesel) / Articulated (>33t)", fuel: "Average laden"}
+  reefer: {vehicle_class: "HGV (refrigerated, all diesel) / Average refrigerated artics", fuel: "Average laden"}
+  rail:   {vehicle_class: "Rail / Freight train", fuel: null}
+  barge:  {vehicle_class: "Cargo ship / Container ship / 0–999 TEU", fuel: null, note: "proxy: no inland-waterway factor in DESNZ"}
+
+monte_carlo: 300
+departure_sweep: {hours: 48, step_h: 3}

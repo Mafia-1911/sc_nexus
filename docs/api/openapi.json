@@ -545,6 +545,22 @@
         "title": "Envelope[RecommendationOut]",
         "type": "object"
       },
+      "Envelope_RouteResult_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/RouteResult"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[RouteResult]",
+        "type": "object"
+      },
       "Envelope_ShipmentOut_": {
         "properties": {
           "data": {
@@ -630,6 +646,24 @@
           "meta"
         ],
         "title": "Envelope[WhatIfOut]",
+        "type": "object"
+      },
+      "Envelope_dict_str__Any__": {
+        "properties": {
+          "data": {
+            "additionalProperties": true,
+            "title": "Data",
+            "type": "object"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[dict[str, Any]]",
         "type": "object"
       },
       "Envelope_list_ActivityOut__": {
@@ -870,6 +904,27 @@
           "meta"
         ],
         "title": "Envelope[list[SourceOut]]",
+        "type": "object"
+      },
+      "Envelope_list_dict_str__Any___": {
+        "properties": {
+          "data": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[list[dict[str, Any]]]",
         "type": "object"
       },
       "EventDetailOut": {
@@ -1461,6 +1516,73 @@
           "kpis"
         ],
         "title": "KpiStrip",
+        "type": "object"
+      },
+      "LegOut": {
+        "properties": {
+          "co2e_kg": {
+            "title": "Co2E Kg",
+            "type": "number"
+          },
+          "coords": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "title": "Coords",
+            "type": "array"
+          },
+          "cost_bdt": {
+            "title": "Cost Bdt",
+            "type": "number"
+          },
+          "dest": {
+            "title": "Dest",
+            "type": "string"
+          },
+          "factor": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Factor"
+          },
+          "km": {
+            "title": "Km",
+            "type": "number"
+          },
+          "mode": {
+            "title": "Mode",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "origin": {
+            "title": "Origin",
+            "type": "string"
+          }
+        },
+        "required": [
+          "mode",
+          "origin",
+          "dest",
+          "km",
+          "cost_bdt",
+          "co2e_kg",
+          "factor",
+          "note",
+          "coords"
+        ],
+        "title": "LegOut",
         "type": "object"
       },
       "MentionOut": {
@@ -2093,6 +2215,113 @@
         "title": "Page[PortCallOut]",
         "type": "object"
       },
+      "PlanOut": {
+        "properties": {
+          "arrival_p50": {
+            "format": "date-time",
+            "title": "Arrival P50",
+            "type": "string"
+          },
+          "arrival_p90": {
+            "format": "date-time",
+            "title": "Arrival P90",
+            "type": "string"
+          },
+          "co2e_kg": {
+            "title": "Co2E Kg",
+            "type": "number"
+          },
+          "co2e_kg_per_teu": {
+            "title": "Co2E Kg Per Teu",
+            "type": "number"
+          },
+          "cost_bdt": {
+            "title": "Cost Bdt",
+            "type": "number"
+          },
+          "cost_usd": {
+            "title": "Cost Usd",
+            "type": "number"
+          },
+          "departures": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Departures",
+            "type": "array"
+          },
+          "explanation": {
+            "title": "Explanation",
+            "type": "string"
+          },
+          "km": {
+            "title": "Km",
+            "type": "number"
+          },
+          "legs": {
+            "items": {
+              "$ref": "#/components/schemas/LegOut"
+            },
+            "title": "Legs",
+            "type": "array"
+          },
+          "modes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Modes",
+            "type": "array"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "on_time_prob": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "On Time Prob"
+          },
+          "pareto_rank": {
+            "title": "Pareto Rank",
+            "type": "integer"
+          },
+          "time_p50_h": {
+            "title": "Time P50 H",
+            "type": "number"
+          },
+          "time_p90_h": {
+            "title": "Time P90 H",
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "modes",
+          "km",
+          "time_p50_h",
+          "time_p90_h",
+          "arrival_p50",
+          "arrival_p90",
+          "on_time_prob",
+          "cost_bdt",
+          "cost_usd",
+          "co2e_kg",
+          "co2e_kg_per_teu",
+          "pareto_rank",
+          "explanation",
+          "legs",
+          "departures"
+        ],
+        "title": "PlanOut",
+        "type": "object"
+      },
       "PortCallOut": {
         "properties": {
           "arrival_ts": {
@@ -2542,6 +2771,156 @@
           "feedback"
         ],
         "title": "RecommendationOut",
+        "type": "object"
+      },
+      "RouteIn": {
+        "properties": {
+          "cargo_profile": {
+            "default": "DRY_CONTAINER",
+            "pattern": "^(DRY_CONTAINER|REEFER_2_8C)$",
+            "title": "Cargo Profile",
+            "type": "string"
+          },
+          "deadline": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deadline"
+          },
+          "depart": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Default: now",
+            "title": "Depart"
+          },
+          "dest": {
+            "description": "Place key, e.g. gazipur",
+            "title": "Dest",
+            "type": "string"
+          },
+          "max_transit_h": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "maximum": 240.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Transit H"
+          },
+          "origin": {
+            "description": "Place key from config/priors/c3.yaml, e.g. BDCGP",
+            "title": "Origin",
+            "type": "string"
+          },
+          "qty_teu": {
+            "default": 1,
+            "maximum": 200.0,
+            "minimum": 1.0,
+            "title": "Qty Teu",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "origin",
+          "dest"
+        ],
+        "title": "RouteIn",
+        "type": "object"
+      },
+      "RouteResult": {
+        "properties": {
+          "cargo_profile": {
+            "title": "Cargo Profile",
+            "type": "string"
+          },
+          "deadline": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deadline"
+          },
+          "depart": {
+            "format": "date-time",
+            "title": "Depart",
+            "type": "string"
+          },
+          "dest": {
+            "title": "Dest",
+            "type": "string"
+          },
+          "model_version": {
+            "title": "Model Version",
+            "type": "string"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Notes",
+            "type": "array"
+          },
+          "origin": {
+            "title": "Origin",
+            "type": "string"
+          },
+          "plans": {
+            "items": {
+              "$ref": "#/components/schemas/PlanOut"
+            },
+            "title": "Plans",
+            "type": "array"
+          },
+          "qty_teu": {
+            "title": "Qty Teu",
+            "type": "integer"
+          },
+          "request_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Request Id"
+          }
+        },
+        "required": [
+          "origin",
+          "dest",
+          "depart",
+          "deadline",
+          "qty_teu",
+          "cargo_profile",
+          "plans",
+          "model_version",
+          "notes"
+        ],
+        "title": "RouteResult",
         "type": "object"
       },
       "ScenarioOut": {
@@ -4141,6 +4520,66 @@
         ]
       }
     },
+    "/api/v1/network/services": {
+      "get": {
+        "description": "Rail and barge services (synthetic timetables calibrated to 2025 press facts).",
+        "operationId": "services_api_v1_network_services_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "mode",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Mode"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_list_dict_str__Any___"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Services",
+        "tags": [
+          "routes"
+        ]
+      }
+    },
     "/api/v1/ports": {
       "get": {
         "operationId": "list_ports_api_v1_ports_get",
@@ -4925,28 +5364,25 @@
         ]
       }
     },
-    "/api/v1/routes/plan": {
+    "/api/v1/routes/optimize": {
       "post": {
-        "description": "Queue a C3 Pareto route request (origin, destination, cargo profile, deadline).",
-        "operationId": "plan_route_api_v1_routes_plan_post",
+        "operationId": "optimize_api_v1_routes_optimize_post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "additionalProperties": true,
-                "title": "Body",
-                "type": "object"
+                "$ref": "#/components/schemas/RouteIn"
               }
             }
           },
           "required": true
         },
         "responses": {
-          "202": {
+          "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobAccepted"
+                  "$ref": "#/components/schemas/Envelope_RouteResult_"
                 }
               }
             },
@@ -4973,7 +5409,102 @@
             "description": "Unprocessable Entity"
           }
         },
-        "summary": "Plan Route",
+        "summary": "Optimize",
+        "tags": [
+          "routes"
+        ]
+      }
+    },
+    "/api/v1/routes/places": {
+      "get": {
+        "description": "Origins and destinations the planner knows (ports, ICDs, industrial clusters).",
+        "operationId": "places_api_v1_routes_places_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_list_dict_str__Any___"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Places",
+        "tags": [
+          "routes"
+        ]
+      }
+    },
+    "/api/v1/routes/{request_id}": {
+      "get": {
+        "operationId": "get_route_api_v1_routes__request_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "request_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Request Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_str__Any__"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Get Route",
         "tags": [
           "routes"
         ]

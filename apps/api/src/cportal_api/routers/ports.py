@@ -1,7 +1,7 @@
 """/ports and /vessels: port reference, state, calls, daily activity, zones; latest positions.
 
 Real rows (live/replay) are always included; synthetic rows come from the selected scenario.
-Forecasts (C4) answer 501 until M6.
+C4 forecasts and predictions live in `dwell.py`.
 """
 
 from __future__ import annotations
@@ -169,11 +169,6 @@ def port_zones(locode: str, session: SessionDep) -> Envelope[FeatureCollection]:
         if z.geom is not None or z.zone_type == "berth"
     ]
     return Envelope(data=FeatureCollection(features=features), meta=meta(rows))
-
-
-@router.get("/ports/{locode}/forecast", responses={501: {"description": "C4 arrives in M6"}})
-def port_forecast(locode: str) -> None:
-    raise HTTPException(501, "Congestion and dwell forecasts arrive with C4 (M6).")
 
 
 @router.get("/vessels/positions", response_model=Envelope[FeatureCollection])

@@ -308,6 +308,8 @@ def parse_gfw_presence(body: bytes, ctx: ParseContext, area: str) -> list[Record
     vessels: dict[Any, VesselRecord] = {}
     for row in _report_rows(_json(body)):
         mmsi = int(row["mmsi"]) if str(row.get("mmsi") or "").isdigit() else None
+        if mmsi is not None and not 100_000_000 <= mmsi <= 999_999_999:
+            mmsi = None  # malformed MMSIs occur in older presence data
         imo = str(row.get("imo") or "") or None
         imo = imo if imo and imo_check_digit_ok(imo) else None
         day = date.fromisoformat(str(row["date"])[:10])

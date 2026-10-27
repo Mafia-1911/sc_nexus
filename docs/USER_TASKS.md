@@ -1,7 +1,7 @@
 # Tasks for the user
 
 Lower-value or manual work the agent hands over so it can keep coding. Tick a box when done and
-tell the agent; each item says where its result goes.
+tell the agent; each item says where its result goes. New tasks paused since 2026-10-27 (U-03).
 
 ## Open
 
@@ -23,10 +23,11 @@ tell the agent; each item says where its result goes.
       haulier) for a laden container truck's typical drive time on the N1 at night or off-peak.
       The model now says ≈ 6.2 h for Chattogram→Gazipur free flow; ORS says 3.7 h. Put the number
       and link in `config/priors/c3.yaml` next to `calibration`, and the agent rescales.
-- [inprogress] **More DMA AIS days (C4, M6):** six more days (e.g. `aisdk-2025-02-21` … `-26`) into
-      `data/inbox/DS-AIS-03/`.
 
 ## Done
 
+- [x] DMA AIS days 2025-02-27 … 2025-03-05 in `data/inbox/DS-AIS-03/` (03-01 re-fetched, complete).
+- [x] Chattogram and Mongla channel limits in `config/priors/c4.yaml` (CPA circular 2023-03-19, MPA).
+- Taken over by the agent (U-03): C4 press-reported queues, Q-15 (default), the TSFM run.
 - [x] C2 gold labels (150 articles) → `data/samples/c2_gold/gold.csv`.
 - [x] `qwen3:4b` pulled; Q-10 English only; Q-12 analytics now, GNN later; C3 next.

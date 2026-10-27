@@ -21,12 +21,12 @@ from cportal_c3.osm import RoadSegment
 from cportal_c3.priors import load_priors as c3_priors
 from cportal_connectors.ingest import replay_source, sync_data_sources
 from cportal_core.db import session_scope
-from cportal_core.models import Article
+from cportal_core.models import Article, ModelVersion, Port, PortCall, Prediction
 from cportal_core.names import load_pack
 from cportal_nexus import buffer
 from cportal_sim.seed import seed_scenario
 from fastapi.testclient import TestClient
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, select, text
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import Session, sessionmaker
 
@@ -175,8 +175,8 @@ def test_problems_and_stubs(client: TestClient) -> None:
     assert missing.status_code == 404
     assert missing.headers["content-type"].startswith("application/problem+json")
     assert client.get("/api/v1/ports/BDCGP/calls", params={"scenario": "nope"}).status_code == 404
-    forecast = client.get("/api/v1/ports/BDCGP/forecast")
-    assert forecast.status_code == 501 and forecast.json()["title"] == "Not Implemented"
+    forecast = client.get("/api/v1/ports/XXXXX/forecast")
+    assert forecast.status_code == 404  # no C4 predictions for that port
 
 
 def test_jobs_are_accepted_and_pollable(client: TestClient) -> None:
@@ -383,3 +383,74 @@ def test_c3_route_plans(client: TestClient) -> None:
         client.post("/api/v1/routes/optimize", json={"origin": "BDCGP", "dest": "mars"}).status_code
         == 404
     )
+
+
+def test_c4_port_predictions(client: TestClient) -> None:
+    """C4 §8: the queue fan, vessels in port with departure windows, one vessel's track.
+
+    The 90-day GFW sample is too short for C4's split, so stored predictions are written here
+    the way `c4 train` writes them (the pipeline itself is tested in packages/c4_port_dwell)."""
+    assert client.get("/api/v1/ports/BDMGL/predictions").json()["data"] == []
+    snaps = [datetime(2026, 9, d, 6, tzinfo=UTC) for d in (1, 2)]
+    with session_scope(URL) as session:
+        port = session.scalar(select(Port).where(Port.locode == "BDCGP"))
+        assert port is not None
+        call = session.scalars(
+            select(PortCall).where(PortCall.port_id == port.id, PortCall.method == "gfw")
+        ).first()
+        assert call is not None and call.arrival_ts is not None
+        lineage = {"source_id": "c4", "data_mode": "replay", "is_synthetic": False}
+        model = ModelVersion(
+            **lineage, capability="c4", name="c4-dwell-lgbm-cqr (BDCGP)", version="t",
+            metrics={"mae_gain_cargo": 0.18}, is_active=True,
+        )  # fmt: skip
+        session.add(model)
+        session.flush()
+        band = {"p10": 10.0, "p50": 30.0, "p90": 90.0}
+        drivers = [{"feature": "n_present", "label": "Vessels in port", "value": "140",
+                    "effect_pct": 12.0}]  # fmt: skip
+        session.add(
+            Prediction(
+                **lineage, source_record_id=f"BDCGP:call:{call.id}", capability="c4",
+                target_type="port_call", target_id=call.id, as_of=call.arrival_ts,
+                quantiles=band, model_version_id=model.id,
+                explanation={"drivers": drivers, "baseline": [8.0, 40.0, 120.0]},
+            )
+        )  # fmt: skip
+        for i, at in enumerate(snaps):
+            session.add(
+                Prediction(
+                    **lineage, source_record_id=f"BDCGP:call:{call.id}:{at.isoformat()}",
+                    capability="c4", target_type="port_call_remaining", target_id=call.id,
+                    as_of=at, value=20.0 - i, quantiles={"p10": 5.0, "p50": 20.0 - i, "p90": 60.0},
+                    explanation={"elapsed_h": 24.0 + 24 * i},
+                )
+            )  # fmt: skip
+            session.add(
+                Prediction(
+                    **lineage, source_record_id=f"BDCGP:queue:{at.isoformat()}",
+                    capability="c4", target_type="port_queue", target_id=port.id, as_of=at,
+                    quantiles=band,
+                    dist_params={"history": [["2026-08-31", 110.0]],
+                                 "forecast": [[f"2026-09-0{d}", 90.0, 100.0, 120.0]
+                                              for d in range(2, 9)]},
+                )
+            )  # fmt: skip
+    t0 = time.perf_counter()
+    fan = client.get("/api/v1/ports/BDCGP/forecast", params={"horizon_d": 3})
+    assert fan.status_code == 200 and time.perf_counter() - t0 < 0.3
+    body = fan.json()
+    assert body["meta"]["mode"] == "replay" and "DS-AIS-02" in body["meta"]["sources"]
+    data = body["data"]
+    assert data["as_of"].startswith("2026-09-02") and len(data["snapshots"]) == 2
+    assert len(data["forecast"]) == 3 and data["metrics"]["c4-dwell-lgbm-cqr"]["mae_gain_cargo"]
+    early = client.get("/api/v1/ports/BDCGP/predictions", params={"as_of": "2026-09-01T12:00:00Z"})
+    vessels = early.json()["data"]
+    assert len(vessels) == 1
+    v = vessels[0]
+    assert v["dwell_at_arrival"] == band and v["baseline_at_arrival"]["p50"] == 40.0
+    assert v["departure_p10"] < v["departure_p50"] < v["departure_p90"]
+    assert v["drivers"][0]["label"] == "Vessels in port"
+    track = client.get(f"/api/v1/vessels/{v['vessel_id']}/prediction").json()["data"]
+    assert [u["as_of"][:10] for u in track["updates"]] == ["2026-09-01", "2026-09-02"]
+    assert client.get(f"/api/v1/vessels/{call.id}/prediction").status_code == 404

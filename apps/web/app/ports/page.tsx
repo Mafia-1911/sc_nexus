@@ -1,15 +1,31 @@
-import { ComingSoon } from "@/components/coming-soon";
+import { Suspense } from "react";
+
+import { loadSnapshot } from "@/app/ports/actions";
+import { ErrorNote } from "@/components/kpi-strip";
+import { PortView } from "@/components/ports/port-view";
 import { titled } from "@/lib/brand";
 
 export const generateMetadata = () => titled("Ports & Vessels");
 
-export default function Page() {
+async function PortLoader() {
+  const latest = await loadSnapshot("BDCGP");
+  if (!latest.data) return <ErrorNote what="port predictions" />;
+  // The latest snapshot's history doubles as "what happened" for earlier forecasts (replay).
+  const actual = latest.data.forecast.history as [string, number][];
+  return <PortView locode="BDCGP" initial={latest.data} actual={actual} />;
+}
+
+export default function PortsPage() {
   return (
-    <ComingSoon
-      title={"Ports & Vessels"}
-      question={"When will vessels berth and leave, and how congested will it get?"}
-      milestone={"M6 (C4)"}
-      items={["Queue timeline and a 14-day fan chart (P10\u2013P90)", "Vessel table with wait P10/P50/P90 and the drivers", "Satellite panel: SAR counts vs AIS"]}
-    />
+    <>
+      <h1 className="mb-1 text-xl font-semibold tracking-tight">Ports &amp; Vessels · Chattogram</h1>
+      <p className="mb-4 text-sm text-muted">
+        When will each vessel leave, and how crowded will the outer anchorage be? Dwell is anchorage wait plus berth time,
+        with an 80 % window and the reasons behind it.
+      </p>
+      <Suspense fallback={<div className="skeleton h-40 w-full" />}>
+        <PortLoader />
+      </Suspense>
+    </>
   );
 }

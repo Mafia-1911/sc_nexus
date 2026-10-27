@@ -1,0 +1,115 @@
+# C4 assumptions (port dwell). Numbers name their source; "estimate" marks a placeholder.
+version: 1
+
+# Karnaphuli channel limits (features: draught vs limit, need for a high-water window).
+# null = not verified yet (docs/USER_TASKS.md); the model then uses only the DES estimate
+# `tide.deep_draught_m` in config/priors/port_des.yaml.
+channel:
+  BDCGP: # Chattogram Port, Bangladesh
+    max_draught_m: 10.0          # CPA maximum permitted draught (CCT, NCT, GCB Jetties 9-13 per Mar 2023 circular; standard baseline is 9.5m, and 8.55m for Jetties 2-8)
+    max_loa_m: 200.0             # CPA maximum length overall (upgraded from 190.0m standard limit per Mar 2023 circular)
+    high_water_draught_m: 6.0    # Karnaphuli River Outer Bar (5.2m chart datum) requires flood/high-water window above ~6.0m; Outer Anchorage approach requires rising tide above 8.5m-9.5m
+    source: "Chattogram Port Authority (CPA) Marine Dept Circular (2023-03-19) via The Business Standard (https://www.tbsnews.net/bangladesh/10m-draught-ships-can-now-take-berth-chattogram-port-602158) & River Tyne Shipping Port Profile (https://rivertyneltd.com/port-info/chattogram)"
+    checked_at: "2026-10-27"
+
+  BDMGL: # Mongla Port, Bangladesh
+    max_draught_m: 7.5           # MPA maximum permitted draught for Main Jetties 5-9 (up to 8.5m-9.5m at Harbaria/mooring anchorages)
+    max_loa_m: 170.0             # MPA maximum permitted LOA at Main Jetties 5-9 (up to 200.0m at anchorage/mooring buoys)
+    high_water_draught_m: 6.0    # Tidal river port on Pussur Channel (5.0m-7.5m datum depth); inward movement starts 4-5h before daylight high water
+    source: "Mongla Port Authority (MPA) Navigational Instructions via Hoegh Autoliners (https://autoliners2.hoegh.com/web/basic/hal_commoncontacts.nsf/docId/1FB7AE392A163F8DC1257C23003DADC2) & Panocean FAQ (https://panoceanbd.com/faq/)"
+    checked_at: "2026-10-27"
+
+dwell_time:
+  BDCGP: # Chattogram Port, Bangladesh
+    import_dwell_days: 8.30      # World Bank LPI / Maritime Gateway reported average import container dwell time (up from 7.8d in 2023)
+    overall_dwell_days: 9.44     # CPA full-year (Jan-Nov 2025) combined container dwell time average
+    vessel_turnaround_days: 2.53 # CPA Jan-Nov 2025 average vessel turnaround time (improved to 2.38d by July 2026)
+    vessel_waiting_days: 1.05    # 7-day rolling average vessel berth waiting time at 65-70% yard utilization
+    source: "CPA Performance Report via BSS News (2026-01-01, https://www.bssnews.net/business/346967), Maritime Gateway (2026-07-28, https://www.maritimegateway.com/chattogram-port-dwell-time/), & Kuehne+Nagel (2026-09-22, https://mykn.kuehne-nagel.com/news/article/port-operational-updates-from-22-09-2026)"
+    checked_at: "2026-10-27"
+
+  INNSA: # Jawaharlal Nehru Port (Nhava Sheva), India
+    import_dwell_days: 2.48      # JNPA reported import container port dwell of 59.5 hours (June 2026); World Bank LPI national mean is 2.6d
+    export_dwell_days: 3.28      # JNPA reported export container port dwell of 78.6 hours (June 2026)
+    vessel_waiting_days: 1.67    # 7-day rolling average vessel waiting time
+    source: "JNPA & World Bank LPI via Traqo.ai (2026-10-14, https://traqo.ai/glossary/container-dwell-time) & Kuehne+Nagel Operational Update (2026-09-22, https://mykn.kuehne-nagel.com/news/article/port-operational-updates-from-22-09-2026)"
+    checked_at: "2026-10-27"
+
+  LKCMB: # Port of Colombo, Sri Lanka
+    import_dwell_days: null      # Transshipment-dominant hub (~80% transshipment volume); standalone local import dwell not separately indexed in public release
+    export_dwell_days: 5.06      # Average outbound/export container dwell time
+    vessel_waiting_days: 2.46    # 7-day rolling average vessel waiting time amid elevated transshipment berth demand
+    source: "GoComet Port Congestion Analysis Quarterly Report (2025-02-05, https://www.gocomet.com/blog/port-congestion-analysis-quarterly-report/) & Kuehne+Nagel (2026-09-22, https://mykn.kuehne-nagel.com/news/article/port-operational-updates-from-22-09-2026)"
+    checked_at: "2026-10-27"
+
+  SGSIN: # Port of Singapore, Singapore
+    import_dwell_days: null      # Transshipment hub; PSA does not publish a standalone local import gate-out dwell average
+    vessel_turnaround_days: 0.80 # UNCTAD global container ship median port turnaround benchmark (historical Singapore port call baseline 0.12d-0.80d)
+    vessel_waiting_days: 1.80    # 7-day rolling average vessel waiting time across PSA terminals at ~85% yard density
+    source: "Kuehne+Nagel Port Operational Update (2026-09-22, https://mykn.kuehne-nagel.com/news/article/port-operational-updates-from-22-09-2026) & UNCTAD Review of Maritime Transport (2025-09-30, https://unctad.org/system/files/official-document/rmt2025ch4_en.pdf)"
+    checked_at: "2026-10-27"
+
+  MYPKG: # Port Klang, Malaysia
+    import_dwell_days: null      # Not separately published in public release
+    vessel_waiting_days: 1.24    # 7-day rolling average vessel waiting time at ~90% yard density
+    source: "Kuehne+Nagel Port Operational Update (2026-09-22, https://mykn.kuehne-nagel.com/news/article/port-operational-updates-from-22-09-2026)"
+    checked_at: "2026-10-27"
+
+  PHMNL: # Port of Manila, Philippines
+    import_dwell_days: 12.50     # Mean import container dwell time (median: 9.90 days)
+    export_dwell_days: 7.17      # Mean export container dwell time (median: 6.85 days)
+    source: "GoComet Port Congestion Analysis Quarterly Report (2025-02-05, https://www.gocomet.com/blog/port-congestion-analysis-quarterly-report/)"
+    checked_at: "2026-10-27"
+
+  USLAX: # Port of Los Angeles, United States
+    import_dwell_days: 4.70      # Local import cargo average dwell time (terminal-specific averages range 3.64d at APMT to 4.59d at TraPac)
+    rail_dwell_days: 4.20        # On-dock rail import dwell time average
+    aging_9plus_days_share: 0.225 # 22.5% of on-terminal import boxes (11,012 of 48,851 boxes) dwelt 9+ days as of 2026-10-23
+    source: "Hillebrand Gori Port Updates (2026-08-14, https://www.hillebrandgori.com/port-updates) & POLA Cargo Operations Dashboard via The Dwell (2026-10-24, https://the-dwell.com/boxdwell/los-angeles-import-containers)"
+    checked_at: "2026-10-27"
+
+  USOAK: # Port of Oakland, United States
+    import_dwell_days: 9.80      # Mean import container dwell time (median: 8.10 days; June 2026 OICT terminal deliveries averaged up to 5.60 days)
+    export_dwell_days: 5.10      # Mean export container dwell time (median: 4.98 days)
+    source: "GoComet Port Congestion Analysis Quarterly Report (2025-02-05, https://www.gocomet.com/blog/port-congestion-analysis-quarterly-report/) & Hillebrand Gori Port Updates (2026-06-19, https://www.hillebrandgori.com/port-updates)"
+    checked_at: "2026-10-27"
+
+  NLRTM: # Port of Rotterdam, Netherlands
+    import_dwell_days: 7.20      # World Bank LPI Netherlands mean import port dwell time (median: 5.20 days)
+    vessel_waiting_days: 1.39    # 7-day rolling average vessel waiting time with ECT/RWG/APMT yard utilization at 75-90%
+    source: "World Bank LPI via Traqo.ai (2026-10-14, https://traqo.ai/glossary/container-dwell-time) & Kuehne+Nagel Operational Update (2026-10-06, https://mykn.kuehne-nagel.com/news/article/port-operational-updates-from-06-10-2026)"
+    checked_at: "2026-10-27"
+
+  BEANR: # Port of Antwerp-Bruges, Belgium
+    import_dwell_days: 11.40     # Mean import container dwell time (median: 8.90 days)
+    export_dwell_days: null      # Not separately published in quarterly summary
+    source: "GoComet Port Congestion Analysis Quarterly Report (2025-02-05, https://www.gocomet.com/blog/port-congestion-analysis-quarterly-report/)"
+    checked_at: "2026-10-27"
+
+  DEBRV: # Port of Bremerhaven, Germany
+    import_dwell_days: 8.20      # Mean import container dwell time (median: 6.50 days; World Bank Germany national mean is 10.2d)
+    export_dwell_days: 5.63      # Mean export container dwell time (median: 4.34 days)
+    source: "GoComet Port Congestion Analysis Quarterly Report (2025-02-05, https://www.gocomet.com/blog/port-congestion-analysis-quarterly-report/) & World Bank LPI via Traqo.ai (2026-10-14, https://traqo.ai/glossary/container-dwell-time)"
+    checked_at: "2026-10-27"
+
+# Label cleaning for GFW port visits (DS-AIS-02).
+labels:
+  min_confidence: 3        # GFW confidence 1–4; 4 = entry, stop and exit all seen
+  max_dwell_h: 1440        # 60 days: longer "visits" are laid-up or stationary vessels
+  min_dwell_h: 2
+  publication_lag_h: 72    # GFW publishes a visit ≈ 3 days after it ends (DS-AIS-02 card: 2–4 days)
+
+# Time-based split (C4 §7): train < validate < test by arrival date.
+split:
+  test_days: 60
+  validate_days: 45
+  censor_gap_days: 45     # GFW publishes finished visits only: the latest arrivals are biased short
+  since: "2023-01-01"     # start of the GFW backfill
+
+features:
+  visibility_lag_h: 24     # what the observer sees: 0 live AIS, 24 CPA daily report, 96 GFW alone
+  presence_area: {BDCGP: ctg_outer_anchorage}
+
+model:
+  quantiles: [0.1, 0.5, 0.9]
+  interval: 0.8            # conformalised P10–P90 (C4-AC04: 75–85 % coverage)

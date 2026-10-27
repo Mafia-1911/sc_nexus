@@ -132,6 +132,29 @@
         "title": "AlertOut",
         "type": "object"
       },
+      "Band": {
+        "properties": {
+          "p10": {
+            "title": "P10",
+            "type": "number"
+          },
+          "p50": {
+            "title": "P50",
+            "type": "number"
+          },
+          "p90": {
+            "title": "P90",
+            "type": "number"
+          }
+        },
+        "required": [
+          "p10",
+          "p50",
+          "p90"
+        ],
+        "title": "Band",
+        "type": "object"
+      },
       "BatchOut": {
         "properties": {
           "aql_result": {
@@ -529,6 +552,22 @@
         "title": "Envelope[Page[PortCallOut]]",
         "type": "object"
       },
+      "Envelope_QueueForecastOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/QueueForecastOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[QueueForecastOut]",
+        "type": "object"
+      },
       "Envelope_RecommendationOut_": {
         "properties": {
           "data": {
@@ -630,6 +669,22 @@
           "meta"
         ],
         "title": "Envelope[Union[PortStateOut, NoneType]]",
+        "type": "object"
+      },
+      "Envelope_VesselTrackOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/VesselTrackOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[VesselTrackOut]",
         "type": "object"
       },
       "Envelope_WhatIfOut_": {
@@ -904,6 +959,26 @@
           "meta"
         ],
         "title": "Envelope[list[SourceOut]]",
+        "type": "object"
+      },
+      "Envelope_list_VesselInPortOut__": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/VesselInPortOut"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[list[VesselInPortOut]]",
         "type": "object"
       },
       "Envelope_list_dict_str__Any___": {
@@ -2647,6 +2722,84 @@
         "title": "Problem",
         "type": "object"
       },
+      "QueueForecastOut": {
+        "properties": {
+          "as_of": {
+            "format": "date-time",
+            "title": "As Of",
+            "type": "string"
+          },
+          "forecast": {
+            "description": "Date, P10, P50, P90",
+            "items": {
+              "maxItems": 4,
+              "minItems": 4,
+              "prefixItems": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            "title": "Forecast",
+            "type": "array"
+          },
+          "history": {
+            "description": "Vessels in the outer anchorage per day",
+            "items": {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            "title": "History",
+            "type": "array"
+          },
+          "locode": {
+            "title": "Locode",
+            "type": "string"
+          },
+          "metrics": {
+            "additionalProperties": true,
+            "title": "Metrics",
+            "type": "object"
+          },
+          "snapshots": {
+            "description": "Replay times with predictions (noon, Dhaka)",
+            "items": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "title": "Snapshots",
+            "type": "array"
+          }
+        },
+        "required": [
+          "locode",
+          "as_of",
+          "snapshots",
+          "history",
+          "forecast"
+        ],
+        "title": "QueueForecastOut",
+        "type": "object"
+      },
       "RecommendationOut": {
         "properties": {
           "action_type": {
@@ -3229,6 +3382,184 @@
           "edges"
         ],
         "title": "SupplyGraphOut",
+        "type": "object"
+      },
+      "VesselInPortOut": {
+        "properties": {
+          "actual_departure_ts": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Replay only: what happened",
+            "title": "Actual Departure Ts"
+          },
+          "actual_dwell_h": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actual Dwell H"
+          },
+          "arrival_ts": {
+            "format": "date-time",
+            "title": "Arrival Ts",
+            "type": "string"
+          },
+          "baseline_at_arrival": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Band"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "L0 median, hours"
+          },
+          "call_id": {
+            "format": "uuid",
+            "title": "Call Id",
+            "type": "string"
+          },
+          "departure_p10": {
+            "format": "date-time",
+            "title": "Departure P10",
+            "type": "string"
+          },
+          "departure_p50": {
+            "format": "date-time",
+            "title": "Departure P50",
+            "type": "string"
+          },
+          "departure_p90": {
+            "format": "date-time",
+            "title": "Departure P90",
+            "type": "string"
+          },
+          "drivers": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Drivers",
+            "type": "array"
+          },
+          "dwell_at_arrival": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Band"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "L1 at arrival, hours"
+          },
+          "elapsed_h": {
+            "title": "Elapsed H",
+            "type": "number"
+          },
+          "flag": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Flag"
+          },
+          "mmsi": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mmsi"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "remaining": {
+            "$ref": "#/components/schemas/Band",
+            "description": "L2: hours left in port as of the snapshot"
+          },
+          "ship_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ship Type"
+          },
+          "vessel_id": {
+            "format": "uuid",
+            "title": "Vessel Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "call_id",
+          "vessel_id",
+          "mmsi",
+          "name",
+          "ship_type",
+          "flag",
+          "arrival_ts",
+          "elapsed_h",
+          "remaining",
+          "departure_p10",
+          "departure_p50",
+          "departure_p90"
+        ],
+        "title": "VesselInPortOut",
+        "type": "object"
+      },
+      "VesselTrackOut": {
+        "description": "One call's predictions as time passes (C4-R03): the departure estimate per snapshot.",
+        "properties": {
+          "updates": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Updates",
+            "type": "array"
+          },
+          "vessel": {
+            "$ref": "#/components/schemas/VesselInPortOut"
+          }
+        },
+        "required": [
+          "vessel",
+          "updates"
+        ],
+        "title": "VesselTrackOut",
         "type": "object"
       },
       "WhatIfOut": {
@@ -4841,6 +5172,7 @@
     },
     "/api/v1/ports/{locode}/forecast": {
       "get": {
+        "description": "Vessels in the outer anchorage: 60 days of history and a P10/P50/P90 fan (C4-R02).",
         "operationId": "port_forecast_api_v1_ports__locode__forecast_get",
         "parameters": [
           {
@@ -4851,13 +5183,46 @@
               "title": "Locode",
               "type": "string"
             }
+          },
+          {
+            "description": "Replay snapshot (default: the latest)",
+            "in": "query",
+            "name": "as_of",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Replay snapshot (default: the latest)",
+              "title": "As Of"
+            }
+          },
+          {
+            "in": "query",
+            "name": "horizon_d",
+            "required": false,
+            "schema": {
+              "default": 14,
+              "maximum": 14,
+              "minimum": 1,
+              "title": "Horizon D",
+              "type": "integer"
+            }
           }
         ],
         "responses": {
           "200": {
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_QueueForecastOut_"
+                }
               }
             },
             "description": "Successful Response"
@@ -4881,12 +5246,81 @@
               }
             },
             "description": "Unprocessable Entity"
-          },
-          "501": {
-            "description": "C4 arrives in M6"
           }
         },
         "summary": "Port Forecast",
+        "tags": [
+          "ports"
+        ]
+      }
+    },
+    "/api/v1/ports/{locode}/predictions": {
+      "get": {
+        "description": "Vessels in port at the snapshot: departure P10/P50/P90, drivers, and what happened.",
+        "operationId": "port_predictions_api_v1_ports__locode__predictions_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "locode",
+            "required": true,
+            "schema": {
+              "title": "Locode",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Replay snapshot (default: the latest)",
+            "in": "query",
+            "name": "as_of",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Replay snapshot (default: the latest)",
+              "title": "As Of"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_list_VesselInPortOut__"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Port Predictions",
         "tags": [
           "ports"
         ]
@@ -6007,6 +6441,79 @@
           }
         },
         "summary": "Vessel Positions",
+        "tags": [
+          "ports"
+        ]
+      }
+    },
+    "/api/v1/vessels/{vessel_id}/prediction": {
+      "get": {
+        "description": "The vessel's predicted call, with its departure estimate at every snapshot (C4-R03).",
+        "operationId": "vessel_prediction_api_v1_vessels__vessel_id__prediction_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "vessel_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Vessel Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Replay snapshot (default: the latest)",
+            "in": "query",
+            "name": "as_of",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Replay snapshot (default: the latest)",
+              "title": "As Of"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_VesselTrackOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Vessel Prediction",
         "tags": [
           "ports"
         ]

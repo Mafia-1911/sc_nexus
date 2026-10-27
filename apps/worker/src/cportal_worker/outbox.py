@@ -54,10 +54,17 @@ def run_c2_process(params: dict[str, Any], database_url: str | None) -> dict[str
     return c2.process(database_url)
 
 
+def run_c4_train(params: dict[str, Any], database_url: str | None) -> dict[str, Any]:
+    from cportal_worker import c4
+
+    return c4.train(database_url)
+
+
 JOB_HANDLERS: dict[str, Callable[[dict[str, Any], str | None], dict[str, Any]]] = {
     "scenario.run": run_scenario,
     "c1.metrics": run_c1_metrics,
     "c2.process": run_c2_process,
+    "c4.train": run_c4_train,
 }
 # Handlers that record the job id on what they write.
 JOB_HANDLERS_WITH_ID: dict[
@@ -111,6 +118,10 @@ def _dispatch(event: OutboxEvent, database_url: str | None) -> None:
         from cportal_worker import c2
 
         c2.process(database_url)  # new articles become events at once
+    elif event.topic == "source.ingested" and event.payload.get("ds_id") == "DS-AIS-02":
+        from cportal_worker import c4
+
+        c4.train(database_url)  # new GFW port visits: retrain and replace the replay
     elif event.topic.startswith("disruption.") and event.payload.get("capability") != "c2":
         # C1-AC06: a new or changed event moves risk scores and what-if defaults now, not at
         # the next scheduled refresh.

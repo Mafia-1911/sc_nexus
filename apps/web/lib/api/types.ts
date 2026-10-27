@@ -341,8 +341,31 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Port Forecast */
+        /**
+         * Port Forecast
+         * @description Vessels in the outer anchorage: 60 days of history and a P10/P50/P90 fan (C4-R02).
+         */
         get: operations["port_forecast_api_v1_ports__locode__forecast_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/ports/{locode}/predictions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Port Predictions
+         * @description Vessels in port at the snapshot: departure P10/P50/P90, drivers, and what happened.
+         */
+        get: operations["port_predictions_api_v1_ports__locode__predictions_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -698,6 +721,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/vessels/{vessel_id}/prediction": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Vessel Prediction
+         * @description The vessel's predicted call, with its departure estimate at every snapshot (C4-R03).
+         */
+        get: operations["vessel_prediction_api_v1_vessels__vessel_id__prediction_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -762,6 +805,15 @@ export interface components {
             status: string;
             /** Title */
             title: string;
+        };
+        /** Band */
+        Band: {
+            /** P10 */
+            p10: number;
+            /** P50 */
+            p50: number;
+            /** P90 */
+            p90: number;
         };
         /** BatchOut */
         BatchOut: {
@@ -914,6 +966,11 @@ export interface components {
             data: components["schemas"]["Page_PortCallOut_"];
             meta: components["schemas"]["Meta"];
         };
+        /** Envelope[QueueForecastOut] */
+        Envelope_QueueForecastOut_: {
+            data: components["schemas"]["QueueForecastOut"];
+            meta: components["schemas"]["Meta"];
+        };
         /** Envelope[RecommendationOut] */
         Envelope_RecommendationOut_: {
             data: components["schemas"]["RecommendationOut"];
@@ -942,6 +999,11 @@ export interface components {
         /** Envelope[Union[PortStateOut, NoneType]] */
         Envelope_Union_PortStateOut__NoneType__: {
             data: components["schemas"]["PortStateOut"] | null;
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[VesselTrackOut] */
+        Envelope_VesselTrackOut_: {
+            data: components["schemas"]["VesselTrackOut"];
             meta: components["schemas"]["Meta"];
         };
         /** Envelope[WhatIfOut] */
@@ -1027,6 +1089,12 @@ export interface components {
         Envelope_list_SourceOut__: {
             /** Data */
             data: components["schemas"]["SourceOut"][];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[list[VesselInPortOut]] */
+        Envelope_list_VesselInPortOut__: {
+            /** Data */
+            data: components["schemas"]["VesselInPortOut"][];
             meta: components["schemas"]["Meta"];
         };
         /** Envelope[list[dict[str, Any]]] */
@@ -1615,6 +1683,43 @@ export interface components {
              */
             type: string;
         };
+        /** QueueForecastOut */
+        QueueForecastOut: {
+            /**
+             * As Of
+             * Format: date-time
+             */
+            as_of: string;
+            /**
+             * Forecast
+             * @description Date, P10, P50, P90
+             */
+            forecast: [
+                string,
+                number,
+                number,
+                number
+            ][];
+            /**
+             * History
+             * @description Vessels in the outer anchorage per day
+             */
+            history: [
+                string,
+                number
+            ][];
+            /** Locode */
+            locode: string;
+            /** Metrics */
+            metrics?: {
+                [key: string]: unknown;
+            };
+            /**
+             * Snapshots
+             * @description Replay times with predictions (noon, Dhaka)
+             */
+            snapshots: string[];
+        };
         /** RecommendationOut */
         RecommendationOut: {
             /** Action Type */
@@ -1814,6 +1919,77 @@ export interface components {
             edges: components["schemas"]["GraphEdgeOut"][];
             /** Nodes */
             nodes: components["schemas"]["GraphNodeOut"][];
+        };
+        /** VesselInPortOut */
+        VesselInPortOut: {
+            /**
+             * Actual Departure Ts
+             * @description Replay only: what happened
+             */
+            actual_departure_ts?: string | null;
+            /** Actual Dwell H */
+            actual_dwell_h?: number | null;
+            /**
+             * Arrival Ts
+             * Format: date-time
+             */
+            arrival_ts: string;
+            /** @description L0 median, hours */
+            baseline_at_arrival?: components["schemas"]["Band"] | null;
+            /**
+             * Call Id
+             * Format: uuid
+             */
+            call_id: string;
+            /**
+             * Departure P10
+             * Format: date-time
+             */
+            departure_p10: string;
+            /**
+             * Departure P50
+             * Format: date-time
+             */
+            departure_p50: string;
+            /**
+             * Departure P90
+             * Format: date-time
+             */
+            departure_p90: string;
+            /** Drivers */
+            drivers?: {
+                [key: string]: unknown;
+            }[];
+            /** @description L1 at arrival, hours */
+            dwell_at_arrival?: components["schemas"]["Band"] | null;
+            /** Elapsed H */
+            elapsed_h: number;
+            /** Flag */
+            flag: string | null;
+            /** Mmsi */
+            mmsi: number | null;
+            /** Name */
+            name: string | null;
+            /** @description L2: hours left in port as of the snapshot */
+            remaining: components["schemas"]["Band"];
+            /** Ship Type */
+            ship_type: string | null;
+            /**
+             * Vessel Id
+             * Format: uuid
+             */
+            vessel_id: string;
+        };
+        /**
+         * VesselTrackOut
+         * @description One call's predictions as time passes (C4-R03): the departure estimate per snapshot.
+         */
+        VesselTrackOut: {
+            /** Updates */
+            updates: {
+                [key: string]: unknown;
+            }[];
+            vessel: components["schemas"]["VesselInPortOut"];
         };
         /** WhatIfOut */
         WhatIfOut: {
@@ -2668,7 +2844,11 @@ export interface operations {
     };
     port_forecast_api_v1_ports__locode__forecast_get: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description Replay snapshot (default: the latest) */
+                as_of?: string | null;
+                horizon_d?: number;
+            };
             header?: never;
             path: {
                 locode: string;
@@ -2683,7 +2863,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["Envelope_QueueForecastOut_"];
                 };
             };
             /** @description Not Found */
@@ -2704,12 +2884,48 @@ export interface operations {
                     "application/json": components["schemas"]["Problem"];
                 };
             };
-            /** @description C4 arrives in M6 */
-            501: {
+        };
+    };
+    port_predictions_api_v1_ports__locode__predictions_get: {
+        parameters: {
+            query?: {
+                /** @description Replay snapshot (default: the latest) */
+                as_of?: string | null;
+            };
+            header?: never;
+            path: {
+                locode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["Envelope_list_VesselInPortOut__"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
             };
         };
     };
@@ -3470,6 +3686,49 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Envelope_FeatureCollection_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    vessel_prediction_api_v1_vessels__vessel_id__prediction_get: {
+        parameters: {
+            query?: {
+                /** @description Replay snapshot (default: the latest) */
+                as_of?: string | null;
+            };
+            header?: never;
+            path: {
+                vessel_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_VesselTrackOut_"];
                 };
             };
             /** @description Not Found */

@@ -1,0 +1,103 @@
+{
+ "port": "BDCGP",
+ "trained_at": "2026-10-27T15:00:17+00:00",
+ "labels": {
+  "total": 27315,
+  "kept": 26008,
+  "dropped": {
+   "active (censored)": 23,
+   "low confidence": 205,
+   "started before the window": 317,
+   "too short": 104,
+   "laid up (too long)": 658
+  }
+ },
+ "split": {
+  "val_start": "2026-04-11",
+  "val_end": "2026-05-26",
+  "test_start": "2026-07-10",
+  "test_end": "2026-09-08",
+  "train": 22486,
+  "val": 774,
+  "test": 1163
+ },
+ "visibility_lag_h": 24.0,
+ "dwell": {
+  "L0_all": {
+   "n": 1163,
+   "mae_h": 102.42,
+   "median_ape": 0.571,
+   "coverage_80": 0.819,
+   "width_h": 317.2,
+   "pinball_h": 35.6
+  },
+  "L0_cargo": {
+   "n": 776,
+   "mae_h": 92.12,
+   "median_ape": 0.572,
+   "coverage_80": 0.841,
+   "width_h": 317.2,
+   "pinball_h": 31.2
+  },
+  "L1_all": {
+   "n": 1163,
+   "mae_h": 89.81,
+   "median_ape": 0.451,
+   "coverage_80": 0.813,
+   "width_h": 266.9,
+   "pinball_h": 30.97
+  },
+  "L1_cargo": {
+   "n": 776,
+   "mae_h": 75.69,
+   "median_ape": 0.409,
+   "coverage_80": 0.834,
+   "width_h": 234.7,
+   "pinball_h": 25.96
+  },
+  "mae_gain_all": 0.123,
+  "mae_gain_cargo": 0.178
+ },
+ "lag_ablation": {
+  "0": {
+   "n": 776,
+   "mae_h": 70.68,
+   "median_ape": 0.365,
+   "coverage_80": 0.841,
+   "width_h": 221.7,
+   "pinball_h": 24.5
+  },
+  "96": {
+   "n": 776,
+   "mae_h": 78.51,
+   "median_ape": 0.424,
+   "coverage_80": 0.818,
+   "width_h": 233.0,
+   "pinball_h": 26.43
+  }
+ },
+ "remaining": {
+  "n": 1163,
+  "c_index": 0.653,
+  "ibs": 0.1616,
+  "ibs_kaplan_meier": 0.193,
+  "landmark_h": 24.0,
+  "landmark_n": 1043,
+  "remaining_mae_h": 94.5,
+  "remaining_mae_h_kaplan_meier": 104.6
+ },
+ "queue": {
+  "origins": 113,
+  "horizon_d": 7,
+  "seasonal_naive": {
+   "mase": 1.258,
+   "wql": 0.0854
+  },
+  "lightgbm": {
+   "mase": 1.16,
+   "wql": 0.0711,
+   "coverage_80": 0.69
+  }
+ },
+ "seconds": 39.4
+}

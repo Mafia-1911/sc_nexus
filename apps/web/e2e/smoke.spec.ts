@@ -141,12 +141,36 @@ test("Route Planner: Pareto plans, on-time odds and a departure strip (C3)", asy
   }
 });
 
-test("Theme toggle switches and persists", async ({ page }) => {
+test("Ports & Vessels: queue fan, vessel windows and a vessel's drivers (C4)", async ({ page }) => {
   await page.goto("/ports");
+  await expect(page).toHaveTitle(new RegExp(`Ports & Vessels · ${BRAND}`));
+  await expect(page.getByTestId("port-kpis")).toContainText("Vessels in port");
+  await expect(page.getByTestId("queue-fan").locator("svg path").first()).toBeVisible();
+  await expect(page.getByText("Replay").first()).toBeVisible();
+  const rows = page.getByTestId("vessel-table").locator("tbody tr");
+  expect(await rows.count()).toBeGreaterThan(5);
+  const before = await page.getByTestId("snapshot").textContent();
+  await page.getByRole("button", { name: "Previous day" }).click();
+  await expect(page.getByTestId("snapshot")).not.toHaveText(before ?? "", { timeout: 15_000 });
+  for (const theme of ["light", "dark"] as const) {
+    await setTheme(page, theme);
+    await page.waitForTimeout(400);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.screenshot({ path: `${SHOTS}/ports-vessels-${theme}.png`, fullPage: true });
+  }
+  await rows.first().click();
+  await expect(page.getByTestId("drivers").locator("li").first()).toBeVisible();
+  await expect(page.getByTestId("vessel-drawer")).toContainText("How the estimate moved");
+  await page.waitForTimeout(800);
+  await page.screenshot({ path: `${SHOTS}/ports-vessel-drawer.png` });
+});
+
+test("Theme toggle switches and persists", async ({ page }) => {
+  await page.goto("/quality");
   await setTheme(page, "light");
   await page.getByTestId("theme-toggle").click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(page.getByText("Arrives in M6 (C4)")).toBeVisible();
+  await expect(page.getByText("Arrives in M7 (C5)")).toBeVisible();
 });

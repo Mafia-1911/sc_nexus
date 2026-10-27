@@ -22,7 +22,17 @@ from sqlalchemy import text
 
 from cportal_api.deps import SessionDep
 from cportal_api.live import positions_snapshot
-from cportal_api.routers import events, graph, kpis, network, ports, routes, scenarios, sources
+from cportal_api.routers import (
+    dwell,
+    events,
+    graph,
+    kpis,
+    network,
+    ports,
+    routes,
+    scenarios,
+    sources,
+)
 from cportal_api.schemas import BrandOut, Problem
 
 PROBLEM = "application/problem+json"
@@ -92,7 +102,7 @@ def create_app() -> FastAPI:
             version=__version__,
         )
 
-    routers = (sources, scenarios, ports, events, graph, routes, network, kpis)
+    routers = (sources, scenarios, ports, dwell, events, graph, routes, network, kpis)
     for module in routers:
         router = module.router
         api.include_router(router)

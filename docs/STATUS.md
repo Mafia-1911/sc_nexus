@@ -1,10 +1,36 @@
 # STATUS (updated 2026-10-27 BST by Claude Code, Opus 5.5)
 
-Milestone: **M5 / C3 thin slice done → soft gate: deepen C3 or move to C4?** (C2 thin slice done;
-the user said "move to C3, we'll come back to C2 later"). Branch `m3-c1`. Nothing pushed since M2
-(commit only until the whole build is done).
+Milestone: **M6 / C4 thin slice done → soft gate: deepen C4 or move to C5?** (C3 thin slice done;
+the user: "we'll deepen C3 later, start on C4"; no new user tasks for now, U-03). Branch `m3-c1`.
+Nothing pushed since M2 (commit only until the whole build is done).
 
-Done (M5, C3 routing):
+Done (M6, C4 port dwell, Chattogram):
+- **Data:** `uv run gfw-backfill`: 28,160 real GFW port visits (2023 →) and 164,651 anchorage
+  presence rows (A-076); DMA AIS, all seven days in the inbox (03-01 re-fetched).
+- **`packages/c4_port_dwell`** (ADR-019, model card `docs/model-cards/c4-port-dwell.md`):
+  labels and cleaning; point-in-time features with an observer lag (leakage test, C4-AC07);
+  L0 median; L1 LightGBM P10/P50/P90 + MAPIE CQR with TreeSHAP drivers; L2 random survival
+  forest for remaining time; L3 direct LightGBM queue forecast with conformal bands.
+- **Results (test 2026-07-10 → 09-08):** cargo dwell MAE −17.8 % vs median (C4-AC03), 80 %
+  intervals cover 81–83 % (AC04), survival C-index 0.65 and IBS 0.162 vs 0.193 KM (AC05), queue
+  MASE 1.16 vs 1.26 and WQL 0.071 vs 0.085 at 7 days (AC06).
+- **Worker:** `c4:train` daily and after DS-AIS-02 ingests; replay predictions in `prediction`.
+- **API:** `/ports/{locode}/forecast`, `/ports/{locode}/predictions`, `/vessels/{id}/prediction`
+  (11–28 ms).
+- **Web:** Ports & Vessels: snapshot slider, KPIs, anchorage fan chart with what happened,
+  vessel table with departure windows and actual outcomes, drawer with drivers and the
+  estimate's track. E2E test added.
+
+Not met yet (honest): C4-AC02 (AIS state machine on DMA vs GFW), all-vessel AC03 (12.3 %),
+queue band under-covers (69 %), satellite panel (Q-15 default: SAR counts + thumbnails), weather,
+tide, holiday and C2-event features, vessel size, a TSFM, Mongla.
+
+Waiting on user:
+- Soft gate: deepen C4 (DMA state machine + AC02, satellite panel, more features) or move to C5?
+
+---
+
+Earlier (M5, C3 routing):
 - **`packages/c3_routing`** (ADR-018, model card `docs/model-cards/c3-routing-baseline.md`): own
   road graph from the Geofabrik extract (16,110 edges, motorway → secondary, 11 s); time-dependent
   truck speeds with a Dhaka rush-hour profile and the user-verified truck ban (08:00–20:00);
@@ -23,9 +49,7 @@ Done (M5, C3 routing):
 Not met yet (honest): C3-AC05 (C2 closures and C4 dwell don't change plans yet), cargo
 exemptions to the ban, a measured truck speed level; C2-AC01 F1 (rules 0.30).
 
-Waiting on user:
-- Soft gate: deepen C3 (C3-AC05 hooks to C2 events) or move to C4 (port dwell, M6)?
-- Tasks in `docs/USER_TASKS.md`: truck travel time, rail/barge tariffs, FX rate, DMA AIS days.
+Resolved since: the user chose C4 next; C3 deepening later.
 
 ---
 

@@ -90,3 +90,6 @@ Settled user decisions D-01…D-10 live in the brief; architectural choices get 
 | 2026-10-27 | Q-10 (answer) | English-language news only for now; Bangla stays a stretch | User answer | yes | yes |
 | 2026-10-27 | A-066 | DS-AIS-03: one DMA day for now; the user adds six more days later (C4, M6) | User answer | yes | yes |
 | 2026-10-27 | A-067 | The worker reaches the host's Ollama via `host.docker.internal` (compose `extra_hosts`); hourly `c2:llm` job (top 8) skips when unreachable; `CPORTAL_LLM=0` turns it off | User set `OLLAMA_HOST` so Docker can use the local LLM (takes effect after an Ollama restart) | yes | yes |
+| 2026-10-27 | Q-12 (answer) | C1 keeps the analytics and the transparent baseline; a GNN comes later (stretch, compared honestly against the baseline) | User answer | yes | yes |
+| 2026-10-27 | Q-11 (answer) | The user labelled 150 articles (17 relevant); frozen as `data/samples/c2_gold/gold.csv` v1. Rules: precision 0.31, recall 0.29, F1 0.30 (C2-AC01 needs 0.80; not met) | User labels | yes | yes |
+| 2026-10-27 | M4 gate | Move to C3; C2 is deepened later (lexicon from the gold misses, GLiNER2, LLM choice from the benchmark) | User answer | yes | yes |

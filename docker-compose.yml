@@ -50,6 +50,11 @@ services:
       CPORTAL_LIVE: ${CPORTAL_LIVE:-1}                 # 0: no live fetches, replay only
       CPORTAL_REPLAY_SCENARIO: ${CPORTAL_REPLAY_SCENARIO:-cyclone_supplier_delay}
       CPORTAL_REPLAY_SPEED: ${CPORTAL_REPLAY_SPEED:-30}
+      # The host's Ollama (Q-03); it must listen beyond 127.0.0.1 (OLLAMA_HOST=0.0.0.0).
+      LLM_BASE_URL: ${LLM_BASE_URL:-http://host.docker.internal:11434/v1}
+      CPORTAL_LLM: ${CPORTAL_LLM:-1}                   # 0: never call the local LLM
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       # Credentials stay on the host (rule 8). The settings loader reads this file leniently;
       # compose's env_file would not accept quoted names. `make up` creates it if missing.

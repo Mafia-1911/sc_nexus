@@ -83,7 +83,7 @@ class Settings(BaseSettings):
     llm_base_url: str = Field(
         default="http://localhost:11434/v1", validation_alias=AliasChoices("LLM_BASE_URL")
     )
-    llm_model: str = Field(default="qwen3:4b", validation_alias=AliasChoices("LLM_MODEL"))
+    llm_model: str = Field(default="llama3.1:latest", validation_alias=AliasChoices("LLM_MODEL"))
 
     # Source credentials, by DS-ID. Empty means "not provided yet": the probe records it under
     # "needs you" and moves on.

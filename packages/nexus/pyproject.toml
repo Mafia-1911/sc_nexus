@@ -1,0 +1,16 @@
+[project]
+name = "cportal-nexus"
+version = "0.1.0"
+description = "Nexus layer (08): cross-capability recommendations; may use each capability's public service"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "cportal-core",
+    "cportal-c1",
+]
+
+[build-system]
+requires = ["uv_build>=0.9,<0.14"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "cportal_nexus"

@@ -6,6 +6,7 @@ from __future__ import annotations
 import statistics
 import time
 from collections.abc import Iterator
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -14,9 +15,12 @@ from alembic.config import Config
 from cportal_api.deps import get_session
 from cportal_api.main import create_app
 from cportal_c1 import store as c1_store
+from cportal_c2 import service as c2_service
 from cportal_connectors.ingest import replay_source, sync_data_sources
 from cportal_core.db import session_scope
+from cportal_core.models import Article
 from cportal_core.names import load_pack
+from cportal_nexus import buffer
 from cportal_sim.seed import seed_scenario
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, text
@@ -49,6 +53,31 @@ def client() -> Iterator[TestClient]:
     seed_scenario("baseline", URL)
     with session_scope(URL) as session:  # what the worker's c1:refresh does
         c1_store.refresh(session, c1_store.scenario_row(session, "baseline"))  # type: ignore[arg-type]
+    with session_scope(URL) as session:  # two outlets report one strike at Chattogram (C2)
+        now = datetime.now(UTC)
+        for i, (outlet, title) in enumerate(
+            [
+                ("port.example", "Chattogram port workers strike, container handling halted"),
+                ("daily.example", "Strike at Chattogram port stalls exports for a second day"),
+            ]
+        ):
+            session.add(
+                Article(
+                    url=f"https://{outlet}/strike-{i}",
+                    url_canonical=f"https://{outlet}/strike-{i}",
+                    source_name=outlet,
+                    published_at=now - timedelta(hours=6 - i),
+                    title=title,
+                    snippet="Garment exporters warn of shipment delays as vessels wait.",
+                    discovered_via="rss",
+                    source_id="DS-NEWS-03",
+                    data_mode="replay",
+                    is_synthetic=False,
+                )
+            )
+    with session_scope(URL) as session:  # what the worker's c2:process does
+        c2_service.process(session)
+        buffer.refresh(session)
     factory = sessionmaker(engine, expire_on_commit=False)
 
     def override() -> Iterator[Session]:
@@ -262,3 +291,39 @@ def test_c1_views_keep_fictional_names_under_the_real_pack(
     nodes = client.get("/api/v1/graph").json()["data"]["nodes"]
     real = {load_pack("bd_demo").names[k] for k in load_pack("bd_demo").real_keys}
     assert nodes and not ({n["organization"] for n in nodes} & real)
+
+
+def test_c2_events_carry_their_evidence(client: TestClient) -> None:
+    """C2-R01/R02/R04: two outlets, one grounded event at Chattogram, with quotes."""
+    events = client.get("/api/v1/events", params={"source": "news"}).json()
+    [strike] = [e for e in events["data"] if e["type"] == "LABOR_STRIKE_BLOCKADE"]
+    assert strike["locodes"] == ["BDCGP"] and strike["mentions"] == 2
+    assert strike["confidence"] > 0.5  # two independent outlets corroborate
+    detail = client.get(f"/api/v1/events/{strike['id']}").json()["data"]
+    for m in detail["mentions"]:
+        for start, end, quote in m["evidence"].values():
+            assert m["text"][start:end] == quote  # every highlight is in the text
+    assert detail["alerts"] and detail["alerts"][0]["status"] == "open"
+    feeds = client.get("/api/v1/events", params={"source": "feeds", "scenario": ""}).json()
+    assert all(e["source_id"] != "c2" for e in feeds["data"])
+
+
+def test_c2_alerts_and_buffer_decisions(client: TestClient) -> None:
+    """C2-AC08 / NX-R04: recommendations show units, cover, cost, value, confidence, evidence;
+    a person accepts or dismisses them."""
+    alerts = client.get("/api/v1/alerts").json()["data"]
+    assert any("Chattogram" in a["title"] for a in alerts)
+    recs = client.get("/api/v1/recommendations", params={"kind": "buffer"}).json()["data"]
+    if not recs:
+        pytest.skip("the strike makes no baseline order late: nothing to buffer")
+    rec = recs[0]
+    target = rec["targets"][0]
+    assert target["units"] > 0 and target["days_of_cover"] > 0 and rec["expected_cost_usd"] >= 0
+    assert rec["expected_benefit_usd"] > 0 and rec["confidence"] and rec["evidence_refs"]
+    done = client.post(
+        f"/api/v1/recommendations/{rec['id']}/decision",
+        json={"decision": "dismissed", "feedback": "stock already in transit"},
+    ).json()["data"]
+    assert done["status"] == "dismissed" and done["decided_at"]
+    ack = client.post(f"/api/v1/alerts/{alerts[0]['id']}/ack").json()["data"]
+    assert ack["status"] == "ack"

@@ -169,6 +169,67 @@ class EventOut(BaseModel):
     geometry: dict[str, Any] | None
     source_id: str
     data_mode: str
+    summary: str | None = None
+    duration_p50_h: float | None = None
+    duration_p90_h: float | None = None
+    first_seen: datetime | None = None
+    last_updated: datetime | None = None
+    mentions: int = 0
+
+
+class MentionOut(BaseModel):
+    article_id: UUID
+    url: str
+    outlet: str | None
+    published_at: datetime | None
+    text: str = Field(description="Title + snippet the spans index into")
+    evidence: dict[str, list[Any]] = Field(description="field → [start, end, quote]")
+    extractor: str | None
+    confidence: float | None
+    llm_agrees: bool | None = None
+
+
+class AlertOut(BaseModel):
+    id: UUID
+    kind: str
+    severity: str
+    title: str
+    body: str | None
+    status: str
+    event_id: UUID | None
+    entity_refs: list[Any]
+    created_at: datetime
+    data_mode: str
+
+
+class RecommendationOut(BaseModel):
+    id: UUID
+    alert_id: UUID
+    action_type: str
+    status: str
+    targets: list[Any]
+    params: dict[str, Any]
+    expected_benefit_usd: float | None
+    expected_cost_usd: float | None
+    confidence: float | None
+    rationale: str | None
+    evidence_refs: list[Any]
+    data_mode: str
+    decided_at: datetime | None
+    feedback: str | None
+
+
+class EventDetailOut(BaseModel):
+    event: EventOut
+    mentions: list[MentionOut]
+    linked_facilities: list[dict[str, Any]]
+    alerts: list[AlertOut]
+    recommendations: list[RecommendationOut]
+
+
+class DecisionIn(BaseModel):
+    decision: Literal["accepted", "dismissed"]
+    feedback: str | None = Field(default=None, max_length=1000)
 
 
 class GraphNodeOut(BaseModel):

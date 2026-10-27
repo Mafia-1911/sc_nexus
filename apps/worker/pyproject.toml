@@ -6,6 +6,8 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
     "apscheduler>=3.11,<4",
     "cportal-c1",
+    "cportal-c2",
+    "cportal-nexus",
     "cportal-connectors",
     "cportal-core",
     "cportal-sim",

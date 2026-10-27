@@ -4,9 +4,10 @@ A supply-chain resilience platform proven on Bangladesh's Chattogram–Dhaka cor
 and pharma shippers. The full specification is in [`docs/brief/`](docs/brief/00-INDEX.md); agents
 start from [`AGENTS.md`](AGENTS.md), and progress lives in [`docs/STATUS.md`](docs/STATUS.md).
 
-**Current milestone: M3 (C1 supplier risk graph), thin slice done.** One command brings up the
-database, API, worker and web app: Control Tower, Supplier Network (single points of failure,
-TTS vs TTR, what-ifs) and Data & Models. C2–C5 follow.
+**Current milestone: M4 (C2 trade-news intelligence), thin slice done.** One command brings up
+the database, API, worker and web app: Control Tower, Supplier Network (single points of
+failure, TTS vs TTR, what-ifs), Disruption Radar (grounded events from news, buffer
+recommendations) and Data & Models. C3–C5 follow.
 
 ![Control Tower, hero scenario](docs/screenshots/control-tower-light.png)
 
@@ -55,7 +56,8 @@ make web-setup && make web # in a third: http://127.0.0.1:3000
 | Worker | `apps/worker` | live fetches with two strikes, AIS replay, outbox and jobs |
 | Web | `apps/web` | Next.js 16; Control Tower, Data & Models; types from the OpenAPI file (`npm run gen:api`) |
 | C1 supplier graph | `packages/c1_supplier_graph` | `uv run c1 critical`, `uv run c1 whatif --node … --days 21`; [model card](docs/model-cards/c1-baseline.md) |
-| Decisions | [docs/adr/](docs/adr/README.md), [DECISIONS.md](docs/DECISIONS.md) | ADR-001…016 |
+| C2 trade news | `packages/c2_trade_news`, `packages/nexus` | `uv run c2 process`, `uv run c2 llm --top 10`; [model card](docs/model-cards/c2-rules-baseline.md) |
+| Decisions | [docs/adr/](docs/adr/README.md), [DECISIONS.md](docs/DECISIONS.md) | ADR-001…017 |
 
 Scenarios: `baseline` and `cyclone_supplier_delay` (the hero: a synthetic cyclone closes
 Chattogram while "Fabric Mill X" floods). Select one with `?scenario=` on any API read; omit it

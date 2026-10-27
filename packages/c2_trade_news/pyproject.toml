@@ -1,0 +1,20 @@
+[project]
+name = "cportal-c2"
+version = "0.1.0"
+description = "C2 trade-news intelligence: grounded rules extraction, event clustering, severity and confidence, optional local-LLM top-K"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "cportal-core",
+    "httpx>=0.27",
+    "pyyaml>=6.0",
+]
+
+[project.scripts]
+c2 = "cportal_c2.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.9,<0.14"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "cportal_c2"

@@ -21,6 +21,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/alerts/{alert_id}/ack": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Ack Alert */
+        post: operations["ack_alert_api_v1_alerts__alert_id__ack_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/events": {
         parameters: {
             query?: never;
@@ -49,7 +66,7 @@ export interface paths {
         put?: never;
         /**
          * Extract Events
-         * @description Queue C2 triage and extraction over new articles (M4).
+         * @description Queue C2 over the recent articles (then C1 refresh and buffer recommendations).
          */
         post: operations["extract_events_api_v1_events_extract_post"];
         delete?: never;
@@ -65,7 +82,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Get Event */
+        /**
+         * Get Event
+         * @description One event with every mention's text and the evidence spans the UI highlights (C2 §9).
+         */
         get: operations["get_event_api_v1_events__event_id__get"];
         put?: never;
         post?: never;
@@ -422,6 +442,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/recommendations/{rec_id}/decision": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Decide
+         * @description Accept or dismiss (NX-R04: nothing is auto-executed); the reason feeds K-04.
+         */
+        post: operations["decide_api_v1_recommendations__rec_id__decision_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/routes/plan": {
         parameters: {
             query?: never;
@@ -640,6 +680,35 @@ export interface components {
             /** Import T */
             import_t: number | null;
         };
+        /** AlertOut */
+        AlertOut: {
+            /** Body */
+            body: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Data Mode */
+            data_mode: string;
+            /** Entity Refs */
+            entity_refs: unknown[];
+            /** Event Id */
+            event_id: string | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Kind */
+            kind: string;
+            /** Severity */
+            severity: string;
+            /** Status */
+            status: string;
+            /** Title */
+            title: string;
+        };
         /** BatchOut */
         BatchOut: {
             /** Aql Result */
@@ -709,6 +778,16 @@ export interface components {
             /** Title */
             title: string;
         };
+        /** DecisionIn */
+        DecisionIn: {
+            /**
+             * Decision
+             * @enum {string}
+             */
+            decision: "accepted" | "dismissed";
+            /** Feedback */
+            feedback?: string | null;
+        };
         /** DisruptionIn */
         DisruptionIn: {
             /**
@@ -746,14 +825,19 @@ export interface components {
             /** Value */
             value: number;
         };
+        /** Envelope[AlertOut] */
+        Envelope_AlertOut_: {
+            data: components["schemas"]["AlertOut"];
+            meta: components["schemas"]["Meta"];
+        };
         /** Envelope[CriticalOut] */
         Envelope_CriticalOut_: {
             data: components["schemas"]["CriticalOut"];
             meta: components["schemas"]["Meta"];
         };
-        /** Envelope[EventOut] */
-        Envelope_EventOut_: {
-            data: components["schemas"]["EventOut"];
+        /** Envelope[EventDetailOut] */
+        Envelope_EventDetailOut_: {
+            data: components["schemas"]["EventDetailOut"];
             meta: components["schemas"]["Meta"];
         };
         /** Envelope[FeatureCollection] */
@@ -774,6 +858,11 @@ export interface components {
         /** Envelope[Page[PortCallOut]] */
         Envelope_Page_PortCallOut__: {
             data: components["schemas"]["Page_PortCallOut_"];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[RecommendationOut] */
+        Envelope_RecommendationOut_: {
+            data: components["schemas"]["RecommendationOut"];
             meta: components["schemas"]["Meta"];
         };
         /** Envelope[ShipmentOut] */
@@ -807,6 +896,12 @@ export interface components {
             data: components["schemas"]["ActivityOut"][];
             meta: components["schemas"]["Meta"];
         };
+        /** Envelope[list[AlertOut]] */
+        Envelope_list_AlertOut__: {
+            /** Data */
+            data: components["schemas"]["AlertOut"][];
+            meta: components["schemas"]["Meta"];
+        };
         /** Envelope[list[BatchOut]] */
         Envelope_list_BatchOut__: {
             /** Data */
@@ -837,6 +932,12 @@ export interface components {
             data: components["schemas"]["PortOut"][];
             meta: components["schemas"]["Meta"];
         };
+        /** Envelope[list[RecommendationOut]] */
+        Envelope_list_RecommendationOut__: {
+            /** Data */
+            data: components["schemas"]["RecommendationOut"][];
+            meta: components["schemas"]["Meta"];
+        };
         /** Envelope[list[ScenarioOut]] */
         Envelope_list_ScenarioOut__: {
             /** Data */
@@ -861,13 +962,19 @@ export interface components {
             data: components["schemas"]["SourceOut"][];
             meta: components["schemas"]["Meta"];
         };
-        /** Envelope[list[dict[str, object]]] */
-        Envelope_list_dict_str__object___: {
-            /** Data */
-            data: {
+        /** EventDetailOut */
+        EventDetailOut: {
+            /** Alerts */
+            alerts: components["schemas"]["AlertOut"][];
+            event: components["schemas"]["EventOut"];
+            /** Linked Facilities */
+            linked_facilities: {
                 [key: string]: unknown;
             }[];
-            meta: components["schemas"]["Meta"];
+            /** Mentions */
+            mentions: components["schemas"]["MentionOut"][];
+            /** Recommendations */
+            recommendations: components["schemas"]["RecommendationOut"][];
         };
         /** EventOut */
         EventOut: {
@@ -879,8 +986,14 @@ export interface components {
             country_iso3: string[];
             /** Data Mode */
             data_mode: string;
+            /** Duration P50 H */
+            duration_p50_h?: number | null;
+            /** Duration P90 H */
+            duration_p90_h?: number | null;
             /** End Est */
             end_est: string | null;
+            /** First Seen */
+            first_seen?: string | null;
             /** Geometry */
             geometry: {
                 [key: string]: unknown;
@@ -890,8 +1003,15 @@ export interface components {
              * Format: uuid
              */
             id: string;
+            /** Last Updated */
+            last_updated?: string | null;
             /** Locodes */
             locodes: string[];
+            /**
+             * Mentions
+             * @default 0
+             */
+            mentions: number;
             /** Severity */
             severity: number | null;
             /** Source Id */
@@ -902,6 +1022,8 @@ export interface components {
             status: string;
             /** Subtype */
             subtype: string | null;
+            /** Summary */
+            summary?: string | null;
             /** Title */
             title: string;
             /** Type */
@@ -1020,6 +1142,38 @@ export interface components {
         KpiStrip: {
             /** Kpis */
             kpis: components["schemas"]["Kpi"][];
+        };
+        /** MentionOut */
+        MentionOut: {
+            /**
+             * Article Id
+             * Format: uuid
+             */
+            article_id: string;
+            /** Confidence */
+            confidence: number | null;
+            /**
+             * Evidence
+             * @description field → [start, end, quote]
+             */
+            evidence: {
+                [key: string]: unknown[];
+            };
+            /** Extractor */
+            extractor: string | null;
+            /** Llm Agrees */
+            llm_agrees?: boolean | null;
+            /** Outlet */
+            outlet: string | null;
+            /** Published At */
+            published_at: string | null;
+            /**
+             * Text
+             * @description Title + snippet the spans index into
+             */
+            text: string;
+            /** Url */
+            url: string;
         };
         /** Meta */
         Meta: {
@@ -1320,6 +1474,45 @@ export interface components {
              */
             type: string;
         };
+        /** RecommendationOut */
+        RecommendationOut: {
+            /** Action Type */
+            action_type: string;
+            /**
+             * Alert Id
+             * Format: uuid
+             */
+            alert_id: string;
+            /** Confidence */
+            confidence: number | null;
+            /** Data Mode */
+            data_mode: string;
+            /** Decided At */
+            decided_at: string | null;
+            /** Evidence Refs */
+            evidence_refs: unknown[];
+            /** Expected Benefit Usd */
+            expected_benefit_usd: number | null;
+            /** Expected Cost Usd */
+            expected_cost_usd: number | null;
+            /** Feedback */
+            feedback: string | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Params */
+            params: {
+                [key: string]: unknown;
+            };
+            /** Rationale */
+            rationale: string | null;
+            /** Status */
+            status: string;
+            /** Targets */
+            targets: unknown[];
+        };
         /** ScenarioOut */
         ScenarioOut: {
             /** Definition */
@@ -1502,6 +1695,7 @@ export interface operations {
     list_alerts_api_v1_alerts_get: {
         parameters: {
             query?: {
+                status?: string | null;
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
             };
@@ -1517,7 +1711,50 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Envelope_list_dict_str__object___"];
+                    "application/json": components["schemas"]["Envelope_list_AlertOut__"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    ack_alert_api_v1_alerts__alert_id__ack_post: {
+        parameters: {
+            query?: {
+                /** @description Scenario key for synthetic rows; omit for real data only */
+                scenario?: string | null;
+            };
+            header?: never;
+            path: {
+                alert_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_AlertOut_"];
                 };
             };
             /** @description Not Found */
@@ -1548,6 +1785,10 @@ export interface operations {
                 status?: string | null;
                 /** @description ISO3, e.g. BGD */
                 country?: string | null;
+                /** @description news: C2 events from articles; feeds: GDACS, openFDA, PortWatch */
+                source?: ("news" | "feeds") | null;
+                min_conf?: number;
+                since?: string | null;
                 limit?: number;
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
@@ -1645,7 +1886,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Envelope_EventOut_"];
+                    "application/json": components["schemas"]["Envelope_EventDetailOut_"];
                 };
             };
             /** @description Not Found */
@@ -2444,6 +2685,7 @@ export interface operations {
     list_recommendations_api_v1_recommendations_get: {
         parameters: {
             query?: {
+                kind?: "buffer" | null;
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
             };
@@ -2459,7 +2701,54 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Envelope_list_dict_str__object___"];
+                    "application/json": components["schemas"]["Envelope_list_RecommendationOut__"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    decide_api_v1_recommendations__rec_id__decision_post: {
+        parameters: {
+            query?: {
+                /** @description Scenario key for synthetic rows; omit for real data only */
+                scenario?: string | null;
+            };
+            header?: never;
+            path: {
+                rec_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DecisionIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_RecommendationOut_"];
                 };
             };
             /** @description Not Found */

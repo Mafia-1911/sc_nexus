@@ -1,9 +1,46 @@
 # STATUS (updated 2026-10-27 BST by Claude Code, Opus 5.5)
 
-Milestone: **M3 / C1 thin slice done → soft gate: deepen C1 or move to C2?** (G2 approved;
-`main` = M2.) Branch `m3-c1`.
+Milestone: **M4 / C2 thin slice done → soft gate: deepen C2 or move to C3?** (C1 thin slice done
+at the M3 soft gate; the user said "continue"). Branch `m3-c1` (C2 commits on it too). Nothing
+pushed since M2 (the user asked to commit only until the whole build is done).
 
-Done (M3, C1 supplier risk graph):
+Done (M4, C2 trade-news intelligence):
+- **`packages/c2_trade_news`** (ADR-017, model card `docs/model-cards/c2-rules-baseline.md`):
+  gazetteer + regex extraction with a character span for every field; relevance, type, places,
+  start, duration, size, status; clustering into events (a hazard and the closures it causes are
+  one event); severity and confidence (independent outlets, single-source cap 0.5); alerts.
+  Real articles → real events; each scenario's synthetic articles → that scenario's events.
+- **Local LLM** (`cportal_core.llm`, Ollama, JSON-schema constrained, grounded): a second
+  opinion on the top-K, stored as predictions. `llama3.1:8b` rejected 12/12 with 9 ungrounded
+  quotes; `qwen3:4b` is being pulled for a comparison.
+- **`packages/nexus`** (A-064): buffer recommendations per open alert and scenario from C1's
+  what-if and the safety-stock formula; accept / dismiss.
+- **Worker:** `c2:process` every 15 min and after each news ingest (→ C1 refresh → buffers);
+  `c2:llm` hourly when Ollama is reachable.
+- **API:** `/events` (source, confidence, since filters), `/events/{id}` with mentions and
+  evidence spans, `/alerts` + ack, `/recommendations?kind=buffer` + decision, `/events/extract`.
+- **Web:** Disruption Radar: feed, event map, drawer with highlighted evidence, linked plants,
+  buffer card with Accept / Dismiss. Hero scenario: one CYCLONE_STORM event at Chattogram from
+  five reports (severity 0.80, confidence 0.67) and a buffer recommendation (≈ 2.4 days of cover
+  on two inputs, benefit ≈ US$48k vs ≈ US$26 holding cost).
+- **Data:** DMA AIS (DS-AIS-03) one day in the inbox + sample; Data Docked (DS-AIS-06) probed,
+  internal use only (A-057, A-058). Ocean backdrop with glass cards (A-059).
+- Tests: C2 unit tests (11), API tests for events / alerts / decisions, e2e for the Radar
+  (6 Playwright tests green). Screenshots `docs/screenshots/disruption-radar-*`.
+
+Not met yet (honest): C2-AC01/AC02 F1 (needs the gold labels), C2-AC07 backtest, GLiNER2
+(deferred, A-060), grounded-LLM ≥ 95 % (llama3.1 fails it).
+
+Waiting on user:
+- Labels in `data/inbox/c2_gold/annotate.csv` (in progress) → then F1 for C2-AC01/AC02.
+- `qwen3:4b` pull (in progress) → benchmark vs llama3.1; then `sudo systemctl daemon-reload &&
+  sudo systemctl restart ollama` so `OLLAMA_HOST=0.0.0.0` takes effect for Docker.
+- **Q-12** (GNN scope for C1); deepen C2 or move to C3 (Route Planner).
+- Later: six more DMA AIS days for C4.
+
+---
+
+Earlier (M3, C1 supplier risk graph):
 - **World v0.2** (A-051): 151 nodes (146 fictional facilities + Chattogram and two hubs), 955
   supply relationships, 140 open orders; four planted sole sources; capacities and stock from
   open-order demand. Seeding replaces a scenario's rows (A-052); seed ≈ 35–48 s.

@@ -20,3 +20,4 @@ Template: `docs/brief/07-decisions.md` §3. Status values: proposed, accepted, s
 | [ADR-014](ADR-014-name-packs-and-the-brand-variable.md) | Name packs and the brand variable | accepted |
 | [ADR-015](ADR-015-web-app-next-16-cache-components-typed-client-live-socket.md) | Web app: Next.js 16 with Cache Components, a typed server client and a live socket | accepted |
 | [ADR-016](ADR-016-c1-dependency-analytics-lp-cascade-transparent-baseline.md) | C1 as structural analytics, an LP and a cascade, with a transparent baseline | accepted |
+| [ADR-017](ADR-017-c2-grounded-rules-first-llm-second-opinion.md) | C2 as grounded rules first, a local LLM as a second opinion, Nexus for buffers | accepted |

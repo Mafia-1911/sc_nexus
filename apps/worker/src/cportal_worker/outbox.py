@@ -22,7 +22,6 @@ from sqlalchemy import select
 log = logging.getLogger(__name__)
 MAX_ATTEMPTS = 5
 NOT_YET = {
-    "c2.extract": "C2 extraction arrives in M4 (Disruption Radar).",
     "c3.plan": "C3 route planning arrives in M5 (Route Planner).",
     "c5.inspect": "C5 inspection arrives in M7 (Quality Lab).",
 }
@@ -49,9 +48,16 @@ def run_c1_whatif(
     return c1.what_if(params, database_url, job_id)
 
 
+def run_c2_process(params: dict[str, Any], database_url: str | None) -> dict[str, Any]:
+    from cportal_worker import c2
+
+    return c2.process(database_url)
+
+
 JOB_HANDLERS: dict[str, Callable[[dict[str, Any], str | None], dict[str, Any]]] = {
     "scenario.run": run_scenario,
     "c1.metrics": run_c1_metrics,
+    "c2.process": run_c2_process,
 }
 # Handlers that record the job id on what they write.
 JOB_HANDLERS_WITH_ID: dict[
@@ -97,7 +103,15 @@ def run_job(job_id: UUID, database_url: str | None = None) -> str:
 def _dispatch(event: OutboxEvent, database_url: str | None) -> None:
     if event.topic == "job.queued":
         run_job(UUID(str(event.payload["job_id"])), database_url)
-    elif event.topic.startswith("disruption."):
+    elif event.topic == "source.ingested" and event.payload.get("ds_id") in (
+        "DS-NEWS-02",
+        "DS-NEWS-03",
+        "DS-NEWS-04",
+    ):
+        from cportal_worker import c2
+
+        c2.process(database_url)  # new articles become events at once
+    elif event.topic.startswith("disruption.") and event.payload.get("capability") != "c2":
         # C1-AC06: a new or changed event moves risk scores and what-if defaults now, not at
         # the next scheduled refresh.
         from cportal_worker import c1

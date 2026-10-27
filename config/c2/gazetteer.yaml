@@ -1,0 +1,37 @@
+# C2 gazetteer (C2 §5.4): places that matter to the Chattogram–Dhaka corridor and its lanes.
+# Coordinates are approximate centres (ports from DS-PORT-05/06, clusters from
+# config/world/clusters.yaml, the rest well-known centroids). `weight` is how much a mention of
+# the place makes an article relevant (1 = the corridor itself). `cluster` ties a place to the
+# synthetic world's facility clusters (C1 links). Aliases are matched case-insensitively on word
+# boundaries; keep spellings (Chittagong/Chattogram/Ctg) here, not in code.
+version: 1
+places:
+  BDCGP:       {name: Chattogram port, kind: port, locode: BDCGP, country: BGD, lat: 22.308, lon: 91.800, weight: 1.0,
+                aliases: [Chattogram port, Chittagong port, Chattogram Port Authority, Chittagong Port Authority, CPA, Ctg port, Chattogram, Chittagong, Ctg, Bay Terminal, Patenga, Karnaphuli]}
+  BDMGL:       {name: Mongla port, kind: port, locode: BDMGL, country: BGD, lat: 22.488, lon: 89.600, weight: 0.9, aliases: [Mongla port, Mongla]}
+  payra:       {name: Payra port, kind: port, country: BGD, lat: 21.980, lon: 90.290, weight: 0.8, aliases: [Payra port, Payra]}
+  BDPGN:       {name: Pangaon ICT, kind: icd, locode: BDPGN, country: BGD, lat: 23.660, lon: 90.470, weight: 0.9, aliases: [Pangaon]}
+  BDKAM:       {name: Kamalapur ICD, kind: icd, locode: BDKAM, country: BGD, lat: 23.732, lon: 90.426, weight: 0.9, aliases: [Kamalapur ICD, Kamalapur]}
+  benapole:    {name: Benapole land port, kind: land_port, country: BGD, lat: 23.040, lon: 88.890, weight: 0.8, aliases: [Benapole]}
+  dhaka_ctg_highway: {name: Dhaka–Chattogram highway, kind: corridor, country: BGD, lat: 23.200, lon: 91.000, weight: 1.0,
+                aliases: [Dhaka-Chattogram highway, Dhaka-Chittagong highway, Dhaka–Chattogram highway, Dhaka–Chittagong highway]}
+  dhaka:       {name: Dhaka, kind: city, country: BGD, lat: 23.810, lon: 90.412, weight: 0.8, aliases: [Dhaka]}
+  gazipur:     {name: Gazipur, kind: district, country: BGD, lat: 23.998, lon: 90.422, weight: 0.8, cluster: gazipur, aliases: [Gazipur]}
+  tongi:       {name: Tongi, kind: district, country: BGD, lat: 23.900, lon: 90.400, weight: 0.8, cluster: tongi, aliases: [Tongi]}
+  savar:       {name: Savar, kind: district, country: BGD, lat: 23.849, lon: 90.250, weight: 0.8, cluster: savar, aliases: [Savar]}
+  ashulia:     {name: Ashulia, kind: district, country: BGD, lat: 23.900, lon: 90.300, weight: 0.8, cluster: dhaka_epz, aliases: [Ashulia, Dhaka EPZ, DEPZ]}
+  narayanganj: {name: Narayanganj, kind: district, country: BGD, lat: 23.614, lon: 90.503, weight: 0.8, cluster: narayanganj, aliases: [Narayanganj]}
+  adamjee:     {name: Adamjee EPZ, kind: epz, country: BGD, lat: 23.678, lon: 90.517, weight: 0.8, cluster: adamjee_epz, aliases: [Adamjee EPZ, Adamjee]}
+  cepz:        {name: Chattogram EPZ, kind: epz, country: BGD, lat: 22.293, lon: 91.782, weight: 0.9, cluster: cepz, aliases: [CEPZ, Chittagong EPZ, Chattogram EPZ]}
+  kepz:        {name: Karnaphuli EPZ, kind: epz, country: BGD, lat: 22.272, lon: 91.790, weight: 0.9, cluster: kepz, aliases: [KEPZ, Karnaphuli EPZ]}
+  bhaluka:     {name: Bhaluka, kind: district, country: BGD, lat: 24.375, lon: 90.378, weight: 0.7, cluster: bhaluka, aliases: [Bhaluka]}
+  bangladesh:  {name: Bangladesh, kind: country, country: BGD, lat: 23.700, lon: 90.350, weight: 0.6, aliases: [Bangladesh, Bangladeshi]}
+  bay_of_bengal: {name: Bay of Bengal, kind: sea, country: BGD, lat: 20.500, lon: 90.500, weight: 0.6, aliases: [Bay of Bengal]}
+  LKCMB:       {name: Colombo port, kind: hub, locode: LKCMB, country: LKA, lat: 6.950, lon: 79.850, weight: 0.7, aliases: [Colombo port, Port of Colombo, Colombo]}
+  SGSIN:       {name: Singapore port, kind: hub, locode: SGSIN, country: SGP, lat: 1.264, lon: 103.840, weight: 0.7, aliases: [Port of Singapore, Singapore port, Singapore]}
+  MYPKG:       {name: Port Klang, kind: hub, locode: MYPKG, country: MYS, lat: 3.000, lon: 101.390, weight: 0.6, aliases: [Port Klang]}
+  kolkata:     {name: Kolkata port, kind: port, country: IND, lat: 22.545, lon: 88.315, weight: 0.5, aliases: [Kolkata port, Syama Prasad Mookerjee Port, Haldia]}
+  red_sea:     {name: Red Sea, kind: chokepoint, country: null, lat: 20.000, lon: 38.500, weight: 0.7, aliases: [Red Sea, Bab el-Mandeb, Bab al-Mandab, Houthi, Houthis]}
+  suez:        {name: Suez Canal, kind: chokepoint, country: EGY, lat: 30.600, lon: 32.330, weight: 0.7, aliases: [Suez Canal, Suez]}
+  malacca:     {name: Strait of Malacca, kind: chokepoint, country: null, lat: 2.500, lon: 101.000, weight: 0.6, aliases: [Strait of Malacca, Malacca Strait, Malacca]}
+  hormuz:      {name: Strait of Hormuz, kind: chokepoint, country: null, lat: 26.600, lon: 56.300, weight: 0.5, aliases: [Strait of Hormuz, Hormuz]}

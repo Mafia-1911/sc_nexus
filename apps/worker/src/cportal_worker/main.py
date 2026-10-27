@@ -24,7 +24,7 @@ from apscheduler.executors.pool import ThreadPoolExecutor
 from apscheduler.schedulers.background import BackgroundScheduler
 from cportal_core.settings import get_settings
 
-from cportal_worker import c1, outbox, sources
+from cportal_worker import c1, c2, outbox, sources
 from cportal_worker.replay import AisReplay
 
 log = logging.getLogger("cportal_worker")
@@ -105,6 +105,18 @@ def build_scheduler(live: bool, replay: AisReplay | None) -> BackgroundScheduler
         id="c1:refresh",
         next_run_time=now + timedelta(seconds=15),
     )
+    # C2: news → events → C1 → buffer recommendations; also right after each news ingest.
+    scheduler.add_job(
+        c2.process,
+        "interval",
+        minutes=15,
+        id="c2:process",
+        next_run_time=now + timedelta(seconds=40),
+    )
+    if os.environ.get("CPORTAL_LLM", "1") != "0":
+        scheduler.add_job(
+            c2.llm, "interval", minutes=60, id="c2:llm", next_run_time=now + timedelta(minutes=5)
+        )
     return scheduler
 
 

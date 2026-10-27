@@ -56,6 +56,82 @@
         "title": "ActivityOut",
         "type": "object"
       },
+      "AlertOut": {
+        "properties": {
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "data_mode": {
+            "title": "Data Mode",
+            "type": "string"
+          },
+          "entity_refs": {
+            "items": {},
+            "title": "Entity Refs",
+            "type": "array"
+          },
+          "event_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Event Id"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "severity": {
+            "title": "Severity",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "severity",
+          "title",
+          "body",
+          "status",
+          "event_id",
+          "entity_refs",
+          "created_at",
+          "data_mode"
+        ],
+        "title": "AlertOut",
+        "type": "object"
+      },
       "BatchOut": {
         "properties": {
           "aql_result": {
@@ -242,6 +318,35 @@
         "title": "DatasetOut",
         "type": "object"
       },
+      "DecisionIn": {
+        "properties": {
+          "decision": {
+            "enum": [
+              "accepted",
+              "dismissed"
+            ],
+            "title": "Decision",
+            "type": "string"
+          },
+          "feedback": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feedback"
+          }
+        },
+        "required": [
+          "decision"
+        ],
+        "title": "DecisionIn",
+        "type": "object"
+      },
       "DisruptionIn": {
         "properties": {
           "capacity_pct": {
@@ -312,6 +417,22 @@
         "title": "Driver",
         "type": "object"
       },
+      "Envelope_AlertOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/AlertOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[AlertOut]",
+        "type": "object"
+      },
       "Envelope_CriticalOut_": {
         "properties": {
           "data": {
@@ -328,10 +449,10 @@
         "title": "Envelope[CriticalOut]",
         "type": "object"
       },
-      "Envelope_EventOut_": {
+      "Envelope_EventDetailOut_": {
         "properties": {
           "data": {
-            "$ref": "#/components/schemas/EventOut"
+            "$ref": "#/components/schemas/EventDetailOut"
           },
           "meta": {
             "$ref": "#/components/schemas/Meta"
@@ -341,7 +462,7 @@
           "data",
           "meta"
         ],
-        "title": "Envelope[EventOut]",
+        "title": "Envelope[EventDetailOut]",
         "type": "object"
       },
       "Envelope_FeatureCollection_": {
@@ -406,6 +527,22 @@
           "meta"
         ],
         "title": "Envelope[Page[PortCallOut]]",
+        "type": "object"
+      },
+      "Envelope_RecommendationOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/RecommendationOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[RecommendationOut]",
         "type": "object"
       },
       "Envelope_ShipmentOut_": {
@@ -515,6 +652,26 @@
         "title": "Envelope[list[ActivityOut]]",
         "type": "object"
       },
+      "Envelope_list_AlertOut__": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/AlertOut"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[list[AlertOut]]",
+        "type": "object"
+      },
       "Envelope_list_BatchOut__": {
         "properties": {
           "data": {
@@ -615,6 +772,26 @@
         "title": "Envelope[list[PortOut]]",
         "type": "object"
       },
+      "Envelope_list_RecommendationOut__": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/RecommendationOut"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[list[RecommendationOut]]",
+        "type": "object"
+      },
       "Envelope_list_ScenarioOut__": {
         "properties": {
           "data": {
@@ -695,25 +872,49 @@
         "title": "Envelope[list[SourceOut]]",
         "type": "object"
       },
-      "Envelope_list_dict_str__object___": {
+      "EventDetailOut": {
         "properties": {
-          "data": {
+          "alerts": {
+            "items": {
+              "$ref": "#/components/schemas/AlertOut"
+            },
+            "title": "Alerts",
+            "type": "array"
+          },
+          "event": {
+            "$ref": "#/components/schemas/EventOut"
+          },
+          "linked_facilities": {
             "items": {
               "additionalProperties": true,
               "type": "object"
             },
-            "title": "Data",
+            "title": "Linked Facilities",
             "type": "array"
           },
-          "meta": {
-            "$ref": "#/components/schemas/Meta"
+          "mentions": {
+            "items": {
+              "$ref": "#/components/schemas/MentionOut"
+            },
+            "title": "Mentions",
+            "type": "array"
+          },
+          "recommendations": {
+            "items": {
+              "$ref": "#/components/schemas/RecommendationOut"
+            },
+            "title": "Recommendations",
+            "type": "array"
           }
         },
         "required": [
-          "data",
-          "meta"
+          "event",
+          "mentions",
+          "linked_facilities",
+          "alerts",
+          "recommendations"
         ],
-        "title": "Envelope[list[dict[str, object]]]",
+        "title": "EventDetailOut",
         "type": "object"
       },
       "EventOut": {
@@ -751,6 +952,28 @@
             "title": "Data Mode",
             "type": "string"
           },
+          "duration_p50_h": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration P50 H"
+          },
+          "duration_p90_h": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration P90 H"
+          },
           "end_est": {
             "anyOf": [
               {
@@ -762,6 +985,18 @@
               }
             ],
             "title": "End Est"
+          },
+          "first_seen": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Seen"
           },
           "geometry": {
             "anyOf": [
@@ -780,12 +1015,29 @@
             "title": "Id",
             "type": "string"
           },
+          "last_updated": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Updated"
+          },
           "locodes": {
             "items": {
               "type": "string"
             },
             "title": "Locodes",
             "type": "array"
+          },
+          "mentions": {
+            "default": 0,
+            "title": "Mentions",
+            "type": "integer"
           },
           "severity": {
             "anyOf": [
@@ -828,6 +1080,17 @@
               }
             ],
             "title": "Subtype"
+          },
+          "summary": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Summary"
           },
           "title": {
             "title": "Title",
@@ -1198,6 +1461,101 @@
           "kpis"
         ],
         "title": "KpiStrip",
+        "type": "object"
+      },
+      "MentionOut": {
+        "properties": {
+          "article_id": {
+            "format": "uuid",
+            "title": "Article Id",
+            "type": "string"
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence"
+          },
+          "evidence": {
+            "additionalProperties": {
+              "items": {},
+              "type": "array"
+            },
+            "description": "field \u2192 [start, end, quote]",
+            "title": "Evidence",
+            "type": "object"
+          },
+          "extractor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extractor"
+          },
+          "llm_agrees": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Llm Agrees"
+          },
+          "outlet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Outlet"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "text": {
+            "description": "Title + snippet the spans index into",
+            "title": "Text",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "article_id",
+          "url",
+          "outlet",
+          "published_at",
+          "text",
+          "evidence",
+          "extractor",
+          "confidence"
+        ],
+        "title": "MentionOut",
         "type": "object"
       },
       "Meta": {
@@ -2060,6 +2418,132 @@
         "title": "Problem",
         "type": "object"
       },
+      "RecommendationOut": {
+        "properties": {
+          "action_type": {
+            "title": "Action Type",
+            "type": "string"
+          },
+          "alert_id": {
+            "format": "uuid",
+            "title": "Alert Id",
+            "type": "string"
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence"
+          },
+          "data_mode": {
+            "title": "Data Mode",
+            "type": "string"
+          },
+          "decided_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decided At"
+          },
+          "evidence_refs": {
+            "items": {},
+            "title": "Evidence Refs",
+            "type": "array"
+          },
+          "expected_benefit_usd": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Benefit Usd"
+          },
+          "expected_cost_usd": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Cost Usd"
+          },
+          "feedback": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feedback"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "params": {
+            "additionalProperties": true,
+            "title": "Params",
+            "type": "object"
+          },
+          "rationale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rationale"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "targets": {
+            "items": {},
+            "title": "Targets",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "alert_id",
+          "action_type",
+          "status",
+          "targets",
+          "params",
+          "expected_benefit_usd",
+          "expected_cost_usd",
+          "confidence",
+          "rationale",
+          "evidence_refs",
+          "data_mode",
+          "decided_at",
+          "feedback"
+        ],
+        "title": "RecommendationOut",
+        "type": "object"
+      },
       "ScenarioOut": {
         "properties": {
           "definition": {
@@ -2608,6 +3092,23 @@
         "operationId": "list_alerts_api_v1_alerts_get",
         "parameters": [
           {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "open",
+              "title": "Status"
+            }
+          },
+          {
             "description": "Scenario key for synthetic rows; omit for real data only",
             "in": "query",
             "name": "scenario",
@@ -2632,7 +3133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Envelope_list_dict_str__object___"
+                  "$ref": "#/components/schemas/Envelope_list_AlertOut__"
                 }
               }
             },
@@ -2660,6 +3161,78 @@
           }
         },
         "summary": "List Alerts",
+        "tags": [
+          "events"
+        ]
+      }
+    },
+    "/api/v1/alerts/{alert_id}/ack": {
+      "post": {
+        "operationId": "ack_alert_api_v1_alerts__alert_id__ack_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "alert_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Alert Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Scenario key for synthetic rows; omit for real data only",
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "baseline",
+              "description": "Scenario key for synthetic rows; omit for real data only",
+              "title": "Scenario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_AlertOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Ack Alert",
         "tags": [
           "events"
         ]
@@ -2719,6 +3292,57 @@
               ],
               "description": "ISO3, e.g. BGD",
               "title": "Country"
+            }
+          },
+          {
+            "description": "news: C2 events from articles; feeds: GDACS, openFDA, PortWatch",
+            "in": "query",
+            "name": "source",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "news",
+                    "feeds"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "news: C2 events from articles; feeds: GDACS, openFDA, PortWatch",
+              "title": "Source"
+            }
+          },
+          {
+            "in": "query",
+            "name": "min_conf",
+            "required": false,
+            "schema": {
+              "default": 0.0,
+              "maximum": 1,
+              "minimum": 0,
+              "title": "Min Conf",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "since",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Since"
             }
           },
           {
@@ -2793,7 +3417,7 @@
     },
     "/api/v1/events/extract": {
       "post": {
-        "description": "Queue C2 triage and extraction over new articles (M4).",
+        "description": "Queue C2 over the recent articles (then C1 refresh and buffer recommendations).",
         "operationId": "extract_events_api_v1_events_extract_post",
         "responses": {
           "202": {
@@ -2835,6 +3459,7 @@
     },
     "/api/v1/events/{event_id}": {
       "get": {
+        "description": "One event with every mention's text and the evidence spans the UI highlights (C2 \u00a79).",
         "operationId": "get_event_api_v1_events__event_id__get",
         "parameters": [
           {
@@ -2872,7 +3497,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Envelope_EventOut_"
+                  "$ref": "#/components/schemas/Envelope_EventDetailOut_"
                 }
               }
             },
@@ -4143,6 +4768,23 @@
         "operationId": "list_recommendations_api_v1_recommendations_get",
         "parameters": [
           {
+            "in": "query",
+            "name": "kind",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "const": "buffer",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kind"
+            }
+          },
+          {
             "description": "Scenario key for synthetic rows; omit for real data only",
             "in": "query",
             "name": "scenario",
@@ -4167,7 +4809,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Envelope_list_dict_str__object___"
+                  "$ref": "#/components/schemas/Envelope_list_RecommendationOut__"
                 }
               }
             },
@@ -4195,6 +4837,89 @@
           }
         },
         "summary": "List Recommendations",
+        "tags": [
+          "events"
+        ]
+      }
+    },
+    "/api/v1/recommendations/{rec_id}/decision": {
+      "post": {
+        "description": "Accept or dismiss (NX-R04: nothing is auto-executed); the reason feeds K-04.",
+        "operationId": "decide_api_v1_recommendations__rec_id__decision_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "rec_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Rec Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Scenario key for synthetic rows; omit for real data only",
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "baseline",
+              "description": "Scenario key for synthetic rows; omit for real data only",
+              "title": "Scenario"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DecisionIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_RecommendationOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Decide",
         "tags": [
           "events"
         ]

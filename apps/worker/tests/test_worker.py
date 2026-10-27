@@ -112,13 +112,13 @@ def test_jobs_run_or_fail_honestly(monkeypatch: pytest.MonkeyPatch) -> None:
         outbox.JOB_HANDLERS, "scenario.run", lambda params, url: ran.append(params) or {"ok": 1}
     )
     with session_scope(TEST_URL) as session:
-        later = enqueue(session, "c2.extract", {"article": "x"}).job_id
+        later = enqueue(session, "c3.plan", {"origin": "BDCGP"}).job_id
     with session_scope(TEST_URL) as session:
         scenario = enqueue(session, "scenario.run", {"scenario": "baseline"}).job_id
     assert outbox.drain(TEST_URL) >= 2
     with session_scope(TEST_URL) as session:
         a, b = session.get(Job, later), session.get(Job, scenario)
-        assert a is not None and a.status == "failed" and "M4" in (a.error or "")
+        assert a is not None and a.status == "failed" and "M5" in (a.error or "")
         assert b is not None and b.status == "succeeded" and b.result == {"ok": 1}
     assert ran == [{"scenario": "baseline"}]
     assert outbox.drain(TEST_URL) == 0  # nothing left; handlers are idempotent

@@ -118,3 +118,19 @@ the DS-RISK-01 sample was an error response (registry corrected); Sigma touches 
 (client-only load).
 
 **Open:** deepen C1 or move to C2; Q-12.
+
+## Session 4 (continued) · 2026-10-27 · M4 / C2 thin slice
+
+**Asked:** "continue"; commit, don't push; notes in KICKOFF_PROMPT.md (ship backdrop with blurred
+cards, try Data Docked, use the downloaded DMA AIS); "do you need a different model?"; answers:
+qwen3:4b being pulled, labels in progress, English only, one AIS day, Ollama opened to Docker.
+
+**Done:** DMA AIS registered and sampled; Data Docked probed (Chattogram coverage confirmed, ToS
+internal-only → off); ocean backdrop; C2 package, Nexus buffers, worker chain, API, Radar page,
+tests, ADR-017, model card.
+
+**Findings:** llama3.1:8b is a poor extractor here (12/12 "no", ungrounded quotes); a lexicon
+needs guards against military "strikes" and weak places; a hazard and its port closure must
+cluster together for the golden path.
+
+**Open:** gold labels, qwen3 benchmark, Ollama restart, Q-12, deepen C2 vs C3.

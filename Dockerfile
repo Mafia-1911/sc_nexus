@@ -9,10 +9,13 @@ COPY packages/core/pyproject.toml packages/core/pyproject.toml
 COPY packages/connectors/pyproject.toml packages/connectors/pyproject.toml
 COPY packages/sim/pyproject.toml packages/sim/pyproject.toml
 COPY packages/c1_supplier_graph/pyproject.toml packages/c1_supplier_graph/pyproject.toml
+COPY packages/c2_trade_news/pyproject.toml packages/c2_trade_news/pyproject.toml
+COPY packages/nexus/pyproject.toml packages/nexus/pyproject.toml
 COPY apps/api/pyproject.toml apps/api/pyproject.toml
 COPY apps/worker/pyproject.toml apps/worker/pyproject.toml
 RUN mkdir -p packages/core/src/cportal_core packages/connectors/src/cportal_connectors \
       packages/sim/src/cportal_sim packages/c1_supplier_graph/src/cportal_c1 \
+      packages/c2_trade_news/src/cportal_c2 packages/nexus/src/cportal_nexus \
       apps/api/src/cportal_api apps/worker/src/cportal_worker \
  && uv sync --frozen --no-dev --no-install-workspace
 COPY . .

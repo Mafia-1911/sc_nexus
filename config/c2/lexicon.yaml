@@ -1,0 +1,32 @@
+# C2 rules (C2 §5.2): event-type cues and context words. Regexes, case-insensitive, matched on
+# title + snippet. A type needs one cue; the cue's span is the evidence. Order matters only for
+# ties (earlier wins). Tune against the silver/gold set, not by eye.
+version: 1
+types:
+  PORT_OPERATIONS_SUSPENDED: ['port (operations?|activities|works?) (were |was |is |are )?(suspended|halted|shut|stopped)', 'suspend\w* (all )?(operations|loading|unloading|cargo handling|berthing)', '(loading|unloading|cargo handling|berthing) (suspended|halted|stopped)', 'alert (level|signal) \d+', 'signal (no\.? ?)?\d+ (hoisted|raised)']
+  PORT_CONGESTION: ['congestion', 'backlog', 'vessels? (are |were )?(waiting|stuck|stranded|queued)', 'container (pile-?up|glut|backlog)', 'yard (is )?(full|congested|overflowing)', 'waiting time', 'berth(ing)? (delay|wait)']
+  LABOR_STRIKE_BLOCKADE: ['(?<!missile )(?<!air )(?<!drone )(?<!military )(?<!Houthis )(?<!Houthi )\bstrikes?\b', '\bhartal', 'blockade', 'work stoppage', 'go-slow', 'walkout', 'workers? (protest|unrest|agitation)', 'labou?r unrest', 'shutdown programme']
+  CYCLONE_STORM: ['cyclon\w*', 'typhoon', 'tropical storm', 'storm surge', 'deep depression', 'severe storm']
+  FLOOD: ['flood\w*', 'waterlogg\w*', 'inundat\w*', 'heavy rain\w*']
+  EARTHQUAKE_OTHER_NATURAL: ['earthquake', 'landslide', 'tsunami', 'tremor']
+  FIRE_EXPLOSION: ['\bfire\b', '\bblaze', 'explosion', '\bblast\b', 'gutted']
+  CHOKEPOINT_DISRUPTION: ['(divert|rerout)\w* (around|via) (the )?cape', 'cape of good hope', 'red sea (attack|crisis|disruption|diversion)', 'suez (canal )?(blocked|closure|closed|disruption)', 'houthi attack']
+  SECURITY_CONFLICT_PIRACY: ['pirac\w*', 'pirates?', 'hijack\w*', 'curfew', '(violent )?clashes', 'unrest']
+  CUSTOMS_SYSTEM_REGULATORY: ['customs (server|system|clearance) (down|outage|delay\w*|disrupt\w*)', 'asycuda', 'clearance (delay|backlog)', 'customs (delay|backlog)']
+  TRADE_POLICY_SANCTION: ['tariffs?', 'export ban', 'import ban', 'sanctions?', 'anti-dumping', 'duty (hike|increase)']
+  ENERGY_UTILITY_SHORTAGE: ['power (outage|cut)s?', 'load-?shedding', 'gas (shortage|crisis|supply cut)', 'blackout', 'fuel shortage', 'electricity (shortage|crisis)']
+  CYBER_INCIDENT: ['cyber-?attack', 'ransomware', 'hack(ed|ers?)\b', 'system breach']
+  CARRIER_CAPACITY_RATES: ['freight rates?', 'container shortage', 'blank sailings?', '(peak season |congestion )?surcharge', 'rate hike']
+  INLAND_TRANSPORT_DISRUPTION: ['truck(ers|ing)? (strike|shortage|stoppage)', 'transport strike', 'rail (service )?(suspended|disrupted|halted)', 'highway (blocked|closed|jam)', 'bridge (collapse|closed)', 'train shortage', 'road (blockade|closure)']
+  PHARMA_REGULATORY_QUALITY: ['import alert', 'warning letter', '\brecall\w*', 'drug shortage', '\bAPI shortage', 'GMP (violation|non-?compliance)', '\bFDA\b']
+  DEMAND_SHOCK: ['order cancellations?', 'orders? (fell|fall|drop\w*|slump\w*|declin\w*)', 'export earnings? (fell|fall|drop\w*|declin\w*)']
+topic: ['port', 'shipping', 'vessels?', 'ships?', 'containers?', 'cargo', 'freight', 'exports?', 'imports?', 'garments?', 'RMG', 'apparel', 'textiles?', 'knitwear', 'pharma\w*', 'supply chain', 'logistics', 'terminal', 'berth', 'customs', 'trade', 'factor(y|ies)', 'EPZ', 'shipment']
+industry:
+  garments: ['garments?', '\bRMG\b', 'apparel', 'textiles?', 'knitwear', 'denim', 'spinning', 'fabric']
+  pharma: ['pharma\w*', 'drugs?', 'medicines?', 'active pharmaceutical ingredient', '\bAPI\b']
+resolved: ['\bcalled off\b', '\bwithdrawn\b', '\bresum\w*', '\breopen\w*', '\breturned to normal\b', '\brestored\b', '\bended\b', '\blifted\b']
+reported: ['threaten\w*', 'warn\w*', '\bmay\b', '\bcould\b', 'planned', 'announce\w*', 'forecast', 'likely']
+duration: ['(\d+)[- ](hour|hr|day|week)s?', '(indefinite)']
+magnitude:
+  vessels: '(\d[\d,]*)\s+(?:\w+\s+){0,2}(?:vessels|ships)\b'
+  containers: '(\d[\d,]*)\s+(?:TEUs?|containers)\b'

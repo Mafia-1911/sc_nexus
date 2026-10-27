@@ -102,6 +102,27 @@ test("Supplier Network: leaderboard, node drawer and a what-if (C1)", async ({ p
   await expect(page.getByTestId("supply-map")).toHaveAttribute("data-idle", "true", { timeout: 30_000 });
 });
 
+test("Disruption Radar: one grounded event, evidence and a buffer recommendation (C2)", async ({ page, baseURL }) => {
+  await page.context().addCookies([{ name: "scenario", value: "cyclone_supplier_delay", url: baseURL! }]);
+  await page.goto("/radar");
+  await expect(page).toHaveTitle(new RegExp(`Disruption Radar · ${BRAND}`));
+  const feed = page.getByTestId("event-feed");
+  const cyclone = feed.locator("button", { hasText: "Cyclone SYN-01" }).first();
+  await expect(cyclone).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByTestId("event-map")).toHaveAttribute("data-idle", "true", { timeout: 30_000 });
+  await cyclone.click();
+  const drawer = page.getByTestId("event-drawer");
+  await expect(drawer).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByTestId("evidence").locator("mark").first()).toBeVisible();
+  await expect(page.getByTestId("buffer-rec")).toContainText("Expected benefit");
+  for (const theme of ["light", "dark"] as const) {
+    await setTheme(page, theme);
+    await page.waitForTimeout(400);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.screenshot({ path: `${SHOTS}/disruption-radar-${theme}.png`, fullPage: true });
+  }
+});
+
 test("Theme toggle switches and persists", async ({ page }) => {
   await page.goto("/ports");
   await setTheme(page, "light");

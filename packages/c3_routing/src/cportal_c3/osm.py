@@ -12,8 +12,6 @@ from collections.abc import Iterator
 from dataclasses import dataclass
 from pathlib import Path
 
-import osmium
-
 from cportal_c3.priors import Priors
 
 
@@ -54,6 +52,8 @@ def _speed(tag: str | None) -> float | None:
 
 
 def extract(pbf: Path, priors: Priors) -> Iterator[RoadSegment]:
+    import osmium  # only the graph build needs it (and libexpat); the API image does not
+
     classes = set(priors["highways"])
     box = priors["bbox"]
     ways: list[tuple[int, list[int], str, bool, float | None, str | None]] = []

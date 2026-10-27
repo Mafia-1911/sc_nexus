@@ -4,10 +4,11 @@ A supply-chain resilience platform proven on Bangladesh's Chattogram–Dhaka cor
 and pharma shippers. The full specification is in [`docs/brief/`](docs/brief/00-INDEX.md); agents
 start from [`AGENTS.md`](AGENTS.md), and progress lives in [`docs/STATUS.md`](docs/STATUS.md).
 
-**Current milestone: M4 (C2 trade-news intelligence), thin slice done.** One command brings up
-the database, API, worker and web app: Control Tower, Supplier Network (single points of
-failure, TTS vs TTR, what-ifs), Disruption Radar (grounded events from news, buffer
-recommendations) and Data & Models. C3–C5 follow.
+**Current milestone: M5 (C3 routing), thin slice done.** One command brings up the database,
+API, worker and web app: Control Tower, Supplier Network (single points of failure, TTS vs TTR,
+what-ifs), Disruption Radar (grounded events from news, buffer recommendations), Route Planner
+(road, rail and barge plans with P50/P90, cost, CO2e and on-time odds) and Data & Models.
+C4–C5 follow.
 
 ![Control Tower, hero scenario](docs/screenshots/control-tower-light.png)
 
@@ -26,6 +27,10 @@ Then open http://127.0.0.1:3000 (API docs at http://127.0.0.1:8000/docs). `make 
 stack without re-seeding, `make down` stops it (data stays in the `pgdata` volume). Keys are
 optional: `make up` creates `.env` from `.env.example` if it is missing, and sources without a
 key stay in replay or synthetic mode. `CPORTAL_LIVE=0 make up` keeps the worker offline.
+
+The Route Planner needs the OpenStreetMap road graph once: put the Geofabrik Bangladesh extract
+(https://download.geofabrik.de/asia/bangladesh-latest.osm.pbf, ≈ 340 MB) in `data/raw/DS-GEO-01/`
+and run `make road-graph` (≈ 15 s, 2 GB RAM).
 
 ## Quickstart (laptop, no Docker)
 

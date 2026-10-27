@@ -10,6 +10,7 @@ from cportal_c3.network import Edge, RoadNet
 from cportal_c3.osm import haversine_m
 from cportal_c3.plan import Planner, Request, _next_departure
 from cportal_c3.priors import load_priors
+from cportal_core.timeutil import DHAKA
 
 P = load_priors()
 FACTORS = {
@@ -94,10 +95,13 @@ def test_truck_ban_holds_trucks_out_of_central_dhaka(planner: Planner) -> None:
     """C3-AC06: no plan drives into the ban zone while it is closed."""
     path = planner.road_options("BDPGN", "BDKAM", _req().depart)[0][1]  # inside the zone
     start, end, _, _ = P.truck_ban()
-    day = planner.net.traverse(path, datetime(2026, 10, 27, start + 2, tzinfo=UTC))
-    night = planner.net.traverse(path, datetime(2026, 10, 27, end, tzinfo=UTC))
+    day = planner.net.traverse(path, datetime(2026, 10, 27, start + 2, tzinfo=DHAKA))
+    night = planner.net.traverse(path, datetime(2026, 10, 27, end, tzinfo=DHAKA))
     assert day.ban_wait_h > 0 and night.ban_wait_h == 0
     assert day.hours >= day.ban_wait_h
+    # The ban follows Dhaka clocks whatever zone the caller uses (UTC 02:00 is 08:00 local).
+    utc_night = datetime(2026, 10, 27, end, tzinfo=DHAKA).astimezone(UTC)
+    assert planner.net.traverse(path, utc_night).ban_wait_h == 0
 
 
 def test_reefer_cargo_stays_on_the_road(planner: Planner) -> None:

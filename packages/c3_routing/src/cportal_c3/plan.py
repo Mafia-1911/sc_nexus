@@ -16,6 +16,8 @@ from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from typing import Any
 
+from cportal_core.timeutil import DHAKA
+
 from cportal_c3.network import RoadNet, Traversal
 from cportal_c3.priors import Priors
 
@@ -127,7 +129,8 @@ class Planner:
     def road_leg(
         self, origin: str, dest: str, path: list[int], depart: datetime, qty: int, reefer: bool
     ) -> Leg:
-        midnight = depart.replace(hour=0, minute=0, second=0, microsecond=0)
+        # hours_by_start[h]: road time leaving at Dhaka hour h (ban and rush hours are local)
+        midnight = depart.astimezone(DHAKA).replace(hour=0, minute=0, second=0, microsecond=0)
         runs = [self.net.traverse(path, midnight + timedelta(hours=h)) for h in range(24)]
         first = self.net.traverse(path, depart)
         road = self.p.road
@@ -227,7 +230,7 @@ class Planner:
                 if leg.mode == "transfer" and leg.dwell:
                     clock += timedelta(hours=lognormal(rng, *leg.dwell))
                 elif leg.mode == "road":
-                    base = leg.hours_by_start[clock.hour]
+                    base = leg.hours_by_start[clock.astimezone(DHAKA).hour]
                     clock += timedelta(hours=base * math.exp(rng.gauss(0.0, sigma)))
                 elif leg.service is not None:
                     clock = _next_departure(leg.service, clock, rng)
@@ -284,7 +287,7 @@ class Planner:
                     (leg.dwell[0], f"{leg.note} at {leg.origin} (P50 {leg.dwell[0]:.0f} h)")
                 )
             elif leg.mode == "road":
-                h = leg.hours_by_start[req.depart.hour]
+                h = leg.hours_by_start[req.depart.astimezone(DHAKA).hour]
                 terms.append((h, f"{leg.km:.0f} km by road ({leg.note}), ≈ {h:.1f} h"))
             elif leg.service is not None:
                 terms.append(
@@ -323,10 +326,10 @@ def _cite(factor: dict[str, Any]) -> dict[str, Any]:
 
 
 def _next_departure(service: dict[str, Any], clock: datetime, rng: random.Random) -> datetime:
-    """The next scheduled departure at or after `clock` that is not cancelled."""
+    """The next scheduled departure at or after `clock` that is not cancelled (Dhaka timetable)."""
     hours = sorted(int(h) for h in service["departures_h"])
     days = service.get("departures_weekdays")
-    day = clock.replace(minute=0, second=0, microsecond=0)
+    day = clock.astimezone(DHAKA).replace(minute=0, second=0, microsecond=0)
     for _ in range(24 * 21):
         if (
             (days is None or day.weekday() in days)

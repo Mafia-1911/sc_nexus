@@ -7,6 +7,9 @@ from __future__ import annotations
 
 import asyncio
 import json
+import threading
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from cportal_core import __version__
 from cportal_core.db import engine
@@ -30,8 +33,15 @@ def _problem(status: int, title: str, detail: str | None, request: Request) -> J
     return JSONResponse(body.model_dump(), status_code=status, media_type=PROBLEM)
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    threading.Thread(target=routes.warm, name="c3-warm", daemon=True).start()
+    yield
+
+
 def create_app() -> FastAPI:
     app = FastAPI(
+        lifespan=lifespan,
         title=f"{brand_name()} API",
         version=__version__,
         description=(

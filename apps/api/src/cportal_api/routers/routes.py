@@ -6,12 +6,14 @@ reloaded only when `road_edge` changes.
 
 from __future__ import annotations
 
+import logging
 from typing import Any
 from uuid import UUID
 
 from cportal_c3 import MODEL_VERSION, service
 from cportal_c3.priors import load_priors
 from cportal_c3.schemas import RouteIn, RouteResult
+from cportal_core.db import session_scope
 from cportal_core.models import RouteOption, RouteRequest
 from fastapi import APIRouter, HTTPException
 from sqlalchemy import select
@@ -20,6 +22,16 @@ from cportal_api.deps import SessionDep, meta
 from cportal_api.schemas import Envelope, Meta
 
 router = APIRouter(tags=["routes"])
+log = logging.getLogger(__name__)
+
+
+def warm() -> None:
+    """Load the road graph before the first plan: a cold load is ≈ 4 s of the 5 s budget."""
+    try:
+        with session_scope() as session:
+            service.network(session)
+    except Exception as exc:  # an empty or missing graph is reported by /routes/optimize
+        log.warning("road graph not warmed: %s", exc)
 
 
 def _meta(rows: list[Any]) -> Meta:

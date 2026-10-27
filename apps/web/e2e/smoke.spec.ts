@@ -123,6 +123,24 @@ test("Disruption Radar: one grounded event, evidence and a buffer recommendation
   }
 });
 
+test("Route Planner: Pareto plans, on-time odds and a departure strip (C3)", async ({ page }) => {
+  await page.goto("/routes");
+  await expect(page).toHaveTitle(new RegExp(`Route Planner · ${BRAND}`));
+  await page.getByTestId("plan-route").click();
+  const cards = page.getByTestId("plan-cards").locator("button");
+  await expect(cards.first()).toBeVisible({ timeout: 20_000 });
+  expect(await cards.count()).toBeGreaterThanOrEqual(3);
+  await expect(page.getByTestId("plan-cards")).toContainText("on time");
+  await expect(page.getByTestId("departures")).toBeVisible();
+  await expect(page.getByTestId("route-map")).toHaveAttribute("data-idle", "true", { timeout: 30_000 });
+  for (const theme of ["light", "dark"] as const) {
+    await setTheme(page, theme);
+    await page.waitForTimeout(400);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.screenshot({ path: `${SHOTS}/route-planner-${theme}.png`, fullPage: true });
+  }
+});
+
 test("Theme toggle switches and persists", async ({ page }) => {
   await page.goto("/ports");
   await setTheme(page, "light");

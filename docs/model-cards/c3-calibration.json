@@ -1,0 +1,150 @@
+{
+ "pairs": 20,
+ "time_mdape_before": 0.64,
+ "time_mdape_after": 0.018,
+ "distance_mdape": 0.032,
+ "calibration_before": 1.0,
+ "calibration_after": 1.64,
+ "rows": [
+  {
+   "pair": "BDCGP>BDKAM",
+   "ours_h": 5.47,
+   "ors_h": 3.27,
+   "ours_km": 245.48,
+   "ors_km": 242.67
+  },
+  {
+   "pair": "BDCGP>gazipur",
+   "ours_h": 6.18,
+   "ors_h": 3.7,
+   "ours_km": 280.87,
+   "ors_km": 278.26
+  },
+  {
+   "pair": "BDCGP>tongi",
+   "ours_h": 5.99,
+   "ors_h": 3.65,
+   "ours_km": 268.99,
+   "ors_km": 267.06
+  },
+  {
+   "pair": "BDCGP>dhaka_epz",
+   "ours_h": 6.33,
+   "ors_h": 3.89,
+   "ours_km": 281.79,
+   "ors_km": 283.36
+  },
+  {
+   "pair": "BDCGP>savar",
+   "ours_h": 6.02,
+   "ors_h": 3.69,
+   "ours_km": 270.03,
+   "ors_km": 271.15
+  },
+  {
+   "pair": "BDCGP>narayanganj",
+   "ours_h": 5.54,
+   "ors_h": 3.29,
+   "ours_km": 245.59,
+   "ors_km": 241.99
+  },
+  {
+   "pair": "BDCGP>adamjee_epz",
+   "ours_h": 5.28,
+   "ors_h": 3.14,
+   "ours_km": 236.71,
+   "ors_km": 233.51
+  },
+  {
+   "pair": "BDCGP>BDPGN",
+   "ours_h": 5.53,
+   "ors_h": 3.38,
+   "ours_km": 248.46,
+   "ors_km": 248.01
+  },
+  {
+   "pair": "BDCGP>bhaluka",
+   "ours_h": 7.13,
+   "ors_h": 4.27,
+   "ours_km": 324.85,
+   "ors_km": 324.92
+  },
+  {
+   "pair": "BDCGP>cepz",
+   "ours_h": 0.25,
+   "ors_h": 0.1,
+   "ours_km": 10.68,
+   "ors_km": 3.96
+  },
+  {
+   "pair": "BDMGL>BDKAM",
+   "ours_h": 4.55,
+   "ors_h": 2.74,
+   "ours_km": 206.48,
+   "ors_km": 218.13
+  },
+  {
+   "pair": "BDMGL>gazipur",
+   "ours_h": 5.37,
+   "ors_h": 3.31,
+   "ours_km": 242.02,
+   "ors_km": 256.5
+  },
+  {
+   "pair": "BDMGL>savar",
+   "ours_h": 5.04,
+   "ors_h": 3.1,
+   "ours_km": 228.42,
+   "ors_km": 241.43
+  },
+  {
+   "pair": "BDMGL>narayanganj",
+   "ours_h": 4.73,
+   "ors_h": 2.85,
+   "ours_km": 213.95,
+   "ors_km": 224.81
+  },
+  {
+   "pair": "BDKAM>gazipur",
+   "ours_h": 0.9,
+   "ors_h": 0.63,
+   "ours_km": 37.08,
+   "ors_km": 39.18
+  },
+  {
+   "pair": "BDKAM>savar",
+   "ours_h": 0.59,
+   "ors_h": 0.49,
+   "ours_km": 25.52,
+   "ors_km": 28.14
+  },
+  {
+   "pair": "BDKAM>dhaka_epz",
+   "ours_h": 0.89,
+   "ors_h": 0.69,
+   "ours_km": 37.8,
+   "ors_km": 40.36
+  },
+  {
+   "pair": "BDPGN>gazipur",
+   "ours_h": 1.11,
+   "ors_h": 0.82,
+   "ours_km": 47.25,
+   "ors_km": 50.52
+  },
+  {
+   "pair": "BDPGN>tongi",
+   "ours_h": 0.75,
+   "ors_h": 0.62,
+   "ours_km": 32.61,
+   "ors_km": 36.54
+  },
+  {
+   "pair": "cepz>BDKAM",
+   "ours_h": 5.45,
+   "ors_h": 3.3,
+   "ours_km": 244.19,
+   "ors_km": 245.03
+  }
+ ]
+}

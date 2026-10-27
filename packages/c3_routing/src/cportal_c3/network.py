@@ -14,6 +14,7 @@ from datetime import datetime, timedelta
 
 import networkx as nx
 import numpy as np
+from cportal_core.timeutil import DHAKA
 
 from cportal_c3.osm import haversine_m
 from cportal_c3.priors import Priors
@@ -109,7 +110,7 @@ class RoadNet:
         """Drive `path` from `depart`: hour-of-day speeds, the Dhaka profile, the truck ban."""
         profiles = self.priors.road["profile"]
         start_h, end_h, _ = self.ban
-        clock = depart
+        clock = depart.astimezone(DHAKA)  # the ban and the hour profiles are in local time
         waited = 0.0
         km = 0.0
         coords: list[tuple[float, float]] = []

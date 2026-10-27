@@ -5,7 +5,7 @@ DS ?=
 
 .PHONY: help setup test lint fmt type check probe probe-p0 probe-p1 cards collect-ais ais-report synth-ais \
 	db-local db-local-stop migrate revision ingest seed calibrate api openapi up down seed-docker erd \
-	worker web-setup web web-check e2e demo
+	worker web-setup web web-check e2e demo road-graph
 
 help: ## List targets
 	@grep -E '^[a-z0-9-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-12s %s\n", $$1, $$2}'
@@ -107,6 +107,9 @@ demo: up seed-docker ## Whole stack plus seeded scenarios; the hero scenario rep
 
 down: ## Stop the compose stack (data stays in the pgdata volume)
 	docker compose down
+
+road-graph: migrate ## C3 road graph from the OSM extract in data/raw/DS-GEO-01/ (see docs/USER_TASKS.md)
+	$(UV) run c3 build-graph
 
 seed-docker: ## Seed the compose database (reference replay + scenarios)
 	docker compose --profile seed run --rm seed

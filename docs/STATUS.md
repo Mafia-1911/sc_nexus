@@ -1,10 +1,35 @@
 # STATUS (updated 2026-10-27 BST by Claude Code, Opus 5.5)
 
-Milestone: **M4 / C2 thin slice done → soft gate: deepen C2 or move to C3?** (C1 thin slice done
-at the M3 soft gate; the user said "continue"). Branch `m3-c1` (C2 commits on it too). Nothing
-pushed since M2 (the user asked to commit only until the whole build is done).
+Milestone: **M5 / C3 thin slice done → soft gate: deepen C3 or move to C4?** (C2 thin slice done;
+the user said "move to C3, we'll come back to C2 later"). Branch `m3-c1`. Nothing pushed since M2
+(commit only until the whole build is done).
 
-Done (M4, C2 trade-news intelligence):
+Done (M5, C3 routing):
+- **`packages/c3_routing`** (ADR-018, model card `docs/model-cards/c3-routing-baseline.md`): own
+  road graph from the Geofabrik extract (16,110 edges, motorway → secondary, 11 s); time-dependent
+  truck speeds with a Dhaka rush-hour profile and the user-verified truck ban (08:00–20:00);
+  road, road + rail (Kamalapur) and road + barge (Pangaon) chains; Monte Carlo P50/P90 and
+  on-time probability; cost from cited tariffs; CO2e per leg from DESNZ rows; Pareto rank;
+  departure sweep. Chattogram → Gazipur: 4 non-dominated plans in 1.3 s (C3-AC02).
+- **Calibration vs ORS HGV** (C3-AC01): distances within 3.2 %, route times within 1.8 % after
+  one factor; the factor (1.64) is reported, not applied (A-075, user task to find a real
+  truck time).
+- **Fix:** hour lookups (ban, profiles, timetables) now use Dhaka time; they ran on UTC (A-074).
+- **API:** `/routes/places`, `/network/services`, `POST /routes/optimize`, `/routes/{id}`.
+- **Web:** Route Planner: form, Pareto chart, route map, plan cards with mode mix and on-time
+  odds, "when to leave" strip, cited factors. E2E test added.
+- C2: `qwen3:4b` is the default `LLM_MODEL` (gold-set F1 0.43 vs rules 0.30; A-073).
+
+Not met yet (honest): C3-AC05 (C2 closures and C4 dwell don't change plans yet), cargo
+exemptions to the ban, a measured truck speed level; C2-AC01 F1 (rules 0.30).
+
+Waiting on user:
+- Soft gate: deepen C3 (C3-AC05 hooks to C2 events) or move to C4 (port dwell, M6)?
+- Tasks in `docs/USER_TASKS.md`: truck travel time, rail/barge tariffs, FX rate, DMA AIS days.
+
+---
+
+Earlier (M4, C2 trade-news intelligence):
 - **`packages/c2_trade_news`** (ADR-017, model card `docs/model-cards/c2-rules-baseline.md`):
   gazetteer + regex extraction with a character span for every field; relevance, type, places,
   start, duration, size, status; clustering into events (a hazard and the closures it causes are
@@ -31,12 +56,7 @@ Done (M4, C2 trade-news intelligence):
 Not met yet (honest): C2-AC01/AC02 F1 (needs the gold labels), C2-AC07 backtest, GLiNER2
 (deferred, A-060), grounded-LLM ≥ 95 % (llama3.1 fails it).
 
-Waiting on user:
-- Labels in `data/inbox/c2_gold/annotate.csv` (in progress) → then F1 for C2-AC01/AC02.
-- `qwen3:4b` pull (in progress) → benchmark vs llama3.1; then `sudo systemctl daemon-reload &&
-  sudo systemctl restart ollama` so `OLLAMA_HOST=0.0.0.0` takes effect for Docker.
-- **Q-12** (GNN scope for C1); deepen C2 or move to C3 (Route Planner).
-- Later: six more DMA AIS days for C4.
+Resolved since: gold labels (F1 measured), `qwen3:4b` benchmarked, Ollama restarted, Q-12.
 
 ---
 

@@ -26,10 +26,11 @@ Every field shown in the UI carries a character span into the article text (the 
 |---|---|---|
 | Throughput (rules) | ≈ 3,900 articles/s on one core | C2-AC06: ≥ 5/s |
 | JSON validity (LLM) | 12 / 12 parsed under the schema | C2-AC04: 100 % |
-| Grounded LLM fields | `llama3.1:8b`: 9 ungrounded fields in 12 answers, 0 positives (it rejected a warehouse fire and a grid failure) | C2-AC04: ≥ 95 % grounded — **not met by llama3.1**; `qwen3:4b` to be compared |
+| Grounded LLM fields | `llama3.1:8b`: 9 ungrounded fields in 12 answers, 0 positives (it rejected a warehouse fire and a grid failure). `qwen3:4b` on the gold set: 117 ungrounded quotes in 150 answers | C2-AC04: ≥ 95 % grounded — **not met by either model**, so the LLM stays a second opinion and ungrounded fields are dropped |
+| Relevance F1 on the gold set (150) | rules 0.30; `qwen3:4b` 0.43 (P 0.36, R 0.53; type accuracy 0.11; 7.2 s/article); rules + qwen 0.38 (`docs/model-cards/c2-eval-*.json`). The llama3.1 run did not finish | `qwen3:4b` is the default `LLM_MODEL` (A-073) |
 | Unit checks | grounded spans, dates, syndicated copies collapse, hazard + closure = one event, single-source cap | C2-AC05 behaviour |
 | Real window (14 days, 5,884 articles) | 16 relevant, 10 events after dedupe; spot check: Red Sea geopolitics still slips in | — |
-| **Relevance / type F1 vs a gold set** | **not measured yet**: 150 articles are waiting for human labels (`data/inbox/c2_gold/annotate.csv`, Q-11) | C2-AC01/AC02 |
+| **Relevance / type F1 vs a gold set** | measured on 150 user-labelled articles (row above; `uv run c2 eval`). Rules F1 0.30 is **below** C2-AC01; misses go to the lexicon when C2 is deepened | C2-AC01/AC02: not met yet |
 | Backtest | not run (needs historical GDELT windows) | C2-AC07 |
 
 ## Assumptions

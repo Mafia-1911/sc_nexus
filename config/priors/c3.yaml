@@ -108,30 +108,88 @@ transfers:  # dwell before the next leg (P50, P90 hours) and handling (BDT per T
   BDKAM: {p50_h: 24, p90_h: 72, bdt: 2500, note: "ICD delivery"}
   BDPGN: {p50_h: 12, p90_h: 36, bdt: 2500, note: "ICT delivery"}
 
-services:   # scheduled rail and barge legs (synthetic timetables calibrated to press facts)
+services:
+  # Scheduled rail and barge legs.
+  # Operational priors calibrated to reported facts; current values require
+  # confirmation from Bangladesh Railway, CPA, and MEDLOG.
+  # Last reviewed: 2026-10-27
+
   rail_cgp_kam:
     mode: rail
     origin: BDCGP
     dest: BDKAM
-    departures_h: [6, 18]          # every day
-    cancel_prob: 0.35              # "only one or two pairs of loaded container trains per day" (Financial Express)
+
+    departures_h: [6, 18]          # Assumed daily departure slots; verify with Bangladesh Railway
+    cancel_prob: 0.35              # Reported estimate; observation period and current rate unverified
+
     run_p50_h: 10
     run_p90_h: 16
     capacity_teu: 60
-    bdt_per_teu: 28000             # import box Chattogram→Kamalapur ≈ Tk 28,000 (Maritime Gateway / Daily Star)
+
+    bdt_per_teu: 28000             # Reported approx. Tk 28,000 per laden 20-ft container
+    tariff_basis: laden_20ft_container
+    tariff_status: unverified_market_estimate
+
     km: 320
+
+    sources:
+      - organization: Bangladesh Railway
+        purpose: Confirm current freight tariff, scheduled departures, and actual loaded departures
+        url: https://railway.gov.bd/
+        checked_at: "2026-10-27"
+        status: confirmation_required
+
+      - organization: The Daily Star
+        purpose: Reported rail freight operating conditions
+        url: https://online-d11.thedailystar.net/business/news/container-transport-train-falls-amid-engine-crisis-3839816
+        published_at: "2025-03-04"
+        status: historical_context
+
+    verification_required:
+      - Current Chattogram-to-Kamalapur tariff for a laden 20-ft container
+      - Whether the tariff includes terminal and ancillary charges
+      - Scheduled versus actual loaded departures per day
+      - Cancellation rate and its observation period
+
+
   barge_cgp_pgn:
     mode: barge
     origin: BDCGP
     dest: BDPGN
-    departures_weekdays: [0, 3]    # Mon, Thu (estimate; few vessels)
-    departures_h: [10]
-    cancel_prob: 0.1
+
+    departures_weekdays: [0, 3]    # Monday, Thursday; provisional schedule, not currently verified
+    departures_h: [10]             # Assumed departure hour; verify with MEDLOG
+    cancel_prob: 0.1               # Model assumption; current cancellation rate unverified
+
     run_p50_h: 40
     run_p90_h: 60
     capacity_teu: 120
-    usd_per_teu: 190               # laden import 20 ft after Medlog's cut (The Loadstar)
+
+    usd_per_teu: 190                # Reported estimate per laden 20-ft container
+    tariff_basis: laden_20ft_container
+    tariff_status: unverified_estimate
+
     km: 300
+
+    sources:
+      - organization: MEDLOG
+        purpose: Confirm current Pangaon service, container tariff, and sailing schedule
+        url: https://www.medlog.com/en/news/2026/may/medlog-pangaon-river-terminal-at-dhaka-bangladesh-is-now-open
+        published_at: "2026-05-26"
+        checked_at: "2026-10-27"
+        status: confirmation_required
+
+      - organization: Chattogram Port Authority
+        purpose: Confirm applicable Pangaon route and port tariff notices
+        url: https://cpa.gov.bd/
+        checked_at: "2026-10-27"
+        status: confirmation_required
+
+    verification_required:
+      - Current quotation for a laden 20-ft container
+      - Whether the quoted rate includes handling and ancillary charges
+      - Current sailing days and departure times
+      - Booking cutoffs and actual transit times
 
 emission_factors:   # rows from DS-GEO-05 (UK DESNZ 2026) matched by vehicle_class and fuel
   road:   {vehicle_class: "HGV (non-refrigerated, all diesel) / Articulated (>33t)", fuel: "Average laden"}

@@ -1,23 +1,25 @@
 """Calibration against openrouteservice HGV (C3-AC01, DS-GEO-03; validation only).
 
-For a fixed set of corridor O/D pairs: ORS truck distance and duration vs our network at night
-(no congestion, no ban). One speed multiplier is fitted (the median time ratio) and the median
-absolute % error is reported before and after. ORS answers are cached, so a re-run spends no
-quota.
+For a fixed set of corridor O/D pairs: ORS truck distance and duration vs our free-flow time on
+the same route (edge times only: ORS models neither rush hours nor the Dhaka truck ban). One speed
+multiplier is fitted (the median time ratio) and the median absolute % error is reported before
+and after. ORS answers are cached, so a re-run spends no quota.
 """
 
 from __future__ import annotations
 
+import itertools
 import json
 import statistics
 import time
-from datetime import UTC, datetime
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 import httpx
 from cportal_core.paths import repo_root
 from cportal_core.settings import get_settings
+from cportal_core.timeutil import DHAKA
 
 from cportal_c3.network import RoadNet
 from cportal_c3.priors import Priors
@@ -70,17 +72,17 @@ def ors(
 
 def calibrate(net: RoadNet, priors: Priors, pairs: list[tuple[str, str]] = PAIRS) -> dict[str, Any]:
     truth = ors(pairs, priors)
-    night = datetime(2026, 1, 6, 2, tzinfo=UTC)  # a Tuesday 02:00: free flow, no ban
     rows: list[dict[str, Any]] = []
     for o, d in pairs:
         a, b = priors.places[o], priors.places[d]
         path = net.path(net.nearest(a["lat"], a["lon"]), net.nearest(b["lat"], b["lon"]))
-        ours = net.traverse(path, night)
+        ours = net.traverse(path, datetime(2026, 1, 6, 2, tzinfo=DHAKA))
+        free_h = sum(float(net.graph[u][v]["seconds"]) for u, v in itertools.pairwise(path)) / 3600
         t = truth[f"{o}>{d}"]
         rows.append(
             {
                 "pair": f"{o}>{d}",
-                "ours_h": ours.hours,
+                "ours_h": free_h,
                 "ors_h": t["duration_s"] / 3600,
                 "ours_km": ours.km,
                 "ors_km": t["distance_m"] / 1000,

@@ -41,12 +41,13 @@ DS-AIS-02:
 
 DS-AIS-03:
   signup: none
-  limits_documented: large daily CSV zips; DMA site was offline after a security incident (brief)
+  limits_documented: large daily CSV zips (one day ≈ 0.58 GB zipped, 3.1 GB CSV, ≈ 17 M rows); DMA site was offline after a security incident (brief)
   bd_coverage: n/a (Danish waters; used only to develop port-call segmentation)
-  licence: DMA terms (not reached)
-  failure_modes: the listing at http://aisdata.ais.dk/ now holds no aisdk*.zip links (1.4 KB page)
-  quirks: site layout changed since the brief; not pursued further (P1, one strike)
-  next: use NOAA (DS-AIS-04) or the synthetic twin for segmentation development
+  licence: Danish public data, free incl. commercial use with attribution (dma.dk "Conditions for the use of data")
+  attribution: "Contains data from the Danish Maritime Authority that is used in accordance with the conditions for the use of Danish public data"
+  failure_modes: the listing at http://aisdata.ais.dk/ held no aisdk*.zip links when probed (2026-10-26); the user downloaded aisdk-2025-02-27.zip manually (2026-10-27)
+  quirks: CSV with a '# Timestamp' header in dd/mm/yyyy; base stations and Class B mixed in; 'Unknown value' for missing nav status
+  next: "M6 (C4): parse into port-call segments for the state machine; one day is test data, not enough to train dwell"
 
 DS-AIS-04:
   signup: none
@@ -54,6 +55,15 @@ DS-AIS-04:
   bd_coverage: n/a (US waters)
   failure_modes: https://coast.noaa.gov/htdata/CMSP/AISDataHandler/2025/index.html → 404; the GitHub repo ocm-marinecadastre/ais-vessel-traffic is reachable
   next: find the 2025 file index through the GitHub README in M6 if C4 pretraining needs it
+
+DS-AIS-06:
+  signup: account (free tier, 20 credits on sign-up; user's key, 2026-10-27)
+  limits_documented: credit-based; vessels by area 10 credits (radius ≤ 50 km), port calls by port 50, vessel location 1
+  limits_observed: one area call ≈ 2.1 s; 20 → 10 credits after it
+  licence: "Data Docked ToS §4.1–4.5: internal use only; no redistribution, mirroring or public display"
+  bd_coverage: yes (terrestrial AIS at Chattogram, ≈ 80 vessels within 50 km on 2026-10-27)
+  quirks: no per-position timestamp in vessels-by-area; key in the x-api-key header
+  next: internal calibration of the anchorage only; never shown in the UI or committed (ToS)
 
 DS-PORT-01:
   signup: none

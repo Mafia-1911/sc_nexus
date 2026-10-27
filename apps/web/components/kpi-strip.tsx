@@ -9,7 +9,7 @@ export async function KpiStrip({ scenario }: { scenario: string }) {
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-5" data-testid="kpi-strip">
       {data.data.kpis.map((k) => (
-        <div key={k.key} className="flex flex-col gap-1 rounded-[var(--radius-card)] border border-border bg-surface p-4" data-kpi={k.key}>
+        <div key={k.key} className="flex flex-col gap-1 rounded-[var(--radius-card)] border border-border bg-surface/85 p-4 shadow-sm backdrop-blur-md" data-kpi={k.key}>
           <span className="text-xs text-muted">{k.label}</span>
           <span className="tabular text-2xl font-semibold">
             {typeof k.value === "number" ? fmt(k.value, Number.isInteger(k.value) ? 0 : 1) : "—"}

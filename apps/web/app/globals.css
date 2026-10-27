@@ -162,6 +162,41 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* Ocean backdrop (components/shell/ocean-backdrop.tsx): faint, slow, never in the way. */
+.ocean-backdrop {
+  color: var(--primary);
+}
+.ocean-swell {
+  opacity: 0.16;
+  animation: swell linear infinite;
+}
+.ocean-ship {
+  opacity: 0.14;
+  animation: sail linear infinite;
+}
+@keyframes swell {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes sail {
+  from {
+    transform: translateX(-200px);
+  }
+  to {
+    transform: translateX(110vw);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ocean-swell,
+  .ocean-ship {
+    animation: none;
+  }
+}
+
 /* MapLibre controls and popups follow the theme (its stylesheet is light-only and loads after
    this one, hence the .maplibregl-map prefix). */
 .maplibregl-map .maplibregl-ctrl-group,

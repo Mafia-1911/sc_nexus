@@ -12,8 +12,10 @@ sources:
   # 2.1 Maritime and AIS --------------------------------------------------------------------
   DS-AIS-01: {name: aisstream.io live AIS, tier: P0, status: verified, mode: synthetic, fallback: synthetic, used_by: [C4, NX], auth: api-key, env: [AISSTREAM_API_KEY], protocol: WebSocket, base_url: "wss://stream.aisstream.io/v0/stream", min_interval_s: 1, bd_coverage: none}
   DS-AIS-02: {name: Global Fishing Watch API v3, tier: P0, status: verified, mode: replay, fallback: synthetic, used_by: [C4, C2, NX], auth: bearer-token, env: [GFW_API_TOKEN], protocol: REST, base_url: "https://gateway.api.globalfishingwatch.org/v3", min_interval_s: 1, nc: true}
-  DS-AIS-03: {name: Danish Maritime Authority historical AIS, tier: P1, status: blocked, mode: off, fallback: DS-AIS-04, used_by: [C4], auth: none, protocol: file-download, base_url: "http://aisdata.ais.dk/", min_interval_s: 2}
+  DS-AIS-03: {name: Danish Maritime Authority historical AIS, tier: P1, status: manual, mode: off, fallback: DS-AIS-04, used_by: [C4], auth: none, protocol: file-download, base_url: "http://aisdata.ais.dk/", min_interval_s: 2}
   DS-AIS-04: {name: NOAA MarineCadastre AIS (US waters), tier: P1, status: blocked, mode: off, fallback: synthetic, used_by: [C4], auth: none, protocol: file-download, min_interval_s: 2}
+  # DS-AIS-06: free-tier credits only and internal-use-only terms: calibration, never displayed (A-057).
+  DS-AIS-06: {name: Data Docked vessel API, tier: P2, status: verified, mode: off, fallback: synthetic, used_by: [C4], auth: api-key, protocol: REST, base_url: "https://datadocked.com/api/vessels_operations", min_interval_s: 2}
   DS-AIS-05: {name: xView3-SAR dataset, tier: P2, status: unprobed, mode: off, used_by: [C4], auth: account-download, protocol: file-download}
 
   # 2.2 Port statistics and geometry -----------------------------------------------------------

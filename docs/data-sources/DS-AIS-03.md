@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| status | blocked |
+| status | manual |
 | tier | P1 |
 | used by | C4 |
 | default mode | False |
@@ -13,20 +13,20 @@
 | sign-up | none |
 | protocol | file-download |
 | pagination | — |
-| limits (documented) | large daily CSV zips; DMA site was offline after a security incident (brief) |
+| limits (documented) | large daily CSV zips (one day ≈ 0.58 GB zipped, 3.1 GB CSV, ≈ 17 M rows); DMA site was offline after a security incident (brief) |
 | limits (observed) | — |
-| licence / terms | DMA terms (not reached) |
-| attribution | — |
+| licence / terms | Danish public data, free incl. commercial use with attribution (dma.dk "Conditions for the use of data") |
+| attribution | Contains data from the Danish Maritime Authority that is used in accordance with the conditions for the use of Danish public data |
 | NC? | — |
 | freshness / latency | — |
 | history depth | — |
 | update cadence | — |
 | Bangladesh coverage | n/a (Danish waters; used only to develop port-call segmentation) |
-| failure modes observed | the listing at http://aisdata.ais.dk/ now holds no aisdk*.zip links (1.4 KB page) |
-| quirks | site layout changed since the brief; not pursued further (P1, one strike) |
+| failure modes observed | the listing at http://aisdata.ais.dk/ held no aisdk*.zip links when probed (2026-10-26); the user downloaded aisdk-2025-02-27.zip manually (2026-10-27) |
+| quirks | CSV with a '# Timestamp' header in dd/mm/yyyy; base stations and Class B mixed in; 'Unknown value' for missing nav status |
 | mapping to canonical | — |
 | synthetic twin | — |
-| next | use NOAA (DS-AIS-04) or the synthetic twin for segmentation development |
+| next | M6 (C4): parse into port-call segments for the state machine; one day is test data, not enough to train dwell |
 | raw schema | — (inferred with genson; field profiles below) |
 
 ## Probe evidence

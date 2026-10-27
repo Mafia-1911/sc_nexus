@@ -5,6 +5,7 @@ import { api } from "@/lib/api/server";
 import { brandName } from "@/lib/brand";
 import { SCENARIOS, currentScenario } from "@/lib/scenario";
 
+import { OceanBackdrop } from "@/components/shell/ocean-backdrop";
 import { NavRail } from "./nav-rail";
 import { ScenarioSwitcher } from "./scenario-switcher";
 import { ThemeToggle } from "./theme-toggle";
@@ -31,9 +32,10 @@ async function NamePackBanner() {
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen">
+    <div className="relative flex min-h-screen">
+      <OceanBackdrop />
       {/* The rail's surface spans the whole page; its contents stick to the viewport. */}
-      <aside className="w-16 shrink-0 border-r border-border bg-surface lg:w-56">
+      <aside className="relative z-10 w-16 shrink-0 border-r border-border bg-surface/80 backdrop-blur-md lg:w-56">
         <div className="sticky top-0 flex h-screen flex-col gap-6 px-2 py-4 lg:px-3">
           <div className="flex items-center gap-2 px-2 text-primary">
             <Waves aria-hidden className="size-6 shrink-0" />
@@ -49,7 +51,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </p>
         </div>
       </aside>
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="relative z-10 flex min-w-0 flex-1 flex-col">
         <Suspense fallback={null}>
           <NamePackBanner />
         </Suspense>

@@ -103,3 +103,18 @@ for runtime titles.
 **Open:** G2 review; Q-12 at M3 start; Ollama model at M4.
 
 **Next:** M3 (C1 thin slice) after G2.
+
+## Session 4 · 2026-10-27 · M3 / C1 thin slice
+
+**Asked:** "ollama has llama pulled in it, continue further" (taken as G2 approval); mid-way:
+"dont perfect it too much, if it works thats good enough for now".
+
+**Done:** `main` fast-forwarded to M2. World v0.2 with planted single points of failure; the C1
+package (analytics, LP, cascade, risk baseline), two tables, worker jobs, API, and the Supplier
+Network page; acceptance tests for C1-AC01–AC05; ADR-016, model card, decisions A-051–A-056.
+
+**Findings:** a dominator tree is wrong for BOMs (AND inputs), so dominance is a removal test;
+the DS-RISK-01 sample was an error response (registry corrected); Sigma touches WebGL at import
+(client-only load).
+
+**Open:** deepen C1 or move to C2; Q-12.

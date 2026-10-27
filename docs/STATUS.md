@@ -1,7 +1,59 @@
 # STATUS (updated 2026-10-27 BST by Claude Code, Opus 5.5)
 
-Milestone: **M2 Backbone complete → gate G2 (hard stop: waiting for the user's review).**
-Next after approval: M3 (C1 supplier risk graph), starting with Q-12 (GNN scope).
+Milestone: **M3 / C1 thin slice done → soft gate: deepen C1 or move to C2?** (G2 approved;
+`main` = M2.) Branch `m3-c1`.
+
+Done (M3, C1 supplier risk graph):
+- **World v0.2** (A-051): 151 nodes (146 fictional facilities + Chattogram and two hubs), 955
+  supply relationships, 140 open orders; four planted sole sources; capacities and stock from
+  open-order demand. Seeding replaces a scenario's rows (A-052); seed ≈ 35–48 s.
+- **`packages/c1_supplier_graph`** (ADR-016, model card `docs/model-cards/c1-baseline.md`):
+  AND/OR removal test for single points of failure, dependency reach, HHI, centralities;
+  TTS/TTR and performance impact as HiGHS LPs; daily cascade what-if with backorders,
+  re-sourcing, gateway closures and hub reroutes; Monte Carlo P50/P90; transparent risk score
+  with exact Shapley drivers; mitigation hints. Imports only core (lint contract).
+- **Data:** `graph_metric`, `whatif_result` (one migration). Worker `c1:refresh` every 5 min by
+  input fingerprint and immediately on `disruption.*` events; `c1.whatif` Monte Carlo job.
+- **API:** `/graph` (network + map), `/graph/critical`, `/graph/nodes/{id}`, `POST
+  /graph/whatif` (sync, or 202 with Monte Carlo), `/graph/whatif/{id}`. Risk views always use
+  fictional names (Q-05).
+- **Web:** Supplier Network page: layered network (Sigma.js) ↔ map, industry filter,
+  leaderboard (single points of failure / TTS vs TTR / risk), node drawer (drivers, TTS vs TTR,
+  inputs and HHI, linked events, orders with no other path), what-if panel with timeline,
+  late orders and mitigations; ripple highlight on the graph.
+- **Acceptance (C1-AC01–AC05):** 151 nodes; planted sources recalled 20/20 over five seeds
+  (ranks 1–6), gateway first every time; TTS < TTR for every planted source; what-if < 2 s;
+  200 Monte Carlo runs ≈ 11 s and reproducible; drivers exact. AC06: linked events raise the
+  score ("Open disruption events linked +11" on Mill X) and pre-fill the what-if.
+- Tests: 233 Python + 5 Playwright, all green; screenshots `docs/screenshots/supplier-network-*`.
+
+Findings:
+- In the hero scenario, Mill X's linked event is a 5-day delay, and plants hold ≥ 7.9 days of
+  denim, so the default what-if shows no late orders; a 21-day outage makes 5 orders late
+  (US$3.7M, P90 US$8.8M). The brief's "TTS 4 d < TTR 9 d" was illustrative; these are the
+  model's numbers.
+- DS-RISK-01's committed sample is an API error, so the registry said "verified" wrongly; now
+  `blocked` (A-054).
+
+In progress: nothing half-written.
+
+Next (your choice at this gate):
+- **Deepen C1:** Monte Carlo in the UI; LightGBM vs the baseline on simulator labels; GNN per
+  Q-12; hazard from IBTrACS; SupplyGraph validation.
+- **Or move to C2** (Disruption Radar, M4) with the local LLM: `llama3.1:latest` (8B Q4, 4.9 GB)
+  is pulled; with ≈ 7 GB RAM and the Docker stack running it will be tight, so the plan is
+  GLiNER-style extraction and rules first, the LLM only for the top-K articles.
+
+Blockers: none.
+
+Waiting on user: deepen C1 or move to C2; **Q-12** (GNN scope).
+
+Known limits: cosmetic UI gaps are left as is (overlapping labels when zoomed out, small
+nodes); the risk score is uncalibrated (no labels); the basemap needs internet.
+
+---
+
+Previous milestone (M2, kept for reference):
 
 Done (M2, branch `m2-backbone`):
 - **Worker** (`apps/worker`, `make worker` or the compose `worker` service): APScheduler jobs

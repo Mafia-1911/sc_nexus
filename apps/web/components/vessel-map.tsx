@@ -2,22 +2,13 @@
 
 import "maplibre-gl/dist/maplibre-gl.css";
 
-import {
-  type GeoJSONSource,
-  Map as MapLibre,
-  type MapLayerMouseEvent,
-  NavigationControl,
-  Popup,
-  setWorkerUrl,
-} from "maplibre-gl";
+import { type GeoJSONSource, Map as MapLibre, type MapLayerMouseEvent, NavigationControl, Popup } from "maplibre-gl";
 import { useEffect, useRef, useState } from "react";
 
 import { DataBadge } from "@/components/data-badge";
+import { MAP_STYLE, cssVar, onThemeChange, restyleBasemap, setMapWorker } from "@/lib/map-theme";
 import { dhakaTime } from "@/lib/utils";
 
-const STYLE = "https://tiles.openfreemap.org/styles/positron";
-// Copied into public/ by scripts/vendor-maplibre.mjs: the default URL is relative to the bundle chunk.
-const WORKER_URL = "/vendor/maplibre-gl-worker.mjs";
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL ?? "ws://127.0.0.1:8000/ws/live";
 const CHATTOGRAM: [number, number] = [91.74, 22.08];
 
@@ -30,35 +21,9 @@ const STATES = [
   { status: 5, label: "Moored", color: "--series-3" },
 ] as const;
 
-function cssVar(name: string): string {
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-}
-
-/** Restyle the OpenFreeMap base for the active theme: teal-navy water, quiet land and labels. */
 function restyle(map: MapLibre) {
-  const water = cssVar("--map-water");
-  const land = cssVar("--map-land");
-  const muted = cssVar("--text-muted");
-  const halo = cssVar("--bg");
-  const line = cssVar("--border");
-  for (const layer of map.getStyle().layers ?? []) {
-    const id = layer.id;
-    try {
-      if (layer.type === "background") map.setPaintProperty(id, "background-color", land);
-      else if (layer.type === "fill") {
-        map.setPaintProperty(id, "fill-color", id.includes("water") ? water : land);
-        if (!id.includes("water")) map.setPaintProperty(id, "fill-opacity", 0.6);
-      } else if (layer.type === "line") {
-        map.setPaintProperty(id, "line-color", id.includes("water") ? water : line);
-      } else if (layer.type === "symbol") {
-        map.setPaintProperty(id, "text-color", muted);
-        map.setPaintProperty(id, "text-halo-color", halo);
-      }
-    } catch {
-      // some layers use data-driven paint we leave alone
-    }
-  }
-  const colors = ["match", ["get", "nav_status"], ...STATES.flatMap((s) => [s.status, cssVar(s.color)]), muted];
+  restyleBasemap(map, new Set(["vessels", "vessels-hit"]));
+  const colors = ["match", ["get", "nav_status"], ...STATES.flatMap((s) => [s.status, cssVar(s.color)]), cssVar("--text-muted")];
   if (map.getLayer("vessels")) {
     map.setPaintProperty("vessels", "circle-color", colors as unknown as string);
     map.setPaintProperty("vessels", "circle-stroke-color", cssVar("--surface"));
@@ -75,10 +40,10 @@ export function VesselMap({ scenario }: { scenario: string }) {
 
   useEffect(() => {
     if (!container.current) return;
-    setWorkerUrl(WORKER_URL);
+    setMapWorker();
     const map = new MapLibre({
       container: container.current,
-      style: STYLE,
+      style: MAP_STYLE,
       center: CHATTOGRAM,
       zoom: 8.6,
       attributionControl: { compact: true },
@@ -123,17 +88,13 @@ export function VesselMap({ scenario }: { scenario: string }) {
     });
     // Every tile drawn and nothing animating: the e2e screenshots wait for this.
     map.on("idle", () => container.current?.setAttribute("data-idle", "true"));
-    const onTheme = () => {
+    const off = onThemeChange(() => {
       if (!map.isStyleLoaded()) return;
       restyle(map);
       map.triggerRepaint(); // unchanged paint is a no-op; repaint anyway so "idle" follows
-    };
-    window.addEventListener("themechange", onTheme);
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    media.addEventListener("change", onTheme);
+    });
     return () => {
-      window.removeEventListener("themechange", onTheme);
-      media.removeEventListener("change", onTheme);
+      off();
       map.remove();
     };
   }, []);

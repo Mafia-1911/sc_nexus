@@ -54,7 +54,8 @@ sources:
   DS-TRADE-01: {name: UN Comtrade API, tier: P1, status: verified, mode: replay, fallback: DS-TRADE-02, used_by: [C1], auth: api-key, env: [COMTRADE_API_KEY], protocol: REST, base_url: "https://comtradeapi.un.org/data/v1", min_interval_s: 2}
   DS-TRADE-02: {name: CEPII BACI, tier: P1, status: verified, mode: replay, fallback: DS-TRADE-01, used_by: [C1], auth: none, protocol: file-download, min_interval_s: 2}
   DS-TRADE-03: {name: World Bank API v2 (WDI, LPI), tier: P0, status: verified, mode: live, fallback: replay, used_by: [C1, NX], auth: none, protocol: REST, base_url: "https://api.worldbank.org/v2", min_interval_s: 1}
-  DS-RISK-01: {name: WGI, INFORM Risk, ND-GAIN, tier: P1, status: verified, mode: replay, fallback: replay, used_by: [C1], auth: none, protocol: file-download, min_interval_s: 2}
+  # DS-RISK-01: the committed WGI sample is an API error ("Invalid value"), not data (A-054); re-probe before use.
+  DS-RISK-01: {name: WGI, INFORM Risk, ND-GAIN, tier: P1, status: blocked, mode: off, fallback: replay, used_by: [C1], auth: none, protocol: file-download, min_interval_s: 2}
   DS-RISK-02: {name: WRI Aqueduct floods / JRC flood hazard, tier: P2, status: unprobed, mode: off, used_by: [C1], auth: none, protocol: file-download}
   DS-SUP-01: {name: Open Supply Hub (garment facilities), tier: P1, status: needs-registration, mode: off, fallback: synthetic, used_by: [C1], auth: account-download, protocol: file-download}
   DS-SUP-02: {name: SupplyGraph (Bangladesh FMCG GNN benchmark), tier: P1, status: verified, mode: replay, fallback: synthetic, used_by: [C1], auth: none, protocol: git, min_interval_s: 2}

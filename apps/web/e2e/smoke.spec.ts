@@ -70,6 +70,38 @@ test("Data & Models: sources, licences, scenarios", async ({ page }) => {
   }
 });
 
+test("Supplier Network: leaderboard, node drawer and a what-if (C1)", async ({ page, baseURL }) => {
+  await page.context().addCookies([{ name: "scenario", value: "cyclone_supplier_delay", url: baseURL! }]);
+  await page.goto("/network");
+  await expect(page).toHaveTitle(new RegExp(`Supplier Network · ${BRAND}`));
+  await expect(page.locator("[data-testid=supply-graph][data-ready=true]")).toBeVisible({ timeout: 30_000 });
+  const leaders = page.locator("[data-testid=leaderboard] button");
+  await expect(leaders.first()).toContainText("Chattogram");
+  await page.waitForTimeout(800);
+  for (const theme of ["light", "dark"] as const) {
+    await setTheme(page, theme);
+    await page.waitForTimeout(400);
+    await page.screenshot({ path: `${SHOTS}/supplier-network-${theme}.png`, fullPage: true });
+  }
+  await setTheme(page, "light");
+  await leaders.filter({ hasText: "Orivell" }).first().click(); // the planted denim single point of failure
+  const drawer = page.getByTestId("node-drawer");
+  await expect(drawer).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByTestId("risk-drivers")).toContainText("Single point of failure");
+  await expect(page.getByTestId("tts-ttr")).toContainText("Time to survive");
+  await page.locator("[data-testid=whatif-panel] input[name=duration_d]").fill("21");
+  await page.locator("[data-testid=whatif-panel] input[name=capacity_pct]").fill("0");
+  await page.locator("[data-testid=whatif-panel] input[name=extra_lead_time_d]").fill("0");
+  await page.getByTestId("run-whatif").click();
+  const result = page.getByTestId("whatif-result");
+  await expect(result).toContainText("Orders late", { timeout: 15_000 });
+  await expect(result).toContainText("Qualify a second source");
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: `${SHOTS}/supplier-network-whatif.png`, fullPage: true });
+  await page.getByTestId("view-map").click();
+  await expect(page.getByTestId("supply-map")).toHaveAttribute("data-idle", "true", { timeout: 30_000 });
+});
+
 test("Theme toggle switches and persists", async ({ page }) => {
   await page.goto("/ports");
   await setTheme(page, "light");

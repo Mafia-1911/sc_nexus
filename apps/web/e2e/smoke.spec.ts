@@ -165,12 +165,36 @@ test("Ports & Vessels: queue fan, vessel windows and a vessel's drivers (C4)", a
   await page.screenshot({ path: `${SHOTS}/ports-vessel-drawer.png` });
 });
 
-test("Theme toggle switches and persists", async ({ page }) => {
+test("Quality Lab: AQL lot board, a failed lot's options and heatmaps (C5)", async ({ page }) => {
   await page.goto("/quality");
+  await expect(page).toHaveTitle(new RegExp(`Quality Lab · ${BRAND}`));
+  await expect(page.getByTestId("quality-kpis")).toContainText("Rejected");
+  const rows = page.getByTestId("lot-board").locator("tbody tr");
+  expect(await rows.count()).toBeGreaterThan(5);
+  await expect(page.getByTestId("gallery").locator("figure").first()).toBeVisible();
+  await expect(page.getByTestId("lines").locator("li").first()).toBeVisible();
+  for (const theme of ["light", "dark"] as const) {
+    await setTheme(page, theme);
+    await page.waitForTimeout(500);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.screenshot({ path: `${SHOTS}/quality-lab-${theme}.png`, fullPage: true });
+  }
+  await page.getByLabel("Status").selectOption("rejected");
+  await page.getByTestId("lot-board").locator("tbody tr.font-medium").first().click();
+  const drawer = page.getByTestId("lot-drawer");
+  await expect(drawer.getByTestId("aql")).toContainText("ISO 2859-1");
+  await expect(drawer.getByTestId("options").locator("li").nth(1)).toBeVisible();
+  await expect(drawer.getByTestId("items").locator("figure").first()).toBeVisible();
+  await page.waitForTimeout(800);
+  await page.screenshot({ path: `${SHOTS}/quality-lot-drawer.png` });
+});
+
+test("Theme toggle switches and persists", async ({ page }) => {
+  await page.goto("/scenarios");
   await setTheme(page, "light");
   await page.getByTestId("theme-toggle").click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(page.getByText("Arrives in M7 (C5)")).toBeVisible();
+  await expect(page.getByText("Arrives in M8")).toBeVisible();
 });

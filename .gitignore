@@ -39,3 +39,8 @@ node_modules/
 
 # Manual drops (e.g. CPA berthing PDFs) before parsing; parsed copies go to data/raw
 data/inbox/
+
+# C5 gallery (NC dataset thumbnails, heatmaps) and model banks
+data/c5/
+models/**/*.npz
+models/c5/

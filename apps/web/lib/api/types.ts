@@ -418,11 +418,28 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** Batches */
+        get: operations["batches_api_v1_quality_batches_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/quality/batches/{batch_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
         /**
-         * List Batches
-         * @description Adverse view (defects): organizations show their guarded name (Q-05 guardrail).
+         * Batch
+         * @description AQL result, the inspected items with heatmaps, the order, the alert and its options.
          */
-        get: operations["list_batches_api_v1_quality_batches_get"];
+        get: operations["batch_api_v1_quality_batches__batch_id__get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -448,6 +465,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/quality/gallery": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Gallery
+         * @description Real dataset test images with the model's score, flag and heatmap (precomputed).
+         */
+        get: operations["gallery_api_v1_quality_gallery_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/quality/inspections": {
         parameters: {
             query?: never;
@@ -459,9 +496,67 @@ export interface paths {
         put?: never;
         /**
          * Inspect
-         * @description Queue a C5 inspection of images (M7).
+         * @description Score one image against the category's few-shot bank (CPU, ≈ 0.4 s): score, flag,
+         *     heatmap. Assistive only: a person confirms.
          */
         post: operations["inspect_api_v1_quality_inspections_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/quality/lines": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Lines
+         * @description Every production line: P(next lot fails AQL), its defect rate and SPC alarm state.
+         */
+        get: operations["lines_api_v1_quality_lines_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/quality/lines/{line_id}/spc": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Line Spc */
+        get: operations["line_spc_api_v1_quality_lines__line_id__spc_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/quality/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Summary
+         * @description KPIs for the Quality Lab: lots, rejections, QA holds, orders at risk, lines alarming.
+         */
+        get: operations["summary_api_v1_quality_summary_get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -815,32 +910,18 @@ export interface components {
             /** P90 */
             p90: number;
         };
-        /** BatchOut */
-        BatchOut: {
-            /** Aql Result */
-            aql_result: {
-                [key: string]: unknown;
-            };
-            /** Facility */
-            facility: string;
+        /** Body_inspect_api_v1_quality_inspections_post */
+        Body_inspect_api_v1_quality_inspections_post: {
             /**
-             * Id
-             * Format: uuid
+             * Category
+             * @description few-shot bank: stitch, pill, capsule, …
              */
-            id: string;
-            /** Lot Code */
-            lot_code: string;
+            category: string;
             /**
-             * Produced At
-             * Format: date-time
+             * Image
+             * @description JPEG or PNG, ≤ 10 MB
              */
-            produced_at: string;
-            /** Size Units */
-            size_units: number;
-            /** Status */
-            status: string;
-            /** Supplier */
-            supplier: string | null;
+            image: string;
         };
         /** BrandOut */
         BrandOut: {
@@ -956,6 +1037,16 @@ export interface components {
             data: components["schemas"]["KpiStrip"];
             meta: components["schemas"]["Meta"];
         };
+        /** Envelope[LiveResultOut] */
+        Envelope_LiveResultOut_: {
+            data: components["schemas"]["LiveResultOut"];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[LotDetailOut] */
+        Envelope_LotDetailOut_: {
+            data: components["schemas"]["LotDetailOut"];
+            meta: components["schemas"]["Meta"];
+        };
         /** Envelope[NodeDetailOut] */
         Envelope_NodeDetailOut_: {
             data: components["schemas"]["NodeDetailOut"];
@@ -989,6 +1080,11 @@ export interface components {
         /** Envelope[SourceOut] */
         Envelope_SourceOut_: {
             data: components["schemas"]["SourceOut"];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[SpcOut] */
+        Envelope_SpcOut_: {
+            data: components["schemas"]["SpcOut"];
             meta: components["schemas"]["Meta"];
         };
         /** Envelope[SupplyGraphOut] */
@@ -1031,12 +1127,6 @@ export interface components {
             data: components["schemas"]["AlertOut"][];
             meta: components["schemas"]["Meta"];
         };
-        /** Envelope[list[BatchOut]] */
-        Envelope_list_BatchOut__: {
-            /** Data */
-            data: components["schemas"]["BatchOut"][];
-            meta: components["schemas"]["Meta"];
-        };
         /** Envelope[list[DatasetOut]] */
         Envelope_list_DatasetOut__: {
             /** Data */
@@ -1047,6 +1137,24 @@ export interface components {
         Envelope_list_EventOut__: {
             /** Data */
             data: components["schemas"]["EventOut"][];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[list[ItemOut]] */
+        Envelope_list_ItemOut__: {
+            /** Data */
+            data: components["schemas"]["ItemOut"][];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[list[LineOut]] */
+        Envelope_list_LineOut__: {
+            /** Data */
+            data: components["schemas"]["LineOut"][];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[list[LotOut]] */
+        Envelope_list_LotOut__: {
+            /** Data */
+            data: components["schemas"]["LotOut"][];
             meta: components["schemas"]["Meta"];
         };
         /** Envelope[list[ModelOut]] */
@@ -1255,6 +1363,33 @@ export interface components {
             /** Type */
             type: string;
         };
+        /** ItemOut */
+        ItemOut: {
+            /** Category */
+            category: string;
+            /** Flagged */
+            flagged: boolean;
+            /** Heatmap Url */
+            heatmap_url: string | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Image Url */
+            image_url: string;
+            /**
+             * Label
+             * @description Ground truth of the source image
+             */
+            label?: string | null;
+            /** Score */
+            score: number;
+            /** Source Dataset */
+            source_dataset: string;
+            /** Threshold */
+            threshold: number;
+        };
         /** JobAccepted */
         JobAccepted: {
             /**
@@ -1308,6 +1443,169 @@ export interface components {
             note: string;
             /** Origin */
             origin: string;
+        };
+        /** LineOut */
+        LineOut: {
+            /** Alarm Now */
+            alarm_now: boolean;
+            /** Alarms */
+            alarms: number;
+            /** Facility */
+            facility: string;
+            /**
+             * Facility Id
+             * Format: uuid
+             */
+            facility_id: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Industry */
+            industry: string;
+            /** Line */
+            line: string;
+            /** P Fail Next */
+            p_fail_next: number;
+            /** Rate */
+            rate: number;
+        };
+        /** LiveResultOut */
+        LiveResultOut: {
+            /** Category */
+            category: string;
+            /** Flagged */
+            flagged: boolean;
+            /** Heatmap Url */
+            heatmap_url: string;
+            /** Image Url */
+            image_url: string;
+            /** Latency Ms */
+            latency_ms: number;
+            /** Method */
+            method: string;
+            /** Score */
+            score: number;
+            /** Threshold */
+            threshold: number;
+        };
+        /** LotDetailOut */
+        LotDetailOut: {
+            /** Alert */
+            alert: {
+                [key: string]: unknown;
+            } | null;
+            /** Aql */
+            aql: {
+                [key: string]: unknown;
+            };
+            /** Items */
+            items: components["schemas"]["ItemOut"][];
+            /** Line */
+            line: {
+                [key: string]: unknown;
+            } | null;
+            lot: components["schemas"]["LotOut"];
+            /** Order */
+            order: {
+                [key: string]: unknown;
+            } | null;
+            /** Recommendations */
+            recommendations: components["schemas"]["LotOptionOut"][];
+        };
+        /** LotOptionOut */
+        LotOptionOut: {
+            /** Action Type */
+            action_type: string;
+            /** Confidence */
+            confidence: number | null;
+            /** Expected Benefit Usd */
+            expected_benefit_usd: number | null;
+            /** Expected Cost Usd */
+            expected_cost_usd: number | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Params */
+            params: {
+                [key: string]: unknown;
+            };
+            /** Rationale */
+            rationale: string | null;
+            /** Status */
+            status: string;
+        };
+        /** LotOut */
+        LotOut: {
+            /** Accept */
+            accept?: number | null;
+            /** Alert Id */
+            alert_id?: string | null;
+            /** Category */
+            category: string | null;
+            /**
+             * Cluster
+             * @description Plant cluster (a Route Planner place)
+             */
+            cluster?: string | null;
+            /** Confirmed Defects */
+            confirmed_defects?: number | null;
+            /**
+             * Decision
+             * @description accept | reject | qa_review_required
+             */
+            decision?: string | null;
+            /** Facility */
+            facility: string;
+            /**
+             * Facility Id
+             * Format: uuid
+             */
+            facility_id: string;
+            /** False Alarms */
+            false_alarms?: number | null;
+            /** Flagged */
+            flagged?: number | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Industry */
+            industry: string;
+            /** Line */
+            line: string | null;
+            /** Lot Code */
+            lot_code: string;
+            /** Order Due */
+            order_due?: string | null;
+            /** Order Ref */
+            order_ref?: string | null;
+            /**
+             * Produced At
+             * Format: date-time
+             */
+            produced_at: string;
+            /** Product */
+            product: string;
+            /**
+             * Risk Before
+             * @description P(fail AQL) forecast before inspection
+             */
+            risk_before?: number | null;
+            /** Sample Size */
+            sample_size?: number | null;
+            /** Shift */
+            shift: string | null;
+            /** Size Units */
+            size_units: number;
+            /** Sku */
+            sku: string;
+            /** Status */
+            status: string;
         };
         /** MentionOut */
         MentionOut: {
@@ -1912,6 +2210,18 @@ export interface components {
             status: string;
             /** Tier */
             tier: string;
+        };
+        /** SpcOut */
+        SpcOut: {
+            /** Center */
+            center: number;
+            /** Ewma Ucl */
+            ewma_ucl: number;
+            line: components["schemas"]["LineOut"] | null;
+            /** Points */
+            points: {
+                [key: string]: unknown;
+            }[];
         };
         /** SupplyGraphOut */
         SupplyGraphOut: {
@@ -3012,11 +3322,13 @@ export interface operations {
             };
         };
     };
-    list_batches_api_v1_quality_batches_get: {
+    batches_api_v1_quality_batches_get: {
         parameters: {
             query?: {
+                /** @description released | rejected | quarantine */
                 status?: string | null;
-                limit?: number;
+                /** @description garments | pharma */
+                industry?: string | null;
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
             };
@@ -3032,7 +3344,50 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Envelope_list_BatchOut__"];
+                    "application/json": components["schemas"]["Envelope_list_LotOut__"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    batch_api_v1_quality_batches__batch_id__get: {
+        parameters: {
+            query?: {
+                /** @description Scenario key for synthetic rows; omit for real data only */
+                scenario?: string | null;
+            };
+            header?: never;
+            path: {
+                batch_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_LotDetailOut_"];
                 };
             };
             /** @description Not Found */
@@ -3093,6 +3448,48 @@ export interface operations {
             };
         };
     };
+    gallery_api_v1_quality_gallery_get: {
+        parameters: {
+            query?: {
+                /** @description stitch | pill | capsule | carpet | leather */
+                category?: string | null;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_list_ItemOut__"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
     inspect_api_v1_quality_inspections_post: {
         parameters: {
             query?: never;
@@ -3102,19 +3499,142 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": {
-                    [key: string]: unknown;
-                };
+                "multipart/form-data": components["schemas"]["Body_inspect_api_v1_quality_inspections_post"];
             };
         };
         responses: {
             /** @description Successful Response */
-            202: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["JobAccepted"];
+                    "application/json": components["schemas"]["Envelope_LiveResultOut_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    lines_api_v1_quality_lines_get: {
+        parameters: {
+            query?: {
+                /** @description Scenario key for synthetic rows; omit for real data only */
+                scenario?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_list_LineOut__"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    line_spc_api_v1_quality_lines__line_id__spc_get: {
+        parameters: {
+            query?: {
+                /** @description Scenario key for synthetic rows; omit for real data only */
+                scenario?: string | null;
+            };
+            header?: never;
+            path: {
+                line_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_SpcOut_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    summary_api_v1_quality_summary_get: {
+        parameters: {
+            query?: {
+                /** @description Scenario key for synthetic rows; omit for real data only */
+                scenario?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_dict_str__Any__"];
                 };
             };
             /** @description Not Found */

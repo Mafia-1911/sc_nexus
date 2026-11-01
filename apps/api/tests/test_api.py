@@ -454,3 +454,55 @@ def test_c4_port_predictions(client: TestClient) -> None:
     track = client.get(f"/api/v1/vessels/{v['vessel_id']}/prediction").json()["data"]
     assert [u["as_of"][:10] for u in track["updates"]] == ["2026-09-01", "2026-09-02"]
     assert client.get(f"/api/v1/vessels/{call.id}/prediction").status_code == 404
+
+
+def test_c5_quality_lab(client: TestClient) -> None:
+    """C5 §8: lots get AQL decisions, a failed lot gets costed options (C5-AC06), lines get risk
+    and SPC. The gallery rows stand in for `c5 eval` (lot inspection needs no image files)."""
+    from cportal_c5 import pipeline
+    from cportal_core.models import InspectionImage, InspectionResult, Scenario
+
+    with session_scope(URL) as session:
+        sid = session.scalar(select(Scenario.id).where(Scenario.key == "baseline"))
+        assert sid is not None
+        for i in range(40):
+            defect = i % 4 == 0  # 10 defect images; the model misses 2 of them
+            img = InspectionImage(
+                source_id="DS-VIS-04", data_mode="replay", is_synthetic=False, category="stitch",
+                split="test", label="stain_damage" if defect else "good",
+                uri=f"gallery/stitch/{i}.jpg", source_dataset="StitchNet v2 (Roboflow)",
+            )  # fmt: skip
+            session.add(img)
+            session.flush()
+            session.add(
+                InspectionResult(
+                    source_id="c5", data_mode="replay", is_synthetic=False, image_id=img.id,
+                    image_score=0.3 if defect else 0.05, is_anomalous=defect and i % 20 != 0,
+                    threshold=0.1, heatmap_uri=f"gallery/stitch/{i}_heat.png",
+                )
+            )  # fmt: skip
+        session.flush()
+        result = pipeline.refresh(session, sid)
+    assert result["inspected"].get("garments:reject", 0) > 0
+    summary = client.get("/api/v1/quality/summary").json()
+    assert summary["meta"]["mode"] == "synthetic" and summary["data"]["rejected"] > 0
+    rejected = client.get("/api/v1/quality/batches", params={"status": "rejected"}).json()["data"]
+    assert rejected and all(r["decision"] == "reject" for r in rejected)
+    with_alert = next(r for r in rejected if r["alert_id"])
+    detail = client.get(f"/api/v1/quality/batches/{with_alert['id']}").json()["data"]
+    assert detail["aql"]["sample_size"] == 125 and detail["aql"]["accept"] == 7
+    assert len(detail["recommendations"]) >= 2
+    for rec in detail["recommendations"]:
+        assert rec["expected_cost_usd"] is not None and rec["expected_benefit_usd"] is not None
+    assert detail["items"] and detail["items"][0]["flagged"]  # flagged items first
+    lines = client.get("/api/v1/quality/lines").json()["data"]
+    assert lines and 0 <= lines[0]["p_fail_next"] <= 1
+    spc = client.get(f"/api/v1/quality/lines/{lines[0]['id']}/spc").json()["data"]
+    assert spc["points"] and spc["center"] > 0
+    assert client.get("/api/v1/quality/files/../../.env").status_code == 404
+    bad = client.post(
+        "/api/v1/quality/inspections",
+        files={"image": ("x.png", b"\x89PNG", "image/png")},
+        data={"category": "no-such-category"},
+    )
+    assert bad.status_code == 404

@@ -78,7 +78,8 @@ def test_facilities_sit_at_real_clusters(world: World) -> None:
 
 
 def test_batches_follow_aql_25(world: World) -> None:
-    batches = [r for r in world.records if isinstance(r, BatchRecord)]
+    """Incoming-material lots are decided in the simulator; finished-goods lots wait for C5."""
+    batches = [r for r in world.records if isinstance(r, BatchRecord) and r.supplier_facility_id]
     assert batches
     for b in batches:
         result = b.aql_result
@@ -91,3 +92,13 @@ def test_actual_events_are_never_in_the_future(world: World) -> None:
     for e in (r for r in world.records if isinstance(r, TransportEventRecord)):
         if e.classifier == "ACT":
             assert e.event_ts < world.start
+
+
+def test_production_lots_await_qc_and_belong_to_orders(world: World) -> None:
+    lots = [r for r in world.records if isinstance(r, BatchRecord) and r.lot_code.startswith("FG-")]
+    orders = {o.id: o for o in world.orders}
+    assert len(lots) > 500 and all(b.status == "in_process" for b in lots)
+    assert all(0 < b.aql_result["sim"]["latent_defect_rate"] < 1 for b in lots)
+    linked = [b for b in lots if b.order_id]
+    assert linked and all(orders[b.order_id].due_date >= b.produced_at.date() for b in linked)
+    assert world.hero.get("qa_lot_factory")  # the golden path's failing lot has an order

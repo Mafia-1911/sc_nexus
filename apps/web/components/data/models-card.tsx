@@ -15,8 +15,8 @@ export async function ModelsCard() {
         </p>
       ) : (
         <ul className="text-sm">
-          {data.data.map((m) => (
-            <li key={`${m.capability}-${m.name}-${m.version}`}>
+          {data.data.map((m, i) => (
+            <li key={`${m.capability}-${m.name}-${m.version}-${i}`}>
               {m.capability} · {m.name} {m.version}
             </li>
           ))}

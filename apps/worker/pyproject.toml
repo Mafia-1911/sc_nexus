@@ -9,6 +9,7 @@ dependencies = [
     "cportal-c2",
     "cportal-c3",
     "cportal-c4",
+    "cportal-c5",
     "cportal-nexus",
     "cportal-connectors",
     "cportal-core",

@@ -8,6 +8,7 @@ and after. ORS answers are cached, so a re-run spends no quota.
 
 from __future__ import annotations
 
+import hashlib
 import itertools
 import json
 import statistics
@@ -33,40 +34,98 @@ PAIRS = [
     ("BDKAM", "dhaka_epz"), ("BDPGN", "gazipur"), ("BDPGN", "tongi"), ("cepz", "BDKAM"),
 ]  # fmt: skip
 CACHE = repo_root() / "data" / "cache" / "c3_ors.json"
+RAW = repo_root() / "data" / "cache" / "ors"
+MIN_INTERVAL_S = 2.0  # config/sources.yaml DS-GEO-03
+
+
+class OrsQuotaExhausted(RuntimeError):
+    """HTTP 403: the key's daily quota is spent; cached answers stay usable."""
+
+
+class OrsClient:
+    """HeiGIT openrouteservice with the provider's rules (A-083): every answer is persisted under
+    `data/cache/ors/` and reused, so nothing is fetched twice; 429 (per-minute limit) waits for
+    the window (Retry-After when sent, else 60 s) and retries at most twice (U-02); 403 (daily
+    quota) stops at once; requests are spaced by the registry's minimum interval."""
+
+    def __init__(
+        self,
+        raw: Path = RAW,
+        client: httpx.Client | None = None,
+        sleep: Any = time.sleep,
+        min_interval_s: float = MIN_INTERVAL_S,
+    ) -> None:
+        self.raw = raw
+        self.client = client or httpx.Client(timeout=30)
+        self.sleep = sleep
+        self.min_interval_s = min_interval_s
+        self.requests = 0
+        self._last = 0.0
+
+    def directions(self, coords: list[list[float]]) -> dict[str, Any]:
+        body = {"coordinates": [[round(x, 6), round(y, 6)] for x, y in coords]}
+        key = hashlib.sha256(json.dumps(["driving-hgv", body], sort_keys=True).encode()).hexdigest()
+        path = self.raw / f"{key[:24]}.json"
+        if path.exists():
+            cached: dict[str, Any] = json.loads(path.read_text())
+            return cached
+        token = get_settings().ors_api_key
+        if token is None:
+            raise RuntimeError("no ORS_API_KEY / HEIGIT_KEY in .env")
+        for attempt in range(3):  # the first call and two retries on 429
+            wait = self.min_interval_s - (time.monotonic() - self._last)
+            if wait > 0:
+                self.sleep(wait)
+            r = self.client.post(
+                ORS,
+                headers={
+                    "Authorization": token.get_secret_value(),
+                    "User-Agent": get_settings().user_agent(),
+                },
+                json=body,
+            )
+            self._last = time.monotonic()
+            self.requests += 1
+            if r.status_code == 200:
+                self.raw.mkdir(parents=True, exist_ok=True)
+                path.write_text(r.text)
+                out: dict[str, Any] = r.json()
+                return out
+            if r.status_code == 403:
+                raise OrsQuotaExhausted(
+                    "openrouteservice daily quota reached (HTTP 403); answers so far are cached, "
+                    "re-run after the daily reset"
+                )
+            if r.status_code == 429 and attempt < 2:
+                retry_after = r.headers.get("Retry-After", "")
+                self.sleep(float(retry_after) if retry_after.isdigit() else 60.0)
+                continue
+            raise RuntimeError(f"openrouteservice: HTTP {r.status_code} {r.text[:160]}")
+        raise AssertionError("unreachable")
 
 
 def ors(
-    pairs: list[tuple[str, str]], priors: Priors, cache: Path = CACHE
+    pairs: list[tuple[str, str]],
+    priors: Priors,
+    cache: Path = CACHE,
+    client: OrsClient | None = None,
 ) -> dict[str, dict[str, float]]:
-    """ORS HGV distance (m) and duration (s) per pair, from the cache or the API (1 req/s)."""
+    """ORS HGV distance (m) and duration (s) per pair, from the cache or the API."""
     cache.parent.mkdir(parents=True, exist_ok=True)
     known: dict[str, dict[str, float]] = json.loads(cache.read_text()) if cache.exists() else {}
-    key = get_settings().ors_api_key
+    client = client or OrsClient()
     for o, d in pairs:
         name = f"{o}>{d}"
         if name in known:
             continue
-        if key is None:
-            raise RuntimeError("no ORS_API_KEY / HEIGIT_KEY in .env")
         a, b = priors.places[o], priors.places[d]
-        r = httpx.post(
-            ORS,
-            headers={
-                "Authorization": key.get_secret_value(),
-                "User-Agent": "ShipperFast/0.1 (Cportal)",
-            },
-            json={"coordinates": [[a["lon"], a["lat"]], [b["lon"], b["lat"]]]},
-            timeout=30,
-        )
-        if r.status_code != 200:
-            raise RuntimeError(f"ORS {name}: HTTP {r.status_code} {r.text[:120]}")
-        summary = r.json()["routes"][0]["summary"]
+        doc = client.directions([[a["lon"], a["lat"]], [b["lon"], b["lat"]]])
+        summary = doc["routes"][0]["summary"]
         known[name] = {
             "distance_m": float(summary["distance"]),
             "duration_s": float(summary["duration"]),
         }
-        cache.write_text(json.dumps(known, indent=1))
-        time.sleep(1.1)
+        cache.write_text(json.dumps(known, indent=1))  # persist after every answer
     return {f"{o}>{d}": known[f"{o}>{d}"] for o, d in pairs}
 
 

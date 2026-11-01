@@ -10,6 +10,7 @@ dependencies = [
     "cportal-c2",
     "cportal-c3",
     "cportal-c4",
+    "cportal-c5",
     "cportal-core",
     "cportal-nexus",
     "cportal-connectors",
@@ -41,6 +42,7 @@ cportal-c1 = { workspace = true }
 cportal-c2 = { workspace = true }
 cportal-c3 = { workspace = true }
 cportal-c4 = { workspace = true }
+cportal-c5 = { workspace = true }
 cportal-nexus = { workspace = true }
 cportal-connectors = { workspace = true }
 cportal-sim = { workspace = true }
@@ -66,7 +68,7 @@ allowed-confusables = ["–", "×", "’", "‘", "σ"]
 
 [tool.mypy]
 python_version = "3.12"
-files = ["packages/core/src", "packages/connectors/src", "packages/sim/src", "packages/c1_supplier_graph/src", "packages/c2_trade_news/src", "packages/c3_routing/src", "packages/c4_port_dwell/src", "packages/nexus/src", "apps/api/src", "apps/worker/src"]
+files = ["packages/core/src", "packages/connectors/src", "packages/sim/src", "packages/c1_supplier_graph/src", "packages/c2_trade_news/src", "packages/c3_routing/src", "packages/c4_port_dwell/src", "packages/c5_defect_intel/src", "packages/nexus/src", "apps/api/src", "apps/worker/src"]
 disallow_untyped_defs = true
 check_untyped_defs = true
 no_implicit_optional = true
@@ -74,27 +76,27 @@ warn_unused_ignores = true
 warn_redundant_casts = true
 
 [[tool.mypy.overrides]]
-module = ["genson.*", "feedparser.*", "searoute.*", "openpyxl.*", "simpy.*", "pdfplumber.*", "apscheduler.*", "networkx.*", "scipy.*", "osmium.*", "mapie.*", "sksurv.*", "sklearn.*", "joblib.*", "duckdb.*"]
+module = ["genson.*", "feedparser.*", "searoute.*", "openpyxl.*", "simpy.*", "pdfplumber.*", "apscheduler.*", "networkx.*", "scipy.*", "osmium.*", "mapie.*", "sksurv.*", "sklearn.*", "joblib.*", "duckdb.*", "onnxruntime.*"]
 ignore_missing_imports = true
 
 [tool.pyrefly]
 # Editors running pyrefly don't follow uv's editable-install .pth files.
-search-path = ["packages/core/src", "packages/connectors/src", "packages/sim/src", "packages/c1_supplier_graph/src", "packages/c2_trade_news/src", "packages/c3_routing/src", "packages/c4_port_dwell/src", "packages/nexus/src", "apps/api/src", "apps/worker/src"]
+search-path = ["packages/core/src", "packages/connectors/src", "packages/sim/src", "packages/c1_supplier_graph/src", "packages/c2_trade_news/src", "packages/c3_routing/src", "packages/c4_port_dwell/src", "packages/c5_defect_intel/src", "packages/nexus/src", "apps/api/src", "apps/worker/src"]
 
 [tool.pytest.ini_options]
-testpaths = ["packages/core/tests", "packages/connectors/tests", "packages/sim/tests", "packages/c1_supplier_graph/tests", "packages/c2_trade_news/tests", "packages/c3_routing/tests", "packages/c4_port_dwell/tests", "packages/nexus/tests", "apps/api/tests", "apps/worker/tests", "tests"]
+testpaths = ["packages/core/tests", "packages/connectors/tests", "packages/sim/tests", "packages/c1_supplier_graph/tests", "packages/c2_trade_news/tests", "packages/c3_routing/tests", "packages/c4_port_dwell/tests", "packages/c5_defect_intel/tests", "packages/nexus/tests", "apps/api/tests", "apps/worker/tests", "tests"]
 addopts = "-q"
 filterwarnings = ["ignore:Using `httpx` with `starlette.testclient` is deprecated"]
 
 # Package boundaries (02 §4 import rule): capability packages (c1…c5) import only core.
 [tool.importlinter]
-root_packages = ["cportal_core", "cportal_connectors", "cportal_sim", "cportal_c1", "cportal_c2", "cportal_c3", "cportal_c4", "cportal_nexus", "cportal_api", "cportal_worker"]
+root_packages = ["cportal_core", "cportal_connectors", "cportal_sim", "cportal_c1", "cportal_c2", "cportal_c3", "cportal_c4", "cportal_c5", "cportal_nexus", "cportal_api", "cportal_worker"]
 
 [[tool.importlinter.contracts]]
 name = "core is the shared kernel and imports no other Cportal package"
 type = "forbidden"
 source_modules = ["cportal_core"]
-forbidden_modules = ["cportal_connectors", "cportal_sim", "cportal_c1", "cportal_c2", "cportal_c3", "cportal_c4", "cportal_api"]
+forbidden_modules = ["cportal_connectors", "cportal_sim", "cportal_c1", "cportal_c2", "cportal_c3", "cportal_c4", "cportal_c5", "cportal_api"]
 
 [[tool.importlinter.contracts]]
 name = "connectors import only core"
@@ -105,7 +107,7 @@ forbidden_modules = ["cportal_sim", "cportal_api"]
 [[tool.importlinter.contracts]]
 name = "capability packages import only core (02 §4)"
 type = "forbidden"
-source_modules = ["cportal_c1", "cportal_c2", "cportal_c3", "cportal_c4"]
+source_modules = ["cportal_c1", "cportal_c2", "cportal_c3", "cportal_c4", "cportal_c5"]
 forbidden_modules = ["cportal_connectors", "cportal_sim", "cportal_api", "cportal_worker"]
 
 [[tool.importlinter.contracts]]
@@ -117,7 +119,7 @@ forbidden_modules = ["cportal_connectors", "cportal_sim", "cportal_api", "cporta
 [[tool.importlinter.contracts]]
 name = "capability packages are independent of each other"
 type = "independence"
-modules = ["cportal_c1", "cportal_c2", "cportal_c3", "cportal_c4"]
+modules = ["cportal_c1", "cportal_c2", "cportal_c3", "cportal_c4", "cportal_c5"]
 
 [[tool.importlinter.contracts]]
 name = "the API reads the database, never the generators or connectors"

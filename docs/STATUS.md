@@ -1,10 +1,48 @@
-# STATUS (updated 2026-10-27 BST by Claude Code, Opus 5.5)
+# STATUS (updated 2026-11-01 BST by Claude Code, Opus 5.5)
 
-Milestone: **M6 / C4 thin slice done → soft gate: deepen C4 or move to C5?** (C3 thin slice done;
-the user: "we'll deepen C3 later, start on C4"; no new user tasks for now, U-03). Branch `m3-c1`.
-Nothing pushed since M2 (commit only until the whole build is done).
+Milestone: **M7 / C5 thin slice done → soft gate: deepen C5 or move to M8 (Nexus + demo)?**
+(C4 thin slice done; the user: "continue and move to C5"; no new user tasks, U-03). Branch
+`m3-c1`. Nothing pushed since M2 (commit only until the whole build is done).
 
-Done (M6, C4 port dwell, Chattogram):
+Done (M7, C5 defect intelligence):
+- **Data:** `uv run vis-fetch`: MVTec AD pill, capsule, carpet, leather (test sets, masks, 60
+  normal training images each; NC) and StitchNet v2 (483 garment-stitching images, CC BY 4.0)
+  into `data/raw/`, never committed (A-084).
+- **`packages/c5_defect_intel`** (ADR-020, model card `docs/model-cards/c5-defect-intel.md`):
+  DINOv2-S as ONNX on the CPU; AnomalyDINO-style few-shot and MuSc-style zero-shot scoring with
+  heatmaps and tiling; thresholds at 5 % FPR on held-out normals; `c5 eval` writes the report,
+  the gallery (`data/c5/`) and the live few-shot banks (`models/c5/`).
+- **Lots:** ISO 2859-1 (Table 1 and Table 2-A, checked cell by cell against ANSI/ASQ Z1.4);
+  model-assisted counts (confirmed = flagged and real); pharma always held for QA.
+- **Risk and SPC:** beta-binomial lot risk per line (Brier vs base rate, reliability); p-chart
+  and EWMA alarms. **Impact:** failed lot → order at risk → alert with rework, replacement, air
+  and buyer-notice options, each with cost and benefit (C5-AC06). Plant lot quality now feeds C1.
+- **Simulator (world 0.3.0):** finished-goods lots on factory lines, linked to their orders
+  (`batch.order_id`, migration), a drifting line and a QA hero lot whose order is at risk.
+- **Results:** image AUROC few-shot k = 8 / zero-shot: stitch 0.89 / 0.71, pill 0.97 / 0.95,
+  capsule 0.96 / 0.93 (pixel AUROC 0.96–0.99 on MVTec); ≈ 0.4 s per image on CPU (C5-AC02);
+  few-shot rises with k (AC03); AQL tables and OC checks pass (AC04); lot risk Brier 0.046 vs
+  0.057 base rate (AC05); 15 failed lots → 15 alerts, 32 costed options (AC06); 8.1 % of
+  garment lots escape because the model misses defects (reported as the assistive cost).
+- **Worker:** `c5:refresh` (inspect waiting lots, risk, impact). **API:** `/quality/summary`,
+  `/quality/batches[/{id}]`, `/quality/lines[/{id}/spc]`, `/quality/gallery`, `POST
+  /quality/inspections` (live, ≈ 0.5 s), `/quality/files/…`. **Web:** Quality Lab.
+- **openrouteservice** (A-083): 429/403 handling and persisted answers.
+
+Not met yet (honest): AnomalyCLIP baseline (C5-AC01, needs approval); MVTec carpet/leather and
+VisA capsules wait for the user's downloads (U-04); thresholds over-shoot the 5 % FPR on stitch
+(14 %) and capsule (9 %) with 30 calibration images; no evaluation notebook yet (CLI + JSON).
+
+Waiting on user:
+- **AnomalyCLIP baseline (C5-AC01):** running the cloned AnomalyCLIP repository (MIT) needs your
+  approval; the command is ready (see the M7 summary).
+- **Downloads (U-04):** MVTec carpet and leather, VisA (optional) per `docs/USER_TASKS.md`; then
+  the agent runs `uv run c5 eval carpet leather visa_capsules`.
+- Soft gate: deepen C5 (AnomalyCLIP, VisA, a notebook, few-shot upload flow) or move to M8?
+
+---
+
+Earlier (M6, C4 port dwell, Chattogram):
 - **Data:** `uv run gfw-backfill`: 28,160 real GFW port visits (2023 →) and 164,651 anchorage
   presence rows (A-076); DMA AIS, all seven days in the inbox (03-01 re-fetched).
 - **`packages/c4_port_dwell`** (ADR-019, model card `docs/model-cards/c4-port-dwell.md`):
@@ -25,8 +63,7 @@ Not met yet (honest): C4-AC02 (AIS state machine on DMA vs GFW), all-vessel AC03
 queue band under-covers (69 %), satellite panel (Q-15 default: SAR counts + thumbnails), weather,
 tide, holiday and C2-event features, vessel size, a TSFM, Mongla.
 
-Waiting on user:
-- Soft gate: deepen C4 (DMA state machine + AC02, satellite panel, more features) or move to C5?
+Resolved since: the user chose C5 next.
 
 ---
 

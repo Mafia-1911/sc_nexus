@@ -155,62 +155,25 @@
         "title": "Band",
         "type": "object"
       },
-      "BatchOut": {
+      "Body_inspect_api_v1_quality_inspections_post": {
         "properties": {
-          "aql_result": {
-            "additionalProperties": true,
-            "title": "Aql Result",
-            "type": "object"
-          },
-          "facility": {
-            "title": "Facility",
+          "category": {
+            "description": "few-shot bank: stitch, pill, capsule, \u2026",
+            "title": "Category",
             "type": "string"
           },
-          "id": {
-            "format": "uuid",
-            "title": "Id",
+          "image": {
+            "contentMediaType": "application/octet-stream",
+            "description": "JPEG or PNG, \u2264 10 MB",
+            "title": "Image",
             "type": "string"
-          },
-          "lot_code": {
-            "title": "Lot Code",
-            "type": "string"
-          },
-          "produced_at": {
-            "format": "date-time",
-            "title": "Produced At",
-            "type": "string"
-          },
-          "size_units": {
-            "title": "Size Units",
-            "type": "integer"
-          },
-          "status": {
-            "title": "Status",
-            "type": "string"
-          },
-          "supplier": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Supplier"
           }
         },
         "required": [
-          "id",
-          "lot_code",
-          "status",
-          "produced_at",
-          "size_units",
-          "aql_result",
-          "facility",
-          "supplier"
+          "image",
+          "category"
         ],
-        "title": "BatchOut",
+        "title": "Body_inspect_api_v1_quality_inspections_post",
         "type": "object"
       },
       "BrandOut": {
@@ -520,6 +483,38 @@
         "title": "Envelope[KpiStrip]",
         "type": "object"
       },
+      "Envelope_LiveResultOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/LiveResultOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[LiveResultOut]",
+        "type": "object"
+      },
+      "Envelope_LotDetailOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/LotDetailOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[LotDetailOut]",
+        "type": "object"
+      },
       "Envelope_NodeDetailOut_": {
         "properties": {
           "data": {
@@ -630,6 +625,22 @@
           "meta"
         ],
         "title": "Envelope[SourceOut]",
+        "type": "object"
+      },
+      "Envelope_SpcOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/SpcOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[SpcOut]",
         "type": "object"
       },
       "Envelope_SupplyGraphOut_": {
@@ -761,26 +772,6 @@
         "title": "Envelope[list[AlertOut]]",
         "type": "object"
       },
-      "Envelope_list_BatchOut__": {
-        "properties": {
-          "data": {
-            "items": {
-              "$ref": "#/components/schemas/BatchOut"
-            },
-            "title": "Data",
-            "type": "array"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/Meta"
-          }
-        },
-        "required": [
-          "data",
-          "meta"
-        ],
-        "title": "Envelope[list[BatchOut]]",
-        "type": "object"
-      },
       "Envelope_list_DatasetOut__": {
         "properties": {
           "data": {
@@ -819,6 +810,66 @@
           "meta"
         ],
         "title": "Envelope[list[EventOut]]",
+        "type": "object"
+      },
+      "Envelope_list_ItemOut__": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ItemOut"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[list[ItemOut]]",
+        "type": "object"
+      },
+      "Envelope_list_LineOut__": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/LineOut"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[list[LineOut]]",
+        "type": "object"
+      },
+      "Envelope_list_LotOut__": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/LotOut"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[list[LotOut]]",
         "type": "object"
       },
       "Envelope_list_ModelOut__": {
@@ -1494,6 +1545,74 @@
         "title": "GraphNodeOut",
         "type": "object"
       },
+      "ItemOut": {
+        "properties": {
+          "category": {
+            "title": "Category",
+            "type": "string"
+          },
+          "flagged": {
+            "title": "Flagged",
+            "type": "boolean"
+          },
+          "heatmap_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heatmap Url"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "image_url": {
+            "title": "Image Url",
+            "type": "string"
+          },
+          "label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Ground truth of the source image",
+            "title": "Label"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "source_dataset": {
+            "title": "Source Dataset",
+            "type": "string"
+          },
+          "threshold": {
+            "title": "Threshold",
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "category",
+          "image_url",
+          "heatmap_url",
+          "score",
+          "threshold",
+          "flagged",
+          "source_dataset"
+        ],
+        "title": "ItemOut",
+        "type": "object"
+      },
       "JobAccepted": {
         "properties": {
           "job_id": {
@@ -1658,6 +1777,483 @@
           "coords"
         ],
         "title": "LegOut",
+        "type": "object"
+      },
+      "LineOut": {
+        "properties": {
+          "alarm_now": {
+            "title": "Alarm Now",
+            "type": "boolean"
+          },
+          "alarms": {
+            "title": "Alarms",
+            "type": "integer"
+          },
+          "facility": {
+            "title": "Facility",
+            "type": "string"
+          },
+          "facility_id": {
+            "format": "uuid",
+            "title": "Facility Id",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "industry": {
+            "title": "Industry",
+            "type": "string"
+          },
+          "line": {
+            "title": "Line",
+            "type": "string"
+          },
+          "p_fail_next": {
+            "title": "P Fail Next",
+            "type": "number"
+          },
+          "rate": {
+            "title": "Rate",
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "facility_id",
+          "facility",
+          "line",
+          "industry",
+          "p_fail_next",
+          "rate",
+          "alarm_now",
+          "alarms"
+        ],
+        "title": "LineOut",
+        "type": "object"
+      },
+      "LiveResultOut": {
+        "properties": {
+          "category": {
+            "title": "Category",
+            "type": "string"
+          },
+          "flagged": {
+            "title": "Flagged",
+            "type": "boolean"
+          },
+          "heatmap_url": {
+            "title": "Heatmap Url",
+            "type": "string"
+          },
+          "image_url": {
+            "title": "Image Url",
+            "type": "string"
+          },
+          "latency_ms": {
+            "title": "Latency Ms",
+            "type": "number"
+          },
+          "method": {
+            "title": "Method",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "threshold": {
+            "title": "Threshold",
+            "type": "number"
+          }
+        },
+        "required": [
+          "category",
+          "score",
+          "threshold",
+          "flagged",
+          "image_url",
+          "heatmap_url",
+          "latency_ms",
+          "method"
+        ],
+        "title": "LiveResultOut",
+        "type": "object"
+      },
+      "LotDetailOut": {
+        "properties": {
+          "alert": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert"
+          },
+          "aql": {
+            "additionalProperties": true,
+            "title": "Aql",
+            "type": "object"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ItemOut"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "line": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Line"
+          },
+          "lot": {
+            "$ref": "#/components/schemas/LotOut"
+          },
+          "order": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Order"
+          },
+          "recommendations": {
+            "items": {
+              "$ref": "#/components/schemas/LotOptionOut"
+            },
+            "title": "Recommendations",
+            "type": "array"
+          }
+        },
+        "required": [
+          "lot",
+          "aql",
+          "items",
+          "order",
+          "alert",
+          "recommendations",
+          "line"
+        ],
+        "title": "LotDetailOut",
+        "type": "object"
+      },
+      "LotOptionOut": {
+        "properties": {
+          "action_type": {
+            "title": "Action Type",
+            "type": "string"
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence"
+          },
+          "expected_benefit_usd": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Benefit Usd"
+          },
+          "expected_cost_usd": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Cost Usd"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "params": {
+            "additionalProperties": true,
+            "title": "Params",
+            "type": "object"
+          },
+          "rationale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rationale"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "action_type",
+          "expected_cost_usd",
+          "expected_benefit_usd",
+          "confidence",
+          "rationale",
+          "params",
+          "status"
+        ],
+        "title": "LotOptionOut",
+        "type": "object"
+      },
+      "LotOut": {
+        "properties": {
+          "accept": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Accept"
+          },
+          "alert_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert Id"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category"
+          },
+          "cluster": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Plant cluster (a Route Planner place)",
+            "title": "Cluster"
+          },
+          "confirmed_defects": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed Defects"
+          },
+          "decision": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "accept | reject | qa_review_required",
+            "title": "Decision"
+          },
+          "facility": {
+            "title": "Facility",
+            "type": "string"
+          },
+          "facility_id": {
+            "format": "uuid",
+            "title": "Facility Id",
+            "type": "string"
+          },
+          "false_alarms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "False Alarms"
+          },
+          "flagged": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Flagged"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "industry": {
+            "title": "Industry",
+            "type": "string"
+          },
+          "line": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Line"
+          },
+          "lot_code": {
+            "title": "Lot Code",
+            "type": "string"
+          },
+          "order_due": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Order Due"
+          },
+          "order_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Order Ref"
+          },
+          "produced_at": {
+            "format": "date-time",
+            "title": "Produced At",
+            "type": "string"
+          },
+          "product": {
+            "title": "Product",
+            "type": "string"
+          },
+          "risk_before": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "P(fail AQL) forecast before inspection",
+            "title": "Risk Before"
+          },
+          "sample_size": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sample Size"
+          },
+          "shift": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shift"
+          },
+          "size_units": {
+            "title": "Size Units",
+            "type": "integer"
+          },
+          "sku": {
+            "title": "Sku",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "lot_code",
+          "sku",
+          "product",
+          "industry",
+          "category",
+          "facility_id",
+          "facility",
+          "line",
+          "shift",
+          "size_units",
+          "produced_at",
+          "status"
+        ],
+        "title": "LotOut",
         "type": "object"
       },
       "MentionOut": {
@@ -3358,6 +3954,44 @@
           "last_success_ts"
         ],
         "title": "SourceOut",
+        "type": "object"
+      },
+      "SpcOut": {
+        "properties": {
+          "center": {
+            "title": "Center",
+            "type": "number"
+          },
+          "ewma_ucl": {
+            "title": "Ewma Ucl",
+            "type": "number"
+          },
+          "line": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LineOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "points": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Points",
+            "type": "array"
+          }
+        },
+        "required": [
+          "line",
+          "center",
+          "ewma_ucl",
+          "points"
+        ],
+        "title": "SpcOut",
         "type": "object"
       },
       "SupplyGraphOut": {
@@ -5452,10 +6086,10 @@
     },
     "/api/v1/quality/batches": {
       "get": {
-        "description": "Adverse view (defects): organizations show their guarded name (Q-05 guardrail).",
-        "operationId": "list_batches_api_v1_quality_batches_get",
+        "operationId": "batches_api_v1_quality_batches_get",
         "parameters": [
           {
+            "description": "released | rejected | quarantine",
             "in": "query",
             "name": "status",
             "required": false,
@@ -5468,19 +6102,26 @@
                   "type": "null"
                 }
               ],
+              "description": "released | rejected | quarantine",
               "title": "Status"
             }
           },
           {
+            "description": "garments | pharma",
             "in": "query",
-            "name": "limit",
+            "name": "industry",
             "required": false,
             "schema": {
-              "default": 100,
-              "maximum": 500,
-              "minimum": 1,
-              "title": "Limit",
-              "type": "integer"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "garments | pharma",
+              "title": "Industry"
             }
           },
           {
@@ -5508,7 +6149,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Envelope_list_BatchOut__"
+                  "$ref": "#/components/schemas/Envelope_list_LotOut__"
                 }
               }
             },
@@ -5535,7 +6176,80 @@
             "description": "Unprocessable Entity"
           }
         },
-        "summary": "List Batches",
+        "summary": "Batches",
+        "tags": [
+          "quality"
+        ]
+      }
+    },
+    "/api/v1/quality/batches/{batch_id}": {
+      "get": {
+        "description": "AQL result, the inspected items with heatmaps, the order, the alert and its options.",
+        "operationId": "batch_api_v1_quality_batches__batch_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "batch_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Batch Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Scenario key for synthetic rows; omit for real data only",
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "baseline",
+              "description": "Scenario key for synthetic rows; omit for real data only",
+              "title": "Scenario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_LotDetailOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Batch",
         "tags": [
           "quality"
         ]
@@ -5582,28 +6296,100 @@
         ]
       }
     },
+    "/api/v1/quality/gallery": {
+      "get": {
+        "description": "Real dataset test images with the model's score, flag and heatmap (precomputed).",
+        "operationId": "gallery_api_v1_quality_gallery_get",
+        "parameters": [
+          {
+            "description": "stitch | pill | capsule | carpet | leather",
+            "in": "query",
+            "name": "category",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "stitch | pill | capsule | carpet | leather",
+              "title": "Category"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 48,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_list_ItemOut__"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Gallery",
+        "tags": [
+          "quality"
+        ]
+      }
+    },
     "/api/v1/quality/inspections": {
       "post": {
-        "description": "Queue a C5 inspection of images (M7).",
+        "description": "Score one image against the category's few-shot bank (CPU, \u2248 0.4 s): score, flag,\nheatmap. Assistive only: a person confirms.",
         "operationId": "inspect_api_v1_quality_inspections_post",
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "additionalProperties": true,
-                "title": "Body",
-                "type": "object"
+                "$ref": "#/components/schemas/Body_inspect_api_v1_quality_inspections_post"
               }
             }
           },
           "required": true
         },
         "responses": {
-          "202": {
+          "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobAccepted"
+                  "$ref": "#/components/schemas/Envelope_LiveResultOut_"
                 }
               }
             },
@@ -5631,6 +6417,204 @@
           }
         },
         "summary": "Inspect",
+        "tags": [
+          "quality"
+        ]
+      }
+    },
+    "/api/v1/quality/lines": {
+      "get": {
+        "description": "Every production line: P(next lot fails AQL), its defect rate and SPC alarm state.",
+        "operationId": "lines_api_v1_quality_lines_get",
+        "parameters": [
+          {
+            "description": "Scenario key for synthetic rows; omit for real data only",
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "baseline",
+              "description": "Scenario key for synthetic rows; omit for real data only",
+              "title": "Scenario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_list_LineOut__"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Lines",
+        "tags": [
+          "quality"
+        ]
+      }
+    },
+    "/api/v1/quality/lines/{line_id}/spc": {
+      "get": {
+        "operationId": "line_spc_api_v1_quality_lines__line_id__spc_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "line_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Line Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Scenario key for synthetic rows; omit for real data only",
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "baseline",
+              "description": "Scenario key for synthetic rows; omit for real data only",
+              "title": "Scenario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_SpcOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Line Spc",
+        "tags": [
+          "quality"
+        ]
+      }
+    },
+    "/api/v1/quality/summary": {
+      "get": {
+        "description": "KPIs for the Quality Lab: lots, rejections, QA holds, orders at risk, lines alarming.",
+        "operationId": "summary_api_v1_quality_summary_get",
+        "parameters": [
+          {
+            "description": "Scenario key for synthetic rows; omit for real data only",
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "baseline",
+              "description": "Scenario key for synthetic rows; omit for real data only",
+              "title": "Scenario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_str__Any__"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Summary",
         "tags": [
           "quality"
         ]

@@ -41,6 +41,8 @@ class Batch(Lineage, Base):
     product_id: Mapped[UUID] = fk_uuid("product.id")
     facility_id: Mapped[UUID] = fk_uuid("facility.id")
     supplier_facility_id: Mapped[UUID | None] = fk_uuid("facility.id", nullable=True)
+    # 04 §2 "Batch ─allocated_to→ Order": the order a finished-goods lot is made for (C5).
+    order_id: Mapped[UUID | None] = fk_uuid("customer_order.id", nullable=True)
     line: Mapped[str | None] = mapped_column(String(16))
     shift: Mapped[str | None] = mapped_column(String(8))
     size_units: Mapped[int] = mapped_column(Integer)

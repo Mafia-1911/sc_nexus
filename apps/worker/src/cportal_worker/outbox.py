@@ -23,7 +23,6 @@ log = logging.getLogger(__name__)
 MAX_ATTEMPTS = 5
 NOT_YET = {
     "c3.plan": "C3 route planning arrives in M5 (Route Planner).",
-    "c5.inspect": "C5 inspection arrives in M7 (Quality Lab).",
 }
 
 
@@ -60,11 +59,18 @@ def run_c4_train(params: dict[str, Any], database_url: str | None) -> dict[str, 
     return c4.train(database_url)
 
 
+def run_c5_refresh(params: dict[str, Any], database_url: str | None) -> dict[str, Any]:
+    from cportal_worker import c5
+
+    return c5.refresh(database_url, force=bool(params.get("force")))
+
+
 JOB_HANDLERS: dict[str, Callable[[dict[str, Any], str | None], dict[str, Any]]] = {
     "scenario.run": run_scenario,
     "c1.metrics": run_c1_metrics,
     "c2.process": run_c2_process,
     "c4.train": run_c4_train,
+    "c5.refresh": run_c5_refresh,
 }
 # Handlers that record the job id on what they write.
 JOB_HANDLERS_WITH_ID: dict[

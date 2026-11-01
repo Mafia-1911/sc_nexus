@@ -66,3 +66,19 @@ defects:  # Beta(a, b) per supplier facility type, for incoming-material inspect
   fabric_mill: {a: 2.0, b: 60.0}
   overseas:    {a: 1.5, b: 70.0}
   trims_supplier: {a: 1.0, b: 150.0}
+
+# Finished-goods lots at final QC (C5). Estimates, tuned so ≈ 10 % of lots fail AQL 2.5 with the
+# model's recall: ≈ 2 % major defects on a typical line; lots of 1,201–3,200 pieces take code
+# letter K (n = 125, Ac 7).
+production:
+  factories: 10            # the hero factory plus the busiest others
+  lines: 3
+  history_days: 60
+  gap_days: [2, 4]
+  lot_units: [1201, 3200]
+  base_rate: 0.022
+  plant_sd: 0.3
+  line_sd: 0.25
+  lot_sd: 0.4
+  night_shift: 0.2         # log-odds added on shift B
+  drift: {days: 12, factor: 4.0}

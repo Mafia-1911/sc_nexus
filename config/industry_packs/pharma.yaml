@@ -49,3 +49,18 @@ defects:
   pharma_plant:     {a: 1.0, b: 400.0}
   api_manufacturer: {a: 1.0, b: 250.0}
   overseas:         {a: 1.2, b: 220.0}
+
+# Finished-goods lots at visual inspection (C5). Estimates: tablets and capsules with ≈ 0.2 %
+# visual defects; lots of 35,001–150,000 units take code letter N (n = 500, AQL 1.0, Ac 10).
+production:
+  factories: 8
+  lines: 2
+  history_days: 60
+  gap_days: [2, 3]
+  lot_units: [35001, 150000]
+  base_rate: 0.002
+  plant_sd: 0.4
+  line_sd: 0.3
+  lot_sd: 0.35
+  night_shift: 0.1
+  drift: {days: 10, factor: 12.0}

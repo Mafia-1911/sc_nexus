@@ -1,4 +1,5 @@
-"""/routes (C3), /shipments (Nexus), /quality (C5), /models, /jobs. (/graph is C1's router.)
+"""/routes (C3), /shipments (Nexus), /quality/datasets (C5; the rest is in `quality.py`),
+/models, /jobs. (/graph is C1's router.)
 
 Read shapes are fixed now; planning and inspection are jobs that arrive with their capability
 (M5–M7). Organization names go through the active name pack; views that attach adverse
@@ -12,26 +13,19 @@ from uuid import UUID
 
 from cportal_core.enums import ShipmentStatus
 from cportal_core.models import (
-    Batch,
-    Facility,
     ImageDataset,
     Job,
     ModelVersion,
-    Organization,
     Shipment,
     ShipmentLeg,
 )
-from cportal_core.names import display_name
-from fastapi import APIRouter, HTTPException, Query, status
+from fastapi import APIRouter, HTTPException, Query
 from sqlalchemy import select
 
 from cportal_api.deps import ScopeDep, SessionDep, meta
-from cportal_api.jobs import enqueue
 from cportal_api.schemas import (
-    BatchOut,
     DatasetOut,
     Envelope,
-    JobAccepted,
     ModelOut,
     ShipmentOut,
 )
@@ -94,46 +88,6 @@ def _shipment(s: Shipment) -> ShipmentOut:
     )
 
 
-@router.get("/quality/batches", response_model=Envelope[list[BatchOut]], tags=["quality"])
-def list_batches(
-    session: SessionDep,
-    scope: ScopeDep,
-    status_: Annotated[str | None, Query(alias="status")] = None,
-    limit: Annotated[int, Query(ge=1, le=500)] = 100,
-) -> Envelope[list[BatchOut]]:
-    """Adverse view (defects): organizations show their guarded name (Q-05 guardrail)."""
-    q = select(Batch).where(scope.rows(Batch))
-    if status_:
-        q = q.where(Batch.status == status_)
-    rows = session.scalars(q.order_by(Batch.produced_at.desc()).limit(limit)).all()
-    names = _facility_names(
-        {b.facility_id for b in rows} | {b.supplier_facility_id for b in rows}, session
-    )
-    out = [
-        BatchOut(
-            id=b.id,
-            lot_code=b.lot_code,
-            status=b.status,
-            produced_at=b.produced_at,
-            size_units=b.size_units,
-            aql_result=b.aql_result,
-            facility=names.get(b.facility_id, "?"),
-            supplier=names.get(b.supplier_facility_id) if b.supplier_facility_id else None,
-        )
-        for b in rows
-    ]
-    return Envelope(data=out, meta=meta(rows, scope))
-
-
-def _facility_names(ids: set[Any], session: SessionDep) -> dict[Any, str]:
-    rows = session.execute(
-        select(Facility.id, Organization.name_key, Organization.name)
-        .join(Organization, Organization.id == Facility.organization_id)
-        .where(Facility.id.in_([i for i in ids if i]))
-    ).all()
-    return {fid: display_name(key, name, adverse=True) for fid, key, name in rows}
-
-
 @router.get("/quality/datasets", response_model=Envelope[list[DatasetOut]], tags=["quality"])
 def list_datasets(session: SessionDep) -> Envelope[list[DatasetOut]]:
     rows = session.scalars(select(ImageDataset).order_by(ImageDataset.dataset_ref)).all()
@@ -145,17 +99,6 @@ def list_datasets(session: SessionDep) -> Envelope[list[DatasetOut]]:
         for d in rows
     ]  # fmt: skip
     return Envelope(data=out, meta=meta(rows))
-
-
-@router.post(
-    "/quality/inspections",
-    status_code=status.HTTP_202_ACCEPTED,
-    response_model=JobAccepted,
-    tags=["quality"],
-)
-def inspect(session: SessionDep, body: dict[str, Any]) -> JobAccepted:
-    """Queue a C5 inspection of images (M7)."""
-    return enqueue(session, "c5.inspect", body)
 
 
 @router.get("/models", response_model=Envelope[list[ModelOut]], tags=["models"])

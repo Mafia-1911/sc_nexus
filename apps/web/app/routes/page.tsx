@@ -8,14 +8,20 @@ import type { Place } from "@/lib/c3";
 
 export const generateMetadata = () => titled("Route Planner");
 
-async function PlannerLoader() {
+type Params = Promise<{ origin?: string; dest?: string }>;
+
+async function PlannerLoader({ searchParams }: { searchParams: Params }) {
+  const params = await searchParams;
   const client = await api();
   const { data } = await client.GET("/api/v1/routes/places");
   if (!data) return <ErrorNote what="places" />;
-  return <Planner places={data.data as unknown as Place[]} />;
+  const places = data.data as unknown as Place[];
+  const known = (k?: string) => (k && places.some((p) => p.key === k) ? k : undefined);
+  return <Planner places={places} origin={known(params.origin)} dest={known(params.dest)} />;
 }
 
-export default function RoutePlannerPage() {
+/** `?origin=&dest=` prefill the form (Quality Lab's "Replan" opens it from a failed lot's plant). */
+export default function RoutePlannerPage({ searchParams }: { searchParams: Params }) {
   return (
     <>
       <h1 className="mb-1 text-xl font-semibold tracking-tight">Route Planner</h1>
@@ -24,7 +30,7 @@ export default function RoutePlannerPage() {
         the chance of making the deadline.
       </p>
       <Suspense fallback={<div className="skeleton h-40 w-full" />}>
-        <PlannerLoader />
+        <PlannerLoader searchParams={searchParams} />
       </Suspense>
     </>
   );

@@ -23,3 +23,4 @@ Template: `docs/brief/07-decisions.md` §3. Status values: proposed, accepted, s
 | [ADR-017](ADR-017-c2-grounded-rules-first-llm-second-opinion.md) | C2 as grounded rules first, a local LLM as a second opinion, Nexus for buffers | accepted |
 | [ADR-018](ADR-018-c3-own-road-graph-monte-carlo-chains-pareto.md) | C3 on our own OSM road graph, Monte Carlo mode chains and a Pareto filter | accepted |
 | [ADR-019](ADR-019-c4-gfw-labels-point-in-time-cqr-rsf-replay.md) | C4 on GFW port-visit labels, point-in-time features, CQR, a survival forest and an honest replay | accepted |
+| [ADR-020](ADR-020-c5-dinov2-onnx-few-zero-shot-aql-betabinomial.md) | C5 on DINOv2-S patches (ONNX, CPU), few- and zero-shot scoring, ISO 2859-1 lots and a beta-binomial lot risk | accepted |

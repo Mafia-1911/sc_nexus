@@ -297,6 +297,8 @@ class RecommendationAction(StrEnum):
     MODE_SHIFT = "mode_shift"
     EXPEDITE_AIR = "expedite_air"
     REINSPECT = "reinspect"
+    REWORK = "rework"  # C5: 100 % reinspection and repair of a failed lot
+    REPLACE_PRODUCTION = "replace_production"  # C5: make the lot again
     HOLD_SHIPMENT = "hold_shipment"
     NOTIFY_CUSTOMER = "notify_customer"
 

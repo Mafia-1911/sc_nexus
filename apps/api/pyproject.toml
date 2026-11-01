@@ -4,10 +4,12 @@ version = "0.1.0"
 description = "FastAPI app: /api/v1 REST + /ws/live (02 §3); reads only, heavy work via jobs"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "python-multipart>=0.0.20",
     "cportal-c1",
     "cportal-c2",
     "cportal-c3",
     "cportal-c4",
+    "cportal-c5",
     "cportal-core",
     "fastapi>=0.115",
     "uvicorn[standard]>=0.32",

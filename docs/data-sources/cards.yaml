@@ -457,7 +457,7 @@ DS-VIS-01:
   failure_modes: official mydrive.ch links → 404 in M0 (two strikes, not retried); Kaggle search without a token → 200 (public listing)
   quirks: the mirror holds the full release (5.27 GB, 15 categories) in the original layout <category>/{train,test,ground_truth}; 43,258 downloads
   mapping: inspection_image(source_dataset=mvtec_ad, category ← folder, label ← test/<defect>) for pill, capsule, carpet, leather
-  next: 'M7: fetch only the four categories needed'
+  next: 'M7 (2026-11-01): pill and capsule fetched file by file (`uv run vis-fetch mvtec`, larger files arrive zipped); carpet and leather from the official per-category archives (user, U-04)'
 
 DS-VIS-02:
   signup: none
@@ -479,7 +479,7 @@ DS-VIS-04:
   bd_coverage: n/a (garment pack images)
   limits_observed: "StitchNet v4: 483 images, classes Skipped stitch 97, normal 102, Stain and damage 102, Overlapped stitch 101, bobbin thread defect 97"
   failure_modes: MDPI (Carrilho 2024) → 403 bot wall; the brief's figshare "FD dataset (720 images)" could not be found
-  next: download StitchNet + Fabric Stain in M7; confirm AITEX licence on aitex.es before use
+  next: 'M7 (2026-11-01): StitchNet v2 fetched (YOLOv8 export, 483 images, 100 normal); Fabric Stain not needed yet; confirm AITEX licence on aitex.es before use'
 
 DS-VIS-05:
   signup: https://app.roboflow.com (API key, provided)

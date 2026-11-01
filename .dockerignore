@@ -13,3 +13,6 @@ data/cache
 data/inbox
 # Secrets never enter an image; services read them at runtime (env_file).
 .env
+# C5 gallery and model files are bind-mounted, not baked in (docker-compose.yml).
+data/c5
+models/c5

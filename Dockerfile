@@ -16,12 +16,14 @@ COPY packages/c2_trade_news/pyproject.toml packages/c2_trade_news/pyproject.toml
 COPY packages/nexus/pyproject.toml packages/nexus/pyproject.toml
 COPY packages/c3_routing/pyproject.toml packages/c3_routing/pyproject.toml
 COPY packages/c4_port_dwell/pyproject.toml packages/c4_port_dwell/pyproject.toml
+COPY packages/c5_defect_intel/pyproject.toml packages/c5_defect_intel/pyproject.toml
 COPY apps/api/pyproject.toml apps/api/pyproject.toml
 COPY apps/worker/pyproject.toml apps/worker/pyproject.toml
 RUN mkdir -p packages/core/src/cportal_core packages/connectors/src/cportal_connectors \
       packages/sim/src/cportal_sim packages/c1_supplier_graph/src/cportal_c1 \
       packages/c2_trade_news/src/cportal_c2 packages/nexus/src/cportal_nexus \
       packages/c3_routing/src/cportal_c3 packages/c4_port_dwell/src/cportal_c4 \
+      packages/c5_defect_intel/src/cportal_c5 \
       apps/api/src/cportal_api apps/worker/src/cportal_worker \
  && uv sync --frozen --no-dev --no-install-workspace
 COPY . .

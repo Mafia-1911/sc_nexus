@@ -21,6 +21,7 @@ probe = "cportal_connectors.probe_cli:main"
 ais-collect = "cportal_connectors.ais_collector:main"
 ais-synth = "cportal_connectors.ais_synthetic:main"
 gfw-backfill = "cportal_connectors.gfw_backfill:main"
+vis-fetch = "cportal_connectors.vision_fetch:main"
 
 [tool.uv.sources]
 cportal-core = { workspace = true }

@@ -29,6 +29,7 @@ from cportal_api.routers import (
     kpis,
     network,
     ports,
+    quality,
     routes,
     scenarios,
     sources,
@@ -102,7 +103,7 @@ def create_app() -> FastAPI:
             version=__version__,
         )
 
-    routers = (sources, scenarios, ports, dwell, events, graph, routes, network, kpis)
+    routers = (sources, scenarios, ports, dwell, quality, events, graph, routes, network, kpis)
     for module in routers:
         router = module.router
         api.include_router(router)

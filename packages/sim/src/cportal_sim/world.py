@@ -57,7 +57,7 @@ from cportal_core.schemas.records import (
     point,
 )
 
-GENERATOR = "cportal-sim/world/0.2.0"
+GENERATOR = "cportal-sim/world/0.3.0"
 SOURCE = "sim"
 KM_PER_DEG = 111.32
 DEFAULT_START = date(2026, 10, 26)
@@ -491,6 +491,98 @@ class WorldBuilder:
                     ):
                         self.shipment(order, factory_key, buyer, pack)
 
+    def production(self, pack: dict[str, Any]) -> None:
+        """Finished-goods lots awaiting final QC (C5): lines, shifts, a latent defect rate per lot
+        (plant, line, shift and lot effects; one drifting line; the hero factory's line L2 drifts
+        last), each lot linked to the order it is made for. Own RNG stream, so nothing else in
+        the world changes. The latent rate is simulator truth under `aql_result.sim`."""
+        spec = pack.get("production")
+        if not spec:
+            return
+        w = self.world
+        rng = random.Random(f"{w.seed}:production:{pack['industry']}")  # same in every scenario
+        prefix = INDUSTRY_PREFIX[pack["industry"]]
+        by_facility: dict[str, list[CustomerOrderRecord]] = {}
+        key_of = {f.id: k for k, f in w.facilities.items()}
+        for order in w.orders:
+            if order.facility_id is not None and order.reference.startswith(f"PO-{prefix}"):
+                by_facility.setdefault(key_of[order.facility_id], []).append(order)
+        ranked = sorted(by_facility, key=lambda k: (-len(by_facility[k]), k))
+        chosen = ranked[: int(spec["factories"])]
+        # The QA hero: the factory with the soonest order in production (due within two weeks);
+        # its line L2 makes that order and drifts, so its last lot puts the order at risk.
+        today = w.start.date()
+        soon = [
+            o
+            for orders in by_facility.values()
+            for o in orders
+            if o.status == OrderStatus.IN_PRODUCTION
+            and today + timedelta(days=3) <= o.due_date <= today + timedelta(days=14)
+        ]
+        hero_order = min(soon, key=lambda o: (o.due_date, o.reference)) if soon else None
+        hero_key = key_of[hero_order.facility_id] if hero_order and hero_order.facility_id else None
+        if hero_key:
+            chosen = [hero_key, *[k for k in chosen if k != hero_key][: len(chosen) - 1]]
+            w.hero["qa_lot_factory"] = hero_key
+        logit = math.log(spec["base_rate"] / (1 - spec["base_rate"]))
+        drifting = rng.choice(chosen)
+        sku_of = {p.id: s for s, p in w.products.items()}
+        for fkey in chosen:
+            facility = w.facilities[fkey]
+            plant = rng.gauss(0, spec["plant_sd"])
+            orders = sorted(by_facility[fkey], key=lambda o: o.due_date)
+            skus = sorted({sku_of[o.product_id] for o in orders})
+            for li in range(int(spec["lines"])):
+                line = f"L{li + 1}"
+                sku = skus[li % len(skus)]
+                line_eff = rng.gauss(0, spec["line_sd"])
+                drift = fkey == drifting and line == "L1"
+                hero = fkey == hero_key and line == "L2"
+                if hero and hero_order is not None:
+                    sku = sku_of[hero_order.product_id]
+                t = w.start - timedelta(days=spec["history_days"], hours=rng.uniform(0, 24))
+                while t < w.start - timedelta(hours=6):
+                    days_left = (w.start - t).total_seconds() / 86_400
+                    shift = "A" if 6 <= t.hour < 18 else "B"
+                    x = logit + plant + line_eff + rng.gauss(0, spec["lot_sd"])
+                    x += spec["night_shift"] if shift == "B" else 0.0
+                    if drift or hero:
+                        ramp = min(1.0, max(0.0, 1 - days_left / spec["drift"]["days"]))
+                        x += math.log(spec["drift"]["factor"] * (2.0 if hero else 1.0)) * ramp
+                    rate = 1 / (1 + math.exp(-x))
+                    size = rng.randint(*spec["lot_units"])
+                    # The order whose production run this lot belongs to: due 3–21 days after it.
+                    soon_d, late_d = t.date() + timedelta(days=3), t.date() + timedelta(days=21)
+                    target = next(
+                        (
+                            o
+                            for o in orders
+                            if sku_of[o.product_id] == sku and soon_d <= o.due_date <= late_d
+                        ),
+                        None,
+                    )
+                    if hero and hero_order is not None and days_left <= 14:
+                        target = hero_order
+                    key = f"{fkey}:{line}:{t.isoformat()}"
+                    bid = self.rid("batch", key)
+                    w.add(
+                        BatchRecord(
+                            id=bid,
+                            **self.lin(key, available_at=t + timedelta(hours=2)),
+                            lot_code=f"FG-{prefix}-{bid.hex[:8].upper()}",
+                            product_id=w.products[sku].id,
+                            facility_id=facility.id,
+                            order_id=target.id if target else None,
+                            line=line,
+                            shift=shift,
+                            size_units=size,
+                            produced_at=t,
+                            status=BatchStatus.IN_PROCESS,
+                            aql_result={"sim": {"latent_defect_rate": round(rate, 5)}},
+                        )
+                    )
+                    t += timedelta(days=rng.uniform(*spec["gap_days"]))
+
     def shipment(
         self,
         order: CustomerOrderRecord,
@@ -779,12 +871,17 @@ def build_world(
         b.orders_and_shipments(pack, buyers, makers)
         b.capacities(pack)
         b.inventory_and_batches(pack)
+        b.production(pack)
     w = b.world
     denim = w.products.get("G-DENIM_FABRIC")
-    w.hero = {
-        "denim_hub_facility": next(
-            (k for k in w.facilities if k.startswith("fabric_mill_3.")), None
-        ),
-        "denim_edges": [e.id for e in w.edges if denim is not None and e.product_id == denim.id],
-    }
+    w.hero.update(
+        {
+            "denim_hub_facility": next(
+                (k for k in w.facilities if k.startswith("fabric_mill_3.")), None
+            ),
+            "denim_edges": [
+                e.id for e in w.edges if denim is not None and e.product_id == denim.id
+            ],
+        }
+    )
     return w

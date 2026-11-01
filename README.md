@@ -4,11 +4,12 @@ A supply-chain resilience platform proven on Bangladesh's Chattogram–Dhaka cor
 and pharma shippers. The full specification is in [`docs/brief/`](docs/brief/00-INDEX.md); agents
 start from [`AGENTS.md`](AGENTS.md), and progress lives in [`docs/STATUS.md`](docs/STATUS.md).
 
-**Current milestone: M5 (C3 routing), thin slice done.** One command brings up the database,
-API, worker and web app: Control Tower, Supplier Network (single points of failure, TTS vs TTR,
-what-ifs), Disruption Radar (grounded events from news, buffer recommendations), Route Planner
-(road, rail and barge plans with P50/P90, cost, CO2e and on-time odds) and Data & Models.
-C4–C5 follow.
+**Current milestone: M7 (C5 defect intelligence), thin slice done.** One command brings up the
+database, API, worker and web app: Control Tower, Supplier Network (single points of failure,
+what-ifs), Disruption Radar (grounded events, buffer recommendations), Route Planner (road, rail
+and barge plans), Ports & Vessels (dwell and queue forecasts on real GFW port visits), Quality Lab
+(anomaly heatmaps, ISO 2859-1 lots, orders at risk) and Data & Models. Nexus and demo polish (M8)
+follow.
 
 ![Control Tower, hero scenario](docs/screenshots/control-tower-light.png)
 
@@ -31,6 +32,17 @@ key stay in replay or synthetic mode. `CPORTAL_LIVE=0 make up` keeps the worker 
 The Route Planner needs the OpenStreetMap road graph once: put the Geofabrik Bangladesh extract
 (https://download.geofabrik.de/asia/bangladesh-latest.osm.pbf, ≈ 340 MB) in `data/raw/DS-GEO-01/`
 and run `make road-graph` (≈ 15 s, 2 GB RAM).
+
+Ports & Vessels and Quality Lab need their data once (real, fetched on your machine, never
+committed):
+
+```bash
+uv run gfw-backfill && uv run c4 train BDCGP   # GFW port visits since 2023 → C4 models (≈ 5 min)
+uv run vis-fetch all && uv run c5 eval          # MVTec AD subset + StitchNet → C5 gallery (≈ 1.5 h)
+```
+
+The worker then inspects the simulated lots by itself (`c5:refresh`). MVTec AD is
+non-commercial (CC BY-NC-SA 4.0): keep its images off any public deployment.
 
 ## Quickstart (laptop, no Docker)
 

@@ -584,6 +584,7 @@ class BatchRecord(Record):
     product_id: UUID
     facility_id: UUID
     supplier_facility_id: UUID | None = None
+    order_id: UUID | None = None
     line: str | None = None
     shift: str | None = None
     size_units: int = Field(gt=0)

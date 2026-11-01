@@ -35,11 +35,11 @@ function OnTime({ p }: { p: number | null | undefined }) {
   return <Badge tone={tone}>{fmt(p * 100)}% on time</Badge>;
 }
 
-export function Planner({ places }: { places: Place[] }) {
+export function Planner({ places, origin, dest }: { places: Place[]; origin?: string; dest?: string }) {
   const now = useMemo(() => new Date(), []);
   const [form, setForm] = useState({
-    origin: "BDCGP",
-    dest: "gazipur",
+    origin: origin ?? "BDCGP",
+    dest: dest ?? "gazipur",
     qty_teu: 2,
     reefer: false,
     deadline: localInput(new Date(now.getTime() + 36 * 3600 * 1000)),

@@ -119,12 +119,16 @@ def load(session: Session, scenario: Scenario, priors: Priors | None = None) -> 
         (s.facility_id, s.product_id, s.ts, s.on_hand)
         for s in session.scalars(select(InventoryPosition).where(_scoped(InventoryPosition, sid)))
     ]
+    # Incoming lots count against their supplier; finished-goods lots (C5) against the plant
+    # that made them (C5-R04), where only an AQL rejection is bad (pharma QA holds are routine).
     lots = [
         (supplier, lot_status, produced)
-        for supplier, lot_status, produced in session.execute(
-            select(Batch.supplier_facility_id, Batch.status, Batch.produced_at).where(
-                _scoped(Batch, sid)
-            )
+        if supplier is not None
+        else (plant, "rejected" if lot_status == "rejected" else "released", produced)
+        for supplier, plant, lot_status, produced in session.execute(
+            select(
+                Batch.supplier_facility_id, Batch.facility_id, Batch.status, Batch.produced_at
+            ).where(_scoped(Batch, sid), Batch.status != "in_process")
         )
     ]
     events = {

@@ -4,12 +4,16 @@ from __future__ import annotations
 
 import random
 from datetime import UTC, datetime, timedelta
+from pathlib import Path
 
+import httpx
 import pytest
+from cportal_c3.calibrate import OrsClient, OrsQuotaExhausted
 from cportal_c3.network import Edge, RoadNet
 from cportal_c3.osm import haversine_m
 from cportal_c3.plan import Planner, Request, _next_departure
 from cportal_c3.priors import load_priors
+from cportal_core.settings import get_settings
 from cportal_core.timeutil import DHAKA
 
 P = load_priors()
@@ -148,3 +152,44 @@ def test_departure_sweep(planner: Planner) -> None:
         len(sweep) == int(P["departure_sweep"]["hours"]) // int(P["departure_sweep"]["step_h"]) + 1
     )
     assert all("p90_h" in row and "on_time_prob" in row for row in sweep)
+
+
+def _ors_client(tmp_path: Path, responses: list[httpx.Response]) -> tuple[OrsClient, list[float]]:
+    calls = iter(responses)
+    waits: list[float] = []
+    transport = httpx.MockTransport(lambda request: next(calls))
+    client = OrsClient(
+        raw=tmp_path, client=httpx.Client(transport=transport), sleep=waits.append, min_interval_s=0
+    )
+    return client, waits
+
+
+ROUTE = {"routes": [{"summary": {"distance": 250_000.0, "duration": 12_000.0}}]}
+
+
+def test_ors_retries_429_and_persists(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("ORS_API_KEY", "test-key")
+    get_settings.cache_clear()
+    client, waits = _ors_client(
+        tmp_path,
+        [httpx.Response(429, headers={"Retry-After": "7"}), httpx.Response(200, json=ROUTE)],
+    )
+    assert client.directions([[91.8, 22.3], [90.4, 23.7]]) == ROUTE
+    assert waits == [7.0] and client.requests == 2 and len(list(tmp_path.iterdir())) == 1
+    again, _ = _ors_client(tmp_path, [])  # answered from disk: no request at all
+    assert again.directions([[91.8, 22.3], [90.4, 23.7]]) == ROUTE and again.requests == 0
+    get_settings.cache_clear()
+
+
+def test_ors_stops_on_daily_quota(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("ORS_API_KEY", "test-key")
+    get_settings.cache_clear()
+    client, _ = _ors_client(tmp_path, [httpx.Response(403, text="Quota exceeded")])
+    with pytest.raises(OrsQuotaExhausted):
+        client.directions([[91.8, 22.3], [90.4, 23.7]])
+    assert client.requests == 1 and not list(tmp_path.iterdir())
+    many, _ = _ors_client(tmp_path, [httpx.Response(429)] * 3)
+    with pytest.raises(RuntimeError, match="429"):
+        many.directions([[91.8, 22.3], [90.4, 23.7]])  # two retries, then give up (U-02)
+    assert many.requests == 3
+    get_settings.cache_clear()

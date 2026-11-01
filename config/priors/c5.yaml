@@ -1,0 +1,59 @@
+# C5 assumptions (defect intelligence). Numbers name their source; "estimate" marks a placeholder.
+version: 1
+
+# Image categories (Q-16 default: fabric/stitching for garments, tablets and capsules for pharma).
+# Every image keeps its dataset and licence; images map to fictional SKUs only.
+categories:
+  stitch:  {dataset: DS-VIS-04, source: "StitchNet v2 (Roboflow)", licence: "CC BY 4.0", nc: false, tile: null}
+  pill:    {dataset: DS-VIS-01, source: "MVTec AD pill", licence: "CC BY-NC-SA 4.0", nc: true, tile: null}
+  capsule: {dataset: DS-VIS-01, source: "MVTec AD capsule", licence: "CC BY-NC-SA 4.0", nc: true, tile: null}
+  carpet:  {dataset: DS-VIS-01, source: "MVTec AD carpet", licence: "CC BY-NC-SA 4.0", nc: true, tile: 512}
+  leather: {dataset: DS-VIS-01, source: "MVTec AD leather", licence: "CC BY-NC-SA 4.0", nc: true, tile: 512}
+  visa_capsules: {dataset: DS-VIS-02, source: "VisA capsules", licence: "CC BY 4.0", nc: false, tile: null}
+
+# Finished-goods SKUs → image category inspected at final QC.
+sku_category:
+  G-TSHIRT: stitch
+  G-POLO: stitch
+  G-DENIM_TROUSER: stitch
+  G-SWEATER: stitch
+  P-PARACETAMOL_500: pill
+  P-METFORMIN_500: pill
+  P-AMOXICILLIN_500: capsule
+  P-OMEPRAZOLE_20: capsule
+
+# Anomaly scoring (vision.py). Threshold per category at this false-positive rate on held-out
+# normal images (C5 §5).
+vision:
+  side: 448
+  target_fpr: 0.05
+  shots: [1, 4, 8]          # few-shot k values evaluated (C5-AC03)
+  live_shots: 8             # references in the live few-shot bank
+  calibration_normals: 30   # held-out normal images per category for the threshold
+  musc_refs: 32             # other images each image is compared with (zero-shot)
+
+# ISO 2859-1 single sampling, normal inspection, general level II (C5 §6). Garment defaults:
+# AQL 2.5 major, 4.0 minor; per buyer later. Pharma: never an automatic decision.
+aql:
+  level: II
+  garments: {major: 2.5, minor: 4.0}
+  pharma: {major: 1.0}
+  max_stored_items: 24      # sampled items kept as rows for display (counts use every item)
+
+# Defective-batch risk (C5 §6.3): beta-binomial, line ⊂ plant, empirical Bayes; SPC per line.
+risk:
+  min_history: 6            # batches before a line's own rate counts
+  ewma_lambda: 0.3
+  test_days: 20
+
+# Impact (C5 §6.4). Costs are estimates unless cited.
+impact:
+  rework_days: {garments: 4, pharma: 10}         # rework or reinspection lead time (estimate)
+  replace_days: {garments: 12, pharma: 21}       # replacement production (estimate)
+  rework_cost_share: 0.08                        # of batch value (estimate)
+  replace_cost_share: 0.85                       # of batch value: materials + labour (estimate)
+  sea_days_saved_by_air: 18                      # Chattogram → EU sea vs air (estimate)
+  air_usd_per_kg: 4.5                            # BD → EU air freight, general cargo (estimate)
+  sea_usd_per_kg: 0.25                           # BD → EU sea, FCL share (estimate)
+  kg_per_unit: {garments: 0.25, pharma: 0.0006}  # packed weight per unit (estimate)
+  late_penalty_share: 0.05                       # buyer claim or discount per late order (estimate)

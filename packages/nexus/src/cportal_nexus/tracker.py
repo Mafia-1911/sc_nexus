@@ -29,7 +29,7 @@ from cportal_core.paths import repo_root
 from sqlalchemy import delete, func, insert, or_, select, update
 from sqlalchemy.orm import Session, aliased
 
-from cportal_nexus import DOOR_ETA_VERSION
+from cportal_nexus import DOOR_ETA_VERSION, fusion
 from cportal_nexus.door_eta import Hold, Leg, Priors, as_hours, due_time, simulate
 
 NS = uuid5(NAMESPACE_URL, "cportal/nexus/door-eta")
@@ -97,6 +97,7 @@ def stoppage_types() -> frozenset[str]:
 
 
 def holds(session: Session, scenario_id: UUID) -> list[tuple[Hold, UUID]]:
+    fused = fusion.fused_confidence(session, scenario_id)  # NX: fused beats news-only
     rows = session.scalars(
         select(DisruptionEvent).where(
             DisruptionEvent.type.in_(stoppage_types()),
@@ -113,7 +114,7 @@ def holds(session: Session, scenario_id: UUID) -> list[tuple[Hold, UUID]]:
         p50 = float(e.duration_p50_h or prior["p50_h"])
         p90 = float(e.duration_p90_h or prior["p90_h"])
         for code in e.locodes or []:
-            conf = float(e.confidence or 1.0)
+            conf = fused.get(e.id, float(e.confidence or 1.0))
             out.append((Hold(e.title, code, e.start_est, p50, p90, conf), e.id))
     return out
 

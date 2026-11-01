@@ -118,6 +118,8 @@ test("Disruption Radar: one grounded event, evidence and a buffer recommendation
   await expect(drawer).toBeVisible({ timeout: 15_000 });
   await expect(page.getByTestId("evidence").locator("mark").first()).toBeVisible();
   await expect(page.getByTestId("buffer-rec")).toContainText("Expected benefit");
+  // NX-AC03: the news is corroborated by the hazard feed (evidence fusion).
+  await expect(page.getByTestId("corroboration")).toContainText("hazard");
   for (const theme of ["light", "dark"] as const) {
     await setTheme(page, theme);
     await page.waitForTimeout(400);

@@ -175,6 +175,15 @@ class EventOut(BaseModel):
     first_seen: datetime | None = None
     last_updated: datetime | None = None
     mentions: int = 0
+    confidence_fused: float | None = Field(
+        None, description="Nexus evidence fusion (08 §3): news confidence plus corroboration"
+    )
+    corroboration: list[dict[str, Any]] = Field(
+        default_factory=list, description="Signals behind the fused confidence (kind, strength)"
+    )
+    fusion_checks: list[dict[str, Any]] = Field(
+        default_factory=list, description="Checks that found no anomaly yet (not held against it)"
+    )
 
 
 class MentionOut(BaseModel):

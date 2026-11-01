@@ -14,6 +14,7 @@ from cportal_core.models import (
     EventEntityLink,
     EventMention,
     Facility,
+    Prediction,
     Recommendation,
 )
 from fastapi import APIRouter, HTTPException, Query, status
@@ -37,8 +38,29 @@ router = APIRouter(tags=["events"])
 FEEDS = ("DS-WX-02", "DS-PHARMA-01", "DS-PORT-01", "DS-NEWS-04")
 
 
-def _event(e: DisruptionEvent, mentions: int = 0) -> EventOut:
+def _fusion(session: SessionDep, scope: ScopeDep, ids: list[UUID]) -> dict[UUID, Prediction]:
+    """The Nexus fusion row for exactly this scope (the real world, or the chosen scenario)."""
+    if not ids:
+        return {}
+    rows = session.scalars(
+        select(Prediction).where(
+            Prediction.capability == "nexus",
+            Prediction.target_type == "event_confidence",
+            Prediction.target_id.in_(ids),
+            Prediction.scenario_id.is_(None)
+            if scope.scenario_id is None
+            else Prediction.scenario_id == scope.scenario_id,
+        )
+    ).all()
+    return {p.target_id: p for p in rows}
+
+
+def _event(e: DisruptionEvent, mentions: int = 0, fused: Prediction | None = None) -> EventOut:
+    x = fused.explanation if fused else {}
     return EventOut(
+        confidence_fused=fused.value if fused else None,
+        corroboration=x.get("signals", []),
+        fusion_checks=x.get("checks", []),
         id=e.id,
         type=e.type,
         subtype=e.subtype,
@@ -137,7 +159,11 @@ def list_events(
             .group_by(EventMention.event_id)
         ).all()
     )
-    return Envelope(data=[_event(e, counts.get(e.id, 0)) for e in rows], meta=meta(rows, scope))
+    fused = _fusion(session, scope, [e.id for e in rows])
+    return Envelope(
+        data=[_event(e, counts.get(e.id, 0), fused.get(e.id)) for e in rows],
+        meta=meta(rows, scope),
+    )
 
 
 @router.get("/events/{event_id}", response_model=Envelope[EventDetailOut])
@@ -185,7 +211,7 @@ def get_event(event_id: UUID, session: SessionDep, scope: ScopeDep) -> Envelope[
     ).all()
     return Envelope(
         data=EventDetailOut(
-            event=_event(row, len(mentions)),
+            event=_event(row, len(mentions), _fusion(session, scope, [row.id]).get(row.id)),
             mentions=mentions,
             linked_facilities=linked,
             alerts=[_alert(a) for a in alert_rows],

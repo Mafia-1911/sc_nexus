@@ -80,6 +80,9 @@ function Recommendation({ rec, scenario }: { rec: Rec; scenario: string }) {
   );
 }
 
+type Signal = { kind: string; label: string; contribution: number };
+type Check = { kind: string; label: string };
+
 export function EventDrawer({ detail, scenario, onClose }: { detail: EventDetail; scenario: string; onClose: () => void }) {
   const e = detail.event;
   return (
@@ -102,6 +105,12 @@ export function EventDrawer({ detail, scenario, onClose }: { detail: EventDetail
         </span>
         <span>
           Confidence <strong className="tabular">{fmt((e.confidence ?? 0) * 100)}%</strong>
+          {e.confidence_fused != null && e.confidence_fused !== e.confidence ? (
+            <>
+              {" "}
+              → <strong className="tabular text-ok">{fmt(e.confidence_fused * 100)}%</strong> fused
+            </>
+          ) : null}
         </span>
         <span>{e.mentions} report(s)</span>
         {e.locodes.map((l) => (
@@ -109,6 +118,28 @@ export function EventDrawer({ detail, scenario, onClose }: { detail: EventDetail
         ))}
         <DataBadge mode={e.data_mode} sources={[e.source_id]} />
       </div>
+      {e.corroboration?.length || e.fusion_checks?.length ? (
+        <section data-testid="corroboration">
+          <h3 className="mb-1.5 text-xs font-semibold text-muted">
+            Corroborated by (log-odds added to the news confidence)
+          </h3>
+          <ul className="flex flex-wrap gap-2">
+            {((e.corroboration ?? []) as Signal[]).map((s, i) => (
+              <li key={i}>
+                <Badge tone={s.kind === "news" ? "info" : "ok"} title={s.label}>
+                  {s.kind}: {s.label.length > 48 ? `${s.label.slice(0, 47)}…` : s.label} · +
+                  {s.contribution.toFixed(2)}
+                </Badge>
+              </li>
+            ))}
+          </ul>
+          {((e.fusion_checks ?? []) as Check[]).map((c, i) => (
+            <p key={i} className="mt-1 text-xs text-muted">
+              {c.kind}: {c.label}
+            </p>
+          ))}
+        </section>
+      ) : null}
       {detail.mentions.length ? (
         <section>
           <h3 className="mb-1.5 text-xs font-semibold text-muted">Evidence (highlighted spans are what the extractor used)</h3>

@@ -1197,6 +1197,27 @@
             ],
             "title": "Confidence"
           },
+          "confidence_fused": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Nexus evidence fusion (08 \u00a73): news confidence plus corroboration",
+            "title": "Confidence Fused"
+          },
+          "corroboration": {
+            "description": "Signals behind the fused confidence (kind, strength)",
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Corroboration",
+            "type": "array"
+          },
           "country_iso3": {
             "items": {
               "type": "string"
@@ -1253,6 +1274,15 @@
               }
             ],
             "title": "First Seen"
+          },
+          "fusion_checks": {
+            "description": "Checks that found no anomaly yet (not held against it)",
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Fusion Checks",
+            "type": "array"
           },
           "geometry": {
             "anyOf": [

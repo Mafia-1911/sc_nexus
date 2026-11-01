@@ -46,6 +46,13 @@ tell the agent; each item says where its result goes.
       CC BY 4.0). Extract into `data/raw/DS-VIS-02/`: `tar -xf VisA_20220922.tar -C
       data/raw/DS-VIS-02/` (only the `capsules/` folder is needed; the rest can be deleted).
 
+- [ ] **Repair the NTFS drive (sudo):** after the unclean reboot, three files show as `?????????`
+      and can't be read or deleted: `docs/screenshots/quality-lab-dark.png`, `quality-lab-light.png`,
+      `quality-lot-drawer.png`. Stop the stack (`make down`), close editors on the drive, then
+      `sudo umount /run/media/mushh/NUSHAN && sudo ntfsfix -d /dev/sdc1` (or `chkdsk /f` on Windows,
+      which repairs more). Re-mount; the agent then regenerates the Quality Lab screenshots. Until
+      then `docs/screenshots` is kept out of Docker builds (A-094). Worth a backup of the drive first.
+
 ## Done
 
 - [x] DMA AIS days 2025-02-27 … 2025-03-05 in `data/inbox/DS-AIS-03/` (03-01 re-fetched, complete).

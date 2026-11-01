@@ -105,6 +105,11 @@ export function RadarWorkbench({
                           <span className="block h-1.5 rounded-full bg-warn" style={{ width: `${(e.severity ?? 0) * 100}%` }} />
                         </span>
                         severity {fmt((e.severity ?? 0) * 100)} · confidence {fmt((e.confidence ?? 0) * 100)}%
+                        {e.confidence_fused != null && e.confidence_fused !== e.confidence ? (
+                          <span data-testid="fused" className="text-ok">
+                            → {fmt(e.confidence_fused * 100)}% corroborated
+                          </span>
+                        ) : null}
                       </span>
                     </span>
                   </button>

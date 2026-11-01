@@ -23,7 +23,7 @@ from cportal_connectors.ingest import replay_source, sync_data_sources
 from cportal_core.db import session_scope
 from cportal_core.models import Article, ModelVersion, Port, PortCall, Prediction
 from cportal_core.names import load_pack
-from cportal_nexus import buffer, tracker
+from cportal_nexus import buffer, fusion, tracker
 from cportal_sim.seed import seed_scenario
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, select, text
@@ -107,7 +107,9 @@ def client() -> Iterator[TestClient]:
     with session_scope(URL) as session:  # what the worker's c2:process does
         c2_service.process(session)
         buffer.refresh(session)
-    with session_scope(URL) as session:  # what the worker's nexus:door_eta does
+    with session_scope(URL) as session:  # what the worker's nexus:refresh does (real scope)
+        fusion.refresh(session, None)
+    with session_scope(URL) as session:  # … then door ETA per scenario
         tracker.refresh(session, c1_store.scenario_row(session, "baseline").id)  # type: ignore[union-attr]
     with session_scope(URL) as session:  # a toy corridor instead of the 340 MB OSM extract
         c3_store.save_edges(session, _toy_corridor(), "test")
@@ -252,6 +254,18 @@ def test_active_shipments_exclude_delivered(client: TestClient) -> None:
     active = client.get("/api/v1/shipments", params={"limit": 500, "active": True}).json()["data"]
     assert {s["status"] for s in every} >= {"delivered", "in_transit"}
     assert active and not {s["status"] for s in active} & {"delivered", "cancelled"}
+
+
+def test_nexus_fusion_on_events(client: TestClient) -> None:
+    """08 §3: events carry a fused confidence and its signals; news alone is not inflated."""
+    events = client.get("/api/v1/events", params={"scenario": ""}).json()["data"]
+    [strike] = [e for e in events if e["type"] == "LABOR_STRIKE_BLOCKADE"]
+    assert strike["confidence_fused"] is not None
+    strong = [s for s in strike["corroboration"] if s["kind"] in ("hazard", "physical", "official")]
+    if not strong:  # two outlets, no hazard or physical signal: fusion adds nothing
+        assert abs(strike["confidence_fused"] - strike["confidence"]) < 1e-3
+    detail = client.get(f"/api/v1/events/{strike['id']}", params={"scenario": ""}).json()["data"]
+    assert detail["event"]["confidence_fused"] == strike["confidence_fused"]
 
 
 def test_nexus_door_eta_for_every_open_shipment(client: TestClient) -> None:

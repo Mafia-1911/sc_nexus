@@ -24,5 +24,5 @@ def train(database_url: str | None = None) -> dict[str, Any]:
         except pipeline.NotEnoughHistory as exc:  # a fresh database has the 90-day sample only
             out[locode] = {"skipped": str(exc)}
     log.info("c4 trained", extra={"ports": out})
-    out["door_eta"] = nexus.door_eta(database_url)  # new port-call predictions (NX-R01)
+    out["nexus"] = nexus.refresh(database_url)  # new port-call predictions (NX-R01)
     return out

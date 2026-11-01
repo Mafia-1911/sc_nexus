@@ -16,10 +16,24 @@ Done (M8 slice 1, shipment tracker, NX-R01 / NX-AC02):
   +26 h (P50) / +38 h (P90). Mean P(on time) ≈ 0.34: synthetic due dates are only ≈ 5 h after
   the planned delivery (an artefact, in the card).
 
-Next (M8): evidence fusion (NX-AC03) → recommendation engine (NX-AC04) → scenario engine and
-policy comparison (NX-AC05) → backtest window (NX-AC06) → daily brief → golden path, README, video.
+Done (M8 slice 2, evidence fusion, NX-R03 / NX-AC03):
+- `packages/nexus/fusion.py` (model card `docs/model-cards/nexus-fusion.md`, weights
+  `config/priors/fusion.yaml`, A-093): logit(conf) = logit(C2 news conf) + Σ weight·strength over
+  hazard feeds (GDACS/PortWatch, one per GDACS id), news (for hazard events) and port departures
+  (physical, corroboration only); NX-R03 cap; point-in-time (`available_at` ≤ now). One
+  `prediction` row per event and scope (real + each scenario); door ETA holds use it.
+- Worker `nexus:refresh` (fusion → door ETA; job `nexus.refresh`). API: `confidence_fused`,
+  `corroboration`, `fusion_checks` on `/events[/{id}]`. Web: Disruption Radar shows "67% → 86%
+  fused" and "corroborated by" chips. Hero news 0.665 → 0.859 (hazard +1.12); e2e asserts it.
+- Ops: host rebooted uncleanly; three screenshots have corrupted NTFS entries (user task to repair);
+  `docs/screenshots` left out of Docker builds (A-094).
 
-Checks: `make test` 289 passed (latency budgets included; before a host reboot they ran at
+Next (M8, towards G3): recommendation engine (NX-AC04: expected value, fused confidence, evidence on
+every action; add reroute / pull-forward) → Scenario Studio policy comparison (NX-AC05, K-05…07)
+→ backtest window (NX-AC06, K-03/K-04) → golden-path script and reset (NX-AC01) → daily brief
+(template) → polish checklist, README with screenshots, video.
+
+Checks: `make test` 294 passed (after slice 2); slice 1: 289 passed (latency budgets included; before a host reboot they ran at
 ≈ 330 ms for every route, unchanged ones too); Control Tower e2e passes, screenshots refreshed.
 Cosmetic gaps (noted, not fixed): the on-time badge wraps "47 %" onto two lines; most rows name
 "schedules and connections" as the main driver.

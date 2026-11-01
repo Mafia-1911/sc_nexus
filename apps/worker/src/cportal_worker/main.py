@@ -121,12 +121,12 @@ def build_scheduler(live: bool, replay: AisReplay | None) -> BackgroundScheduler
         id="c5:refresh",
         next_run_time=now + timedelta(minutes=1),
     )
-    # Nexus: door ETA per open shipment (also after C2 events and C4 retrains, NX-R01).
+    # Nexus: evidence fusion, then door ETA (also after C2 events and C4 retrains, NX-R01).
     scheduler.add_job(
-        nexus.door_eta,
+        nexus.refresh,
         "interval",
         minutes=15,
-        id="nexus:door_eta",
+        id="nexus:refresh",
         next_run_time=now + timedelta(seconds=50),
     )
     # C4: daily retrain on GFW port visits; also after each DS-AIS-02 ingest (outbox).

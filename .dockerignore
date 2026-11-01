@@ -16,3 +16,5 @@ data/inbox
 # C5 gallery and model files are bind-mounted, not baked in (docker-compose.yml).
 data/c5
 models/c5
+# Screenshots are docs, not runtime; also keeps unreadable files on the NTFS drive out of the context.
+docs/screenshots

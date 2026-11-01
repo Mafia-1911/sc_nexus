@@ -1,0 +1,28 @@
+# Evidence fusion (08 §3, NX-R03, NX-AC03). Hand-set ESTIMATES, to be tuned on backtests (A-093).
+#   logit(conf) = logit(base) + prior(type) + Σ weight[kind] · strength      strength ∈ (0, 1]
+# base = C2's news confidence for a news event (noisy-OR over outlets, single-source cap), or the
+# source's reliability for a hazard-feed event. Only corroboration counts: the absence of a
+# physical anomaly is shown as "none yet" but not held against the event (announcements precede
+# the halt).
+version: 1
+prior_logit: {default: 0.0}
+weights: {news: 1.2, hazard: 1.6, physical: 2.0, official: 2.5}
+hazard_sources: [DS-WX-02, DS-PORT-01]        # GDACS and PortWatch (one hazard per GDACS id)
+hazard_alert_strength: {green: 0.3, orange: 0.7, red: 1.0, default: 0.5}
+match:
+  max_km: 300          # centroids this close, or a shared LOCODE
+  max_hours: 96        # starts this close
+  # Hazard type → news types it can corroborate (a cyclone explains a port halt, not a strike).
+  related:
+    CYCLONE_STORM: [CYCLONE_STORM, PORT_OPERATIONS_SUSPENDED, FLOOD, PORT_CONGESTION, INLAND_TRANSPORT_DISRUPTION]
+    FLOOD: [FLOOD, INLAND_TRANSPORT_DISRUPTION, PORT_OPERATIONS_SUSPENDED, SUPPLIER_INCIDENT]
+    EARTHQUAKE_OTHER_NATURAL: [EARTHQUAKE_OTHER_NATURAL, PORT_OPERATIONS_SUSPENDED, INLAND_TRANSPORT_DISRUPTION]
+physical:              # from port calls at the event's LOCODE, available before `now`
+  types: [PORT_OPERATIONS_SUSPENDED, CYCLONE_STORM, LABOR_STRIKE_BLOCKADE, PORT_CONGESTION, CUSTOMS_SYSTEM_REGULATORY]
+  window_h: 24         # recent departures …
+  history_days: 14     # … against the daily mean over this many days before
+  departures_drop_min: 0.5
+  min_daily_departures: 3
+# NX-R03: an event backed only by news from one low-reliability source stays ≤ this.
+single_source_cap: 0.5
+low_reliability_max: 0.6

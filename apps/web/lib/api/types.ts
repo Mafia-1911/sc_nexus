@@ -1280,6 +1280,18 @@ export interface components {
             alert_level: string | null;
             /** Confidence */
             confidence: number | null;
+            /**
+             * Confidence Fused
+             * @description Nexus evidence fusion (08 §3): news confidence plus corroboration
+             */
+            confidence_fused?: number | null;
+            /**
+             * Corroboration
+             * @description Signals behind the fused confidence (kind, strength)
+             */
+            corroboration?: {
+                [key: string]: unknown;
+            }[];
             /** Country Iso3 */
             country_iso3: string[];
             /** Data Mode */
@@ -1292,6 +1304,13 @@ export interface components {
             end_est: string | null;
             /** First Seen */
             first_seen?: string | null;
+            /**
+             * Fusion Checks
+             * @description Checks that found no anomaly yet (not held against it)
+             */
+            fusion_checks?: {
+                [key: string]: unknown;
+            }[];
             /** Geometry */
             geometry: {
                 [key: string]: unknown;

@@ -256,6 +256,20 @@ def test_active_shipments_exclude_delivered(client: TestClient) -> None:
     assert active and not {s["status"] for s in active} & {"delivered", "cancelled"}
 
 
+def test_nexus_recommendations_show_what_why_cost_benefit_confidence_evidence(
+    client: TestClient,
+) -> None:
+    """NX-R04: every recommendation carries value, confidence, evidence and a rationale."""
+    recs = client.get("/api/v1/recommendations", params={"limit": 200}).json()["data"]
+    assert recs
+    for r in recs:
+        assert r["expected_value_usd"] is not None and r["confidence"] is not None
+        assert r["evidence_refs"] and r["rationale"] and r["targets"]
+        assert r["expected_value_usd"] == round(
+            r["expected_benefit_usd"] - (r["expected_cost_usd"] or 0), 2
+        )
+
+
 def test_nexus_fusion_on_events(client: TestClient) -> None:
     """08 §3: events carry a fused confidence and its signals; news alone is not inflated."""
     events = client.get("/api/v1/events", params={"scenario": ""}).json()["data"]

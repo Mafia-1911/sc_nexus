@@ -8,11 +8,19 @@ whose orders run late get extra safety stock on the inputs that depend on those 
 
 Cost = extra units × unit value × holding rate × carry time. Benefit = confidence × revenue of
 the late orders × a lateness penalty rate. Rates and z are estimates, shown as such.
+
+Alternative (08 §4, golden path step 5): pull the next PO forward on the same inputs, so the
+goods clear the hit node before the event starts. Feasible share = time until the event /
+time the order needs (the supplier's pre-shipment lead when the supplier itself is hit, the whole
+lead when a port on its route is). Cost = units × value × (rush premium + holding × days pulled
+forward / 365); benefit as above × feasible share. Confidence is the Nexus fused confidence
+(08 §3) when there is one; evidence = the event plus the events that corroborate it.
 """
 
 from __future__ import annotations
 
 import math
+from datetime import datetime
 from typing import Any
 from uuid import NAMESPACE_URL, uuid5
 
@@ -24,7 +32,8 @@ from cportal_core.models import Alert, DisruptionEvent, EventEntityLink, Recomme
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
-from cportal_nexus import BUFFER_VERSION
+from cportal_nexus import BUFFER_VERSION, fusion
+from cportal_nexus.tracker import scenario_now
 
 Z = 1.65  # 95 % cycle service level
 DEMAND_CV = 0.2  # daily demand variability (estimate)
@@ -33,6 +42,7 @@ PENALTY_RATE = (
     0.15  # cost of a late order as a share of its value: discounts, air freight (estimate)
 )
 MAX_NODES = 8
+RUSH_PREMIUM = 0.05  # expedited production slot, share of order value (estimate)
 NS = uuid5(NAMESPACE_URL, "cportal/nexus")
 CAPACITY_BY_TYPE = {  # mirrors config/priors/disruptions.yaml for the what-if
     "PORT_OPERATIONS_SUSPENDED": 0, "CYCLONE_STORM": 0, "FIRE_EXPLOSION": 0,
@@ -58,11 +68,16 @@ def _nodes(
 
 
 def recommend(
-    session: Session, g: SupplyGraph, alert: Alert, event: DisruptionEvent, scenario: Scenario
-) -> Recommendation | None:
+    session: Session,
+    g: SupplyGraph,
+    alert: Alert,
+    event: DisruptionEvent,
+    scenario: Scenario,
+    fused: dict[str, Any] | None = None,
+) -> list[Recommendation]:
     nodes = _nodes(session, g, event, scenario)
     if not nodes:
-        return None
+        return []
     p50_d = (event.duration_p50_h or 48) / 24
     p90_d = (event.duration_p90_h or p50_d * 24 * 1.6) / 24
     capacity = float(CAPACITY_BY_TYPE.get(event.type, 40))
@@ -77,7 +92,7 @@ def recommend(
     )
     late = [o for o in result.impacted_orders if o.late]
     if not late:
-        return None
+        return []
     hit = set(nodes)
     targets: list[dict[str, Any]] = []
     cost = 0.0
@@ -109,11 +124,27 @@ def recommend(
                 }
             )
     if not targets:
-        return None
-    confidence = float(event.confidence or 0.3)
+        return []
+    fz = (fused or {}).get(str(event.id))
+    confidence = float(fz["value"]) if fz else float(event.confidence or 0.3)
+    evidence: list[dict[str, Any]] = [{"event_id": str(event.id), "kind": "event"}]
+    if fz:
+        evidence.append(
+            {
+                "prediction": "event_confidence",
+                "event_id": str(event.id),
+                "news_confidence": event.confidence,
+                "fused": fz["value"],
+            }
+        )
+        evidence += [
+            {"event_id": x["ref_id"], "kind": x["kind"], "label": x["label"]}
+            for x in fz["signals"]
+            if x.get("ref_type") == "event"
+        ]
     benefit = confidence * sum(o.revenue_usd for o in late) * PENALTY_RATE
     days = max(t["days_of_cover"] for t in targets)
-    return Recommendation(
+    buffer = Recommendation(
         id=uuid5(NS, f"buffer:{alert.id}:{scenario.id}"),
         source_id="nexus",
         source_record_id=str(alert.id),
@@ -145,7 +176,99 @@ def recommend(
             f"{len(nodes)} node(s) makes {len(late)} open orders late in this scenario. Up to "
             f"{days:.0f} more days of cover on {len(targets)} inputs absorbs it."
         ),
-        evidence_refs=[{"event_id": str(event.id)}],
+        evidence_refs=evidence,
+        status="proposed",
+    )
+    pull = _pull_forward(
+        g, alert, event, scenario, hit, late, confidence, evidence, p50_d, capacity
+    )
+    worth = pull is not None and (pull.expected_benefit_usd or 0) > (pull.expected_cost_usd or 0)
+    return [buffer] + ([pull] if worth and pull is not None else [])
+
+
+def _pull_forward(
+    g: SupplyGraph,
+    alert: Alert,
+    event: DisruptionEvent,
+    scenario: Scenario,
+    hit: set[str],
+    late: list[Any],
+    confidence: float,
+    evidence: list[dict[str, Any]],
+    p50_d: float,
+    capacity: float,
+) -> Recommendation | None:
+    now: datetime = scenario_now(scenario)
+    if event.start_est is None:
+        return None
+    t_avail = max((event.start_est - now).total_seconds() / 86400, 0.0)
+    delay = p50_d * (1 - capacity / 100)
+    targets: list[dict[str, Any]] = []
+    cost, feasible_w, weight = 0.0, 0.0, 0.0
+    for plant in sorted({o.facility for o in late}):
+        for (f, component), need in g.need.items():
+            if f != plant or need <= 0:
+                continue
+            upstream = bool(hit & g.input_deps(f, component))  # e.g. the mill's own imports
+            for sup in g.inbound.get((f, component), []):
+                at_supplier = sup.src in hit
+                if not (at_supplier or hit & set(sup.route) or upstream):
+                    continue
+                needed = (
+                    max(sup.lead_time_d - sup.transit_d, 0.5) if at_supplier else sup.lead_time_d
+                )
+                feasible = min(t_avail / needed, 1.0) if needed > 0 else 1.0
+                units = need * delay * sup.share
+                value = g.products[component].unit_value_usd
+                item_cost = units * value * (RUSH_PREMIUM + HOLDING_RATE * delay / 365)
+                cost += item_cost
+                feasible_w += feasible * units * value
+                weight += units * value
+                targets.append({
+                    "facility_id": f, "facility": g.nodes[f].name, "product": component,
+                    "supplier": g.nodes[sup.src].name if sup.src in g.nodes else sup.src,
+                    "units": round(units, 1), "pull_forward_d": round(delay, 1),
+                    "lead_time_d": round(sup.lead_time_d, 1), "needed_d": round(needed, 1),
+                    "feasible_share": round(feasible, 2), "cost_usd": round(item_cost, 2),
+                    "via": "supplier" if at_supplier else "port",
+                })  # fmt: skip
+    if not targets or weight <= 0:
+        return None
+    feasible_share = feasible_w / weight
+    if feasible_share <= 0:
+        return None
+    revenue = sum(o.revenue_usd for o in late)
+    benefit = confidence * feasible_share * revenue * PENALTY_RATE
+    return Recommendation(
+        id=uuid5(NS, f"pull:{alert.id}:{scenario.id}"),
+        source_id="nexus",
+        source_record_id=str(alert.id),
+        data_mode="synthetic",
+        is_synthetic=True,
+        scenario_id=scenario.id,
+        generator_version=BUFFER_VERSION,
+        alert_id=alert.id,
+        action_type="pull_forward_po",
+        target_refs=targets,
+        params={
+            "days_until_event": round(t_avail, 1),
+            "pull_forward_d": round(delay, 1),
+            "feasible_share": round(feasible_share, 2),
+            "rush_premium": RUSH_PREMIUM,
+            "holding_rate": HOLDING_RATE,
+            "penalty_rate": PENALTY_RATE,
+            "orders_late": len(late),
+            "revenue_at_risk_usd": round(revenue, 2),
+        },
+        expected_benefit_usd=round(benefit, 2),
+        expected_cost_usd=round(cost, 2),
+        confidence=round(confidence, 3),
+        rationale=(
+            f"{event.title}: it starts in {t_avail:.1f} days. Pulling the next PO forward by "
+            f"{delay:.1f} days on {len(targets)} supply line(s) gets "
+            f"{feasible_share:.0%} of the at-risk input past the hit node first."
+        ),
+        evidence_refs=evidence,
         status="proposed",
     )
 
@@ -168,15 +291,13 @@ def refresh(session: Session) -> int:
         if not alerts:
             break
         g = c1_store.load(session, scenario)
+        fused = fusion.fused_rows(session, scenario.id)
         for alert, event in alerts:
             if alert.scenario_id is not None and alert.scenario_id != scenario.id:
                 continue  # a scenario's own alert stays in that scenario
-            rec = recommend(session, g, alert, event, scenario)
-            if rec is None:
-                continue
-            decided = session.get(Recommendation, rec.id)
-            if decided is not None:
-                continue
-            session.add(rec)
-            written += 1
+            for rec in recommend(session, g, alert, event, scenario, fused):
+                if session.get(Recommendation, rec.id) is not None:
+                    continue  # a decision already taken is kept
+                session.add(rec)
+                written += 1
     return written

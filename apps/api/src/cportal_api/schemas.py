@@ -220,6 +220,7 @@ class RecommendationOut(BaseModel):
     params: dict[str, Any]
     expected_benefit_usd: float | None
     expected_cost_usd: float | None
+    expected_value_usd: float | None = Field(None, description="Benefit minus cost (08 §4)")
     confidence: float | None
     rationale: str | None
     evidence_refs: list[Any]

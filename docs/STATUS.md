@@ -28,10 +28,22 @@ Done (M8 slice 2, evidence fusion, NX-R03 / NX-AC03):
 - Ops: host rebooted uncleanly; three screenshots have corrupted NTFS entries (user task to repair);
   `docs/screenshots` left out of Docker builds (A-094).
 
-Next (M8, towards G3): recommendation engine (NX-AC04: expected value, fused confidence, evidence on
-every action; add reroute / pull-forward) → Scenario Studio policy comparison (NX-AC05, K-05…07)
-→ backtest window (NX-AC06, K-03/K-04) → golden-path script and reset (NX-AC01) → daily brief
-(template) → polish checklist, README with screenshots, video.
+Done (M8 slice 3, recommendation engine, NX-R04 / NX-AC04; card `nexus-recommendations.md`;
+`make test` 295 passed):
+- `pull_forward_po` alternative to safety stock (feasible share = days until the event ÷ days the
+  order needs, upstream exposure via C1 `input_deps`, EV > 0 only, A-095); fused confidence and
+  evidence (event + fusion + corroborating events) on Nexus actions.
+- Nexus hazard alerts (`alerts.py`, A-096): GDACS/PortWatch forecasts touching a LOCODE now reach
+  the engine. Worker `nexus:refresh` = fusion → alerts → recommendations → door ETA (≈ 3 s).
+- API `expected_value_usd`, actions ranked by it. Radar drawer: buffer and pull-forward cards with
+  expected value, confidence and evidence. Hero cyclone: buffer US$69.1K and pull-forward US$3.8K
+  (confidence 0.95); e2e opens it via the Feeds filter.
+- Cosmetic gaps (noted): hazard events show "lasts —" (Nexus uses the type prior); the
+  corroboration heading says "news confidence" on feed events too.
+
+Next (M8, towards G3): Scenario Studio policy comparison (NX-AC05, K-05…07) → backtest window
+(NX-AC06, K-03/K-04) → golden-path script and reset (NX-AC01) → daily brief (template) → polish
+checklist, README with screenshots, video.
 
 Checks: `make test` 294 passed (after slice 2); slice 1: 289 passed (latency budgets included; before a host reboot they ran at
 ≈ 330 ms for every route, unchanged ones too); Control Tower e2e passes, screenshots refreshed.

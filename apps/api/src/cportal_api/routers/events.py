@@ -100,6 +100,11 @@ def _alert(a: Alert) -> AlertOut:
     )
 
 
+def _by_value(r: RecommendationOut) -> float:
+    """Best expected value first (08 §4)."""
+    return -(r.expected_value_usd or 0.0)
+
+
 def _rec(r: Recommendation) -> RecommendationOut:
     return RecommendationOut(
         id=r.id,
@@ -110,6 +115,9 @@ def _rec(r: Recommendation) -> RecommendationOut:
         params=r.params,
         expected_benefit_usd=r.expected_benefit_usd,
         expected_cost_usd=r.expected_cost_usd,
+        expected_value_usd=None
+        if r.expected_benefit_usd is None
+        else round(r.expected_benefit_usd - (r.expected_cost_usd or 0), 2),
         confidence=r.confidence,
         rationale=r.rationale,
         evidence_refs=r.evidence_refs,
@@ -215,7 +223,7 @@ def get_event(event_id: UUID, session: SessionDep, scope: ScopeDep) -> Envelope[
             mentions=mentions,
             linked_facilities=linked,
             alerts=[_alert(a) for a in alert_rows],
-            recommendations=[_rec(r) for r in recs],
+            recommendations=sorted((_rec(r) for r in recs), key=_by_value),
         ),
         meta=meta([row], scope),
     )

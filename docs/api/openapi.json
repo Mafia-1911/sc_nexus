@@ -3566,6 +3566,18 @@
             ],
             "title": "Expected Cost Usd"
           },
+          "expected_value_usd": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Benefit minus cost (08 \u00a74)",
+            "title": "Expected Value Usd"
+          },
           "feedback": {
             "anyOf": [
               {

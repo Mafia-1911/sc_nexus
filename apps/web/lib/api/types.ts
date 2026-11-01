@@ -2105,6 +2105,11 @@ export interface components {
             expected_benefit_usd: number | null;
             /** Expected Cost Usd */
             expected_cost_usd: number | null;
+            /**
+             * Expected Value Usd
+             * @description Benefit minus cost (08 §4)
+             */
+            expected_value_usd?: number | null;
             /** Feedback */
             feedback: string | null;
             /**

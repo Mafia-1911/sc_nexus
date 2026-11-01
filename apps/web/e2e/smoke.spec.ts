@@ -120,6 +120,12 @@ test("Disruption Radar: one grounded event, evidence and a buffer recommendation
   await expect(page.getByTestId("buffer-rec")).toContainText("Expected benefit");
   // NX-AC03: the news is corroborated by the hazard feed (evidence fusion).
   await expect(page.getByTestId("corroboration")).toContainText("hazard");
+  // NX-AC04 / golden path step 5: the cyclone forecast (hazard feed) gets ranked actions.
+  await page.getByRole("link", { name: "Feeds", exact: true }).click();
+  await expect(page).toHaveURL(/source=feeds/);
+  await feed.locator("button", { hasText: "Tropical Cyclone SYN-01" }).first().click();
+  await expect(page.getByTestId("pull-rec")).toContainText("Expected value", { timeout: 15_000 });
+  await expect(page.getByTestId("buffer-rec").first()).toContainText("Confidence");
   for (const theme of ["light", "dark"] as const) {
     await setTheme(page, theme);
     await page.waitForTimeout(400);

@@ -324,3 +324,21 @@ def fused_confidence(session: Session, scenario_id: UUID | None) -> dict[UUID, f
         )
     ).all()
     return {t: float(v) for t, v in rows if v is not None}
+
+
+def fused_rows(session: Session, scenario_id: UUID | None) -> dict[str, dict[str, Any]]:
+    """Fused confidence and its signals per event id (str) for a scope."""
+    rows = session.execute(
+        select(Prediction.target_id, Prediction.value, Prediction.explanation).where(
+            Prediction.capability == "nexus",
+            Prediction.target_type == TARGET,
+            Prediction.scenario_id.is_(None)
+            if scenario_id is None
+            else Prediction.scenario_id == scenario_id,
+        )
+    ).all()
+    return {
+        str(t): {"value": float(v), "signals": (x or {}).get("signals", [])}
+        for t, v, x in rows
+        if v is not None
+    }

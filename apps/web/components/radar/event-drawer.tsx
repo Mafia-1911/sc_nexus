@@ -20,20 +20,32 @@ function Recommendation({ rec, scenario }: { rec: Rec; scenario: string }) {
       const out = await decide(scenario, state.id, decision, null);
       if (out.data) setState(out.data);
     });
-  const targets = state.targets as { facility: string; product: string; units: number; days_of_cover: number; cost_usd: number }[];
-  const ev = (state.expected_benefit_usd ?? 0) - (state.expected_cost_usd ?? 0);
+  const pull = state.action_type === "pull_forward_po";
+  const targets = state.targets as {
+    facility: string;
+    product: string;
+    units: number;
+    days_of_cover?: number;
+    supplier?: string;
+    feasible_share?: number;
+  }[];
+  const ev = state.expected_value_usd ?? (state.expected_benefit_usd ?? 0) - (state.expected_cost_usd ?? 0);
+  const evidence = state.evidence_refs as { kind?: string }[];
   return (
-    <section className="flex flex-col gap-2 rounded-[var(--radius-card)] border border-primary/40 bg-primary/5 p-3" data-testid="buffer-rec">
+    <section
+      className="flex flex-col gap-2 rounded-[var(--radius-card)] border border-primary/40 bg-primary/5 p-3"
+      data-testid={pull ? "pull-rec" : "buffer-rec"}
+    >
       <div className="flex items-center justify-between gap-2">
-        <h3 className="text-sm font-semibold">Raise the buffer (recommendation)</h3>
+        <h3 className="text-sm font-semibold">{pull ? "Pull the next PO forward" : "Raise the buffer"} (recommendation)</h3>
         <Badge tone={state.status === "accepted" ? "ok" : state.status === "dismissed" ? "neutral" : "info"}>{state.status}</Badge>
       </div>
       <p className="text-xs">{state.rationale}</p>
       <dl className="grid grid-cols-4 gap-2 text-xs">
         {[
           ["Expected benefit", usd(state.expected_benefit_usd)],
-          ["Holding cost", usd(state.expected_cost_usd)],
-          ["Net value", usd(ev)],
+          [pull ? "Rush + holding cost" : "Holding cost", usd(state.expected_cost_usd)],
+          ["Expected value", usd(ev)],
           ["Confidence", fmt((state.confidence ?? 0) * 100) + "%"],
         ].map(([k, v]) => (
           <div key={k}>
@@ -47,24 +59,31 @@ function Recommendation({ rec, scenario }: { rec: Rec; scenario: string }) {
           <tr>
             <th className="py-1 font-medium">Plant</th>
             <th className="py-1 font-medium">Input</th>
-            <th className="py-1 text-right font-medium">Extra units</th>
-            <th className="py-1 text-right font-medium">Days of cover</th>
+            {pull ? <th className="py-1 font-medium">Supplier</th> : null}
+            <th className="py-1 text-right font-medium">{pull ? "Units" : "Extra units"}</th>
+            <th className="py-1 text-right font-medium">{pull ? "Can beat it" : "Days of cover"}</th>
           </tr>
         </thead>
         <tbody>
-          {targets.slice(0, 6).map((t) => (
-            <tr key={`${t.facility}:${t.product}`} className="border-t border-border">
+          {targets.slice(0, 6).map((t, i) => (
+            <tr key={`${t.facility}:${t.product}:${i}`} className="border-t border-border">
               <td className="max-w-48 truncate py-1" title={t.facility}>{t.facility}</td>
               <td className="py-1">{productName(t.product)}</td>
+              {pull ? <td className="max-w-40 truncate py-1" title={t.supplier}>{t.supplier}</td> : null}
               <td className="tabular py-1 text-right">{fmt(t.units)}</td>
-              <td className="tabular py-1 text-right">{fmt(t.days_of_cover, 1)}</td>
+              <td className="tabular py-1 text-right">
+                {pull ? `${fmt((t.feasible_share ?? 0) * 100)}%` : fmt(t.days_of_cover ?? 0, 1)}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
       <p className="text-[11px] text-muted">
-        Safety stock z·√(L·σd² + d²·σL²) with lead time inflated by the event; holding 25 %/yr and a 15 % lateness cost are
-        estimates. Synthetic plants and orders.
+        {pull
+          ? "Share that can still beat the event = days until it starts / days the order needs; a 5 % rush premium, holding 25 %/yr and a 15 % lateness cost are estimates."
+          : "Safety stock z·√(L·σd² + d²·σL²) with lead time inflated by the event; holding 25 %/yr and a 15 % lateness cost are estimates."}{" "}
+        Evidence: {evidence.length} reference(s) ({[...new Set(evidence.map((x) => x.kind ?? "event"))].join(", ")}). Synthetic plants
+        and orders.
       </p>
       {state.status === "proposed" ? (
         <div className="flex gap-2">

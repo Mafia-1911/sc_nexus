@@ -34,6 +34,7 @@ def main() -> int:
     from prompt_ensemble import AnomalyCLIP_PromptLearner
     from scipy.ndimage import gaussian_filter
     from sklearn.metrics import roc_auc_score
+    from tqdm import tqdm
     from utils import get_transform
 
     torch.set_num_threads(args.threads)
@@ -86,10 +87,10 @@ def main() -> int:
     for cat in args.categories:
         spec = manifest[cat]
         tf = text["mvtec" if cat == "stitch" else "visa"]
-        calib = [score(i["path"], tf)[0] for i in spec["calib"]]
+        calib = [score(i["path"], tf)[0] for i in tqdm(spec["calib"], desc=f"{cat} calib")]
         ys, ss, ms, pix_y, pix_s = [], [], [], [], []
         rng = np.random.default_rng(0)
-        for item in spec["test"]:
+        for item in tqdm(spec["test"], desc=f"{cat} test"):
             s, amap, ms_ = score(item["path"], tf)
             ys.append(item["label"] != "good")
             ss.append(s)

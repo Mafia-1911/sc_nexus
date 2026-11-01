@@ -35,14 +35,16 @@ Done (M7, C5 defect intelligence):
   `packages/c5_defect_intel/baselines/` (U-05: the user runs it); stack rebuilt (`make up`),
   quality routes 57–198 ms warm; `make test` 280 passed.
 
-Not met yet (honest): AnomalyCLIP numbers (C5-AC01, the user's run, U-05); VisA capsules
+- **AnomalyCLIP baseline (C5-AC01, met):** user's run (U-05): stitch 0.67, pill 0.82, capsule
+  0.90, textures ≈ 1.00; our methods beat it on every object category and tie on textures;
+  ≈ 1.8× slower on CPU. Script now shows tqdm progress bars.
+
+Not met yet (honest): VisA capsules
 (optional download, U-04); thresholds over-shoot the 5 % FPR with 30 calibration images (stitch
 14 %, capsule 9 %, carpet 25 %: MVTec test normals score above train normals); no evaluation
 notebook yet (CLI + JSON).
 
 Waiting on user:
-- **AnomalyCLIP (C5-AC01, U-05):** download the CLIP ViT-L/14@336px weights and run the baseline
-  (both in `docs/USER_TASKS.md`); then the agent adds the rows to the model card.
 - **VisA (optional, U-04):** per `docs/USER_TASKS.md`; then the agent runs
   `uv run c5 eval visa_capsules`.
 - Soft gate: deepen C5 (AnomalyCLIP, VisA, a notebook, few-shot upload flow) or move to M8?

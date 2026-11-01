@@ -31,11 +31,11 @@ tell the agent; each item says where its result goes.
       `tar -xJf carpet.tar.xz -C data/raw/DS-VIS-01/mvtec/` (same for leather). You should get
       `data/raw/DS-VIS-01/mvtec/carpet/train/good/000.png` etc. A partial `carpet/` folder is
       already there; extracting over it is fine. Licence CC BY-NC-SA 4.0 (non-commercial).
-- [ ] **CLIP weights for AnomalyCLIP (C5-AC01):** download ViT-L/14@336px (934 MB, MIT) from
+- [x] **CLIP weights for AnomalyCLIP (C5-AC01):** download ViT-L/14@336px (934 MB, MIT) from
       https://openaipublic.azureedge.net/clip/models/3035c92b350959924f9f00213499208652fc7ea050643e8b385c2dac08641f02/ViT-L-14-336px.pt
       to `data/cache/aclip/clip/ViT-L-14-336px.pt`. A partial 172 MB file from the agent's
       interrupted download is there; overwrite it. Check: `sha256sum` starts with `3035c92b`.
-- [ ] **Run the AnomalyCLIP baseline (C5-AC01):** the repo clone, CPU venv and split manifest are
+- [x] **Run the AnomalyCLIP baseline (C5-AC01):** the repo clone, CPU venv and split manifest are
       ready in `data/cache/aclip/` (setup: `packages/c5_defect_intel/baselines/README.md`). From
       the repo root (≈ 1–2 h on CPU; results are saved per category):
       `A=data/cache/aclip; $A/venv/bin/python -I packages/c5_defect_intel/baselines/anomalyclip_eval.py --repo $PWD/$A/repo --manifest $A/manifest.json --clip-cache $PWD/$A/clip --out docs/model-cards/c5-eval-anomalyclip.json --categories pill capsule stitch carpet leather --threads 4`

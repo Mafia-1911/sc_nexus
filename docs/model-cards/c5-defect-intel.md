@@ -47,6 +47,11 @@ image AUROC of zero-shot and few-shot (k = 8); the live upload path is always fe
 | leather (MVTec AD leather, CC BY-NC-SA 4.0) | few-shot k = 1 | 1.000 | 0.990 | 1.00 | 0.00 | 910* |
 | leather (MVTec AD leather, CC BY-NC-SA 4.0) | few-shot k = 4 | 1.000 | 0.990 | 1.00 | 0.22 | 922* |
 | leather (MVTec AD leather, CC BY-NC-SA 4.0) | few-shot k = 8 | 1.000 | 0.990 | 1.00 | 0.16 | 1,037* |
+| stitch | **AnomalyCLIP** zero-shot (baseline, MVTec checkpoint) | 0.674 | — | 0.37 | 0.07 | 684 |
+| pill | **AnomalyCLIP** zero-shot (baseline, VisA checkpoint) | 0.824 | 0.785 | 0.66 | 0.12 | 730 |
+| capsule | **AnomalyCLIP** zero-shot (baseline, VisA checkpoint) | 0.903 | 0.920 | 0.78 | 0.17 | 755 |
+| carpet | **AnomalyCLIP** zero-shot (baseline, VisA checkpoint) | 1.000 | 0.986 | 0.97 | 0.00 | 847 |
+| leather | **AnomalyCLIP** zero-shot (baseline, VisA checkpoint) | 1.000 | 0.989 | 0.99 | 0.03 | 775 |
 
 Split per category: stitch 8 refs / 30 calibration / 439 test; pill 8 refs / 30 calibration / 167 test; capsule 8 refs / 30 calibration / 132 test; carpet 8 / 30 / 117 (28 normal); leather 8 / 30 / 124 (32 normal). Carpet and leather are scored as whole images (1024 px → 448 px, untiled, A-091).
 \* Leather was timed while the Docker stack was starting on the same CPU (encode 892 ms vs ≈ 400 ms for the other categories); the slowdown is contention, not the method.
@@ -65,11 +70,15 @@ higher than the `train/good` images used for calibration, so carpet at k = 8 fla
 test normals (7 of 28) at a threshold set for 5 %. Leather ties at AUROC 1.000, so the rule
 deploys zero-shot, which has 0 % FPR and 96 % recall.
 
-**Not met yet (honest):** AnomalyCLIP, the brief's named baseline, has not been run yet. The
-user runs it (U-05): the script, setup and split manifest are in
-`packages/c5_defect_intel/baselines/` and `data/cache/aclip/`; results go to
-`c5-eval-anomalyclip.json` and then into this table. VisA `capsules` waits for the optional
-download (U-04). The thresholds come from only 30 normal images, so the realised FPR on test
+**Baseline (C5-AC01, met):** AnomalyCLIP (ICLR'24, MIT; OpenAI CLIP ViT-L/14@336px, MIT), zero-shot
+and cross-dataset, on the same split and calibration normals (`packages/c5_defect_intel/baselines/`,
+raw report `c5-eval-anomalyclip.json`, run by the user, U-05). Its numbers match the paper's
+(pill 0.82, capsule 0.90, textures ≈ 1.00), so the run is sound. Our deployed methods beat it on
+every object category (stitch 0.89 vs 0.67, pill 0.97 vs 0.82, capsule 0.96 vs 0.90), and even
+our zero-shot rung beats it there (0.72 / 0.95 / 0.93); on textures both are ≈ 1.00. AnomalyCLIP
+is ≈ 1.8× slower on the CPU (684–847 ms vs ≈ 430 ms) and needs PyTorch, so it stays a baseline;
+its texture thresholds are better calibrated (carpet 0 % FPR vs 25 %). VisA `capsules` waits for
+the optional download (U-04). The thresholds come from only 30 normal images, so the realised FPR on test
 normals is often above 5 % (stitch 14 %, capsule 9 %, carpet 25 %, leather few-shot 16–22 %);
 calibrating on a few of the plant's own recent normals is the fix.
 

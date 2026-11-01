@@ -1,0 +1,62 @@
+{
+ "pill": {
+  "method": "AnomalyCLIP (ICLR'24), ViT-L/14@336, zero-shot",
+  "checkpoint": "trained on VisA (cross-dataset)",
+  "image_size": 518,
+  "image_auroc": 0.8238,
+  "pixel_auroc": 0.7846,
+  "threshold": 0.98114,
+  "recall_at_fpr": 0.66,
+  "fpr_on_test_normals": 0.115,
+  "ms_per_image_cpu": 730.0,
+  "n_test": 167
+ },
+ "capsule": {
+  "method": "AnomalyCLIP (ICLR'24), ViT-L/14@336, zero-shot",
+  "checkpoint": "trained on VisA (cross-dataset)",
+  "image_size": 518,
+  "image_auroc": 0.9027,
+  "pixel_auroc": 0.9197,
+  "threshold": 0.96432,
+  "recall_at_fpr": 0.78,
+  "fpr_on_test_normals": 0.174,
+  "ms_per_image_cpu": 754.9,
+  "n_test": 132
+ },
+ "stitch": {
+  "method": "AnomalyCLIP (ICLR'24), ViT-L/14@336, zero-shot",
+  "checkpoint": "trained on MVTec AD",
+  "image_size": 518,
+  "image_auroc": 0.674,
+  "pixel_auroc": null,
+  "threshold": 0.98094,
+  "recall_at_fpr": 0.366,
+  "fpr_on_test_normals": 0.065,
+  "ms_per_image_cpu": 684.4,
+  "n_test": 439
+ },
+ "carpet": {
+  "method": "AnomalyCLIP (ICLR'24), ViT-L/14@336, zero-shot",
+  "checkpoint": "trained on VisA (cross-dataset)",
+  "image_size": 518,
+  "image_auroc": 1.0,
+  "pixel_auroc": 0.9863,
+  "threshold": 0.82599,
+  "recall_at_fpr": 0.966,
+  "fpr_on_test_normals": 0.0,
+  "ms_per_image_cpu": 846.5,
+  "n_test": 117
+ },
+ "leather": {
+  "method": "AnomalyCLIP (ICLR'24), ViT-L/14@336, zero-shot",
+  "checkpoint": "trained on VisA (cross-dataset)",
+  "image_size": 518,
+  "image_auroc": 0.9997,
+  "pixel_auroc": 0.9886,
+  "threshold": 0.88338,
+  "recall_at_fpr": 0.989,
+  "fpr_on_test_normals": 0.031,
+  "ms_per_image_cpu": 775.2,
+  "n_test": 124
+ }
+}

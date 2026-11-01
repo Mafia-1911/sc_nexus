@@ -39,22 +39,39 @@ image AUROC of zero-shot and few-shot (k = 8); the live upload path is always fe
 | capsule (MVTec AD capsule, CC BY-NC-SA 4.0) | few-shot k = 1 | 0.947 | 0.980 | 0.73 | 0.04 | 402 |
 | capsule (MVTec AD capsule, CC BY-NC-SA 4.0) | few-shot k = 4 | 0.947 | 0.984 | 0.80 | 0.04 | 412 |
 | capsule (MVTec AD capsule, CC BY-NC-SA 4.0) | few-shot k = 8 **(deployed)** | 0.960 | 0.986 | 0.89 | 0.09 | 424 |
+| carpet (MVTec AD carpet, CC BY-NC-SA 4.0) | zero-shot (MuSc-style) | 0.998 | 0.989 | 1.00 | 0.21 | 585 |
+| carpet (MVTec AD carpet, CC BY-NC-SA 4.0) | few-shot k = 1 | 1.000 | 0.990 | 1.00 | 0.29 | 407 |
+| carpet (MVTec AD carpet, CC BY-NC-SA 4.0) | few-shot k = 4 | 1.000 | 0.991 | 1.00 | 0.29 | 415 |
+| carpet (MVTec AD carpet, CC BY-NC-SA 4.0) | few-shot k = 8 **(deployed)** | 1.000 | 0.991 | 1.00 | 0.25 | 432 |
+| leather (MVTec AD leather, CC BY-NC-SA 4.0) | zero-shot (MuSc-style) **(deployed)** | 1.000 | 0.993 | 0.96 | 0.00 | 1,426* |
+| leather (MVTec AD leather, CC BY-NC-SA 4.0) | few-shot k = 1 | 1.000 | 0.990 | 1.00 | 0.00 | 910* |
+| leather (MVTec AD leather, CC BY-NC-SA 4.0) | few-shot k = 4 | 1.000 | 0.990 | 1.00 | 0.22 | 922* |
+| leather (MVTec AD leather, CC BY-NC-SA 4.0) | few-shot k = 8 | 1.000 | 0.990 | 1.00 | 0.16 | 1,037* |
 
-Split per category: stitch 8 refs / 30 calibration / 439 test; pill 8 refs / 30 calibration / 167 test; capsule 8 refs / 30 calibration / 132 test
+Split per category: stitch 8 refs / 30 calibration / 439 test; pill 8 refs / 30 calibration / 167 test; capsule 8 refs / 30 calibration / 132 test; carpet 8 / 30 / 117 (28 normal); leather 8 / 30 / 124 (32 normal). Carpet and leather are scored as whole images (1024 px → 448 px, untiled, A-091).
+\* Leather was timed while the Docker stack was starting on the same CPU (encode 892 ms vs ≈ 400 ms for the other categories); the slowdown is contention, not the method.
 
 ms / image is encoding plus scoring on this laptop's CPU (4 threads): every category is far
 below the 3 s budget (C5-AC02); the live upload measured 0.5 s through the API. Few-shot gains
-from k = 1 to k = 8 on every category (stitch 0.81 → 0.89, pill 0.92 → 0.97, capsule
-0.95 → 0.96; C5-AC03). The zero-shot rung needs no references at all and is already strong on
+from k = 1 to k = 8 on every object category (stitch 0.81 → 0.89, pill 0.92 → 0.97, capsule
+0.95 → 0.96; C5-AC03); the textures are already at 1.000 with k = 1, so there is nothing to gain. The zero-shot rung needs no references at all and is already strong on
 tablets and capsules (0.93–0.95) but weak on stitching (0.71), where a handful of normal images
 of the SKU is worth asking for.
 
-**Not met yet (honest):** AnomalyCLIP, the brief's named baseline, has not been run: executing
-the cloned AnomalyCLIP repository (MIT) needs the user's approval; the evaluation script and an
-isolated PyTorch CPU environment are ready. MVTec carpet and leather (textures) and VisA
-`capsules` wait for the user's downloads (U-04); the loaders are ready. The thresholds come from
-only 30 normal images, so the realised FPR on test normals is sometimes above 5 % (stitch 14 %,
-capsule 9 %).
+The textures (carpet, leather) are nearly solved for ranking: image AUROC 0.998–1.000 and pixel
+AUROC ≈ 0.99 with every method, in line with published AnomalyDINO and MuSc results on MVTec
+textures. Their weak point is the threshold, not the score: MVTec's `test/good` images score
+higher than the `train/good` images used for calibration, so carpet at k = 8 flags 25 % of
+test normals (7 of 28) at a threshold set for 5 %. Leather ties at AUROC 1.000, so the rule
+deploys zero-shot, which has 0 % FPR and 96 % recall.
+
+**Not met yet (honest):** AnomalyCLIP, the brief's named baseline, has not been run yet. The
+user runs it (U-05): the script, setup and split manifest are in
+`packages/c5_defect_intel/baselines/` and `data/cache/aclip/`; results go to
+`c5-eval-anomalyclip.json` and then into this table. VisA `capsules` waits for the optional
+download (U-04). The thresholds come from only 30 normal images, so the realised FPR on test
+normals is often above 5 % (stitch 14 %, capsule 9 %, carpet 25 %, leather few-shot 16–22 %);
+calibrating on a few of the plant's own recent normals is the fix.
 
 ## Evaluation: lots, risk and impact (synthetic world, C5-AC04…AC06)
 

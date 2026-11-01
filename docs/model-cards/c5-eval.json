@@ -254,5 +254,173 @@
   },
   "deploy": "few_shot_k8",
   "seconds": 103.4
+ },
+ "carpet": {
+  "category": "carpet",
+  "source": "MVTec AD carpet",
+  "licence": "CC BY-NC-SA 4.0",
+  "split": {
+   "refs": 8,
+   "calibration_normals": 30,
+   "test": 117
+  },
+  "tile": null,
+  "encode_ms_per_image": 404.2,
+  "methods": {
+   "zero_shot_musc": {
+    "image_auroc": 0.9976,
+    "pixel_auroc": 0.9892,
+    "threshold": 0.13817,
+    "recall_at_fpr": 1.0,
+    "fpr_on_test_normals": 0.214,
+    "recall_by_type": {
+     "color": 1.0,
+     "cut": 1.0,
+     "hole": 1.0,
+     "metal_contamination": 1.0,
+     "thread": 1.0
+    },
+    "score_ms": 180.9,
+    "n_test": 117,
+    "n_anomalous": 89
+   },
+   "few_shot_k1": {
+    "image_auroc": 1.0,
+    "pixel_auroc": 0.9896,
+    "threshold": 0.15788,
+    "recall_at_fpr": 1.0,
+    "fpr_on_test_normals": 0.286,
+    "recall_by_type": {
+     "color": 1.0,
+     "cut": 1.0,
+     "hole": 1.0,
+     "metal_contamination": 1.0,
+     "thread": 1.0
+    },
+    "score_ms": 2.9,
+    "n_test": 117,
+    "n_anomalous": 89
+   },
+   "few_shot_k4": {
+    "image_auroc": 1.0,
+    "pixel_auroc": 0.9906,
+    "threshold": 0.12317,
+    "recall_at_fpr": 1.0,
+    "fpr_on_test_normals": 0.286,
+    "recall_by_type": {
+     "color": 1.0,
+     "cut": 1.0,
+     "hole": 1.0,
+     "metal_contamination": 1.0,
+     "thread": 1.0
+    },
+    "score_ms": 10.3,
+    "n_test": 117,
+    "n_anomalous": 89
+   },
+   "few_shot_k8": {
+    "image_auroc": 1.0,
+    "pixel_auroc": 0.9907,
+    "threshold": 0.11696,
+    "recall_at_fpr": 1.0,
+    "fpr_on_test_normals": 0.25,
+    "recall_by_type": {
+     "color": 1.0,
+     "cut": 1.0,
+     "hole": 1.0,
+     "metal_contamination": 1.0,
+     "thread": 1.0
+    },
+    "score_ms": 27.7,
+    "n_test": 117,
+    "n_anomalous": 89
+   }
+  },
+  "deploy": "few_shot_k8",
+  "seconds": 109.5
+ },
+ "leather": {
+  "category": "leather",
+  "source": "MVTec AD leather",
+  "licence": "CC BY-NC-SA 4.0",
+  "split": {
+   "refs": 8,
+   "calibration_normals": 30,
+   "test": 124
+  },
+  "tile": null,
+  "encode_ms_per_image": 892.2,
+  "methods": {
+   "zero_shot_musc": {
+    "image_auroc": 1.0,
+    "pixel_auroc": 0.993,
+    "threshold": 0.19103,
+    "recall_at_fpr": 0.957,
+    "fpr_on_test_normals": 0.0,
+    "recall_by_type": {
+     "color": 1.0,
+     "cut": 0.947,
+     "fold": 1.0,
+     "glue": 1.0,
+     "poke": 0.833
+    },
+    "score_ms": 534.2,
+    "n_test": 124,
+    "n_anomalous": 92
+   },
+   "few_shot_k1": {
+    "image_auroc": 1.0,
+    "pixel_auroc": 0.9903,
+    "threshold": 0.28474,
+    "recall_at_fpr": 1.0,
+    "fpr_on_test_normals": 0.0,
+    "recall_by_type": {
+     "color": 1.0,
+     "cut": 1.0,
+     "fold": 1.0,
+     "glue": 1.0,
+     "poke": 1.0
+    },
+    "score_ms": 17.5,
+    "n_test": 124,
+    "n_anomalous": 92
+   },
+   "few_shot_k4": {
+    "image_auroc": 1.0,
+    "pixel_auroc": 0.99,
+    "threshold": 0.17859,
+    "recall_at_fpr": 1.0,
+    "fpr_on_test_normals": 0.219,
+    "recall_by_type": {
+     "color": 1.0,
+     "cut": 1.0,
+     "fold": 1.0,
+     "glue": 1.0,
+     "poke": 1.0
+    },
+    "score_ms": 29.8,
+    "n_test": 124,
+    "n_anomalous": 92
+   },
+   "few_shot_k8": {
+    "image_auroc": 1.0,
+    "pixel_auroc": 0.9897,
+    "threshold": 0.17115,
+    "recall_at_fpr": 1.0,
+    "fpr_on_test_normals": 0.156,
+    "recall_by_type": {
+     "color": 1.0,
+     "cut": 1.0,
+     "fold": 1.0,
+     "glue": 1.0,
+     "poke": 1.0
+    },
+    "score_ms": 144.4,
+    "n_test": 124,
+    "n_anomalous": 92
+   }
+  },
+  "deploy": "zero_shot_musc",
+  "seconds": 271.7
  }
 }

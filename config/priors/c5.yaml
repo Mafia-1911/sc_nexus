@@ -7,8 +7,8 @@ categories:
   stitch:  {dataset: DS-VIS-04, source: "StitchNet v2 (Roboflow)", licence: "CC BY 4.0", nc: false, tile: null}
   pill:    {dataset: DS-VIS-01, source: "MVTec AD pill", licence: "CC BY-NC-SA 4.0", nc: true, tile: null}
   capsule: {dataset: DS-VIS-01, source: "MVTec AD capsule", licence: "CC BY-NC-SA 4.0", nc: true, tile: null}
-  carpet:  {dataset: DS-VIS-01, source: "MVTec AD carpet", licence: "CC BY-NC-SA 4.0", nc: true, tile: 512}
-  leather: {dataset: DS-VIS-01, source: "MVTec AD leather", licence: "CC BY-NC-SA 4.0", nc: true, tile: 512}
+  carpet:  {dataset: DS-VIS-01, source: "MVTec AD carpet", licence: "CC BY-NC-SA 4.0", nc: true, tile: null}  # 448 px whole image (A-091)
+  leather: {dataset: DS-VIS-01, source: "MVTec AD leather", licence: "CC BY-NC-SA 4.0", nc: true, tile: null}  # 448 px whole image (A-091)
   visa_capsules: {dataset: DS-VIS-02, source: "VisA capsules", licence: "CC BY 4.0", nc: false, tile: null}
 
 # Finished-goods SKUs → image category inspected at final QC.

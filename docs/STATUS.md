@@ -20,7 +20,8 @@ Done (M7, C5 defect intelligence):
 - **Simulator (world 0.3.0):** finished-goods lots on factory lines, linked to their orders
   (`batch.order_id`, migration), a drifting line and a QA hero lot whose order is at risk.
 - **Results:** image AUROC few-shot k = 8 / zero-shot: stitch 0.89 / 0.71, pill 0.97 / 0.95,
-  capsule 0.96 / 0.93 (pixel AUROC 0.96–0.99 on MVTec); ≈ 0.4 s per image on CPU (C5-AC02);
+  capsule 0.96 / 0.93, carpet 1.00 / 1.00, leather 1.00 / 1.00 (pixel AUROC 0.96–0.99 on
+  MVTec; textures scored untiled, A-091); ≈ 0.4 s per image on CPU (C5-AC02);
   few-shot rises with k (AC03); AQL tables and OC checks pass (AC04); lot risk Brier 0.046 vs
   0.057 base rate (AC05); 15 failed lots → 15 alerts, 32 costed options (AC06); 8.1 % of
   garment lots escape because the model misses defects (reported as the assistive cost).
@@ -29,15 +30,21 @@ Done (M7, C5 defect intelligence):
   /quality/inspections` (live, ≈ 0.5 s), `/quality/files/…`. **Web:** Quality Lab.
 - **openrouteservice** (A-083): 429/403 handling and persisted answers.
 
-Not met yet (honest): AnomalyCLIP baseline (C5-AC01, needs approval); MVTec carpet/leather and
-VisA capsules wait for the user's downloads (U-04); thresholds over-shoot the 5 % FPR on stitch
-(14 %) and capsule (9 %) with 30 calibration images; no evaluation notebook yet (CLI + JSON).
+- **Since the thin slice (2026-11-01):** MVTec carpet and leather evaluated (gallery, banks,
+  model card); AnomalyCLIP baseline script, setup and manifest in
+  `packages/c5_defect_intel/baselines/` (U-05: the user runs it); stack rebuilt (`make up`),
+  quality routes 57–198 ms warm; `make test` 280 passed.
+
+Not met yet (honest): AnomalyCLIP numbers (C5-AC01, the user's run, U-05); VisA capsules
+(optional download, U-04); thresholds over-shoot the 5 % FPR with 30 calibration images (stitch
+14 %, capsule 9 %, carpet 25 %: MVTec test normals score above train normals); no evaluation
+notebook yet (CLI + JSON).
 
 Waiting on user:
-- **AnomalyCLIP baseline (C5-AC01):** running the cloned AnomalyCLIP repository (MIT) needs your
-  approval; the command is ready (see the M7 summary).
-- **Downloads (U-04):** MVTec carpet and leather, VisA (optional) per `docs/USER_TASKS.md`; then
-  the agent runs `uv run c5 eval carpet leather visa_capsules`.
+- **AnomalyCLIP (C5-AC01, U-05):** download the CLIP ViT-L/14@336px weights and run the baseline
+  (both in `docs/USER_TASKS.md`); then the agent adds the rows to the model card.
+- **VisA (optional, U-04):** per `docs/USER_TASKS.md`; then the agent runs
+  `uv run c5 eval visa_capsules`.
 - Soft gate: deepen C5 (AnomalyCLIP, VisA, a notebook, few-shot upload flow) or move to M8?
 
 ---

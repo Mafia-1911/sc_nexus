@@ -374,6 +374,81 @@
         "title": "DisruptionIn",
         "type": "object"
       },
+      "DoorEtaOut": {
+        "description": "Nexus door ETA (08 \u00a71, NX-AC02): Monte Carlo over the remaining legs.",
+        "properties": {
+          "as_of": {
+            "format": "date-time",
+            "title": "As Of",
+            "type": "string"
+          },
+          "drivers": {
+            "description": "Mean extra hours vs plan by cause",
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Drivers",
+            "type": "array"
+          },
+          "due": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Due"
+          },
+          "holds": {
+            "description": "Disruptions at this shipment's locations (evidence)",
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Holds",
+            "type": "array"
+          },
+          "on_time_prob": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "P(door \u2264 due); null without a due date",
+            "title": "On Time Prob"
+          },
+          "p10": {
+            "format": "date-time",
+            "title": "P10",
+            "type": "string"
+          },
+          "p50": {
+            "format": "date-time",
+            "title": "P50",
+            "type": "string"
+          },
+          "p90": {
+            "format": "date-time",
+            "title": "P90",
+            "type": "string"
+          }
+        },
+        "required": [
+          "as_of",
+          "p10",
+          "p50",
+          "p90"
+        ],
+        "title": "DoorEtaOut",
+        "type": "object"
+      },
       "Driver": {
         "description": "One feature's share of a node's risk score. The score is additive, so these are its\nexact Shapley values against the mean node (SHAP with an interventional baseline).",
         "properties": {
@@ -3736,6 +3811,16 @@
           "cargo_profile": {
             "title": "Cargo Profile",
             "type": "string"
+          },
+          "door_eta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DoorEtaOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "id": {
             "format": "uuid",

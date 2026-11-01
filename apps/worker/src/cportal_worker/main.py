@@ -24,7 +24,7 @@ from apscheduler.executors.pool import ThreadPoolExecutor
 from apscheduler.schedulers.background import BackgroundScheduler
 from cportal_core.settings import get_settings
 
-from cportal_worker import c1, c2, c4, c5, outbox, sources
+from cportal_worker import c1, c2, c4, c5, nexus, outbox, sources
 from cportal_worker.replay import AisReplay
 
 log = logging.getLogger("cportal_worker")
@@ -120,6 +120,14 @@ def build_scheduler(live: bool, replay: AisReplay | None) -> BackgroundScheduler
         minutes=15,
         id="c5:refresh",
         next_run_time=now + timedelta(minutes=1),
+    )
+    # Nexus: door ETA per open shipment (also after C2 events and C4 retrains, NX-R01).
+    scheduler.add_job(
+        nexus.door_eta,
+        "interval",
+        minutes=15,
+        id="nexus:door_eta",
+        next_run_time=now + timedelta(seconds=50),
     )
     # C4: daily retrain on GFW port visits; also after each DS-AIS-02 ingest (outbox).
     scheduler.add_job(

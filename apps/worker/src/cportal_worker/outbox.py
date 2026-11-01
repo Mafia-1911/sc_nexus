@@ -65,12 +65,19 @@ def run_c5_refresh(params: dict[str, Any], database_url: str | None) -> dict[str
     return c5.refresh(database_url, force=bool(params.get("force")))
 
 
+def run_nexus_door_eta(params: dict[str, Any], database_url: str | None) -> dict[str, Any]:
+    from cportal_worker import nexus
+
+    return nexus.door_eta(database_url)
+
+
 JOB_HANDLERS: dict[str, Callable[[dict[str, Any], str | None], dict[str, Any]]] = {
     "scenario.run": run_scenario,
     "c1.metrics": run_c1_metrics,
     "c2.process": run_c2_process,
     "c4.train": run_c4_train,
     "c5.refresh": run_c5_refresh,
+    "nexus.door_eta": run_nexus_door_eta,
 }
 # Handlers that record the job id on what they write.
 JOB_HANDLERS_WITH_ID: dict[

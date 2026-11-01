@@ -13,7 +13,7 @@ from cportal_core.llm import OllamaProvider
 from cportal_core.models import OutboxEvent
 from cportal_nexus import buffer
 
-from cportal_worker import c1
+from cportal_worker import c1, nexus
 
 log = logging.getLogger(__name__)
 NEWS_SOURCES = {"DS-NEWS-02", "DS-NEWS-03", "DS-NEWS-04"}
@@ -29,8 +29,9 @@ def process(database_url: str | None = None) -> dict[str, Any]:
     refreshed = c1.refresh(None, database_url)  # events move C1 risk and TTR (C1-AC06)
     with session_scope(database_url) as session:
         recommendations = buffer.refresh(session)
+    door = nexus.door_eta(database_url) if counts["events"] else {}
     log.info("c2 processed", extra={**counts, "recommendations": recommendations})
-    return {**counts, "c1": refreshed, "recommendations": recommendations}
+    return {**counts, "c1": refreshed, "recommendations": recommendations, "door_eta": door}
 
 
 def llm(database_url: str | None = None, top: int = 8) -> dict[str, Any]:

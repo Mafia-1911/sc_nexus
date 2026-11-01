@@ -1,0 +1,16 @@
+# Nexus layer priors (docs/brief/08-nexus-layer.md). Estimates unless a source is named (A-092).
+version: 1
+door_eta:
+  samples: 1000
+  seed: 42
+  gateway: BDCGP
+  # Only events that stop cargo hold shipments: types with capacity_pct ≤ this in
+  # disruptions.yaml (port suspension, cyclone, fire, strike). Partial capacity: later.
+  hold_max_capacity_pct: 20
+  vessel_window_days: 60   # pool C4 port_call predictions (Chattogram) from C4's last 60 days
+  # Yard + customs dwell at Chattogram. P50 = c1.yaml gateway_dwell (4 d, estimate); P90 = 2×
+  # P50 (estimate). Replace with a dated, reported Chattogram average when one is found.
+  container_dwell_h: {p50: 96, p90: 192}
+  # Lognormal σ of moving time by mode (median = plan). Estimates: rail is the least reliable
+  # (C3: 35 % slot cancellations), sea liner legs the most.
+  leg_sigma: {road: 0.25, rail: 0.35, barge: 0.30, sea: 0.12, air: 0.10}

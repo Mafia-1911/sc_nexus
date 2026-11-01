@@ -23,7 +23,7 @@ from cportal_connectors.ingest import replay_source, sync_data_sources
 from cportal_core.db import session_scope
 from cportal_core.models import Article, ModelVersion, Port, PortCall, Prediction
 from cportal_core.names import load_pack
-from cportal_nexus import buffer
+from cportal_nexus import buffer, tracker
 from cportal_sim.seed import seed_scenario
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, select, text
@@ -107,6 +107,8 @@ def client() -> Iterator[TestClient]:
     with session_scope(URL) as session:  # what the worker's c2:process does
         c2_service.process(session)
         buffer.refresh(session)
+    with session_scope(URL) as session:  # what the worker's nexus:door_eta does
+        tracker.refresh(session, c1_store.scenario_row(session, "baseline").id)  # type: ignore[union-attr]
     with session_scope(URL) as session:  # a toy corridor instead of the 340 MB OSM extract
         c3_store.save_edges(session, _toy_corridor(), "test")
     factory = sessionmaker(engine, expire_on_commit=False)
@@ -207,6 +209,7 @@ def test_quality_view_uses_the_guarded_name(
         "/api/v1/graph",
         "/api/v1/graph/critical",
         "/api/v1/events",
+        "/api/v1/shipments?active=true&limit=200",
     ],
 )
 def test_read_latency_budget(client: TestClient, path: str) -> None:
@@ -249,6 +252,23 @@ def test_active_shipments_exclude_delivered(client: TestClient) -> None:
     active = client.get("/api/v1/shipments", params={"limit": 500, "active": True}).json()["data"]
     assert {s["status"] for s in every} >= {"delivered", "in_transit"}
     assert active and not {s["status"] for s in active} & {"delivered", "cancelled"}
+
+
+def test_nexus_door_eta_for_every_open_shipment(client: TestClient) -> None:
+    """NX-AC02: P10/P50/P90 and P(on time) on every open shipment; disruptions are evidence."""
+    rows = client.get("/api/v1/shipments", params={"limit": 500, "active": True}).json()["data"]
+    open_ = [s for s in rows if s["status"] in ("in_transit", "planned")]
+    assert open_ and all(s["door_eta"] for s in open_)
+    for s in open_:
+        e = s["door_eta"]
+        assert e["p10"] <= e["p50"] <= e["p90"]
+        assert s["predicted_eta_p50"] is not None
+        assert e["on_time_prob"] is None or 0 <= e["on_time_prob"] <= 1
+    # The Chattogram strike (two outlets, a stoppage type) is listed on shipments through it.
+    held = [s for s in open_ if any("Chattogram" in h["title"] for h in s["door_eta"]["holds"])]
+    assert held
+    one = client.get(f"/api/v1/shipments/{held[0]['id']}").json()["data"]
+    assert one["door_eta"]["p50"] == held[0]["door_eta"]["p50"] and one["legs"]
 
 
 def test_replay_clock_ignores_newer_real_positions(client: TestClient) -> None:

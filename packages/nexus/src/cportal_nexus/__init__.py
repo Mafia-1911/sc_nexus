@@ -2,3 +2,4 @@
 
 VERSION = "0.1.0"
 BUFFER_VERSION = f"nx-buffer-{VERSION}"
+DOOR_ETA_VERSION = f"nx-door-eta-{VERSION}"

@@ -37,6 +37,9 @@ test("Control Tower: KPIs, badges, live map and alerts", async ({ page, baseURL 
   await expect(page.locator('[data-kpi="co2e_week"]')).toContainText("M5");
   await waitForVessels(page);
   await expect(page.getByTestId("alert-feed")).toContainText("SYN-01");
+  // NX-AC02: door ETA and P(on time) on the open shipments.
+  await expect(page.getByTestId("shipment-row").first()).toBeVisible();
+  await expect(page.getByTestId("shipments")).toContainText("%");
   for (const theme of ["light", "dark"] as const) {
     await setTheme(page, theme);
     await mapIdle(page);

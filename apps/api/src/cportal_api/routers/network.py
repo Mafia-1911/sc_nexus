@@ -8,6 +8,7 @@ attributes (quality) ask for the guarded, fictional name (Q-05).
 
 from __future__ import annotations
 
+from datetime import timedelta
 from typing import Annotated, Any
 from uuid import UUID
 
@@ -16,6 +17,7 @@ from cportal_core.models import (
     ImageDataset,
     Job,
     ModelVersion,
+    Prediction,
     Shipment,
     ShipmentLeg,
 )
@@ -25,6 +27,7 @@ from sqlalchemy import select
 from cportal_api.deps import ScopeDep, SessionDep, meta
 from cportal_api.schemas import (
     DatasetOut,
+    DoorEtaOut,
     Envelope,
     ModelOut,
     ShipmentOut,
@@ -46,7 +49,8 @@ def list_shipments(
     if active:
         q = q.where(Shipment.status.not_in([ShipmentStatus.DELIVERED, ShipmentStatus.CANCELLED]))
     rows = session.scalars(q.order_by(Shipment.planned_eta).limit(limit)).all()
-    return Envelope(data=[_shipment(s) for s in rows], meta=meta(rows, scope))
+    etas = _door_etas(session, [s.id for s in rows])
+    return Envelope(data=[_shipment(s, etas.get(s.id)) for s in rows], meta=meta(rows, scope))
 
 
 @router.get("/shipments/{shipment_id}", response_model=Envelope[ShipmentOut], tags=["shipments"])
@@ -57,7 +61,7 @@ def get_shipment(shipment_id: UUID, session: SessionDep, scope: ScopeDep) -> Env
     legs = session.scalars(
         select(ShipmentLeg).where(ShipmentLeg.shipment_id == row.id).order_by(ShipmentLeg.seq)
     ).all()
-    out = _shipment(row)
+    out = _shipment(row, _door_etas(session, [row.id]).get(row.id))
     out.legs = [
         {
             "seq": leg.seq,
@@ -75,7 +79,36 @@ def get_shipment(shipment_id: UUID, session: SessionDep, scope: ScopeDep) -> Env
     return Envelope(data=out, meta=meta([row], scope))
 
 
-def _shipment(s: Shipment) -> ShipmentOut:
+def _door_etas(session: SessionDep, ids: list[UUID]) -> dict[UUID, DoorEtaOut]:
+    """Latest Nexus door ETA per shipment, one query for the whole page."""
+    if not ids:
+        return {}
+    rows = session.scalars(
+        select(Prediction)
+        .where(
+            Prediction.capability == "nexus",
+            Prediction.target_type == "shipment_door_eta",
+            Prediction.target_id.in_(ids),
+        )
+        .order_by(Prediction.as_of)
+    ).all()
+    out: dict[UUID, DoorEtaOut] = {}
+    for p in rows:
+        q, d, x = p.quantiles, p.dist_params, p.explanation
+        out[p.target_id] = DoorEtaOut(
+            as_of=p.as_of,
+            p10=p.as_of + timedelta(hours=q["p10"]),
+            p50=p.as_of + timedelta(hours=q["p50"]),
+            p90=p.as_of + timedelta(hours=q["p90"]),
+            on_time_prob=p.value,
+            due=d.get("due"),
+            drivers=x.get("drivers", []),
+            holds=x.get("holds", []),
+        )
+    return out
+
+
+def _shipment(s: Shipment, eta: DoorEtaOut | None = None) -> ShipmentOut:
     return ShipmentOut(
         id=s.id,
         reference=s.reference,
@@ -85,6 +118,7 @@ def _shipment(s: Shipment) -> ShipmentOut:
         planned_eta=s.planned_eta,
         predicted_eta_p50=s.predicted_eta_p50,
         predicted_eta_p90=s.predicted_eta_p90,
+        door_eta=eta,
     )
 
 

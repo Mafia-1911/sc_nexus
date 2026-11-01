@@ -998,6 +998,53 @@ export interface components {
             start_d: number;
         };
         /**
+         * DoorEtaOut
+         * @description Nexus door ETA (08 §1, NX-AC02): Monte Carlo over the remaining legs.
+         */
+        DoorEtaOut: {
+            /**
+             * As Of
+             * Format: date-time
+             */
+            as_of: string;
+            /**
+             * Drivers
+             * @description Mean extra hours vs plan by cause
+             */
+            drivers?: {
+                [key: string]: unknown;
+            }[];
+            /** Due */
+            due?: string | null;
+            /**
+             * Holds
+             * @description Disruptions at this shipment's locations (evidence)
+             */
+            holds?: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * On Time Prob
+             * @description P(door ≤ due); null without a due date
+             */
+            on_time_prob?: number | null;
+            /**
+             * P10
+             * Format: date-time
+             */
+            p10: string;
+            /**
+             * P50
+             * Format: date-time
+             */
+            p50: string;
+            /**
+             * P90
+             * Format: date-time
+             */
+            p90: string;
+        };
+        /**
          * Driver
          * @description One feature's share of a node's risk score. The score is additive, so these are its
          *     exact Shapley values against the mean node (SHAP with an interventional baseline).
@@ -2147,6 +2194,7 @@ export interface components {
         ShipmentOut: {
             /** Cargo Profile */
             cargo_profile: string;
+            door_eta?: components["schemas"]["DoorEtaOut"] | null;
             /**
              * Id
              * Format: uuid

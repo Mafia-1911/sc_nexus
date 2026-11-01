@@ -289,6 +289,23 @@ class WhatIfOut(WhatIfResult):
     scenario: str | None
 
 
+class DoorEtaOut(BaseModel):
+    """Nexus door ETA (08 §1, NX-AC02): Monte Carlo over the remaining legs."""
+
+    as_of: datetime
+    p10: datetime
+    p50: datetime
+    p90: datetime
+    on_time_prob: float | None = Field(None, description="P(door ≤ due); null without a due date")
+    due: datetime | None = None
+    drivers: list[dict[str, Any]] = Field(
+        default_factory=list, description="Mean extra hours vs plan by cause"
+    )
+    holds: list[dict[str, Any]] = Field(
+        default_factory=list, description="Disruptions at this shipment's locations (evidence)"
+    )
+
+
 class ShipmentOut(BaseModel):
     id: UUID
     reference: str
@@ -299,6 +316,7 @@ class ShipmentOut(BaseModel):
     predicted_eta_p50: datetime | None
     predicted_eta_p90: datetime | None
     legs: list[dict[str, Any]] = Field(default_factory=list)
+    door_eta: DoorEtaOut | None = None
 
 
 class BatchOut(BaseModel):

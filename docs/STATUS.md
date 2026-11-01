@@ -1,8 +1,32 @@
 # STATUS (updated 2026-11-01 BST by Claude Code, Opus 5.5)
 
-Milestone: **M7 / C5 thin slice done → soft gate: deepen C5 or move to M8 (Nexus + demo)?**
-(C4 thin slice done; the user: "continue and move to C5"; no new user tasks, U-03). Branch
-`m3-c1`. Nothing pushed since M2 (commit only until the whole build is done).
+Milestone: **M8 Nexus + demo, in progress** (the user deferred VisA and further C5 depth,
+U-06). Branch `m3-c1`. Nothing pushed since M2 (commit only until the whole build is done).
+
+Done (M8 slice 1, shipment tracker, NX-R01 / NX-AC02):
+- **Door ETA** (`packages/nexus` `door_eta.py` + `tracker.py`, model card
+  `docs/model-cards/nexus-door-eta.md`, priors `config/priors/nexus.yaml`, A-092): 1,000-sample
+  Monte Carlo over the remaining legs: mode noise, schedules, C4's Chattogram port-call pool,
+  container dwell prior, stoppage disruptions at a leg's LOCODE (prob = confidence). Writes
+  `prediction` (nexus, `shipment_door_eta`) and `shipment.predicted_eta_p50/p90`.
+- **Worker:** `nexus:door_eta` every 15 min, after C2 events and after C4 retrains; job
+  `nexus.door_eta`. **API:** `door_eta` on `/shipments[/{id}]` (P10/P50/P90, P(on time), due,
+  drivers, holds). **Web:** Control Tower shipments table shows door ETA, on-time and main driver.
+- **Results:** 107 open shipments in ≈ 2.5 s; cyclone moves shipments through Chattogram by up to
+  +26 h (P50) / +38 h (P90). Mean P(on time) ≈ 0.34: synthetic due dates are only ≈ 5 h after
+  the planned delivery (an artefact, in the card).
+
+Next (M8): evidence fusion (NX-AC03) → recommendation engine (NX-AC04) → scenario engine and
+policy comparison (NX-AC05) → backtest window (NX-AC06) → daily brief → golden path, README, video.
+
+Checks: `make test` 289 passed (latency budgets included; before a host reboot they ran at
+≈ 330 ms for every route, unchanged ones too); Control Tower e2e passes, screenshots refreshed.
+Cosmetic gaps (noted, not fixed): the on-time badge wraps "47 %" onto two lines; most rows name
+"schedules and connections" as the main driver.
+
+Waiting on user: **Q-17** (copilot "Ask Nexus" / MCP server: skip, read-only copilot, or both).
+
+---
 
 Done (M7, C5 defect intelligence):
 - **Data:** `uv run vis-fetch`: MVTec AD pill, capsule, carpet, leather (test sets, masks, 60
@@ -45,8 +69,9 @@ Not met yet (honest): VisA capsules
 notebook yet (CLI + JSON).
 
 Waiting on user:
-- **VisA (optional, U-04):** per `docs/USER_TASKS.md`; then the agent runs
-  `uv run c5 eval visa_capsules`.
+- **VisA capsules: deferred** by the user (deepen C5 later). Data and split file are in
+  `data/raw/DS-VIS-02/`; scoring ran, but saving the `model_version` row failed (psycopg
+  parameter error, not yet diagnosed).
 - Soft gate: deepen C5 (AnomalyCLIP, VisA, a notebook, few-shot upload flow) or move to M8?
 
 ---

@@ -20,12 +20,14 @@ from cportal_core.models import (
     GraphMetric,
     Job,
     OutboxEvent,
+    Scenario,
+    ScenarioResult,
     WhatIfResult,
 )
 from cportal_core.schemas.records import CountryIndicatorRecord, Record
 from cportal_core.testing import TEST_URL, database_available, reset_database
 from cportal_sim.seed import seed_scenario
-from cportal_worker import c1, outbox, sources
+from cportal_worker import c1, golden, outbox, sources
 from cportal_worker.replay import AisReplay
 from sqlalchemy import func, select
 
@@ -181,3 +183,26 @@ def test_c1_jobs_compute_metrics_and_monte_carlo(monkeypatch: pytest.MonkeyPatch
         session.add(OutboxEvent(topic="disruption.updated", payload={"scenario": "baseline"}))
     outbox.drain(TEST_URL)
     assert calls == ["baseline"]  # C1-AC06: events move risk without waiting for the schedule
+
+
+def test_golden_path_compute_runs_within_budget_and_resets() -> None:
+    """NX-AC01 / NX-R02: C1 → C5 → Nexus for a scenario, offline, under 30 s; reset is safe."""
+    with session_scope(TEST_URL) as session:
+        seeded = session.scalar(select(Scenario.id).where(Scenario.key == "baseline"))
+    if seeded is None:
+        seed_scenario("baseline", TEST_URL)
+    steps = golden.run("baseline", TEST_URL)
+    assert [name for name, _, _ in steps][-1] == "Nexus studio"
+    assert sum(t for _, t, _ in steps) < golden.BUDGET_S
+    with session_scope(TEST_URL) as session:
+        sid = session.scalar(select(Scenario.id).where(Scenario.key == "baseline"))
+        result = session.scalar(
+            select(ScenarioResult).where(
+                ScenarioResult.run_scenario_id == sid, ScenarioResult.capability == "nexus"
+            )
+        )
+        assert result is not None and set(result.kpis["policies"]) == {
+            "baseline",
+            "nexus_recommended",
+        }
+    assert golden.reset("baseline", TEST_URL) == {"decisions_cleared": 0, "alerts_reopened": 0}

@@ -167,7 +167,10 @@ def _in_transit_late(session: Session, scenario: Scenario) -> tuple[int, int]:
 
 def _inland_co2e(session: Session, scenario: Scenario) -> dict[str, Any]:
     cfg, c3p = config(), c3_priors()
-    factors = c3_store.factors(session, c3p)
+    try:
+        factors = c3_store.factors(session, c3p)
+    except LookupError as exc:  # DS-GEO-05 not ingested: K-07 is unknown, not zero
+        return {"kg_per_teu": None, "teu_moves": 0, "by_mode_kg": {}, "missing": str(exc)}
     src, dst = aliased(Location), aliased(Location)
     km = func.ST_Distance(func.geography(src.geom), func.geography(dst.geom)) / 1000.0
     rows = session.execute(

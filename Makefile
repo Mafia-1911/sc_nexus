@@ -4,7 +4,7 @@ UV ?= uv
 DS ?=
 
 .PHONY: help setup test lint fmt type check probe probe-p0 probe-p1 cards collect-ais ais-report synth-ais \
-	db-local db-local-stop migrate revision ingest seed calibrate api openapi up down seed-docker erd \
+	db-local db-local-stop migrate revision ingest seed calibrate api openapi up down seed-docker erd golden golden-walk \
 	worker web-setup web web-check e2e demo road-graph
 
 help: ## List targets
@@ -104,6 +104,13 @@ up: ## docker compose: db, migrate, api, worker, web (http://127.0.0.1:3000)
 demo: up seed-docker ## Whole stack plus seeded scenarios; the hero scenario replays on the map
 	docker compose restart worker
 	@echo "ShipperFast demo: http://127.0.0.1:3000"
+
+golden: ## Golden path, offline: worker without live fetches or LLM, fresh decisions, timed compute (NX-AC01)
+	CPORTAL_LIVE=0 CPORTAL_LLM=0 docker compose up -d worker
+	$(UV) run cportal-golden --reset
+
+golden-walk: ## Walk the 8 golden-path steps in a browser with the network cut (→ docs/golden-path.json)
+	cd apps/web && npx playwright test e2e/golden.spec.ts --output $${TMPDIR:-/tmp}/cportal-pw
 
 down: ## Stop the compose stack (data stays in the pgdata volume)
 	docker compose down

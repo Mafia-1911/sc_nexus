@@ -59,8 +59,16 @@ Done (M8 slice 5, backtest, NX-AC06; card `nexus-backtest.md`, `uv run nexus bac
   away, two earthquakes. Misses: 10 of 26 labelled (8 Eid, the 2024 unrest, Remal at 357 km).
   Hazard feeds only: no news history before Oct 2026.
 
-Next (M8, towards G3): golden-path script and reset (NX-AC01) → daily brief (template) → polish
-checklist, README with screenshots, video.
+Done (M8 slice 6, golden path, NX-AC01; script `docs/GOLDEN_PATH.md`):
+- `make golden`: offline worker (`CPORTAL_LIVE=0`, `CPORTAL_LLM=0`), demo reset, timed compute
+  (`cportal-golden`): C1 → C5 → Nexus for the hero in ≈ 4.5 s (budget 30 s).
+- `make golden-walk`: Playwright walks the 8 steps with every non-local request aborted; 5.2 s of
+  machine time; only `tiles.openfreemap.org` was blocked (basemap), the story still works →
+  `docs/golden-path.json`. Presenter script with the live numbers per step.
+- Fix: the studio's K-07 no longer crashes without DESNZ factors (unknown, shown as "—").
+
+Next (M8, towards G3): daily brief (template) → polish checklist (local basemap, README with
+screenshots, viewports, Lighthouse) → video (user).
 
 Checks: `make test` 294 passed (after slice 2); slice 1: 289 passed (latency budgets included; before a host reboot they ran at
 ≈ 330 ms for every route, unchanged ones too); Control Tower e2e passes, screenshots refreshed.

@@ -56,6 +56,11 @@ const ACTION: Record<string, string> = {
   notify_customer: "Notify the buyer",
 };
 
+/** Unknown is a dash, never zero (no DESNZ factors ingested → no K-07). */
+function kg(v: number | null | undefined): string {
+  return v === null || v === undefined ? "—" : `${fmt(v, 1)} kg`;
+}
+
 function pct(v: number | null | undefined): string {
   return v === null || v === undefined ? "—" : `${fmt(v * 100, 1)}%`;
 }
@@ -93,7 +98,7 @@ async function Studio() {
     ["Revenue at risk, production (P90)", usd(b.revenue_at_risk_usd), usd(n.revenue_at_risk_usd), usd(n.revenue_at_risk_usd - b.revenue_at_risk_usd)],
     ["OTIF, production and quality (K-06)", pct(b.otif), pct(n.otif), d.otif_pts === null ? "—" : `${d.otif_pts > 0 ? "+" : ""}${fmt(d.otif_pts, 1)} pts`],
     ["Cost of the actions", usd(b.action_cost_usd), usd(n.action_cost_usd), usd(n.action_cost_usd - b.action_cost_usd)],
-    ["CO2e per TEU, inland moves (K-07)", `${fmt(b.co2e_inland_kg_per_teu ?? 0, 1)} kg`, `${fmt(n.co2e_inland_kg_per_teu ?? 0, 1)} kg`, "0 kg"],
+    ["CO2e per TEU, inland moves (K-07)", kg(b.co2e_inland_kg_per_teu), kg(n.co2e_inland_kg_per_teu), b.co2e_inland_kg_per_teu == null ? "—" : "0 kg"],
     ["CO2e added by the actions (air vs sea)", `${fmt(b.co2e_actions_kg)} kg`, `${fmt(n.co2e_actions_kg)} kg`, `${fmt(d.co2e_kg)} kg`],
   ];
   return (

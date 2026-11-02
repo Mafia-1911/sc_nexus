@@ -14,3 +14,22 @@ door_eta:
   # Lognormal σ of moving time by mode (median = plan). Estimates: rail is the least reliable
   # (C3: 35 % slot cancellations), sea liner legs the most.
   leg_sigma: {road: 0.25, rail: 0.35, barge: 0.30, sea: 0.12, air: 0.10}
+# Scenario Studio (08 §2, NX-AC05): "with Nexus vs without" (A-097). Estimates unless sourced.
+studio:
+  penalty_rate: 0.15          # lateness cost as a share of order value (same as buffer.py)
+  # Inland legs: great-circle km × detour (road/rail/barge vs straight line; C3's road graph is
+  # within 3.2 % of ORS, but legs here are not routed), DESNZ factors via C3 (`c3 store.factors`).
+  detour: {road: 1.3, rail: 1.2, barge: 1.25}
+  # Air instead of sea for C5's `expedite_air`, BD → EU (DESNZ 2026 rows, kg CO2e / tonne.km).
+  air: {vehicle_class: "Freight flights / International, to/from non-UK", fuel: "With RF", km: 7500}
+  sea: {vehicle_class: "Cargo ship / Container ship / Average", km: 14500}
+# Reroute exports via the alternative gateway when Chattogram blocks them (cause "gateway" in C1's
+# cascade). ESTIMATES (A-098): Mongla's feeder frequency and box capacity limit the share that can
+# move; extra cost = longer feeder connection and handling; replace with dated quotes.
+reroute:
+  alt_gateway: BDMGL
+  alt_name: Mongla
+  feasible_share: 0.6
+  extra_usd_per_teu: 250
+  extra_days: 2
+  units_per_teu: 8000        # garments per TEU (estimate)

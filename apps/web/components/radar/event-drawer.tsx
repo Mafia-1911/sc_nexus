@@ -21,6 +21,7 @@ function Recommendation({ rec, scenario }: { rec: Rec; scenario: string }) {
       if (out.data) setState(out.data);
     });
   const pull = state.action_type === "pull_forward_po";
+  const reroute = state.action_type === "reroute";
   const targets = state.targets as {
     facility: string;
     product: string;
@@ -28,23 +29,29 @@ function Recommendation({ rec, scenario }: { rec: Rec; scenario: string }) {
     days_of_cover?: number;
     supplier?: string;
     feasible_share?: number;
+    reference?: string;
+    teu?: number;
+    revenue_usd?: number;
   }[];
   const ev = state.expected_value_usd ?? (state.expected_benefit_usd ?? 0) - (state.expected_cost_usd ?? 0);
   const evidence = state.evidence_refs as { kind?: string }[];
   return (
     <section
       className="flex flex-col gap-2 rounded-[var(--radius-card)] border border-primary/40 bg-primary/5 p-3"
-      data-testid={pull ? "pull-rec" : "buffer-rec"}
+      data-testid={reroute ? "reroute-rec" : pull ? "pull-rec" : "buffer-rec"}
     >
       <div className="flex items-center justify-between gap-2">
-        <h3 className="text-sm font-semibold">{pull ? "Pull the next PO forward" : "Raise the buffer"} (recommendation)</h3>
+        <h3 className="text-sm font-semibold">
+          {reroute ? `Export via ${String(state.params.alt_gateway ?? "the alternative gateway")}` : pull ? "Pull the next PO forward" : "Raise the buffer"}{" "}
+          (recommendation)
+        </h3>
         <Badge tone={state.status === "accepted" ? "ok" : state.status === "dismissed" ? "neutral" : "info"}>{state.status}</Badge>
       </div>
       <p className="text-xs">{state.rationale}</p>
       <dl className="grid grid-cols-4 gap-2 text-xs">
         {[
           ["Expected benefit", usd(state.expected_benefit_usd)],
-          [pull ? "Rush + holding cost" : "Holding cost", usd(state.expected_cost_usd)],
+          [reroute ? "Extra freight cost" : pull ? "Rush + holding cost" : "Holding cost", usd(state.expected_cost_usd)],
           ["Expected value", usd(ev)],
           ["Confidence", fmt((state.confidence ?? 0) * 100) + "%"],
         ].map(([k, v]) => (
@@ -54,6 +61,30 @@ function Recommendation({ rec, scenario }: { rec: Rec; scenario: string }) {
           </div>
         ))}
       </dl>
+      {reroute ? (
+        <table className="w-full text-xs">
+          <thead className="text-left text-muted">
+            <tr>
+              <th className="py-1 font-medium">Order</th>
+              <th className="py-1 font-medium">Plant</th>
+              <th className="py-1 font-medium">Product</th>
+              <th className="py-1 text-right font-medium">TEU</th>
+              <th className="py-1 text-right font-medium">Revenue</th>
+            </tr>
+          </thead>
+          <tbody>
+            {targets.slice(0, 6).map((t, i) => (
+              <tr key={`${t.reference}:${i}`} className="border-t border-border">
+                <td className="py-1 font-mono">{t.reference}</td>
+                <td className="max-w-48 truncate py-1" title={t.facility}>{t.facility}</td>
+                <td className="py-1">{productName(t.product)}</td>
+                <td className="tabular py-1 text-right">{fmt(t.teu ?? 0)}</td>
+                <td className="tabular py-1 text-right">{usd(t.revenue_usd)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
       <table className="w-full text-xs">
         <thead className="text-left text-muted">
           <tr>
@@ -78,8 +109,11 @@ function Recommendation({ rec, scenario }: { rec: Rec; scenario: string }) {
           ))}
         </tbody>
       </table>
+      )}
       <p className="text-[11px] text-muted">
-        {pull
+        {reroute
+          ? "Finished goods are stuck at the closed gateway, so stock cannot help. Feasible share, extra days and US$/TEU are estimates."
+          : pull
           ? "Share that can still beat the event = days until it starts / days the order needs; a 5 % rush premium, holding 25 %/yr and a 15 % lateness cost are estimates."
           : "Safety stock z·√(L·σd² + d²·σL²) with lead time inflated by the event; holding 25 %/yr and a 15 % lateness cost are estimates."}{" "}
         Evidence: {evidence.length} reference(s) ({[...new Set(evidence.map((x) => x.kind ?? "event"))].join(", ")}). Synthetic plants

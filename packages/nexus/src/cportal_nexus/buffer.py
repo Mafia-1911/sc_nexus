@@ -21,14 +21,17 @@ from __future__ import annotations
 
 import math
 from datetime import datetime
+from functools import cache
 from typing import Any
 from uuid import NAMESPACE_URL, uuid5
 
+import yaml
 from cportal_c1 import service as c1
 from cportal_c1 import store as c1_store
 from cportal_c1.graph import SupplyGraph
 from cportal_c1.schemas import DisruptionIn, WhatIfRequest
 from cportal_core.models import Alert, DisruptionEvent, EventEntityLink, Recommendation, Scenario
+from cportal_core.paths import repo_root
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
@@ -48,6 +51,40 @@ CAPACITY_BY_TYPE = {  # mirrors config/priors/disruptions.yaml for the what-if
     "PORT_OPERATIONS_SUSPENDED": 0, "CYCLONE_STORM": 0, "FIRE_EXPLOSION": 0,
     "LABOR_STRIKE_BLOCKADE": 20, "FLOOD": 50, "PORT_CONGESTION": 60,
 }  # fmt: skip
+
+
+@cache
+def _type_priors() -> dict[str, dict[str, Any]]:
+    raw = yaml.safe_load((repo_root() / "config/priors/disruptions.yaml").read_text())
+    return dict(raw["types"])
+
+
+def durations(event: DisruptionEvent) -> tuple[float, float]:
+    """P50 and P90 duration in days: the event's own, else its type's prior (estimate)."""
+    prior = _type_priors().get(event.type, {})
+    p50 = float(event.duration_p50_h or prior.get("p50_h", 48)) / 24
+    p90 = float(event.duration_p90_h or prior.get("p90_h", p50 * 24 * 1.6)) / 24
+    return p50, max(p90, p50)
+
+
+def window(event: DisruptionEvent, now: datetime, which: str = "p50") -> tuple[float, float] | None:
+    """(start_d, duration_d) of what is left of the event after `now`, at its P50 or P90 length.
+    The recommendation engine and the Scenario Studio both use this (one disruption definition)."""
+    p50, p90 = durations(event)
+    length = p50 if which == "p50" else p90
+    start = event.start_est or now
+    offset = (start - now).total_seconds() / 86400
+    start_d = max(0.0, offset)
+    left = offset + length - start_d
+    return None if left <= 0 else (min(start_d, 90.0), min(max(left, 0.5), 180.0))
+
+
+def disruptions(nodes: list[str], when: tuple[float, float], capacity: float) -> list[DisruptionIn]:
+    start_d, duration_d = when
+    return [
+        DisruptionIn(node_id=n, duration_d=duration_d, capacity_pct=capacity, start_d=start_d)
+        for n in nodes
+    ]
 
 
 def _nodes(
@@ -78,22 +115,28 @@ def recommend(
     nodes = _nodes(session, g, event, scenario)
     if not nodes:
         return []
-    p50_d = (event.duration_p50_h or 48) / 24
-    p90_d = (event.duration_p90_h or p50_d * 24 * 1.6) / 24
+    p50_d, p90_d = durations(event)
     capacity = float(CAPACITY_BY_TYPE.get(event.type, 40))
-    result = c1.what_if(
-        g,
-        WhatIfRequest(
-            disruptions=[
-                DisruptionIn(node_id=n, duration_d=max(1.0, p50_d), capacity_pct=capacity)
-                for n in nodes
-            ]
-        ),
-    )
-    late = [o for o in result.impacted_orders if o.late]
-    if not late:
+    when = window(event, scenario_now(scenario), "p50")
+    if when is None:
+        return []  # over before the scenario's now
+    result = c1.what_if(g, WhatIfRequest(disruptions=disruptions(nodes, when, capacity)))
+    late_all = [o for o in result.impacted_orders if o.late]
+    if not late_all:
         return []
     hit = set(nodes)
+    confidence, evidence = _confidence(event, fused)
+    # C1 says why each order is late: finished goods stuck at the closed gateway need another
+    # way out (reroute); input shortages are what stock and an earlier PO can absorb.
+    blocked = [o for o in late_all if o.cause == "gateway"]
+    late = [o for o in late_all if o.cause != "gateway"]
+    others: list[Recommendation] = []
+    if blocked and g.gateway in hit:
+        r = _reroute(g, alert, event, scenario, blocked, confidence, evidence, when)
+        if r is not None and (r.expected_benefit_usd or 0) > (r.expected_cost_usd or 0):
+            others.append(r)
+    if not late:
+        return others
     targets: list[dict[str, Any]] = []
     cost = 0.0
     for plant in sorted({o.facility for o in late}):
@@ -124,24 +167,7 @@ def recommend(
                 }
             )
     if not targets:
-        return []
-    fz = (fused or {}).get(str(event.id))
-    confidence = float(fz["value"]) if fz else float(event.confidence or 0.3)
-    evidence: list[dict[str, Any]] = [{"event_id": str(event.id), "kind": "event"}]
-    if fz:
-        evidence.append(
-            {
-                "prediction": "event_confidence",
-                "event_id": str(event.id),
-                "news_confidence": event.confidence,
-                "fused": fz["value"],
-            }
-        )
-        evidence += [
-            {"event_id": x["ref_id"], "kind": x["kind"], "label": x["label"]}
-            for x in fz["signals"]
-            if x.get("ref_type") == "event"
-        ]
+        return others
     benefit = confidence * sum(o.revenue_usd for o in late) * PENALTY_RATE
     days = max(t["days_of_cover"] for t in targets)
     buffer = Recommendation(
@@ -183,7 +209,107 @@ def recommend(
         g, alert, event, scenario, hit, late, confidence, evidence, p50_d, capacity
     )
     worth = pull is not None and (pull.expected_benefit_usd or 0) > (pull.expected_cost_usd or 0)
-    return [buffer] + ([pull] if worth and pull is not None else [])
+    return [buffer] + ([pull] if worth and pull is not None else []) + others
+
+
+def _confidence(
+    event: DisruptionEvent, fused: dict[str, Any] | None
+) -> tuple[float, list[dict[str, Any]]]:
+    """Fused confidence (08 §3) when there is one; evidence = event, fusion row, corroborators."""
+    fz = (fused or {}).get(str(event.id))
+    confidence = float(fz["value"]) if fz else float(event.confidence or 0.3)
+    evidence: list[dict[str, Any]] = [{"event_id": str(event.id), "kind": "event"}]
+    if fz:
+        evidence.append(
+            {
+                "prediction": "event_confidence",
+                "event_id": str(event.id),
+                "news_confidence": event.confidence,
+                "fused": fz["value"],
+            }
+        )
+        evidence += [
+            {"event_id": x["ref_id"], "kind": x["kind"], "label": x["label"]}
+            for x in fz["signals"]
+            if x.get("ref_type") == "event"
+        ]
+    return confidence, evidence  # fmt: skip
+
+
+@cache
+def _reroute_priors() -> dict[str, Any]:
+    raw = yaml.safe_load((repo_root() / "config/priors/nexus.yaml").read_text())
+    return dict(raw["reroute"])
+
+
+def _reroute(
+    g: SupplyGraph,
+    alert: Alert,
+    event: DisruptionEvent,
+    scenario: Scenario,
+    blocked: list[Any],
+    confidence: float,
+    evidence: list[dict[str, Any]],
+    when: tuple[float, float],
+) -> Recommendation | None:
+    """Export the orders the closed gateway blocks via the alternative gateway (A-098)."""
+    r = _reroute_priors()
+    share, per_teu = float(r["feasible_share"]), float(r["extra_usd_per_teu"])
+    qty = {o.id: o.qty for o in g.orders}
+    targets: list[dict[str, Any]] = []
+    cost = 0.0
+    for o in blocked:
+        teu = max(1, math.ceil(float(qty.get(o.order_id, 0.0)) / float(r["units_per_teu"])))
+        cost += teu * per_teu
+        targets.append(
+            {
+                "order_id": o.order_id,
+                "reference": o.reference,
+                "facility": o.facility_name,
+                "product": o.product,
+                "teu": teu,
+                "revenue_usd": round(o.revenue_usd, 2),
+                "delay_d": round(o.delay_d, 1),
+            }
+        )
+    if not targets:
+        return None
+    revenue = sum(o.revenue_usd for o in blocked)
+    benefit = confidence * share * revenue * PENALTY_RATE
+    return Recommendation(
+        id=uuid5(NS, f"reroute:{alert.id}:{scenario.id}"),
+        source_id="nexus",
+        source_record_id=str(alert.id),
+        data_mode="synthetic",
+        is_synthetic=True,
+        scenario_id=scenario.id,
+        generator_version=BUFFER_VERSION,
+        alert_id=alert.id,
+        action_type="reroute",
+        target_refs=targets,
+        params={
+            "alt_gateway": r["alt_gateway"],
+            "feasible_share": share,
+            "extra_usd_per_teu": per_teu,
+            "extra_days": r["extra_days"],
+            "penalty_rate": PENALTY_RATE,
+            "orders_late": len(blocked),
+            "revenue_at_risk_usd": round(revenue, 2),
+            "start_d": round(when[0], 1),
+            "duration_d": round(when[1], 1),
+        },
+        expected_benefit_usd=round(benefit, 2),
+        expected_cost_usd=round(cost, 2),
+        confidence=round(confidence, 3),
+        rationale=(
+            f"{event.title}: Chattogram blocks the export of {len(blocked)} finished order(s) for "
+            f"{when[1]:.1f} days. Exporting via {r['alt_name']} ({r['alt_gateway']}) adds about "
+            f"{r['extra_days']} days and US${per_teu:.0f}/TEU; about {share:.0%} of the volume "
+            "fits its feeder capacity (estimates). Stock cannot help here: the goods are made."
+        ),
+        evidence_refs=evidence,
+        status="proposed",
+    )
 
 
 def _pull_forward(

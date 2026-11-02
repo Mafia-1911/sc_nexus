@@ -6,6 +6,7 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
     "cportal-core",
     "cportal-c1",
+    "cportal-c3",
 ]
 
 [build-system]

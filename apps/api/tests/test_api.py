@@ -392,13 +392,19 @@ def test_c2_alerts_and_buffer_decisions(client: TestClient) -> None:
     a person accepts or dismisses them."""
     alerts = client.get("/api/v1/alerts").json()["data"]
     assert any("Chattogram" in a["title"] for a in alerts)
-    recs = client.get("/api/v1/recommendations", params={"kind": "buffer"}).json()["data"]
-    if not recs:
-        pytest.skip("the strike makes no baseline order late: nothing to buffer")
+    nexus = ("increase_safety_stock", "pull_forward_po", "reroute")
+    recs = [
+        r for r in client.get("/api/v1/recommendations").json()["data"] if r["action_type"] in nexus
+    ]
+    assert recs, "the Chattogram strike gets a costed Nexus action (stock, PO or reroute)"
     rec = recs[0]
     target = rec["targets"][0]
-    assert target["units"] > 0 and target["days_of_cover"] > 0 and rec["expected_cost_usd"] >= 0
-    assert rec["expected_benefit_usd"] > 0 and rec["confidence"] and rec["evidence_refs"]
+    if rec["action_type"] == "increase_safety_stock":
+        assert target["units"] > 0 and target["days_of_cover"] > 0
+    if rec["action_type"] == "reroute":  # blocked at the port: export via the other gateway
+        assert target["teu"] >= 1 and rec["params"]["alt_gateway"] == "BDMGL"
+    assert rec["expected_cost_usd"] >= 0 and rec["expected_benefit_usd"] > 0
+    assert rec["confidence"] and rec["evidence_refs"]
     done = client.post(
         f"/api/v1/recommendations/{rec['id']}/decision",
         json={"decision": "dismissed", "feedback": "stock already in transit"},

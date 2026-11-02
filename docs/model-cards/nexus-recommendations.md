@@ -9,8 +9,9 @@ then accepted or dismissed with feedback (K-04).
 
 | Action | Trigger | Cost | Benefit | Source |
 |---|---|---|---|---|
-| `increase_safety_stock` | an open disruption alert whose C1 what-if makes orders late | extra units × value × 25 %/yr holding × carry days | confidence × late revenue × 15 % lateness cost | buffer maths SS = z·√(L̄σd² + d̄²σL²) |
+| `increase_safety_stock` | an open disruption alert whose C1 what-if makes orders late **for lack of inputs** (C1 cause `inputs`/`plant`) | extra units × value × 25 %/yr holding × carry days | confidence × late revenue × 15 % lateness cost | buffer maths SS = z·√(L̄σd² + d̄²σL²) |
 | `pull_forward_po` | same alert, inputs exposed to the hit node (at the supplier, on its route, or upstream via C1 `input_deps`) | units × value × (5 % rush premium + holding × days pulled forward / 365) | as above × share that can still beat the event (days until it starts ÷ days the order needs) | proposed only when expected value > 0 |
+| `reroute` | orders late because the closed gateway blocks finished goods (C1 cause `gateway`) | TEU × US$250 (estimate) | confidence × 60 % feasible share × late revenue × 15 % | export via Mongla (BDMGL), +2 days (A-098) |
 | `rework`, `replace_production`, `expedite_air`, `notify_customer` | a failed AQL lot whose order is at risk (C5) | C5 priors | C5 priors | `config/priors/c5.yaml` |
 
 Confidence = the Nexus **fused** confidence (08 §3) when there is one, else the event's.
@@ -27,13 +28,16 @@ confidence; one per GDACS id.
 
 | Alert | Action | Expected value | Confidence |
 |---|---|---|---|
-| Tropical Cyclone SYN-01 (forecast, PortWatch) | raise the buffer (2.1 days of cover, knit and denim fabric) | US$69.1K | 0.95 |
-| Tropical Cyclone SYN-01 | pull the next PO forward 2 days (3 fabric lines, incl. Mill X) — 5–6 % can beat it | US$3.8K | 0.95 |
-| Chattogram port suspends cargo handling (news) | raise the buffer | US$62.3K | 0.86 |
+| Tropical Cyclone SYN-01 (forecast, PortWatch) | export 2 blocked orders via Mongla | US$88.8K | 0.95 |
+| Chattogram port suspends cargo handling (news) | export 1 blocked order via Mongla | US$34.7K | 0.86 |
 | Failed garment lots (Quality Lab) | rework, replace, air, notify | C5 | C5 |
 
-NX-AC04 (≥ 3 types in the golden path, each with expected value, confidence and evidence): met
-(safety stock, pull-forward, rework, replacement, air, buyer notice).
+The hero's late orders are finished goods stuck at the shut port (C1 cause `gateway`), so the
+engine proposes reroutes, not stock; the first version of this card showed buffer and
+pull-forward actions for them, which C1's cascade showed could not save a single order (fixed,
+A-098). Buffer and pull-forward still fire for input shortages. NX-AC04 (≥ 3 types in the golden
+path, each with expected value, confidence and evidence): met (reroute, rework, replacement,
+air, buyer notice).
 
 ## Limits (honest)
 

@@ -489,12 +489,14 @@ version = "0.1.0"
 source = { editable = "packages/nexus" }
 dependencies = [
     { name = "cportal-c1" },
+    { name = "cportal-c3" },
     { name = "cportal-core" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "cportal-c1", editable = "packages/c1_supplier_graph" },
+    { name = "cportal-c3", editable = "packages/c3_routing" },
     { name = "cportal-core", editable = "packages/core" },
 ]
 

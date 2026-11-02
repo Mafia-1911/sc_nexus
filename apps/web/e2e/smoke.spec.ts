@@ -105,7 +105,7 @@ test("Supplier Network: leaderboard, node drawer and a what-if (C1)", async ({ p
   await expect(page.getByTestId("supply-map")).toHaveAttribute("data-idle", "true", { timeout: 30_000 });
 });
 
-test("Disruption Radar: one grounded event, evidence and a buffer recommendation (C2)", async ({ page, baseURL }) => {
+test("Disruption Radar: one grounded event, evidence and a costed recommendation (C2, NX)", async ({ page, baseURL }) => {
   await page.context().addCookies([{ name: "scenario", value: "cyclone_supplier_delay", url: baseURL! }]);
   await page.goto("/radar");
   await expect(page).toHaveTitle(new RegExp(`Disruption Radar · ${BRAND}`));
@@ -117,15 +117,16 @@ test("Disruption Radar: one grounded event, evidence and a buffer recommendation
   const drawer = page.getByTestId("event-drawer");
   await expect(drawer).toBeVisible({ timeout: 15_000 });
   await expect(page.getByTestId("evidence").locator("mark").first()).toBeVisible();
-  await expect(page.getByTestId("buffer-rec")).toContainText("Expected benefit");
+  // Late orders blocked at the shut port: the costed action is a reroute (C1 cause "gateway").
+  await expect(page.getByTestId("reroute-rec").first()).toContainText("Expected benefit");
   // NX-AC03: the news is corroborated by the hazard feed (evidence fusion).
   await expect(page.getByTestId("corroboration")).toContainText("hazard");
   // NX-AC04 / golden path step 5: the cyclone forecast (hazard feed) gets ranked actions.
   await page.getByRole("link", { name: "Feeds", exact: true }).click();
   await expect(page).toHaveURL(/source=feeds/);
   await feed.locator("button", { hasText: "Tropical Cyclone SYN-01" }).first().click();
-  await expect(page.getByTestId("pull-rec")).toContainText("Expected value", { timeout: 15_000 });
-  await expect(page.getByTestId("buffer-rec").first()).toContainText("Confidence");
+  // The goods are made but the port is shut: Nexus reroutes the exports (C1 cause "gateway").
+  await expect(page.getByTestId("reroute-rec").first()).toContainText("Expected value", { timeout: 15_000 });
   for (const theme of ["light", "dark"] as const) {
     await setTheme(page, theme);
     await page.waitForTimeout(400);
@@ -207,5 +208,21 @@ test("Theme toggle switches and persists", async ({ page }) => {
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(page.getByText("Arrives in M8")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Scenario Studio", level: 1 })).toBeVisible();
+});
+
+test("Scenario Studio: with Nexus vs without (NX-AC05)", async ({ page, baseURL }) => {
+  await page.context().addCookies([{ name: "scenario", value: "cyclone_supplier_delay", url: baseURL! }]);
+  await page.goto("/scenarios");
+  await expect(page).toHaveTitle(new RegExp(`Scenario Studio · ${BRAND}`));
+  const table = page.getByTestId("comparison");
+  await expect(table).toBeVisible({ timeout: 15_000 });
+  for (const kpi of ["Orders at risk", "OTIF", "CO2e per TEU"]) await expect(table).toContainText(kpi);
+  await expect(page.getByTestId("actions")).toContainText("Export via Mongla");
+  await expect(page.getByTestId("print")).toBeVisible();
+  for (const theme of ["light", "dark"] as const) {
+    await setTheme(page, theme);
+    await page.waitForTimeout(300);
+    await page.screenshot({ path: `${SHOTS}/scenario-studio-${theme}.png`, fullPage: true });
+  }
 });

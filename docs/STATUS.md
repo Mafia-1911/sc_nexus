@@ -41,9 +41,19 @@ Done (M8 slice 3, recommendation engine, NX-R04 / NX-AC04; card `nexus-recommend
 - Cosmetic gaps (noted): hazard events show "lasts —" (Nexus uses the type prior); the
   corroboration heading says "news confidence" on feed events too.
 
-Next (M8, towards G3): Scenario Studio policy comparison (NX-AC05, K-05…07) → backtest window
-(NX-AC06, K-03/K-04) → golden-path script and reset (NX-AC01) → daily brief (template) → polish
-checklist, README with screenshots, video.
+Done (M8 slice 4, Scenario Studio, NX-R02 / NX-AC05; card `nexus-studio.md`; `make test` 298 passed):
+- `studio.py`: baseline vs `nexus_recommended` on the same inputs (C1 cascade at P90 and P50,
+  stock added to plant inventory, reroutes saved with Mongla's share, C5 options); K-05 split
+  production / quality / in transit, K-06 OTIF, K-07 inland CO2e per TEU + action CO2e; stored as
+  `scenario_result` (nexus) by the worker's `nexus:refresh`. Page: Scenario Studio (tiles,
+  comparison, actions, one-page PDF export). Hero: net +US$98.4K, OTIF +1.6 pts, P90 production
+  late 5.0 → 3.8, revenue at risk US$1.87M → US$1.20M.
+- Bug fixed on the way (A-098): stock was proposed for orders blocked at the shut gateway; the
+  engine now proposes `reroute` via Mongla for those and stock only for input shortages; engine
+  and studio share one disruption window. Golden-path step 5 now shows "export via Mongla".
+
+Next (M8, towards G3): backtest window (NX-AC06, K-03/K-04) → golden-path script and reset
+(NX-AC01) → daily brief (template) → polish checklist, README with screenshots, video.
 
 Checks: `make test` 294 passed (after slice 2); slice 1: 289 passed (latency budgets included; before a host reboot they ran at
 ≈ 330 ms for every route, unchanged ones too); Control Tower e2e passes, screenshots refreshed.

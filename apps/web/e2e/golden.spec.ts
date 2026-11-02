@@ -34,7 +34,7 @@ test("Golden path: one connected story, offline, under 7 minutes", async ({ page
     await expect(p.locator("[data-kpi]")).toHaveCount(5);
     await expect(p.getByTestId("vessel-count")).toHaveText(/^[1-9]\d* vessels$/, { timeout: 30_000 });
     await expect(p.getByTestId("alert-feed")).toContainText("SYN-01");
-    await expect(p.getByTestId("shipments")).toContainText("%"); // door ETA, P(on time)
+    await expect(p.getByTestId("ship-row").first()).toBeVisible(); // ships at Chattogram
   });
 
   await step("2 Disruption Radar: news + hazard feed → one corroborated event", async (p) => {

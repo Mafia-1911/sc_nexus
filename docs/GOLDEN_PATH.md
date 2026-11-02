@@ -17,7 +17,7 @@ make golden-walk     # optional rehearsal: the 8 steps in a browser with the net
 time with every non-local request blocked. Run `make golden` again after a rehearsal: it clears
 the decisions you accepted on stage.
 
-Open http://127.0.0.1:3000 and pick **Hero: Cyclone SYN-01 + Mill X delay** in the scenario
+Open http://127.0.0.1:3000 and pick **Cyclone shuts Chattogram + denim mill flood** (synthetic scenarios) in the data
 selector (top right).
 
 ## The 8 steps (≈ 45 s each)

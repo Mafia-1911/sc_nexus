@@ -686,6 +686,22 @@
         "title": "Envelope[ShipmentOut]",
         "type": "object"
       },
+      "Envelope_ShipsOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ShipsOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[ShipsOut]",
+        "type": "object"
+      },
       "Envelope_SourceOut_": {
         "properties": {
           "data": {
@@ -1339,6 +1355,18 @@
           "source_id": {
             "title": "Source Id",
             "type": "string"
+          },
+          "source_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The first report's article, or the hazard feed's own page",
+            "title": "Source Url"
           },
           "start_est": {
             "anyOf": [
@@ -2462,6 +2490,24 @@
             "format": "date-time",
             "title": "As Of",
             "type": "string"
+          },
+          "horizon": {
+            "anyOf": [
+              {
+                "enum": [
+                  "past",
+                  "now",
+                  "future",
+                  "scenario"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Real data: past, now (nowcast) or future (forecast); or scenario",
+            "title": "Horizon"
           },
           "mode": {
             "description": "Badge for the UI: one mode, or 'mixed'",
@@ -3848,6 +3894,254 @@
         "title": "ScenarioResultOut",
         "type": "object"
       },
+      "ShipOut": {
+        "properties": {
+          "arrival_ts": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Arrival Ts"
+          },
+          "berth_ts": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Berth Ts"
+          },
+          "call_id": {
+            "title": "Call Id",
+            "type": "string"
+          },
+          "cargo_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cargo Note"
+          },
+          "containers": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Containers"
+          },
+          "data_mode": {
+            "title": "Data Mode",
+            "type": "string"
+          },
+          "departure_ts": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Departure Ts"
+          },
+          "dock_estimate": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Berth time: simulated in a scenario; not observable in GFW",
+            "title": "Dock Estimate"
+          },
+          "dock_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dock Note"
+          },
+          "dock_p90": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dock P90"
+          },
+          "flag": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Flag"
+          },
+          "gt": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gt"
+          },
+          "hours_in_port": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hours In Port"
+          },
+          "imo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Imo"
+          },
+          "is_synthetic": {
+            "title": "Is Synthetic",
+            "type": "boolean"
+          },
+          "loa_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loa M"
+          },
+          "mmsi": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mmsi"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "orders": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Orders",
+            "type": "array"
+          },
+          "ship_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ship Type"
+          },
+          "status": {
+            "enum": [
+              "expected",
+              "at_anchorage",
+              "in_port",
+              "at_berth",
+              "departed"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "unknown": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Fields with no source yet",
+            "title": "Unknown",
+            "type": "object"
+          },
+          "vessel_id": {
+            "title": "Vessel Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "call_id",
+          "vessel_id",
+          "name",
+          "mmsi",
+          "imo",
+          "flag",
+          "ship_type",
+          "loa_m",
+          "gt",
+          "status",
+          "arrival_ts",
+          "berth_ts",
+          "departure_ts",
+          "hours_in_port",
+          "data_mode",
+          "is_synthetic"
+        ],
+        "title": "ShipOut",
+        "type": "object"
+      },
       "ShipmentOut": {
         "properties": {
           "cargo_profile": {
@@ -3938,6 +4232,43 @@
           "predicted_eta_p90"
         ],
         "title": "ShipmentOut",
+        "type": "object"
+      },
+      "ShipsOut": {
+        "properties": {
+          "counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Counts",
+            "type": "object"
+          },
+          "observed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observed At"
+          },
+          "ships": {
+            "items": {
+              "$ref": "#/components/schemas/ShipOut"
+            },
+            "title": "Ships",
+            "type": "array"
+          }
+        },
+        "required": [
+          "observed_at",
+          "counts",
+          "ships"
+        ],
+        "title": "ShipsOut",
         "type": "object"
       },
       "SourceOut": {
@@ -4597,6 +4928,24 @@
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
             }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
           }
         ],
         "responses": {
@@ -4668,6 +5017,24 @@
               "default": "baseline",
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
+            }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
             }
           }
         ],
@@ -4846,6 +5213,24 @@
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
             }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
           }
         ],
         "responses": {
@@ -4961,6 +5346,24 @@
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
             }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
           }
         ],
         "responses": {
@@ -5041,6 +5444,24 @@
               "default": "baseline",
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
+            }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
             }
           }
         ],
@@ -5146,6 +5567,24 @@
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
             }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
           }
         ],
         "responses": {
@@ -5218,6 +5657,24 @@
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
             }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
           }
         ],
         "responses": {
@@ -5280,6 +5737,24 @@
               "default": "baseline",
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
+            }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
             }
           }
         ],
@@ -5372,6 +5847,24 @@
               "default": "baseline",
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
+            }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
             }
           }
         ],
@@ -5489,6 +5982,24 @@
               "default": "baseline",
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
+            }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
             }
           }
         ],
@@ -5756,6 +6267,24 @@
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
             }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
           }
         ],
         "responses": {
@@ -5890,6 +6419,24 @@
               "default": "baseline",
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
+            }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
             }
           }
         ],
@@ -6119,6 +6666,24 @@
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
             }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
           }
         ],
         "responses": {
@@ -6269,6 +6834,24 @@
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
             }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
           }
         ],
         "responses": {
@@ -6341,6 +6924,24 @@
               "default": "baseline",
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
+            }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
             }
           }
         ],
@@ -6572,6 +7173,24 @@
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
             }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
           }
         ],
         "responses": {
@@ -6644,6 +7263,24 @@
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
             }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
           }
         ],
         "responses": {
@@ -6706,6 +7343,24 @@
               "default": "baseline",
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
+            }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
             }
           }
         ],
@@ -6786,6 +7441,24 @@
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
             }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
           }
         ],
         "responses": {
@@ -6858,6 +7531,24 @@
               "default": "baseline",
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
+            }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
             }
           }
         ],
@@ -7247,6 +7938,24 @@
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
             }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
           }
         ],
         "responses": {
@@ -7319,6 +8028,24 @@
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
             }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
           }
         ],
         "responses": {
@@ -7356,6 +8083,124 @@
         "summary": "Get Shipment",
         "tags": [
           "shipments"
+        ]
+      }
+    },
+    "/api/v1/ships": {
+      "get": {
+        "operationId": "ships_api_v1_ships_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "enum": [
+                      "expected",
+                      "at_anchorage",
+                      "in_port",
+                      "at_berth",
+                      "departed"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 60,
+              "maximum": 300,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Scenario key for synthetic rows; omit for real data only",
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "baseline",
+              "description": "Scenario key for synthetic rows; omit for real data only",
+              "title": "Scenario"
+            }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_ShipsOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Ships",
+        "tags": [
+          "ships"
         ]
       }
     },
@@ -7516,6 +8361,24 @@
               "default": "baseline",
               "description": "Scenario key for synthetic rows; omit for real data only",
               "title": "Scenario"
+            }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
             }
           }
         ],

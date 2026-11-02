@@ -87,3 +87,5 @@ sources:
   DS-VIS-04: {name: Fabric and garment defect datasets, tier: P0, status: verified, mode: replay, fallback: DS-VIS-02, used_by: [C5], auth: mixed, env: [ROBOFLOW_API_KEY], protocol: file-download, min_interval_s: 2}
   DS-VIS-05: {name: Pharma tablet defect datasets (Roboflow), tier: P0, status: verified, mode: replay, fallback: DS-VIS-02, used_by: [C5], auth: api-key, env: [ROBOFLOW_API_KEY], protocol: REST, min_interval_s: 2}
   DS-VIS-06: {name: Real-IAD, MVTec AD 2, tier: P2, status: unprobed, mode: off, used_by: [C5], auth: mixed, protocol: file-download}
+  DS-TRAF-01: {name: TomTom Traffic API (flow tiles, routing with live traffic), tier: P1, status: needs-registration, mode: off, fallback: synthetic, used_by: [C3], auth: api-key, env: [TOMTOM_API_KEY], protocol: REST, base_url: "https://api.tomtom.com", min_interval_s: 1}
+  DS-VSL-01: {name: "DataDocked vessel management (P&I insurer; paid beyond a 20-credit trial: D-07 exception, U-07)", tier: P2, status: needs-registration, mode: off, used_by: [NX], auth: api-key, env: [DATADOCKED_API_KEY], protocol: REST, base_url: "https://datadocked.com", min_interval_s: 1}

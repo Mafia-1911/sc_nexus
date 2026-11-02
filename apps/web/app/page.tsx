@@ -2,7 +2,7 @@ import { Suspense } from "react";
 
 import { AlertFeed } from "@/components/alert-feed";
 import { KpiStrip } from "@/components/kpi-strip";
-import { ShipmentsTable } from "@/components/shipments-table";
+import { ShipsTable } from "@/components/ships-table";
 import { Card, CardHeader } from "@/components/ui/card";
 import { VesselMap } from "@/components/vessel-map";
 import { currentScenario } from "@/lib/scenario";
@@ -25,7 +25,11 @@ async function Tower() {
         <Card className="xl:col-span-2">
           <CardHeader
             title="Chattogram outer anchorage"
-            subtitle="Vessels at anchor, moored and under way; replayed from the scenario's port simulation"
+            subtitle={
+              scenario
+                ? "Vessels at anchor, moored and under way; replayed from the scenario's port simulation"
+                : "Real positions on replay; no live AIS receiver covers Bangladesh, so the picture lags"
+            }
           />
           <VesselMap scenario={scenario} />
         </Card>
@@ -34,7 +38,7 @@ async function Tower() {
         </Suspense>
       </div>
       <Suspense fallback={<Skeleton />}>
-        <ShipmentsTable scenario={scenario} />
+        <ShipsTable scenario={scenario} />
       </Suspense>
     </div>
   );

@@ -3,7 +3,7 @@ import { Suspense } from "react";
 
 import { api } from "@/lib/api/server";
 import { brandName } from "@/lib/brand";
-import { SCENARIOS, currentScenario } from "@/lib/scenario";
+import { REAL_DAYS, SCENARIOS, currentAsOf, currentScenario } from "@/lib/scenario";
 
 import { OceanBackdrop } from "@/components/shell/ocean-backdrop";
 import { NavRail } from "./nav-rail";
@@ -16,7 +16,14 @@ async function Brand() {
 }
 
 async function Switcher() {
-  return <ScenarioSwitcher current={await currentScenario()} options={SCENARIOS} />;
+  return (
+    <ScenarioSwitcher
+      current={await currentScenario()}
+      asOf={await currentAsOf()}
+      scenarios={SCENARIOS}
+      days={REAL_DAYS}
+    />
+  );
 }
 
 /** The real-name pack's banner (Q-05, ADR-014): shown whenever real company names are on. */

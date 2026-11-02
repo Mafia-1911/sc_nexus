@@ -1,4 +1,4 @@
-import { CloudLightning, Factory, Flame, Pill, Ship, TriangleAlert, Waves } from "lucide-react";
+import { CloudLightning, ExternalLink, Factory, Flame, Pill, Ship, TriangleAlert, Waves } from "lucide-react";
 
 import { Provenance } from "@/components/data-badge";
 import { ErrorNote } from "@/components/kpi-strip";
@@ -16,6 +16,15 @@ const ICON: Record<string, typeof Ship> = {
 };
 
 /** Active disruptions touching Bangladesh (C2 fuses and ranks them from M4). */
+/** Synthetic articles live on reserved `.example` hosts (RFC 2606): nothing to open. */
+function isSynthetic(url: string): boolean {
+  try {
+    return new URL(url).hostname.endsWith(".example");
+  } catch {
+    return true;
+  }
+}
+
 export async function AlertFeed({ scenario }: { scenario: string }) {
   const { data, error } = await (await api()).GET("/api/v1/events", {
     params: { query: { scenario, country: "BGD", status: "ongoing", limit: 8 } },
@@ -35,7 +44,26 @@ export async function AlertFeed({ scenario }: { scenario: string }) {
               <li key={e.id} className="flex gap-3 py-2.5">
                 <Icon aria-hidden className="mt-0.5 size-4 shrink-0 text-warn" />
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-medium" title={e.title}>{e.title}</p>
+                  {e.source_url && !isSynthetic(e.source_url) ? (
+                    <a
+                      href={e.source_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block truncate text-sm font-medium hover:text-primary hover:underline"
+                      title={`${e.title} (opens the source)`}
+                      data-testid="event-source"
+                    >
+                      {e.title}
+                      <ExternalLink aria-hidden className="ml-1 inline size-3 align-baseline text-muted" />
+                    </a>
+                  ) : (
+                    <p
+                      className="truncate text-sm font-medium"
+                      title={e.source_url ? `${e.title} (synthetic article: no real source)` : e.title}
+                    >
+                      {e.title}
+                    </p>
+                  )}
                   <p className="text-xs text-muted">
                     {e.type.replaceAll("_", " ").toLowerCase()}
                     {e.alert_level ? ` · ${e.alert_level} alert` : ""}

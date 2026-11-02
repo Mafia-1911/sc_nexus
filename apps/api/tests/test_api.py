@@ -226,6 +226,19 @@ def test_read_latency_budget(client: TestClient, path: str) -> None:
     assert p95 < 300, f"{path}: p95 {p95:.0f} ms"
 
 
+def test_ships_keep_real_and_synthetic_apart(client: TestClient) -> None:
+    """Control Tower ships: the simulated port in a scenario, real GFW calls otherwise; real dock
+    times and cargo are never invented, and unknown fields say why."""
+    scen = client.get("/api/v1/ships").json()["data"]
+    assert all(x["is_synthetic"] for x in scen["ships"])
+    real = client.get("/api/v1/ships", params={"scenario": ""}).json()["data"]
+    assert not any(x["is_synthetic"] for x in real["ships"])
+    for x in real["ships"]:
+        assert x["dock_estimate"] is None and x["containers"] is None
+        assert set(x["unknown"]) == {"last_port", "destination", "insurance"}
+    assert sum(real["counts"].values()) >= len(real["ships"])
+
+
 def test_kpi_strip(client: TestClient) -> None:
     body = client.get("/api/v1/kpis").json()["data"]["kpis"]
     kpi = {k["key"]: k for k in body}
@@ -238,7 +251,17 @@ def test_kpi_strip(client: TestClient) -> None:
     ]
     assert kpi["vessels_at_anchorage"]["value"] > 0
     assert kpi["vessels_at_anchorage"]["meta"]["mode"] == "synthetic"
-    assert kpi["co2e_week"]["value"] is None and "M5" in kpi["co2e_week"]["detail"]
+    assert kpi["co2e_week"]["value"] is None and "Route Planner" in kpi["co2e_week"]["detail"]
+    # Real data (no scenario): never synthetic, and no invented order book.
+    real = {
+        k["key"]: k
+        for k in client.get("/api/v1/kpis", params={"scenario": ""}).json()["data"]["kpis"]
+    }
+    assert real["vessels_at_anchorage"]["meta"]["mode"] != "synthetic"
+    assert real["vessels_at_anchorage"]["meta"]["horizon"] == "now"
+    assert real["orders_at_risk"]["value"] is None
+    future = client.get("/api/v1/kpis", params={"scenario": "", "day": "tomorrow"}).json()
+    assert future["data"]["kpis"][0]["meta"]["horizon"] == "future"
 
 
 def test_ws_live_streams_scenario_positions(client: TestClient) -> None:

@@ -14,13 +14,14 @@ from cportal_core.models import (
     DisruptionEvent,
     EventEntityLink,
     Port,
+    PortCall,
     PortStateSnapshot,
     Shipment,
     ShipmentOrder,
     SupplyEdge,
 )
 from fastapi import APIRouter
-from sqlalchemy import select
+from sqlalchemy import func, select
 
 from cportal_api.deps import ScopeDep, SessionDep, meta
 from cportal_api.schemas import Envelope, Kpi, KpiStrip
@@ -33,7 +34,92 @@ OPEN = ("open", "in_production", "shipped")
 def kpis(session: SessionDep, scope: ScopeDep) -> Envelope[KpiStrip]:
     out: list[Kpi] = []
 
-    # Port state at Chattogram: the latest snapshot in scope (scenario first, else real CPA).
+    if scope.scenario_id is None:  # real data at `as_of` (GFW port calls), never synthetic
+        out.extend(_real_port(session, scope))
+    else:
+        out.extend(_scenario_port(session, scope))
+    out.append(_disruptions(session, scope))
+    out.append(_orders_at_risk(session, scope))
+    out.append(
+        Kpi(
+            key="co2e_week",
+            label="CO2e this week",
+            value=None,
+            unit="t CO2e",
+            detail="per-plan CO2e is in Route Planner; a weekly total needs real shipment volumes",
+            meta=meta([], scope, as_of=datetime.now(UTC)),
+        )
+    )
+    return Envelope(data=KpiStrip(kpis=out), meta=meta([], scope, as_of=scope.as_of))
+
+
+def _real_port(session: SessionDep, scope: ScopeDep) -> list[Kpi]:
+    """Vessels in Chattogram's port area and their mean time there, from real GFW port calls at
+    the view time. GFW runs days behind: past the latest call, the latest observation stands in
+    and the note says so (an estimate for today, no forecast beyond C4's horizon)."""
+    t = scope.as_of or datetime.now(UTC)
+    real = (
+        Port.locode == "BDCGP",
+        PortCall.scenario_id.is_(None),
+        PortCall.is_synthetic.is_(False),
+    )
+    latest = session.scalar(
+        select(func.max(PortCall.arrival_ts))
+        .join(Port, Port.id == PortCall.port_id)
+        .where(*real, PortCall.arrival_ts <= t)
+    )
+    if latest is None:
+        empty = meta([], scope, as_of=t, note="no real port calls before this date")
+        return [
+            Kpi(key="vessels_at_anchorage", label="Vessels in the port area", value=None,
+                unit="vessels", detail="no real port calls before this date", meta=empty),
+            Kpi(key="mean_wait_24h", label="Mean time in port, last 24 h", value=None,
+                unit="h", detail="no real port calls before this date", meta=empty),
+        ]  # fmt: skip
+    seen = min(t, latest)
+    lag_d = (t - latest).total_seconds() / 86400
+    note = None
+    if scope.horizon == "future":
+        note = f"forecast needs data to {t:%d %b}; latest real call {latest:%d %b} (GFW lag)"
+    elif lag_d > 1:
+        note = (
+            f"observed {latest:%d %b} (GFW runs {lag_d:.0f} days behind); estimated for {t:%d %b}"
+        )
+    in_port = session.scalars(
+        select(PortCall)
+        .join(Port, Port.id == PortCall.port_id)
+        .where(
+            *real,
+            PortCall.arrival_ts <= seen,
+            PortCall.arrival_ts > seen - timedelta(days=30),
+            (PortCall.departure_ts.is_(None)) | (PortCall.departure_ts > seen),
+        )
+    ).all()
+    dwell_h = func.extract("epoch", PortCall.departure_ts - PortCall.arrival_ts) / 3600
+    left = session.execute(
+        select(func.percentile_cont(0.5).within_group(dwell_h))
+        .join(Port, Port.id == PortCall.port_id)
+        .where(
+            *real,
+            PortCall.departure_ts > seen - timedelta(hours=24),
+            PortCall.departure_ts <= seen,
+            dwell_h <= 30 * 24,  # laid-up ships (months at anchor) are not waiting for a berth
+        )
+    ).scalar()
+    m = meta(in_port, scope, as_of=seen, note=note)
+    return [
+        Kpi(key="vessels_at_anchorage", label="Vessels in the port area", value=len(in_port),
+            unit="vessels", detail=note or f"GFW port visits at {seen:%d %b %H:%M} UTC", meta=m),
+        Kpi(key="mean_wait_24h", label="Median time in port, last 24 h",
+            value=round(float(left), 1) if left is not None else None, unit="h",
+            detail="calls that left in the 24 h before; stays over 30 days excluded",
+            meta=m),
+    ]  # fmt: skip
+
+
+def _scenario_port(session: SessionDep, scope: ScopeDep) -> list[Kpi]:
+    out: list[Kpi] = []
+    # Port state at Chattogram: the scenario's latest snapshot.
     port = session.scalar(select(Port).where(Port.locode == "BDCGP"))
     snap = None
     if port is not None:
@@ -68,25 +154,41 @@ def kpis(session: SessionDep, scope: ScopeDep) -> Envelope[KpiStrip]:
         )
     )
 
-    # Active disruptions touching Bangladesh or Chattogram.
-    events = session.scalars(
-        select(DisruptionEvent).where(
-            scope.rows(DisruptionEvent),
-            DisruptionEvent.status.in_(("ongoing", "confirmed", "reported")),
-            DisruptionEvent.country_iso3.contains(["BGD"])
-            | DisruptionEvent.locodes.contains(["BDCGP"]),
+    return out
+
+
+def _disruptions(session: SessionDep, scope: ScopeDep) -> Kpi:
+    """Active disruptions touching Bangladesh or Chattogram; in real data, those known and
+    started by the view time (a forecast day counts events already announced)."""
+    q = select(DisruptionEvent).where(
+        scope.rows(DisruptionEvent),
+        DisruptionEvent.status.in_(("ongoing", "confirmed", "reported")),
+        DisruptionEvent.country_iso3.contains(["BGD"])
+        | DisruptionEvent.locodes.contains(["BDCGP"]),
+    )
+    if scope.as_of is not None:
+        known = func.coalesce(DisruptionEvent.available_at, DisruptionEvent.first_seen)
+        q = q.where(
+            (known.is_(None)) | (known <= min(scope.as_of, datetime.now(UTC))),
+            (DisruptionEvent.start_est.is_(None)) | (DisruptionEvent.start_est <= scope.as_of),
+            (DisruptionEvent.end_est.is_(None))
+            | (DisruptionEvent.end_est >= scope.as_of - timedelta(days=1)),
         )
-    ).all()
-    out.append(
-        Kpi(
-            key="active_disruptions",
-            label="Active disruptions (Bangladesh)",
-            value=len(events),
-            unit="events",
-            meta=meta(events, scope),
-        )
+    events = session.scalars(q).all()
+    return Kpi(
+        key="active_disruptions",
+        label="Active disruptions (Bangladesh)",
+        value=len(events),
+        unit="events",
+        meta=meta(events, scope),
     )
 
+
+def _orders_at_risk(session: SessionDep, scope: ScopeDep) -> Kpi:
+    if scope.scenario_id is None:  # no real order book is loaded (orders are the client's)
+        return Kpi(key="orders_at_risk", label="Orders at risk (next 30 days)", value=None,
+                   unit="orders", detail="no real order book loaded; pick a scenario to see one",
+                   meta=meta([], scope, as_of=scope.as_of))  # fmt: skip
     # Orders at risk (K-05), rule-based for M2: open orders due within 30 days whose shipment is
     # planned to arrive after the due date, or whose factory buys from a facility linked to an
     # active disruption.
@@ -130,24 +232,11 @@ def kpis(session: SessionDep, scope: ScopeDep) -> Envelope[KpiStrip]:
     )
     at_risk = [o for o in orders if o.id in late or o.facility_id in exposed]
     revenue = sum(o.revenue_usd or 0 for o in at_risk)
-    out.append(
-        Kpi(
-            key="orders_at_risk",
-            label="Orders at risk (next 30 days)",
-            value=len(at_risk),
-            unit="orders",
-            detail=f"US$ {revenue:,.0f} revenue; rule-based until Nexus (M8)",
-            meta=meta(at_risk, scope),
-        )
+    return Kpi(
+        key="orders_at_risk",
+        label="Orders at risk (next 30 days)",
+        value=len(at_risk),
+        unit="orders",
+        detail=f"US$ {revenue:,.0f} revenue; rule-based (late plan or disrupted supplier)",
+        meta=meta(at_risk, scope),
     )
-    out.append(
-        Kpi(
-            key="co2e_week",
-            label="CO2e this week",
-            value=None,
-            unit="t CO2e",
-            detail="arrives with C3 routing (M5)",
-            meta=meta([], scope, as_of=datetime.now(UTC)),
-        )
-    )
-    return Envelope(data=KpiStrip(kpis=out), meta=meta([snap] if snap else [], scope))

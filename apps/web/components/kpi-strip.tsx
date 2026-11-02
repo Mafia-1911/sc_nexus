@@ -1,4 +1,5 @@
 import { DataBadge } from "@/components/data-badge";
+import { Badge } from "@/components/ui/badge";
 import { api } from "@/lib/api/server";
 import { fmt } from "@/lib/utils";
 
@@ -18,6 +19,11 @@ export async function KpiStrip({ scenario }: { scenario: string }) {
           {k.detail ? <span className="text-xs text-muted">{k.detail}</span> : null}
           <span className="mt-auto pt-1">
             <DataBadge mode={k.meta.mode} sources={k.meta.sources} asOf={k.meta.as_of} modes={k.meta.modes} />
+            {k.meta.horizon === "future" ? (
+              <Badge tone="info" title={k.meta.note ?? undefined}>Forecast</Badge>
+            ) : k.meta.note?.includes("estimated") ? (
+              <Badge tone="neutral" title={k.meta.note}>Estimated</Badge>
+            ) : null}
           </span>
         </div>
       ))}

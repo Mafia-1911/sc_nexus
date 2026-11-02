@@ -67,8 +67,19 @@ Done (M8 slice 6, golden path, NX-AC01; script `docs/GOLDEN_PATH.md`):
   `docs/golden-path.json`. Presenter script with the live numbers per step.
 - Fix: the studio's K-07 no longer crashes without DESNZ factors (unknown, shown as "—").
 
-Next (M8, towards G3): daily brief (template) → polish checklist (local basemap, README with
-screenshots, viewports, Lighthouse) → video (user).
+Done (Control Tower redesign, user request 2026-11-03; U-07, A-101, A-102):
+- Data selector: real data by default (Today estimated / Yesterday / Tomorrow forecast / custom
+  date) or synthetic scenarios with plain names; API `day` param resolves Dhaka days (scope
+  `as_of`, meta `horizon`); "Estimated" / "Forecast" chips on the KPIs.
+- Real KPIs from GFW port calls at the view time (46 vessels in the port area, median 53.6 h in
+  port, observed 23 Oct); no synthetic badge or invented order book in real mode.
+- Disruption events open their news source (synthetic `.example` articles are not linked).
+- "Ships at Chattogram" replaces the shipments table: real ship names, status filters, hover card,
+  estimated dock time (scenario baseline; "not observable" in GFW), cargo where known.
+
+Next: aisstream global probe (BD-bound ships, destination, ETA) → refresh GFW + C4 so Today and
+Tomorrow are real nowcasts/forecasts → TomTom traffic on Route Planner (key pending) → DataDocked
+P&I (key pending) → continue Scenario Studio (daily brief, polish) → deepen C1–C5.
 
 Checks: `make test` 294 passed (after slice 2); slice 1: 289 passed (latency budgets included; before a host reboot they ran at
 ≈ 330 ms for every route, unchanged ones too); Control Tower e2e passes, screenshots refreshed.

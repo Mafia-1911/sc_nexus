@@ -25,6 +25,9 @@ class Meta(BaseModel):
     sources: list[str] = Field(default_factory=list, description="DS-IDs (or 'sim')")
     as_of: AwareDatetime
     scenario: str | None = None
+    horizon: Literal["past", "now", "future", "scenario"] | None = Field(
+        default=None, description="Real data: past, now (nowcast) or future (forecast); or scenario"
+    )
     model_version: str | None = None
     note: str | None = None
 
@@ -175,6 +178,9 @@ class EventOut(BaseModel):
     first_seen: datetime | None = None
     last_updated: datetime | None = None
     mentions: int = 0
+    source_url: str | None = Field(
+        default=None, description="The first report's article, or the hazard feed's own page"
+    )
     confidence_fused: float | None = Field(
         None, description="Nexus evidence fusion (08 §3): news confidence plus corroboration"
     )

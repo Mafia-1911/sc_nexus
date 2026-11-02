@@ -5,8 +5,8 @@ from __future__ import annotations
 from collections import Counter
 from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
-from datetime import UTC, datetime
-from typing import Annotated, Any, cast
+from datetime import UTC, date, datetime, time, timedelta, timezone
+from typing import Annotated, Any, Literal, cast
 from uuid import UUID
 
 from cportal_core.db import session_factory
@@ -34,12 +34,45 @@ def get_current_user() -> str:
     return "demo"
 
 
+DHAKA = timezone(timedelta(hours=6))
+Horizon = Literal["past", "now", "future", "scenario"]
+
+
+def resolve_as_of(value: str | None, now: datetime | None = None) -> tuple[datetime, Horizon]:
+    """Real-data view time: 'today' (default: now), 'yesterday', 'tomorrow' or 'YYYY-MM-DD',
+    each the end of that day in Dhaka; 'now' is a nowcast (latest facts, estimated where the
+    data lags), 'future' a forecast."""
+    now = now or datetime.now(UTC)
+    today = now.astimezone(DHAKA).date()
+    v = (value or "today").strip().lower()
+    if v == "today":
+        return now, "now"
+    if v == "yesterday":
+        day = today - timedelta(days=1)
+    elif v == "tomorrow":
+        day = today + timedelta(days=1)
+    else:
+        try:
+            day = date.fromisoformat(v)
+        except ValueError as exc:
+            raise HTTPException(
+                422, f"day must be today, yesterday, tomorrow or a date: {v!r}"
+            ) from exc
+    end = datetime.combine(day, time(23, 59, 59), DHAKA).astimezone(UTC)
+    if day == today:
+        return now, "now"
+    return end, "future" if day > today else "past"
+
+
 @dataclass(frozen=True)
 class Scope:
-    """Which synthetic scenario to show next to the real (live/replay) rows."""
+    """Which synthetic scenario to show next to the real (live/replay) rows, and, for real
+    data, the moment to show it at (`as_of`, None in a scenario: it has its own clock)."""
 
     key: str | None
     scenario_id: UUID | None
+    as_of: datetime | None = None
+    horizon: Horizon = "now"
 
     def rows(self, model: Any) -> ColumnElement[bool]:
         """Real rows always; synthetic rows only from the selected scenario."""
@@ -54,13 +87,18 @@ def get_scope(
         str | None,
         Query(description="Scenario key for synthetic rows; omit for real data only"),
     ] = "baseline",
+    day: Annotated[
+        str | None,
+        Query(description="Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD"),
+    ] = None,
 ) -> Scope:
     if not scenario:
-        return Scope(None, None)
+        when, horizon = resolve_as_of(day)
+        return Scope(None, None, when, horizon)
     found = session.scalar(select(Scenario.id).where(Scenario.key == scenario))
     if found is None:
         raise HTTPException(404, f"unknown scenario {scenario!r}")
-    return Scope(scenario, found)
+    return Scope(scenario, found, None, "scenario")
 
 
 ScopeDep = Annotated[Scope, Depends(get_scope)]
@@ -89,6 +127,7 @@ def meta(
         sources=sorted(sources),
         as_of=as_of or datetime.now(UTC),
         scenario=scope.key if scope else None,
+        horizon=scope.horizon if scope else None,
         model_version=model_version,
         note=note,
     )

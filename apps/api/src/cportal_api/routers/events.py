@@ -38,6 +38,21 @@ router = APIRouter(tags=["events"])
 FEEDS = ("DS-WX-02", "DS-PHARMA-01", "DS-PORT-01", "DS-NEWS-04")
 
 
+def _first_urls(session: SessionDep, ids: list[UUID]) -> dict[UUID, str]:
+    """The earliest report's URL per event (one query for the page)."""
+    if not ids:
+        return {}
+    out: dict[UUID, str] = {}
+    for eid, url in session.execute(
+        select(EventMention.event_id, Article.url)
+        .join(Article, Article.id == EventMention.article_id)
+        .where(EventMention.event_id.in_(ids))
+        .order_by(Article.published_at)
+    ):
+        out.setdefault(eid, url)
+    return out
+
+
 def _fusion(session: SessionDep, scope: ScopeDep, ids: list[UUID]) -> dict[UUID, Prediction]:
     """The Nexus fusion row for exactly this scope (the real world, or the chosen scenario)."""
     if not ids:
@@ -55,9 +70,15 @@ def _fusion(session: SessionDep, scope: ScopeDep, ids: list[UUID]) -> dict[UUID,
     return {p.target_id: p for p in rows}
 
 
-def _event(e: DisruptionEvent, mentions: int = 0, fused: Prediction | None = None) -> EventOut:
+def _event(
+    e: DisruptionEvent,
+    mentions: int = 0,
+    fused: Prediction | None = None,
+    url: str | None = None,
+) -> EventOut:
     x = fused.explanation if fused else {}
     return EventOut(
+        source_url=url or e.url,
         confidence_fused=fused.value if fused else None,
         corroboration=x.get("signals", []),
         fusion_checks=x.get("checks", []),
@@ -143,6 +164,9 @@ def list_events(
     limit: Annotated[int, Query(ge=1, le=500)] = 100,
 ) -> Envelope[list[EventOut]]:
     q = select(DisruptionEvent).where(scope.rows(DisruptionEvent))
+    if scope.as_of is not None:  # real data: only what was known by the view time
+        known = func.coalesce(DisruptionEvent.available_at, DisruptionEvent.first_seen)
+        q = q.where(known.is_(None) | (known <= min(scope.as_of, datetime.now(UTC))))
     if type:
         q = q.where(DisruptionEvent.type == type)
     if status_:
@@ -168,8 +192,9 @@ def list_events(
         ).all()
     )
     fused = _fusion(session, scope, [e.id for e in rows])
+    urls = _first_urls(session, [e.id for e in rows])
     return Envelope(
-        data=[_event(e, counts.get(e.id, 0), fused.get(e.id)) for e in rows],
+        data=[_event(e, counts.get(e.id, 0), fused.get(e.id), urls.get(e.id)) for e in rows],
         meta=meta(rows, scope),
     )
 
@@ -219,7 +244,12 @@ def get_event(event_id: UUID, session: SessionDep, scope: ScopeDep) -> Envelope[
     ).all()
     return Envelope(
         data=EventDetailOut(
-            event=_event(row, len(mentions), _fusion(session, scope, [row.id]).get(row.id)),
+            event=_event(
+                row,
+                len(mentions),
+                _fusion(session, scope, [row.id]).get(row.id),
+                mentions[0].url if mentions else None,
+            ),
             mentions=mentions,
             linked_facilities=linked,
             alerts=[_alert(a) for a in alert_rows],

@@ -3,7 +3,7 @@
 version: 1
 key: cyclone_supplier_delay
 extends: baseline
-name: "Cyclone SYN-01 + Fabric Mill X delay"
+name: "Cyclone shuts Chattogram + denim mill flood"
 cyclone:
   name: "SYN-01"            # shown as "Tropical Cyclone SYN-01 (synthetic)"
   alert_issued_h: -12          # GDACS alert relative to start

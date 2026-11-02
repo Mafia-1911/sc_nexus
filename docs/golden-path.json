@@ -1,42 +1,42 @@
 {
  "scenario": "cyclone_supplier_delay",
- "total_ms": 5171,
+ "total_ms": 7378,
  "steps": [
   {
    "step": "1 Control Tower: anchorage, KPIs, the cyclone alert",
-   "ms": 475
+   "ms": 833
   },
   {
    "step": "2 Disruption Radar: news + hazard feed → one corroborated event",
-   "ms": 390
+   "ms": 637
   },
   {
    "step": "3 Ports & Vessels: congestion forecast and the drivers",
-   "ms": 558
+   "ms": 616
   },
   {
    "step": "4 Supplier Network: Chattogram, the single point of failure",
-   "ms": 1026
+   "ms": 1376
   },
   {
    "step": "5 Recommendation: export via Mongla, accepted",
-   "ms": 609
+   "ms": 830
   },
   {
    "step": "6 Route Planner: Pareto options after discharge",
-   "ms": 1074
+   "ms": 1217
   },
   {
    "step": "7 Quality Lab: a failed lot and its options",
-   "ms": 873
+   "ms": 1579
   },
   {
    "step": "8 Scenario Studio: with Nexus vs without",
-   "ms": 166
+   "ms": 290
   }
  ],
  "blocked_hosts": [
   "tiles.openfreemap.org"
  ],
- "run_at": "2026-11-02T17:40:29.311Z"
+ "run_at": "2026-11-02T18:37:40.350Z"
 }

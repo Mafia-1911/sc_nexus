@@ -32,6 +32,7 @@ from cportal_api.routers import (
     quality,
     routes,
     scenarios,
+    ships,
     sources,
 )
 from cportal_api.schemas import BrandOut, Problem
@@ -103,7 +104,19 @@ def create_app() -> FastAPI:
             version=__version__,
         )
 
-    routers = (sources, scenarios, ports, dwell, quality, events, graph, routes, network, kpis)
+    routers = (
+        sources,
+        scenarios,
+        ports,
+        dwell,
+        quality,
+        events,
+        graph,
+        routes,
+        network,
+        kpis,
+        ships,
+    )
     for module in routers:
         router = module.router
         api.include_router(router)

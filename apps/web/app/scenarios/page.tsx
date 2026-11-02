@@ -77,6 +77,16 @@ function Tile({ label, value, note, tone }: { label: string; value: string; note
 
 async function Studio() {
   const scenario = await currentScenario();
+  if (!scenario) {
+    return (
+      <Card data-testid="studio-real">
+        <CardHeader
+          title="Pick a scenario"
+          subtitle="Scenario Studio replays a shock in a synthetic world with and without Nexus. Choose one under 'Synthetic scenarios' in the data selector (top right)."
+        />
+      </Card>
+    );
+  }
   const client = await api();
   const { data, error } = await client.GET("/api/v1/scenarios/{key}/results", {
     params: { path: { key: scenario } },

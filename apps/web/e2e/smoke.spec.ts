@@ -34,12 +34,12 @@ test("Control Tower: KPIs, badges, live map and alerts", async ({ page, baseURL 
     await expect(tile.locator("[data-mode]")).toHaveCount(1);
   }
   await expect(page.locator('[data-kpi="vessels_at_anchorage"] [data-mode]')).toHaveAttribute("data-mode", "synthetic");
-  await expect(page.locator('[data-kpi="co2e_week"]')).toContainText("M5");
+  await expect(page.locator('[data-kpi="co2e_week"]')).toContainText("Route Planner");
   await waitForVessels(page);
   await expect(page.getByTestId("alert-feed")).toContainText("SYN-01");
-  // NX-AC02: door ETA and P(on time) on the open shipments.
-  await expect(page.getByTestId("shipment-row").first()).toBeVisible();
-  await expect(page.getByTestId("shipments")).toContainText("%");
+  // Ships at Chattogram (simulated port in a scenario): status filters and a dock estimate.
+  await expect(page.getByTestId("ship-row").first()).toBeVisible();
+  await expect(page.getByTestId("ship-filters")).toContainText("At anchorage");
   for (const theme of ["light", "dark"] as const) {
     await setTheme(page, theme);
     await mapIdle(page);
@@ -49,14 +49,37 @@ test("Control Tower: KPIs, badges, live map and alerts", async ({ page, baseURL 
 
 test("Scenario switch: real data only shows the replay badge", async ({ page }) => {
   await page.goto("/");
-  await page.getByLabel("Scenario").selectOption("");
+  await page.getByTestId("data-select").selectOption("real:today");
   await expect(page.locator('[data-kpi="vessels_at_anchorage"] [data-mode]')).toHaveAttribute("data-mode", "replay", {
     timeout: 15_000,
   });
-  await page.getByLabel("Scenario").selectOption("cyclone_supplier_delay");
+  await page.getByTestId("data-select").selectOption("scn:cyclone_supplier_delay");
   await expect(page.locator('[data-kpi="vessels_at_anchorage"] [data-mode]')).toHaveAttribute("data-mode", "synthetic", {
     timeout: 15_000,
   });
+});
+
+test("Control Tower, real data: no synthetic badge, real ships, sources open, dates", async ({ page, baseURL }) => {
+  await page.context().addCookies([
+    { name: "scenario", value: "", url: baseURL! },
+    { name: "asof", value: "today", url: baseURL! },
+  ]);
+  await page.goto("/");
+  await expect(page.locator('[data-kpi="vessels_at_anchorage"] [data-mode]')).not.toHaveAttribute("data-mode", "synthetic");
+  await expect(page.getByTestId("ship-row").first()).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByTestId("ships")).not.toContainText("SYN ");
+  const link = page.getByTestId("event-source").first();
+  if (await link.count()) await expect(link).toHaveAttribute("target", "_blank");
+  await page.getByTestId("ship-row").first().locator("[tabindex]").focus(); // hover card
+  for (const theme of ["light", "dark"] as const) {
+    await setTheme(page, theme);
+    await page.getByTestId("ship-row").first().locator("[tabindex]").focus();
+    await page.waitForTimeout(300);
+    await page.screenshot({ path: `${SHOTS}/control-tower-real-${theme}.png`, fullPage: true });
+  }
+  await page.getByTestId("data-select").selectOption("real:yesterday");
+  await expect(page.getByTestId("data-select")).toHaveValue("real:yesterday");
+  await page.getByTestId("data-select").selectOption("real:today");
 });
 
 test("Data & Models: sources, licences, scenarios", async ({ page }) => {
@@ -65,7 +88,7 @@ test("Data & Models: sources, licences, scenarios", async ({ page }) => {
   const gfw = page.locator('[data-source="DS-AIS-02"]');
   await expect(gfw).toContainText("NC");
   await expect(page.locator('[data-source="DS-PORT-07"]')).toContainText("Chittagong Port Authority");
-  await expect(page.getByText("Cyclone SYN-01 + Fabric Mill X delay")).toBeVisible();
+  await expect(page.getByText("Cyclone shuts Chattogram + denim mill flood").first()).toBeVisible();
   for (const theme of ["light", "dark"] as const) {
     await setTheme(page, theme);
     await page.waitForTimeout(500);

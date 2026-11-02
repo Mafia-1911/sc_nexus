@@ -742,6 +742,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/ships": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Ships */
+        get: operations["ships_api_v1_ships_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/sources": {
         parameters: {
             query?: never;
@@ -1124,6 +1141,11 @@ export interface components {
             data: components["schemas"]["ShipmentOut"];
             meta: components["schemas"]["Meta"];
         };
+        /** Envelope[ShipsOut] */
+        Envelope_ShipsOut_: {
+            data: components["schemas"]["ShipsOut"];
+            meta: components["schemas"]["Meta"];
+        };
         /** Envelope[SourceOut] */
         Envelope_SourceOut_: {
             data: components["schemas"]["SourceOut"];
@@ -1333,6 +1355,11 @@ export interface components {
             severity: number | null;
             /** Source Id */
             source_id: string;
+            /**
+             * Source Url
+             * @description The first report's article, or the hazard feed's own page
+             */
+            source_url?: string | null;
             /** Start Est */
             start_est: string | null;
             /** Status */
@@ -1712,6 +1739,11 @@ export interface components {
              * Format: date-time
              */
             as_of: string;
+            /**
+             * Horizon
+             * @description Real data: past, now (nowcast) or future (forecast); or scenario
+             */
+            horizon?: ("past" | "now" | "future" | "scenario") | null;
             /**
              * Mode
              * @description Badge for the UI: one mode, or 'mixed'
@@ -2214,6 +2246,66 @@ export interface components {
                 [key: string]: unknown;
             };
         };
+        /** ShipOut */
+        ShipOut: {
+            /** Arrival Ts */
+            arrival_ts: string | null;
+            /** Berth Ts */
+            berth_ts: string | null;
+            /** Call Id */
+            call_id: string;
+            /** Cargo Note */
+            cargo_note?: string | null;
+            /** Containers */
+            containers?: number | null;
+            /** Data Mode */
+            data_mode: string;
+            /** Departure Ts */
+            departure_ts: string | null;
+            /**
+             * Dock Estimate
+             * @description Berth time: simulated in a scenario; not observable in GFW
+             */
+            dock_estimate?: string | null;
+            /** Dock Note */
+            dock_note?: string | null;
+            /** Dock P90 */
+            dock_p90?: string | null;
+            /** Flag */
+            flag: string | null;
+            /** Gt */
+            gt: number | null;
+            /** Hours In Port */
+            hours_in_port: number | null;
+            /** Imo */
+            imo: string | null;
+            /** Is Synthetic */
+            is_synthetic: boolean;
+            /** Loa M */
+            loa_m: number | null;
+            /** Mmsi */
+            mmsi: number | null;
+            /** Name */
+            name: string | null;
+            /** Orders */
+            orders?: string[];
+            /** Ship Type */
+            ship_type: string | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "expected" | "at_anchorage" | "in_port" | "at_berth" | "departed";
+            /**
+             * Unknown
+             * @description Fields with no source yet
+             */
+            unknown?: {
+                [key: string]: string;
+            };
+            /** Vessel Id */
+            vessel_id: string;
+        };
         /** ShipmentOut */
         ShipmentOut: {
             /** Cargo Profile */
@@ -2240,6 +2332,17 @@ export interface components {
             reference: string;
             /** Status */
             status: string;
+        };
+        /** ShipsOut */
+        ShipsOut: {
+            /** Counts */
+            counts: {
+                [key: string]: number;
+            };
+            /** Observed At */
+            observed_at: string | null;
+            /** Ships */
+            ships: components["schemas"]["ShipOut"][];
         };
         /** SourceOut */
         SourceOut: {
@@ -2455,6 +2558,8 @@ export interface operations {
                 status?: string | null;
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path?: never;
@@ -2496,6 +2601,8 @@ export interface operations {
             query?: {
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path: {
@@ -2549,6 +2656,8 @@ export interface operations {
                 limit?: number;
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path?: never;
@@ -2628,6 +2737,8 @@ export interface operations {
             query?: {
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path: {
@@ -2673,6 +2784,8 @@ export interface operations {
                 industry?: string | null;
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path?: never;
@@ -2718,6 +2831,8 @@ export interface operations {
                 limit?: number;
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path?: never;
@@ -2759,6 +2874,8 @@ export interface operations {
             query?: {
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path: {
@@ -2802,6 +2919,8 @@ export interface operations {
             query?: {
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path?: never;
@@ -2856,6 +2975,8 @@ export interface operations {
             query?: {
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path: {
@@ -2941,6 +3062,8 @@ export interface operations {
             query?: {
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path?: never;
@@ -3137,6 +3260,8 @@ export interface operations {
                 days?: number;
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path: {
@@ -3186,6 +3311,8 @@ export interface operations {
                 limit?: number;
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path: {
@@ -3316,6 +3443,8 @@ export interface operations {
             query?: {
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path: {
@@ -3403,6 +3532,8 @@ export interface operations {
                 industry?: string | null;
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path?: never;
@@ -3444,6 +3575,8 @@ export interface operations {
             query?: {
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path: {
@@ -3609,6 +3742,8 @@ export interface operations {
             query?: {
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path?: never;
@@ -3650,6 +3785,8 @@ export interface operations {
             query?: {
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path: {
@@ -3693,6 +3830,8 @@ export interface operations {
             query?: {
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path?: never;
@@ -3735,6 +3874,8 @@ export interface operations {
                 kind?: "buffer" | null;
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path?: never;
@@ -3776,6 +3917,8 @@ export interface operations {
             query?: {
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path: {
@@ -4064,6 +4207,8 @@ export interface operations {
                 active?: boolean;
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path?: never;
@@ -4105,6 +4250,8 @@ export interface operations {
             query?: {
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path: {
@@ -4121,6 +4268,51 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Envelope_ShipmentOut_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    ships_api_v1_ships_get: {
+        parameters: {
+            query?: {
+                status?: ("expected" | "at_anchorage" | "in_port" | "at_berth" | "departed")[] | null;
+                limit?: number;
+                /** @description Scenario key for synthetic rows; omit for real data only */
+                scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_ShipsOut_"];
                 };
             };
             /** @description Not Found */
@@ -4264,6 +4456,8 @@ export interface operations {
             query?: {
                 /** @description Scenario key for synthetic rows; omit for real data only */
                 scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
             };
             header?: never;
             path?: never;

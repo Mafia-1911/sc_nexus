@@ -33,3 +33,31 @@ reroute:
   extra_usd_per_teu: 250
   extra_days: 2
   units_per_teu: 8000        # garments per TEU (estimate)
+# Backtest "time machine" (08 §6, NX-AC06; A-099). Ground truth = disruption episodes in real GFW
+# port calls at the gateway; alerts = hazard-feed events the Nexus alert rule would have raised,
+# at the time they became available. Thresholds are choices, not tuned to the result.
+backtest:
+  locode: BDCGP
+  centre: {lat: 22.3, lon: 91.8}     # Chattogram
+  start: "2023-01-01"
+  history_days: 14                   # trailing window for the "normal" daily departures
+  drop_ratio: 0.5                    # a day is disrupted at ≤ 50 % of the trailing median
+  min_median: 5                      # skip days whose normal is this thin
+  merge_gap_days: 1                  # disrupted days this close form one episode
+  alert_max_km: 300                  # hazard centroid within this of the gateway, or its LOCODE
+  max_age_days: 10                   # an alert is a current hazard: start ≤ 10 days before it is known
+  context_hazard_days: 7             # label misses with any hazard that began up to 7 days before
+  match_before_days: 1               # an episode starting 1 day before …
+  match_after_days: 7                # … to 7 days after an alert matches it
+  # Context labels for misses only (never used to score). Eid dates in Bangladesh, ±1 day;
+  # the July–August 2024 unrest (internet shutdown from 18 July; government fell 5 August).
+  context:
+    - {label: "Eid al-Fitr", date: "2023-04-22", before: 3, after: 7}
+    - {label: "Eid al-Adha", date: "2023-06-29", before: 3, after: 7}
+    - {label: "Eid al-Fitr", date: "2024-04-11", before: 3, after: 7}
+    - {label: "Eid al-Adha", date: "2024-06-17", before: 3, after: 7}
+    - {label: "Eid al-Fitr", date: "2025-03-31", before: 3, after: 7}
+    - {label: "Eid al-Adha", date: "2025-06-07", before: 3, after: 7}
+    - {label: "Eid al-Fitr", date: "2026-03-21", before: 3, after: 7}
+    - {label: "Eid al-Adha", date: "2026-05-27", before: 3, after: 7}
+    - {label: "July–August 2024 unrest", date: "2024-07-18", before: 0, after: 19}

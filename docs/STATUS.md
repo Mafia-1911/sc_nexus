@@ -52,8 +52,15 @@ Done (M8 slice 4, Scenario Studio, NX-R02 / NX-AC05; card `nexus-studio.md`; `ma
   engine now proposes `reroute` via Mongla for those and stock only for input shortages; engine
   and studio share one disruption window. Golden-path step 5 now shows "export via Mongla".
 
-Next (M8, towards G3): backtest window (NX-AC06, K-03/K-04) → golden-path script and reset
-(NX-AC01) → daily brief (template) → polish checklist, README with screenshots, video.
+Done (M8 slice 5, backtest, NX-AC06; card `nexus-backtest.md`, `uv run nexus backtest`):
+- Real data 2023-01-01 → 2026-10-22 (27,292 GFW departures at Chattogram, GDACS/PortWatch):
+  7 alerts, 28 port-data episodes; K-04 precision 0.43 (3 of 7), recall 0.07 (2 of 28), K-03
+  lead median 43.5 h (34 h May 2023 flood, 53 h Hamoon). False alarms: two cyclones that turned
+  away, two earthquakes. Misses: 10 of 26 labelled (8 Eid, the 2024 unrest, Remal at 357 km).
+  Hazard feeds only: no news history before Oct 2026.
+
+Next (M8, towards G3): golden-path script and reset (NX-AC01) → daily brief (template) → polish
+checklist, README with screenshots, video.
 
 Checks: `make test` 294 passed (after slice 2); slice 1: 289 passed (latency budgets included; before a host reboot they ran at
 ≈ 330 ms for every route, unchanged ones too); Control Tower e2e passes, screenshots refreshed.

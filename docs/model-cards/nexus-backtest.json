@@ -1,0 +1,348 @@
+{
+ "k03_lead_time_h": {
+  "median": 43.5,
+  "min": 34.0,
+  "max": 53.0,
+  "n": 2
+ },
+ "k04_precision": 0.429,
+ "recall": 0.071,
+ "episodes_warned": 2,
+ "alerts": 7,
+ "episodes": 28,
+ "matched": [
+  {
+   "alert": "Flood in Bangladesh, India, Myanmar",
+   "alert_at": "2023-05-13T02:00:00+00:00",
+   "episode_start": "2023-05-14",
+   "peak": "2023-05-14",
+   "lead_h": 34.0,
+   "peak_ratio": 0.28
+  },
+  {
+   "alert": "Tropical Cyclone HAMOON-23",
+   "alert_at": "2023-10-23T07:00:00+00:00",
+   "episode_start": "2023-10-25",
+   "peak": "2023-10-25",
+   "lead_h": 53.0,
+   "peak_ratio": 0.5
+  },
+  {
+   "alert": "Flood in Bangladesh",
+   "alert_at": "2023-10-24T02:00:00+00:00",
+   "episode_start": "2023-10-25",
+   "peak": "2023-10-25",
+   "lead_h": 34.0,
+   "peak_ratio": 0.5
+  }
+ ],
+ "false_alarms": [
+  {
+   "alert": "Tropical Cyclone FOUR-23",
+   "at": "2023-07-31T19:00:00+00:00",
+   "type": "CYCLONE_STORM",
+   "km": 151
+  },
+  {
+   "alert": "Tropical Cyclone MIDHILI-23",
+   "at": "2023-11-16T19:00:00+00:00",
+   "type": "CYCLONE_STORM",
+   "km": 117
+  },
+  {
+   "alert": "Earthquake in Bangladesh",
+   "at": "2025-11-21T05:38:28+00:00",
+   "type": "EARTHQUAKE_OTHER_NATURAL",
+   "km": 204
+  },
+  {
+   "alert": "Earthquake in Bangladesh",
+   "at": "2026-02-27T08:52:24+00:00",
+   "type": "EARTHQUAKE_OTHER_NATURAL",
+   "km": 275
+  }
+ ],
+ "missed": [
+  {
+   "start": "2023-04-22",
+   "end": "2023-04-22",
+   "peak": "2023-04-22",
+   "peak_ratio": 0.34,
+   "peak_departures": 7,
+   "normal": 20.5,
+   "context": [
+    "Eid al-Fitr (2023-04-22)"
+   ]
+  },
+  {
+   "start": "2023-05-04",
+   "end": "2023-05-04",
+   "peak": "2023-05-04",
+   "peak_ratio": 0.49,
+   "peak_departures": 9,
+   "normal": 18.5,
+   "context": []
+  },
+  {
+   "start": "2023-06-30",
+   "end": "2023-06-30",
+   "peak": "2023-06-30",
+   "peak_ratio": 0.42,
+   "peak_departures": 8,
+   "normal": 19.0,
+   "context": [
+    "Eid al-Adha (2023-06-29)"
+   ]
+  },
+  {
+   "start": "2023-09-20",
+   "end": "2023-09-20",
+   "peak": "2023-09-20",
+   "peak_ratio": 0.47,
+   "peak_departures": 10,
+   "normal": 21.5,
+   "context": []
+  },
+  {
+   "start": "2024-04-02",
+   "end": "2024-04-02",
+   "peak": "2024-04-02",
+   "peak_ratio": 0.49,
+   "peak_departures": 10,
+   "normal": 20.5,
+   "context": []
+  },
+  {
+   "start": "2024-04-11",
+   "end": "2024-04-11",
+   "peak": "2024-04-11",
+   "peak_ratio": 0.24,
+   "peak_departures": 5,
+   "normal": 21.0,
+   "context": [
+    "Eid al-Fitr (2024-04-11)"
+   ]
+  },
+  {
+   "start": "2024-04-14",
+   "end": "2024-04-14",
+   "peak": "2024-04-14",
+   "peak_ratio": 0.49,
+   "peak_departures": 10,
+   "normal": 20.5,
+   "context": [
+    "Eid al-Fitr (2024-04-11)"
+   ]
+  },
+  {
+   "start": "2024-04-21",
+   "end": "2024-04-21",
+   "peak": "2024-04-21",
+   "peak_ratio": 0.41,
+   "peak_departures": 7,
+   "normal": 17.0,
+   "context": []
+  },
+  {
+   "start": "2024-05-01",
+   "end": "2024-05-01",
+   "peak": "2024-05-01",
+   "peak_ratio": 0.47,
+   "peak_departures": 8,
+   "normal": 17.0,
+   "context": []
+  },
+  {
+   "start": "2024-05-06",
+   "end": "2024-05-06",
+   "peak": "2024-05-06",
+   "peak_ratio": 0.41,
+   "peak_departures": 8,
+   "normal": 19.5,
+   "context": []
+  },
+  {
+   "start": "2024-05-28",
+   "end": "2024-05-28",
+   "peak": "2024-05-28",
+   "peak_ratio": 0.32,
+   "peak_departures": 6,
+   "normal": 18.5,
+   "context": [
+    "Tropical Cyclone REMAL-24 at 357 km"
+   ]
+  },
+  {
+   "start": "2024-06-17",
+   "end": "2024-06-17",
+   "peak": "2024-06-17",
+   "peak_ratio": 0.32,
+   "peak_departures": 6,
+   "normal": 18.5,
+   "context": [
+    "Eid al-Adha (2024-06-17)"
+   ]
+  },
+  {
+   "start": "2024-07-01",
+   "end": "2024-07-01",
+   "peak": "2024-07-01",
+   "peak_ratio": 0.4,
+   "peak_departures": 6,
+   "normal": 15.0,
+   "context": []
+  },
+  {
+   "start": "2024-07-23",
+   "end": "2024-07-23",
+   "peak": "2024-07-23",
+   "peak_ratio": 0.39,
+   "peak_departures": 7,
+   "normal": 18.0,
+   "context": [
+    "July\u2013August 2024 unrest (2024-07-18)"
+   ]
+  },
+  {
+   "start": "2024-09-09",
+   "end": "2024-09-09",
+   "peak": "2024-09-09",
+   "peak_ratio": 0.43,
+   "peak_departures": 9,
+   "normal": 21.0,
+   "context": []
+  },
+  {
+   "start": "2024-09-13",
+   "end": "2024-09-14",
+   "peak": "2024-09-14",
+   "peak_ratio": 0.17,
+   "peak_departures": 3,
+   "normal": 19.0,
+   "context": []
+  },
+  {
+   "start": "2025-03-31",
+   "end": "2025-04-01",
+   "peak": "2025-03-31",
+   "peak_ratio": 0.33,
+   "peak_departures": 7,
+   "normal": 21.5,
+   "context": [
+    "Eid al-Fitr (2025-03-31)"
+   ]
+  },
+  {
+   "start": "2025-05-30",
+   "end": "2025-05-30",
+   "peak": "2025-05-30",
+   "peak_ratio": 0.4,
+   "peak_departures": 8,
+   "normal": 20.0,
+   "context": []
+  },
+  {
+   "start": "2025-06-07",
+   "end": "2025-06-08",
+   "peak": "2025-06-08",
+   "peak_ratio": 0.29,
+   "peak_departures": 5,
+   "normal": 19.5,
+   "context": [
+    "Eid al-Adha (2025-06-07)"
+   ]
+  },
+  {
+   "start": "2025-06-18",
+   "end": "2025-06-18",
+   "peak": "2025-06-18",
+   "peak_ratio": 0.38,
+   "peak_departures": 6,
+   "normal": 16.0,
+   "context": []
+  },
+  {
+   "start": "2025-07-26",
+   "end": "2025-07-26",
+   "peak": "2025-07-26",
+   "peak_ratio": 0.44,
+   "peak_departures": 9,
+   "normal": 20.5,
+   "context": []
+  },
+  {
+   "start": "2025-08-21",
+   "end": "2025-08-22",
+   "peak": "2025-08-22",
+   "peak_ratio": 0.27,
+   "peak_departures": 5,
+   "normal": 18.5,
+   "context": []
+  },
+  {
+   "start": "2025-10-31",
+   "end": "2025-10-31",
+   "peak": "2025-10-31",
+   "peak_ratio": 0.49,
+   "peak_departures": 11,
+   "normal": 22.5,
+   "context": []
+  },
+  {
+   "start": "2026-03-21",
+   "end": "2026-03-21",
+   "peak": "2026-03-21",
+   "peak_ratio": 0.39,
+   "peak_departures": 7,
+   "normal": 18.0,
+   "context": [
+    "Eid al-Fitr (2026-03-21)"
+   ]
+  },
+  {
+   "start": "2026-06-23",
+   "end": "2026-06-23",
+   "peak": "2026-06-23",
+   "peak_ratio": 0.49,
+   "peak_departures": 10,
+   "normal": 20.5,
+   "context": []
+  },
+  {
+   "start": "2026-07-08",
+   "end": "2026-07-10",
+   "peak": "2026-07-10",
+   "peak_ratio": 0.19,
+   "peak_departures": 3,
+   "normal": 16.5,
+   "context": []
+  }
+ ],
+ "window": {
+  "start": "2023-01-01",
+  "end": "2026-10-22",
+  "days": 1391,
+  "departures": 27292,
+  "mean_daily": 19.6
+ },
+ "missed_explained": 10,
+ "config": {
+  "locode": "BDCGP",
+  "centre": {
+   "lat": 22.3,
+   "lon": 91.8
+  },
+  "start": "2023-01-01",
+  "history_days": 14,
+  "drop_ratio": 0.5,
+  "min_median": 5,
+  "merge_gap_days": 1,
+  "alert_max_km": 300,
+  "max_age_days": 10,
+  "context_hazard_days": 7,
+  "match_before_days": 1,
+  "match_after_days": 7
+ },
+ "note": "ground truth = port-data episodes; alerts = hazard feeds only (no news history)",
+ "mean_lead_days": 1.8
+}

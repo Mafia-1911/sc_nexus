@@ -120,6 +120,10 @@ class Settings(BaseSettings):
     tomtom_api_key: SecretStr | None = _credential(
         "TOMTOM_API_KEY", "TOM_TOM_APIKEY", "TOMTOM_APIKEY"
     )
+    # DS-TRAF-02 (U-07): Mapbox live traffic (TomTom has no Bangladesh coverage, A-103).
+    mapbox_token: SecretStr | None = _credential(
+        "MAPBOX_TOKEN", "MAPBOX_API", "MAPBOX_ACCESS_TOKEN"
+    )
     # DS-VSL-01 (U-07): ship P&I insurer; a 20-credit trial, so every answer is cached.
     datadocked_api_key: SecretStr | None = _credential("DATADOCKED_API_KEY", "DATADOCKED_APIKEY")
 

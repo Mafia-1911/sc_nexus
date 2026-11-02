@@ -1,0 +1,27 @@
+{
+  "method": "GET",
+  "url": "https://api.mapbox.com/directions/v5/mapbox/driving-traffic/90.4336,23.7104;90.4023,23.8915?access_token=%2A%2A%2AREDACTED%2A%2A%2A&annotations=congestion,speed,duration&overview=full&geometries=geojson",
+  "params": {
+    "access_token": "***REDACTED***",
+    "annotations": "congestion,speed,duration",
+    "overview": "full",
+    "geometries": "geojson"
+  },
+  "headers": {
+    "host": "api.mapbox.com",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (ShipperFast research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-11-02T19:26:20.894421+00:00",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "transformed": false
+}

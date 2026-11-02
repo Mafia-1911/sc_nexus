@@ -1,0 +1,504 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-TRAF-02",
+  "title": "DS-TRAF-02 · Mapbox traffic: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "route_ctg_to_gazipur": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "waypoints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "location": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "name": {
+                "type": "string"
+              },
+              "distance": {
+                "type": "number"
+              },
+              "time_zone": {
+                "type": "object",
+                "properties": {
+                  "offset": {
+                    "type": "string"
+                  },
+                  "identifier": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "identifier",
+                  "offset"
+                ]
+              }
+            },
+            "required": [
+              "distance",
+              "location",
+              "name",
+              "time_zone"
+            ]
+          }
+        },
+        "routes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "geometry": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "coordinates": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "coordinates",
+                  "type"
+                ]
+              },
+              "distance": {
+                "type": "number"
+              },
+              "duration": {
+                "type": "number"
+              },
+              "weight": {
+                "type": "number"
+              },
+              "weight_name": {
+                "type": "string"
+              },
+              "duration_typical": {
+                "type": "number"
+              },
+              "weight_typical": {
+                "type": "number"
+              },
+              "legs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "steps": {
+                      "type": "array"
+                    },
+                    "summary": {
+                      "type": "string"
+                    },
+                    "distance": {
+                      "type": "number"
+                    },
+                    "duration": {
+                      "type": "number"
+                    },
+                    "weight": {
+                      "type": "number"
+                    },
+                    "duration_typical": {
+                      "type": "number"
+                    },
+                    "weight_typical": {
+                      "type": "number"
+                    },
+                    "admins": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "iso_3166_1": {
+                            "type": "string"
+                          },
+                          "iso_3166_1_alpha3": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "iso_3166_1",
+                          "iso_3166_1_alpha3"
+                        ]
+                      }
+                    },
+                    "annotation": {
+                      "type": "object",
+                      "properties": {
+                        "duration": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "speed": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "congestion": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "congestion",
+                        "duration",
+                        "speed"
+                      ]
+                    },
+                    "via_waypoints": {
+                      "type": "array"
+                    },
+                    "notifications": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "geometry_index_start": {
+                            "type": "integer"
+                          },
+                          "geometry_index_end": {
+                            "type": "integer"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "subtype": {
+                            "type": "string"
+                          },
+                          "refresh_type": {
+                            "type": "string"
+                          },
+                          "details": {
+                            "type": "object",
+                            "properties": {
+                              "message": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "message"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "details",
+                          "geometry_index_end",
+                          "geometry_index_start",
+                          "refresh_type",
+                          "subtype",
+                          "type"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "admins",
+                    "annotation",
+                    "distance",
+                    "duration",
+                    "duration_typical",
+                    "notifications",
+                    "steps",
+                    "summary",
+                    "via_waypoints",
+                    "weight",
+                    "weight_typical"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "distance",
+              "duration",
+              "duration_typical",
+              "geometry",
+              "legs",
+              "weight",
+              "weight_name",
+              "weight_typical"
+            ]
+          }
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "routes",
+        "uuid",
+        "waypoints"
+      ]
+    },
+    "route_dhaka_jatrabari_to_tongi": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "waypoints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "location": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "name": {
+                "type": "string"
+              },
+              "distance": {
+                "type": "number"
+              },
+              "time_zone": {
+                "type": "object",
+                "properties": {
+                  "offset": {
+                    "type": "string"
+                  },
+                  "identifier": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "identifier",
+                  "offset"
+                ]
+              }
+            },
+            "required": [
+              "distance",
+              "location",
+              "name",
+              "time_zone"
+            ]
+          }
+        },
+        "routes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "geometry": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "coordinates": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "coordinates",
+                  "type"
+                ]
+              },
+              "distance": {
+                "type": "number"
+              },
+              "duration": {
+                "type": "number"
+              },
+              "weight": {
+                "type": "number"
+              },
+              "weight_name": {
+                "type": "string"
+              },
+              "duration_typical": {
+                "type": "number"
+              },
+              "weight_typical": {
+                "type": "number"
+              },
+              "legs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "steps": {
+                      "type": "array"
+                    },
+                    "summary": {
+                      "type": "string"
+                    },
+                    "distance": {
+                      "type": "number"
+                    },
+                    "duration": {
+                      "type": "number"
+                    },
+                    "weight": {
+                      "type": "number"
+                    },
+                    "duration_typical": {
+                      "type": "number"
+                    },
+                    "weight_typical": {
+                      "type": "number"
+                    },
+                    "admins": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "iso_3166_1": {
+                            "type": "string"
+                          },
+                          "iso_3166_1_alpha3": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "iso_3166_1",
+                          "iso_3166_1_alpha3"
+                        ]
+                      }
+                    },
+                    "annotation": {
+                      "type": "object",
+                      "properties": {
+                        "duration": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "speed": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "congestion": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "congestion",
+                        "duration",
+                        "speed"
+                      ]
+                    },
+                    "via_waypoints": {
+                      "type": "array"
+                    },
+                    "notifications": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "geometry_index_start": {
+                            "type": "integer"
+                          },
+                          "geometry_index_end": {
+                            "type": "integer"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "subtype": {
+                            "type": "string"
+                          },
+                          "refresh_type": {
+                            "type": "string"
+                          },
+                          "details": {
+                            "type": "object",
+                            "properties": {
+                              "message": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "message"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "details",
+                          "geometry_index_end",
+                          "geometry_index_start",
+                          "refresh_type",
+                          "subtype",
+                          "type"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "admins",
+                    "annotation",
+                    "distance",
+                    "duration",
+                    "duration_typical",
+                    "notifications",
+                    "steps",
+                    "summary",
+                    "via_waypoints",
+                    "weight",
+                    "weight_typical"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "distance",
+              "duration",
+              "duration_typical",
+              "geometry",
+              "legs",
+              "weight",
+              "weight_name",
+              "weight_typical"
+            ]
+          }
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "routes",
+        "uuid",
+        "waypoints"
+      ]
+    }
+  }
+}

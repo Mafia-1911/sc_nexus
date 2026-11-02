@@ -84,6 +84,10 @@ Done (keys added by the user, 2026-11-03; A-103…A-105):
 - aisstream global probe (`uv run ais-bd-bound`): BD-bound ships exist in the feed but trickle
   (Indian Ocean coverage thin) → needs an always-on collector.
 - Drive: the three `?????` screenshot entries are still there (remount does not repair NTFS).
+- Route Planner traffic (A-106): Mapbox live congestion tiles (proxied, Bangladesh only) or
+  C3's modelled zones (Dhaka hour profile, truck ban), with a Live / Modelled / Off control.
+  TomTom has none (A-103). Plan ETAs still from C3's model (Mapbox ETA factor: next).
+- Screenshots paused on Quality Lab e2e (corrupted files; docs later, per the user).
 
 Next: BD-bound collector in the worker (sightings into `ais_position_latest` with destination
 and AIS ETA; "Expected" ships with region) → refresh GFW + C4 so Today/Tomorrow are real

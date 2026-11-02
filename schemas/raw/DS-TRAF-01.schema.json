@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-TRAF-01",
+  "title": "DS-TRAF-01 · TomTom Traffic: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "flow_n1_cumilla": {
+      "type": "object",
+      "properties": {
+        "flowSegmentData": {
+          "type": "object",
+          "properties": {
+            "frc": {
+              "type": "string"
+            },
+            "currentSpeed": {
+              "type": "integer"
+            },
+            "freeFlowSpeed": {
+              "type": "integer"
+            },
+            "currentTravelTime": {
+              "type": "integer"
+            },
+            "freeFlowTravelTime": {
+              "type": "integer"
+            },
+            "confidence": {
+              "type": "integer"
+            },
+            "roadClosure": {
+              "type": "boolean"
+            },
+            "coordinates": {
+              "type": "object",
+              "properties": {
+                "coordinate": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "latitude": {
+                        "type": "number"
+                      },
+                      "longitude": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "latitude",
+                      "longitude"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "coordinate"
+              ]
+            },
+            "@version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@version",
+            "confidence",
+            "coordinates",
+            "currentSpeed",
+            "currentTravelTime",
+            "frc",
+            "freeFlowSpeed",
+            "freeFlowTravelTime",
+            "roadClosure"
+          ]
+        }
+      },
+      "required": [
+        "flowSegmentData"
+      ]
+    },
+    "route_ctg_gazipur_truck": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "type": "string"
+        },
+        "routes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "summary": {
+                "type": "object",
+                "properties": {
+                  "lengthInMeters": {
+                    "type": "integer"
+                  },
+                  "travelTimeInSeconds": {
+                    "type": "integer"
+                  },
+                  "trafficDelayInSeconds": {
+                    "type": "integer"
+                  },
+                  "trafficLengthInMeters": {
+                    "type": "integer"
+                  },
+                  "departureTime": {
+                    "type": "string"
+                  },
+                  "arrivalTime": {
+                    "type": "string"
+                  },
+                  "noTrafficTravelTimeInSeconds": {
+                    "type": "integer"
+                  },
+                  "historicTrafficTravelTimeInSeconds": {
+                    "type": "integer"
+                  },
+                  "liveTrafficIncidentsTravelTimeInSeconds": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "arrivalTime",
+                  "departureTime",
+                  "historicTrafficTravelTimeInSeconds",
+                  "lengthInMeters",
+                  "liveTrafficIncidentsTravelTimeInSeconds",
+                  "noTrafficTravelTimeInSeconds",
+                  "trafficDelayInSeconds",
+                  "trafficLengthInMeters",
+                  "travelTimeInSeconds"
+                ]
+              },
+              "legs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "summary": {
+                      "type": "object",
+                      "properties": {
+                        "lengthInMeters": {
+                          "type": "integer"
+                        },
+                        "travelTimeInSeconds": {
+                          "type": "integer"
+                        },
+                        "trafficDelayInSeconds": {
+                          "type": "integer"
+                        },
+                        "trafficLengthInMeters": {
+                          "type": "integer"
+                        },
+                        "departureTime": {
+                          "type": "string"
+                        },
+                        "arrivalTime": {
+                          "type": "string"
+                        },
+                        "noTrafficTravelTimeInSeconds": {
+                          "type": "integer"
+                        },
+                        "historicTrafficTravelTimeInSeconds": {
+                          "type": "integer"
+                        },
+                        "liveTrafficIncidentsTravelTimeInSeconds": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "arrivalTime",
+                        "departureTime",
+                        "historicTrafficTravelTimeInSeconds",
+                        "lengthInMeters",
+                        "liveTrafficIncidentsTravelTimeInSeconds",
+                        "noTrafficTravelTimeInSeconds",
+                        "trafficDelayInSeconds",
+                        "trafficLengthInMeters",
+                        "travelTimeInSeconds"
+                      ]
+                    },
+                    "points": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "latitude": {
+                            "type": "number"
+                          },
+                          "longitude": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "latitude",
+                          "longitude"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "points",
+                    "summary"
+                  ]
+                }
+              },
+              "sections": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "startPointIndex": {
+                      "type": "integer"
+                    },
+                    "endPointIndex": {
+                      "type": "integer"
+                    },
+                    "sectionType": {
+                      "type": "string"
+                    },
+                    "travelMode": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "endPointIndex",
+                    "sectionType",
+                    "startPointIndex",
+                    "travelMode"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "legs",
+              "sections",
+              "summary"
+            ]
+          }
+        }
+      },
+      "required": [
+        "formatVersion",
+        "routes"
+      ]
+    }
+  }
+}

@@ -116,6 +116,12 @@ class Settings(BaseSettings):
     # DS-NEWS-04: a pre-approved identifier. Kept secret anyway: quotas are per appname and
     # ReliefWeb echoes it in every response's links.
     reliefweb_appname: SecretStr | None = _credential("RELIEFWEB_APPNAME")
+    # DS-TRAF-01 (U-07): live traffic for C3; tiles are proxied so the key never reaches a browser.
+    tomtom_api_key: SecretStr | None = _credential(
+        "TOMTOM_API_KEY", "TOM_TOM_APIKEY", "TOMTOM_APIKEY"
+    )
+    # DS-VSL-01 (U-07): ship P&I insurer; a 20-credit trial, so every answer is cached.
+    datadocked_api_key: SecretStr | None = _credential("DATADOCKED_API_KEY", "DATADOCKED_APIKEY")
 
     @classmethod
     def settings_customise_sources(

@@ -759,6 +759,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/ships/{mmsi}/management": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Look Up Management
+         * @description Owner, manager, class society and P&I insurer of a real ship (DataDocked, on demand:
+         *     3 trial credits each, at most a few a day; cached for a year).
+         */
+        post: operations["look_up_management_api_v1_ships__mmsi__management_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/sources": {
         parameters: {
             query?: never;
@@ -2283,6 +2304,13 @@ export interface components {
             is_synthetic: boolean;
             /** Loa M */
             loa_m: number | null;
+            /**
+             * Management
+             * @description Owner, manager, class, P&I (DS-VSL-01), when looked up
+             */
+            management?: {
+                [key: string]: unknown;
+            } | null;
             /** Mmsi */
             mmsi: number | null;
             /** Name */
@@ -4313,6 +4341,46 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Envelope_ShipsOut_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    look_up_management_api_v1_ships__mmsi__management_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                mmsi: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_dict_str__Any__"];
                 };
             };
             /** @description Not Found */

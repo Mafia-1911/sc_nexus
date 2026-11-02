@@ -1,0 +1,27 @@
+{
+  "method": "GET",
+  "url": "https://api.tomtom.com/routing/1/calculateRoute/22.3333,91.8333:23.9999,90.4203/json?traffic=true&travelMode=truck&computeTravelTimeFor=all&key=%2A%2A%2AREDACTED%2A%2A%2A",
+  "params": {
+    "traffic": "true",
+    "travelMode": "truck",
+    "computeTravelTimeFor": "all",
+    "key": "***REDACTED***"
+  },
+  "headers": {
+    "host": "api.tomtom.com",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (ShipperFast research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-11-02T18:57:34.950264+00:00",
+  "status": 200,
+  "content_type": "application/json;charset=utf-8",
+  "transformed": false
+}

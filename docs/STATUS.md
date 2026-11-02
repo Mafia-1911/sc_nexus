@@ -77,9 +77,17 @@ Done (Control Tower redesign, user request 2026-11-03; U-07, A-101, A-102):
 - "Ships at Chattogram" replaces the shipments table: real ship names, status filters, hover card,
   estimated dock time (scenario baseline; "not observable" in GFW), cargo where known.
 
-Next: aisstream global probe (BD-bound ships, destination, ETA) → refresh GFW + C4 so Today and
-Tomorrow are real nowcasts/forecasts → TomTom traffic on Route Planner (key pending) → DataDocked
-P&I (key pending) → continue Scenario Studio (daily brief, polish) → deepen C1–C5.
+Done (keys added by the user, 2026-11-03; A-103…A-105):
+- TomTom probed: no live traffic in Bangladesh (blocked); Mapbox lists Bangladesh (user decides).
+- DataDocked: hover-card "Look up owner & P&I" (3 trial credits, cached a year, 5/day cap);
+  DING HENG 50 cached (owner, manager, class; P&I not on record).
+- aisstream global probe (`uv run ais-bd-bound`): BD-bound ships exist in the feed but trickle
+  (Indian Ocean coverage thin) → needs an always-on collector.
+- Drive: the three `?????` screenshot entries are still there (remount does not repair NTFS).
+
+Next: BD-bound collector in the worker (sightings into `ais_position_latest` with destination
+and AIS ETA; "Expected" ships with region) → refresh GFW + C4 so Today/Tomorrow are real
+nowcasts/forecasts → traffic alternative (user) → continue Scenario Studio → deepen C1–C5.
 
 Checks: `make test` 294 passed (after slice 2); slice 1: 289 passed (latency budgets included; before a host reboot they ran at
 ≈ 330 ms for every route, unchanged ones too); Control Tower e2e passes, screenshots refreshed.

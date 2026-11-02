@@ -4057,6 +4057,19 @@
             ],
             "title": "Loa M"
           },
+          "management": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Owner, manager, class, P&I (DS-VSL-01), when looked up",
+            "title": "Management"
+          },
           "mmsi": {
             "anyOf": [
               {
@@ -8199,6 +8212,59 @@
           }
         },
         "summary": "Ships",
+        "tags": [
+          "ships"
+        ]
+      }
+    },
+    "/api/v1/ships/{mmsi}/management": {
+      "post": {
+        "description": "Owner, manager, class society and P&I insurer of a real ship (DataDocked, on demand:\n3 trial credits each, at most a few a day; cached for a year).",
+        "operationId": "look_up_management_api_v1_ships__mmsi__management_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mmsi",
+            "required": true,
+            "schema": {
+              "title": "Mmsi",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_str__Any__"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Look Up Management",
         "tags": [
           "ships"
         ]

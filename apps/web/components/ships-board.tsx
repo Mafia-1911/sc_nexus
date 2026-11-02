@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
+
+import { lookUpManagement, type Management } from "@/app/ship-actions";
 
 import { Badge } from "@/components/ui/badge";
 import type { components } from "@/lib/api/types";
@@ -32,6 +34,9 @@ function Details({ s }: { s: Ship }) {
     ["Left", dhakaTime(s.departure_ts)],
   ];
   const unknown = Object.entries(s.unknown ?? {});
+  const [mgmt, setMgmt] = useState<Management | null>((s.management as Management | null) ?? null);
+  const [note, setNote] = useState<string | null>(null);
+  const [pending, start] = useTransition();
   return (
     <div
       role="tooltip"
@@ -46,9 +51,44 @@ function Details({ s }: { s: Ship }) {
           </div>
         ))}
       </dl>
-      {unknown.length ? (
+      {mgmt ? (
+        <dl className="mt-2 grid grid-cols-[6rem_1fr] gap-x-2 gap-y-0.5 border-t border-border pt-2" data-testid="ship-management">
+          {[
+            ["Owner", mgmt.owner],
+            ["Manager", mgmt.manager],
+            ["Class", mgmt.class_society],
+            ["P&I insurer", mgmt.pi_club ?? "not on record"],
+          ].map(([k, v]) => (
+            <div key={k} className="contents">
+              <dt className="text-muted">{k}</dt>
+              <dd>{v ?? "—"}</dd>
+            </div>
+          ))}
+          <p className="col-span-2 text-[11px] text-muted">DataDocked, {mgmt.fetched_at?.slice(0, 10)}</p>
+        </dl>
+      ) : !s.is_synthetic && s.mmsi ? (
+        <div className="mt-2 border-t border-border pt-2">
+          <button
+            type="button"
+            disabled={pending}
+            data-testid="lookup-management"
+            onClick={() =>
+              start(async () => {
+                const out = await lookUpManagement(s.mmsi as number);
+                if (out.data) setMgmt(out.data);
+                else setNote(out.error ?? "lookup failed");
+              })
+            }
+            className="rounded-[var(--radius-control)] border border-border px-2 py-0.5 text-xs hover:bg-surface-2"
+          >
+            {pending ? "Looking up…" : "Look up owner & P&I (3 trial credits)"}
+          </button>
+          {note ? <p className="mt-1 text-danger">{note}</p> : null}
+        </div>
+      ) : null}
+      {unknown.filter(([k]) => !(mgmt && k === "insurance")).length ? (
         <ul className="mt-2 border-t border-border pt-2 text-muted">
-          {unknown.map(([k, why]) => (
+          {unknown.filter(([k]) => !(mgmt && k === "insurance")).map(([k, why]) => (
             <li key={k}>
               <span className="capitalize">{k.replace("_", " ")}</span>: not available yet ({why})
             </li>

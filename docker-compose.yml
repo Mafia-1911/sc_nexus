@@ -37,7 +37,14 @@ services:
     volumes:
       # C5 gallery and uploads (written by `uv run c5 eval` and the live inspection) and the
       # few-shot model files: on the host, not in the image (MVTec is non-commercial).
+      # Server-side keys for on-demand lookups (DS-VSL-01); never sent to the browser (rule 8).
+      - type: bind
+        source: ./.env
+        target: /app/.env
+        read_only: true
+        bind: {create_host_path: false}
       - ./data/c5:/app/data/c5
+      - ./data/cache/DS-VSL-01:/app/data/cache/DS-VSL-01   # ship registry lookups (trial credits: keep them)
       - ./models/c5:/app/models/c5:ro
     depends_on:
       migrate: {condition: service_completed_successfully}

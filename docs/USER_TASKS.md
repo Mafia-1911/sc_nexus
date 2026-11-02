@@ -53,11 +53,11 @@ tell the agent; each item says where its result goes.
       which repairs more). Re-mount; the agent then regenerates the Quality Lab screenshots. Until
       then `docs/screenshots` is kept out of Docker builds (A-094). Worth a backup of the drive first.
 
-- [ ] **TomTom Traffic key (C3 Route Planner live traffic):** sign up at
+- [x] **TomTom Traffic key (C3 Route Planner live traffic):** sign up at
       https://developer.tomtom.com (free tier, no card), create an API key, put it in `.env` as
       `TOMTOM_API_KEY=…`. The agent then probes Dhaka–Chattogram coverage (traffic flow tiles and
       routing with live traffic) before wiring it into the map.
-- [ ] **DataDocked trial key (ship P&I insurance):** https://datadocked.com → "Get free API key"
+- [x] **DataDocked trial key (ship P&I insurance):** https://datadocked.com → "Get free API key"
       (20 free credits, no card; paid from ≈ €80/month after that, so treat it as a trial). Put
       it in `.env` as `DATADOCKED_API_KEY=…`. The agent caches each ship's answer (P&I cover renews
       yearly, around 20 Feb), so the credits cover the demo vessels only. Equasis

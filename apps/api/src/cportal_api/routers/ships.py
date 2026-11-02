@@ -23,10 +23,11 @@ from cportal_core.models import (
     ShipmentOrder,
     Vessel,
 )
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 from sqlalchemy import func, or_, select
 
+from cportal_api import vessel_info
 from cportal_api.deps import ScopeDep, SessionDep, meta
 from cportal_api.schemas import Envelope
 
@@ -35,7 +36,7 @@ Status = Literal["expected", "at_anchorage", "in_port", "at_berth", "departed"]
 NO_SOURCE = {
     "last_port": "previous port: GFW port events per ship (to wire)",
     "destination": "AIS destination: aisstream global feed (to wire)",
-    "insurance": "P&I insurer: DataDocked trial key (pending)",
+    "insurance": "P&I insurer: look it up (DataDocked, 3 trial credits)",
 }
 
 
@@ -63,6 +64,9 @@ class ShipOut(BaseModel):
     orders: list[str] = Field(default_factory=list)
     cargo_note: str | None = None
     unknown: dict[str, str] = Field(default_factory=dict, description="Fields with no source yet")
+    management: dict[str, Any] | None = Field(
+        default=None, description="Owner, manager, class, P&I (DS-VSL-01), when looked up"
+    )
     data_mode: str
     is_synthetic: bool
 
@@ -178,6 +182,14 @@ def ships(
             dock = max(seen, pc.arrival_ts + timedelta(hours=w50))
             dock90 = max(seen, pc.arrival_ts + timedelta(hours=w90))
         boxes, refs = cargo.get(v.id, (None, []))
+        info = (
+            None if pc.is_synthetic else (vessel_info.cached(v.mmsi) or vessel_info.cached(v.imo))
+        )
+        unknown = dict(NO_SOURCE)
+        if info is not None:
+            unknown.pop("insurance")
+            if info["pi_club"] is None:
+                unknown["insurance"] = "P&I insurer not on record (DataDocked)"
         out.append(
             ShipOut(
                 call_id=str(pc.id), vessel_id=str(v.id), name=v.name, mmsi=v.mmsi, imo=v.imo,
@@ -190,7 +202,8 @@ def ships(
                 dock_p90=dock90 if st != "departed" else None,
                 dock_note=dock_note, containers=boxes, orders=refs,
                 cargo_note=cargo_note if boxes is None else None,
-                unknown=dict(NO_SOURCE), data_mode=pc.data_mode, is_synthetic=pc.is_synthetic,
+                unknown=unknown, management=info, data_mode=pc.data_mode,
+                is_synthetic=pc.is_synthetic,
             )
         )  # fmt: skip
     counts = Counter(str(s.status) for s in out)
@@ -204,3 +217,19 @@ def ships(
         data=ShipsOut(observed_at=seen, counts=dict(counts), ships=out[:limit]),
         meta=meta(rows_meta, scope, as_of=seen),
     )
+
+
+@router.post("/ships/{mmsi}/management", response_model=Envelope[dict[str, Any]])
+def look_up_management(mmsi: int, session: SessionDep) -> Envelope[dict[str, Any]]:
+    """Owner, manager, class society and P&I insurer of a real ship (DataDocked, on demand:
+    3 trial credits each, at most a few a day; cached for a year)."""
+    vessel = session.scalar(select(Vessel).where(Vessel.mmsi == mmsi))
+    if vessel is None:
+        raise HTTPException(404, "unknown ship")
+    if str(mmsi).startswith("999"):
+        raise HTTPException(400, "synthetic vessel: no real registry entry")
+    try:
+        info = vessel_info.lookup(str(mmsi))
+    except vessel_info.LookupError_ as exc:
+        raise HTTPException(exc.status, str(exc)) from exc
+    return Envelope(data=info, meta=meta([], None, note="DS-VSL-01 DataDocked (trial)"))

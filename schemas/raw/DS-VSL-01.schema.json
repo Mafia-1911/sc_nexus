@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-VSL-01",
+  "title": "DS-VSL-01 · DataDocked vessel management (P&I): raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "management_ding_heng_50": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "imo": {
+          "type": "string"
+        },
+        "mmsi": {
+          "type": "string"
+        },
+        "management": {
+          "type": "object",
+          "properties": {
+            "P&I": {
+              "type": "string"
+            },
+            "ism": {
+              "type": "string"
+            },
+            "ismWeb": {
+              "type": "string"
+            },
+            "manager": {
+              "type": "string"
+            },
+            "ismEmail": {
+              "type": "string"
+            },
+            "ismAddress": {
+              "type": "string"
+            },
+            "ismWebsite": {
+              "type": "string"
+            },
+            "managerEmail": {
+              "type": "string"
+            },
+            "managerAddress": {
+              "type": "string"
+            },
+            "managerWebsite": {
+              "type": "string"
+            },
+            "registeredOwner": {
+              "type": "string"
+            },
+            "registeredOwnerEmail": {
+              "type": "string"
+            },
+            "ClassificationSociety": {
+              "type": "string"
+            },
+            "registeredOwnerAddress": {
+              "type": "string"
+            },
+            "registeredOwnerWebsite": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "ClassificationSociety",
+            "P&I",
+            "ism",
+            "ismAddress",
+            "ismEmail",
+            "ismWeb",
+            "ismWebsite",
+            "manager",
+            "managerAddress",
+            "managerEmail",
+            "managerWebsite",
+            "registeredOwner",
+            "registeredOwnerAddress",
+            "registeredOwnerEmail",
+            "registeredOwnerWebsite"
+          ]
+        }
+      },
+      "required": [
+        "imo",
+        "management",
+        "mmsi",
+        "name"
+      ]
+    }
+  }
+}

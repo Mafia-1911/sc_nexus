@@ -43,9 +43,21 @@ def _meta(mode: Literal["synthetic", "replay"], scope: Any = None, n: int = 1) -
     )
 
 
+def _scenario_only(scope: ScopeDep) -> None:
+    """Inspection lots, lines and SPC are a synthetic plant world (A-111): real data shows none.
+    The gallery and live inspection run on real public images and stay available."""
+    if scope.scenario_id is None:
+        raise HTTPException(
+            404,
+            "Inspection lots are synthetic (no Bangladeshi plant publishes its QC data): pick a "
+            "scenario. The gallery and live inspection use real public images.",
+        )
+
+
 @router.get("/quality/summary", response_model=Envelope[dict[str, Any]])
 def summary(session: SessionDep, scope: ScopeDep) -> Envelope[dict[str, Any]]:
     """KPIs for the Quality Lab: lots, rejections, QA holds, orders at risk, lines alarming."""
+    _scenario_only(scope)
     data = service.summary(session, scope.scenario_id)
     return Envelope(data=data, meta=_meta("synthetic", scope, data["lots"]))
 
@@ -57,6 +69,7 @@ def batches(
     status: Annotated[str | None, Query(description="released | rejected | quarantine")] = None,
     industry: Annotated[str | None, Query(description="garments | pharma")] = None,
 ) -> Envelope[list[LotOut]]:
+    _scenario_only(scope)
     rows = service.lots(session, scope.scenario_id, status, industry)
     return Envelope(data=rows, meta=_meta("synthetic", scope, len(rows)))
 
@@ -64,6 +77,7 @@ def batches(
 @router.get("/quality/batches/{batch_id}", response_model=Envelope[LotDetailOut])
 def batch(batch_id: UUID, session: SessionDep, scope: ScopeDep) -> Envelope[LotDetailOut]:
     """AQL result, the inspected items with heatmaps, the order, the alert and its options."""
+    _scenario_only(scope)
     out = service.lot(session, scope.scenario_id, batch_id)
     if out is None:
         raise HTTPException(404, "unknown lot in this scenario")
@@ -73,12 +87,14 @@ def batch(batch_id: UUID, session: SessionDep, scope: ScopeDep) -> Envelope[LotD
 @router.get("/quality/lines", response_model=Envelope[list[LineOut]])
 def lines(session: SessionDep, scope: ScopeDep) -> Envelope[list[LineOut]]:
     """Every production line: P(next lot fails AQL), its defect rate and SPC alarm state."""
+    _scenario_only(scope)
     rows = service.lines(session, scope.scenario_id)
     return Envelope(data=rows, meta=_meta("synthetic", scope, len(rows)))
 
 
 @router.get("/quality/lines/{line_id}/spc", response_model=Envelope[SpcOut])
 def line_spc(line_id: UUID, session: SessionDep, scope: ScopeDep) -> Envelope[SpcOut]:
+    _scenario_only(scope)
     out = service.spc(session, scope.scenario_id, line_id)
     if out is None:
         raise HTTPException(404, "unknown line in this scenario")

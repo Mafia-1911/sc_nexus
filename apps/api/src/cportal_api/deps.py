@@ -12,7 +12,7 @@ from uuid import UUID
 from cportal_core.db import session_factory
 from cportal_core.models import Scenario
 from fastapi import Depends, HTTPException, Query
-from sqlalchemy import ColumnElement, false, or_, select
+from sqlalchemy import ColumnElement, false, select
 from sqlalchemy.orm import Session
 
 from cportal_api.schemas import Meta, ModeLabel
@@ -75,10 +75,11 @@ class Scope:
     horizon: Horizon = "now"
 
     def rows(self, model: Any) -> ColumnElement[bool]:
-        """Real rows always; synthetic rows only from the selected scenario."""
+        """One data source per view (A-111): real data shows only real rows; a scenario shows only
+        its own synthetic world, never real rows mixed in."""
         if self.scenario_id is None:
             return model.is_synthetic == false()
-        return or_(model.is_synthetic == false(), model.scenario_id == self.scenario_id)
+        return model.scenario_id == self.scenario_id
 
 
 def get_scope(

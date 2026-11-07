@@ -26,7 +26,7 @@ from cportal_core.models import (
     ShipmentOrder,
 )
 from cportal_core.paths import repo_root
-from sqlalchemy import delete, func, insert, or_, select, update
+from sqlalchemy import delete, func, insert, select, update
 from sqlalchemy.orm import Session, aliased
 
 from cportal_nexus import DOOR_ETA_VERSION, fusion
@@ -101,7 +101,7 @@ def holds(session: Session, scenario_id: UUID) -> list[tuple[Hold, UUID]]:
     rows = session.scalars(
         select(DisruptionEvent).where(
             DisruptionEvent.type.in_(stoppage_types()),
-            or_(DisruptionEvent.scenario_id == scenario_id, DisruptionEvent.scenario_id.is_(None)),
+            DisruptionEvent.scenario_id == scenario_id,  # its own world only (A-111)
             DisruptionEvent.status.notin_(("resolved", "retracted")),
             DisruptionEvent.start_est.is_not(None),
         )

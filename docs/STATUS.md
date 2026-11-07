@@ -1,4 +1,4 @@
-# STATUS (updated 2026-11-01 BST by Claude Code, Opus 5.5)
+# STATUS (updated 2026-11-08 by Claude Code, Opus 5.5)
 
 Milestone: **M8 Nexus + demo, in progress** (the user deferred VisA and further C5 depth,
 U-06). Branch `m3-c1`. Nothing pushed since M2 (commit only until the whole build is done).
@@ -102,6 +102,23 @@ Done (DS-PORT-10, CPA TOS + PCS, user request 2026-11-08; A-107…A-110; card `D
   arrivals; real-mode Ships use CPA (35 at berth, 95 at anchorage, 22 expected) with real cargo
   progress; dock estimates learn from polling.
 - Not yet: sailed-vessel and gate in/out backfills (POST forms), yard/lying into C4 and Nexus.
+
+Done (one data source per view, user request 2026-11-08; A-111, A-112):
+- `Scope.rows` is strict: real data → real rows only; a scenario → its own synthetic rows only
+  (no real rows mixed in). Nexus fusion, hazard alerts, door-ETA holds, studio and the
+  recommendation engine follow the same rule.
+- Pages: Control Tower and Ports & Vessels share the CPA crawl in real mode (map, ships, KPIs)
+  and the simulated port in a scenario; the C4 dwell model (GFW replay) shows on Ports &
+  Vessels in real mode only; Quality Lab real mode shows the public-image gallery and says
+  inspection lots exist only in scenarios (API 404s lots without a scenario).
+- Abbreviations: glossary on Control Tower and Ports & Vessels; yard card names each terminal.
+- Scenario mode on Ports & Vessels: simulated congestion with vs without the shock, KPIs and
+  drivers (A-113; DES projection stores `queue_daily`); golden-path step 3 uses it.
+- e2e `sources.spec.ts`: 7 pages × both modes, no SYNTHETIC badge in real data, no live/replay
+  badge in a scenario.
+- Consequence: "Normal operations" has no disruptions, so it has no recommendations; the cyclone
+  scenario carries the demo's actions. API test fixture gives the baseline its own synthetic
+  strike news. `make test` 316 passed; lint, mypy, tsc, ESLint clean.
 
 Next: BD-bound collector in the worker (sightings into `ais_position_latest` with destination
 and AIS ETA; "Expected" ships with region) → refresh GFW + C4 so Today/Tomorrow are real

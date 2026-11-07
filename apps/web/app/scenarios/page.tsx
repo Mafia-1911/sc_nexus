@@ -183,6 +183,17 @@ async function Studio() {
   );
 }
 
+/** The synthetic badge and the PDF export only when a scenario is shown (A-111). */
+async function StudioTools() {
+  if (!(await currentScenario())) return null;
+  return (
+    <div className="flex items-center gap-2">
+      <DataBadge mode="synthetic" sources={["nexus", "c1", "c5"]} />
+      <PrintButton />
+    </div>
+  );
+}
+
 export default function ScenarioStudioPage() {
   return (
     <>
@@ -191,10 +202,9 @@ export default function ScenarioStudioPage() {
           <h1 className="mb-1 text-xl font-semibold tracking-tight">Scenario Studio</h1>
           <p className="text-sm text-muted">What if…, and what should we do? The same shock with and without Nexus&apos;s actions.</p>
         </div>
-        <div className="flex items-center gap-2">
-          <DataBadge mode="synthetic" sources={["nexus", "c1", "c5"]} />
-          <PrintButton />
-        </div>
+        <Suspense fallback={null}>
+          <StudioTools />
+        </Suspense>
       </div>
       <Suspense fallback={<div className="skeleton h-[600px] w-full" />}>
         <Studio />

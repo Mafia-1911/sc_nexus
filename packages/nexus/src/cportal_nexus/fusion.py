@@ -181,10 +181,10 @@ def _reliability() -> dict[str, float]:
 
 def _events(session: Session, scenario_id: UUID | None, now: datetime) -> list[Ev]:
     seen = func.coalesce(DisruptionEvent.available_at, DisruptionEvent.first_seen)
-    scope = (
+    scope = (  # one data source per view (A-111): a scenario sees only its own events
         DisruptionEvent.scenario_id.is_(None)
         if scenario_id is None
-        else or_(DisruptionEvent.scenario_id == scenario_id, DisruptionEvent.scenario_id.is_(None))
+        else DisruptionEvent.scenario_id == scenario_id
     )
     outlets = (
         select(func.count(func.distinct(Article.source_name)))

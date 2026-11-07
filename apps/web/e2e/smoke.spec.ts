@@ -91,7 +91,7 @@ test("Data & Models: sources, licences, scenarios", async ({ page }) => {
   const gfw = page.locator('[data-source="DS-AIS-02"]');
   await expect(gfw).toContainText("NC");
   await expect(page.locator('[data-source="DS-PORT-07"]')).toContainText("Chittagong Port Authority");
-  await expect(page.getByText("Cyclone shuts Chattogram + denim mill flood").first()).toBeVisible();
+  await expect(page.locator("li span", { hasText: "Cyclone shuts Chattogram + denim mill flood" })).toBeVisible();
   for (const theme of ["light", "dark"] as const) {
     await setTheme(page, theme);
     await page.waitForTimeout(500);
@@ -205,7 +205,15 @@ test("Ports & Vessels: queue fan, vessel windows and a vessel's drivers (C4)", a
   await page.screenshot({ path: `${SHOTS}/ports-vessel-drawer.png` });
 });
 
-test("Quality Lab: AQL lot board, a failed lot's options and heatmaps (C5)", async ({ page }) => {
+test("Quality Lab real data: no invented lots, the public-image gallery (A-111)", async ({ page }) => {
+  await page.goto("/quality");
+  await expect(page.getByTestId("quality-real")).toContainText("No real inspection lots");
+  await expect(page.getByTestId("gallery").locator("figure").first()).toBeVisible();
+  await expect(page.getByTestId("lot-board")).toHaveCount(0);
+});
+
+test("Quality Lab: AQL lot board, a failed lot's options and heatmaps (C5)", async ({ page, baseURL }) => {
+  await page.context().addCookies([{ name: "scenario", value: "cyclone_supplier_delay", url: baseURL! }]);
   await page.goto("/quality");
   await expect(page).toHaveTitle(new RegExp(`Quality Lab · ${BRAND}`));
   await expect(page.getByTestId("quality-kpis")).toContainText("Rejected");

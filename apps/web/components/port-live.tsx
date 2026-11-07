@@ -3,6 +3,7 @@ import { ErrorNote } from "@/components/kpi-strip";
 import { PortLiveMap } from "@/components/port-live-map";
 import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 import { api } from "@/lib/api/server";
+import { YARDS } from "@/lib/glossary";
 import { dhakaTime, fmt } from "@/lib/utils";
 
 type Yard = { yard: string; capacity_teu: number | null; used_teu: number | null; used_pct: number | null };
@@ -40,7 +41,10 @@ export async function PortLive() {
               return (
                 <li key={y.yard} className="text-xs">
                   <div className="flex justify-between">
-                    <span className="font-medium">{y.yard}</span>
+                    <span className="font-medium" title={YARDS[y.yard] ?? undefined}>
+                      {y.yard}
+                      {YARDS[y.yard] ? <span className="ml-1 font-normal text-muted">{YARDS[y.yard]}</span> : null}
+                    </span>
                     <span className="tabular">
                       {fmt(y.used_teu ?? 0)} / {fmt(y.capacity_teu ?? 0)} TEU · <strong className={pct > 100 ? "text-danger" : pct > 85 ? "text-warn" : ""}>{fmt(pct, 0)}%</strong>
                     </span>

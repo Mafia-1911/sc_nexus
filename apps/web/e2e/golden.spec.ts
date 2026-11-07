@@ -47,10 +47,12 @@ test("Golden path: one connected story, offline, under 7 minutes", async ({ page
 
   await step("3 Ports & Vessels: congestion forecast and the drivers", async (p) => {
     await p.goto("/ports");
-    await expect(p.getByTestId("port-kpis")).toContainText("Vessels in port", { timeout: 15_000 });
-    await expect(p.getByTestId("queue-fan").locator("svg path").first()).toBeVisible();
-    await p.getByTestId("vessel-table").locator("tbody tr").first().click();
-    await expect(p.getByTestId("drivers").locator("li").first()).toBeVisible();
+    // The scenario's own simulated port (A-111): queue with vs without the cyclone, and why.
+    const port = p.getByTestId("scenario-port");
+    await expect(port).toContainText("Simulated congestion", { timeout: 15_000 });
+    await expect(port.locator("svg path").first()).toBeVisible();
+    await expect(port.getByTestId("drivers")).toContainText("Port closed");
+    await expect(p.getByTestId("ship-row").first()).toBeVisible();
   });
 
   await step("4 Supplier Network: Chattogram, the single point of failure", async (p) => {

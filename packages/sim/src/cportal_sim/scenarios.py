@@ -54,6 +54,7 @@ from cportal_sim.world import World, build_world
 
 GENERATOR = "cportal-sim/scenarios/0.1.0"
 SNAPSHOT_EVERY_H = 6
+QUEUE_HISTORY_D = 30
 AIS_GROUP = {
     "container": ShipTypeGroup.CONTAINER,
     "tanker": ShipTypeGroup.TANKER,
@@ -412,16 +413,25 @@ def hero_inbound(
     return out
 
 
-def projection_kpis(des: DesResult, start: datetime, end: datetime) -> dict[str, Any]:
+def projection_kpis(
+    des: DesResult, start: datetime, end: datetime, history_d: int = QUEUE_HISTORY_D
+) -> dict[str, Any]:
+    """Projection KPIs, plus the daily mean of vessels waiting for a berth from `history_d` days
+    before `start` to `end` (the Ports page's simulated congestion chart, A-113)."""
     ocean = [v for v in des.visits if v.kind != "lighter" and start <= v.arrive < end]
     waits = sorted(v.waiting_h for v in ocean if v.mode == "berth")
     peak = 0
-    ts = start
+    daily: dict[str, list[int]] = {}
+    ts = start - timedelta(days=history_d)
     while ts < end:
         state = state_at(des, ts)
-        peak = max(peak, sum(state["queue_by_type"]["waiting_for_berth"].values()))
+        n = sum(state["queue_by_type"]["waiting_for_berth"].values())
+        if ts >= start:
+            peak = max(peak, n)
+        daily.setdefault(ts.date().isoformat(), []).append(n)
         ts += timedelta(hours=SNAPSHOT_EVERY_H)
     return {
+        "queue_daily": [[d, round(statistics.mean(v), 1)] for d, v in daily.items()],
         "window": [start.isoformat(), end.isoformat()],
         "ocean_arrivals": len(ocean),
         "mean_wait_h": round(statistics.mean(waits), 1) if waits else None,

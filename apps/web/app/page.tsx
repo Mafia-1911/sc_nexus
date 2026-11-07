@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import { AlertFeed } from "@/components/alert-feed";
+import { Glossary } from "@/components/glossary";
 import { KpiStrip } from "@/components/kpi-strip";
 import { PortLive } from "@/components/port-live";
 import { ShipsTable } from "@/components/ships-table";
@@ -46,6 +47,7 @@ async function Tower() {
       <Suspense fallback={<Skeleton />}>
         <ShipsTable scenario={scenario} />
       </Suspense>
+      <Glossary />
     </div>
   );
 }

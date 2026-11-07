@@ -100,7 +100,7 @@ function Details({ s }: { s: Ship }) {
   );
 }
 
-export function ShipsBoard({ ships, counts, real }: { ships: Ship[]; counts: Record<string, number>; real: boolean }) {
+export function ShipsBoard({ ships, counts, real, rows = 15 }: { ships: Ship[]; counts: Record<string, number>; real: boolean; rows?: number }) {
   const [filter, setFilter] = useState<string>("all");
   const keys = Object.keys(STATUS).filter((k) => counts[k]);
   const shown = filter === "all" ? ships : ships.filter((s) => s.status === filter);
@@ -132,7 +132,7 @@ export function ShipsBoard({ ships, counts, real }: { ships: Ship[]; counts: Rec
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {shown.slice(0, 15).map((s) => (
+            {shown.slice(0, rows).map((s) => (
               <tr key={s.call_id} data-testid="ship-row">
                 <td className="py-2 pr-3">
                   <span className="group relative inline-block" tabIndex={0}>
@@ -182,7 +182,7 @@ export function ShipsBoard({ ships, counts, real }: { ships: Ship[]; counts: Rec
           </tbody>
         </table>
       </div>
-      {shown.length > 15 ? <p className="mt-1 text-xs text-muted">Showing 15 of {shown.length}.</p> : null}
+      {shown.length > rows ? <p className="mt-1 text-xs text-muted">Showing {rows} of {shown.length}.</p> : null}
     </div>
   );
 }

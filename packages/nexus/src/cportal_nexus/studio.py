@@ -66,7 +66,7 @@ def _alerts(
             .where(
                 Alert.kind == "disruption",
                 Alert.status.in_(("open", "ack")),
-                or_(Alert.scenario_id == scenario.id, Alert.scenario_id.is_(None)),
+                Alert.scenario_id == scenario.id,  # its own world only (A-111)
                 or_(seen.is_(None), seen <= now),
             )
         ).tuples()

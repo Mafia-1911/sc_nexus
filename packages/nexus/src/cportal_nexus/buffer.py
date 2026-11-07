@@ -419,8 +419,8 @@ def refresh(session: Session) -> int:
         g = c1_store.load(session, scenario)
         fused = fusion.fused_rows(session, scenario.id)
         for alert, event in alerts:
-            if alert.scenario_id is not None and alert.scenario_id != scenario.id:
-                continue  # a scenario's own alert stays in that scenario
+            if alert.scenario_id != scenario.id:
+                continue  # its own alerts only; real alerts have no order book (A-111)
             for rec in recommend(session, g, alert, event, scenario, fused):
                 if session.get(Recommendation, rec.id) is not None:
                     continue  # a decision already taken is kept

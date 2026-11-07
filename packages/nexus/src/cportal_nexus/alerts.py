@@ -15,7 +15,7 @@ from uuid import NAMESPACE_URL, UUID, uuid5
 import yaml
 from cportal_core.models import Alert, DisruptionEvent
 from cportal_core.paths import repo_root
-from sqlalchemy import delete, func, or_, select
+from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 
 from cportal_nexus import FUSION_VERSION, fusion
@@ -35,10 +35,10 @@ def refresh(session: Session, scenario_id: UUID | None, now: datetime) -> int:
     rule, types = pri["alert"], pri["types"]
     fused = fusion.fused_confidence(session, scenario_id)
     seen = func.coalesce(DisruptionEvent.available_at, DisruptionEvent.first_seen)
-    scope = (
+    scope = (  # one data source per view (A-111): a scenario sees only its own events
         DisruptionEvent.scenario_id.is_(None)
         if scenario_id is None
-        else or_(DisruptionEvent.scenario_id == scenario_id, DisruptionEvent.scenario_id.is_(None))
+        else DisruptionEvent.scenario_id == scenario_id
     )
     events = session.scalars(
         select(DisruptionEvent)

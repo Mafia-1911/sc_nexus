@@ -82,33 +82,46 @@ def client() -> Iterator[TestClient]:
     seed_scenario("baseline", URL)
     with session_scope(URL) as session:  # what the worker's c1:refresh does
         c1_store.refresh(session, c1_store.scenario_row(session, "baseline"))  # type: ignore[arg-type]
-    with session_scope(URL) as session:  # two outlets report one strike at Chattogram (C2)
+    # Two outlets report one strike at Chattogram (C2): once as real news, and once as the
+    # baseline scenario's own synthetic news (one data source per view, A-111).
+    with session_scope(URL) as session:
         now = datetime.now(UTC)
-        for i, (outlet, title) in enumerate(
-            [
-                ("port.example", "Chattogram port workers strike, container handling halted"),
-                ("daily.example", "Strike at Chattogram port stalls exports for a second day"),
-            ]
+        baseline = c1_store.scenario_row(session, "baseline")
+        assert baseline is not None
+        for world, sid, t0 in (
+            ("real", None, now),
+            ("baseline", baseline.id, tracker.scenario_now(baseline)),
         ):
-            session.add(
-                Article(
-                    url=f"https://{outlet}/strike-{i}",
-                    url_canonical=f"https://{outlet}/strike-{i}",
-                    source_name=outlet,
-                    published_at=now - timedelta(hours=6 - i),
-                    title=title,
-                    snippet="Garment exporters warn of shipment delays as vessels wait.",
-                    discovered_via="rss",
-                    source_id="DS-NEWS-03",
-                    data_mode="replay",
-                    is_synthetic=False,
+            for i, (outlet, title) in enumerate(
+                [
+                    ("port.example", "Chattogram port workers strike, container handling halted"),
+                    ("daily.example", "Strike at Chattogram port stalls exports for a second day"),
+                ]
+            ):
+                session.add(
+                    Article(
+                        url=f"https://{outlet}/{world}/strike-{i}",
+                        url_canonical=f"https://{outlet}/{world}/strike-{i}",
+                        source_name=outlet,
+                        published_at=t0 - timedelta(hours=6 - i),
+                        title=title,
+                        snippet="Garment exporters warn of shipment delays as vessels wait.",
+                        discovered_via="rss",
+                        source_id="DS-NEWS-03" if sid is None else "sim",
+                        data_mode="replay" if sid is None else "synthetic",
+                        is_synthetic=sid is not None,
+                        scenario_id=sid,
+                    )
                 )
-            )
     with session_scope(URL) as session:  # what the worker's c2:process does
         c2_service.process(session)
         buffer.refresh(session)
-    with session_scope(URL) as session:  # what the worker's nexus:refresh does (real scope)
+    with session_scope(URL) as session:  # what the worker's nexus:refresh does: real scope …
         fusion.refresh(session, None)
+        baseline = c1_store.scenario_row(session, "baseline")
+        assert baseline is not None
+        fusion.refresh(session, baseline.id, tracker.scenario_now(baseline))  # … each scenario
+        buffer.refresh(session)
     with session_scope(URL) as session:  # … then door ETA per scenario
         tracker.refresh(session, c1_store.scenario_row(session, "baseline").id)  # type: ignore[union-attr]
     with session_scope(URL) as session:  # a toy corridor instead of the 340 MB OSM extract
@@ -143,10 +156,14 @@ def test_badges_follow_the_rows(client: TestClient) -> None:
         "/api/v1/ports/BDCGP/calls", params={"method": "sim", "limit": 20}
     ).json()
     assert synthetic["meta"]["mode"] == "synthetic" and synthetic["meta"]["scenario"] == "baseline"
-    # Real PortWatch days and the scenario's synthetic days overlap: the badge says "mixed".
-    mixed = client.get("/api/v1/ports/BDCGP/activity", params={"days": 120}).json()
-    assert set(mixed["meta"]["modes"]) == {"replay", "synthetic"}
-    assert mixed["meta"]["mode"] == "mixed"
+    # One data source per view (A-111): real PortWatch days and the scenario's synthetic days
+    # overlap in time but never share a view.
+    world = client.get("/api/v1/ports/BDCGP/activity", params={"days": 120}).json()
+    assert set(world["meta"]["modes"]) == {"synthetic"} and world["meta"]["mode"] == "synthetic"
+    real_days = client.get(
+        "/api/v1/ports/BDCGP/activity", params={"days": 120, "scenario": ""}
+    ).json()
+    assert "synthetic" not in real_days["meta"]["modes"]
 
 
 def test_cursor_pagination(client: TestClient) -> None:
@@ -342,7 +359,8 @@ def test_replay_clock_ignores_newer_real_positions(client: TestClient) -> None:
             replay_max = session.scalar(
                 select(func.max(AisPositionLatest.ts)).where(AisPositionLatest.is_synthetic)
             )
-        assert snapshot["mode"] == "mixed" and replay_max is not None
+        # A scenario shows its own replay only (A-111); its clock is the replay's.
+        assert snapshot["mode"] == "synthetic" and replay_max is not None
         assert snapshot["ts"] == replay_max.isoformat()
     finally:
         with session_scope(URL) as session:
@@ -397,11 +415,15 @@ def test_c1_views_keep_fictional_names_under_the_real_pack(
 
 def test_c2_events_carry_their_evidence(client: TestClient) -> None:
     """C2-R01/R02/R04: two outlets, one grounded event at Chattogram, with quotes."""
-    events = client.get("/api/v1/events", params={"source": "news"}).json()
+    events = client.get("/api/v1/events", params={"source": "news", "scenario": ""}).json()
     [strike] = [e for e in events["data"] if e["type"] == "LABOR_STRIKE_BLOCKADE"]
     assert strike["locodes"] == ["BDCGP"] and strike["mentions"] == 2
+    assert events["meta"]["mode"] == "replay"  # real news only, no scenario events mixed in
+    world = client.get("/api/v1/events", params={"source": "news"}).json()
+    assert world["meta"]["mode"] == "synthetic"
+    assert all(e["id"] != strike["id"] for e in world["data"])
     assert strike["confidence"] > 0.5  # two independent outlets corroborate
-    detail = client.get(f"/api/v1/events/{strike['id']}").json()["data"]
+    detail = client.get(f"/api/v1/events/{strike['id']}", params={"scenario": ""}).json()["data"]
     for m in detail["mentions"]:
         for start, end, quote in m["evidence"].values():
             assert m["text"][start:end] == quote  # every highlight is in the text

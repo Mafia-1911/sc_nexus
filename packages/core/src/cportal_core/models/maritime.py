@@ -110,6 +110,8 @@ class PortCall(Lineage, Base):
     berth_end_ts: Mapped[dt.datetime | None]
     departure_ts: Mapped[dt.datetime | None]
     departure_planned_ts: Mapped[dt.datetime | None]
+    arrival_planned_ts: Mapped[dt.datetime | None]  # DS-PORT-10: the agent's ETA (CPA PCS)
+    phase: Mapped[str | None] = mapped_column(String(16))  # CPA: INBOUND/ARRIVED/WORKING/…
     waiting_h: Mapped[float | None]
     berth_h: Mapped[float | None]
     dwell_h: Mapped[float | None]
@@ -117,6 +119,9 @@ class PortCall(Lineage, Base):
     censored: Mapped[bool] = mapped_column(default=False)
     method: Mapped[str] = enum_col(PortCallMethod)
     confidence: Mapped[int | None] = mapped_column(SmallInteger)
+    attrs: Mapped[dict[str, Any]] = mapped_column(
+        default=dict, server_default=text("'{}'")
+    )  # DS-PORT-10: rotation, agent, operator, cargo progress
     gfw_visit_id: Mapped[str | None] = mapped_column(String(64), index=True)
     quality_flags: Mapped[list[Any]] = mapped_column(default=list, server_default=text("'[]'"))
 
@@ -155,6 +160,8 @@ class PortStateSnapshot(Lineage, Base):
     tide: Mapped[dict[str, Any]] = mapped_column(default=dict, server_default=text("'{}'"))
     sar_count: Mapped[int | None]
     sar_age_h: Mapped[float | None]
+    # DS-PORT-10: yards (capacity/used TEU), containers lying, last-24 h handling (CPA TOS).
+    yard: Mapped[dict[str, Any]] = mapped_column(default=dict, server_default=text("'{}'"))
 
 
 class PortActivityDaily(Lineage, Base):

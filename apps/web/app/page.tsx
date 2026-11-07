@@ -2,6 +2,7 @@ import { Suspense } from "react";
 
 import { AlertFeed } from "@/components/alert-feed";
 import { KpiStrip } from "@/components/kpi-strip";
+import { PortLive } from "@/components/port-live";
 import { ShipsTable } from "@/components/ships-table";
 import { Card, CardHeader } from "@/components/ui/card";
 import { VesselMap } from "@/components/vessel-map";
@@ -21,8 +22,13 @@ async function Tower() {
       <Suspense fallback={<Skeleton h="h-28" />}>
         <KpiStrip scenario={scenario} />
       </Suspense>
-      <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
-        <Card className="xl:col-span-2">
+      {!scenario ? (
+        <Suspense fallback={<Skeleton h="h-96" />}>
+          <PortLive />
+        </Suspense>
+      ) : null}
+      <div className={scenario ? "grid grid-cols-1 gap-4 xl:grid-cols-3" : "grid grid-cols-1 gap-4"}>
+        <Card className={scenario ? "xl:col-span-2" : "hidden"}>
           <CardHeader
             title="Chattogram outer anchorage"
             subtitle={

@@ -1,0 +1,1299 @@
+<html>
+	<head>
+		 <meta http-equiv="refresh" content="120">
+		 <style>
+			body{font-family: "Calibri";}
+		 </style>
+		 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    	<script>
+        $(function() {
+            $("#strDate, #endDate").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'yy-mm-dd' // ISO format
+            });
+        });
+    </script>
+	</head>
+	<body>
+		<div>
+				 
+
+			<div align="center">
+				<html>
+	<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<style>
+			.button {
+				background-color:    #8889e0; /* Green */
+				border: none;
+				color: white;
+				padding: 10px 0px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 14px;
+				font-family: "Arial Black", Gadget, sans-serif;
+				border-radius: 20px;
+				width:100%;
+			}
+			body{font-family: "Calibri";}
+			
+			.navbar {
+			  overflow: hidden;
+			  background-color: #8889e0;
+			  font-family: "Arial Black", Gadget, sans-serif;
+			  text-align: center;
+			}
+
+			.navbar a {
+			  display: inline-block;
+			  float:left;
+			  font-size: 16px;
+			  color: white;
+			  text-align: center;
+			  padding: 14px 16px;
+			  text-decoration: none;
+			}
+
+			.dropdown {
+			  display: inline-block;
+			  margin-left: auto;
+			  margin-right: auto;
+			  overflow: hidden;
+			}
+
+			.dropdown .dropbtn {
+			  font-size: 16px;  
+			  border: none;
+			  outline: none;
+			  color: white;
+			  padding: 14px 16px;
+			  background-color: inherit;
+			  font-family: inherit;
+			  margin: 0;
+			}
+
+			.navbar a:hover, .dropdown:hover .dropbtn {
+			  background-color: #333;
+			}
+
+			.dropdown-content {
+			  display: none;
+			  position: absolute;
+			  background-color: #8889e0;
+			  min-width: 160px;
+			  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			  z-index: 1;
+			}
+
+			.dropdown-content a {
+			  float: none;
+			  color: black;
+			  padding: 12px 16px;
+			  text-decoration: none;
+			  display: block;
+			  text-align: left;
+			}
+
+			.dropdown-content a:hover {
+			  background-color: #98AFC7;
+			}
+
+			.dropdown:hover .dropdown-content {
+			  display: block;
+			}
+		</style>
+		<title>TOS Dashboard</title>
+		<link rel="shortcut icon" type="image/x-icon" href="cpa_logo.png" />
+	</head>
+	<body>
+				<div>
+			<div align="center" style="padding-right:8%;">
+				<table>
+				<tr>
+				<td>
+					<img src="cpa_logo.png" height="75">
+				</td>
+				<td align="center">
+					<font size="5"><b>CHITTAGONG PORT AUTHORITY</b></font><br><font size="4"><b>TERMINAL OPERATING SYSTEM(TOS)<br>DASHBOARD</b></font>
+				</td>
+				</tr>
+				</table>
+			</div>
+			<div class="navbar">
+				<div class="dropdown">
+					<a href="index.php">Home</a>
+				</div>
+				<div class="dropdown">
+					<button class="dropbtn">Performance Report
+				  <i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+						<a href="24HoursperformanceReport.php">Performance Comparison</a>
+						<a href="yardWiseEquipPerformance.php">Handling Performance</a>
+						<a href="sailed_vessel.php">Sailed Vessel</a>
+						<a href="vesselReport.php">Vessel Handling Performance Report</a>
+					</div>
+				</div>
+				<div class="dropdown">
+					<button class="dropbtn">Operational Report
+					  <i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+						<!--a href="gateOperation.php">Gate Operation</a-->
+						<a href="all_gate_in_out_report.php">All Gate In & Out Report</a>
+						<!--a href="mis_ocr_info.php">Automated Gate Out Control</a-->
+						<a href="vesselAtBerth.php">Vessel Operation (Container)</a>
+						<a href="vesselAtBerth_BreakBulk.php">Vessel Operation (Others)</a>
+						<!--a href="prevVesselAtBerth.php">Previous Vessel Operation</a-->	
+					</div>
+				</div>
+				<div class="dropdown">
+					<button class="dropbtn">Occupancy
+					  <i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+					  <a href="berthOccupance.php">Berth Occupancy</a>
+					  <a href="last24_hour_position.php">24 Hour Lying</a>
+					  <!--a href="activeLyingICD.php">Active Lying ICD</a-->
+					  <!--a href="activeLyingContainerList.php">Active Lying Container List</a-->
+					  <a href="day_wise_lying_container.php">Day Wise Lying Container</a>
+					  <a href="yardOccupance.php">Yard Occupancy With Graph </a>  
+					  <a href="yardOccupanceGraph.php">Yard Occupancy Without Graph </a> 
+					</div>
+				</div>
+				<div class="dropdown">
+					<button class="dropbtn">Equipment (Container)
+					  <i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+					  <a href="mis_equipment_current_status.php">Equipment Position</a>
+					  <a href="mis_equipment_graph.php">Equipment Graph</a>
+					  <a href="mis_equipment_booking_op.php">Equipment Booking Operator(GCB)</a>
+					  <a href="mis_equipment_booking_nct_cct_op.php">Equipment Booking Operator(NCT & CCT)</a>
+					  <a href="rtg_uses_report.php">RTG Handling Report</a>
+
+					</div>
+				</div>
+				<div class="dropdown">
+					<button class="dropbtn">Equipment (Cargo)
+					  <i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+					  <a href="mis_equipment_current_status_cargo.php">Equipment Position</a>
+					  <a href="equipment_positon_for_cargo_handling_graph.php">Equipment Graph</a>
+					  <a href="mis_equipment_booking_op_cargo.php">Equipment Booking Operator</a>
+					 
+					</div>
+				</div>
+			</div>
+			<!--div align="center">
+				<div style="width:45%;float:left">
+					<div style="width:66%;float:left">
+						<div style="width:30%;float:left">
+							<a href="index.php" class="button">Home</a>
+						</div>
+						<div style="width:30%;float:left">
+							<a href="gateOperation.php" class="button">Gate Operation</a>
+						</div>
+						<div style="width:40%;float:left">
+							<a href="vesselAtBerth.php" class="button">Vessel Operation</a>
+						</div>
+					</div>
+					<div style="width:34%;float:right">
+						<a href="yardWiseEquipPerformance.php" class="button">Handling Performance</a>
+					</div>
+				</div>
+				<div style="width:55%;float:right">
+					<div style="width:50%;float:left">
+						<div style="width:50%;float:left">
+							<a href="berthOccupance.php" class="button">Berth Occupancy</a>
+						</div>
+						<div style="width:50%;float:right">
+							<a href="last24_hour_position.php" class="button">24 Hour Lying</a>
+						</div>
+					</div>
+					<div style="width:50%;float:left">
+						<div style="width:40%;float:right">
+							<a href="mis_equipment_current_status_cargo.php" class="button">Equip Position(Cargo)</a>
+						</div>
+						<div style="width:30%;float:right">
+							<a href="mis_equipment_current_status.php" class="button">Equip Position</a>
+						</div>
+						<div style="width:30%;float:left">
+							<a href="mis_equipment_graph.php" class="button">Equip Graph</a>
+						</div>
+					</div>
+				</div>
+			</div-->
+		</div>
+	</body>
+</html>			</div>
+			
+		<div align="center">
+					
+        <form action="" method="POST">
+            <table>
+			<br/>
+                <tr style="margin:5px;">
+                    <td align="center" colspan="7">
+                        From Date: 
+                        <input type="text" style="width:150px;" id="strDate" name="strDate" autocomplete="off" value="2026-11-08" />
+                        To Date: 
+                        <input type="text" style="width:150px;" id="endDate" name="endDate" autocomplete="off" value="2026-11-08" />
+						<button type="submit" 
+                                style="background-color: #4CAF50; color: white; padding: 4px 10px; border: 0; cursor: pointer;" 
+                                onmouseover="this.style.backgroundColor='#45a049'; this.style.color='black';"
+                                onmouseout="this.style.backgroundColor='#4CAF50'; this.style.color='white';">
+                            Search
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+	<br/>
+
+			<div align="center">
+						<table>
+					<tr style="margin:5px;">
+						<td colspan="12"><font size="5"><b>Berth Wise Vessel(Container) Operation at </b></font><font size="4">08/11/2026 04:19:53</font></td>
+					</tr>
+				</table>
+				
+				<table width="100%" border ='1' cellpadding='0' cellspacing='0'>					
+					<tr align="center" bgcolor="#D8D0CE">
+						<td rowspan="4"><b>SlNo.</b></td>
+						<td rowspan="4"><b>Berth</b></td>
+						<td rowspan="4"><b>Vessel Name</b></td>
+					
+						<td rowspan="4"><b>Berthed On</b></td>
+						<td rowspan="4"><b>Sailed On (ETD)</b></td>
+						<td rowspan="4"><b>Berth<br/>Occupation</b></td>
+						<td rowspan="4"><b>Vessel<br/>Capacity<br/>(Teus)</b></td>
+						<td colspan="6"><b>Import</b></td>
+						<td colspan="12"><b>Export</b></td>
+					</tr>
+					<tr align="center" bgcolor="#D8D0CE">
+						<td colspan="2" rowspan="2"><b>Total Container</b></td>
+						<td colspan="2" rowspan="2"><b>Discharge Container</b></td>		
+						<td colspan="2" rowspan="2"><b>Balance</b></td>
+						<td colspan="4"><b>Total Container</b></td>
+						<td colspan="4"><b>Loaded On Board</b></td>		
+						<td colspan="4"><b>Balance To Be Shipped</b></td>
+					</tr>
+					
+					<tr align="center" bgcolor="#D8D0CE">
+						<td colspan="2"><b>Laden</b></td>
+						<td colspan="2"><b>Empty</b></td>		
+						<td colspan="2"><b>Laden</b></td>
+						<td colspan="2"><b>Empty</b></td>	
+						<td colspan="2"><b>Laden</b></td>
+						<td colspan="2"><b>Empty</b></td>	
+					</tr>
+					
+					<tr align="center" bgcolor="#D8D0CE">
+						<td><b>Box</b></td>
+						<td><b>Teus</b></td>
+						<td><b>Box</b></td>
+						<td><b>Teus</b></td>
+						<td><b>Box</b></td>
+						<td><b>Teus</b></td>
+						<td><b>Box</b></td>
+						<td><b>Teus</b></td>
+						<td><b>Box</b></td>
+						<td><b>Teus</b></td>
+						<td><b>Box</b></td>
+						<td><b>Teus</b></td>
+						<td><b>Box</b></td>
+						<td><b>Teus</b></td>
+						<td><b>Box</b></td>
+						<td><b>Teus</b></td>
+						<td><b>Box</b></td>
+						<td><b>Teus</b></td>
+					</tr>
+
+
+								<tr align="center">
+						<td>1</td>
+						<td>NCT-5</td>
+						<td>BOX ENDEAVOUR</td>
+					
+						<td>07/11/2026 09:36:00</td>
+						<td>08/11/2026 10:00:00</td>
+						<td>1d 0h 24m</td>
+						<td></td>
+						<td>679</td>
+						<td>1063</td>
+						<td>506</td>
+					
+						<td>809</td>
+						<td>173</td>
+						<td>254</td>
+						
+						<td>134</td>
+						<td>257</td>
+						<td>1295</td>
+						<td>2093</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>134</td>
+						<td>257</td>	
+						<td>1295</td>
+						<td>2093</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>2</td>
+						<td>GCB07</td>
+						<td>CANG HAI</td>
+					
+						<td>07/11/2026 11:00:00</td>
+						<td>12/11/2026 09:00:00</td>
+						<td>4d 22h 0m</td>
+						<td></td>
+						<td>441</td>
+						<td>747</td>
+						<td>275</td>
+					
+						<td>495</td>
+						<td>166</td>
+						<td>252</td>
+						
+						<td>369</td>
+						<td>711</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>369</td>
+						<td>711</td>	
+						<td>0</td>
+						<td>0</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>3</td>
+						<td>GCB11</td>
+						<td>CMA CGM FUJI</td>
+					
+						<td>07/11/2026 09:30:00</td>
+						<td>08/11/2026 10:00:00</td>
+						<td>1d 0h 30m</td>
+						<td></td>
+						<td>777</td>
+						<td>1196</td>
+						<td>451</td>
+					
+						<td>763</td>
+						<td>326</td>
+						<td>433</td>
+						
+						<td>19</td>
+						<td>30</td>
+						<td>1614</td>
+						<td>2605</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>19</td>
+						<td>30</td>	
+						<td>1614</td>
+						<td>2605</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>4</td>
+						<td>NCT-4</td>
+						<td>CNC VENUS</td>
+					
+						<td>07/11/2026 10:18:00</td>
+						<td>09/11/2026 09:00:00</td>
+						<td>1d 22h 42m</td>
+						<td></td>
+						<td>735</td>
+						<td>1194</td>
+						<td>506</td>
+					
+						<td>890</td>
+						<td>229</td>
+						<td>304</td>
+						
+						<td>220</td>
+						<td>421</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>220</td>
+						<td>421</td>	
+						<td>0</td>
+						<td>0</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>5</td>
+						<td>GCB06</td>
+						<td>HMM CHITTAGONG</td>
+					
+						<td>06/11/2026 09:00:00</td>
+						<td>13/11/2026 12:50:00</td>
+						<td>7d 3h 50m</td>
+						<td></td>
+						<td>930</td>
+						<td>1488</td>
+						<td>850</td>
+					
+						<td>1393</td>
+						<td>80</td>
+						<td>95</td>
+						
+						<td>225</td>
+						<td>425</td>
+						<td>788</td>
+						<td>1219</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>225</td>
+						<td>425</td>	
+						<td>788</td>
+						<td>1219</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>6</td>
+						<td>CCT-1</td>
+						<td>KOTA RANCAK</td>
+					
+						<td>05/11/2026 19:30:00</td>
+						<td>08/11/2026 15:00:00</td>
+						<td>2d 19h 30m</td>
+						<td></td>
+						<td>419</td>
+						<td>609</td>
+						<td>419</td>
+					
+						<td>609</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>192</td>
+						<td>312</td>
+						<td>1241</td>
+						<td>1423</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>192</td>
+						<td>312</td>	
+						<td>1241</td>
+						<td>1423</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>7</td>
+						<td>PCT-2</td>
+						<td>MAERSK NESNA</td>
+					
+						<td>06/11/2026 09:12:00</td>
+						<td>09/11/2026 15:00:00</td>
+						<td>3d 5h 48m</td>
+						<td></td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+					
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>0</td>
+						<td>0</td>	
+						<td>0</td>
+						<td>0</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>8</td>
+						<td>GCB09</td>
+						<td>MV.EM SPETSES</td>
+					
+						<td>07/11/2026 09:36:00</td>
+						<td>09/11/2026 10:30:00</td>
+						<td>2d 0h 54m</td>
+						<td></td>
+						<td>535</td>
+						<td>794</td>
+						<td>123</td>
+					
+						<td>239</td>
+						<td>412</td>
+						<td>555</td>
+						
+						<td>57</td>
+						<td>112</td>
+						<td>1452</td>
+						<td>2208</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>57</td>
+						<td>112</td>	
+						<td>1452</td>
+						<td>2208</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>9</td>
+						<td>NCT-3</td>
+						<td>SOL RESILIENCE</td>
+					
+						<td>06/11/2026 10:00:00</td>
+						<td>08/11/2026 09:00:00</td>
+						<td>1d 23h 0m</td>
+						<td></td>
+						<td>585</td>
+						<td>1100</td>
+						<td>585</td>
+					
+						<td>1100</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>535</td>
+						<td>1026</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>1</td>
+						<td>2</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>534</td>
+						<td>1024</td>	
+						<td>0</td>
+						<td>0</td>
+						<!-- <td>-2</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>10</td>
+						<td>NCT-2</td>
+						<td>YM HAWK</td>
+					
+						<td>06/11/2026 08:48:00</td>
+						<td>06/11/2026 10:00:00</td>
+						<td>0d 1h 12m</td>
+						<td></td>
+						<td>596</td>
+						<td>776</td>
+						<td>594</td>
+					
+						<td>774</td>
+						<td>2</td>
+						<td>2</td>
+						
+						<td>163</td>
+						<td>297</td>
+						<td>321</td>
+						<td>357</td>
+						
+						<td>1</td>
+						<td>1</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>162</td>
+						<td>296</td>	
+						<td>321</td>
+						<td>357</td>
+						<!-- <td>-1</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>11</td>
+						<td>NCT-3</td>
+						<td>CELSIUS ESSEN</td>
+					
+						<td>03/11/2026 17:42:00</td>
+						<td>07/11/2026 12:30:00</td>
+						<td>3d 18h 48m</td>
+						<td></td>
+						<td>906</td>
+						<td>1629</td>
+						<td>906</td>
+					
+						<td>1629</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>934</td>
+						<td>1787</td>
+						<td>60</td>
+						<td>120</td>
+						
+						<td>1</td>
+						<td>2</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>933</td>
+						<td>1785</td>	
+						<td>60</td>
+						<td>120</td>
+						<!-- <td>-2</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>12</td>
+						<td>GCB10</td>
+						<td>CNC PADMA</td>
+					
+						<td>05/11/2026 09:30:00</td>
+						<td>07/11/2026 08:30:00</td>
+						<td>1d 23h 0m</td>
+						<td></td>
+						<td>767</td>
+						<td>1202</td>
+						<td>767</td>
+					
+						<td>1202</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>308</td>
+						<td>542</td>
+						<td>927</td>
+						<td>1371</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>308</td>
+						<td>542</td>	
+						<td>927</td>
+						<td>1371</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>13</td>
+						<td>GCB13</td>
+						<td>FITZROY</td>
+					
+						<td>05/11/2026 09:00:00</td>
+						<td>07/11/2026 08:50:00</td>
+						<td>1d 23h 50m</td>
+						<td></td>
+						<td>536</td>
+						<td>773</td>
+						<td>536</td>
+					
+						<td>773</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>23</td>
+						<td>46</td>
+						<td>645</td>
+						<td>756</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>23</td>
+						<td>46</td>	
+						<td>645</td>
+						<td>756</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>14</td>
+						<td>CCT-3</td>
+						<td>HAI YUN</td>
+					
+						<td>05/11/2026 08:42:00</td>
+						<td>08/11/2026 12:30:00</td>
+						<td>3d 3h 48m</td>
+						<td></td>
+						<td>799</td>
+						<td>1158</td>
+						<td>753</td>
+					
+						<td>1096</td>
+						<td>46</td>
+						<td>62</td>
+						
+						<td>400</td>
+						<td>739</td>
+						<td>59</td>
+						<td>64</td>
+						
+						<td>1</td>
+						<td>2</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>399</td>
+						<td>737</td>	
+						<td>59</td>
+						<td>64</td>
+						<!-- <td>-2</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>15</td>
+						<td>CCT-1</td>
+						<td>HR BALU</td>
+					
+						<td>02/11/2026 17:42:00</td>
+						<td>03/11/2026 10:00:00</td>
+						<td>0d 16h 18m</td>
+						<td></td>
+						<td>686</td>
+						<td>910</td>
+						<td>686</td>
+					
+						<td>910</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>430</td>
+						<td>806</td>
+						<td>4</td>
+						<td>8</td>
+						
+						<td>2</td>
+						<td>4</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>428</td>
+						<td>802</td>	
+						<td>4</td>
+						<td>8</td>
+						<!-- <td>-4</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>16</td>
+						<td>GCB11</td>
+						<td>MSC ORTOLAN II</td>
+					
+						<td>03/11/2026 06:24:00</td>
+						<td>05/11/2026 07:00:00</td>
+						<td>2d 0h 36m</td>
+						<td></td>
+						<td>471</td>
+						<td>846</td>
+						<td>471</td>
+					
+						<td>846</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>581</td>
+						<td>1126</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>2</td>
+						<td>4</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>579</td>
+						<td>1122</td>	
+						<td>0</td>
+						<td>0</td>
+						<!-- <td>-4</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>17</td>
+						<td>NCT-4</td>
+						<td>MTT PELEPAS</td>
+					
+						<td>05/11/2026 07:48:00</td>
+						<td>08/11/2026 12:50:00</td>
+						<td>3d 5h 2m</td>
+						<td></td>
+						<td>478</td>
+						<td>831</td>
+						<td>478</td>
+					
+						<td>831</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>728</td>
+						<td>1358</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>7</td>
+						<td>14</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>721</td>
+						<td>1344</td>	
+						<td>0</td>
+						<td>0</td>
+						<!-- <td>-14</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>18</td>
+						<td></td>
+						<td>MV EPZ</td>
+					
+						<td>26/09/2018 12:00:00</td>
+						<td>30/09/2020 07:00:00</td>
+						<td>734d 19h 0m</td>
+						<td></td>
+						<td>215</td>
+						<td>363</td>
+						<td>214</td>
+					
+						<td>361</td>
+						<td>1</td>
+						<td>2</td>
+						
+						<td>22284</td>
+						<td>41104</td>
+						<td>26</td>
+						<td>35</td>
+						
+						<td>22277</td>
+						<td>41090</td>
+						<td>26</td>
+						<td>35</td>	
+						
+						<td>7</td>
+						<td>14</td>	
+						<td>0</td>
+						<td>0</td>
+						<!-- <td>-41125</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>19</td>
+						<td>NCT-3</td>
+						<td>MV HR SAHARE</td>
+					
+						<td>04/11/2026 08:06:00</td>
+						<td>05/11/2026 10:00:00</td>
+						<td>1d 1h 54m</td>
+						<td></td>
+						<td>603</td>
+						<td>1124</td>
+						<td>594</td>
+					
+						<td>1106</td>
+						<td>9</td>
+						<td>18</td>
+						
+						<td>609</td>
+						<td>1169</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>5</td>
+						<td>10</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>604</td>
+						<td>1159</td>	
+						<td>0</td>
+						<td>0</td>
+						<!-- <td>-10</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>20</td>
+						<td>NCT-1</td>
+						<td>MV UDDIPON EXPRESS</td>
+					
+						<td>06/11/2026 11:20:00</td>
+						<td>07/11/2026 16:15:00</td>
+						<td>1d 4h 55m</td>
+						<td></td>
+						<td>46</td>
+						<td>77</td>
+						<td>46</td>
+					
+						<td>77</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>0</td>
+						<td>0</td>	
+						<td>0</td>
+						<td>0</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>21</td>
+						<td></td>
+						<td>SHAMAYEL</td>
+					
+						<td>04/11/2026 20:08:00</td>
+						<td>04/11/2026 15:40:00</td>
+						<td>0d -4h -28m</td>
+						<td></td>
+						<td>40</td>
+						<td>72</td>
+						<td>40</td>
+					
+						<td>72</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>72</td>
+						<td>122</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>72</td>
+						<td>122</td>	
+						<td>0</td>
+						<td>0</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>22</td>
+						<td>NCT-5</td>
+						<td>SOL RELIANCE</td>
+					
+						<td>05/11/2026 09:42:00</td>
+						<td>07/11/2026 15:30:00</td>
+						<td>2d 5h 48m</td>
+						<td></td>
+						<td>690</td>
+						<td>1116</td>
+						<td>690</td>
+					
+						<td>1116</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>484</td>
+						<td>881</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>484</td>
+						<td>881</td>	
+						<td>0</td>
+						<td>0</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>23</td>
+						<td>GCB08</td>
+						<td>SONGA LEOPARD</td>
+					
+						<td>04/11/2026 07:54:00</td>
+						<td>07/11/2026 12:30:00</td>
+						<td>3d 4h 36m</td>
+						<td></td>
+						<td>629</td>
+						<td>1129</td>
+						<td>486</td>
+					
+						<td>901</td>
+						<td>143</td>
+						<td>228</td>
+						
+						<td>449</td>
+						<td>819</td>
+						<td>35</td>
+						<td>47</td>
+						
+						<td>6</td>
+						<td>11</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>443</td>
+						<td>808</td>	
+						<td>35</td>
+						<td>47</td>
+						<!-- <td>-11</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>24</td>
+						<td></td>
+						<td>TRANS SAMUDERA</td>
+					
+						<td>04/11/2026 08:50:00</td>
+						<td>04/11/2026 16:00:00</td>
+						<td>0d 7h 10m</td>
+						<td></td>
+						<td>49</td>
+						<td>82</td>
+						<td>49</td>
+					
+						<td>82</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>0</td>
+						<td>0</td>	
+						<td>0</td>
+						<td>0</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<td>25</td>
+						<td></td>
+						<td>ZUNAIRAH ZARISHA 4</td>
+					
+						<td>29/10/2026 16:00:00</td>
+						<td>01/11/2026 12:50:00</td>
+						<td>2d 20h 50m</td>
+						<td></td>
+						<td>82</td>
+						<td>143</td>
+						<td>82</td>
+					
+						<td>143</td>
+						<td>0</td>
+						<td>0</td>
+						
+						<td>52</td>
+						<td>81</td>
+						<td>88</td>
+						<td>88</td>
+						
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>	
+						
+						<td>52</td>
+						<td>81</td>	
+						<td>88</td>
+						<td>88</td>
+						<!-- <td>0</td> -->
+				</tr>
+
+								<tr align="center">
+						<th colspan="7">Total</th>
+						<th>12694</th>
+						<th>20422</th>
+						<th>11107</th>
+						<th>18217</th>
+						<th>1587</th>
+						<th>2205</th>
+						
+						<th>29268</th>
+						<th>54171</th>
+						<th>8555</th>
+						<th>12394</th>
+						
+						<th>22303</th>
+						<th>41140</th>						
+						<th>26</th>						
+						<th>35</th>	
+						
+						<th>6965</th>						
+						<th>13031</th>						
+						<th>8529</th>						
+						<th>12359</th>	
+						<!-- <th>0</th>	 -->
+				</tr>
+				</table>
+			</div>
+		</div>
+		<br>
+		<!-- Sourav -->
+		<!--div>
+			<div align="center">
+								<table>
+					<tr style="margin:5px;">
+						<td colspan="4"><font size="5"><b>Vessel(Break Bulk) Operation </td>
+					</tr>
+				</table>
+				<table width="50%" border ='1' cellpadding='0' cellspacing='0'>					
+					<tr align="center" bgcolor="#D8D0CE">
+						<td><b>SlNo.</b></td>
+						<td><b>Vessel Name</b></td>
+						<td><b>Rotation</b></td>
+						<td><b>Arraival Date(ETA)</b></td>
+					</tr>
+										<tr align="center">
+						<td>1</td>
+						<td>By Truck</td>
+						<td>2026/3774</td>
+						<td>2026-11-08</td>	
+					</tr>
+					
+										<tr align="center">
+						<td>2</td>
+						<td>MV.  MAERSK  VLADIVOSTOK</td>
+						<td>2026/5071</td>
+						<td>2026-11-08</td>	
+					</tr>
+					
+										<tr align="center">
+						<td>3</td>
+						<td>MV. JT GLORY</td>
+						<td>2026/5158</td>
+						<td>2026-11-08</td>	
+					</tr>
+					
+										<tr align="center">
+						<td>4</td>
+						<td>MV.  MAERSK  NORDDAL</td>
+						<td>2026/5169</td>
+						<td>2026-11-08</td>	
+					</tr>
+					
+										<tr align="center">
+						<td>5</td>
+						<td>TUG TROPICAL STAR</td>
+						<td>2026/5209</td>
+						<td>2026-11-08</td>	
+					</tr>
+					
+										<tr align="center">
+						<td>6</td>
+						<td>VIVA 9</td>
+						<td>2026/5211</td>
+						<td>2026-11-08</td>	
+					</tr>
+					
+										<tr align="center">
+						<td>7</td>
+						<td>SOL PROMISE</td>
+						<td>2026/5213</td>
+						<td>2026-11-08</td>	
+					</tr>
+					
+										<tr align="center">
+						<td>8</td>
+						<td>MT. DUMAI MOE</td>
+						<td>2026/5241</td>
+						<td>2026-11-08</td>	
+					</tr>
+					
+										<tr align="center">
+						<td>9</td>
+						<td>MV. AKIJ OCEAN</td>
+						<td>2026/5243</td>
+						<td>2026-11-08</td>	
+					</tr>
+					
+										<tr align="center">
+						<td>10</td>
+						<td>MV.SHAMAYEL</td>
+						<td>2026/5280</td>
+						<td>2026-11-08</td>	
+					</tr>
+					
+									</table>
+			</div>
+		</div-->
+		
+										<footer >
+<br/><br/>
+<hr/>
+	<!--div align="center"><a target="_blank" href="http://datasoft-bd.com/"><img src="logoDataSoft.png" height="18"></div>
+    <div align="center" >
+       <strong><a target="_blank" href="http://datasoft-bd.com/">DataSoft Systems Bangladesh Limited.</a></strong>
+    </div>
+	<div align="center"> </div-->
+   
+</footer>
+	</body>
+</html>

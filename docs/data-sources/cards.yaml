@@ -487,3 +487,20 @@ DS-VIS-05:
   bd_coverage: n/a (pharma pack images)
   limits_observed: "defective_tablets v3: 919 images (broken 339, spotted 427, empty 250, color_mismatch 487); Pharmaceutical Tablet Defects: 32 source images (230 after augmentation, not 230 originals); defect_tablet_detection: unusable class list (typos)"
   failure_modes: no key → 401 OAuthException; bad key → 401; missing project → 404 GraphMethodException
+
+DS-PORT-10:
+  signup: none (public pages of the CPA Terminal Operating System dashboard and Port Community System)
+  protocol: server-rendered HTML tables (PHP); date filters are POST forms (fdate/tdate, strDt/endDt)
+  licence: Government of Bangladesh public website; no robots.txt (404) and no terms or disclaimer found (checked 2026-11-08)
+  attribution: Chittagong Port Authority (cpatos.gov.bd)
+  nc: false
+  limits_observed: "sequential polite crawl (≥ 3 s gaps, User-Agent); PCS 2 s, vessels at berth 1–4 s, last 24 h ~10 s, containers lying ~11 s, yard occupancy ~25 s to build on CPA's server"
+  freshness: live (the schedule and berth reports change through the day)
+  cadence: "worker jobs cpa:fast 15 min (schedule, berths, last 24 h), cpa:slow hourly (yard, lying), cpa:daily (monthly occupancy)"
+  history: from our own polls (raw HTML archived gzip in data/raw/DS-PORT-10/); sailed-vessel and gate POST forms not yet backfilled
+  bd_coverage: "Chattogram. 2026-11-08: 226 PCS visits (86 inbound, 17 arrived, 113 working, 2 complete, 8 departed); 25 container and 105 break-bulk vessels on the berth reports; yards CCT 96 %, NCT 208 %, GCB 170 %, all 149 %; 21,325 boxes (34,053 TEU) lying at CPA"
+  failure_modes: slow pages (yard ~25 s); layout changes break the table parsers (the connector checks fail loudly)
+  quirks: "times are Dhaka local in two formats ('2026/10/08 11:30:00 pm' on PCS, '07/11/2026 09:36:00' on TOS); PCS phases lag the TOS berth report; PCS's ATA on a WORKING visit equals the berthing time; some visits are berthed before their declared ATA; 64 of 86 INBOUND ETAs were over 3 days old; the break-bulk report keeps months-old rows; berth codes (GCB07, CCT-1, NCT-5, DOJ3, PCT-2 …) without coordinates"
+  mapping: "port_call(method=cpa_report, source_record_id=visit ref, arrival_planned ← ETA, arrival ← ATA, berth_start ← TOS berthed-on, departure_planned ← ETD, departure ← ATD, phase, attrs ← rotation/agent/operator/berth/cargo progress/first_seen phases); vessel by normalised name (166 of 226 matched to GFW vessels with an MMSI); port_state_snapshot(queue_by_type ← phases, berth_occupancy ← berth report, yard ← yards/lying/last 24 h/monthly); page-by-page table: DS-PORT-10-pages.md"
+  synthetic_twin: none (real only); scenarios keep the simulated port
+  next: "backfill sailed vessels (real berth times for C4 training), gate in/out for C3, yard occupancy as a C4 feature and a fusion physical signal, lying containers into the door-ETA dwell prior"

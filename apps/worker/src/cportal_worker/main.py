@@ -24,7 +24,7 @@ from apscheduler.executors.pool import ThreadPoolExecutor
 from apscheduler.schedulers.background import BackgroundScheduler
 from cportal_core.settings import get_settings
 
-from cportal_worker import c1, c2, c4, c5, nexus, outbox, sources
+from cportal_worker import c1, c2, c4, c5, cpa, nexus, outbox, sources
 from cportal_worker.replay import AisReplay
 
 log = logging.getLogger("cportal_worker")
@@ -92,6 +92,12 @@ def build_scheduler(live: bool, replay: AisReplay | None) -> BackgroundScheduler
             scheduler.add_job(
                 sources.refresh, "interval", minutes=minutes, args=[ds_id],
                 id=f"live:{ds_id}", next_run_time=first,
+            )  # fmt: skip
+        # DS-PORT-10: CPA's public TOS dashboard and PCS (polite: one page at a time).
+        for job, minutes, delay_s in (("fast", 15, 35), ("slow", 60, 150), ("daily", 24 * 60, 300)):
+            scheduler.add_job(
+                cpa.poll, "interval", minutes=minutes, args=[job], id=f"cpa:{job}",
+                next_run_time=now + timedelta(seconds=delay_s),
             )  # fmt: skip
     if replay is not None:
         tick = float(os.environ.get("CPORTAL_REPLAY_TICK_S", "5"))

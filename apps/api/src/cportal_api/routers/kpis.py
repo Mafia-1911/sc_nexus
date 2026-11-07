@@ -35,7 +35,7 @@ def kpis(session: SessionDep, scope: ScopeDep) -> Envelope[KpiStrip]:
     out: list[Kpi] = []
 
     if scope.scenario_id is None:  # real data at `as_of` (GFW port calls), never synthetic
-        out.extend(_real_port(session, scope))
+        out.extend(_cpa_port(session, scope) or _real_port(session, scope))
     else:
         out.extend(_scenario_port(session, scope))
     out.append(_disruptions(session, scope))
@@ -53,6 +53,50 @@ def kpis(session: SessionDep, scope: ScopeDep) -> Envelope[KpiStrip]:
     return Envelope(data=KpiStrip(kpis=out), meta=meta([], scope, as_of=scope.as_of))
 
 
+def _cpa_port(session: SessionDep, scope: ScopeDep) -> list[Kpi] | None:
+    """When a CPA poll (DS-PORT-10) is fresh: vessels at the outer anchorage as CPA reports them
+    (same classification as the map), and the anchorage wait learned from our polls."""
+    from cportal_api.routers import port_live  # a sibling router: shared classification
+
+    now = datetime.now(UTC)
+    snap = session.scalar(
+        select(PortStateSnapshot)
+        .where(PortStateSnapshot.source_id == "DS-PORT-10")
+        .order_by(PortStateSnapshot.ts.desc())
+        .limit(1)
+    )
+    if snap is None or scope.horizon != "now" or now - snap.ts > timedelta(hours=2):
+        return None
+    calls = session.scalars(
+        select(PortCall).where(
+            PortCall.source_id == "DS-PORT-10",
+            PortCall.available_at >= snap.ts - timedelta(minutes=30),
+        )
+    ).all()
+    status = [port_live.classify(pc, now) for pc in calls]
+    anchored = [pc for pc, st in zip(calls, status, strict=True) if st == "at_anchorage"]
+    at_berth = sum(1 for st in status if st == "at_berth")
+    waits = sorted(
+        w for w in session.scalars(
+            select(PortCall.waiting_h).where(
+                PortCall.source_id == "DS-PORT-10", PortCall.waiting_h.is_not(None),
+                PortCall.berth_start_ts > now - timedelta(days=30),
+            )
+        ) if w is not None
+    )  # fmt: skip
+    m = meta(calls, scope, as_of=snap.ts, note="CPA TOS + PCS (public pages), polled")
+    learned = len(waits) >= 5
+    return [
+        Kpi(key="vessels_at_anchorage", label="Vessels at the outer anchorage",
+            value=len(anchored), unit="vessels",
+            detail=f"{at_berth} at berth · CPA TOS + PCS", meta=m),
+        Kpi(key="mean_wait_24h", label="Median wait for a berth (CPA)",
+            value=round(waits[len(waits) // 2], 1) if learned else None, unit="h",
+            detail=f"{len(waits)} berthings watched in 30 days" if learned
+            else "learning: from ships we see move from anchorage to berth", meta=m),
+    ]  # fmt: skip
+
+
 def _real_port(session: SessionDep, scope: ScopeDep) -> list[Kpi]:
     """Vessels in Chattogram's port area and their mean time there, from real GFW port calls at
     the view time. GFW runs days behind: past the latest call, the latest observation stands in
@@ -62,6 +106,7 @@ def _real_port(session: SessionDep, scope: ScopeDep) -> list[Kpi]:
         Port.locode == "BDCGP",
         PortCall.scenario_id.is_(None),
         PortCall.is_synthetic.is_(False),
+        PortCall.source_id != "DS-PORT-10",  # GFW visits only; CPA has its own KPIs
     )
     latest = session.scalar(
         select(func.max(PortCall.arrival_ts))

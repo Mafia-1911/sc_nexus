@@ -1,0 +1,22 @@
+{
+  "method": "GET",
+  "url": "https://cpatos.gov.bd/pcs/",
+  "params": null,
+  "headers": {
+    "host": "cpatos.gov.bd",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "Cportal/0.1.0 (ShipperFast research prototype)"
+  },
+  "json": null,
+  "data": null,
+  "timeout_s": 60.0,
+  "max_bytes": null,
+  "purpose": "main",
+  "note": "",
+  "captured_at": "2026-11-07T22:19:50.420269+00:00",
+  "status": 200,
+  "content_type": "text/html; charset=UTF-8",
+  "transformed": false
+}

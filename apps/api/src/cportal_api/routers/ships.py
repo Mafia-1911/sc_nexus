@@ -17,6 +17,7 @@ from cportal_core.models import (
     CustomerOrder,
     Port,
     PortCall,
+    PortStateSnapshot,
     Scenario,
     Shipment,
     ShipmentLeg,
@@ -29,6 +30,7 @@ from sqlalchemy import func, or_, select
 
 from cportal_api import vessel_info
 from cportal_api.deps import ScopeDep, SessionDep, meta
+from cportal_api.routers import port_live
 from cportal_api.schemas import Envelope
 
 router = APIRouter(tags=["ships"])
@@ -111,6 +113,102 @@ def _cargo(
     return out
 
 
+def _cargo_line(attrs: dict[str, Any]) -> tuple[int | None, str | None]:
+    imp, exp = attrs.get("import") or {}, attrs.get("export") or {}
+    teu_in, teu_out = imp.get("total_teu") or 0, exp.get("total_teu") or 0
+    if not (teu_in or teu_out):
+        return None, None
+    done = imp.get("discharged_teu") or 0
+    pct = f" ({done / teu_in:.0%} discharged)" if teu_in else ""
+    return (imp.get("total_box") or 0) + (exp.get("total_box") or 0), (
+        f"{teu_in:,} TEU import{pct} · {teu_out:,} TEU export"
+    )
+
+
+def _cpa_ships(
+    session: SessionDep, port_id: Any, status: list[Status] | None, limit: int, scope: ScopeDep
+) -> Envelope[ShipsOut] | None:
+    """Real ships from CPA (DS-PORT-10) when a poll is fresh: status from CPA's phase, real
+    berthing times and cargo; the dock time of waiting ships from waits learned by polling."""
+    snap_ts = session.scalar(
+        select(func.max(PortStateSnapshot.ts)).where(
+            PortStateSnapshot.port_id == port_id, PortStateSnapshot.source_id == "DS-PORT-10"
+        )
+    )
+    now = datetime.now(UTC)
+    if snap_ts is None or now - snap_ts > timedelta(hours=2):
+        return None
+    waits = sorted(
+        w for w in session.scalars(
+            select(PortCall.waiting_h).where(
+                PortCall.source_id == "DS-PORT-10", PortCall.waiting_h.is_not(None),
+                PortCall.berth_start_ts > now - timedelta(days=30),
+            )
+        ) if w is not None
+    )  # fmt: skip
+    w50 = waits[len(waits) // 2] if len(waits) >= 5 else None
+    w90 = waits[int(len(waits) * 0.9)] if len(waits) >= 5 else None
+    rows = session.execute(
+        select(PortCall, Vessel)
+        .join(Vessel, Vessel.id == PortCall.vessel_id)
+        .where(
+            PortCall.source_id == "DS-PORT-10",
+            PortCall.available_at >= snap_ts - timedelta(minutes=30),
+        )
+    ).all()
+    mapping = {"at_berth": "at_berth", "at_anchorage": "at_anchorage", "expected": "expected",
+               "departed": "departed"}  # fmt: skip
+    out: list[ShipOut] = []
+    for pc, v in rows:
+        st = port_live.classify(pc, now)
+        if st is None:
+            continue
+        a = pc.attrs or {}
+        boxes, cargo = _cargo_line(a)
+        info = vessel_info.cached(v.mmsi) or vessel_info.cached(v.imo)
+        unknown = {"last_port": NO_SOURCE["last_port"]}
+        if info is None:
+            unknown["insurance"] = NO_SOURCE["insurance"]
+        elif info["pi_club"] is None:
+            unknown["insurance"] = "P&I insurer not on record (DataDocked)"
+        if st == "at_berth":
+            dock, dock90, note = pc.berth_start_ts, None, f"berthed at {a.get('berth')} (CPA TOS)"
+        elif w50 is not None and w90 is not None:
+            start = pc.arrival_ts if st == "at_anchorage" else pc.arrival_planned_ts
+            dock = max(now, start + timedelta(hours=w50)) if start else None
+            dock90 = max(now, start + timedelta(hours=w90)) if start else None
+            note = f"arrival + median wait of {len(waits)} CPA berthings in 30 days"
+        else:
+            dock, dock90 = None, None
+            note = "learning: waits come from watching ships move from anchorage to berth"
+        arrival = pc.arrival_ts if st != "expected" else pc.arrival_planned_ts
+        out.append(
+            ShipOut(
+                call_id=str(pc.id), vessel_id=str(v.id), name=v.name, mmsi=v.mmsi, imo=v.imo,
+                flag=v.flag_iso3, ship_type=v.ship_type_group or a.get("cargo"),
+                loa_m=v.loa_m, gt=v.gt, status=mapping[st],  # type: ignore[arg-type]
+                arrival_ts=arrival, berth_ts=pc.berth_start_ts,
+                departure_ts=pc.departure_ts or pc.departure_planned_ts,
+                hours_in_port=round((now - pc.arrival_ts).total_seconds() / 3600, 1)
+                if pc.arrival_ts and st in ("at_berth", "at_anchorage") else None,
+                dock_estimate=dock, dock_p90=dock90, dock_note=note,
+                containers=boxes, orders=[], cargo_note=cargo,
+                unknown=unknown, management=info, data_mode=pc.data_mode,
+                is_synthetic=False,
+            )
+        )  # fmt: skip
+    counts = Counter(str(s.status) for s in out)
+    if status:
+        out = [s for s in out if s.status in status]
+    order = {"at_anchorage": 0, "at_berth": 1, "expected": 2, "departed": 3, "in_port": 0}
+    out.sort(key=lambda s: (order[s.status], -(s.arrival_ts or now).timestamp()))
+    return Envelope(
+        data=ShipsOut(observed_at=snap_ts, counts=dict(counts), ships=out[:limit]),
+        meta=meta([pc for pc, _ in rows], scope, as_of=snap_ts,
+                  note="CPA TOS + PCS (public pages), polled"),
+    )  # fmt: skip
+
+
 @router.get("/ships", response_model=Envelope[ShipsOut])
 def ships(
     session: SessionDep,
@@ -121,6 +219,10 @@ def ships(
     port = session.scalar(select(Port).where(Port.locode == "BDCGP"))
     if port is None:
         return Envelope(data=ShipsOut(observed_at=None, counts={}, ships=[]), meta=meta([], scope))
+    if scope.scenario_id is None and scope.horizon == "now":
+        cpa = _cpa_ships(session, port.id, status, limit, scope)
+        if cpa is not None:  # CPA's own schedule and berth reports, polled (DS-PORT-10)
+            return cpa
     if scope.scenario_id is None:
         t = scope.as_of or datetime.now(UTC)
         base = (PortCall.port_id == port.id, PortCall.is_synthetic.is_(False))

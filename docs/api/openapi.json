@@ -6196,6 +6196,47 @@
         ]
       }
     },
+    "/api/v1/port/live": {
+      "get": {
+        "operationId": "port_live_api_v1_port_live_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_str__Any__"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Port Live",
+        "tags": [
+          "ports"
+        ]
+      }
+    },
     "/api/v1/ports": {
       "get": {
         "operationId": "list_ports_api_v1_ports_get",
@@ -8402,6 +8443,179 @@
         "summary": "Get Source",
         "tags": [
           "sources"
+        ]
+      }
+    },
+    "/api/v1/traffic/modelled": {
+      "get": {
+        "description": "C3's congestion model as map zones for one hour: speed factor in the Dhaka zone and on the\ncorridor (1 = free flow), and the central-Dhaka truck ban when it is in force.",
+        "operationId": "modelled_api_v1_traffic_modelled_get",
+        "parameters": [
+          {
+            "description": "Dhaka hour; default now",
+            "in": "query",
+            "name": "hour",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maximum": 23,
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Dhaka hour; default now",
+              "title": "Hour"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_str__Any__"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Modelled",
+        "tags": [
+          "traffic"
+        ]
+      }
+    },
+    "/api/v1/traffic/status": {
+      "get": {
+        "operationId": "status_api_v1_traffic_status_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_str__Any__"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Status",
+        "tags": [
+          "traffic"
+        ]
+      }
+    },
+    "/api/v1/traffic/tiles/{z}/{x}/{y}.pbf": {
+      "get": {
+        "operationId": "tile_api_v1_traffic_tiles__z___x___y__pbf_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "z",
+            "required": true,
+            "schema": {
+              "title": "Z",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "x",
+            "required": true,
+            "schema": {
+              "title": "X",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "y",
+            "required": true,
+            "schema": {
+              "title": "Y",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Tile",
+        "tags": [
+          "traffic"
         ]
       }
     },

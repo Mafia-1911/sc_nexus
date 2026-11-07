@@ -1,0 +1,173 @@
+version: 1
+port: BDCGP
+note: Approximate berth positions for drawing CPA's berth codes on a map (A-107). Derived from OpenStreetMap
+  anchors (DS-PORT-06, ODbL) and linear interpolation along the quay; CPA publishes no coordinates. Correct
+  any berth here; unknown codes are listed, not drawn.
+unknown:
+- MTJ (C)
+- UTTJ
+- GSJ
+- MEGHNA OIL
+- CCJ
+- CUFLJ
+- CBC
+- K(A)
+- K(U)
+- KDJ-1
+- KDJ-2
+berths:
+- code: GCB01
+  lat: 22.3165
+  lon: 91.813
+  method: interpolated
+  note: general cargo jetties J-1…J-13 along the OSM quay from the 1 No Jetty gate
+- code: GCB02
+  lat: 22.31578
+  lon: 91.8121
+  method: interpolated
+  note: general cargo jetties J-1…J-13 along the OSM quay from the 1 No Jetty gate
+- code: GCB03
+  lat: 22.31505
+  lon: 91.8112
+  method: interpolated
+  note: general cargo jetties J-1…J-13 along the OSM quay from the 1 No Jetty gate
+- code: GCB04
+  lat: 22.31433
+  lon: 91.8103
+  method: interpolated
+  note: general cargo jetties J-1…J-13 along the OSM quay from the 1 No Jetty gate
+- code: GCB05
+  lat: 22.3136
+  lon: 91.8094
+  method: interpolated
+  note: general cargo jetties J-1…J-13 along the OSM quay from the 1 No Jetty gate
+- code: GCB06
+  lat: 22.31288
+  lon: 91.8085
+  method: interpolated
+  note: general cargo jetties J-1…J-13 along the OSM quay from the 1 No Jetty gate
+- code: GCB07
+  lat: 22.31215
+  lon: 91.8076
+  method: interpolated
+  note: general cargo jetties J-1…J-13 along the OSM quay from the 1 No Jetty gate
+- code: GCB08
+  lat: 22.31142
+  lon: 91.8067
+  method: interpolated
+  note: general cargo jetties J-1…J-13 along the OSM quay from the 1 No Jetty gate
+- code: GCB09
+  lat: 22.3107
+  lon: 91.8058
+  method: interpolated
+  note: general cargo jetties J-1…J-13 along the OSM quay from the 1 No Jetty gate
+- code: GCB10
+  lat: 22.30998
+  lon: 91.8049
+  method: interpolated
+  note: general cargo jetties J-1…J-13 along the OSM quay from the 1 No Jetty gate
+- code: GCB11
+  lat: 22.30925
+  lon: 91.804
+  method: interpolated
+  note: general cargo jetties J-1…J-13 along the OSM quay from the 1 No Jetty gate
+- code: GCB12
+  lat: 22.30852
+  lon: 91.8031
+  method: interpolated
+  note: general cargo jetties J-1…J-13 along the OSM quay from the 1 No Jetty gate
+- code: GCB13
+  lat: 22.3078
+  lon: 91.8022
+  method: interpolated
+  note: general cargo jetties J-1…J-13 along the OSM quay from the 1 No Jetty gate
+- code: CCT-1
+  lat: 22.304
+  lon: 91.7992
+  method: interpolated
+  note: Chittagong Container Terminal, around the OSM pier at 22.3027, 91.7971
+- code: CCT-2
+  lat: 22.3026
+  lon: 91.7979
+  method: interpolated
+  note: Chittagong Container Terminal, around the OSM pier at 22.3027, 91.7971
+- code: CCT-3
+  lat: 22.3012
+  lon: 91.7966
+  method: interpolated
+  note: Chittagong Container Terminal, around the OSM pier at 22.3027, 91.7971
+- code: NCT-1
+  lat: 22.2901
+  lon: 91.7939
+  method: osm
+  note: 'New Mooring Container Terminal: NCT-1 is an OSM node; the rest along the OSM quay'
+- code: NCT-2
+  lat: 22.2922
+  lon: 91.79438
+  method: interpolated
+  note: 'New Mooring Container Terminal: NCT-1 is an OSM node; the rest along the OSM quay'
+- code: NCT-3
+  lat: 22.2943
+  lon: 91.79485
+  method: interpolated
+  note: 'New Mooring Container Terminal: NCT-1 is an OSM node; the rest along the OSM quay'
+- code: NCT-4
+  lat: 22.2964
+  lon: 91.79532
+  method: interpolated
+  note: 'New Mooring Container Terminal: NCT-1 is an OSM node; the rest along the OSM quay'
+- code: NCT-5
+  lat: 22.2985
+  lon: 91.7958
+  method: interpolated
+  note: 'New Mooring Container Terminal: NCT-1 is an OSM node; the rest along the OSM quay'
+- code: PCT-1
+  lat: 22.2683
+  lon: 91.8228
+  method: interpolated
+  note: Patenga Container Terminal jetty (OSM, 22.2680, 91.8240)
+- code: PCT-2
+  lat: 22.2677
+  lon: 91.8252
+  method: interpolated
+  note: Patenga Container Terminal jetty (OSM, 22.2680, 91.8240)
+- code: DOJ3
+  lat: 22.27306
+  lon: 91.80623
+  method: osm_order
+  note: 'dolphin oil jetties: OSM piers at Patenga taken in order (the assignment is an estimate)'
+- code: DOJ4
+  lat: 22.27221
+  lon: 91.80811
+  method: osm_order
+  note: 'dolphin oil jetties: OSM piers at Patenga taken in order (the assignment is an estimate)'
+- code: DOJ5
+  lat: 22.27135
+  lon: 91.80952
+  method: osm_order
+  note: 'dolphin oil jetties: OSM piers at Patenga taken in order (the assignment is an estimate)'
+- code: DOJ6
+  lat: 22.27082
+  lon: 91.81132
+  method: osm_order
+  note: 'dolphin oil jetties: OSM piers at Patenga taken in order (the assignment is an estimate)'
+- code: DOJ7
+  lat: 22.27014
+  lon: 91.81339
+  method: osm_order
+  note: 'dolphin oil jetties: OSM piers at Patenga taken in order (the assignment is an estimate)'
+- code: DOJ8
+  lat: 22.26878
+  lon: 91.82019
+  method: osm_order
+  note: 'dolphin oil jetties: OSM piers at Patenga taken in order (the assignment is an estimate)'
+- code: DDJ-1
+  lat: 22.269
+  lon: 91.8158
+  method: interpolated
+  note: Chittagong Dry Dock jetties (OSM, 22.2687, 91.8165)
+- code: DDJ-2
+  lat: 22.2684
+  lon: 91.8172
+  method: interpolated
+  note: Chittagong Dry Dock jetties (OSM, 22.2687, 91.8165)

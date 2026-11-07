@@ -89,6 +89,20 @@ Done (keys added by the user, 2026-11-03; A-103…A-105):
   TomTom has none (A-103). Plan ETAs still from C3's model (Mapbox ETA factor: next).
 - Screenshots paused on Quality Lab e2e (corrupted files; docs later, per the user).
 
+Done (DS-PORT-10, CPA TOS + PCS, user request 2026-11-08; A-107…A-110; card `DS-PORT-10.md`):
+- Crawled cpatos.gov.bd's public pages (no robots.txt, no terms found); parsers for the PCS
+  schedule (226 visits), vessels at berth (container + break bulk), yard occupancy, containers
+  lying, last 24 h, 24 h performance and monthly berth occupancy; `uv run cpa-poll`.
+- Automated: worker jobs `cpa:fast` (15 min), `cpa:slow` (hourly), `cpa:daily`; polite
+  (sequential, 3 s gaps, User-Agent); raw HTML archived; migration `564e08005599`.
+- Visits become real port calls (166 of 226 matched to GFW vessels with an MMSI); snapshots
+  hold queues, berth occupancy, yards, lying containers.
+- `/port/live` + Control Tower real mode: "Chattogram port now" map (ships at berths at
+  approximate positions, anchorage spots illustrative), yard occupancy (NCT 208 %), expected
+  arrivals; real-mode Ships use CPA (35 at berth, 95 at anchorage, 22 expected) with real cargo
+  progress; dock estimates learn from polling.
+- Not yet: sailed-vessel and gate in/out backfills (POST forms), yard/lying into C4 and Nexus.
+
 Next: BD-bound collector in the worker (sightings into `ais_position_latest` with destination
 and AIS ETA; "Expected" ships with region) → refresh GFW + C4 so Today/Tomorrow are real
 nowcasts/forecasts → traffic alternative (user) → continue Scenario Studio → deepen C1–C5.

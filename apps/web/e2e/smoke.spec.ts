@@ -47,10 +47,10 @@ test("Control Tower: KPIs, badges, live map and alerts", async ({ page, baseURL 
   }
 });
 
-test("Scenario switch: real data only shows the replay badge", async ({ page }) => {
+test("Scenario switch: real data shows a real (live or replay) badge", async ({ page }) => {
   await page.goto("/");
   await page.getByTestId("data-select").selectOption("real:today");
-  await expect(page.locator('[data-kpi="vessels_at_anchorage"] [data-mode]')).toHaveAttribute("data-mode", "replay", {
+  await expect(page.locator('[data-kpi="vessels_at_anchorage"] [data-mode]')).toHaveAttribute("data-mode", /^(live|replay)$/, {
     timeout: 15_000,
   });
   await page.getByTestId("data-select").selectOption("scn:cyclone_supplier_delay");
@@ -68,6 +68,9 @@ test("Control Tower, real data: no synthetic badge, real ships, sources open, da
   await expect(page.locator('[data-kpi="vessels_at_anchorage"] [data-mode]')).not.toHaveAttribute("data-mode", "synthetic");
   await expect(page.getByTestId("ship-row").first()).toBeVisible({ timeout: 15_000 });
   await expect(page.getByTestId("ships")).not.toContainText("SYN ");
+  // Chattogram now, from CPA's public TOS dashboard and PCS (DS-PORT-10).
+  await expect(page.getByTestId("port-live-map")).toHaveAttribute("data-idle", "true", { timeout: 30_000 });
+  await expect(page.getByTestId("yards")).toContainText("NCT");
   const link = page.getByTestId("event-source").first();
   if (await link.count()) await expect(link).toHaveAttribute("target", "_blank");
   await page.getByTestId("ship-row").first().locator("[tabindex]").focus(); // hover card

@@ -18,9 +18,11 @@ export async function ShipsTable({ scenario }: { scenario: string }) {
       <CardHeader
         title="Ships at Chattogram"
         subtitle={
-          real
-            ? `Real port visits (GFW) as observed ${dhakaTime(data.data.observed_at)}; hover a ship for details`
-            : "Simulated port (fictional vessels); hover a ship for details"
+          !real
+            ? "Simulated port (fictional vessels); hover a ship for details"
+            : data.meta.sources?.includes("DS-PORT-10")
+              ? `CPA schedule and berth reports (cpatos.gov.bd) as polled ${dhakaTime(data.data.observed_at)}; hover a ship for details`
+              : `Real port visits (GFW) as observed ${dhakaTime(data.data.observed_at)}; hover a ship for details`
         }
       />
       <ShipsBoard ships={data.data.ships} counts={data.data.counts} real={real} />

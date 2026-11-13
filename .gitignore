@@ -44,3 +44,6 @@ data/inbox/
 data/c5/
 models/**/*.npz
 models/c5/
+
+# DataDocked lookups hold company contact details (A-104): never committed
+data/samples/DS-VSL-01/

@@ -28,3 +28,8 @@ Open `cportal/` as the workspace root, so `AGENTS.md` is picked up. Paste **Prom
 ## Prompt 3: Unblock or correct the agent
 
 > Pause. Re-read `AGENTS.md` §4 (hard rules) and §7 (ask, don't assume). Tell me which assumption you made that isn't backed by the brief or `docs/DECISIONS.md`, what evidence you have for it, and the options. Then wait.
+
+for the background add some ships or animations and the overlays on top as cards with rounded corners and of background softblur
+
+for additional data and api I have added the DataDocked API this website does promise to have maritime data . just use it to see if it can provide you with the data you need for any of the milestones. 
+Also for the danish AIS i didnt find the api, but they do have historical data which i have downloaded and kept in the data folder 

@@ -14,6 +14,7 @@ from cportal_core.models.logistics import (
 )
 from cportal_core.models.maritime import (
     AisPositionLatest,
+    GateFlowDaily,
     PortActivityDaily,
     PortCall,
     PortCallStop,
@@ -75,6 +76,7 @@ __all__ = [
     "ExternalId",
     "Facility",
     "FxRate",
+    "GateFlowDaily",
     "GraphMetric",
     "Holiday",
     "ImageDataset",

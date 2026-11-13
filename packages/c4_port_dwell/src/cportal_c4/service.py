@@ -10,8 +10,8 @@ from datetime import datetime, timedelta
 from typing import Any
 from uuid import UUID
 
-from cportal_core.models import ModelVersion, PortCall, Prediction, Vessel
-from sqlalchemy import and_, select
+from cportal_core.models import ModelVersion, Port, PortCall, Prediction, Vessel
+from sqlalchemy import and_, func, select, true
 from sqlalchemy.orm import Session, aliased
 
 from cportal_c4.schemas import Band, QueueForecastOut, VesselInPortOut, VesselTrackOut
@@ -173,3 +173,97 @@ def track(
         for r, v in zip(rows, views, strict=True)
     ]
     return VesselTrackOut(vessel=current, updates=updates)
+
+
+# --- the anchorage wait / berth split (A-114) ----------------------------------------------------
+
+SPLIT_TOLERANCE = timedelta(hours=6)
+
+
+def berth_split(
+    session: Session, locode: str, since: datetime, until: datetime
+) -> list[tuple[datetime, float, float, str | None]]:
+    """Real GFW visits (arrival in [since, until)) matched to the CPA berth stay of the same vessel
+    inside them (DS-PORT-10: sailed-vessel report and PCS): (arrival, wait h, berth h, type).
+
+    GFW knows when a ship entered and left the port area but not when it reached a berth; CPA
+    knows the berth stay but not the arrival at the anchorage. Together: wait = CPA berthing -
+    GFW arrival, berth time = CPA departure - CPA berthing (the D-04 split C4 needs).
+    """
+    g = aliased(PortCall)
+    c = aliased(PortCall)
+    port_id = select(Port.id).where(Port.locode == locode).scalar_subquery()
+    stay = (
+        select(c.berth_start_ts.label("berthed"), c.departure_ts.label("left"))
+        .where(
+            c.vessel_id == g.vessel_id,
+            c.source_id == "DS-PORT-10",
+            c.berth_start_ts.is_not(None),
+            c.departure_ts.is_not(None),
+            c.berth_start_ts >= g.arrival_ts - SPLIT_TOLERANCE,
+            c.berth_start_ts <= func.coalesce(g.departure_ts, func.now()) + SPLIT_TOLERANCE,
+        )
+        .order_by(c.berth_start_ts)
+        .limit(1)
+        .lateral()
+    )
+    rows = session.execute(
+        select(g.arrival_ts, stay.c.berthed, stay.c.left, Vessel.ship_type_group)
+        .select_from(g)
+        .join(stay, true())
+        .join(Vessel, Vessel.id == g.vessel_id)
+        .where(
+            g.port_id == port_id,
+            g.method == "gfw",
+            g.is_synthetic.is_(False),
+            g.arrival_ts >= since,
+            g.arrival_ts < until,
+        )
+    ).all()
+    return [
+        (a, max((b - a).total_seconds() / 3600, 0.0), (d - b).total_seconds() / 3600, t)
+        for a, b, d, t in rows
+    ]
+
+
+def _q(values: list[float], q: float) -> float | None:
+    if not values:
+        return None
+    s = sorted(values)
+    return round(s[min(int(q * len(s)), len(s) - 1)], 1)
+
+
+def wait_stats(
+    session: Session, locode: str, days: int = 90, until: datetime | None = None
+) -> dict[str, Any] | None:
+    """Anchorage wait and berth time over the last `days` days of matched visits (P50 / P90).
+
+    `until` defaults to the latest GFW arrival with a CPA match (GFW runs weeks behind)."""
+    if until is None:
+        port_id = select(Port.id).where(Port.locode == locode).scalar_subquery()
+        until = session.scalar(
+            select(func.max(PortCall.arrival_ts)).where(
+                PortCall.port_id == port_id, PortCall.method == "gfw",
+                PortCall.is_synthetic.is_(False), PortCall.departure_ts.is_not(None),
+            )
+        )  # fmt: skip
+        if until is None:
+            return None
+        until += timedelta(seconds=1)
+    rows = berth_split(session, locode, until - timedelta(days=days), until)
+    if len(rows) < 5:
+        return None
+    waits = [w for _, w, _, _ in rows]
+    berths = [b for _, _, b, _ in rows]
+    return {
+        "n": len(rows),
+        "from": min(a for a, *_ in rows),
+        "to": max(a for a, *_ in rows),
+        "wait_p50_h": _q(waits, 0.5),
+        "wait_p90_h": _q(waits, 0.9),
+        "berth_p50_h": _q(berths, 0.5),
+        "berth_p90_h": _q(berths, 0.9),
+        "over_24h_pct": round(100 * sum(w > 24 for w in waits) / len(waits), 1),
+        "waits_h": sorted(round(w, 1) for w in waits),  # for estimates given the wait so far
+        "source": "GFW arrivals (DS-AIS-02) + CPA berthing and sailing times (DS-PORT-10)",
+    }

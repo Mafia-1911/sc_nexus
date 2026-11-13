@@ -180,6 +180,21 @@ class PortActivityDaily(Lineage, Base):
     trade_by_type: Mapped[dict[str, Any]] = mapped_column(default=dict, server_default=text("'{}'"))
 
 
+class GateFlowDaily(Lineage, Base):
+    """DS-PORT-10 gate in/out report: containers (boxes) through each CPA gate per day. Each box
+    is roughly one truck movement: the port end of the inland corridor (C3, A-115)."""
+
+    __tablename__ = "gate_flow_daily"
+    __extra_args__ = (Index("ix_gate_flow_daily_port_date", "port_id", "date"),)
+
+    id: Mapped[UUID] = pk()
+    port_id: Mapped[UUID] = fk_uuid("port.id")
+    date: Mapped[dt.date]
+    gate: Mapped[str] = mapped_column(String(32))
+    in_box: Mapped[int] = mapped_column(Integer)
+    out_box: Mapped[int] = mapped_column(Integer)
+
+
 class ZonePresenceDaily(Lineage, Base):
     """SC-07: vessel-days in a zone (GFW 4Wings presence), the real queue-length signal."""
 

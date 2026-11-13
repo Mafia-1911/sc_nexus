@@ -26,7 +26,7 @@
 | quirks | the mirror holds the full release (5.27 GB, 15 categories) in the original layout <category>/{train,test,ground_truth}; 43,258 downloads |
 | mapping to canonical | inspection_image(source_dataset=mvtec_ad, category ← folder, label ← test/<defect>) for pill, capsule, carpet, leather |
 | synthetic twin | — |
-| next | M7: fetch only the four categories needed |
+| next | M7 (2026-11-01): pill and capsule fetched file by file (`uv run vis-fetch mvtec`, larger files arrive zipped); carpet and leather from the official per-category archives (user, U-04) |
 | raw schema | [DS-VIS-01.schema.json](../../schemas/raw/DS-VIS-01.schema.json) (inferred with genson; field profiles below) |
 
 ## Probe evidence

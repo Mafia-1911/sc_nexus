@@ -1,4 +1,4 @@
-# STATUS (updated 2026-11-08 by Claude Code, Opus 5.5)
+# STATUS (updated 2026-11-13)
 
 Milestone: **M8 Nexus + demo, in progress** (the user deferred VisA and further C5 depth,
 U-06). Branch `m3-c1`. Nothing pushed since M2 (commit only until the whole build is done).
@@ -120,9 +120,26 @@ Done (one data source per view, user request 2026-11-08; A-111, A-112):
   scenario carries the demo's actions. API test fixture gives the baseline its own synthetic
   strike news. `make test` 316 passed; lint, mypy, tsc, ESLint clean.
 
-Next: BD-bound collector in the worker (sightings into `ais_position_latest` with destination
-and AIS ETA; "Expected" ships with region) → refresh GFW + C4 so Today/Tomorrow are real
-nowcasts/forecasts → traffic alternative (user) → continue Scenario Studio → deepen C1–C5.
+Done (CPA history and the real wait split, 2026-11-13; A-114…A-116):
+- `uv run cpa-backfill --form sailed|gate`: CPA's date-range reports month by month (10 s apart,
+  closed months re-read from the raw archive); the worker's daily CPA job adds the last 7 days.
+  Sailed vessels 2023-01 → 2026-11: 5,549 berth stays. Gate in/out: CPA keeps only 2026-10-31
+  onwards (new table `gate_flow_daily`, migration `1d1b2be5782e`; chart on Ports & Vessels).
+- C4 split (`cportal_c4.service.berth_split`): GFW visit + CPA berth stay of the same ship →
+  wait and berth time. 4,317 matched; wait P50 ~3 h every month, 17.5 % over a day, monthly P90
+  1–7 days (congestion: Aug 2024, Mar–Jul 2025); berth P50 49–63 h. Model card updated.
+- Real-mode KPI "Median wait for a berth" and Ships dock estimates use the split (conditional on
+  the wait so far); break-bulk lighterage gets no dock estimate.
+- Fixes: C4 now loads GFW visits only (CPA calls had leaked into the daily retrain since 11-08);
+  PCS anchorage visits CPA never closed (ATAs up to 8 years old) are stale after 30 days: the
+  live anchorage count fell from 88 to 17. GFW refreshed to 2026-11-09.
+- Ops: Ollama models moved to the NUSHAN drive (user ran the sudo steps); Docker build cache
+  older than 3 days pruned (system drive 12 GB free).
+
+Next: C4 trained on the split (wait and berth as separate targets) → gate flows into C3 once
+a few weeks have accrued → yard occupancy and lying containers as Nexus dwell evidence →
+BD-bound aisstream collector → continue Scenario Studio → deepen C1–C5. Not checked yet: the
+split against our own observed waits (none complete; the worker was down 2026-11-10 → 13).
 
 Checks: `make test` 294 passed (after slice 2); slice 1: 289 passed (latency budgets included; before a host reboot they ran at
 ≈ 330 ms for every route, unchanged ones too); Control Tower e2e passes, screenshots refreshed.

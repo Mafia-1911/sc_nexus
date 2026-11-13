@@ -605,3 +605,55 @@ def test_c5_quality_lab(client: TestClient) -> None:
         data={"category": "no-such-category"},
     )
     assert bad.status_code == 404
+
+
+def test_cpa_sailed_stays_split_gfw_dwell_into_wait_and_berth(client: TestClient) -> None:
+    """A-114: a CPA berth stay inside a GFW visit of the same ship gives the anchorage wait
+    (CPA berthing - GFW arrival) and the berth time; C4 never counts CPA calls as visits."""
+    from cportal_c4 import service as c4
+    from cportal_c4.labels import load_calls
+    from cportal_connectors.cpa_store import store_sailed
+    from cportal_core.models import Vessel
+
+    with session_scope(URL) as session:
+        gfw, name = session.execute(
+            select(PortCall, Vessel.name)
+            .join(Vessel, Vessel.id == PortCall.vessel_id)
+            .join(Port, Port.id == PortCall.port_id)
+            .where(
+                Port.locode == "BDCGP", PortCall.method == "gfw", PortCall.is_synthetic.is_(False),
+                PortCall.departure_ts.is_not(None), Vessel.name.is_not(None),
+                PortCall.departure_ts - PortCall.arrival_ts > timedelta(hours=60),
+            )
+            .order_by(PortCall.arrival_ts.desc())
+            .limit(1)
+        ).one()  # fmt: skip
+        before = len(load_calls(session, "BDCGP", real_only=True))
+        berthed = gfw.arrival_ts + timedelta(hours=10)
+        row = {
+            "vessel": f"MV. {name}", "rotation": "2026/9999", "berth": "NCT-2",
+            "berthed": berthed, "departed": berthed + timedelta(hours=30), "occupied_h": 30.0,
+            "operator": "CDDL", "comments": None,
+        }  # fmt: skip
+        assert store_sailed(session, [row, row]) == {"enriched": 0, "stays": 1, "skipped": 0}
+        arrival = gfw.arrival_ts
+    with session_scope(URL) as session:
+        split = c4.berth_split(
+            session, "BDCGP", arrival - timedelta(minutes=1), arrival + timedelta(minutes=1)
+        )
+        assert [(round(w, 1), round(b, 1)) for _, w, b, _ in split] == [(10.0, 30.0)]
+        assert len(load_calls(session, "BDCGP", real_only=True)) == before
+
+
+def test_cpa_gate_flows_are_real_data_only(client: TestClient) -> None:
+    """A-115: boxes through CPA's gates per day; a scenario has none (one source per view)."""
+    from cportal_connectors.cpa_store import store_gate
+
+    day = {"date": "2026-11-11", "gates": {"CPAR": {"in": 616, "out": 823},
+                                          "GATE-4": {"in": 350, "out": 332}}}  # fmt: skip
+    with session_scope(URL) as session:
+        assert store_gate(session, [day, day]) == {"days": 2, "gate_days": 4}
+    real = client.get("/api/v1/ports/BDCGP/gates", params={"scenario": ""}).json()
+    assert real["data"][0] == {"date": "2026-11-11", "in": 966, "out": 1155, "gates": day["gates"]}
+    assert real["meta"]["mode"] == "live"
+    assert client.get("/api/v1/ports/BDCGP/gates").json()["data"] == []  # the baseline scenario

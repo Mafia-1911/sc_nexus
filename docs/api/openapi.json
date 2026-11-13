@@ -6616,6 +6616,108 @@
         ]
       }
     },
+    "/api/v1/ports/{locode}/gates": {
+      "get": {
+        "description": "Containers (boxes) through the port's gates per day, in and out, newest first (CPA gate\nin/out report, DS-PORT-10, A-115). Each box is roughly one truck. Real data only: scenarios\nhave no gate flows.",
+        "operationId": "port_gates_api_v1_ports__locode__gates_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "locode",
+            "required": true,
+            "schema": {
+              "title": "Locode",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "days",
+            "required": false,
+            "schema": {
+              "default": 60,
+              "maximum": 1500,
+              "minimum": 1,
+              "title": "Days",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Scenario key for synthetic rows; omit for real data only",
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "baseline",
+              "description": "Scenario key for synthetic rows; omit for real data only",
+              "title": "Scenario"
+            }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_list_dict_str__Any___"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Port Gates",
+        "tags": [
+          "ports"
+        ]
+      }
+    },
     "/api/v1/ports/{locode}/predictions": {
       "get": {
         "description": "Vessels in port at the snapshot: departure P10/P50/P90, drivers, and what happened.",

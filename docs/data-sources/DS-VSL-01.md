@@ -4,10 +4,10 @@
 
 | Field | Value |
 |---|---|
-| status | needs-registration |
+| status | verified |
 | tier | P2 |
 | used by | NX |
-| default mode | False |
+| default mode | live |
 | fallback (two strikes) | — |
 | auth | api-key (`DATADOCKED_API_KEY, DATADOCKED_APIKEY`) |
 | sign-up | — |

@@ -89,3 +89,49 @@ def test_yard_lying_and_last24_tables() -> None:
                  "free_teu": -15076, "boxes": 17555}  # fmt: skip
     assert c.parse_lying(LYING) == [{"location": "CPA", "boxes": 21325, "teu": 34053}]
     assert c.parse_quantities(LAST24) == {"Lying Container": {"FCL": 37138.0}}
+
+
+SAILED = """<table><tr><td>Sailed Vessel 13/11/2026 03:29:49</td></tr>
+<tr><th>SlNo.</th><th>Name</th><th>Rotation No</th><th>Berth</th><th>Arrival DateTime</th><th>Departed DateTime</th><th>Occupied Time</th><th>Berth/Terminal Operator</th><th>Comments</th></tr>
+<tr><td>1</td><td>SOL PROMISE</td><td>2026/5070</td><td>NCT-2</td><td>01/11/2026 15:42:00</td><td>03/11/2026 16:48:00</td><td>2d 1h 6m</td><td>CDDL</td><td></td></tr>
+<tr><td>2</td><td>MAERSK XIAMEN</td><td>2026/5137</td><td>GCB13</td><td>01/11/2026 16:06:00</td><td>03/11/2026 16:48:00</td><td>2d 0h 42m</td><td></td><td></td></tr>
+</table>"""
+
+GATE = """<table><tr><td>Gate In-Out Report for the month of 2026-11-11 to 2026-11-12 in terms of Box</td></tr></table>
+<table><tr><th>Date</th><th colspan="2">CPAR</th><th colspan="2">GATE-4</th></tr>
+<tr><th>In</th><th>Out</th><th>In</th><th>Out</th></tr>
+<tr><td>2026-11-11</td><td>616</td><td>823</td><td>350</td><td>332</td></tr>
+<tr><td>2026-11-12</td><td>1,002</td><td>0</td><td>7</td><td>9</td></tr>
+<tr><td>Total</td><td>1618(Box)</td><td>823(Box)</td><td>357(Box)</td><td>341(Box)</td></tr>
+</table>"""
+
+
+def test_sailed_vessels_give_berth_stays_in_utc() -> None:
+    rows = c.parse_sailed(SAILED)
+    assert [r["vessel"] for r in rows] == ["SOL PROMISE", "MAERSK XIAMEN"]
+    first = rows[0]
+    assert first["rotation"] == "2026/5070" and first["berth"] == "NCT-2"
+    assert first["berthed"] == datetime(2026, 11, 1, 9, 42, tzinfo=UTC)  # 15:42 Dhaka
+    assert first["occupied_h"] == 49.1 and first["operator"] == "CDDL"
+    assert rows[1]["operator"] is None
+
+
+def test_gate_report_reads_each_gate_per_day() -> None:
+    days = c.parse_gate(GATE)
+    assert [d["date"] for d in days] == ["2026-11-11", "2026-11-12"]  # the Total row is skipped
+    assert days[0]["gates"]["CPAR"] == {"in": 616, "out": 823}
+    assert days[0]["in"] == 966 and days[0]["out"] == 1155
+    assert days[1]["gates"]["CPAR"]["in"] == 1002  # thousands separator
+
+
+def test_backfill_months_overlap_by_a_day() -> None:
+    from datetime import date
+
+    from cportal_connectors.cpa_cli import months
+
+    m = months(date(2026, 10, 15), date(2026, 12, 3))
+    assert m == [
+        (date(2026, 10, 15), date(2026, 11, 1)),
+        (date(2026, 11, 1), date(2026, 12, 1)),
+        (date(2026, 12, 1), date(2026, 12, 3)),
+    ]

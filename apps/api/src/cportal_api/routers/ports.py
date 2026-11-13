@@ -1,17 +1,18 @@
 """/ports and /vessels: port reference, state, calls, daily activity, zones; latest positions.
 
-Real rows (live/replay) are always included; synthetic rows come from the selected scenario.
+One data source per view (A-111): real rows with real data, a scenario's own rows in a scenario.
 C4 forecasts and predictions live in `dwell.py`.
 """
 
 from __future__ import annotations
 
-from datetime import datetime
-from typing import Annotated
+from datetime import datetime, timedelta
+from typing import Annotated, Any
 from uuid import UUID
 
 from cportal_core.models import (
     AisPositionLatest,
+    GateFlowDaily,
     Location,
     Port,
     PortActivityDaily,
@@ -21,7 +22,7 @@ from cportal_core.models import (
     Vessel,
 )
 from fastapi import APIRouter, HTTPException, Query
-from sqlalchemy import select
+from sqlalchemy import func, select
 
 from cportal_api.deps import ScopeDep, SessionDep, meta
 from cportal_api.geo import feature, geojson
@@ -157,6 +158,40 @@ def port_activity(
         for r in rows
     ]  # fmt: skip
     return Envelope(data=out, meta=meta(rows, scope))
+
+
+@router.get("/ports/{locode}/gates", response_model=Envelope[list[dict[str, Any]]])
+def port_gates(
+    locode: str,
+    session: SessionDep,
+    scope: ScopeDep,
+    days: Annotated[int, Query(ge=1, le=1500)] = 60,
+) -> Envelope[list[dict[str, Any]]]:
+    """Containers (boxes) through the port's gates per day, in and out, newest first (CPA gate
+    in/out report, DS-PORT-10, A-115). Each box is roughly one truck. Real data only: scenarios
+    have no gate flows."""
+    port = _port(session, locode)
+    mine = (GateFlowDaily.port_id == port.id, scope.rows(GateFlowDaily))
+    latest = session.scalar(select(func.max(GateFlowDaily.date)).where(*mine))
+    rows = (
+        session.scalars(
+            select(GateFlowDaily)
+            .where(*mine, GateFlowDaily.date > latest - timedelta(days=days))
+            .order_by(GateFlowDaily.date.desc())
+        ).all()
+        if latest
+        else []
+    )
+    by_day: dict[str, dict[str, Any]] = {}
+    for r in rows:
+        d = by_day.setdefault(r.date.isoformat(), {"date": r.date.isoformat(), "in": 0, "out": 0,
+                                                   "gates": {}})  # fmt: skip
+        d["in"] += r.in_box
+        d["out"] += r.out_box
+        d["gates"][r.gate] = {"in": r.in_box, "out": r.out_box}
+    return Envelope(
+        data=list(by_day.values()), meta=meta(rows, scope, note="CPA gate in/out report (boxes)")
+    )
 
 
 @router.get("/ports/{locode}/zones", response_model=Envelope[FeatureCollection])

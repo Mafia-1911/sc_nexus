@@ -25,6 +25,7 @@ from sqlalchemy import func, select
 
 from cportal_api.deps import ScopeDep, SessionDep, meta
 from cportal_api.schemas import Envelope, Kpi, KpiStrip
+from cportal_api.waits import berth_waits, describe
 
 router = APIRouter(tags=["kpis"])
 OPEN = ("open", "in_production", "shipped")
@@ -86,14 +87,25 @@ def _cpa_port(session: SessionDep, scope: ScopeDep) -> list[Kpi] | None:
     )  # fmt: skip
     m = meta(calls, scope, as_of=snap.ts, note="CPA TOS + PCS (public pages), polled")
     learned = len(waits) >= 5
+    if learned:
+        wait, detail = (
+            round(waits[len(waits) // 2], 1),
+            f"{len(waits)} berthings watched in 30 days",
+        )
+    elif (split := berth_waits(session)) is not None:  # history: GFW arrivals + CPA berthings
+        wait = split["wait_p50_h"]
+        detail = (
+            f"{describe(split)}; {split['over_24h_pct']}% waited over a day, "
+            f"P90 {split['wait_p90_h']} h"
+        )
+    else:
+        wait, detail = None, "learning: from ships we see move from anchorage to berth"
     return [
         Kpi(key="vessels_at_anchorage", label="Vessels at the outer anchorage",
             value=len(anchored), unit="vessels",
             detail=f"{at_berth} at berth · CPA TOS + PCS", meta=m),
-        Kpi(key="mean_wait_24h", label="Median wait for a berth (CPA)",
-            value=round(waits[len(waits) // 2], 1) if learned else None, unit="h",
-            detail=f"{len(waits)} berthings watched in 30 days" if learned
-            else "learning: from ships we see move from anchorage to berth", meta=m),
+        Kpi(key="mean_wait_24h", label="Median wait for a berth", value=wait, unit="h",
+            detail=detail, meta=m),
     ]  # fmt: skip
 
 

@@ -26,7 +26,7 @@
 | quirks | — |
 | mapping to canonical | — |
 | synthetic twin | — |
-| next | download StitchNet + Fabric Stain in M7; confirm AITEX licence on aitex.es before use |
+| next | M7 (2026-11-01): StitchNet v2 fetched (YOLOv8 export, 483 images, 100 normal); Fabric Stain not needed yet; confirm AITEX licence on aitex.es before use |
 | raw schema | [DS-VIS-04.schema.json](../../schemas/raw/DS-VIS-04.schema.json) (inferred with genson; field profiles below) |
 
 ## Probe evidence

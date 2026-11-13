@@ -16,7 +16,7 @@ from uuid import UUID
 import numpy as np
 from cportal_core.models import Port, PortCall, Vessel, ZonePresenceDaily
 from numpy.typing import NDArray
-from sqlalchemy import func, or_, select
+from sqlalchemy import and_, func, or_, select
 from sqlalchemy.orm import Session
 
 from cportal_c4.config import load_config
@@ -84,10 +84,13 @@ def load_calls(
         .join(Vessel, Vessel.id == PortCall.vessel_id)
         .where(PortCall.port_id == port.id, PortCall.arrival_ts.is_not(None))
     )
+    # Real calls are GFW visits only: CPA's schedule and reports (DS-PORT-07/10) describe the
+    # same ships and would count them twice; they split the dwell instead (`berth_split`, A-114).
+    real = and_(PortCall.is_synthetic.is_(False), PortCall.method == "gfw")
     if real_only or scenario_id is None:
-        q = q.where(PortCall.is_synthetic.is_(False))
+        q = q.where(real)
     else:
-        q = q.where(or_(PortCall.is_synthetic.is_(False), PortCall.scenario_id == scenario_id))
+        q = q.where(or_(real, PortCall.scenario_id == scenario_id))
     rows = session.execute(q.order_by(PortCall.arrival_ts, PortCall.id)).all()
     return Calls(
         ids=[c.id for c, *_ in rows],

@@ -3,7 +3,7 @@ import "server-only";
 import { connection } from "next/server";
 import createClient from "openapi-fetch";
 
-import { currentAsOf } from "@/lib/scenario";
+import { currentAsOf, currentScenario } from "@/lib/scenario";
 
 import type { components, paths } from "./types";
 
@@ -20,13 +20,15 @@ export function apiBase(): string {
  *  first makes every data read request-time under Cache Components (never at prerender). */
 export async function api() {
   await connection();
-  const asOf = await currentAsOf();
+  const [asOf, scenario] = await Promise.all([currentAsOf(), currentScenario()]);
   return createClient<paths>({
     baseUrl: apiBase(),
     fetch: (request: Request) => {
-      // Every read carries the real-data view time; scenarios ignore it (their own clock).
+      // Every read carries the real-data view time (scenarios ignore it: their own clock) and the
+      // data selector's choice, so a call that names no scenario follows the page (A-111).
       const url = new URL(request.url);
       if (!url.searchParams.has("day")) url.searchParams.set("day", asOf);
+      if (!url.searchParams.has("scenario")) url.searchParams.set("scenario", scenario);
       return fetch(new Request(url, request), { cache: "no-store" });
     },
   });

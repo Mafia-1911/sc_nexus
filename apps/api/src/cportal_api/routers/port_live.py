@@ -35,6 +35,9 @@ def berth_key(code: str) -> str:
 
 SRC = "DS-PORT-10"
 FRESH = timedelta(hours=2)
+# CPA's PCS never closes some visits: break-bulk ships still "WORKING" at the anchorage with an
+# ATA years old. Lighterage takes days to weeks; older anchorage visits are stale (A-116).
+STALE_ANCHORAGE = timedelta(days=30)
 
 
 @cache
@@ -93,6 +96,8 @@ def classify(pc: PortCall, now: datetime) -> str | None:
     ):
         return "at_berth"  # the TOS at-berth report can be ahead of the PCS phase
     if phase in ("ARRIVED", "ANCHORAGE") or (phase == "WORKING" and not attrs.get("berth")):
+        if pc.arrival_ts is not None and pc.arrival_ts < now - STALE_ANCHORAGE:
+            return None  # a visit CPA never closed
         return "at_anchorage"
     if phase == "INBOUND" and not attrs.get("stale"):
         return "expected"

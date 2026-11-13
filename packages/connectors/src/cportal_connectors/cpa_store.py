@@ -9,15 +9,23 @@ cargo progress; the anchorage wait = berthed-on minus ATA when both exist.
 
 from __future__ import annotations
 
-from datetime import UTC, datetime, timedelta
+from collections.abc import Callable
+from datetime import UTC, date, datetime, time, timedelta
 from typing import Any
 from uuid import NAMESPACE_URL, UUID, uuid5
 
-from cportal_core.models import Port, PortCall, PortStateSnapshot, PortZone, Vessel
+from cportal_core.models import (
+    GateFlowDaily,
+    Port,
+    PortCall,
+    PortStateSnapshot,
+    PortZone,
+    Vessel,
+)
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from cportal_connectors.cpa_tos import Fetched, berth_key, vessel_key
+from cportal_connectors.cpa_tos import DHAKA, Fetched, berth_key, vessel_key
 
 NS = uuid5(NAMESPACE_URL, "cportal/DS-PORT-10")
 SRC = "DS-PORT-10"
@@ -26,14 +34,44 @@ RECENT_BREAKBULK_D = 15
 DONE = ("DEPARTED", "COMPLETE")
 
 
-def _lineage(record_id: str, now: datetime) -> dict[str, Any]:
+def _lineage(record_id: str, available_at: datetime) -> dict[str, Any]:
     return {
         "source_id": SRC,
         "source_record_id": record_id[:256],
         "data_mode": "live",
         "is_synthetic": False,
-        "available_at": now,
+        "available_at": available_at,
     }
+
+
+def _vessel_index(session: Session, now: datetime) -> Callable[[str], Vessel]:
+    """Name → vessel: real vessels already known (GFW names, so a CPA visit can carry an MMSI),
+    else a new vessel created by name."""
+    known: dict[str, Vessel] = {}
+    for v in session.scalars(
+        select(Vessel).where(Vessel.is_synthetic.is_(False), Vessel.name.is_not(None))
+    ):
+        k = vessel_key(v.name or "")
+        if k and (k not in known or (v.mmsi and not known[k].mmsi)):
+            known[k] = v
+
+    def vessel(name: str) -> Vessel:
+        k = vessel_key(name)
+        if k in known:
+            return known[k]
+        v = Vessel(
+            id=uuid5(NS, f"vessel:{k}"), name=name.strip()[:120], **_lineage(f"vessel:{k}", now)
+        )
+        session.merge(v)
+        known[k] = v
+        return v
+
+    vessel.known = known  # type: ignore[attr-defined]
+    return vessel
+
+
+def _iso(v: datetime | None) -> str | None:
+    return v.isoformat() if v else None
 
 
 def _hours(a: datetime | None, b: datetime | None) -> float | None:
@@ -51,28 +89,9 @@ def store(session: Session, results: list[Fetched], now: datetime | None = None)
     for kind in ("container", "breakbulk"):
         for r in got.get(f"at_berth_{kind}", []):
             berthed[vessel_key(r["vessel"])] = (r, kind)
-    known: dict[str, Vessel] = {}
-    for v in session.scalars(
-        select(Vessel).where(Vessel.is_synthetic.is_(False), Vessel.name.is_not(None))
-    ):
-        k = vessel_key(v.name or "")
-        if k and (k not in known or (v.mmsi and not known[k].mmsi)):
-            known[k] = v
-    zones = {
-        berth_key(z.name): z.id
-        for z in session.scalars(select(PortZone).where(PortZone.port_id == port.id))
-    }
-
-    def vessel(name: str) -> Vessel:
-        k = vessel_key(name)
-        if k in known:
-            return known[k]
-        v = Vessel(
-            id=uuid5(NS, f"vessel:{k}"), name=name.strip()[:120], **_lineage(f"vessel:{k}", now)
-        )
-        session.merge(v)
-        known[k] = v
-        return v
+    vessel = _vessel_index(session, now)
+    known: dict[str, Vessel] = vessel.known  # type: ignore[attr-defined]
+    zones = _zones(session, port.id)
 
     prior = {
         pid: attrs
@@ -107,6 +126,10 @@ def store(session: Session, results: list[Fetched], now: datetime | None = None)
         ):
             berth_on = None  # an at-berth row from an earlier visit of the same ship
         cid = uuid5(NS, f"visit:{visit['visit_ref']}")
+        # The sailed-vessel report (store_sailed) may have added the berth stay: keep it.
+        sailed = (prior.get(cid) or {}).get("sailed")
+        if berth_on is None and sailed and sailed.get("berthed"):
+            berth_on = datetime.fromisoformat(sailed["berthed"])
         # PCS shows the current phase only: the first time each phase is seen builds the history
         # (anchorage wait = first seen WORKING minus first seen ARRIVED, from our own polls).
         first = dict((prior.get(cid) or {}).get("first_seen") or {})
@@ -145,7 +168,12 @@ def store(session: Session, results: list[Fetched], now: datetime | None = None)
                 anchorage_start_ts=None if quality else (anchored or visit["ata"]),
                 anchorage_end_ts=None if quality else berth_on,
                 berth_start_ts=berth_on,
-                departure_ts=visit["atd"],
+                departure_ts=visit["atd"]
+                or (
+                    datetime.fromisoformat(sailed["departed"])
+                    if sailed and sailed.get("departed")
+                    else None
+                ),
                 departure_planned_ts=visit["etd"] or (br["etd"] if br else None),
                 arrival_planned_ts=visit["eta"],
                 phase=phase,
@@ -167,6 +195,7 @@ def store(session: Session, results: list[Fetched], now: datetime | None = None)
                     "import": br["import"] if br else None,
                     "export": br["export"] if br else None,
                     "occupation": br["occupation"] if br else None,
+                    "sailed": sailed,
                 },
                 **_lineage(f"visit:{visit['visit_ref']}", now),
             )
@@ -286,3 +315,116 @@ def _snapshot(
         )
     )
     return str(sid)
+
+
+def _zones(session: Session, port_id: UUID) -> dict[str, UUID]:
+    return {
+        berth_key(z.name): z.id
+        for z in session.scalars(select(PortZone).where(PortZone.port_id == port_id))
+    }
+
+
+def store_sailed(
+    session: Session, rows: list[dict[str, Any]], now: datetime | None = None
+) -> dict[str, int]:
+    """Sailed-vessel report rows (berth on, departed, occupied time) into port calls.
+
+    A row whose rotation matches a visit we polled from PCS enriches that call (berth start,
+    departure, berth hours; `attrs.sailed`). Any other row is a completed berth stay of its own:
+    the arrival at the anchorage is unknown (CPA reports the berthing time), so `arrival_ts`
+    stays empty and C4 uses these stays to split GFW's dwell into wait + berth (A-114).
+    `available_at` is the departure: the report cannot know a stay before it ends.
+    """
+    now = now or datetime.now(UTC)
+    port = session.scalar(select(Port).where(Port.locode == "BDCGP"))
+    if port is None:
+        raise RuntimeError("port BDCGP missing: run the reference ingest first")
+    vessel = _vessel_index(session, now)
+    zones = _zones(session, port.id)
+    polled = {  # PCS visits we polled, by rotation (with the vessel's name to confirm)
+        str(pc.attrs["rotation"]): (pc, vessel_key(name or ""))
+        for pc, name in session.execute(
+            select(PortCall, Vessel.name)
+            .join(Vessel, Vessel.id == PortCall.vessel_id)
+            .where(PortCall.source_id == SRC, PortCall.attrs["rotation"].astext.is_not(None))
+        )
+        if pc.attrs.get("visit_ref")
+    }
+    seen: set[str] = set()
+    out = {"enriched": 0, "stays": 0, "skipped": 0}
+    for r in rows:
+        if r["berthed"] is None or r["departed"] is None or r["departed"] < r["berthed"]:
+            out["skipped"] += 1
+            continue
+        k = vessel_key(r["vessel"])
+        rid = f"sailed:{r['rotation'] or ''}:{k}:{r['berthed']:%Y%m%d%H%M}"
+        if rid in seen:
+            continue
+        seen.add(rid)
+        berth_h = r["occupied_h"] or _hours(r["berthed"], r["departed"])
+        info = {
+            "berth": r["berth"], "berthed": _iso(r["berthed"]), "departed": _iso(r["departed"]),
+            "occupied_h": r["occupied_h"], "operator": r["operator"], "comments": r["comments"],
+        }  # fmt: skip
+        pc, name = polled.get(r["rotation"] or "", (None, ""))
+        if pc is not None and name == k:
+            pc.attrs = {**pc.attrs, "sailed": info}
+            if pc.berth_start_ts is None and (
+                pc.anchorage_start_ts is None or r["berthed"] >= pc.anchorage_start_ts
+            ):
+                pc.berth_start_ts = r["berthed"]
+            pc.departure_ts = pc.departure_ts or r["departed"]
+            pc.berth_h = berth_h
+            out["enriched"] += 1
+            continue
+        session.merge(
+            PortCall(
+                id=uuid5(NS, rid),
+                vessel_id=vessel(r["vessel"]).id,
+                port_id=port.id,
+                status="completed",
+                visit_kind="berth_call",
+                berth_start_ts=r["berthed"],
+                berth_end_ts=r["departed"],
+                departure_ts=r["departed"],
+                phase="DEPARTED",
+                berth_h=berth_h,
+                berth_zone_id=zones.get(berth_key(r["berth"])) if r["berth"] else None,
+                method="cpa_report",
+                attrs={
+                    "rotation": r["rotation"],
+                    "berth": r["berth"],
+                    "operator": r["operator"],
+                    "sailed": info,
+                    "stale": False,
+                },
+                **_lineage(rid, r["departed"]),
+            )
+        )
+        out["stays"] += 1
+    return out
+
+
+def store_gate(
+    session: Session, rows: list[dict[str, Any]], now: datetime | None = None
+) -> dict[str, int]:
+    """Gate in/out report days into `gate_flow_daily` (one row per gate and day; re-runs update).
+    A day is available once it ends in Dhaka; today's partial counts are available now."""
+    now = now or datetime.now(UTC)
+    port = session.scalar(select(Port).where(Port.locode == "BDCGP"))
+    if port is None:
+        raise RuntimeError("port BDCGP missing: run the reference ingest first")
+    n = 0
+    for d in rows:
+        day = date.fromisoformat(d["date"])
+        ends = datetime.combine(day + timedelta(days=1), time(0), DHAKA).astimezone(UTC)
+        for gate, v in d["gates"].items():
+            rid = f"gate:{d['date']}:{gate}"
+            session.merge(
+                GateFlowDaily(
+                    id=uuid5(NS, rid), port_id=port.id, date=day, gate=gate[:32],
+                    in_box=v["in"], out_box=v["out"], **_lineage(rid, min(ends, now)),
+                )
+            )  # fmt: skip
+            n += 1
+    return {"days": len(rows), "gate_days": n}

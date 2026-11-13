@@ -371,6 +371,28 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/ports/{locode}/gates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Port Gates
+         * @description Containers (boxes) through the port's gates per day, in and out, newest first (CPA gate
+         *     in/out report, DS-PORT-10, A-115). Each box is roughly one truck. Real data only: scenarios
+         *     have no gate flows.
+         */
+        get: operations["port_gates_api_v1_ports__locode__gates_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/ports/{locode}/predictions": {
         parameters: {
             query?: never;
@@ -3511,6 +3533,52 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Envelope_QueueForecastOut_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    port_gates_api_v1_ports__locode__gates_get: {
+        parameters: {
+            query?: {
+                days?: number;
+                /** @description Scenario key for synthetic rows; omit for real data only */
+                scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
+            };
+            header?: never;
+            path: {
+                locode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_list_dict_str__Any___"];
                 };
             };
             /** @description Not Found */

@@ -4,6 +4,7 @@ import { loadSnapshot } from "@/app/ports/actions";
 import { Glossary } from "@/components/glossary";
 import { KpiStrip, ErrorNote } from "@/components/kpi-strip";
 import { PortLive } from "@/components/port-live";
+import { GateFlows } from "@/components/ports/gate-flows";
 import { PortView } from "@/components/ports/port-view";
 import { ScenarioPort } from "@/components/ports/scenario-port";
 import { ShipsTable } from "@/components/ships-table";
@@ -40,9 +41,14 @@ async function Ports() {
           <VesselMap scenario={scenario} />
         </Card>
       ) : (
-        <Suspense fallback={<Skeleton h="h-96" />}>
-          <PortLive />
-        </Suspense>
+        <>
+          <Suspense fallback={<Skeleton h="h-96" />}>
+            <PortLive />
+          </Suspense>
+          <Suspense fallback={<Skeleton h="h-56" />}>
+            <GateFlows />
+          </Suspense>
+        </>
       )}
       <Suspense fallback={<Skeleton />}>
         <ShipsTable scenario={scenario} rows={40} />

@@ -32,6 +32,7 @@ from cportal_api import vessel_info
 from cportal_api.deps import ScopeDep, SessionDep, meta
 from cportal_api.routers import port_live
 from cportal_api.schemas import Envelope
+from cportal_api.waits import berth_waits, describe
 
 router = APIRouter(tags=["ships"])
 Status = Literal["expected", "at_anchorage", "in_port", "at_berth", "departed"]
@@ -148,6 +149,11 @@ def _cpa_ships(
     )  # fmt: skip
     w50 = waits[len(waits) // 2] if len(waits) >= 5 else None
     w90 = waits[int(len(waits) * 0.9)] if len(waits) >= 5 else None
+    basis = f"median wait of {len(waits)} CPA berthings in 30 days"
+    history: list[float] = waits
+    if w50 is None and (split := berth_waits(session)) is not None:  # GFW + CPA history (A-114)
+        w50, w90, basis = split["wait_p50_h"], split["wait_p90_h"], describe(split)
+        history = split["waits_h"]
     rows = session.execute(
         select(PortCall, Vessel)
         .join(Vessel, Vessel.id == PortCall.vessel_id)
@@ -173,11 +179,27 @@ def _cpa_ships(
             unknown["insurance"] = "P&I insurer not on record (DataDocked)"
         if st == "at_berth":
             dock, dock90, note = pc.berth_start_ts, None, f"berthed at {a.get('berth')} (CPA TOS)"
+        elif st == "at_anchorage" and a.get("cargo") == "breakbulk" and not a.get("berth"):
+            dock, dock90 = None, None
+            note = "lightering at the anchorage (break bulk): no berth expected"
+        elif st == "at_anchorage" and pc.arrival_ts is not None and history:
+            # Given the wait so far: what ships that waited at least this long went on to wait.
+            waited = (now - pc.arrival_ts).total_seconds() / 3600
+            tail = [w for w in history if w >= waited]
+            if len(tail) >= 5:
+                dock = pc.arrival_ts + timedelta(hours=tail[len(tail) // 2])
+                dock90 = pc.arrival_ts + timedelta(hours=tail[int(len(tail) * 0.9)])
+                note = (f"waited {waited:.0f} h so far; from the {len(tail)} of {len(history)} "
+                        "recent berthings that waited at least as long (GFW + CPA)")  # fmt: skip
+            else:
+                dock, dock90 = None, None
+                note = (f"waited {waited:.0f} h, longer than all but {len(tail)} of "
+                        f"{len(history)} past berthings: no estimate")  # fmt: skip
         elif w50 is not None and w90 is not None:
             start = pc.arrival_ts if st == "at_anchorage" else pc.arrival_planned_ts
             dock = max(now, start + timedelta(hours=w50)) if start else None
             dock90 = max(now, start + timedelta(hours=w90)) if start else None
-            note = f"arrival + median wait of {len(waits)} CPA berthings in 30 days"
+            note = f"arrival + {basis}"
         else:
             dock, dock90 = None, None
             note = "learning: waits come from watching ships move from anchorage to berth"

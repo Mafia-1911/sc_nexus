@@ -159,7 +159,13 @@ export function ShipsBoard({ ships, counts, real, rows = 15 }: { ships: Ship[]; 
                     </span>
                   ) : (
                     <span className="text-muted" title={s.dock_note ?? undefined}>
-                      {s.dock_note?.startsWith("learning") ? "learning…" : "not observable"}
+                      {s.dock_note?.startsWith("learning")
+                        ? "learning…"
+                        : s.dock_note?.startsWith("lightering")
+                          ? "lightering, no berth"
+                          : s.dock_note?.includes("no estimate")
+                            ? "no estimate (long wait)"
+                            : "not observable"}
                     </span>
                   )}
                 </td>

@@ -1,6 +1,6 @@
 # Entity-relationship diagram (domain model v1)
 
-_Generated from `packages/core/src/cportal_core/models/` (51 tables) by `make erd`. Edit the models, not this file._
+_Generated from `packages/core/src/cportal_core/models/` (55 tables) by `make erd`. Edit the models, not this file._
 
 Every domain table also carries the lineage columns (04 §4, SC-01): `source_id`, `source_record_id`, `data_mode`, `is_synthetic`, `scenario_id`, `generator_version`, `ingested_at`, `available_at`, `created_at`, `updated_at`. The database enforces `is_synthetic = (data_mode = 'synthetic')` and that synthetic rows carry a `scenario_id`. `outbox_event` and `job` are infrastructure without lineage.
 
@@ -171,18 +171,18 @@ erDiagram
     double net_wgt_kg
     boolean is_mirror
   }
-  product ||--o{ bom_edge : "component_product_id"
   product ||--o{ bom_edge : "parent_product_id"
+  product ||--o{ bom_edge : "component_product_id"
   location ||--o{ facility : "location_id"
   organization ||--o{ facility : "organization_id"
   location ||--o{ lane : "origin_location_id"
   location ||--o{ lane : "dest_location_id"
   location ||--o{ port : "location_id"
   port ||--o{ port_zone : "port_id"
-  lane |o--o{ supply_edge : "lane_id"
-  facility ||--o{ supply_edge : "to_facility_id"
   product ||--o{ supply_edge : "product_id"
   facility ||--o{ supply_edge : "from_facility_id"
+  facility ||--o{ supply_edge : "to_facility_id"
+  lane |o--o{ supply_edge : "lane_id"
 ```
 
 ## Maritime and port
@@ -204,6 +204,14 @@ erDiagram
     double draught_m
     string destination
     datetime eta_reported
+  }
+  gate_flow_daily {
+    uuid id PK
+    uuid port_id FK
+    date date
+    string gate
+    integer in_box
+    integer out_box
   }
   port_activity_daily {
     uuid id PK
@@ -228,6 +236,8 @@ erDiagram
     datetime berth_end_ts
     datetime departure_ts
     datetime departure_planned_ts
+    datetime arrival_planned_ts
+    string phase
     double waiting_h
     double berth_h
     double dwell_h
@@ -235,6 +245,7 @@ erDiagram
     boolean censored
     string method
     smallinteger confidence
+    jsonb attrs
     string gfw_visit_id
     jsonb quality_flags
   }
@@ -262,6 +273,7 @@ erDiagram
     jsonb tide
     integer sar_count
     double sar_age_h
+    jsonb yard
   }
   satellite_observation {
     uuid id PK
@@ -335,6 +347,7 @@ erDiagram
     datetime exit_ts
   }
   vessel |o--o{ ais_position_latest : "vessel_id"
+  gate_flow_daily }o--|| port : "port_id"
   port_activity_daily }o--|| port : "port_id"
   port_call }o--|o port_zone : "berth_zone_id"
   vessel ||--o{ port_call : "vessel_id"
@@ -415,8 +428,8 @@ erDiagram
     double extraction_confidence
   }
   disruption_event ||--o{ event_entity_link : "event_id"
-  article ||--o{ event_mention : "article_id"
   disruption_event ||--o{ event_mention : "event_id"
+  article ||--o{ event_mention : "article_id"
 ```
 
 ## Orders, shipments and routes
@@ -515,21 +528,21 @@ erDiagram
     uuid vessel_id FK
     string equipment_reference
   }
+  customer_order }o--|| product : "product_id"
   customer_order }o--|o facility : "facility_id"
   customer_order }o--|| organization : "buyer_org_id"
-  customer_order }o--|| product : "product_id"
   inventory_position }o--|| facility : "facility_id"
   inventory_position }o--|| product : "product_id"
   route_request ||--o{ route_option : "request_id"
   route_request }o--|| location : "origin_location_id"
   route_request }o--|| location : "dest_location_id"
-  shipment }o--|| location : "dest_location_id"
   shipment }o--|| location : "origin_location_id"
-  shipment_leg }o--|| location : "to_location_id"
-  shipment_leg }o--|| location : "from_location_id"
-  shipment_leg }o--|o vessel : "vessel_id"
+  shipment }o--|| location : "dest_location_id"
   shipment ||--o{ shipment_leg : "shipment_id"
+  shipment_leg }o--|| location : "to_location_id"
+  shipment_leg }o--|o vessel : "vessel_id"
   route_option |o--o{ shipment_leg : "route_option_id"
+  shipment_leg }o--|| location : "from_location_id"
   shipment ||--o{ shipment_order : "shipment_id"
   customer_order ||--o{ shipment_order : "order_id"
   shipment ||--o{ transport_event : "shipment_id"
@@ -547,6 +560,7 @@ erDiagram
     uuid product_id FK
     uuid facility_id FK
     uuid supplier_facility_id FK
+    uuid order_id FK
     string line
     string shift
     integer size_units
@@ -599,10 +613,11 @@ erDiagram
   }
   batch }o--|| product : "product_id"
   batch }o--|| facility : "facility_id"
+  batch }o--|o customer_order : "order_id"
   batch }o--|o facility : "supplier_facility_id"
+  image_dataset |o--o{ inspection_image : "dataset_id"
   inspection_image }o--|o product : "product_id"
   batch |o--o{ inspection_image : "batch_id"
-  image_dataset |o--o{ inspection_image : "dataset_id"
   inspection_image ||--o{ inspection_result : "image_id"
   inspection_result }o--|o model_version : "model_version_id"
 ```
@@ -634,6 +649,10 @@ erDiagram
     boolean nc
     string cadence
     datetime last_success_ts
+    datetime last_attempt_ts
+    integer failures
+    string effective_mode
+    text last_error
   }
   ingestion_run {
     uuid id PK

@@ -20,7 +20,7 @@ import gzip
 import re
 import time
 from dataclasses import dataclass, field
-from datetime import UTC, datetime, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta, timezone
 from html.parser import HTMLParser
 from typing import Any
 
@@ -31,6 +31,11 @@ BASE = "https://cpatos.gov.bd"
 DHAKA = timezone(timedelta(hours=6))
 GAP_S = 3.0
 TIMEOUT_S = 90.0
+# Date-range report forms (POST fdate/tdate, ISO dates): history back to at least 2023.
+FORMS = {
+    "sailed": "/tosdashboard/sailed_vessel.php",
+    "gate": "/tosdashboard/all_gate_in_out_report.php",
+}
 PAGES = {
     "pcs": "/pcs/",
     "at_berth_container": "/tosdashboard/vesselAtBerth.php",
@@ -227,6 +232,61 @@ def parse_berth_monthly(html: str) -> list[dict[str, Any]]:
     return []
 
 
+def _span_h(v: str) -> float | None:
+    """'2d 1h 6m' → 49.1 hours."""
+    m = re.fullmatch(r"\s*(\d+)d\s*(\d+)h\s*(\d+)m\s*", v)
+    return None if m is None else round(int(m[1]) * 24 + int(m[2]) + int(m[3]) / 60, 2)
+
+
+def parse_sailed(html: str) -> list[dict[str, Any]]:
+    """sailed_vessel.php: one row per container vessel that left a berth (berth on, departed,
+    occupied time, terminal operator). 'Arrival DateTime' is the berthing time, not the arrival
+    at the anchorage."""
+    want = ["SlNo.", "Name", "Rotation No", "Berth", "Arrival DateTime", "Departed DateTime"]
+    for tab in tables(html):
+        for i, row in enumerate(tab):
+            if row[: len(want)] != want:
+                continue
+            out = []
+            for r in tab[i + 1 :]:
+                if len(r) < 7 or not r[0].isdigit() or not r[1]:
+                    continue
+                out.append({
+                    "vessel": r[1], "rotation": r[2] or None, "berth": r[3] or None,
+                    "berthed": dhaka_ts(r[4]), "departed": dhaka_ts(r[5]),
+                    "occupied_h": _span_h(r[6]), "operator": (r[7] if len(r) > 7 else "") or None,
+                    "comments": (r[8] if len(r) > 8 else "") or None,
+                })  # fmt: skip
+            return out
+    return []
+
+
+def parse_gate(html: str) -> list[dict[str, Any]]:
+    """all_gate_in_out_report.php: boxes in and out per gate per day (header row of gate names,
+    each spanning an In and an Out column)."""
+    for tab in tables(html):
+        for i, row in enumerate(tab):
+            if not row or row[0] != "Date" or i + 1 >= len(tab) or tab[i + 1][:2] != ["In", "Out"]:
+                continue
+            gates = row[1:]
+            out = []
+            for r in tab[i + 2 :]:
+                if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", r[0] if r else ""):
+                    continue
+                n = [_int(x) or 0 for x in r[1:]] + [0] * (2 * len(gates))
+                per = {g: {"in": n[2 * k], "out": n[2 * k + 1]} for k, g in enumerate(gates)}
+                out.append({
+                    "date": r[0], "gates": per,
+                    "in": sum(v["in"] for v in per.values()),
+                    "out": sum(v["out"] for v in per.values()),
+                })  # fmt: skip
+            return out
+    return []
+
+
+FORM_PARSERS = {"sailed": parse_sailed, "gate": parse_gate}
+
+
 PARSERS = {
     "pcs": parse_pcs,
     "at_berth_container": parse_at_berth,
@@ -281,3 +341,27 @@ def fetch(pages: list[str], user_agent: str, archive: bool = True) -> list[Fetch
                 f.error = f"HTTP {f.status}"
             out.append(f)
     return out
+
+
+def fetch_range(
+    form: str, start: date, end: date, client: httpx.Client, archive: bool = True
+) -> Fetched:
+    """POST one date-range report (inclusive dates), archive the raw HTML, parse it."""
+    url = BASE + FORMS[form]
+    t0 = time.monotonic()
+    at = datetime.now(UTC)
+    try:
+        r = client.post(url, data={"fdate": start.isoformat(), "tdate": end.isoformat()})
+    except httpx.HTTPError as exc:
+        return Fetched(form, url, 0, time.monotonic() - t0, at, error=str(exc))
+    f = Fetched(form, url, r.status_code, time.monotonic() - t0, at, r.text)
+    if f.status != 200:
+        f.error = f"HTTP {f.status}"
+        return f
+    if archive:
+        d = raw_dir("DS-PORT-10") / form
+        d.mkdir(parents=True, exist_ok=True)
+        name = f"{start:%Y%m%d}_{end:%Y%m%d}_{at:%Y%m%dT%H%M%SZ}.html.gz"
+        (d / name).write_bytes(gzip.compress(f.html.encode()))
+    f.parsed = FORM_PARSERS[form](f.html)
+    return f

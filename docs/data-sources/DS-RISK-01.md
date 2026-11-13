@@ -4,10 +4,10 @@
 
 | Field | Value |
 |---|---|
-| status | verified |
+| status | blocked |
 | tier | P1 |
 | used by | C1 |
-| default mode | replay |
+| default mode | False |
 | fallback (two strikes) | replay |
 | auth | none |
 | sign-up | none |

@@ -22,6 +22,7 @@ ais-collect = "cportal_connectors.ais_collector:main"
 ais-synth = "cportal_connectors.ais_synthetic:main"
 ais-bd-bound = "cportal_connectors.ais_bd_bound:main"
 cpa-poll = "cportal_connectors.cpa_cli:main"
+cpa-backfill = "cportal_connectors.cpa_cli:backfill_main"
 gfw-backfill = "cportal_connectors.gfw_backfill:main"
 vis-fetch = "cportal_connectors.vision_fetch:main"
 

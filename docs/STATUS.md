@@ -1,7 +1,12 @@
-# STATUS (updated 2026-10-27 BST by Claude Code, Opus 5.5)
+# STATUS (updated 2026-11-15 BST)
 
-Milestone: **M2 Backbone complete → gate G2 (hard stop: waiting for the user's review).**
-Next after approval: M3 (C1 supplier risk graph), starting with Q-12 (GNN scope).
+Milestone: **M2 Backbone complete; Feature `feature/universal-quality-ai` (Capability C5: Manufacturing Defect Intelligence) verified.**
+
+Feature Status (`feature/universal-quality-ai`):
+- **C5 Quality Core (`packages/c5_quality`):** Zero-shot anomaly detection with WinCLIP (`k_shot=0`, ViT-B/16+ `laion400m_e31`), calibrated thresholds (`zipper`: 0.4150, `capsule`: 0.3200), pixel anomaly localization, JET colormap heatmaps, and typed Pydantic schemas.
+- **Interactive UI (`apps/quality_demo/app.py`):** Standalone Gradio 6.0 web application with live camera/upload inspection, dynamic threshold slider, side-by-side defect overlay, and preloaded MVTec AD samples (`make quality-demo`).
+- **REST API (`apps/api`):** Integrated endpoints at `GET /api/v1/quality/info` and `POST /api/v1/quality/inspect` returning structured verdicts and base64 heatmaps.
+- **Verification:** Unit tests in `tests/test_quality_ai.py` (5 passed) and visual smoke test script (`scripts/run_quality_smoke_test.py`, `make quality-smoke`) verified against genuine MVTec AD dataset samples (`zipper`, `capsule`).
 
 Done (M2, branch `m2-backbone`):
 - **Worker** (`apps/worker`, `make worker` or the compose `worker` service): APScheduler jobs

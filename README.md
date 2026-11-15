@@ -83,6 +83,36 @@ make calibrate  # port DES vs real marginals
 make erd    # regenerate the ERD from the models
 ```
 
+## Capability C5: Manufacturing Defect Intelligence (Universal Quality AI)
+
+Zero-shot visual anomaly detection and defect localization powered by WinCLIP (`k_shot=0`, ViT-B/16+ `laion400m_e31`). Inspects export products (garments/textiles and pharmaceuticals) without prior training images.
+
+### Interactive Gradio Demo
+
+```bash
+make quality-demo
+# Open http://127.0.0.1:7860 in your browser
+```
+
+Features:
+- Category selection: **Zipper** (garment hardware) and **Capsule** (pharmaceuticals).
+- Preloaded MVTec AD defect and normal image gallery.
+- Live anomaly score, calibrated threshold indicator, defect localization heatmap, and severity grading.
+
+### Quality API & Smoke Test
+
+```bash
+make quality-smoke        # Run visual smoke test on real MVTec AD samples (saves composite to docs/screenshots/)
+uv run pytest tests/test_quality_ai.py -v   # Run C5 test suite (engine, service, and API endpoints)
+```
+
+The FastAPI backend exposes:
+- `GET /api/v1/quality/info` — Model architecture, supported categories, and default thresholds.
+- `POST /api/v1/quality/inspect` — Multipart image upload returning anomaly scores, verdicts, and base64 heatmaps.
+
+For full architecture and package details, see [`packages/c5_quality/README.md`](packages/c5_quality/README.md).
+
+
 ## Names and brand
 
 `CPORTAL_BRAND_NAME` sets the product name. `CPORTAL_NAME_PACK=bd_demo` shows well-known

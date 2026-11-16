@@ -160,6 +160,17 @@ Done after the deploy work (2026-11-17, user away; "deepen the previous layers")
 - "Expected next" marks inbound ships past their declared ETA as overdue.
 - C5: model_version writes sanitise numpy numbers and NaN (the likely cause of the failed VisA
   save; the VisA scoring itself was not re-run).
+- C3 live traffic (A-123): the Mapbox live/typical factor on the Chattogram–Dhaka corridor
+  (1.02 at 05:00 Dhaka) scales road legs that start in the next 3 h; plan notes say so.
+- C5 held-out false alarms (A-124): `c5 recalibrate` (report by default, `--apply` to write);
+  not applied (noisy on 9–27 normals); the card now gives honest held-out FPRs.
+- Checks: `make test` 330 passed; lint, mypy clean.
+
+Resume here (next session): (1) Render: user task in docs/USER_TASKS.md, then
+`scripts/deploy_vercel.sh` if the API URL changes, then an end-to-end check of
+https://cportal-two.vercel.app (sign up, Control Tower, Ports, scenario switch); (2) deepen:
+C1 LightGBM vs baseline on simulator labels, C2 LLM path quality, Nexus yard/lying evidence,
+gate flows into C3 once a few weeks exist; (3) docs pass (README, screenshots) when the user asks.
 
 Next (after deploy): C4 trained on the split (wait and berth as separate targets) → gate flows into C3 once
 a few weeks have accrued → yard occupancy and lying containers as Nexus dwell evidence →

@@ -19,27 +19,22 @@ tell the agent; each item says where its result goes.
       Then `NEXT_PUBLIC_MAP_SOURCE=local` (in `.env`) makes every map use the local file; the
       deployed site keeps the online tiles.
 
-- [ ] **Oracle Cloud VM (deployment: API + worker; Hugging Face now charges for Docker Spaces):**
-      1. Sign up for the Free Tier at https://signup.cloud.oracle.com (a card is asked for identity
-         checks only; Always Free resources are not charged). Pick a home region with ARM capacity,
-         e.g. Singapore, Mumbai or Hyderabad (it cannot be changed later).
-      2. Compute → Instances → Create: image **Ubuntu 24.04**, shape **VM.Standard.A1.Flex** with
-         2 OCPU and 12 GB memory (the free tier allows 4 / 24), boot volume 50 GB, and paste your
-         SSH public key (`cat ~/.ssh/id_ed25519.pub`; create one with `ssh-keygen -t ed25519` if
-         missing). Keep "assign a public IPv4 address" on.
-      3. Networking → the instance's subnet → Default Security List → add two ingress rules:
-         source `0.0.0.0/0`, TCP, destination ports `80` and `443`.
-      4. Put in `.env`: `ORACLE_VM_IP=<public IP>` (and `ORACLE_VM_USER=ubuntu`). Check
-         `ssh ubuntu@<ip>` works. The agent then runs `scripts/deploy_oracle.sh`.
+- [ ] **Render (deployment: the API; no card):** sign up at https://render.com with GitHub, then
+      New → Blueprint → pick the repo `sc_nexus`, branch `m3-c1` (it reads `render.yaml`). When it
+      asks for the secret values, paste from `.env`: `DATABASE_URL` ← the value of
+      `DATABASE_URL_UNPOOLED`, `API_TOKEN` ← `API_TOKEN`, `MAPBOX_API`, `DATADOCKED_APIKEY`. After the
+      first deploy, put the service URL in `.env` as `RENDER_API_URL=https://….onrender.com`. The
+      agent then deploys the website (`scripts/deploy_vercel.sh`) and starts the worker against Neon
+      (`make worker-cloud`).
 
-- [ ] **Neon (deployment database, free tier):** sign up at https://neon.tech, create a project
+- [x] **Neon (deployment database, free tier; via Vercel's integration, names `DATABASE_URL` and `DATABASE_URL_UNPOOLED`):** sign up at https://neon.tech, create a project
       (region: AWS Asia Pacific, Singapore, closest to Bangladesh; Postgres 16 or newer), then copy
       two connection strings from "Connect" into `.env`: the **direct** one as
       `NEON_DATABASE_URL=...` (migrations and the initial copy) and the **pooled** one as
       `NEON_POOLED_URL=...` (the app and logins). The agent runs `scripts/deploy_db.sh` (enables
       PostGIS and pgvector, copies the current data: 368 MB; the free tier holds 0.5 GB).
 
-- [ ] **Vercel (the website):** sign up at https://vercel.com (Hobby, free), create a token at
+- [x] **Vercel (the website):** sign up at https://vercel.com (Hobby, free), create a token at
       https://vercel.com/account/tokens and put it in `.env` as `VERCEL_TOKEN=...`. The agent
       runs `scripts/deploy_vercel.sh` (sets the environment variables, deploys `apps/web`).
 

@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from dotenv import dotenv_values
-from pydantic import AliasChoices, Field, SecretStr
+from pydantic import AliasChoices, Field, SecretStr, field_validator
 from pydantic.fields import FieldInfo
 from pydantic_settings import BaseSettings, PydanticBaseSettingsSource, SettingsConfigDict
 
@@ -79,6 +79,15 @@ class Settings(BaseSettings):
         default="postgresql+psycopg://cportal:cportal@localhost:5432/cportal",
         validation_alias=AliasChoices("DATABASE_URL"),
     )
+
+    @field_validator("database_url")
+    @classmethod
+    def _psycopg(cls, v: str) -> str:
+        """Hosted Postgres (Neon) hands out postgres:// URLs; SQLAlchemy needs the driver."""
+        for prefix in ("postgres://", "postgresql://"):
+            if v.startswith(prefix):
+                return "postgresql+psycopg://" + v[len(prefix) :]
+        return v
     # Q-03: local LLM only (ADR-008). Any OpenAI-compatible local server works (Ollama default).
     llm_base_url: str = Field(
         default="http://localhost:11434/v1", validation_alias=AliasChoices("LLM_BASE_URL")

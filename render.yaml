@@ -1,0 +1,25 @@
+# Render Blueprint (A-120): the API on Render's free web service (512 MB, sleeps after 15 min
+# idle). The database is Neon; the worker runs on the developer's machine against Neon
+# (`make worker-cloud`); the website is on Vercel and sends API_TOKEN server-side.
+services:
+  - type: web
+    name: cportal-api
+    runtime: docker
+    plan: free
+    region: singapore
+    branch: m3-c1
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    dockerCommand: >-
+      sh -c "uv run --no-sync alembic -c db/alembic.ini upgrade head &&
+      exec uv run --no-sync uvicorn cportal_api.main:app --host 0.0.0.0 --port $PORT --proxy-headers"
+    healthCheckPath: /health
+    autoDeploy: false
+    envVars:
+      - {key: CPORTAL_ROOT, value: /app}
+      - {key: CPORTAL_LLM, value: "0"}
+      - {key: CPORTAL_C5_LIVE, value: "0"}   # 512 MB: no image model in memory
+      - {key: DATABASE_URL, sync: false}     # Neon direct URL (paste from .env)
+      - {key: API_TOKEN, sync: false}        # the shared token (paste from .env)
+      - {key: MAPBOX_API, sync: false}       # Route Planner live traffic tiles
+      - {key: DATADOCKED_APIKEY, sync: false}  # on-demand ship registry lookups

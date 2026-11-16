@@ -3,6 +3,10 @@
 UV ?= uv
 DS ?=
 
+# Make targets use the local database even though .env's DATABASE_URL now points at Neon (Vercel's
+# integration names, A-120); deploy scripts read Neon's URLs explicitly.
+export DATABASE_URL := postgresql+psycopg://cportal:cportal@localhost:5432/cportal
+
 .PHONY: help setup test lint fmt type check probe probe-p0 probe-p1 cards collect-ais ais-report synth-ais \
 	db-local db-local-stop migrate revision ingest seed calibrate api openapi up down seed-docker erd golden golden-walk \
 	worker web-setup web web-check e2e demo road-graph
@@ -111,6 +115,12 @@ golden: ## Golden path, offline: worker without live fetches or LLM, fresh decis
 
 golden-walk: ## Walk the 8 golden-path steps in a browser with the network cut (→ docs/golden-path.json)
 	cd apps/web && npx playwright test e2e/golden.spec.ts --output $${TMPDIR:-/tmp}/cportal-pw
+
+worker-cloud: ## Run the worker against Neon (the deployed site's live data, A-120)
+	docker compose -f docker-compose.yml -f deploy/worker-neon.yml up -d worker
+
+worker-local: ## Point the worker back at the local database
+	docker compose up -d worker
 
 down: ## Stop the compose stack (data stays in the pgdata volume)
 	docker compose down

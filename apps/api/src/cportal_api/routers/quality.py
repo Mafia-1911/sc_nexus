@@ -7,6 +7,7 @@ real dataset images with their licences. Image files come only from `data/c5/`.
 
 from __future__ import annotations
 
+import os
 from datetime import UTC, datetime
 from typing import Annotated, Any, Literal
 from uuid import UUID
@@ -121,6 +122,8 @@ async def inspect(
 ) -> Envelope[LiveResultOut]:
     """Score one image against the category's few-shot bank (CPU, ≈ 0.4 s): score, flag,
     heatmap. Assistive only: a person confirms."""
+    if os.environ.get("CPORTAL_C5_LIVE", "1") == "0":  # small hosts (512 MB): A-120
+        raise HTTPException(501, "Live inspection is off on this host; the gallery shows results.")
     data = await image.read()
     try:
         out = await run_in_threadpool(service.Live.inspect, data, category)

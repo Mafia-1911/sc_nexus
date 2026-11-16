@@ -6,7 +6,9 @@ Run: `uv run uvicorn cportal_api.main:app --reload`.
 from __future__ import annotations
 
 import asyncio
+import hmac
 import json
+import os
 import threading
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager, suppress
@@ -66,6 +68,17 @@ def create_app() -> FastAPI:
         ),
         responses={404: {"model": Problem}, 422: {"model": Problem}},
     )
+    token = os.environ.get("API_TOKEN")
+    if token:  # the deployed API (A-120): only the website's server, which holds the token
+
+        @app.middleware("http")
+        async def require_token(request: Request, call_next: Any) -> Any:
+            if request.url.path == "/health" or hmac.compare_digest(
+                request.headers.get("authorization", ""), f"Bearer {token}"
+            ):
+                return await call_next(request)
+            return _problem(401, "Unauthorized", "missing or wrong API token", request)
+
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],

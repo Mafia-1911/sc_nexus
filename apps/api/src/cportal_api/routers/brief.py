@@ -307,7 +307,16 @@ def brief(session: SessionDep, scope: ScopeDep) -> Envelope[BriefOut]:
         lines = _scenario_lines(session, scope, ks) + _event_lines(session, scope, alerted)
         when = datetime.now(UTC)
         title = f"Scenario brief · {name or scope.key}"
-    return Envelope(
-        data=BriefOut(title=title, as_of=when, lines=lines),
-        meta=meta([], scope, as_of=when, note="template over structured rows; every number cited"),
-    )
+    # The brief's badge is that of the data it summarises (the KPIs' rows), not "no data".
+    m = meta([], scope, as_of=when, note="template over structured rows; every number cited")
+    modes: dict[str, int] = {}
+    for k in ks.values():
+        for mode, n in k.meta.modes.items():
+            modes[mode] = modes.get(mode, 0) + n
+    if modes:
+        m.modes = modes
+        only = next(iter(modes.keys()))
+        single = {"synthetic": "synthetic", "replay": "replay"}.get(only, "live")
+        m.mode = "mixed" if len(modes) > 1 else single  # type: ignore[assignment]
+        m.sources = sorted({s for k in ks.values() for s in k.meta.sources})
+    return Envelope(data=BriefOut(title=title, as_of=when, lines=lines), meta=m)

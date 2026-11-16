@@ -69,6 +69,25 @@ visit of the same ship (berthing within the visit ± 6 h) splits that visit's dw
 - Used now: the real-mode "Median wait for a berth" KPI (with the over-a-day share and P90) and the
   Ships table's dock estimate given the wait so far. Not yet: the split as C4 training targets.
 
+## Berth-wait model (`c4-berth-wait` 0.1.0, A-122; report `c4-waits-BDCGP.json`)
+
+Target: a container ship's anchorage wait (the split above). Features are what CPA shows live when
+a ship arrives: container ships already waiting, ships alongside, hour, weekday, month (Dhaka).
+LightGBM P10/P50/P90 on log1p(wait), the band widened by split conformal on a validation period.
+Train 2023-01 → 2025-06 (2,739), validation 2025-07 → 2025-12 (611), test 2026-01 → 2026-11 (1,023).
+
+| test 2026 | pinball (h) | MAE P50 (h) | median APE | 80 % coverage | band width (h) |
+|---|---|---|---|---|---|
+| model | **4.24** | **10.05** | 0.356 | **0.815** | 29.6 |
+| baseline: last 30 days' quantiles | 4.59 | 11.03 | **0.279** | 0.777 | 25.4 |
+
+The model wins on pinball loss (−8 %), MAE and calibration, so it is active; it is worse on the
+median relative error (short waits overestimated) and its band is wider. The Ships table uses it
+for inbound and waiting container ships while the predicted wait is still ahead; a ship already
+past it falls back to the conditional history rule. Caveat: the training queue counts matched
+visits (≈ 81 % of container ships), CPA's live queue counts all, so live queues read ~20 % longer.
+Retrained daily by the worker (seconds).
+
 ## Assumptions and limits
 
 - **No live Chattogram picture.** GFW publishes a visit after it ends; the replay ends 45 days

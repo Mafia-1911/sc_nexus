@@ -9,7 +9,7 @@ import sys
 from cportal_core.db import session_scope
 from cportal_core.paths import repo_root
 
-from cportal_c4 import pipeline, store
+from cportal_c4 import pipeline, store, waits
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -20,7 +20,16 @@ def main(argv: list[str] | None = None) -> int:
     t.add_argument("locode", nargs="?", default="BDCGP")
     t.add_argument("--no-ablation", action="store_true", help="skip the feed-latency ablation")
     t.add_argument("--dry-run", action="store_true", help="evaluate only; write nothing")
+    w = sub.add_parser("waits", help="train and evaluate the berth-wait model (A-122)")
+    w.add_argument("--dry-run", action="store_true", help="evaluate only; write nothing")
     args = parser.parse_args(argv)
+    if args.cmd == "waits":
+        with session_scope(args.database_url) as session:
+            report = waits.train(session, save=not args.dry_run)
+        out = repo_root() / "docs" / "model-cards" / "c4-waits-BDCGP.json"
+        out.write_text(json.dumps(report, indent=1) + "\n")
+        print(json.dumps({k: report[k] for k in ("split", "test", "active")}, indent=1))
+        return 0
     with session_scope(args.database_url) as session:
         run = pipeline.train(session, args.locode, ablation=not args.no_ablation)
         out = repo_root() / "docs" / "model-cards" / f"c4-eval-{args.locode}.json"

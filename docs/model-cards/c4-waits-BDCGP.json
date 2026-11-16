@@ -1,0 +1,38 @@
+{
+ "model": "c4-berth-wait 0.1.0",
+ "features": [
+  "queue",
+  "at_berth",
+  "hour",
+  "dow",
+  "month"
+ ],
+ "level": 0.8,
+ "split": {
+  "train": 2739,
+  "validation": 611,
+  "test": 1023,
+  "train_until": "2025-07-01",
+  "test_from": "2026-01-01"
+ },
+ "test": {
+  "model": {
+   "n": 1023,
+   "mae_h": 10.05,
+   "median_ape": 0.356,
+   "coverage_80": 0.815,
+   "width_h": 29.6,
+   "pinball_h": 4.24
+  },
+  "baseline_30d": {
+   "n": 1023,
+   "mae_h": 11.03,
+   "median_ape": 0.279,
+   "coverage_80": 0.777,
+   "width_h": 25.4,
+   "pinball_h": 4.59
+  }
+ },
+ "label": "wait = CPA berthing - GFW arrival (container ships, matched visits)",
+ "active": true
+}

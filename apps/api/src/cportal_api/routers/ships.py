@@ -13,6 +13,7 @@ from collections import Counter
 from datetime import UTC, datetime, timedelta
 from typing import Any, Literal
 
+from cportal_c4 import waits as c4_waits
 from cportal_core.models import (
     CustomerOrder,
     Port,
@@ -165,8 +166,14 @@ def _cpa_ships(
     mapping = {"at_berth": "at_berth", "at_anchorage": "at_anchorage", "expected": "expected",
                "departed": "departed"}  # fmt: skip
     out: list[ShipOut] = []
-    for pc, v in rows:
-        st = port_live.classify(pc, now)
+    states = [port_live.classify(pc, now) for pc, _ in rows]
+    # Live inputs of the C4 berth-wait model (A-122): container ships waiting, ships alongside.
+    queue = sum(
+        1 for (pc, _), st in zip(rows, states, strict=True)
+        if st == "at_anchorage" and (pc.attrs or {}).get("cargo") != "breakbulk"
+    )  # fmt: skip
+    alongside = sum(1 for st in states if st == "at_berth")
+    for (pc, v), st in zip(rows, states, strict=True):
         if st is None:
             continue
         a = pc.attrs or {}
@@ -182,6 +189,16 @@ def _cpa_ships(
         elif st == "at_anchorage" and a.get("cargo") == "breakbulk" and not a.get("berth"):
             dock, dock90 = None, None
             note = "lightering at the anchorage (break bulk): no berth expected"
+        elif (
+            st in ("at_anchorage", "expected")
+            and (start := pc.arrival_ts if st == "at_anchorage" else pc.arrival_planned_ts)
+            and (pred := c4_waits.predict_wait(session, queue, alongside, start)) is not None
+            and start + timedelta(hours=pred[1]) > now
+        ):
+            dock = start + timedelta(hours=pred[1])
+            dock90 = max(dock, start + timedelta(hours=pred[2]))
+            note = (f"C4 berth-wait model: {queue} container ships waiting, {alongside} alongside "
+                    f"now; P50 wait {pred[1]:.0f} h, P90 {pred[2]:.0f} h")  # fmt: skip
         elif st == "at_anchorage" and pc.arrival_ts is not None and history:
             # Given the wait so far: what ships that waited at least this long went on to wait.
             waited = (now - pc.arrival_ts).total_seconds() / 3600

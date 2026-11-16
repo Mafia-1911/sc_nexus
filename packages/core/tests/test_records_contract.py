@@ -94,7 +94,7 @@ def test_record_fields_match_table_columns(record_type: type[Record]) -> None:
 
 
 def test_every_domain_table_has_lineage() -> None:
-    infra = {"outbox_event", "job"}
+    infra = {"outbox_event", "job", "app_user"}  # app_user: website accounts, not data (A-118)
     for table in Base.metadata.sorted_tables:
         if table.name in infra:
             continue

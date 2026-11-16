@@ -1,4 +1,4 @@
-# STATUS (updated 2026-11-13)
+# STATUS (updated 2026-11-17)
 
 Milestone: **M8 Nexus + demo, in progress** (the user deferred VisA and further C5 depth,
 U-06). Branch `m3-c1`. Nothing pushed since M2 (commit only until the whole build is done).
@@ -136,7 +136,18 @@ Done (CPA history and the real wait split, 2026-11-13; A-114…A-116):
 - Ops: Ollama models moved to the NUSHAN drive (user ran the sudo steps); Docker build cache
   older than 3 days pruned (system drive 12 GB free).
 
-Next: C4 trained on the split (wait and berth as separate targets) → gate flows into C3 once
+Done (2026-11-17; U-09, A-117…A-119):
+- Daily brief on the Control Tower (`/brief`): template over structured rows, every number cited.
+- Offline basemap switch (`NEXT_PUBLIC_MAP_SOURCE=local`, Protomaps PMTiles; download is a user task).
+- Landing page with sign-up and login (`app_user`, scrypt, signed cookie, `proxy.ts`), on when
+  `AUTH_SECRET` is set. Fix: the live socket leaked pooled sessions (pages hung under load).
+- Deployment: Oracle Cloud VM (API + worker + Caddy), Neon, Vercel; scripts `deploy_db.sh`,
+  `deploy_oracle.sh`, `deploy_vercel.sh`. Hugging Face dropped (Docker Spaces now need PRO).
+- `docs/VIDEO_SCRIPT.md` (3 minutes). `make test` 324 passed; e2e 26 passed.
+- Waiting on user: Oracle VM (`ORACLE_VM_IP`), Neon URLs, Vercel token (docs/USER_TASKS.md);
+  then the agent runs the three deploy scripts in that order (db, oracle, vercel).
+
+Next (after deploy): C4 trained on the split (wait and berth as separate targets) → gate flows into C3 once
 a few weeks have accrued → yard occupancy and lying containers as Nexus dwell evidence →
 BD-bound aisstream collector → continue Scenario Studio → deepen C1–C5. Not checked yet: the
 split against our own observed waits (none complete; the worker was down 2026-11-10 → 13).

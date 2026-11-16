@@ -21,12 +21,28 @@ const SOURCES = ["Chittagong Port Authority (TOS + PCS)", "Global Fishing Watch"
 
 type Kpi = { key: string; value: number | null; unit?: string | null };
 
+/** The free API host sleeps when idle: never hold the landing page for it (6 s, then a note). */
+function within<T>(p: Promise<T>, ms: number): Promise<T | null> {
+  return Promise.race([p, new Promise<null>((done) => setTimeout(() => done(null), ms))]);
+}
+
 async function LiveStats() {
   const client = await api();
-  const [k, g] = await Promise.all([
-    client.GET("/api/v1/kpis", { params: { query: { scenario: "" } } }),
-    client.GET("/api/v1/ports/{locode}/gates", { params: { path: { locode: "BDCGP" }, query: { days: 2, scenario: "" } } }),
-  ]);
+  const both = await within(
+    Promise.all([
+      client.GET("/api/v1/kpis", { params: { query: { scenario: "" } } }),
+      client.GET("/api/v1/ports/{locode}/gates", { params: { path: { locode: "BDCGP" }, query: { days: 2, scenario: "" } } }),
+    ]),
+    6000,
+  );
+  if (!both) {
+    return (
+      <p className="rounded-[var(--radius-card)] border border-border bg-surface/80 p-6 text-sm text-muted backdrop-blur" data-testid="landing-stats">
+        The live data service is waking up (it sleeps when nobody is looking). Refresh in a minute for today&apos;s numbers.
+      </p>
+    );
+  }
+  const [k, g] = both;
   const kpis = Object.fromEntries(((k.data?.data.kpis ?? []) as Kpi[]).map((x) => [x.key, x]));
   const gates = (g.data?.data ?? []) as { date: string; in: number; out: number }[];
   const day = gates[1] ?? gates[0];

@@ -1,0 +1,7 @@
+# Not part of the deployed site (and test-results/ holds unreadable NTFS entries)
+test-results
+playwright-report
+.next
+node_modules
+e2e
+public/map

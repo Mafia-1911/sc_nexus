@@ -4,7 +4,7 @@
 # 0.5 GB; the script prints the size it would copy first. Values are never printed.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-get() { grep -E "^\"?$1\"?=" .env | head -1 | cut -d= -f2- | sed -e 's/^"//' -e 's/"$//' -e "s/^'//" -e "s/'$//"; }
+get() { { grep -E "^\"?$1\"?=" .env || true; } | head -1 | cut -d= -f2- | sed -e 's/^"//' -e 's/"$//' -e "s/^'//" -e "s/'$//"; }
 NEON="$(get DATABASE_URL_UNPOOLED)"; NEON="${NEON:-$(get NEON_DATABASE_URL)}"  # Neon's direct URL
 [ -n "$NEON" ] || { echo "DATABASE_URL_UNPOOLED (Neon direct URL) missing in .env"; exit 1; }
 PG="docker run --rm -i -e PGCONNECT_TIMEOUT=20 postgres:17-alpine"

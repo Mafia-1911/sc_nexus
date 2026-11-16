@@ -4,7 +4,7 @@
 # https://cportal-api.onrender.com) and NEON_POOLED_URL (logins). Generates AUTH_SECRET once (kept in .env). Values are never printed.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-get() { grep -E "^\"?$1\"?=" .env | head -1 | cut -d= -f2- | sed -e 's/^"//' -e 's/"$//' -e "s/^'//" -e "s/'$//"; }
+get() { { grep -E "^\"?$1\"?=" .env || true; } | head -1 | cut -d= -f2- | sed -e 's/^"//' -e 's/"$//' -e "s/^'//" -e "s/'$//"; }
 T="$(get VERCEL_TOKEN)"; API="$(get RENDER_API_URL)"; TOKEN="$(get API_TOKEN)"; POOLED="$(get DATABASE_URL)"  # Neon pooled URL (Vercel's integration name)
 for v in T API TOKEN POOLED; do [ -n "${!v}" ] || { echo "missing: $v (see docs/USER_TASKS.md)"; exit 1; }; done
 SECRET="$(get AUTH_SECRET)"

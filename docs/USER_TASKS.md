@@ -19,21 +19,29 @@ tell the agent; each item says where its result goes.
       Then `NEXT_PUBLIC_MAP_SOURCE=local` (in `.env`) makes every map use the local file; the
       deployed site keeps the online tiles.
 
-- [ ] **Hugging Face (deployment: API + worker in a private Docker Space):** create a token with
-      **write** access at https://huggingface.co/settings/tokens and put it in `.env` as
-      `HF_TOKEN=...`, plus your username as `HF_USERNAME=...`. The agent creates the private Space,
-      uploads the image and sets the Space's secrets from `.env` (values never printed).
+- [ ] **Oracle Cloud VM (deployment: API + worker; Hugging Face now charges for Docker Spaces):**
+      1. Sign up for the Free Tier at https://signup.cloud.oracle.com (a card is asked for identity
+         checks only; Always Free resources are not charged). Pick a home region with ARM capacity,
+         e.g. Singapore, Mumbai or Hyderabad (it cannot be changed later).
+      2. Compute → Instances → Create: image **Ubuntu 24.04**, shape **VM.Standard.A1.Flex** with
+         2 OCPU and 12 GB memory (the free tier allows 4 / 24), boot volume 50 GB, and paste your
+         SSH public key (`cat ~/.ssh/id_ed25519.pub`; create one with `ssh-keygen -t ed25519` if
+         missing). Keep "assign a public IPv4 address" on.
+      3. Networking → the instance's subnet → Default Security List → add two ingress rules:
+         source `0.0.0.0/0`, TCP, destination ports `80` and `443`.
+      4. Put in `.env`: `ORACLE_VM_IP=<public IP>` (and `ORACLE_VM_USER=ubuntu`). Check
+         `ssh ubuntu@<ip>` works. The agent then runs `scripts/deploy_oracle.sh`.
 
 - [ ] **Neon (deployment database, free tier):** sign up at https://neon.tech, create a project
       (region: AWS Asia Pacific, Singapore, closest to Bangladesh; Postgres 16 or newer), then copy
       two connection strings from "Connect" into `.env`: the **direct** one as
       `NEON_DATABASE_URL=...` (migrations and the initial copy) and the **pooled** one as
-      `NEON_POOLED_URL=...` (the app and logins). The agent enables PostGIS and pgvector and copies
-      the current data (368 MB; the free tier holds 0.5 GB).
+      `NEON_POOLED_URL=...` (the app and logins). The agent runs `scripts/deploy_db.sh` (enables
+      PostGIS and pgvector, copies the current data: 368 MB; the free tier holds 0.5 GB).
 
 - [ ] **Vercel (the website):** sign up at https://vercel.com (Hobby, free), create a token at
       https://vercel.com/account/tokens and put it in `.env` as `VERCEL_TOKEN=...`. The agent
-      deploys `apps/web` with the CLI and sets its environment variables.
+      runs `scripts/deploy_vercel.sh` (sets the environment variables, deploys `apps/web`).
 
 - [x] **OSM extract (C3):** download https://download.geofabrik.de/asia/bangladesh-latest.osm.pbf
       (≈ 340 MB) to `data/raw/DS-GEO-01/bangladesh-latest.osm.pbf`. Then the agent runs

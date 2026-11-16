@@ -9,7 +9,9 @@ import { DataBadge } from "@/components/data-badge";
 import { cssVar, mapStyle, onThemeChange, restyleBasemap, setMapWorker } from "@/lib/map-theme";
 import { dhakaTime } from "@/lib/utils";
 
-const WS_URL = process.env.NEXT_PUBLIC_WS_URL ?? "ws://127.0.0.1:8000/ws/live";
+// "off" on the deployed site (no browser WebSocket to the API): the map polls /live (A-117).
+const RAW_WS = process.env.NEXT_PUBLIC_WS_URL ?? "ws://127.0.0.1:8000/ws/live";
+const WS_URL = RAW_WS === "off" ? "" : RAW_WS;
 const CHATTOGRAM: [number, number] = [91.74, 22.08];
 
 type Snapshot = { ts: string | null; mode: string; features: GeoJSON.Feature[]; scenario: string | null };

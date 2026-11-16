@@ -30,5 +30,5 @@ def test_recalibration_sets_on_one_half_and_measures_on_the_other() -> None:
     out = plan(normals + defects, target_fpr=0.05)
     assert out["calibration_normals"] == 20 and out["held_out_normals"] == 20
     assert out["threshold"] == 38.0  # the 95th percentile of 0, 2, …, 38 ("higher")
-    assert out["held_out_fpr"] == 0.025  # 39 > 38 among 1, 3, …, 39
+    assert out["held_out_fpr"] == 0.05  # only 39 exceeds 38 among the 20 values 1, 3, …, 39
     assert out["recall"] == 1.0 and out["defects"] == 10

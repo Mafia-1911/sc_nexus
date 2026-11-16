@@ -154,6 +154,13 @@ Deployment state (2026-11-17 04:20; A-120, A-121):
 - Render API not answering yet; the image works locally under Render's limits. User task: check
   Render logs, re-create the service in Virginia (next to Neon us-east-1), redeploy Vercel.
 
+Done after the deploy work (2026-11-17, user away; "deepen the previous layers"):
+- C4 berth-wait model (A-122): beats the 30-day baseline on the 2026 holdout (pinball 4.24 vs
+  4.59 h); active locally and on Neon; the Ships table uses it for inbound and waiting ships.
+- "Expected next" marks inbound ships past their declared ETA as overdue.
+- C5: model_version writes sanitise numpy numbers and NaN (the likely cause of the failed VisA
+  save; the VisA scoring itself was not re-run).
+
 Next (after deploy): C4 trained on the split (wait and berth as separate targets) → gate flows into C3 once
 a few weeks have accrued → yard occupancy and lying containers as Nexus dwell evidence →
 BD-bound aisstream collector → continue Scenario Studio → deepen C1–C5. Not checked yet: the

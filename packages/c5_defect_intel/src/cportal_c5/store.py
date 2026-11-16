@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from datetime import timedelta
 from typing import Any
 from uuid import UUID, uuid5
@@ -27,6 +28,20 @@ DATASET_URL = {
     "DS-VIS-02": "https://github.com/amazon-science/spot-diff",
     "DS-VIS-04": "https://universe.roboflow.com/fabricdefectdetection-qygi0/stitchnet-defect-detection",
 }
+
+
+def jsonable(value: Any) -> Any:
+    """JSON columns take Python numbers only: numpy scalars become floats/ints/bools and NaN or
+    infinity becomes null (the VisA report's model_version write failed on these)."""
+    if isinstance(value, dict):
+        return {str(k): jsonable(v) for k, v in value.items()}
+    if isinstance(value, list | tuple):
+        return [jsonable(v) for v in value]
+    if hasattr(value, "item") and not isinstance(value, str | bytes):
+        value = value.item()  # numpy scalar
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+    return value
 
 
 def _lineage(source: str, key: str) -> dict[str, Any]:
@@ -60,7 +75,7 @@ def save_category(
             title=spec["source"], licence=spec["licence"], nc=bool(spec["nc"]),
             url=DATASET_URL.get(ds), task="anomaly", categories=[category],
             classes=sorted({g.item.label for g in gallery}), n_images=len(gallery),
-            splits=report["split"],
+            splits=jsonable(report["split"]),
         )
     )  # fmt: skip
     mid = model_id(category)
@@ -72,7 +87,8 @@ def save_category(
             artifact_uri=f"models/c5/{category}.npz",
             card={"path": "docs/model-cards/c5-defect-intel.md", "encoder": "DINOv2-S (ONNX)",
                   "method": method, "threshold": m["threshold"], "data_licence": spec["licence"]},
-            metrics=report, licence=f"encoder Apache-2.0; data {spec['licence']}", is_active=True,
+            metrics=jsonable(report), licence=f"encoder Apache-2.0; data {spec['licence']}",
+            is_active=True,
         )
     )  # fmt: skip
     session.flush()
@@ -140,7 +156,7 @@ def save_risk(session: Session, scenario_id: UUID, lots: list[Any]) -> dict[str,
             id=mid, **lineage, source_record_id="lot-risk", capability="c5",
             name="c5-lot-risk-betabinomial", version=MODEL_VERSION, artifact_uri=None,
             card={"path": "docs/model-cards/c5-defect-intel.md", "method": "beta-binomial EB"},
-            metrics=report, licence="code only", is_active=True,
+            metrics=jsonable(report), licence="code only", is_active=True,
         )
     )  # fmt: skip
     session.flush()

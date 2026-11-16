@@ -19,6 +19,7 @@ export async function PortLive() {
   const yards = ((d.yards ?? []) as Yard[]).filter((y) => y.yard !== "Grand Total");
   const total = ((d.yards ?? []) as Yard[]).find((y) => y.yard === "Grand Total");
   const expected = (d.expected ?? []) as Ship[];
+  const polled = Date.parse(d.observed_at as string);
   return (
     <div className="grid grid-cols-1 gap-4 xl:grid-cols-3" data-testid="port-live">
       <Card className="xl:col-span-2">
@@ -58,14 +59,27 @@ export async function PortLive() {
           </ul>
         </Card>
         <Card>
-          <CardHeader title="Expected next" subtitle="PCS inbound vessels by ETA (agents' declarations)" />
+          <CardHeader
+            title="Expected next"
+            subtitle="PCS inbound vessels by ETA (agents' declarations); overdue = the declared ETA has passed without an arrival"
+          />
           <ul className="flex flex-col divide-y divide-border text-xs" data-testid="expected">
-            {expected.slice(0, 8).map((s) => (
-              <li key={`${s.name}-${s.eta}`} className="flex justify-between py-1.5">
-                <span className="truncate font-medium" title={s.name}>{s.name}</span>
-                <span className="tabular text-muted">{dhakaTime(s.eta)} · {s.agent ?? "—"}</span>
-              </li>
-            ))}
+            {[...expected]
+              // Upcoming first, then those past their declared ETA (as of the poll).
+              .sort((a, b) => Number(Date.parse(a.eta ?? "") < polled) - Number(Date.parse(b.eta ?? "") < polled))
+              .slice(0, 8)
+              .map((s) => {
+                const overdue = Date.parse(s.eta ?? "") < polled;
+                return (
+                  <li key={`${s.name}-${s.eta}`} className="flex justify-between gap-2 py-1.5">
+                    <span className="truncate font-medium" title={s.name}>{s.name}</span>
+                    <span className="tabular whitespace-nowrap text-muted">
+                      {overdue ? <span className="mr-1 font-medium text-warn">overdue</span> : null}
+                      {dhakaTime(s.eta)} · {s.agent ?? "—"}
+                    </span>
+                  </li>
+                );
+              })}
           </ul>
         </Card>
       </div>

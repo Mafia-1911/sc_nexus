@@ -76,7 +76,8 @@ class QualityInspectionService:
             overlay_pil = Image.fromarray(overlay_rgb)
             buf = io.BytesIO()
             overlay_pil.save(buf, format="PNG")
-            heatmap_b64 = base64.b64encode(buf.getvalue()).decode("utf-8")
+            raw_b64 = base64.b64encode(buf.getvalue()).decode("utf-8")
+            heatmap_b64 = f"data:image/png;base64,{raw_b64}"
 
         response = InspectionResponse(
             category=category_clean,

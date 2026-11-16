@@ -87,17 +87,29 @@ make erd    # regenerate the ERD from the models
 
 Zero-shot visual anomaly detection and defect localization powered by WinCLIP (`k_shot=0`, ViT-B/16+ `laion400m_e31`). Inspects export products (garments/textiles and pharmaceuticals) without prior training images.
 
-### Interactive Gradio Demo
+### Integrated Quality Lab Dashboard (Next.js)
+
+The computer-vision defect intelligence is integrated directly into the Next.js Supply Chain Nexus dashboard at `/quality`:
+
+```bash
+make api          # Starts FastAPI backend on http://127.0.0.1:8000
+make web          # Starts Next.js dashboard on http://127.0.0.1:3000
+# Open http://127.0.0.1:3000/quality in your browser
+```
+
+Features:
+- Matches the "Tidewater" oceanic visual design system (Shallows light / Abyss dark themes).
+- Domain & Category Selector: **Zipper** (Garments & Apparel Hardware) and **Capsule** (Pharmaceuticals & Healthcare).
+- Quick-pick MVTec AD benchmark sample presets and custom drag-and-drop image upload.
+- Dynamic screening threshold slider with baseline calibrated presets (`0.4150` for zipper, `0.3200` for capsule).
+- Live inspection results: Side-by-side view with JET colormap defect localization heatmap, raw anomaly score, delta margin, severity rating, and human QA regulatory notice.
+
+### Standalone Gradio Demo (Fallback)
 
 ```bash
 make quality-demo
 # Open http://127.0.0.1:7860 in your browser
 ```
-
-Features:
-- Category selection: **Zipper** (garment hardware) and **Capsule** (pharmaceuticals).
-- Preloaded MVTec AD defect and normal image gallery.
-- Live anomaly score, calibrated threshold indicator, defect localization heatmap, and severity grading.
 
 ### Quality API & Smoke Test
 

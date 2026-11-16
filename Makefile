@@ -77,7 +77,7 @@ calibrate: ## Port DES vs real marginals → docs/data-sources/CALIBRATION.md
 	$(UV) run calibrate
 
 api: ## Run the API with reload on http://127.0.0.1:8000 (docs at /docs)
-	$(UV) run uvicorn cportal_api.main:app --reload --port 8000
+	PYTHONPATH="apps/api/src:packages/core/src:packages/connectors/src:packages/sim/src:packages/c5_quality/src" $(UV) run uvicorn cportal_api.main:app --reload --port 8000
 
 openapi: ## Write the OpenAPI contract to docs/api/openapi.json
 	$(UV) run cportal-api-openapi

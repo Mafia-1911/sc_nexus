@@ -164,6 +164,8 @@ Done after the deploy work (2026-11-17, user away; "deepen the previous layers")
   (1.02 at 05:00 Dhaka) scales road legs that start in the next 3 h; plan notes say so.
 - C5 held-out false alarms (A-124): `c5 recalibrate` (report by default, `--apply` to write);
   not applied (noisy on 9–27 normals); the card now gives honest held-out FPRs.
+- Accessibility (polish checklist): `e2e/a11y.spec.ts` runs axe-core (WCAG 2 A/AA) on 9 pages in
+  light and dark: no serious or critical violations (fixed: brief dots' ARIA, gallery badge contrast).
 - Checks: `make test` 330 passed; lint, mypy clean.
 
 Resume here (next session): (1) Render: user task in docs/USER_TASKS.md, then

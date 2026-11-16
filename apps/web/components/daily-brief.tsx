@@ -22,7 +22,7 @@ export async function DailyBrief() {
       <ul className="flex flex-col gap-2 text-sm">
         {b.lines.map((l, i) => (
           <li key={i} className="flex gap-2">
-            <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${TONE[l.tone] ?? TONE.info}`} aria-label={l.tone} />
+            <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${TONE[l.tone] ?? TONE.info}`} role="img" aria-label={l.tone} />
             <span>
               {l.text}{" "}
               {l.cites.map((c) => (

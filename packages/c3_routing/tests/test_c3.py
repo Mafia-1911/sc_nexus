@@ -193,3 +193,22 @@ def test_ors_stops_on_daily_quota(tmp_path: Path, monkeypatch: pytest.MonkeyPatc
         many.directions([[91.8, 22.3], [90.4, 23.7]])  # two retries, then give up (U-02)
     assert many.requests == 3
     get_settings.cache_clear()
+
+
+def test_live_traffic_scales_only_legs_that_start_soon() -> None:
+    """A-123: road legs starting before `live_until` take the live factor; later ones don't."""
+    from datetime import UTC, datetime, timedelta
+    from types import SimpleNamespace
+
+    from cportal_c3.plan import Leg, Plan, Planner, Request
+
+    planner = Planner.__new__(Planner)  # simulate() needs only the road sigma
+    planner.p = SimpleNamespace(road={"sigma": 1e-9})  # type: ignore[assignment]
+    t0 = datetime(2026, 11, 17, 6, tzinfo=UTC)
+    plan = Plan("two legs", [Leg("road", "A", "B", hours_by_start=[2.0] * 24),
+                             Leg("road", "B", "C", hours_by_start=[2.0] * 24)])  # fmt: skip
+    plain = Request("A", "C", t0)
+    live = Request("A", "C", t0, live_factor=1.5, live_until=t0 + timedelta(hours=1))
+    assert round(planner.simulate(plan, t0, 1, 1, plain)[0], 3) == 4.0
+    # First leg starts at t0 (inside the window): 3 h; the second at t0 + 3 h (outside): 2 h.
+    assert round(planner.simulate(plan, t0, 1, 1, live)[0], 3) == 5.0

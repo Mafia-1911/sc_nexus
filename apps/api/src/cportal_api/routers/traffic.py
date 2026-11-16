@@ -59,6 +59,46 @@ def status() -> Envelope[dict[str, Any]]:
     )
 
 
+DIRECTIONS = "https://api.mapbox.com/directions/v5/mapbox/driving-traffic/{a};{b}"
+CORRIDOR = ((91.8070, 22.3120), (90.4260, 23.7320))  # Chattogram port gate → Kamalapur ICD
+_factor: dict[str, Any] = {}
+
+
+def live_factor() -> float | None:
+    """Live / typical driving time on the Chattogram-Dhaka corridor (Mapbox, A-123), cached 10
+    minutes; None without a token or when Mapbox has no typical time. Clamped to [0.7, 2.5]."""
+    token = get_settings().secret("MAPBOX_TOKEN")
+    if not token:
+        return None
+    if _factor and time.monotonic() - _factor["at"] < 600:
+        return _factor["value"]
+    (ax, ay), (bx, by) = CORRIDOR
+    value = None
+    try:
+        r = httpx.get(DIRECTIONS.format(a=f"{ax},{ay}", b=f"{bx},{by}"),
+                      params={"access_token": token, "overview": "false"}, timeout=10)  # fmt: skip
+        route = (r.json().get("routes") or [{}])[0] if r.status_code == 200 else {}
+        if route.get("duration") and route.get("duration_typical"):
+            value = round(min(2.5, max(0.7, route["duration"] / route["duration_typical"])), 3)
+    except (httpx.HTTPError, ValueError):
+        value = None
+    _factor.update(at=time.monotonic(), value=value)
+    return value
+
+
+@router.get("/traffic/factor", response_model=Envelope[dict[str, Any]])
+def factor() -> Envelope[dict[str, Any]]:
+    """The live road factor the Route Planner applies to legs starting in the next 3 h."""
+    return Envelope(
+        data={
+            "factor": live_factor(),
+            "corridor": "Chattogram port gate → Kamalapur ICD",
+            "source": "DS-TRAF-02 Mapbox driving-traffic (live / typical)",
+        },
+        meta=meta([], None),
+    )
+
+
 @router.get("/traffic/tiles/{z}/{x}/{y}.pbf")
 def tile(z: int, x: int, y: int) -> Response:
     if not 6 <= z <= 16 or not _in_bangladesh(z, x, y):

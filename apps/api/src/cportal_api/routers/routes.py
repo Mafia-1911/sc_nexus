@@ -7,6 +7,7 @@ reloaded only when `road_edge` changes.
 from __future__ import annotations
 
 import logging
+from datetime import UTC, datetime, timedelta
 from typing import Any
 from uuid import UUID
 
@@ -19,6 +20,7 @@ from fastapi import APIRouter, HTTPException
 from sqlalchemy import select
 
 from cportal_api.deps import SessionDep, meta
+from cportal_api.routers import traffic
 from cportal_api.schemas import Envelope, Meta
 
 router = APIRouter(tags=["routes"])
@@ -61,7 +63,11 @@ def services(mode: str | None = None) -> Envelope[list[dict[str, Any]]]:
 @router.post("/routes/optimize", response_model=Envelope[RouteResult])
 def optimize(body: RouteIn, session: SessionDep) -> Envelope[RouteResult]:
     try:
-        result = service.optimize(session, body)
+        # Live traffic only matters for departures soon (A-123): no Mapbox call otherwise.
+        soon = body.depart is None or body.depart <= datetime.now(UTC) + timedelta(hours=3)
+        result = service.optimize(
+            session, body, live_factor=traffic.live_factor() if soon else None
+        )
     except KeyError as exc:
         raise HTTPException(404, str(exc)) from exc
     except ValueError as exc:

@@ -15,7 +15,8 @@ from cportal_c3.priors import Priors, load_priors
 from cportal_c3.schemas import LegOut, PlanOut, RouteIn, RouteResult
 
 NOTES = [
-    "Road speeds and congestion are modelled by road class and hour, not live traffic.",
+    "Road speeds and congestion are modelled by road class and hour; live traffic (Mapbox) "
+    "adjusts only legs that start in the next few hours.",
     "Rail and barge timetables are synthetic, calibrated to 2025 press reports.",
     "Tariffs cite press sources of mixed dates; dwell times are estimates until C4.",
 ]
@@ -34,7 +35,14 @@ def network(session: Session, priors: Priors | None = None) -> RoadNet:
         return net
 
 
-def optimize(session: Session, body: RouteIn, save: bool = True) -> RouteResult:
+LIVE_WINDOW = timedelta(hours=3)
+
+
+def optimize(
+    session: Session, body: RouteIn, save: bool = True, live_factor: float | None = None
+) -> RouteResult:
+    """Pareto route plans. `live_factor` (Mapbox live / typical time on the corridor, A-123)
+    scales road legs that start within the next `LIVE_WINDOW`; later legs use the hour model."""
     priors = load_priors()
     for key in (body.origin, body.dest):
         if key not in priors.places:
@@ -53,6 +61,8 @@ def optimize(session: Session, body: RouteIn, save: bool = True) -> RouteResult:
         qty_teu=body.qty_teu,
         reefer=body.cargo_profile == "REEFER_2_8C",
         max_transit_h=body.max_transit_h,
+        live_factor=live_factor,
+        live_until=datetime.now(UTC) + LIVE_WINDOW if live_factor else None,
     )
     planner = Planner(net, priors, store.factors(session, priors))
     plans = planner.evaluate(req)[:6]
@@ -66,7 +76,19 @@ def optimize(session: Session, body: RouteIn, save: bool = True) -> RouteResult:
         cargo_profile=body.cargo_profile,
         plans=[_out(p, req, priors, sweeps.get(p.name, [])) for p in plans],
         model_version=MODEL_VERSION,
-        notes=[*NOTES, *([note] if (note := priors.ban_note()) else [])],
+        notes=[
+            *NOTES,
+            *([note] if (note := priors.ban_note()) else []),
+            *(
+                [
+                    f"Live traffic: road legs in the next {LIVE_WINDOW.seconds // 3600} h take "
+                    f"{live_factor:.2f}x the modelled time (Mapbox, live vs typical on the "
+                    "Chattogram-Dhaka corridor)"
+                ]
+                if live_factor
+                else []
+            ),
+        ],
     )
     if save:
         result.request_id = str(store.save(session, req, plans, sweeps, priors))

@@ -100,6 +100,10 @@ class Request:
     qty_teu: int = 1
     reefer: bool = False
     max_transit_h: float | None = None
+    # Live traffic (A-123): road legs that start before `live_until` take `live_factor` x the
+    # modelled time (Mapbox live / typical duration on the corridor); later legs keep the model.
+    live_factor: float | None = None
+    live_until: datetime | None = None
 
 
 class Planner:
@@ -220,8 +224,11 @@ class Planner:
 
     # --- simulation ---------------------------------------------------------------------
 
-    def simulate(self, plan: Plan, depart: datetime, n: int, seed: int) -> list[float]:
+    def simulate(
+        self, plan: Plan, depart: datetime, n: int, seed: int, req: Request | None = None
+    ) -> list[float]:
         rng = random.Random(seed)
+        live = req.live_factor if req and req.live_factor and req.live_until else None
         sigma = float(self.p.road["sigma"])
         out = []
         for _ in range(n):
@@ -231,6 +238,8 @@ class Planner:
                     clock += timedelta(hours=lognormal(rng, *leg.dwell))
                 elif leg.mode == "road":
                     base = leg.hours_by_start[clock.astimezone(DHAKA).hour]
+                    if live and req and req.live_until and clock < req.live_until:
+                        base *= live
                     clock += timedelta(hours=base * math.exp(rng.gauss(0.0, sigma)))
                 elif leg.service is not None:
                     clock = _next_departure(leg.service, clock, rng)
@@ -245,7 +254,7 @@ class Planner:
         n = n or int(self.p["monte_carlo"])
         plans = self.candidates(req)
         for plan in plans:
-            plan.samples = self.simulate(plan, req.depart, n, seed)
+            plan.samples = self.simulate(plan, req.depart, n, seed, req)
             if req.deadline is not None:
                 budget = (req.deadline - req.depart).total_seconds() / 3600
                 plan.on_time_prob = round(
@@ -267,7 +276,7 @@ class Planner:
         out = []
         for k in range(0, int(cfg["hours"]) + 1, int(cfg["step_h"])):
             depart = req.depart + timedelta(hours=k)
-            samples = sorted(self.simulate(plan, depart, 120, seed))
+            samples = sorted(self.simulate(plan, depart, 120, seed, req))
             row: dict[str, Any] = {
                 "depart": depart.isoformat(),
                 "p90_h": round(samples[int(0.9 * len(samples))], 1),

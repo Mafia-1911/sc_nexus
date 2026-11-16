@@ -166,6 +166,10 @@ Done after the deploy work (2026-11-17, user away; "deepen the previous layers")
   not applied (noisy on 9–27 normals); the card now gives honest held-out FPRs.
 - Accessibility (polish checklist): `e2e/a11y.spec.ts` runs axe-core (WCAG 2 A/AA) on 9 pages in
   light and dark: no serious or critical violations (fixed: brief dots' ARIA, gallery badge contrast).
+- Daily brief badge shows the modes of the data it summarises (was "no data").
+- Cloud refresh (hourly CPA; every 6 h also news/hazard feeds, C2 events, Nexus) verified
+  against Neon: 34 articles → 21 events, both scenarios refreshed.
+- Layout checked at 1366×768 (Control Tower, Scenario Studio): fits.
 - Checks: `make test` 330 passed; lint, mypy clean.
 
 Resume here (next session): (1) Render: user task in docs/USER_TASKS.md, then

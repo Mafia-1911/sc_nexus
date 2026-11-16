@@ -63,9 +63,21 @@ def main(argv: list[str] | None = None) -> int:
     e = sub.add_parser("eval", help="evaluate zero/few-shot per category, write gallery and banks")
     e.add_argument("categories", nargs="*", default=list(load_config()["categories"]))
     e.add_argument("--no-db", action="store_true")
+    r = sub.add_parser(
+        "recalibrate", help="thresholds at 5 %% FPR on held-out test normals (A-124)"
+    )
+    r.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
     if args.cmd == "eval":
         return run_eval(args.categories, args.database_url, not args.no_db)
+    if args.cmd == "recalibrate":
+        from cportal_core.db import session_scope
+
+        from cportal_c5.recalibrate import recalibrate
+
+        with session_scope(args.database_url) as session:
+            out = recalibrate(session, apply=args.apply)
+        print(json.dumps(out, indent=1))
     return 0
 
 

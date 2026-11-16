@@ -107,3 +107,21 @@ the U2 rung), and it is why the model directs inspectors rather than replacing t
 - Lots, lines, defect rates, orders and costs are synthetic estimates (fictional plants with
   guarded names, Q-05); every inspected item is a real dataset image with its provenance.
 - The model is assistive: it directs inspectors; it never releases or rejects pharma lots.
+
+## Held-out false alarms and a recalibration that was not applied (A-124, 2026-11-17)
+
+`uv run c5 recalibrate` splits each category's test normals in two by a stable hash: one half
+sets a 5 % FPR threshold, the other half (and every defect image) measures it. No re-scoring.
+
+| category | current threshold: FPR / recall (held-out) | recalibrated: FPR / recall | normals (calibration / held-out) |
+|---|---|---|---|
+| capsule | 0.083 / 0.890 | 0.000 / 0.642 | 11 / 12 |
+| carpet | 0.368 / 1.000 | 0.526 / 1.000 | 9 / 19 |
+| leather | 0.000 / 0.957 | 0.000 / 1.000 | 18 / 14 |
+| pill | 0.000 / 0.667 | 0.000 / 0.638 | 16 / 10 |
+| stitch | 0.200 / 0.769 | 0.029 / 0.483 | 27 / 35 |
+
+Not applied: with 9-27 normals per category the threshold is noisy (carpet gets worse), and the
+false-alarm cuts on capsule and stitch cost a third to a half of the recall. The current
+thresholds stay; the honest false-alarm rates above replace the "5 % FPR" claim. A real fix needs
+many more test-like normals (or per-line calibration on the factory's own good parts).

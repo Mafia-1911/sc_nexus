@@ -88,6 +88,7 @@ class Settings(BaseSettings):
             if v.startswith(prefix):
                 return "postgresql+psycopg://" + v[len(prefix) :]
         return v
+
     # Q-03: local LLM only (ADR-008). Any OpenAI-compatible local server works (Ollama default).
     llm_base_url: str = Field(
         default="http://localhost:11434/v1", validation_alias=AliasChoices("LLM_BASE_URL")

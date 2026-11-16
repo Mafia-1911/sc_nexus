@@ -657,3 +657,18 @@ def test_cpa_gate_flows_are_real_data_only(client: TestClient) -> None:
     assert real["data"][0] == {"date": "2026-11-11", "in": 966, "out": 1155, "gates": day["gates"]}
     assert real["meta"]["mode"] == "live"
     assert client.get("/api/v1/ports/BDCGP/gates").json()["data"] == []  # the baseline scenario
+
+
+def test_daily_brief_cites_every_number(client: TestClient) -> None:
+    """NX-R05: the brief is built from rows; any sentence with a number cites them."""
+    import re
+
+    for scenario in ("", "baseline"):
+        body = client.get("/api/v1/brief", params={"scenario": scenario}).json()
+        lines = body["data"]["lines"]
+        assert lines and body["data"]["title"]
+        for line in lines:
+            if re.search(r"\d", line["text"]):
+                assert line["cites"], line["text"]
+    world = client.get("/api/v1/brief").json()["data"]["lines"]
+    assert any(c["kind"] == "recommendation" for line in world for c in line["cites"])

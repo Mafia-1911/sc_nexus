@@ -215,8 +215,20 @@ def _scenario_port(session: SessionDep, scope: ScopeDep) -> list[Kpi]:
 
 
 def _disruptions(session: SessionDep, scope: ScopeDep) -> Kpi:
+    events = active_events(session, scope)
+    return Kpi(
+        key="active_disruptions",
+        label="Active disruptions (Bangladesh)",
+        value=len(events),
+        unit="events",
+        meta=meta(events, scope),
+    )
+
+
+def active_events(session: SessionDep, scope: ScopeDep) -> list[DisruptionEvent]:
     """Active disruptions touching Bangladesh or Chattogram; in real data, those known and
-    started by the view time (a forecast day counts events already announced)."""
+    started by the view time (a forecast day counts events already announced). Shared by the
+    KPI and the daily brief, so both count the same events."""
     q = select(DisruptionEvent).where(
         scope.rows(DisruptionEvent),
         DisruptionEvent.status.in_(("ongoing", "confirmed", "reported")),
@@ -231,14 +243,7 @@ def _disruptions(session: SessionDep, scope: ScopeDep) -> Kpi:
             (DisruptionEvent.end_est.is_(None))
             | (DisruptionEvent.end_est >= scope.as_of - timedelta(days=1)),
         )
-    events = session.scalars(q).all()
-    return Kpi(
-        key="active_disruptions",
-        label="Active disruptions (Bangladesh)",
-        value=len(events),
-        unit="events",
-        meta=meta(events, scope),
-    )
+    return list(session.scalars(q).all())
 
 
 def _orders_at_risk(session: SessionDep, scope: ScopeDep) -> Kpi:

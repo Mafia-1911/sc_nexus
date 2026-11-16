@@ -1,13 +1,42 @@
 "use client";
 
-import { type Map as MapLibre, setWorkerUrl } from "maplibre-gl";
+import { layers, namedFlavor } from "@protomaps/basemaps";
+import { type Map as MapLibre, type StyleSpecification, addProtocol, setWorkerUrl } from "maplibre-gl";
+import { Protocol } from "pmtiles";
 
-export const MAP_STYLE = "https://tiles.openfreemap.org/styles/positron";
+const ONLINE_STYLE = "https://tiles.openfreemap.org/styles/positron";
+// Offline demo (venue Wi-Fi): NEXT_PUBLIC_MAP_SOURCE=local reads public/map/bangladesh.pmtiles
+// with local fonts and sprites (docs/USER_TASKS.md); the deployed site uses the online tiles.
+const LOCAL = process.env.NEXT_PUBLIC_MAP_SOURCE === "local";
+let protocol = false;
+
+/** The basemap style; call in the browser (the local style needs absolute URLs). */
+export function mapStyle(): string | StyleSpecification {
+  if (!LOCAL) return ONLINE_STYLE;
+  const origin = window.location.origin;
+  return {
+    version: 8,
+    glyphs: `${origin}/map/fonts/{fontstack}/{range}.pbf`,
+    sprite: `${origin}/map/sprites/v4/light`,
+    sources: {
+      protomaps: {
+        type: "vector",
+        url: `pmtiles://${origin}/map/bangladesh.pmtiles`,
+        attribution: "© OpenStreetMap contributors, Protomaps",
+      },
+    },
+    layers: layers("protomaps", namedFlavor("light"), { lang: "en" }) as StyleSpecification["layers"],
+  };
+}
 // Copied into public/ by scripts/vendor-maplibre.mjs: the default URL is relative to the bundle chunk.
 const WORKER_URL = "/vendor/maplibre-gl-worker.mjs";
 
 export function setMapWorker() {
   setWorkerUrl(WORKER_URL);
+  if (LOCAL && !protocol) {
+    addProtocol("pmtiles", new Protocol().tile);
+    protocol = true;
+  }
 }
 
 export function cssVar(name: string): string {

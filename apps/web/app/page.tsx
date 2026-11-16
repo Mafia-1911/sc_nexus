@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import { AlertFeed } from "@/components/alert-feed";
+import { DailyBrief } from "@/components/daily-brief";
 import { Glossary } from "@/components/glossary";
 import { KpiStrip } from "@/components/kpi-strip";
 import { PortLive } from "@/components/port-live";
@@ -22,6 +23,9 @@ async function Tower() {
     <div className="flex flex-col gap-4">
       <Suspense fallback={<Skeleton h="h-28" />}>
         <KpiStrip scenario={scenario} />
+      </Suspense>
+      <Suspense fallback={<Skeleton h="h-48" />}>
+        <DailyBrief />
       </Suspense>
       {!scenario ? (
         <Suspense fallback={<Skeleton h="h-96" />}>

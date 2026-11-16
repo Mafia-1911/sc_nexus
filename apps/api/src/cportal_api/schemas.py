@@ -384,3 +384,34 @@ class Kpi(BaseModel):
 
 class KpiStrip(BaseModel):
     kpis: list[Kpi]
+
+
+class BriefCite(BaseModel):
+    """A row a brief sentence rests on (NX-R05: no uncited numbers)."""
+
+    kind: Literal[
+        "event",
+        "alert",
+        "recommendation",
+        "shipment",
+        "snapshot",
+        "gates",
+        "model",
+        "scenario",
+        "source",
+    ]
+    id: str
+    label: str
+    href: str | None = None
+
+
+class BriefLine(BaseModel):
+    text: str
+    tone: Literal["info", "watch", "risk"] = "info"
+    cites: list[BriefCite]
+
+
+class BriefOut(BaseModel):
+    title: str
+    as_of: AwareDatetime
+    lines: list[BriefLine]

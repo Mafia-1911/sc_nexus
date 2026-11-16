@@ -47,3 +47,9 @@ models/c5/
 
 # DataDocked lookups hold company contact details (A-104): never committed
 data/samples/DS-VSL-01/
+# Offline basemap (docs/USER_TASKS.md): large downloaded files, never committed
+apps/web/public/map/
+# Corrupted entries on the NTFS drive (unreadable); replaced by the *-v2 screenshots
+docs/screenshots/quality-lab-dark.png
+docs/screenshots/quality-lab-light.png
+docs/screenshots/quality-lot-drawer.png

@@ -38,6 +38,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/brief": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Brief
+         * @description Today's brief: port state, disruptions, and (in a scenario) at-risk shipments and the best
+         *     recommendations, each sentence with the rows it cites.
+         */
+        get: operations["brief_api_v1_brief_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/events": {
         parameters: {
             query?: never;
@@ -1068,6 +1089,48 @@ export interface components {
             /** Version */
             version: string;
         };
+        /**
+         * BriefCite
+         * @description A row a brief sentence rests on (NX-R05: no uncited numbers).
+         */
+        BriefCite: {
+            /** Href */
+            href?: string | null;
+            /** Id */
+            id: string;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "event" | "alert" | "recommendation" | "shipment" | "snapshot" | "gates" | "model" | "scenario" | "source";
+            /** Label */
+            label: string;
+        };
+        /** BriefLine */
+        BriefLine: {
+            /** Cites */
+            cites: components["schemas"]["BriefCite"][];
+            /** Text */
+            text: string;
+            /**
+             * Tone
+             * @default info
+             * @enum {string}
+             */
+            tone: "info" | "watch" | "risk";
+        };
+        /** BriefOut */
+        BriefOut: {
+            /**
+             * As Of
+             * Format: date-time
+             */
+            as_of: string;
+            /** Lines */
+            lines: components["schemas"]["BriefLine"][];
+            /** Title */
+            title: string;
+        };
         /** CriticalOut */
         CriticalOut: {
             /** Items */
@@ -1194,6 +1257,11 @@ export interface components {
         /** Envelope[AlertOut] */
         Envelope_AlertOut_: {
             data: components["schemas"]["AlertOut"];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[BriefOut] */
+        Envelope_BriefOut_: {
+            data: components["schemas"]["BriefOut"];
             meta: components["schemas"]["Meta"];
         };
         /** Envelope[CriticalOut] */
@@ -2741,6 +2809,49 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Envelope_AlertOut_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    brief_api_v1_brief_get: {
+        parameters: {
+            query?: {
+                /** @description Scenario key for synthetic rows; omit for real data only */
+                scenario?: string | null;
+                /** @description Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD */
+                day?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_BriefOut_"];
                 };
             };
             /** @description Not Found */

@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 
 import type { Highlight } from "@/components/network/graph-canvas";
 import { BAND_VAR, type GraphEdge, type GraphNode } from "@/lib/c1";
-import { MAP_STYLE, cssVar, onThemeChange, restyleBasemap, setMapWorker } from "@/lib/map-theme";
+import { cssVar, mapStyle, onThemeChange, restyleBasemap, setMapWorker } from "@/lib/map-theme";
 
 const BANGLADESH: [[number, number], [number, number]] = [
   [88.6, 21.0],
@@ -96,7 +96,7 @@ export function GeoMap({
   useEffect(() => {
     if (!container.current) return;
     setMapWorker();
-    const map = new MapLibre({ container: container.current, style: MAP_STYLE, bounds: BANGLADESH, attributionControl: { compact: true } });
+    const map = new MapLibre({ container: container.current, style: mapStyle(), bounds: BANGLADESH, attributionControl: { compact: true } });
     mapRef.current = map;
     map.addControl(new NavigationControl({ showCompass: false }), "top-right");
     map.on("load", () => {

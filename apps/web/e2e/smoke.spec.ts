@@ -73,6 +73,7 @@ test("Control Tower, real data: no synthetic badge, real ships, sources open, da
   await expect(page.getByTestId("yards")).toContainText("NCT");
   const link = page.getByTestId("event-source").first();
   if (await link.count()) await expect(link).toHaveAttribute("target", "_blank");
+  await expect(page.getByTestId("daily-brief").locator("li").first()).toBeVisible(); // NX-R05
   await page.getByTestId("ship-row").first().locator("[tabindex]").focus(); // hover card
   for (const theme of ["light", "dark"] as const) {
     await setTheme(page, theme);
@@ -221,13 +222,19 @@ test("Quality Lab: AQL lot board, a failed lot's options and heatmaps (C5)", asy
   expect(await rows.count()).toBeGreaterThan(5);
   await expect(page.getByTestId("gallery").locator("figure").first()).toBeVisible();
   await expect(page.getByTestId("lines").locator("li").first()).toBeVisible();
-  // Screenshots paused: the old files are corrupted on the NTFS drive (docs come later).
+  // New file names: the old ones are corrupted entries on the NTFS drive.
+  for (const theme of ["light", "dark"] as const) {
+    await setTheme(page, theme);
+    await page.waitForTimeout(500);
+    await page.screenshot({ path: `${SHOTS}/quality-lab-v2-${theme}.png`, fullPage: true });
+  }
   await page.getByLabel("Status").selectOption("rejected");
   await page.getByTestId("lot-board").locator("tbody tr.font-medium").first().click();
   const drawer = page.getByTestId("lot-drawer");
   await expect(drawer.getByTestId("aql")).toContainText("ISO 2859-1");
   await expect(drawer.getByTestId("options").locator("li").nth(1)).toBeVisible();
   await expect(drawer.getByTestId("items").locator("figure").first()).toBeVisible();
+  await page.screenshot({ path: `${SHOTS}/quality-lot-drawer-v2.png` });
 });
 
 test("Theme toggle switches and persists", async ({ page }) => {

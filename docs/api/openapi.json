@@ -216,6 +216,110 @@
         "title": "BrandOut",
         "type": "object"
       },
+      "BriefCite": {
+        "description": "A row a brief sentence rests on (NX-R05: no uncited numbers).",
+        "properties": {
+          "href": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Href"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "event",
+              "alert",
+              "recommendation",
+              "shipment",
+              "snapshot",
+              "gates",
+              "model",
+              "scenario",
+              "source"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "id",
+          "label"
+        ],
+        "title": "BriefCite",
+        "type": "object"
+      },
+      "BriefLine": {
+        "properties": {
+          "cites": {
+            "items": {
+              "$ref": "#/components/schemas/BriefCite"
+            },
+            "title": "Cites",
+            "type": "array"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          },
+          "tone": {
+            "default": "info",
+            "enum": [
+              "info",
+              "watch",
+              "risk"
+            ],
+            "title": "Tone",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text",
+          "cites"
+        ],
+        "title": "BriefLine",
+        "type": "object"
+      },
+      "BriefOut": {
+        "properties": {
+          "as_of": {
+            "format": "date-time",
+            "title": "As Of",
+            "type": "string"
+          },
+          "lines": {
+            "items": {
+              "$ref": "#/components/schemas/BriefLine"
+            },
+            "title": "Lines",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "as_of",
+          "lines"
+        ],
+        "title": "BriefOut",
+        "type": "object"
+      },
       "CriticalOut": {
         "properties": {
           "items": {
@@ -492,6 +596,22 @@
           "meta"
         ],
         "title": "Envelope[AlertOut]",
+        "type": "object"
+      },
+      "Envelope_BriefOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BriefOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[BriefOut]",
         "type": "object"
       },
       "Envelope_CriticalOut_": {
@@ -5086,6 +5206,87 @@
         "summary": "Ack Alert",
         "tags": [
           "events"
+        ]
+      }
+    },
+    "/api/v1/brief": {
+      "get": {
+        "description": "Today's brief: port state, disruptions, and (in a scenario) at-risk shipments and the best\nrecommendations, each sentence with the rows it cites.",
+        "operationId": "brief_api_v1_brief_get",
+        "parameters": [
+          {
+            "description": "Scenario key for synthetic rows; omit for real data only",
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "baseline",
+              "description": "Scenario key for synthetic rows; omit for real data only",
+              "title": "Scenario"
+            }
+          },
+          {
+            "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Real data only: today (default), yesterday, tomorrow or YYYY-MM-DD",
+              "title": "Day"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_BriefOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Brief",
+        "tags": [
+          "nexus"
         ]
       }
     },

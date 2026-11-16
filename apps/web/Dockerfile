@@ -10,6 +10,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # The browser opens the live socket itself, so this is the host-visible API address, inlined at build.
 ARG NEXT_PUBLIC_WS_URL=ws://127.0.0.1:8000/ws/live
 ENV NEXT_PUBLIC_WS_URL=$NEXT_PUBLIC_WS_URL
+ARG NEXT_PUBLIC_MAP_SOURCE=online
+ENV NEXT_PUBLIC_MAP_SOURCE=$NEXT_PUBLIC_MAP_SOURCE
 COPY --from=deps /web/node_modules ./node_modules
 COPY . .
 RUN npm run build

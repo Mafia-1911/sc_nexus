@@ -6,7 +6,7 @@ import { type GeoJSONSource, Map as MapLibre, type MapLayerMouseEvent, Navigatio
 import { useEffect, useRef } from "react";
 
 import type { EventItem } from "@/lib/c2";
-import { MAP_STYLE, cssVar, onThemeChange, restyleBasemap, setMapWorker } from "@/lib/map-theme";
+import { cssVar, mapStyle, onThemeChange, restyleBasemap, setMapWorker } from "@/lib/map-theme";
 
 const OWN = new Set(["events", "events-hit"]);
 
@@ -50,7 +50,7 @@ export function EventMap({ events, selected, onSelect }: { events: EventItem[]; 
   useEffect(() => {
     if (!container.current) return;
     setMapWorker();
-    const map = new MapLibre({ container: container.current, style: MAP_STYLE, center: [88, 18], zoom: 2.6, attributionControl: { compact: true } });
+    const map = new MapLibre({ container: container.current, style: mapStyle(), center: [88, 18], zoom: 2.6, attributionControl: { compact: true } });
     mapRef.current = map;
     map.addControl(new NavigationControl({ showCompass: false }), "top-right");
     map.on("load", () => {

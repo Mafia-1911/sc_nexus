@@ -6,7 +6,7 @@ import { type GeoJSONSource, Map as MapLibre, type MapLayerMouseEvent, Navigatio
 import { useEffect, useRef, useState } from "react";
 
 import { DataBadge } from "@/components/data-badge";
-import { MAP_STYLE, cssVar, onThemeChange, restyleBasemap, setMapWorker } from "@/lib/map-theme";
+import { cssVar, mapStyle, onThemeChange, restyleBasemap, setMapWorker } from "@/lib/map-theme";
 import { dhakaTime } from "@/lib/utils";
 
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL ?? "ws://127.0.0.1:8000/ws/live";
@@ -43,7 +43,7 @@ export function VesselMap({ scenario }: { scenario: string }) {
     setMapWorker();
     const map = new MapLibre({
       container: container.current,
-      style: MAP_STYLE,
+      style: mapStyle(),
       center: CHATTOGRAM,
       zoom: 8.6,
       attributionControl: { compact: true },

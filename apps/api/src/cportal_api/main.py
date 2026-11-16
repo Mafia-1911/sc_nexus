@@ -9,7 +9,8 @@ import asyncio
 import json
 import threading
 from collections.abc import AsyncIterator
-from contextlib import asynccontextmanager
+from contextlib import asynccontextmanager, suppress
+from typing import Any
 
 from cportal_core import __version__
 from cportal_core.db import engine
@@ -23,6 +24,7 @@ from sqlalchemy import text
 from cportal_api.deps import SessionDep
 from cportal_api.live import positions_snapshot
 from cportal_api.routers import (
+    brief,
     dwell,
     events,
     graph,
@@ -120,6 +122,7 @@ def create_app() -> FastAPI:
         ships,
         traffic,
         port_live,
+        brief,
     )
     for module in routers:
         router = module.router
@@ -136,12 +139,22 @@ def create_app() -> FastAPI:
         try:
             while True:
                 payload = await asyncio.to_thread(positions_snapshot, scenario, session)
+                session.close()  # the pool's connection goes back between ticks
                 if payload["ts"] != last_ts:
                     last_ts = payload["ts"]
                     await ws.send_text(json.dumps(payload, default=str))
-                await asyncio.sleep(1.0)
+                # Wait for the next tick by listening: a closed browser ends the loop even when
+                # the replay clock is still (no sends), instead of holding a session forever.
+                with suppress(TimeoutError):
+                    await asyncio.wait_for(ws.receive_text(), timeout=1.0)
         except (WebSocketDisconnect, RuntimeError):
             return
+
+    @app.get("/api/v1/live", tags=["ports"])
+    def live_snapshot(session: SessionDep, scenario: str = "baseline") -> dict[str, Any]:
+        """The same positions message as `/ws/live`, once: for hosts without WebSockets to the
+        browser (the deployed site polls it through its own server, A-117)."""
+        return json.loads(json.dumps(positions_snapshot(scenario, session), default=str))
 
     return app
 

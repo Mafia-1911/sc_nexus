@@ -5,6 +5,36 @@ tell the agent; each item says where its result goes.
 
 ## Open
 
+- [ ] **Offline basemap (demo polish, venue Wi-Fi):** the maps load tiles from
+      `tiles.openfreemap.org`, the golden path's one network dependency. Download once:
+      1. The `pmtiles` tool (single binary) from https://github.com/protomaps/go-pmtiles/releases
+         (`go-pmtiles_*_Linux_x86_64.tar.gz`), unpack it anywhere on your PATH.
+      2. Pick the newest build date at https://maps.protomaps.com/builds/ (e.g. `20261116`), then
+         from the repo root: `pmtiles extract https://build.protomaps.com/<DATE>.pmtiles
+         apps/web/public/map/bangladesh.pmtiles --bbox=88.0,20.5,92.8,26.7 --maxzoom=14`
+         (Bangladesh only, roughly 100–200 MB, never committed).
+      3. Fonts and icons: download https://github.com/protomaps/basemaps-assets/archive/refs/heads/main.zip
+         and copy its `fonts/` folder to `apps/web/public/map/fonts/` and `sprites/v4/` to
+         `apps/web/public/map/sprites/v4/`.
+      Then `NEXT_PUBLIC_MAP_SOURCE=local` (in `.env`) makes every map use the local file; the
+      deployed site keeps the online tiles.
+
+- [ ] **Hugging Face (deployment: API + worker in a private Docker Space):** create a token with
+      **write** access at https://huggingface.co/settings/tokens and put it in `.env` as
+      `HF_TOKEN=...`, plus your username as `HF_USERNAME=...`. The agent creates the private Space,
+      uploads the image and sets the Space's secrets from `.env` (values never printed).
+
+- [ ] **Neon (deployment database, free tier):** sign up at https://neon.tech, create a project
+      (region: AWS Asia Pacific, Singapore, closest to Bangladesh; Postgres 16 or newer), then copy
+      two connection strings from "Connect" into `.env`: the **direct** one as
+      `NEON_DATABASE_URL=...` (migrations and the initial copy) and the **pooled** one as
+      `NEON_POOLED_URL=...` (the app and logins). The agent enables PostGIS and pgvector and copies
+      the current data (368 MB; the free tier holds 0.5 GB).
+
+- [ ] **Vercel (the website):** sign up at https://vercel.com (Hobby, free), create a token at
+      https://vercel.com/account/tokens and put it in `.env` as `VERCEL_TOKEN=...`. The agent
+      deploys `apps/web` with the CLI and sets its environment variables.
+
 - [x] **OSM extract (C3):** download https://download.geofabrik.de/asia/bangladesh-latest.osm.pbf
       (≈ 340 MB) to `data/raw/DS-GEO-01/bangladesh-latest.osm.pbf`. Then the agent runs
       `uv run c3 build-graph`.
@@ -45,7 +75,7 @@ tell the agent; each item says where its result goes.
       CC BY 4.0). Extract into `data/raw/DS-VIS-02/`: `tar -xf VisA_20220922.tar -C
       data/raw/DS-VIS-02/` (only the `capsules/` folder is needed; the rest can be deleted).
 
-- [ ] **Repair the NTFS drive (sudo):** after the unclean reboot, three files show as `?????????`
+- [ ] **Repair the NTFS drive (sudo)** (2026-11-17: still unreadable after the first repair, "Invalid argument"; `ntfsfix` fixes only a few NTFS errors, so run `chkdsk /f` on the drive from Windows): after the unclean reboot, three files show as `?????????`
       and can't be read or deleted: `docs/screenshots/quality-lab-dark.png`, `quality-lab-light.png`,
       `quality-lot-drawer.png`. Stop the stack (`make down`), close editors on the drive, then
       `sudo umount /run/media/mushh/NUSHAN && sudo ntfsfix -d /dev/sdc1` (or `chkdsk /f` on Windows,

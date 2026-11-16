@@ -6,7 +6,7 @@ import { type GeoJSONSource, LngLatBounds, Map as MapLibre, NavigationControl } 
 import { useEffect, useRef, useState } from "react";
 
 import { type Plan, MODE_VAR } from "@/lib/c3";
-import { MAP_STYLE, cssVar, onThemeChange, restyleBasemap, setMapWorker } from "@/lib/map-theme";
+import { cssVar, mapStyle, onThemeChange, restyleBasemap, setMapWorker } from "@/lib/map-theme";
 
 function lines(plan: Plan | null) {
   return {
@@ -133,7 +133,7 @@ export function RouteMap({ plan }: { plan: Plan | null }) {
   useEffect(() => {
     if (!container.current) return;
     setMapWorker();
-    const map = new MapLibre({ container: container.current, style: MAP_STYLE, center: [90.9, 23.1], zoom: 6.6, attributionControl: { compact: true } });
+    const map = new MapLibre({ container: container.current, style: mapStyle(), center: [90.9, 23.1], zoom: 6.6, attributionControl: { compact: true } });
     mapRef.current = map;
     map.addControl(new NavigationControl({ showCompass: false }), "top-right");
     map.on("load", () => {

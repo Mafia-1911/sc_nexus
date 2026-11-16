@@ -5,7 +5,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { Map as MapLibre, type MapLayerMouseEvent, NavigationControl, Popup } from "maplibre-gl";
 import { useEffect, useRef } from "react";
 
-import { MAP_STYLE, cssVar, onThemeChange, restyleBasemap, setMapWorker } from "@/lib/map-theme";
+import { cssVar, mapStyle, onThemeChange, restyleBasemap, setMapWorker } from "@/lib/map-theme";
 
 type FC = GeoJSON.FeatureCollection;
 
@@ -33,7 +33,7 @@ export function PortLiveMap({ vessels, berths }: { vessels: FC; berths: FC }) {
   useEffect(() => {
     if (!container.current) return;
     setMapWorker();
-    const map = new MapLibre({ container: container.current, style: MAP_STYLE, center: [91.79, 22.2], zoom: 10.2, attributionControl: { compact: true } });
+    const map = new MapLibre({ container: container.current, style: mapStyle(), center: [91.79, 22.2], zoom: 10.2, attributionControl: { compact: true } });
     map.addControl(new NavigationControl({ showCompass: false }), "top-right");
     map.on("load", () => {
       map.addSource("berths", { type: "geojson", data: berths });

@@ -3,7 +3,7 @@
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useMemo, useState, useTransition } from "react";
 
-import { loadSnapshot, loadTrack } from "@/app/ports/actions";
+import { loadSnapshot, loadTrack } from "@/app/(app)/ports/actions";
 import { DataBadge } from "@/components/data-badge";
 import { FanChart } from "@/components/ports/fan-chart";
 import { Badge } from "@/components/ui/badge";

@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useCallback, useMemo, useState, useTransition } from "react";
 
-import { loadNode } from "@/app/network/actions";
+import { loadNode } from "@/app/(app)/network/actions";
 import { DataBadge } from "@/components/data-badge";
 import { GeoMap } from "@/components/network/geo-map";
 import type { Highlight } from "@/components/network/graph-canvas";

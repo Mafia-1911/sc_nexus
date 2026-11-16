@@ -4,7 +4,7 @@ import { ExternalLink, X } from "lucide-react";
 import Link from "next/link";
 import { useState, useTransition } from "react";
 
-import { decide } from "@/app/radar/actions";
+import { decide } from "@/app/(app)/radar/actions";
 import { DataBadge } from "@/components/data-badge";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";

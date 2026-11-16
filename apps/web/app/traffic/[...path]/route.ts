@@ -1,4 +1,4 @@
-import { apiBase } from "@/lib/api/server";
+import { apiBase, apiHeaders } from "@/lib/api/server";
 
 /** The Route Planner's traffic layer, proxied from the API (the Mapbox token stays there). */
 export async function GET(req: Request, ctx: { params: Promise<{ path: string[] }> }) {
@@ -7,6 +7,7 @@ export async function GET(req: Request, ctx: { params: Promise<{ path: string[] 
   const query = new URL(req.url).search;
   const upstream = await fetch(`${apiBase()}/api/v1/traffic/${path.map(encodeURIComponent).join("/")}${query}`, {
     cache: "no-store",
+    headers: apiHeaders(),
   });
   if (upstream.status === 204) return new Response(null, { status: 204 });
   if (!upstream.ok || !upstream.body) return new Response("not found", { status: upstream.status === 404 ? 404 : 502 });

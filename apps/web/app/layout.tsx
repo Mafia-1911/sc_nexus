@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Noto_Sans_Bengali } from "next/font/google";
+import { connection } from "next/server";
+import { Suspense } from "react";
 
-import { AppShell } from "@/components/shell/app-shell";
 import { brandName } from "@/lib/brand";
 
 import "./globals.css";
@@ -23,6 +24,12 @@ export async function generateMetadata(): Promise<Metadata> {
 // Apply a forced theme before first paint (no flash); the OS setting applies otherwise.
 const THEME_INIT = `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t}}catch(e){}`;
 
+/** Marks every route request-time: the metadata reads the brand at runtime (Cache Components). */
+async function RequestTime() {
+  await connection();
+  return null;
+}
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${inter.variable} ${bengali.variable} ${mono.variable}`} suppressHydrationWarning>
@@ -30,7 +37,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
       </head>
       <body>
-        <AppShell>{children}</AppShell>
+        {children}
+        <Suspense fallback={null}>
+          <RequestTime />
+        </Suspense>
       </body>
     </html>
   );

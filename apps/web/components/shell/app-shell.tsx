@@ -9,6 +9,7 @@ import { OceanBackdrop } from "@/components/shell/ocean-backdrop";
 import { NavRail } from "./nav-rail";
 import { ScenarioSwitcher } from "./scenario-switcher";
 import { ThemeToggle } from "./theme-toggle";
+import { UserMenu } from "./user-menu";
 
 async function Brand() {
   const name = await brandName();
@@ -67,6 +68,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <Switcher />
           </Suspense>
           <ThemeToggle />
+          <Suspense fallback={null}>
+            <UserMenu />
+          </Suspense>
         </header>
         <main className="flex-1 p-4 lg:p-6">{children}</main>
       </div>

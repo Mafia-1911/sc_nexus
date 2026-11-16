@@ -1,5 +1,6 @@
 """ORM models (domain model v1, frozen at G1). Importing this package registers every table."""
 
+from cportal_core.models.accounts import AppUser
 from cportal_core.models.base import LINEAGE_COLUMNS, Base, Lineage
 from cportal_core.models.events import Article, DisruptionEvent, EventEntityLink, EventMention
 from cportal_core.models.logistics import (
@@ -62,6 +63,7 @@ __all__ = [
     "LINEAGE_COLUMNS",
     "AisPositionLatest",
     "Alert",
+    "AppUser",
     "Article",
     "Base",
     "Batch",

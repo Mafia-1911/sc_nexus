@@ -3,7 +3,7 @@
 import { Route } from "lucide-react";
 import { useMemo, useState, useTransition } from "react";
 
-import { optimize } from "@/app/routes/actions";
+import { optimize } from "@/app/(app)/routes/actions";
 import { ParetoChart } from "@/components/routes/pareto-chart";
 import { RouteMap } from "@/components/routes/route-map";
 import { Badge } from "@/components/ui/badge";

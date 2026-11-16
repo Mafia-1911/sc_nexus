@@ -1,6 +1,6 @@
 "use server";
 
-import { api, apiBase } from "@/lib/api/server";
+import { api, apiBase, apiHeaders } from "@/lib/api/server";
 import type { Item, LiveResult, LotDetail, Spc } from "@/lib/c5";
 
 /** Server actions: the browser never calls the REST API itself (ADR-015). */
@@ -33,7 +33,7 @@ export async function inspectImage(form: FormData): Promise<{ data?: LiveResult;
   const body = new FormData();
   body.set("image", file, file.name);
   body.set("category", String(form.get("category") ?? "stitch"));
-  const res = await fetch(`${apiBase()}/api/v1/quality/inspections`, { method: "POST", body, cache: "no-store" });
+  const res = await fetch(`${apiBase()}/api/v1/quality/inspections`, { method: "POST", body, cache: "no-store", headers: apiHeaders() });
   const json = (await res.json().catch(() => ({}))) as { data?: LiveResult; detail?: string };
   return res.ok && json.data ? { data: json.data } : { error: json.detail ?? `Inspection failed (HTTP ${res.status}).` };
 }

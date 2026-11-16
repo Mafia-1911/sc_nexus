@@ -4,8 +4,8 @@ import { AlertTriangle, CheckCircle2, ShieldAlert, Upload, X } from "lucide-reac
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 
-import { inspectImage, loadGallery, loadLot, loadSpc } from "@/app/quality/actions";
-import { decide } from "@/app/radar/actions";
+import { inspectImage, loadGallery, loadLot, loadSpc } from "@/app/(app)/quality/actions";
+import { decide } from "@/app/(app)/radar/actions";
 import { DataBadge } from "@/components/data-badge";
 import { HeatImage } from "@/components/quality/heat-image";
 import { SpcChart } from "@/components/quality/spc-chart";

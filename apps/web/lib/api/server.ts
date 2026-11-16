@@ -15,6 +15,12 @@ export function apiBase(): string {
   return process.env.API_URL ?? "http://127.0.0.1:8000";
 }
 
+/** The deployed API is a private Hugging Face Space: server-side calls carry its token
+ *  (API_TOKEN, never sent to the browser). Locally there is none. */
+export function apiHeaders(): Record<string, string> {
+  return process.env.API_TOKEN ? { Authorization: `Bearer ${process.env.API_TOKEN}` } : {};
+}
+
 /** A typed client for server components. Every call is fresh (no Next data cache): the
  *  dashboard shows the data mode and "as of" of what it actually read. Awaiting `connection()`
  *  first makes every data read request-time under Cache Components (never at prerender). */
@@ -29,7 +35,9 @@ export async function api() {
       const url = new URL(request.url);
       if (!url.searchParams.has("day")) url.searchParams.set("day", asOf);
       if (!url.searchParams.has("scenario")) url.searchParams.set("scenario", scenario);
-      return fetch(new Request(url, request), { cache: "no-store" });
+      const out = new Request(url, request);
+      for (const [k, v] of Object.entries(apiHeaders())) out.headers.set(k, v);
+      return fetch(out, { cache: "no-store" });
     },
   });
 }

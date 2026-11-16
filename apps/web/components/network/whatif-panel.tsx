@@ -3,7 +3,7 @@
 import { Play } from "lucide-react";
 import { useState, useTransition } from "react";
 
-import { runWhatIf } from "@/app/network/actions";
+import { runWhatIf } from "@/app/(app)/network/actions";
 import { type DisruptionIn, type WhatIf, days, productName, usd } from "@/lib/c1";
 import { fmt } from "@/lib/utils";
 

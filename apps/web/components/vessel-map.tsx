@@ -100,6 +100,33 @@ export function VesselMap({ scenario }: { scenario: string }) {
   }, []);
 
   useEffect(() => {
+    const show = (msg: Snapshot) => {
+      setSnap(msg);
+      latest.current = msg.features;
+      const source = mapRef.current?.getSource("vessels") as GeoJSONSource | undefined;
+      source?.setData({ type: "FeatureCollection", features: msg.features });
+    };
+    if (!WS_URL) {
+      // No WebSocket to the API (deployed site): poll the same message through our server.
+      let gone = false;
+      const poll = async () => {
+        try {
+          const res = await fetch(`/live?scenario=${encodeURIComponent(scenario)}`, { cache: "no-store" });
+          if (!gone && res.ok) {
+            setConnected(true);
+            show((await res.json()) as Snapshot);
+          }
+        } catch {
+          setConnected(false);
+        }
+      };
+      void poll();
+      const timer = setInterval(poll, 5000);
+      return () => {
+        gone = true;
+        clearInterval(timer);
+      };
+    }
     let socket: WebSocket | null = null;
     let retry: ReturnType<typeof setTimeout> | undefined;
     let delay = 1000;
@@ -113,10 +140,7 @@ export function VesselMap({ scenario }: { scenario: string }) {
       socket.onmessage = (event) => {
         const msg = JSON.parse(event.data as string);
         if (msg.type !== "positions") return;
-        setSnap(msg as Snapshot);
-        latest.current = msg.features;
-        const source = mapRef.current?.getSource("vessels") as GeoJSONSource | undefined;
-        source?.setData({ type: "FeatureCollection", features: msg.features });
+        show(msg as Snapshot);
       };
       socket.onclose = () => {
         setConnected(false);

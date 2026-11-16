@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import { loadSnapshot } from "@/app/ports/actions";
+import { loadSnapshot } from "@/app/(app)/ports/actions";
 import { Glossary } from "@/components/glossary";
 import { KpiStrip, ErrorNote } from "@/components/kpi-strip";
 import { PortLive } from "@/components/port-live";

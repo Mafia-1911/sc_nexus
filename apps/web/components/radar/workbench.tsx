@@ -4,7 +4,7 @@ import { CloudLightning, Factory, Flame, Gavel, Pill, Ship, TriangleAlert, Truck
 import Link from "next/link";
 import { useCallback, useState, useTransition } from "react";
 
-import { loadEvent } from "@/app/radar/actions";
+import { loadEvent } from "@/app/(app)/radar/actions";
 import { DataBadge } from "@/components/data-badge";
 import { EventDrawer } from "@/components/radar/event-drawer";
 import { EventMap } from "@/components/radar/event-map";

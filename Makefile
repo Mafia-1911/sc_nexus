@@ -119,6 +119,12 @@ golden-walk: ## Walk the 8 golden-path steps in a browser with the network cut (
 worker-cloud: ## Run the worker against Neon (the deployed site's live data, A-120)
 	docker compose -f docker-compose.yml -f deploy/worker-neon.yml up -d worker
 
+cloud-refresh: ## One CPA poll into Neon (the deployed site's live data, A-121)
+	scripts/cloud_refresh.sh
+
+cloud-refresh-timer: ## Run cloud-refresh hourly until the next reboot (transient user timer)
+	systemd-run --user --on-calendar='*-*-* *:07:00' --unit=cportal-cloud-refresh $(CURDIR)/scripts/cloud_refresh.sh
+
 worker-local: ## Point the worker back at the local database
 	docker compose up -d worker
 

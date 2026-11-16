@@ -19,7 +19,15 @@ tell the agent; each item says where its result goes.
       Then `NEXT_PUBLIC_MAP_SOURCE=local` (in `.env`) makes every map use the local file; the
       deployed site keeps the online tiles.
 
-- [ ] **Render (deployment: the API; no card):** sign up at https://render.com with GitHub, then
+- [ ] **Render: the API is not answering yet (2026-11-17 04:20).** The same image and start
+      command run fine locally under 512 MB against Neon (all endpoints 200, 379 MiB). In the
+      Render dashboard: (1) open the service's **Logs** and **Events**; (2) since `render.yaml` now
+      says region **virginia** (Neon is in us-east-1; Singapore would add ~230 ms to every query),
+      and Render cannot move a service between regions, delete the Singapore service and apply the
+      Blueprint again (New → Blueprint, same repo and branch, paste the same four values), then
+      update `RENDER_API_URL` in `.env` if the URL changes and run `scripts/deploy_vercel.sh`;
+      (3) if a build or start error shows, paste it to the agent.
+- [x] **Render (deployment: the API; no card):** sign up at https://render.com with GitHub, then
       New → Blueprint → pick the repo `sc_nexus`, branch `m3-c1` (it reads `render.yaml`). When it
       asks for the secret values, paste from `.env`: `DATABASE_URL` ← the value of
       `DATABASE_URL_UNPOOLED`, `API_TOKEN` ← `API_TOKEN`, `MAPBOX_API`, `DATADOCKED_APIKEY`. After the

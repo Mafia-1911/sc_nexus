@@ -147,6 +147,13 @@ Done (2026-11-17; U-09, A-117…A-119):
 - Waiting on user: Oracle VM (`ORACLE_VM_IP`), Neon URLs, Vercel token (docs/USER_TASKS.md);
   then the agent runs the three deploy scripts in that order (db, oracle, vercel).
 
+Deployment state (2026-11-17 04:20; A-120, A-121):
+- Website live on Vercel: https://cportal-two.vercel.app (landing, sign-up, login; the app needs
+  the API). Neon holds the data (290 MB copy, verified counts); an hourly transient user timer
+  (`make cloud-refresh-timer`, lost on reboot) polls CPA into Neon so Neon can sleep in between.
+- Render API not answering yet; the image works locally under Render's limits. User task: check
+  Render logs, re-create the service in Virginia (next to Neon us-east-1), redeploy Vercel.
+
 Next (after deploy): C4 trained on the split (wait and berth as separate targets) → gate flows into C3 once
 a few weeks have accrued → yard occupancy and lying containers as Nexus dwell evidence →
 BD-bound aisstream collector → continue Scenario Studio → deepen C1–C5. Not checked yet: the

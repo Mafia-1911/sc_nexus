@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import os
 from logging.config import fileConfig
 
 from alembic import context
@@ -15,10 +14,9 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# `-x url=…` (tests) wins over DATABASE_URL.
-url = context.get_x_argument(as_dictionary=True).get("url") or os.environ.get(
-    "DATABASE_URL", get_settings().database_url
-)
+# `-x url=…` (tests) wins over DATABASE_URL; settings read DATABASE_URL and give it the psycopg
+# driver (hosted Postgres hands out postgres:// URLs, A-120).
+url = context.get_x_argument(as_dictionary=True).get("url") or get_settings().database_url
 config.set_main_option("sqlalchemy.url", url.replace("%", "%%"))
 
 target_metadata = Base.metadata

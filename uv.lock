@@ -1,5 +1,5 @@
 version = 1
-revision = 5
+revision = 3
 requires-python = "==3.12.*"
 resolution-markers = [
     "sys_platform == 'win32'",
@@ -16,6 +16,7 @@ members = [
     "cportal-c3",
     "cportal-c4",
     "cportal-c5",
+    "cportal-c6",
     "cportal-connectors",
     "cportal-core",
     "cportal-nexus",
@@ -235,6 +236,7 @@ dependencies = [
     { name = "cportal-c3" },
     { name = "cportal-c4" },
     { name = "cportal-c5" },
+    { name = "cportal-c6" },
     { name = "cportal-connectors" },
     { name = "cportal-core" },
     { name = "cportal-nexus" },
@@ -249,6 +251,7 @@ dev = [
     { name = "mypy" },
     { name = "pytest" },
     { name = "ruff" },
+    { name = "types-defusedxml" },
     { name = "types-pyyaml" },
     { name = "types-shapely" },
 ]
@@ -261,6 +264,7 @@ requires-dist = [
     { name = "cportal-c3", editable = "packages/c3_routing" },
     { name = "cportal-c4", editable = "packages/c4_port_dwell" },
     { name = "cportal-c5", editable = "packages/c5_defect_intel" },
+    { name = "cportal-c6", editable = "packages/c6_tariffs" },
     { name = "cportal-connectors", editable = "packages/connectors" },
     { name = "cportal-core", editable = "packages/core" },
     { name = "cportal-nexus", editable = "packages/nexus" },
@@ -275,6 +279,7 @@ dev = [
     { name = "mypy", specifier = ">=1.13" },
     { name = "pytest", specifier = ">=8.3" },
     { name = "ruff", specifier = ">=0.8" },
+    { name = "types-defusedxml", specifier = ">=0.7" },
     { name = "types-pyyaml", specifier = ">=6.0" },
     { name = "types-shapely", specifier = ">=2.0" },
 ]
@@ -289,6 +294,7 @@ dependencies = [
     { name = "cportal-c3" },
     { name = "cportal-c4" },
     { name = "cportal-c5" },
+    { name = "cportal-c6" },
     { name = "cportal-core" },
     { name = "fastapi" },
     { name = "python-multipart" },
@@ -302,6 +308,7 @@ requires-dist = [
     { name = "cportal-c3", editable = "packages/c3_routing" },
     { name = "cportal-c4", editable = "packages/c4_port_dwell" },
     { name = "cportal-c5", editable = "packages/c5_defect_intel" },
+    { name = "cportal-c6", editable = "packages/c6_tariffs" },
     { name = "cportal-core", editable = "packages/core" },
     { name = "fastapi", specifier = ">=0.115" },
     { name = "python-multipart", specifier = ">=0.0.20" },
@@ -424,11 +431,29 @@ requires-dist = [
 ]
 
 [[package]]
+name = "cportal-c6"
+version = "0.1.0"
+source = { editable = "packages/c6_tariffs" }
+dependencies = [
+    { name = "cportal-core" },
+    { name = "pyyaml" },
+    { name = "sqlalchemy" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "cportal-core", editable = "packages/core" },
+    { name = "pyyaml", specifier = ">=6.0" },
+    { name = "sqlalchemy", specifier = ">=2.0" },
+]
+
+[[package]]
 name = "cportal-connectors"
 version = "0.1.0"
 source = { editable = "packages/connectors" }
 dependencies = [
     { name = "cportal-core" },
+    { name = "defusedxml" },
     { name = "feedparser" },
     { name = "genson" },
     { name = "holidays" },
@@ -442,6 +467,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "cportal-core", editable = "packages/core" },
+    { name = "defusedxml", specifier = ">=0.7" },
     { name = "feedparser", specifier = ">=6.0" },
     { name = "genson", specifier = ">=1.3" },
     { name = "holidays", specifier = ">=0.60" },
@@ -530,6 +556,7 @@ dependencies = [
     { name = "cportal-c3" },
     { name = "cportal-c4" },
     { name = "cportal-c5" },
+    { name = "cportal-c6" },
     { name = "cportal-connectors" },
     { name = "cportal-core" },
     { name = "cportal-nexus" },
@@ -544,6 +571,7 @@ requires-dist = [
     { name = "cportal-c3", editable = "packages/c3_routing" },
     { name = "cportal-c4", editable = "packages/c4_port_dwell" },
     { name = "cportal-c5", editable = "packages/c5_defect_intel" },
+    { name = "cportal-c6", editable = "packages/c6_tariffs" },
     { name = "cportal-connectors", editable = "packages/connectors" },
     { name = "cportal-core", editable = "packages/core" },
     { name = "cportal-nexus", editable = "packages/nexus" },
@@ -598,6 +626,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/10/bf/8d6ebc7dded797bd0f0160d52188021211f011a2b164ef0ae1dac4587465/cryptography-50.0.2-cp39-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:7a8701d6b584d76e909e3d305b7d126b41439876a5aaf76cddc67fc230eafa2e", size = 4897738, upload-time = "2026-09-30T15:29:43.106Z" },
     { url = "https://files.pythonhosted.org/packages/d4/aa/f3f6e0de7e6253b8baa8b2d8fb9d50924fa75cee3d4624bd4bc1208ee923/cryptography-50.0.2-cp39-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:ce47f66801c20ec6c6632453bb5960fe38939e9306970b48b3a5a26de7745d94", size = 5058280, upload-time = "2026-09-30T15:29:44.827Z" },
     { url = "https://files.pythonhosted.org/packages/f6/b6/a1faf3a27ae9405fb34b1713cc73b2d8a26b04d5c561578fa2e6ef3e5bb9/cryptography-50.0.2-cp39-abi3-win_amd64.whl", hash = "sha256:4e81d95e5bafc2d6e34e4bed780e53e4d5b9a2f928573428aa4d35fbec1eb0de", size = 3854095, upload-time = "2026-09-30T15:29:46.782Z" },
+]
+
+[[package]]
+name = "defusedxml"
+version = "0.7.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/0f/d5/c66da9b79e5bdb124974bfe172b4daf3c984ebd9c2a06e2b8a4dc7331c72/defusedxml-0.7.1.tar.gz", hash = "sha256:1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69", size = 75520, upload-time = "2021-03-08T10:59:26.269Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/07/6c/aa3f2f849e01cb6a001cd8554a88d4c77c5c1a31c95bdf1cf9301e6d9ef4/defusedxml-0.7.1-py2.py3-none-any.whl", hash = "sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61", size = 25604, upload-time = "2021-03-08T10:59:24.45Z" },
 ]
 
 [[package]]
@@ -1697,6 +1734,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/00/dc/6c58154c1c65f758ea979e7139cb76993a9cfc662d14e9be3c4a667cfb77/threadpoolctl-3.7.0.tar.gz", hash = "sha256:61348cfb77d53b9242e0017029244b559b810c142ced65b4e21eeca1843959a7", size = 31961, upload-time = "2026-09-15T15:46:20.263Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/43/3f/f88a53f60a472b46f4023f56d204dd7de33d34c5d2acbfa0d70a674e639e/threadpoolctl-3.7.0-py3-none-any.whl", hash = "sha256:cd8b60b5641b45c67bbf73c64c843235fc2d8a480c87389f52f5dbee893b86be", size = 26362, upload-time = "2026-09-15T15:46:19.168Z" },
+]
+
+[[package]]
+name = "types-defusedxml"
+version = "0.7.0.20260504"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/da/d2/4553c8fa9cdebfe1e84b950cf790a4d2376a97fa016e43f7c65323fa6c7d/types_defusedxml-0.7.0.20260504.tar.gz", hash = "sha256:2ab2828a3f97111ba1c16cee273ad4124a831fc9198c41bf8368ff6ea48ad300", size = 10729, upload-time = "2026-05-04T05:22:50.192Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/bf/2d/8a4b5ba1d732b8bc691f0efbb1c6f77cb5f6f473b2afe181d83d910773c5/types_defusedxml-0.7.0.20260504-py3-none-any.whl", hash = "sha256:a959e3a0a43b93e464bd625d91ec9193a2703ddc10443bdd627792485fae0b10", size = 13467, upload-time = "2026-05-04T05:22:49.319Z" },
 ]
 
 [[package]]

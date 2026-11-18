@@ -315,6 +315,7 @@ class Capability(StrEnum):
     C3 = "c3"
     C4 = "c4"
     C5 = "c5"
+    C6 = "c6"
     NEXUS = "nexus"
 
 
@@ -330,3 +331,45 @@ class RunStatus(StrEnum):
     SUCCEEDED = "succeeded"
     PARTIAL = "partial"
     FAILED = "failed"
+
+
+# --- C6 tariffs (ADR-021) ----------------------------------------------------------------------
+
+
+class TariffMeasureKind(StrEnum):
+    """What a tariff measure does to the duty on a good."""
+
+    MFN = "mfn"  # third-country / general / most-favoured-nation rate
+    PREFERENTIAL = "preferential"  # replaces MFN for members of an origin group (FTA, GSP, EBA)
+    ADDITIONAL = "additional"  # added on top of the base rate (US Chapter 99 surcharges)
+    EXEMPTION = "exemption"  # removes an additional duty for some goods of an origin
+    COLUMN2 = "column2"  # US column 2 (non-normal trade relations)
+    SUSPENSION = "suspension"  # end-use or autonomous suspension (conditional)
+    QUOTA = "quota"  # preferential or MFN rate inside a tariff-rate quota
+    TRADE_REMEDY = "trade_remedy"  # anti-dumping, countervailing, safeguard
+    OTHER = "other"
+
+
+class TariffOriginKind(StrEnum):
+    ERGA_OMNES = "erga_omnes"  # every origin
+    COUNTRY = "country"  # one ISO3 country
+    GROUP = "group"  # an origin group (scheme or FTA), see tariff_origin_group
+
+
+class TariffStatus(StrEnum):
+    IN_FORCE = "in_force"
+    TERMINATED = "terminated"
+    FUTURE = "future"
+
+
+class TariffChangeKind(StrEnum):
+    ADDED = "added"
+    REMOVED = "removed"
+    CHANGED = "changed"
+
+
+class TradeNoticeKind(StrEnum):
+    TARIFF_MODIFICATION = "tariff_modification"  # HTS modified, duties imposed or changed
+    TRADE_REMEDY = "trade_remedy"  # AD/CVD orders, reviews, determinations
+    EXCLUSION = "exclusion"  # product exclusions and their extensions
+    OTHER = "other"

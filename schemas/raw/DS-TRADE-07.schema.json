@@ -1,0 +1,1616 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-TRADE-07",
+  "title": "DS-TRADE-07 · UK Trade Tariff API v2: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "uk_commodity_6109100010": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "attributes": {
+              "type": "object",
+              "properties": {
+                "producline_suffix": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "number_indents": {
+                  "type": "integer"
+                },
+                "goods_nomenclature_item_id": {
+                  "type": "string"
+                },
+                "bti_url": {
+                  "type": "string"
+                },
+                "formatted_description": {
+                  "type": "string"
+                },
+                "description_plain": {
+                  "type": "string"
+                },
+                "consigned": {
+                  "type": "boolean"
+                },
+                "consigned_from": {
+                  "type": "null"
+                },
+                "basic_duty_rate": {
+                  "type": "null"
+                },
+                "meursing_code": {
+                  "type": "boolean"
+                },
+                "validity_start_date": {
+                  "type": "string"
+                },
+                "validity_end_date": {
+                  "type": "null"
+                },
+                "has_chemicals": {
+                  "type": "boolean"
+                },
+                "declarable": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "basic_duty_rate",
+                "bti_url",
+                "consigned",
+                "consigned_from",
+                "declarable",
+                "description",
+                "description_plain",
+                "formatted_description",
+                "goods_nomenclature_item_id",
+                "has_chemicals",
+                "meursing_code",
+                "number_indents",
+                "producline_suffix",
+                "validity_end_date",
+                "validity_start_date"
+              ]
+            },
+            "relationships": {
+              "type": "object",
+              "properties": {
+                "footnotes": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                },
+                "section": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "type"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                },
+                "chapter": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "type"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                },
+                "heading": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "type"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                },
+                "ancestors": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                },
+                "import_measures": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                },
+                "export_measures": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                },
+                "import_trade_summary": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "type"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              },
+              "required": [
+                "ancestors",
+                "chapter",
+                "export_measures",
+                "footnotes",
+                "heading",
+                "import_measures",
+                "import_trade_summary",
+                "section"
+              ]
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "duty_calculator": {
+                  "type": "object",
+                  "properties": {
+                    "applicable_additional_codes": {
+                      "type": "object"
+                    },
+                    "applicable_measure_units": {
+                      "type": "object"
+                    },
+                    "applicable_vat_options": {
+                      "type": "object",
+                      "properties": {
+                        "VATZ": {
+                          "type": "string"
+                        },
+                        "VAT": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "VAT",
+                        "VATZ"
+                      ]
+                    },
+                    "entry_price_system": {
+                      "type": "boolean"
+                    },
+                    "meursing_code": {
+                      "type": "boolean"
+                    },
+                    "source": {
+                      "type": "string"
+                    },
+                    "trade_defence": {
+                      "type": "boolean"
+                    },
+                    "zero_mfn_duty": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "applicable_additional_codes",
+                    "applicable_measure_units",
+                    "applicable_vat_options",
+                    "entry_price_system",
+                    "meursing_code",
+                    "source",
+                    "trade_defence",
+                    "zero_mfn_duty"
+                  ]
+                }
+              },
+              "required": [
+                "duty_calculator"
+              ]
+            }
+          },
+          "required": [
+            "attributes",
+            "id",
+            "meta",
+            "relationships",
+            "type"
+          ]
+        },
+        "included": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "numeral": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "integer"
+                  },
+                  "section_note": {
+                    "type": "string"
+                  },
+                  "goods_nomenclature_item_id": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "formatted_description": {
+                    "type": "string"
+                  },
+                  "validity_start_date": {
+                    "type": "string"
+                  },
+                  "validity_end_date": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "chapter_note": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "basic_third_country_duty": {
+                    "type": "string"
+                  },
+                  "preferential_tariff_duty": {
+                    "type": "null"
+                  },
+                  "preferential_quota_duty": {
+                    "type": "null"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "formatted_base": {
+                    "type": "string"
+                  },
+                  "verbose_duty": {
+                    "type": "string"
+                  },
+                  "measure_type_series_id": {
+                    "type": "string"
+                  },
+                  "measure_component_applicable_code": {
+                    "type": "integer"
+                  },
+                  "order_number_capture_code": {
+                    "type": "integer"
+                  },
+                  "trade_movement_code": {
+                    "type": "integer"
+                  },
+                  "semantic_roles": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "id": {
+                    "type": [
+                      "integer",
+                      "string"
+                    ]
+                  },
+                  "measure_type_series_description": {
+                    "type": "string"
+                  },
+                  "officialjournal_number": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "officialjournal_page": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "published_date": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "regulation_code": {
+                    "type": "string"
+                  },
+                  "regulation_url": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "role": {
+                    "type": "integer"
+                  },
+                  "duty_expression_id": {
+                    "type": "string"
+                  },
+                  "duty_amount": {
+                    "type": [
+                      "null",
+                      "number"
+                    ]
+                  },
+                  "monetary_unit_code": {
+                    "type": "null"
+                  },
+                  "monetary_unit_abbreviation": {
+                    "type": "null"
+                  },
+                  "measurement_unit_code": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "measurement_unit_qualifier_code": {
+                    "type": "null"
+                  },
+                  "duty_expression_description": {
+                    "type": "string"
+                  },
+                  "duty_expression_abbreviation": {
+                    "type": "string"
+                  },
+                  "geographical_area_id": {
+                    "type": "string"
+                  },
+                  "geographical_area_sid": {
+                    "type": "integer"
+                  },
+                  "origin": {
+                    "type": "string"
+                  },
+                  "import": {
+                    "type": "boolean"
+                  },
+                  "export": {
+                    "type": "boolean"
+                  },
+                  "effective_start_date": {
+                    "type": "string"
+                  },
+                  "effective_end_date": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "excise": {
+                    "type": "boolean"
+                  },
+                  "vat": {
+                    "type": "boolean"
+                  },
+                  "reduction_indicator": {
+                    "type": "null"
+                  },
+                  "meursing": {
+                    "type": "boolean"
+                  },
+                  "resolved_duty_expression": {
+                    "type": "string"
+                  },
+                  "universal_waiver_applies": {
+                    "type": "boolean"
+                  },
+                  "action": {
+                    "type": "string"
+                  },
+                  "action_code": {
+                    "type": "string"
+                  },
+                  "certificate_description": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "condition": {
+                    "type": "string"
+                  },
+                  "condition_code": {
+                    "type": "string"
+                  },
+                  "condition_duty_amount": {
+                    "type": [
+                      "null",
+                      "number"
+                    ]
+                  },
+                  "condition_measurement_unit_code": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "condition_measurement_unit_qualifier_code": {
+                    "type": "null"
+                  },
+                  "condition_monetary_unit_code": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "document_code": {
+                    "type": "string"
+                  },
+                  "duty_expression": {
+                    "type": "string"
+                  },
+                  "guidance_cds": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "measure_condition_class": {
+                    "type": "string"
+                  },
+                  "requirement": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "requirement_operator": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "threshold_unit_type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "initial_volume": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "balance": {
+                    "type": "string"
+                  },
+                  "measurement_unit": {
+                    "type": "string"
+                  },
+                  "monetary_unit": {
+                    "type": "null"
+                  },
+                  "measurement_unit_qualifier": {
+                    "type": "null"
+                  },
+                  "last_allocation_date": {
+                    "type": "null"
+                  },
+                  "suspension_period_start_date": {
+                    "type": "null"
+                  },
+                  "suspension_period_end_date": {
+                    "type": "null"
+                  },
+                  "blocking_period_start_date": {
+                    "type": "null"
+                  },
+                  "blocking_period_end_date": {
+                    "type": "null"
+                  },
+                  "number": {
+                    "type": "string"
+                  },
+                  "description_plain": {
+                    "type": "string"
+                  },
+                  "producline_suffix": {
+                    "type": "string"
+                  },
+                  "number_indents": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "relationships": {
+                "type": "object",
+                "properties": {
+                  "guides": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "children_geographical_areas": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "duty_expression": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "measure_type": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "legal_acts": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "measure_conditions": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "measure_components": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "geographical_area": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "footnotes": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "order_number": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "type"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "preference_code": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "type"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "measure_condition_permutation_groups": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "resolved_measure_components": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "national_measurement_units": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "excluded_countries": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "measurement_unit": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "measurement_unit_qualifier": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "null"
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "measure_condition_components": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "permutations": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "additional_code": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "incoming_quota_closed_and_transferred_event": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "null"
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "definition": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  }
+                }
+              },
+              "meta": {
+                "type": "object",
+                "properties": {
+                  "duty_calculator": {
+                    "type": "object",
+                    "properties": {
+                      "source": {
+                        "type": "string"
+                      },
+                      "scheme_code": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "scheme_code",
+                      "source"
+                    ]
+                  }
+                },
+                "required": [
+                  "duty_calculator"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "data",
+        "included"
+      ]
+    },
+    "uk_heading_6109": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "attributes": {
+              "type": "object",
+              "properties": {
+                "goods_nomenclature_item_id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "bti_url": {
+                  "type": "string"
+                },
+                "formatted_description": {
+                  "type": "string"
+                },
+                "description_plain": {
+                  "type": "string"
+                },
+                "validity_start_date": {
+                  "type": "string"
+                },
+                "validity_end_date": {
+                  "type": "null"
+                },
+                "declarable": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "bti_url",
+                "declarable",
+                "description",
+                "description_plain",
+                "formatted_description",
+                "goods_nomenclature_item_id",
+                "validity_end_date",
+                "validity_start_date"
+              ]
+            },
+            "relationships": {
+              "type": "object",
+              "properties": {
+                "footnotes": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                },
+                "section": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "type"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                },
+                "chapter": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "type"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                },
+                "commodities": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              },
+              "required": [
+                "chapter",
+                "commodities",
+                "footnotes",
+                "section"
+              ]
+            }
+          },
+          "required": [
+            "attributes",
+            "id",
+            "relationships",
+            "type"
+          ]
+        },
+        "included": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "numeral": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "integer"
+                  },
+                  "section_note": {
+                    "type": "string"
+                  },
+                  "goods_nomenclature_item_id": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "formatted_description": {
+                    "type": "string"
+                  },
+                  "chapter_note": {
+                    "type": "string"
+                  },
+                  "validity_start_date": {
+                    "type": "string"
+                  },
+                  "validity_end_date": {
+                    "type": "null"
+                  },
+                  "forum_url": {
+                    "type": "null"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "base": {
+                    "type": "string"
+                  },
+                  "formatted_base": {
+                    "type": "string"
+                  },
+                  "verbose_duty": {
+                    "type": "string"
+                  },
+                  "measure_type_series_id": {
+                    "type": "string"
+                  },
+                  "measure_component_applicable_code": {
+                    "type": "integer"
+                  },
+                  "order_number_capture_code": {
+                    "type": "integer"
+                  },
+                  "trade_movement_code": {
+                    "type": "integer"
+                  },
+                  "semantic_roles": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "id": {
+                    "type": [
+                      "integer",
+                      "string"
+                    ]
+                  },
+                  "measure_type_series_description": {
+                    "type": "string"
+                  },
+                  "vat": {
+                    "type": "boolean"
+                  },
+                  "number_indents": {
+                    "type": "integer"
+                  },
+                  "leaf": {
+                    "type": "boolean"
+                  },
+                  "producline_suffix": {
+                    "type": "string"
+                  },
+                  "goods_nomenclature_sid": {
+                    "type": "integer"
+                  },
+                  "description_plain": {
+                    "type": "string"
+                  },
+                  "parent_sid": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "declarable": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "relationships": {
+                "type": "object",
+                "properties": {
+                  "guides": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "duty_expression": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "measure_type": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "additional_code": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "type"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  },
+                  "overview_measures": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ]
+                  }
+                }
+              }
+            },
+            "required": [
+              "attributes",
+              "id",
+              "type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "data",
+        "included"
+      ]
+    }
+  }
+}

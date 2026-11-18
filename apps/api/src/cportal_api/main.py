@@ -39,6 +39,7 @@ from cportal_api.routers import (
     scenarios,
     ships,
     sources,
+    tariffs,
     traffic,
 )
 from cportal_api.schemas import BrandOut, Problem
@@ -136,6 +137,7 @@ def create_app() -> FastAPI:
         traffic,
         port_live,
         brief,
+        tariffs,
     )
     for module in routers:
         router = module.router

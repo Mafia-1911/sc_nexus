@@ -84,8 +84,13 @@ class LiveHttp:
         self.bucket.acquire()
         t0 = time.perf_counter()
         try:
+            # params=None, not {}: an empty mapping makes httpx drop a query string that is
+            # already in the URL (repeated keys such as fields[] can only travel that way).
             response = self.client.get(
-                url, params=dict(params or {}), headers=dict(headers or {}), timeout=timeout_s
+                url,
+                params=dict(params) if params else None,
+                headers=dict(headers or {}),
+                timeout=timeout_s,
             )
         except httpx.HTTPError as exc:
             raise LiveError(f"{name}: {type(exc).__name__}") from exc

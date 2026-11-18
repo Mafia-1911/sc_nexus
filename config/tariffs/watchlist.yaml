@@ -1,0 +1,15 @@
+# What the tariff monitor (C6, ADR-021) watches. HS6 codes come from the industry packs
+# (config/industry_packs/*.yaml), so a product added there is watched here too.
+version: 1
+markets:
+  USA: {name: "United States", live: DS-TRADE-05, mfn_history: DS-TRADE-04, wits_reporter: "840"}
+  GBR: {name: "United Kingdom", live: DS-TRADE-07, mfn_history: DS-TRADE-04, wits_reporter: "826"}
+  EUN: {name: "European Union", live: null, mfn_history: DS-TRADE-04, wits_reporter: "918", preferences: DS-TRADE-08}
+  JPN: {name: "Japan", live: null, mfn_history: DS-TRADE-04, wits_reporter: "392"}
+  CAN: {name: "Canada", live: null, mfn_history: DS-TRADE-04, wits_reporter: "124"}
+# Origins compared in the matrix: Bangladesh first, then the main garment and pharma competitors.
+origins: [BGD, VNM, KHM, IND, CHN, PAK, LKA]
+# US Chapter 99 range holding the country surcharges and their exemptions (from, to-exclusive).
+us_chapter99: ["9903.01", "9903.07"]
+# WITS publishes reported MFN 1-3 years late: try these years newest first.
+wits_years_back: [2, 3, 4]

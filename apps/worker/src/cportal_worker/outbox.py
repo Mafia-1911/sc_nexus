@@ -65,6 +65,12 @@ def run_c5_refresh(params: dict[str, Any], database_url: str | None) -> dict[str
     return c5.refresh(database_url, force=bool(params.get("force")))
 
 
+def run_c6_refresh(params: dict[str, Any], database_url: str | None) -> dict[str, Any]:
+    from cportal_worker import c6
+
+    return c6.refresh(database_url)
+
+
 def run_nexus_refresh(params: dict[str, Any], database_url: str | None) -> dict[str, Any]:
     from cportal_worker import nexus
 
@@ -77,6 +83,7 @@ JOB_HANDLERS: dict[str, Callable[[dict[str, Any], str | None], dict[str, Any]]] 
     "c2.process": run_c2_process,
     "c4.train": run_c4_train,
     "c5.refresh": run_c5_refresh,
+    "c6.refresh": run_c6_refresh,
     "nexus.refresh": run_nexus_refresh,
 }
 # Handlers that record the job id on what they write.
@@ -135,6 +142,13 @@ def _dispatch(event: OutboxEvent, database_url: str | None) -> None:
         from cportal_worker import c4
 
         c4.train(database_url)  # new GFW port visits: retrain and replace the replay
+    elif event.topic == "source.ingested" and str(event.payload.get("ds_id", "")).startswith(
+        "DS-TRADE-0"
+    ):
+        from cportal_worker import c6
+
+        if event.payload.get("ds_id") in c6.TARIFF_SOURCES:
+            c6.refresh(database_url)  # a new schedule snapshot: changes and the matrix now
     elif event.topic.startswith("disruption.") and event.payload.get("capability") != "c2":
         # C1-AC06: a new or changed event moves risk scores and what-if defaults now, not at
         # the next scheduled refresh.

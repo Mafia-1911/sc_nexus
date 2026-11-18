@@ -407,7 +407,8 @@ def wits_eu() -> list:
 
 def test_wits_eu_mfn(wits_eu: list) -> None:
     by = {m.hs6: m for m in _of(wits_eu, TariffMeasureRecord)}
-    assert len(by) == 21
+    assert len(by) == 22  # all watched codes since HS 960290 → 960200 (Q-26)
+    assert "960200" in by and "960290" not in by
     tee = by["610910"]
     assert tee.market_iso3 == "EUN" and tee.kind == "mfn" and tee.ad_valorem_pct == 12.0
     assert tee.valid_from == dt.date(2023, 1, 1) and tee.valid_to == dt.date(2023, 12, 31)

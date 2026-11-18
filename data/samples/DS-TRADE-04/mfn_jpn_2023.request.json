@@ -1,11 +1,11 @@
 {
   "method": "GET",
-  "url": "https://wits.worldbank.org/API/V1/SDMX/V21/datasource/TRN/reporter/392/partner/000/product/292429;292529;293339;294110;300410;300490;391290;392043;481910;520100;520512;520942;580710;600622;610510;610910;611020;620342;760720;960290;960621;960711/year/2023/datatype/reported",
+  "url": "https://wits.worldbank.org/API/V1/SDMX/V21/datasource/TRN/reporter/392/partner/000/product/292429;292529;293339;294110;300410;300490;391290;392043;481910;520100;520512;520942;580710;600622;610510;610910;611020;620342;760720;960200;960621;960711/year/2023/datatype/reported",
   "headers": {
     "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
   },
   "note": "WITS TRAINS reported MFN, reporter 392, 22 industry-pack HS6 codes, 2023",
-  "captured_at": "2026-11-18T11:59:01.384303+00:00",
+  "captured_at": "2026-11-18T14:35:18.768807+00:00",
   "status": 200,
-  "bytes": 9393
+  "bytes": 9758
 }

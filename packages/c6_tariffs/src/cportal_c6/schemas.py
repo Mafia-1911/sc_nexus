@@ -46,6 +46,7 @@ class OverviewOut(BaseModel):
     feeds: list[FeedOut]
     changes_30d: int
     notices_30d: int
+    news_30d: int
     latest_change_at: dt.datetime | None
 
 
@@ -167,3 +168,38 @@ class OriginDetailOut(BaseModel):
     origin: OriginOut
     schemes: list[SchemeOut]
     surcharges: list[dict[str, Any]]
+
+
+class NewsConfirmationOut(BaseModel):
+    change_id: str
+    market: str
+    measure_ref: str
+    origin_code: str
+    old_duty_text: str | None
+    new_duty_text: str | None
+    delta_pp: float | None
+    detected_at: dt.datetime
+
+
+class NewsOut(BaseModel):
+    event_id: str
+    title: str
+    url: str | None
+    published: dt.datetime = Field(description="First report")
+    last_updated: dt.datetime
+    reports: int
+    outlets: list[str]
+    source_id: str
+    direction: str = Field(description="raise | cut | exempt | unknown")
+    status: str = Field(description="announced | threatened")
+    markets: list[str]
+    origins: list[str]
+    rate_pct: float | None
+    previous_pct: float | None
+    industries: list[str]
+    effective: str | None
+    quote: str | None = Field(description="The words the direction was read from")
+    confirmed: bool
+    label: str = Field(description="'in the schedule' or 'announced, not in the schedule yet'")
+    confirmation: NewsConfirmationOut | None
+    data_mode: str

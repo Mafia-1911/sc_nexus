@@ -58,6 +58,9 @@ class Event:
     lat: float = 0.0
     clusters: list[str] = field(default_factory=list)
     data_mode: str = "replay"
+    subtype: str | None = (
+        None  # trade policy: tariff_raise | tariff_cut | tariff_exempt | tariff_unknown
+    )
 
     @property
     def first_seen(self) -> datetime:
@@ -95,6 +98,8 @@ def cluster(mentions: list[Mention], cfg: Config | None = None) -> list[Event]:
         for e in reversed(events):
             if FAMILY.get(e.type, e.type) != family:
                 continue
+            if not _same_tariff_story(e, x):
+                continue
             if m.published - e.last_updated > timedelta(hours=WINDOW_H):
                 continue
             there = places[e.place_id]
@@ -124,6 +129,34 @@ def cluster(mentions: list[Mention], cfg: Config | None = None) -> list[Event]:
     return events
 
 
+def _tariff_key(x: Extraction) -> tuple[frozenset[str], str] | None:
+    t = x.tariff
+    if t is None or t.direction == "unknown":
+        return None
+    return frozenset(t.markets), t.direction
+
+
+def _same_tariff_story(e: Event, x: Extraction) -> bool:
+    """Two trade-policy reports are one story only if they agree on the market and on which way
+    the tariff moves (a US cut and an EU raise in the same week are two stories)."""
+    key = _tariff_key(x)
+    if key is None:
+        return True
+    keys = {k for m in e.mentions if (k := _tariff_key(m.extraction))}
+    return not keys or key in keys
+
+
+def tariff_subtype(e: Event) -> str | None:
+    """Trade-policy events: the newest report that says which way the tariff moves decides."""
+    signals = [(m.published, m.extraction.tariff) for m in e.mentions if m.extraction.tariff]
+    if e.type != "TRADE_POLICY_SANCTION" or not signals:
+        return None
+    known = [(t, s) for t, s in signals if s.direction != "unknown"]
+    if not known:
+        return "tariff_unknown"
+    return f"tariff_{max(known, key=lambda ts: ts[0])[1].direction}"
+
+
 def score(e: Event, cfg: Config) -> None:
     places = {p.id: p for p in cfg.places}
     prior = cfg.prior(e.type)
@@ -132,6 +165,7 @@ def score(e: Event, cfg: Config) -> None:
     e.summary = lead.extraction.text[:600]
     latest = max(e.mentions, key=lambda m: m.published)
     e.status = latest.extraction.status
+    e.subtype = tariff_subtype(e)
     starts = [m.extraction.start for m in e.mentions if m.extraction.start]
     e.start = min(starts) if starts else e.first_seen
     e.start_uncertainty_h = 24.0 if starts else 12.0

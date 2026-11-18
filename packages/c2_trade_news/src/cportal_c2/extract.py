@@ -13,6 +13,7 @@ from datetime import datetime, timedelta
 from pydantic import BaseModel, Field
 
 from cportal_c2.config import Config, Place, load_config
+from cportal_c2.tariff import TariffSignal, extract_tariff
 
 WEEKDAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 WEEKDAY_RX = re.compile(
@@ -64,6 +65,7 @@ class Extraction(BaseModel):
     extractor: str = "rules"
     llm_agrees: bool | None = None  # the local LLM's second opinion, when asked
     ungrounded: int = 0
+    tariff: TariffSignal | None = None  # trade-policy news only (Q-25)
 
     @property
     def primary(self) -> PlaceHit | None:
@@ -195,4 +197,5 @@ def extract(
         status=status,
         status_span=status_span,
         confidence=round(min(0.9, 0.4 + 0.1 * grounded), 2) if is_disruption else 0.0,
+        tariff=extract_tariff(text) if event_type == "TRADE_POLICY_SANCTION" else None,
     )

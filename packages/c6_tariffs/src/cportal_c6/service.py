@@ -10,8 +10,12 @@ from __future__ import annotations
 import datetime as dt
 from collections import Counter
 from typing import Any
+from uuid import UUID
 
 from cportal_core.models import (
+    Article,
+    DisruptionEvent,
+    EventMention,
     TariffChange,
     TariffEffectiveRate,
     TariffMeasure,
@@ -34,6 +38,8 @@ from cportal_c6.schemas import (
     MarketDetailOut,
     MarketOut,
     MatrixOut,
+    NewsConfirmationOut,
+    NewsOut,
     NoticeOut,
     OriginDetailOut,
     OriginOut,
@@ -100,6 +106,12 @@ def overview(session: Session, now: dt.datetime | None = None) -> OverviewOut:
         )
         or 0,
         latest_change_at=session.scalar(select(func.max(TariffChange.detected_at))),
+        news_30d=session.scalar(
+            select(func.count())
+            .select_from(DisruptionEvent)
+            .where(*_news_scope(), DisruptionEvent.last_updated >= since)
+        )
+        or 0,
     )
 
 
@@ -363,3 +375,132 @@ def origin_detail(session: Session, iso3: str, on: dt.date | None = None) -> Ori
             }
         )
     return OriginDetailOut(origin=_origin(iso3), schemes=schemes, surcharges=out)
+
+
+# --- tariff news (C2 trade-policy events with their tariff signal, Q-25) -----------------------
+
+NEWS_DAYS = 60
+CONFIRM_BEFORE = dt.timedelta(days=30)  # a schedule may change a little before the story
+CONFIRM_AFTER = dt.timedelta(days=90)  # or a while after it is announced
+_LABEL = {True: "in the schedule", False: "announced, not in the schedule yet"}
+
+
+def _news_scope() -> list[Any]:
+    """Real trade-policy events only (tariffs are real data; scenarios have no tariff news)."""
+    return [
+        DisruptionEvent.type == "TRADE_POLICY_SANCTION",
+        DisruptionEvent.scenario_id.is_(None),
+        ~DisruptionEvent.is_synthetic,
+    ]
+
+
+def _agrees(direction: str, change: TariffChange) -> bool:
+    delta = change.delta_pp
+    if direction == "raise":
+        return delta is not None and delta > 0
+    if direction == "cut":
+        return delta is not None and delta < 0
+    if direction == "exempt":
+        return change.kind == "exemption" or (delta is not None and delta < 0)
+    return False
+
+
+def _confirmation(
+    changes: list[TariffChange], signal: dict[str, Any], published: dt.datetime
+) -> TariffChange | None:
+    """The schedule change that confirms a story: same market, an origin it names (or a change
+    for every origin), the same direction, detected within the window around the story."""
+    markets = set(signal.get("markets") or [])
+    origins = set(signal.get("origins") or [])
+    for c in changes:  # newest first
+        if c.market_iso3 not in markets:
+            continue
+        if origins and c.origin_code not in origins and c.origin_code != "*":
+            continue
+        if not (published - CONFIRM_BEFORE <= c.detected_at <= published + CONFIRM_AFTER):
+            continue
+        if _agrees(str(signal.get("direction")), c):
+            return c
+    return None
+
+
+def news(
+    session: Session,
+    market: str | None = None,
+    origin: str | None = None,
+    limit: int = 50,
+    now: dt.datetime | None = None,
+    event_id: UUID | None = None,
+) -> list[NewsOut]:
+    now = now or dt.datetime.now(dt.UTC)
+    q = select(DisruptionEvent).where(*_news_scope())
+    if event_id is not None:  # one event, whatever its age (the Radar's drawer asks for it)
+        q = q.where(DisruptionEvent.id == event_id)
+    else:
+        q = q.where(DisruptionEvent.last_updated >= now - dt.timedelta(NEWS_DAYS))
+    events = list(session.scalars(q.order_by(DisruptionEvent.first_seen.desc())))
+    if not events:
+        return []
+    rows = session.execute(
+        select(EventMention.event_id, EventMention.extracted, Article.url, Article.source_name,
+               Article.published_at)
+        .join(Article, Article.id == EventMention.article_id)
+        .where(EventMention.event_id.in_([e.id for e in events]))
+        .order_by(Article.published_at.desc())
+    ).all()  # fmt: skip
+    by_event: dict[Any, list[Any]] = {}
+    for r in rows:
+        by_event.setdefault(r.event_id, []).append(r)
+    changes = list(session.scalars(select(TariffChange).order_by(TariffChange.detected_at.desc())))
+    out: list[NewsOut] = []
+    for e in events:
+        mentions = by_event.get(e.id, [])
+        signals = [m.extracted.get("tariff") for m in mentions if m.extracted.get("tariff")]
+        known = [s for s in signals if s.get("direction") != "unknown"]
+        signal: dict[str, Any] = (known or signals or [{}])[0]  # newest report first
+        if market and market not in (signal.get("markets") or []):
+            continue
+        if origin and origin not in (signal.get("origins") or []):
+            continue
+        published = e.first_seen or e.last_updated or now
+        hit = _confirmation(changes, signal, published) if signal else None
+        quote = (signal.get("spans") or {}).get("direction", {}).get("text")
+        out.append(
+            NewsOut(
+                event_id=str(e.id),
+                title=e.title,
+                url=mentions[-1].url if mentions else e.url,
+                published=published,
+                last_updated=e.last_updated or published,
+                reports=len(mentions),
+                outlets=sorted({m.source_name for m in mentions if m.source_name}),
+                source_id=e.source_id,
+                direction=str(signal.get("direction") or "unknown"),
+                status=str(signal.get("status") or "announced"),
+                markets=list(signal.get("markets") or []),
+                origins=list(signal.get("origins") or []),
+                rate_pct=signal.get("rate_pct"),
+                previous_pct=signal.get("previous_pct"),
+                industries=list(signal.get("industries") or []),
+                effective=signal.get("effective"),
+                quote=quote,
+                confirmed=hit is not None,
+                label=_LABEL[hit is not None],
+                confirmation=None
+                if hit is None
+                else NewsConfirmationOut(
+                    change_id=str(hit.id),
+                    market=hit.market_iso3,
+                    measure_ref=hit.measure_ref,
+                    origin_code=hit.origin_code,
+                    old_duty_text=hit.old_duty_text,
+                    new_duty_text=hit.new_duty_text,
+                    delta_pp=hit.delta_pp,
+                    detected_at=hit.detected_at,
+                ),
+                data_mode=e.data_mode,
+            )
+        )
+        if len(out) >= limit:
+            break
+    return out

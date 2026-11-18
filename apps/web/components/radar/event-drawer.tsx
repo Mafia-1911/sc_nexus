@@ -6,6 +6,7 @@ import { useState, useTransition } from "react";
 
 import { decide } from "@/app/(app)/radar/actions";
 import { DataBadge } from "@/components/data-badge";
+import { TariffCheck } from "@/components/radar/tariff-check";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { productName, usd } from "@/lib/c1";
@@ -241,6 +242,7 @@ export function EventDrawer({ detail, scenario, onClose }: { detail: EventDetail
           </p>
         </section>
       ) : null}
+      {e.type === "TRADE_POLICY_SANCTION" && e.data_mode !== "synthetic" ? <TariffCheck key={e.id} eventId={e.id} /> : null}
       {detail.recommendations.map((r) => (
         <Recommendation key={r.id} rec={r} scenario={scenario} />
       ))}

@@ -1,5 +1,42 @@
 # STATUS (updated 2026-11-18)
 
+Tariff Monitor UI (2026-11-18; Q-22…Q-26 approved; A-135…A-141; plan `docs/tariffs/UI_PLAN.md`):
+- **New page `/tariffs`** (nav "Tariff Monitor"): industry and compare chips, origin or market
+  chips, 4 KPI tiles, matrix of effective duty (products × markets or origins) on the theme's
+  depth ramp (validated, Q-22) with "Free", ranges, "≥" (no single number, hatched), "≤"
+  (ceiling: no preference data), "varies" (WITS lines differ) and a "2023" stale label; activity
+  card with News / Schedule changes / Official notices; inline detail card (rate stack SVG,
+  compare origins, how the rate is made up with scheme names and source links, national lines
+  grouped by rate, changes); feed status (live, hand-kept, missing with to-do).
+- **Cards elsewhere:** Route Planner "Duty at the border" overlay (export: destination duty by
+  origin; import: Bangladesh feed missing) with Cargo and Export market selects (Q-24); Supplier
+  Network node drawer (buyers abroad: duty into their market; overseas suppliers: feed missing;
+  real data with its own badge, Q-23) and `?node=` deep link (A-140); Disruption Radar "Tariff
+  check" on real trade-policy events; Control Tower brief line (cited).
+- **Backend added for it:** C2 tariff signal and `tariff_news` stories (A-137), event subtypes,
+  cuts and exemptions raise no alerts (G-9 fixed); `GET /tariffs/news`; component scheme names;
+  `is_ceiling` (A-138); HS 960290 → 960200 (G-10, 22 of 22 codes now in WITS); migration
+  `3ea4e301beca`.
+- **Bugs found and fixed:** C2 real events stored as synthetic after area events (A-136,
+  pre-existing); `is_ceiling` migration on filled tables (A-135); phantom changes from
+  unversioned snapshots; Live badge contrast 4.34:1 (shared Badge, A-139).
+- **Live data now (dev DB, 2026-11-18):** 17,148 current measures; 3 real tariff stories (US
+  tariff shock on Indian textiles: raise; India-US deal: direction unclear; US zero tariff on
+  Bangladeshi pharma: exemption), all "announced, not in the schedule yet"; 49 Federal Register
+  notices; no schedule change yet (needs a second daily fetch).
+- **Checks:** pytest 525 passed, 1 failed (`/api/v1/graph` latency, failing before this work);
+  ruff, format, import contracts, mypy, alembic check clean; tsc and ESLint clean; e2e:
+  `tariffs.spec.ts` 10 passed + 1 skipped (Radar card: no real trade-policy event now; verified
+  once with a labelled test article that was removed), axe 20 of 20 (10 pages × 2 themes),
+  sources 15 passed; smoke: every test on a changed page passes; 5 e2e failures elsewhere are
+  missing CPA/C4/C5 data in this container (A-141). Screenshots `docs/screenshots/tariff-monitor-*`,
+  `route-planner-tariff-*`, `network-tariff-*`. UI checked by the author (no separate checker
+  agent was used).
+- **Next:** graduation scenario (BACKEND.md §6 step 1), exposure on orders, rules-of-origin
+  check, Japan/Canada preference data (removes the ceilings), EU TARIC feed.
+- **Note for the user:** `next build` reports a known security advisory for Next.js 16.4.3;
+  not upgraded in this task.
+
 UI plan for the Tariff Monitor (2026-11-18, A-134): `docs/tariffs/UI_PLAN.md` (+ `.docx`).
 New page on the Disruption Radar's workbench pattern; tariff cards on the Route Planner map,
 Supplier Network node drawer, Radar trade-policy events, and a Control Tower brief line.

@@ -832,11 +832,36 @@ class TariffEffectiveRateRecord(Record):
     preference_pct: float | None = None
     additional_pct: float | None = None
     is_stale: bool = False
+    is_ceiling: bool = False
     components: list[dict[str, Any]] = Field(default_factory=list)
     lines: list[dict[str, Any]] = Field(default_factory=list)
     notes: list[str] = Field(default_factory=list)
     sources: list[str] = Field(default_factory=list)
     computed_at: AwareDatetime
+
+
+class TariffNewsRecord(Record):
+    table = "tariff_news"
+
+    story_key: str = Field(max_length=200)
+    article_ids: list[str] = Field(default_factory=list)
+    title: str
+    url: str | None = None
+    outlets: list[str] = Field(default_factory=list)
+    reports: int = Field(ge=1)
+    first_published: AwareDatetime
+    last_published: AwareDatetime
+    direction: str
+    status: str
+    markets: list[str] = Field(default_factory=list)
+    origins: list[str] = Field(default_factory=list)
+    rate_pct: float | None = None
+    previous_pct: float | None = None
+    industries: list[str] = Field(default_factory=list)
+    effective: str | None = None
+    quote: str | None = None
+    spans: dict[str, Any] = Field(default_factory=dict)
+    event_id: UUID | None = None
 
 
 class TradePolicyNoticeRecord(Record):
@@ -901,5 +926,6 @@ RECORD_TYPES: tuple[type[Record], ...] = (
     TariffSnapshotRecord,
     TariffChangeRecord,
     TariffEffectiveRateRecord,
+    TariffNewsRecord,
     TradePolicyNoticeRecord,
 )

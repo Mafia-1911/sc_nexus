@@ -63,6 +63,13 @@ def live_source(market: str) -> str | None:
 MFN_HISTORY = "DS-TRADE-04"
 
 
+def has_preferences(market: str) -> bool:
+    """Whether the data knows this market's preferences (FTAs, GSP, LDC access): a live
+    schedule carries them; otherwise a `preferences` source must be named in the watchlist."""
+    m = markets().get(market, {})
+    return bool(m.get("live") or m.get("preferences"))
+
+
 @cache
 def country_names() -> dict[str, str]:
     with (config_dir() / "tariffs" / "countries.yaml").open(encoding="utf-8") as fh:

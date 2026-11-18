@@ -13,11 +13,16 @@ type Params = Promise<{ origin?: string; dest?: string }>;
 async function PlannerLoader({ searchParams }: { searchParams: Params }) {
   const params = await searchParams;
   const client = await api();
-  const { data } = await client.GET("/api/v1/routes/places");
+  const [{ data }, tariffs] = await Promise.all([
+    client.GET("/api/v1/routes/places"),
+    client.GET("/api/v1/tariffs/overview"),
+  ]);
   if (!data) return <ErrorNote what="places" />;
+  // Cargo for the "Duty at the border" card (T3); the planner works without it.
+  const cargo = (tariffs.data?.data.products ?? []).map((p) => ({ hs6: p.hs6, name: p.name, industry: p.industry }));
   const places = data.data as unknown as Place[];
   const known = (k?: string) => (k && places.some((p) => p.key === k) ? k : undefined);
-  return <Planner places={places} origin={known(params.origin)} dest={known(params.dest)} />;
+  return <Planner places={places} origin={known(params.origin)} dest={known(params.dest)} cargo={cargo} />;
 }
 
 /** `?origin=&dest=` prefill the form (Quality Lab's "Replan" opens it from a failed lot's plant). */

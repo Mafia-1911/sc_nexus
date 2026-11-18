@@ -268,7 +268,7 @@ def _tariff_lines(session: SessionDep, now: datetime) -> list[BriefLine]:
     if pending:
         parts.append(f"{len(pending)} news report(s) not in the schedule yet")
         cites += [
-            BriefCite(kind="tariff", id=n.event_id, label=n.title[:60], href="/tariffs#news")
+            BriefCite(kind="tariff", id=n.id, label=n.title[:60], href="/tariffs#news")
             for n in pending
         ]
     head = f"Tariffs: {len(changes)} schedule change(s) this week" if changes else "Tariffs"

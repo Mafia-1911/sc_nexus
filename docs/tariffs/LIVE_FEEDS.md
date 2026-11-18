@@ -16,6 +16,7 @@ Probed 2026-11-18 from this environment, without keys. Raw samples: `data/sample
 | DS-TRADE-06 | Federal Register API | USA | Official notices from USTR, ITA, ITC, CBP, the President's office, BIS: kind, countries named, HTS numbers | live, every 6 h | Mostly AD/CVD cases; tariff modifications are a few per month |
 | DS-TRADE-07 | UK Trade Tariff API v2 | GBR | Every import measure per 10-digit commodity, origin groups with member countries (DCTS, FTAs), start/end dates, legal acts | live, daily (≈ 190 calls, ≈ 3 min) | OGL (verify). 169 commodities for the watched codes |
 | DS-TRADE-04 | WITS TRAINS SDMX | EUN, USA, GBR, JPN, CAN | Reported MFN simple averages by HS6, with the number of national lines and min/max | live, weekly | 1–3 years late (2023 newest). Used as the base only where no live schedule exists |
+| C2 news → `tariff_news` | RSS (Daily Star business, The Loadstar, shipping outlets), GDELT GKG, ReliefWeb | all | Tariff stories with direction, market, origin, rates; "announced" until the schedule confirms | live, every 15 min with C2 | Rules only (the local LLM is not used for this); headlines and snippets only (news guardrail) |
 | DS-TRADE-08 | EU preferences (manual) | EUN | EBA (Bangladesh, Cambodia), GSP+ (Pakistan, Sri Lanka), standard GSP rule (−20 % on chapters 61–63, no members), EVFTA (Vietnam, unresolved) | manual | `config/tariffs/eu_preferences.yaml`; every row `verify: true` |
 
 ## 2. Missing feeds (to-do, in priority order)

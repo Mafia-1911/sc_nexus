@@ -2,7 +2,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 /** Polish checklist (05 §10): no serious or critical accessibility violations on any page. */
-const PAGES = ["/", "/ports", "/network", "/radar", "/routes", "/quality", "/scenarios", "/data", "/welcome"];
+const PAGES = ["/", "/ports", "/network", "/radar", "/tariffs", "/routes", "/quality", "/scenarios", "/data", "/welcome"];
 
 for (const scheme of ["light", "dark"] as const) for (const path of PAGES) {
   test(`a11y ${scheme} ${path}`, async ({ page }) => {

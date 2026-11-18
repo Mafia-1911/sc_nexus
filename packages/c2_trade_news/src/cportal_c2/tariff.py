@@ -61,7 +61,7 @@ _CUT = re.compile(
 )
 _RAISE = re.compile(
     r"\b(impos\w+|hik\w+|rais(?:e|es|ed|ing)|increas\w+|levies|slap\w*|threat\w*"
-    r"|doubl\w+|new tariffs?)\b",
+    r"|doubl\w+|new tariffs? on|tariff shock)\b",
     re.I,
 )
 _THREAT = re.compile(
@@ -82,6 +82,26 @@ class TariffSignal(BaseModel):
     spans: dict[str, dict[str, Any]] = Field(default_factory=dict)
 
 
+NEAR_WORDS = 6  # at most this many words between a direction word and a tariff word
+_WORD = re.compile(r"\w+")
+
+
+def _words_between(text: str, a: re.Match[str], b: re.Match[str]) -> int:
+    lo, hi = sorted((a, b), key=lambda m: m.start())
+    return len(_WORD.findall(text[lo.end() : hi.start()]))
+
+
+def _near(
+    pattern: re.Pattern[str], text: str, keywords: list[re.Match[str]]
+) -> re.Match[str] | None:
+    """The first match of `pattern` within NEAR_WORDS words of a tariff word: "reduce US
+    reliance" eight words after "tariff shock" is not a tariff cut."""
+    for m in pattern.finditer(text):
+        if any(_words_between(text, m, k) <= NEAR_WORDS for k in keywords):
+            return m
+    return None
+
+
 def _span(m: re.Match[str], group: int = 0) -> dict[str, Any]:
     return {"text": m.group(group), "start": m.start(group), "end": m.end(group)}
 
@@ -100,6 +120,7 @@ def extract_tariff(text: str) -> TariffSignal | None:
     if kw is None:
         return None
     spans: dict[str, dict[str, Any]] = {"keyword": _span(kw)}
+    keywords = list(_KEYWORD.finditer(text))
     markets = _found(MARKETS, text)
     origins = [o for o in _found(ORIGINS, text) if o[1] not in {m[1] for m in markets}]
     if markets:
@@ -122,22 +143,22 @@ def extract_tariff(text: str) -> TariffSignal | None:
     direction = "unknown"
     if rate is not None and previous is not None and rate != previous:
         direction = "cut" if rate < previous else "raise"
-    elif m := _LOSE.search(text):
+    elif m := _near(_LOSE, text, keywords):
         direction = "raise"
         spans["direction"] = _span(m, 1)
-    elif (m := _EXEMPT.search(text)) or (rate == 0.0 and (m := _ZERO.search(text))):
+    elif (m := _near(_EXEMPT, text, keywords)) or (rate == 0.0 and (m := _ZERO.search(text))):
         direction = "exempt"
         spans["direction"] = _span(m)
-    elif m := _CUT.search(text):
+    elif m := _near(_CUT, text, keywords):
         direction = "cut"
         spans["direction"] = _span(m)
-    elif m := _RAISE.search(text):
+    elif m := _near(_RAISE, text, keywords):
         direction = "raise"
         spans["direction"] = _span(m)
     if (
         "direction" not in spans
         and direction in {"cut", "raise"}
-        and (m := (_CUT if direction == "cut" else _RAISE).search(text))
+        and (m := _near(_CUT if direction == "cut" else _RAISE, text, keywords))
     ):
         spans["direction"] = _span(m)
 

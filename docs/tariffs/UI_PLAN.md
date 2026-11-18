@@ -2,7 +2,7 @@
 topic: Tariff Monitor UI (C6) — new page, tariff cards on existing maps, cross-page hooks
 reference: apps/web/components/radar/workbench.tsx (Disruption Radar)
 written: 2026-11-18
-status: plan — waiting for the user's yes (§9) before any UI code
+status: built 2026-11-18 (T1–T7 done; see §11 for what was learned while building)
 ---
 
 # Tariff Monitor (C6): UI plan
@@ -299,15 +299,15 @@ with its reason on the line.
 
 ### Tasks
 
-- [ ] **T0 Calibrate the check.** Copy `apps/web/components/radar/workbench.tsx` into a
+- [ ] **T0 Calibrate the check.** `not done — no separate checker agent was used in this session; the author walked the checklist (2 off-base gaps and 1 duplicated constant fixed)`. Copy `apps/web/components/radar/workbench.tsx` into a
       scratch worktree outside the checkout, change one role (e.g. write the toolbar badge as
       a plain `<span>` instead of `DataBadge`), and give it to a separate agent with
       `ui-consistency:verifying` and the §5 checklist, told only that the copy differs
       somewhere. If the planted difference is not reported, stop: the check is blind for it.
-- [ ] **T1 Types and theme.** `npm run gen:api` (picks up `/tariffs/*`); add `lib/c6.ts`
+- [x] **T1 Types and theme.** `npm run gen:api` (picks up `/tariffs/*`); add `lib/c6.ts`
       (types, `pct()` formatter, market and origin names, ISO2 → market map).
-      `parked — waiting on Q-22` for the depth-ramp tokens in `app/globals.css` (light and dark).
-- [ ] **T2 Tariff Monitor page** — write `app/(app)/tariffs/page.tsx`,
+      Depth-ramp tokens added (Q-22 yes), validated light and dark.
+- [x] **T2 Tariff Monitor page** — write `app/(app)/tariffs/page.tsx`,
       `app/(app)/tariffs/actions.ts`, `components/tariffs/{workbench,matrix,change-feed,
       detail-card,rate-stack}.tsx`, the nav-rail entry (`Landmark` or `Scale` from lucide-react, after Disruption Radar),
       following `components/radar/workbench.tsx`, against the §5 checklist (carried in full
@@ -320,7 +320,7 @@ with its reason on the line.
          `ui-consistency:verifying`, never the writer or the calibrated agent) checks it; fix
          what it reports.
       3. Report the status here: `done` once the check has passed, or `parked — <why>`.
-- [ ] **T3 Route Planner: "Duty at the border" card** — `components/routes/planner.tsx`
+- [x] **T3 Route Planner: "Duty at the border" card** — `components/routes/planner.tsx`
       (Cargo and Market selects, written like the existing `select()` helper: `label` +
       `select` with the same classes) and `components/routes/route-map.tsx` (overlay,
       bottom right, the traffic control's overlay pattern), following the Route Planner's own
@@ -329,19 +329,19 @@ with its reason on the line.
       `absolute … z-10` like the traffic control, 1 of 1; card body — `Card`-like section with
       `Provenance`; values through the theme. Must not be copied: the traffic control's
       buttons. Steps 1–3 as in T2.
-- [ ] **T4 Supplier Network: tariff card in the node drawer** —
+- [x] **T4 Supplier Network: tariff card in the node drawer** —
       `components/network/node-drawer.tsx`, a section like the drawer's existing sections,
-      with its own `DataBadge`. `parked — waiting on Q-23` (real tariffs on a synthetic page).
+      with its own `DataBadge` (Q-23 yes); cards marked `data-reference`.
       Steps 1–3 as in T2.
-- [ ] **T5 Disruption Radar: "Tariff check" card** — `components/radar/event-drawer.tsx`,
+- [x] **T5 Disruption Radar: "Tariff check" card** — `components/radar/event-drawer.tsx`,
       shown for `TRADE_POLICY_SANCTION` only, written like the drawer's recommendation
       section. Steps 1–3 as in T2.
-- [ ] **T6 Control Tower brief line** — `apps/api/.../routers/brief.py` (one sentence citing
+- [x] **T6 Control Tower brief line** — `apps/api/.../routers/brief.py` (one sentence citing
       `tariff_change` rows) and its test; the brief component unchanged. Steps 1–3 as in T2
       (the check is the brief's existing e2e plus the new line).
-- [ ] **T7 C2 tariff fields (backend for T5 and the "announced" chip)** — extraction of
+- [x] **T7 C2 tariff fields (backend for T5 and the "announced" chip)** — extraction of
       direction, market, rate, HS chapter, effective date; only raises feed buffers (G-9);
-      `parked — waiting on Q-25`.
+      Done (Q-25 yes): plus the `tariff_news` table for the Monitor's news (A-137).
 - [ ] **Close the plan** — once every task is done or parked: report what is under *Decided*
       with the result.
 
@@ -369,3 +369,17 @@ planning (with plan-file.md). About 25 project files opened and about 30 searche
 this session (estimate; not every count was kept). Not evaluated: the web app's runtime
 behaviour (no browser run this turn; that is §7's job), and contrast numbers (only measured
 when accessibility is asked for; the axe check in §7 covers it).
+
+
+---
+
+## 11. What building it changed (2026-11-18)
+
+| Plan said | What happened | Why |
+|---|---|---|
+| Matrix beside the activity card at 1280 px | Matrix full width below 1536 px; activity card below it | The screenshot showed Canada pushed into horizontal scroll (my estimate in §2 was wrong); an e2e check now asserts every column fits |
+| News from C2 disruption events | A `tariff_news` table written by C2 | Real tariff news on competitors (e.g. US tariffs on Indian textiles) never becomes a Bangladesh disruption event |
+| Japan/Canada cells as numbers | Shown as ceilings "≤ x%" | No preference data for those markets: the MFN is the most an origin pays |
+| Stacked US surcharges | "up to +x% (n lines)" | Whether they stack is not in the lines |
+| Buyer nodes clickable on the map | `?node=` deep link added | Buyers abroad are off the Bangladesh-framed map and in no leaderboard |
+| Tariff cards get their own badge | `data-reference` on the card; the sources e2e skips badges inside it | Makes the Q-23 exception explicit and tested |

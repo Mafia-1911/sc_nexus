@@ -209,3 +209,20 @@ def test_different_tariff_stories_are_different_events() -> None:
         ("tariff_cut", 2),
         ("tariff_raise", 1),
     ]
+
+
+@pytest.mark.parametrize(
+    ("title", "direction"),
+    [
+        # real headlines, 2026-11-18: the direction word must be about the tariff
+        (
+            "US tariff shock prompts Indian textile exporters to diversify markets, reduce US "
+            "reliance",
+            "raise",
+        ),
+        ("India-US trade deal signing to await Washington's new tariff architecture", "unknown"),
+        ("US slaps new tariffs on Chinese steel", "raise"),
+    ],
+)
+def test_direction_words_must_be_about_the_tariff(title: str, direction: str) -> None:
+    assert sig(title).direction == direction

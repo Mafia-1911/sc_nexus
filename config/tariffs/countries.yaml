@@ -1,0 +1,222 @@
+# Countries: ISO 3166 alpha-3 / alpha-2 / names, for tariff parsers (C6, ADR-021).
+# Source: World Bank API v2 /country (DS-TRADE-03), fetched 2026-11-18; aggregates dropped.
+# Added by hand: Taiwan (not a World Bank economy) and the aliases that tariff texts use.
+countries:
+  ABW: {iso2: "AW", names: ["Aruba"]}
+  AFG: {iso2: "AF", names: ["Afghanistan"]}
+  AGO: {iso2: "AO", names: ["Angola"]}
+  ALB: {iso2: "AL", names: ["Albania"]}
+  AND: {iso2: "AD", names: ["Andorra"]}
+  ARE: {iso2: "AE", names: ["United Arab Emirates"]}
+  ARG: {iso2: "AR", names: ["Argentina"]}
+  ARM: {iso2: "AM", names: ["Armenia"]}
+  ASM: {iso2: "AS", names: ["American Samoa"]}
+  ATG: {iso2: "AG", names: ["Antigua and Barbuda"]}
+  AUS: {iso2: "AU", names: ["Australia"]}
+  AUT: {iso2: "AT", names: ["Austria"]}
+  AZE: {iso2: "AZ", names: ["Azerbaijan"]}
+  BDI: {iso2: "BI", names: ["Burundi"]}
+  BEL: {iso2: "BE", names: ["Belgium"]}
+  BEN: {iso2: "BJ", names: ["Benin"]}
+  BFA: {iso2: "BF", names: ["Burkina Faso"]}
+  BGD: {iso2: "BD", names: ["Bangladesh"]}
+  BGR: {iso2: "BG", names: ["Bulgaria"]}
+  BHR: {iso2: "BH", names: ["Bahrain"]}
+  BHS: {iso2: "BS", names: ["Bahamas, The", "Bahamas"]}
+  BIH: {iso2: "BA", names: ["Bosnia and Herzegovina"]}
+  BLR: {iso2: "BY", names: ["Belarus"]}
+  BLZ: {iso2: "BZ", names: ["Belize"]}
+  BMU: {iso2: "BM", names: ["Bermuda"]}
+  BOL: {iso2: "BO", names: ["Bolivia"]}
+  BRA: {iso2: "BR", names: ["Brazil"]}
+  BRB: {iso2: "BB", names: ["Barbados"]}
+  BRN: {iso2: "BN", names: ["Brunei Darussalam", "Brunei"]}
+  BTN: {iso2: "BT", names: ["Bhutan"]}
+  BWA: {iso2: "BW", names: ["Botswana"]}
+  CAF: {iso2: "CF", names: ["Central African Republic"]}
+  CAN: {iso2: "CA", names: ["Canada"]}
+  CHE: {iso2: "CH", names: ["Switzerland"]}
+  CHI: {iso2: "JG", names: ["Channel Islands"]}
+  CHL: {iso2: "CL", names: ["Chile"]}
+  CHN: {iso2: "CN", names: ["China", "People's Republic of China"]}
+  CIV: {iso2: "CI", names: ["Cote d'Ivoire", "Cote d'Ivoire", "Ivory Coast"]}
+  CMR: {iso2: "CM", names: ["Cameroon"]}
+  COD: {iso2: "CD", names: ["Congo, Dem. Rep.", "Democratic Republic of the Congo"]}
+  COG: {iso2: "CG", names: ["Congo, Rep.", "Republic of the Congo"]}
+  COL: {iso2: "CO", names: ["Colombia"]}
+  COM: {iso2: "KM", names: ["Comoros"]}
+  CPV: {iso2: "CV", names: ["Cabo Verde"]}
+  CRI: {iso2: "CR", names: ["Costa Rica"]}
+  CUB: {iso2: "CU", names: ["Cuba"]}
+  CUW: {iso2: "CW", names: ["Curacao"]}
+  CYM: {iso2: "KY", names: ["Cayman Islands"]}
+  CYP: {iso2: "CY", names: ["Cyprus"]}
+  CZE: {iso2: "CZ", names: ["Czechia", "Czech Republic"]}
+  DEU: {iso2: "DE", names: ["Germany"]}
+  DJI: {iso2: "DJ", names: ["Djibouti"]}
+  DMA: {iso2: "DM", names: ["Dominica"]}
+  DNK: {iso2: "DK", names: ["Denmark"]}
+  DOM: {iso2: "DO", names: ["Dominican Republic"]}
+  DZA: {iso2: "DZ", names: ["Algeria"]}
+  ECU: {iso2: "EC", names: ["Ecuador"]}
+  EGY: {iso2: "EG", names: ["Egypt, Arab Rep.", "Egypt"]}
+  ERI: {iso2: "ER", names: ["Eritrea"]}
+  ESP: {iso2: "ES", names: ["Spain"]}
+  EST: {iso2: "EE", names: ["Estonia"]}
+  ETH: {iso2: "ET", names: ["Ethiopia"]}
+  FIN: {iso2: "FI", names: ["Finland"]}
+  FJI: {iso2: "FJ", names: ["Fiji"]}
+  FRA: {iso2: "FR", names: ["France"]}
+  FRO: {iso2: "FO", names: ["Faroe Islands"]}
+  FSM: {iso2: "FM", names: ["Micronesia, Fed. Sts.", "Micronesia"]}
+  GAB: {iso2: "GA", names: ["Gabon"]}
+  GBR: {iso2: "GB", names: ["United Kingdom"]}
+  GEO: {iso2: "GE", names: ["Georgia"]}
+  GHA: {iso2: "GH", names: ["Ghana"]}
+  GIB: {iso2: "GI", names: ["Gibraltar"]}
+  GIN: {iso2: "GN", names: ["Guinea"]}
+  GMB: {iso2: "GM", names: ["Gambia, The", "Gambia"]}
+  GNB: {iso2: "GW", names: ["Guinea-Bissau"]}
+  GNQ: {iso2: "GQ", names: ["Equatorial Guinea"]}
+  GRC: {iso2: "GR", names: ["Greece"]}
+  GRD: {iso2: "GD", names: ["Grenada"]}
+  GRL: {iso2: "GL", names: ["Greenland"]}
+  GTM: {iso2: "GT", names: ["Guatemala"]}
+  GUM: {iso2: "GU", names: ["Guam"]}
+  GUY: {iso2: "GY", names: ["Guyana"]}
+  HKG: {iso2: "HK", names: ["Hong Kong SAR, China", "Hong Kong", "Hong Kong, China"]}
+  HND: {iso2: "HN", names: ["Honduras"]}
+  HRV: {iso2: "HR", names: ["Croatia"]}
+  HTI: {iso2: "HT", names: ["Haiti"]}
+  HUN: {iso2: "HU", names: ["Hungary"]}
+  IDN: {iso2: "ID", names: ["Indonesia"]}
+  IMN: {iso2: "IM", names: ["Isle of Man"]}
+  IND: {iso2: "IN", names: ["India"]}
+  IRL: {iso2: "IE", names: ["Ireland"]}
+  IRN: {iso2: "IR", names: ["Iran, Islamic Rep.", "Iran"]}
+  IRQ: {iso2: "IQ", names: ["Iraq"]}
+  ISL: {iso2: "IS", names: ["Iceland"]}
+  ISR: {iso2: "IL", names: ["Israel"]}
+  ITA: {iso2: "IT", names: ["Italy"]}
+  JAM: {iso2: "JM", names: ["Jamaica"]}
+  JOR: {iso2: "JO", names: ["Jordan"]}
+  JPN: {iso2: "JP", names: ["Japan"]}
+  KAZ: {iso2: "KZ", names: ["Kazakhstan"]}
+  KEN: {iso2: "KE", names: ["Kenya"]}
+  KGZ: {iso2: "KG", names: ["Kyrgyz Republic", "Kyrgyzstan"]}
+  KHM: {iso2: "KH", names: ["Cambodia"]}
+  KIR: {iso2: "KI", names: ["Kiribati"]}
+  KNA: {iso2: "KN", names: ["St. Kitts and Nevis"]}
+  KOR: {iso2: "KR", names: ["Korea, Rep.", "South Korea", "Korea", "Republic of Korea"]}
+  KWT: {iso2: "KW", names: ["Kuwait"]}
+  LAO: {iso2: "LA", names: ["Lao PDR", "Laos"]}
+  LBN: {iso2: "LB", names: ["Lebanon"]}
+  LBR: {iso2: "LR", names: ["Liberia"]}
+  LBY: {iso2: "LY", names: ["Libya"]}
+  LCA: {iso2: "LC", names: ["St. Lucia", "Saint Lucia"]}
+  LIE: {iso2: "LI", names: ["Liechtenstein"]}
+  LKA: {iso2: "LK", names: ["Sri Lanka"]}
+  LSO: {iso2: "LS", names: ["Lesotho"]}
+  LTU: {iso2: "LT", names: ["Lithuania"]}
+  LUX: {iso2: "LU", names: ["Luxembourg"]}
+  LVA: {iso2: "LV", names: ["Latvia"]}
+  MAC: {iso2: "MO", names: ["Macao SAR, China", "Macau", "Macao"]}
+  MAF: {iso2: "MF", names: ["St. Martin (French part)"]}
+  MAR: {iso2: "MA", names: ["Morocco"]}
+  MCO: {iso2: "MC", names: ["Monaco"]}
+  MDA: {iso2: "MD", names: ["Moldova"]}
+  MDG: {iso2: "MG", names: ["Madagascar"]}
+  MDV: {iso2: "MV", names: ["Maldives"]}
+  MEX: {iso2: "MX", names: ["Mexico"]}
+  MHL: {iso2: "MH", names: ["Marshall Islands"]}
+  MKD: {iso2: "MK", names: ["North Macedonia"]}
+  MLI: {iso2: "ML", names: ["Mali"]}
+  MLT: {iso2: "MT", names: ["Malta"]}
+  MMR: {iso2: "MM", names: ["Myanmar"]}
+  MNE: {iso2: "ME", names: ["Montenegro"]}
+  MNG: {iso2: "MN", names: ["Mongolia"]}
+  MNP: {iso2: "MP", names: ["Northern Mariana Islands"]}
+  MOZ: {iso2: "MZ", names: ["Mozambique"]}
+  MRT: {iso2: "MR", names: ["Mauritania"]}
+  MUS: {iso2: "MU", names: ["Mauritius"]}
+  MWI: {iso2: "MW", names: ["Malawi"]}
+  MYS: {iso2: "MY", names: ["Malaysia"]}
+  NAM: {iso2: "NA", names: ["Namibia"]}
+  NCL: {iso2: "NC", names: ["New Caledonia"]}
+  NER: {iso2: "NE", names: ["Niger"]}
+  NGA: {iso2: "NG", names: ["Nigeria"]}
+  NIC: {iso2: "NI", names: ["Nicaragua"]}
+  NLD: {iso2: "NL", names: ["Netherlands"]}
+  NOR: {iso2: "NO", names: ["Norway"]}
+  NPL: {iso2: "NP", names: ["Nepal"]}
+  NRU: {iso2: "NR", names: ["Naoero"]}
+  NZL: {iso2: "NZ", names: ["New Zealand"]}
+  OMN: {iso2: "OM", names: ["Oman"]}
+  PAK: {iso2: "PK", names: ["Pakistan"]}
+  PAN: {iso2: "PA", names: ["Panama"]}
+  PER: {iso2: "PE", names: ["Peru"]}
+  PHL: {iso2: "PH", names: ["Philippines"]}
+  PLW: {iso2: "PW", names: ["Palau"]}
+  PNG: {iso2: "PG", names: ["Papua New Guinea"]}
+  POL: {iso2: "PL", names: ["Poland"]}
+  PRI: {iso2: "PR", names: ["Puerto Rico (US)"]}
+  PRK: {iso2: "KP", names: ["Korea, Dem. People's Rep."]}
+  PRT: {iso2: "PT", names: ["Portugal"]}
+  PRY: {iso2: "PY", names: ["Paraguay"]}
+  PSE: {iso2: "PS", names: ["West Bank and Gaza"]}
+  PYF: {iso2: "PF", names: ["French Polynesia"]}
+  QAT: {iso2: "QA", names: ["Qatar"]}
+  ROU: {iso2: "RO", names: ["Romania"]}
+  RUS: {iso2: "RU", names: ["Russian Federation", "Russia"]}
+  RWA: {iso2: "RW", names: ["Rwanda"]}
+  SAU: {iso2: "SA", names: ["Saudi Arabia"]}
+  SDN: {iso2: "SD", names: ["Sudan"]}
+  SEN: {iso2: "SN", names: ["Senegal"]}
+  SGP: {iso2: "SG", names: ["Singapore"]}
+  SLB: {iso2: "SB", names: ["Solomon Islands"]}
+  SLE: {iso2: "SL", names: ["Sierra Leone"]}
+  SLV: {iso2: "SV", names: ["El Salvador"]}
+  SMR: {iso2: "SM", names: ["San Marino"]}
+  SOM: {iso2: "SO", names: ["Somalia, Fed. Rep."]}
+  SRB: {iso2: "RS", names: ["Serbia"]}
+  SSD: {iso2: "SS", names: ["South Sudan"]}
+  STP: {iso2: "ST", names: ["Sao Tome and Principe"]}
+  SUR: {iso2: "SR", names: ["Suriname"]}
+  SVK: {iso2: "SK", names: ["Slovak Republic", "Slovakia"]}
+  SVN: {iso2: "SI", names: ["Slovenia"]}
+  SWE: {iso2: "SE", names: ["Sweden"]}
+  SWZ: {iso2: "SZ", names: ["Eswatini"]}
+  SXM: {iso2: "SX", names: ["Sint Maarten (Dutch part)"]}
+  SYC: {iso2: "SC", names: ["Seychelles"]}
+  SYR: {iso2: "SY", names: ["Syrian Arab Republic", "Syria"]}
+  TCA: {iso2: "TC", names: ["Turks and Caicos Islands"]}
+  TCD: {iso2: "TD", names: ["Chad"]}
+  TGO: {iso2: "TG", names: ["Togo"]}
+  THA: {iso2: "TH", names: ["Thailand"]}
+  TJK: {iso2: "TJ", names: ["Tajikistan"]}
+  TKM: {iso2: "TM", names: ["Turkmenistan"]}
+  TLS: {iso2: "TL", names: ["Timor-Leste"]}
+  TON: {iso2: "TO", names: ["Tonga"]}
+  TTO: {iso2: "TT", names: ["Trinidad and Tobago"]}
+  TUN: {iso2: "TN", names: ["Tunisia"]}
+  TUR: {iso2: "TR", names: ["Turkiye", "Turkey", "Türkiye"]}
+  TUV: {iso2: "TV", names: ["Tuvalu"]}
+  TZA: {iso2: "TZ", names: ["Tanzania"]}
+  UGA: {iso2: "UG", names: ["Uganda"]}
+  UKR: {iso2: "UA", names: ["Ukraine"]}
+  URY: {iso2: "UY", names: ["Uruguay"]}
+  USA: {iso2: "US", names: ["United States"]}
+  UZB: {iso2: "UZ", names: ["Uzbekistan"]}
+  VCT: {iso2: "VC", names: ["St. Vincent and the Grenadines"]}
+  VEN: {iso2: "VE", names: ["Venezuela, RB", "Venezuela"]}
+  VGB: {iso2: "VG", names: ["British Virgin Islands"]}
+  VIR: {iso2: "VI", names: ["Virgin Islands (U.S.)"]}
+  VNM: {iso2: "VN", names: ["Viet Nam", "Vietnam"]}
+  VUT: {iso2: "VU", names: ["Vanuatu"]}
+  WSM: {iso2: "WS", names: ["Samoa"]}
+  XKX: {iso2: "XK", names: ["Kosovo"]}
+  YEM: {iso2: "YE", names: ["Yemen, Rep.", "Yemen"]}
+  ZAF: {iso2: "ZA", names: ["South Africa"]}
+  ZMB: {iso2: "ZM", names: ["Zambia"]}
+  ZWE: {iso2: "ZW", names: ["Zimbabwe"]}
+  TWN: {iso2: "TW", names: ["Taiwan"]}

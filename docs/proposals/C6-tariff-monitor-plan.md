@@ -6,8 +6,8 @@ markets × origins, (2) a **change feed** with the legal citation, and (3) the *
 exposure** of open orders, with a **LDC-graduation scenario** and a **rules-of-origin check** from
 the BOM. Tariffs are rules, not predictions, so the core is lookup + diff, not ML; the NLP part
 (C2 reading tariff announcements) and the Nexus recommendations are where the "agent" lives.
-Four free sources were probed on 2026-11-18 and work (§3). Status: **proposal, waiting on
-Q-18…Q-21** (`2026-11-18-gap-analysis-and-features.md` §8). Nothing here is built yet.
+Four free sources were probed on 2026-11-18 and work (§3). Status: **backend built 2026-11-18** (Q-18/Q-21 = defaults; ADR-021; as built:
+`docs/tariffs/BACKEND.md`; feeds and gaps: `docs/tariffs/LIVE_FEEDS.md`). UI not built yet.
 
 ## 1. Job to be done
 

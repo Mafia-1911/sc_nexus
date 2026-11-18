@@ -1,5 +1,39 @@
 # STATUS (updated 2026-11-18)
 
+Tariff Monitor backend (C6, 2026-11-18; Q-18/Q-21 answered with the defaults; A-126…A-132;
+ADR-021; docs `docs/tariffs/BACKEND.md` and `docs/tariffs/LIVE_FEEDS.md`):
+- **Sources:** DS-TRADE-04 WITS (MFN, 5 markets, weekly), -05 USITC HTS (US schedule + Chapter
+  99, daily), -06 Federal Register (notices, 6-hourly), -07 UK Trade Tariff (daily, ≈ 190
+  calls), -08 EU preferences (manual table). Registry, cards, raw schemas, samples.
+- **Tables (migration `d4dfca106281`):** tariff_nomenclature, tariff_measure (versioned by
+  content), tariff_origin_group, tariff_origin_member, tariff_snapshot, tariff_change,
+  trade_policy_notice, tariff_effective_rate.
+- **`packages/c6_tariffs`:** pure rate engine and diff, store (current flags, change detection,
+  precomputed matrix 5 markets × 22 HS6 × 7 origins in ≈ 0.3 s), service, CLI `uv run c6`.
+- **Worker:** `c6:refresh` every 6 h and on `source.ingested` for tariff sources; outbox
+  `tariff.changed`. **API:** `/api/v1/tariffs/{overview,matrix,products/{hs6},changes,notices,
+  origins/{iso3}}` (medians 18–30 ms).
+- **Results on the real samples:** US cotton T-shirt (HTS 6109.10.00): Bangladesh 26.5 %
+  (16.5 % + 10 % note-52 surcharge, exemption 9903.06.12 flagged), Vietnam 29 %, China
+  unresolved (four surcharge lines in force per their text); UK: Bangladesh 0 % (DCTS
+  Comprehensive) vs 12 % MFN, Vietnam 0 %, India 0 % since 2026-07-15; EU (WITS 2023 + manual):
+  Bangladesh 0 % (EBA), India 12 %, Vietnam unresolved.
+- **Fix in shared code:** LiveHttp dropped a URL's own query string (A-130).
+- **Found on live data and fixed (A-133):** US pharma and aluminium surcharges ignored the
+  Chapter 99 category exemptions (now unresolved with the reason); a parser upgrade produced 17
+  phantom changes (snapshots now carry the parser version).
+- **Live run (dev DB, 2026-11-18):** 17,025 current measures; refresh 5 s; on live data the
+  matrix answers in 35 ms median (p95 221 ms), product 42–50 ms median.
+- **Checks:** `make test` equivalent 471 passed, 1 failed: `test_read_latency_budget[/api/v1/graph]`,
+  which already failed before this work on this container (baseline: 329 passed, the same 1
+  failed); C1's what-if speed test failed once under full-suite load and passed alone. Ruff,
+  format, import contracts (6 kept, C6 included), mypy clean. No UI yet.
+- **Next (backend, docs/tariffs/BACKEND.md §6):** graduation scenario, exposure on orders,
+  rules-of-origin check, "ship before cut-off" recommendation, C2 link; then the Tariff
+  Monitor page (ui-consistency flow). Missing feeds: EU TARIC first (LIVE_FEEDS.md §2).
+- **Waiting on user:** verify the EU table (`config/tariffs/eu_preferences.yaml`, A-129);
+  Q-19 (order), Q-20 (teammate PR).
+
 Analysis pass (2026-11-18, user request; A-125; no code changed):
 - `docs/proposals/2026-11-18-gap-analysis-and-features.md`: file map, feature state, verified
   logic gaps (G-1 routes ignore C2/C4, G-2 1.64× speed factor unapplied, G-3 constant FX,

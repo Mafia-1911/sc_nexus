@@ -1,6 +1,6 @@
 # Entity-relationship diagram (domain model v1)
 
-_Generated from `packages/core/src/cportal_core/models/` (55 tables) by `make erd`. Edit the models, not this file._
+_Generated from `packages/core/src/cportal_core/models/` (64 tables) by `make erd`. Edit the models, not this file._
 
 Every domain table also carries the lineage columns (04 §4, SC-01): `source_id`, `source_record_id`, `data_mode`, `is_synthetic`, `scenario_id`, `generator_version`, `ingested_at`, `available_at`, `created_at`, `updated_at`. The database enforces `is_synthetic = (data_mode = 'synthetic')` and that synthetic rows carry a `scenario_id`. `outbox_event` and `job` are infrastructure without lineage.
 
@@ -179,10 +179,10 @@ erDiagram
   location ||--o{ lane : "dest_location_id"
   location ||--o{ port : "location_id"
   port ||--o{ port_zone : "port_id"
+  lane |o--o{ supply_edge : "lane_id"
+  facility ||--o{ supply_edge : "to_facility_id"
   product ||--o{ supply_edge : "product_id"
   facility ||--o{ supply_edge : "from_facility_id"
-  facility ||--o{ supply_edge : "to_facility_id"
-  lane |o--o{ supply_edge : "lane_id"
 ```
 
 ## Maritime and port
@@ -352,8 +352,8 @@ erDiagram
   port_call }o--|o port_zone : "berth_zone_id"
   vessel ||--o{ port_call : "vessel_id"
   port_call }o--|| port : "port_id"
-  port_call ||--o{ port_call_stop : "port_call_id"
   port_call_stop }o--|o port_zone : "zone_id"
+  port_call ||--o{ port_call_stop : "port_call_id"
   port_state_snapshot }o--|| port : "port_id"
   satellite_observation }o--|o port_zone : "zone_id"
   vessel ||--o{ vessel_identity : "vessel_id"
@@ -428,8 +428,8 @@ erDiagram
     double extraction_confidence
   }
   disruption_event ||--o{ event_entity_link : "event_id"
-  disruption_event ||--o{ event_mention : "event_id"
   article ||--o{ event_mention : "article_id"
+  disruption_event ||--o{ event_mention : "event_id"
 ```
 
 ## Orders, shipments and routes
@@ -528,26 +528,26 @@ erDiagram
     uuid vessel_id FK
     string equipment_reference
   }
-  customer_order }o--|| product : "product_id"
   customer_order }o--|o facility : "facility_id"
   customer_order }o--|| organization : "buyer_org_id"
+  customer_order }o--|| product : "product_id"
   inventory_position }o--|| facility : "facility_id"
   inventory_position }o--|| product : "product_id"
   route_request ||--o{ route_option : "request_id"
-  route_request }o--|| location : "origin_location_id"
   route_request }o--|| location : "dest_location_id"
-  shipment }o--|| location : "origin_location_id"
+  route_request }o--|| location : "origin_location_id"
   shipment }o--|| location : "dest_location_id"
-  shipment ||--o{ shipment_leg : "shipment_id"
-  shipment_leg }o--|| location : "to_location_id"
-  shipment_leg }o--|o vessel : "vessel_id"
-  route_option |o--o{ shipment_leg : "route_option_id"
+  shipment }o--|| location : "origin_location_id"
   shipment_leg }o--|| location : "from_location_id"
-  shipment ||--o{ shipment_order : "shipment_id"
+  shipment_leg }o--|o vessel : "vessel_id"
+  shipment ||--o{ shipment_leg : "shipment_id"
+  route_option |o--o{ shipment_leg : "route_option_id"
+  shipment_leg }o--|| location : "to_location_id"
   customer_order ||--o{ shipment_order : "order_id"
+  shipment ||--o{ shipment_order : "shipment_id"
+  transport_event }o--|o vessel : "vessel_id"
   shipment ||--o{ transport_event : "shipment_id"
   transport_event }o--|o location : "location_id"
-  transport_event }o--|o vessel : "vessel_id"
 ```
 
 ## Quality
@@ -611,13 +611,13 @@ erDiagram
     string mask_uri
     double latency_ms
   }
+  batch }o--|o customer_order : "order_id"
   batch }o--|| product : "product_id"
   batch }o--|| facility : "facility_id"
-  batch }o--|o customer_order : "order_id"
   batch }o--|o facility : "supplier_facility_id"
-  image_dataset |o--o{ inspection_image : "dataset_id"
-  inspection_image }o--|o product : "product_id"
   batch |o--o{ inspection_image : "batch_id"
+  inspection_image }o--|o product : "product_id"
+  image_dataset |o--o{ inspection_image : "dataset_id"
   inspection_image ||--o{ inspection_result : "image_id"
   inspection_result }o--|o model_version : "model_version_id"
 ```

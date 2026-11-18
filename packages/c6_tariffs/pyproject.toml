@@ -1,0 +1,20 @@
+[project]
+name = "cportal-c6"
+version = "0.1.0"
+description = "C6 tariff monitor: effective duty by market, product and origin from official schedules; change detection between snapshots; trade-policy notices"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "cportal-core",
+    "pyyaml>=6.0",
+    "sqlalchemy>=2.0",
+]
+
+[project.scripts]
+c6 = "cportal_c6.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.9,<0.14"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "cportal_c6"

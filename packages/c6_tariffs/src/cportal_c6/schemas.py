@@ -1,0 +1,169 @@
+"""C6 API shapes (the API wraps them in its `{data, meta}` envelope)."""
+
+from __future__ import annotations
+
+import datetime as dt
+from typing import Any
+
+from pydantic import BaseModel, Field
+
+
+class MarketOut(BaseModel):
+    code: str
+    name: str
+    live_source: str | None = Field(description="DS-ID of the live schedule, if any")
+    last_fetched_at: dt.datetime | None
+    data_mode: str | None
+    current_measures: int
+
+
+class OriginOut(BaseModel):
+    iso3: str
+    name: str
+
+
+class ProductOut(BaseModel):
+    hs6: str
+    name: str
+    industry: str
+
+
+class FeedOut(BaseModel):
+    id: str
+    market: str
+    what: str
+    status: str = Field(description="live | manual | missing")
+    cadence: str | None = None
+    note: str | None = None
+    todo: str | None = None
+
+
+class OverviewOut(BaseModel):
+    as_of: dt.date | None = Field(description="Date of the precomputed matrix")
+    markets: list[MarketOut]
+    origins: list[OriginOut]
+    products: list[ProductOut]
+    feeds: list[FeedOut]
+    changes_30d: int
+    notices_30d: int
+    latest_change_at: dt.datetime | None
+
+
+class CellOut(BaseModel):
+    market: str
+    hs6: str
+    origin: str
+    effective_pct_min: float | None
+    effective_pct_max: float | None
+    is_resolved: bool
+    is_stale: bool
+    base_pct: float | None
+    preference_pct: float | None
+    additional_pct: float | None
+    n_lines: int
+    note_ids: list[int] = Field(description="Indexes into MatrixOut.notes")
+    sources: list[str]
+    data_mode: str
+
+
+class MatrixOut(BaseModel):
+    as_of: dt.date
+    precomputed: bool
+    notes: list[str] = Field(description="Each distinct note once; cells point here")
+    cells: list[CellOut]
+
+
+class ComponentOut(BaseModel):
+    role: str
+    measure_ref: str
+    kind: str
+    origin_code: str
+    duty_text: str
+    pct: float | None
+    legal_ref: str | None
+    source_id: str
+    source_url: str | None
+    valid_from: dt.date | None
+    valid_to: dt.date | None
+    note: str = ""
+
+
+class LineRateOut(BaseModel):
+    code: str
+    description: str | None
+    origin: str
+    effective_pct: float | None
+    is_resolved: bool
+    is_stale: bool
+    base_pct: float | None
+    preference_pct: float | None
+    additional_pct: float | None
+    components: list[ComponentOut]
+    notes: list[str]
+
+
+class ChangeOut(BaseModel):
+    id: str
+    market: str
+    code: str
+    hs6: str | None
+    kind: str
+    origin_code: str
+    measure_ref: str
+    change: str
+    old_duty_text: str | None
+    new_duty_text: str | None
+    old_pct: float | None
+    new_pct: float | None
+    delta_pp: float | None
+    old_status: str | None
+    new_status: str | None
+    effective_from: dt.date | None
+    detected_at: dt.datetime
+    source_id: str
+    data_mode: str
+
+
+class NoticeOut(BaseModel):
+    document_number: str
+    title: str
+    kind: str
+    doc_type: str | None
+    publication_date: dt.date
+    effective_on: dt.date | None
+    url: str
+    agencies: list[str]
+    countries: list[str]
+    hts_refs: list[str]
+    data_mode: str
+
+
+class MarketDetailOut(BaseModel):
+    market: str
+    lines: list[LineRateOut]
+    changes: list[ChangeOut]
+
+
+class ProductDetailOut(BaseModel):
+    product: ProductOut
+    as_of: dt.date
+    origins: list[str]
+    markets: list[MarketDetailOut]
+    sources: list[str] = Field(description="DS-IDs of the measures used")
+    data_modes: dict[str, int] = Field(description="Measures used per data mode")
+
+
+class SchemeOut(BaseModel):
+    market: str
+    group_code: str
+    name: str
+    scheme: str | None
+    valid_from: dt.date | None
+    valid_to: dt.date | None
+    source_id: str
+
+
+class OriginDetailOut(BaseModel):
+    origin: OriginOut
+    schemes: list[SchemeOut]
+    surcharges: list[dict[str, Any]]

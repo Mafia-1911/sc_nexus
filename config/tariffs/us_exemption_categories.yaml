@@ -1,0 +1,11 @@
+# US Chapter 99 product-category exemptions (C6, A-133).
+# Lines such as 9903.05.89 ("Articles for use in pharmaceutical applications, as provided for in
+# subdivision (e) of U.S. note 52") name a category; the HS list sits in the U.S. note, which is
+# not parsed. This map says which HS chapters a category plausibly covers (ESTIMATE, by hand,
+# 2026-11-18), so that a product in those chapters gets "surcharge may not apply: read the
+# note" (unresolved) instead of a surcharge stated as fact. Match = text in the line, lower case.
+version: 1
+categories:
+  - {match: "pharmaceutical", chapters: ["29", "30"], label: "pharmaceutical applications"}
+  - {match: "articles of aluminum, of steel or of copper", chapters: ["72", "73", "74", "76"], label: "steel, aluminium or copper (Section 232 duties apply instead; not fetched)"}
+  - {match: "civil aircraft", chapters: ["88"], label: "civil aircraft"}

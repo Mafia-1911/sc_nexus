@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "url": "https://hts.usitc.gov/reststop/exportList?from=9903.01&to=9903.07&format=JSON&styles=false",
+  "headers": {
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "note": "USITC HTS export: Chapter 99 9903.01-9903.07 (country surcharges)",
+  "captured_at": "2026-11-18T11:57:40.854143+00:00",
+  "status": 200,
+  "content_type": "application/octet-stream",
+  "bytes": 267625
+}

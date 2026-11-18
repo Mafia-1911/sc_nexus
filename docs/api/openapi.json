@@ -320,6 +320,399 @@
         "title": "BriefOut",
         "type": "object"
       },
+      "CellOut": {
+        "properties": {
+          "additional_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Additional Pct"
+          },
+          "base_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base Pct"
+          },
+          "data_mode": {
+            "title": "Data Mode",
+            "type": "string"
+          },
+          "effective_pct_max": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective Pct Max"
+          },
+          "effective_pct_min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective Pct Min"
+          },
+          "hs6": {
+            "title": "Hs6",
+            "type": "string"
+          },
+          "is_resolved": {
+            "title": "Is Resolved",
+            "type": "boolean"
+          },
+          "is_stale": {
+            "title": "Is Stale",
+            "type": "boolean"
+          },
+          "market": {
+            "title": "Market",
+            "type": "string"
+          },
+          "n_lines": {
+            "title": "N Lines",
+            "type": "integer"
+          },
+          "note_ids": {
+            "description": "Indexes into MatrixOut.notes",
+            "items": {
+              "type": "integer"
+            },
+            "title": "Note Ids",
+            "type": "array"
+          },
+          "origin": {
+            "title": "Origin",
+            "type": "string"
+          },
+          "preference_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preference Pct"
+          },
+          "sources": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Sources",
+            "type": "array"
+          }
+        },
+        "required": [
+          "market",
+          "hs6",
+          "origin",
+          "effective_pct_min",
+          "effective_pct_max",
+          "is_resolved",
+          "is_stale",
+          "base_pct",
+          "preference_pct",
+          "additional_pct",
+          "n_lines",
+          "note_ids",
+          "sources",
+          "data_mode"
+        ],
+        "title": "CellOut",
+        "type": "object"
+      },
+      "ChangeOut": {
+        "properties": {
+          "change": {
+            "title": "Change",
+            "type": "string"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "data_mode": {
+            "title": "Data Mode",
+            "type": "string"
+          },
+          "delta_pp": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delta Pp"
+          },
+          "detected_at": {
+            "format": "date-time",
+            "title": "Detected At",
+            "type": "string"
+          },
+          "effective_from": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective From"
+          },
+          "hs6": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hs6"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "market": {
+            "title": "Market",
+            "type": "string"
+          },
+          "measure_ref": {
+            "title": "Measure Ref",
+            "type": "string"
+          },
+          "new_duty_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "New Duty Text"
+          },
+          "new_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "New Pct"
+          },
+          "new_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "New Status"
+          },
+          "old_duty_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Old Duty Text"
+          },
+          "old_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Old Pct"
+          },
+          "old_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Old Status"
+          },
+          "origin_code": {
+            "title": "Origin Code",
+            "type": "string"
+          },
+          "source_id": {
+            "title": "Source Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "market",
+          "code",
+          "hs6",
+          "kind",
+          "origin_code",
+          "measure_ref",
+          "change",
+          "old_duty_text",
+          "new_duty_text",
+          "old_pct",
+          "new_pct",
+          "delta_pp",
+          "old_status",
+          "new_status",
+          "effective_from",
+          "detected_at",
+          "source_id",
+          "data_mode"
+        ],
+        "title": "ChangeOut",
+        "type": "object"
+      },
+      "ComponentOut": {
+        "properties": {
+          "duty_text": {
+            "title": "Duty Text",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "legal_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Legal Ref"
+          },
+          "measure_ref": {
+            "title": "Measure Ref",
+            "type": "string"
+          },
+          "note": {
+            "default": "",
+            "title": "Note",
+            "type": "string"
+          },
+          "origin_code": {
+            "title": "Origin Code",
+            "type": "string"
+          },
+          "pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pct"
+          },
+          "role": {
+            "title": "Role",
+            "type": "string"
+          },
+          "source_id": {
+            "title": "Source Id",
+            "type": "string"
+          },
+          "source_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Url"
+          },
+          "valid_from": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid From"
+          },
+          "valid_to": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid To"
+          }
+        },
+        "required": [
+          "role",
+          "measure_ref",
+          "kind",
+          "origin_code",
+          "duty_text",
+          "pct",
+          "legal_ref",
+          "source_id",
+          "source_url",
+          "valid_from",
+          "valid_to"
+        ],
+        "title": "ComponentOut",
+        "type": "object"
+      },
       "CriticalOut": {
         "properties": {
           "items": {
@@ -710,6 +1103,22 @@
         "title": "Envelope[LotDetailOut]",
         "type": "object"
       },
+      "Envelope_MatrixOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/MatrixOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[MatrixOut]",
+        "type": "object"
+      },
       "Envelope_NodeDetailOut_": {
         "properties": {
           "data": {
@@ -726,6 +1135,38 @@
         "title": "Envelope[NodeDetailOut]",
         "type": "object"
       },
+      "Envelope_OriginDetailOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/OriginDetailOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[OriginDetailOut]",
+        "type": "object"
+      },
+      "Envelope_OverviewOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/OverviewOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[OverviewOut]",
+        "type": "object"
+      },
       "Envelope_Page_PortCallOut__": {
         "properties": {
           "data": {
@@ -740,6 +1181,22 @@
           "meta"
         ],
         "title": "Envelope[Page[PortCallOut]]",
+        "type": "object"
+      },
+      "Envelope_ProductDetailOut_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ProductDetailOut"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[ProductDetailOut]",
         "type": "object"
       },
       "Envelope_QueueForecastOut_": {
@@ -983,6 +1440,26 @@
         "title": "Envelope[list[AlertOut]]",
         "type": "object"
       },
+      "Envelope_list_ChangeOut__": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ChangeOut"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[list[ChangeOut]]",
+        "type": "object"
+      },
       "Envelope_list_DatasetOut__": {
         "properties": {
           "data": {
@@ -1101,6 +1578,26 @@
           "meta"
         ],
         "title": "Envelope[list[ModelOut]]",
+        "type": "object"
+      },
+      "Envelope_list_NoticeOut__": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/NoticeOut"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[list[NoticeOut]]",
         "type": "object"
       },
       "Envelope_list_PortOut__": {
@@ -1576,6 +2073,68 @@
           "features"
         ],
         "title": "FeatureCollection",
+        "type": "object"
+      },
+      "FeedOut": {
+        "properties": {
+          "cadence": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cadence"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "market": {
+            "title": "Market",
+            "type": "string"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "status": {
+            "description": "live | manual | missing",
+            "title": "Status",
+            "type": "string"
+          },
+          "todo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Todo"
+          },
+          "what": {
+            "title": "What",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "market",
+          "what",
+          "status"
+        ],
+        "title": "FeedOut",
         "type": "object"
       },
       "GraphEdgeOut": {
@@ -2087,6 +2646,110 @@
         "title": "LineOut",
         "type": "object"
       },
+      "LineRateOut": {
+        "properties": {
+          "additional_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Additional Pct"
+          },
+          "base_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base Pct"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "components": {
+            "items": {
+              "$ref": "#/components/schemas/ComponentOut"
+            },
+            "title": "Components",
+            "type": "array"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "effective_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective Pct"
+          },
+          "is_resolved": {
+            "title": "Is Resolved",
+            "type": "boolean"
+          },
+          "is_stale": {
+            "title": "Is Stale",
+            "type": "boolean"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Notes",
+            "type": "array"
+          },
+          "origin": {
+            "title": "Origin",
+            "type": "string"
+          },
+          "preference_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preference Pct"
+          }
+        },
+        "required": [
+          "code",
+          "description",
+          "origin",
+          "effective_pct",
+          "is_resolved",
+          "is_stale",
+          "base_pct",
+          "preference_pct",
+          "additional_pct",
+          "components",
+          "notes"
+        ],
+        "title": "LineRateOut",
+        "type": "object"
+      },
       "LiveResultOut": {
         "properties": {
           "category": {
@@ -2507,6 +3170,132 @@
           "status"
         ],
         "title": "LotOut",
+        "type": "object"
+      },
+      "MarketDetailOut": {
+        "properties": {
+          "changes": {
+            "items": {
+              "$ref": "#/components/schemas/ChangeOut"
+            },
+            "title": "Changes",
+            "type": "array"
+          },
+          "lines": {
+            "items": {
+              "$ref": "#/components/schemas/LineRateOut"
+            },
+            "title": "Lines",
+            "type": "array"
+          },
+          "market": {
+            "title": "Market",
+            "type": "string"
+          }
+        },
+        "required": [
+          "market",
+          "lines",
+          "changes"
+        ],
+        "title": "MarketDetailOut",
+        "type": "object"
+      },
+      "MarketOut": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "current_measures": {
+            "title": "Current Measures",
+            "type": "integer"
+          },
+          "data_mode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Mode"
+          },
+          "last_fetched_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Fetched At"
+          },
+          "live_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "DS-ID of the live schedule, if any",
+            "title": "Live Source"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "name",
+          "live_source",
+          "last_fetched_at",
+          "data_mode",
+          "current_measures"
+        ],
+        "title": "MarketOut",
+        "type": "object"
+      },
+      "MatrixOut": {
+        "properties": {
+          "as_of": {
+            "format": "date",
+            "title": "As Of",
+            "type": "string"
+          },
+          "cells": {
+            "items": {
+              "$ref": "#/components/schemas/CellOut"
+            },
+            "title": "Cells",
+            "type": "array"
+          },
+          "notes": {
+            "description": "Each distinct note once; cells point here",
+            "items": {
+              "type": "string"
+            },
+            "title": "Notes",
+            "type": "array"
+          },
+          "precomputed": {
+            "title": "Precomputed",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "as_of",
+          "precomputed",
+          "notes",
+          "cells"
+        ],
+        "title": "MatrixOut",
         "type": "object"
       },
       "MentionOut": {
@@ -3062,6 +3851,94 @@
         "title": "NodeMetrics",
         "type": "object"
       },
+      "NoticeOut": {
+        "properties": {
+          "agencies": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Agencies",
+            "type": "array"
+          },
+          "countries": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Countries",
+            "type": "array"
+          },
+          "data_mode": {
+            "title": "Data Mode",
+            "type": "string"
+          },
+          "doc_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Doc Type"
+          },
+          "document_number": {
+            "title": "Document Number",
+            "type": "string"
+          },
+          "effective_on": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective On"
+          },
+          "hts_refs": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Hts Refs",
+            "type": "array"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "publication_date": {
+            "format": "date",
+            "title": "Publication Date",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "document_number",
+          "title",
+          "kind",
+          "doc_type",
+          "publication_date",
+          "effective_on",
+          "url",
+          "agencies",
+          "countries",
+          "hts_refs",
+          "data_mode"
+        ],
+        "title": "NoticeOut",
+        "type": "object"
+      },
       "OrderImpactOut": {
         "properties": {
           "buyer": {
@@ -3123,6 +4000,130 @@
           "cause"
         ],
         "title": "OrderImpactOut",
+        "type": "object"
+      },
+      "OriginDetailOut": {
+        "properties": {
+          "origin": {
+            "$ref": "#/components/schemas/OriginOut"
+          },
+          "schemes": {
+            "items": {
+              "$ref": "#/components/schemas/SchemeOut"
+            },
+            "title": "Schemes",
+            "type": "array"
+          },
+          "surcharges": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Surcharges",
+            "type": "array"
+          }
+        },
+        "required": [
+          "origin",
+          "schemes",
+          "surcharges"
+        ],
+        "title": "OriginDetailOut",
+        "type": "object"
+      },
+      "OriginOut": {
+        "properties": {
+          "iso3": {
+            "title": "Iso3",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "iso3",
+          "name"
+        ],
+        "title": "OriginOut",
+        "type": "object"
+      },
+      "OverviewOut": {
+        "properties": {
+          "as_of": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Date of the precomputed matrix",
+            "title": "As Of"
+          },
+          "changes_30d": {
+            "title": "Changes 30D",
+            "type": "integer"
+          },
+          "feeds": {
+            "items": {
+              "$ref": "#/components/schemas/FeedOut"
+            },
+            "title": "Feeds",
+            "type": "array"
+          },
+          "latest_change_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest Change At"
+          },
+          "markets": {
+            "items": {
+              "$ref": "#/components/schemas/MarketOut"
+            },
+            "title": "Markets",
+            "type": "array"
+          },
+          "notices_30d": {
+            "title": "Notices 30D",
+            "type": "integer"
+          },
+          "origins": {
+            "items": {
+              "$ref": "#/components/schemas/OriginOut"
+            },
+            "title": "Origins",
+            "type": "array"
+          },
+          "products": {
+            "items": {
+              "$ref": "#/components/schemas/ProductOut"
+            },
+            "title": "Products",
+            "type": "array"
+          }
+        },
+        "required": [
+          "as_of",
+          "markets",
+          "origins",
+          "products",
+          "feeds",
+          "changes_30d",
+          "notices_30d",
+          "latest_change_at"
+        ],
+        "title": "OverviewOut",
         "type": "object"
       },
       "Page_PortCallOut_": {
@@ -3589,6 +4590,81 @@
         "title": "Problem",
         "type": "object"
       },
+      "ProductDetailOut": {
+        "properties": {
+          "as_of": {
+            "format": "date",
+            "title": "As Of",
+            "type": "string"
+          },
+          "data_modes": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "Measures used per data mode",
+            "title": "Data Modes",
+            "type": "object"
+          },
+          "markets": {
+            "items": {
+              "$ref": "#/components/schemas/MarketDetailOut"
+            },
+            "title": "Markets",
+            "type": "array"
+          },
+          "origins": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Origins",
+            "type": "array"
+          },
+          "product": {
+            "$ref": "#/components/schemas/ProductOut"
+          },
+          "sources": {
+            "description": "DS-IDs of the measures used",
+            "items": {
+              "type": "string"
+            },
+            "title": "Sources",
+            "type": "array"
+          }
+        },
+        "required": [
+          "product",
+          "as_of",
+          "origins",
+          "markets",
+          "sources",
+          "data_modes"
+        ],
+        "title": "ProductDetailOut",
+        "type": "object"
+      },
+      "ProductOut": {
+        "properties": {
+          "hs6": {
+            "title": "Hs6",
+            "type": "string"
+          },
+          "industry": {
+            "title": "Industry",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "hs6",
+          "name",
+          "industry"
+        ],
+        "title": "ProductOut",
+        "type": "object"
+      },
       "QueueForecastOut": {
         "properties": {
           "as_of": {
@@ -4012,6 +5088,72 @@
           "artifacts"
         ],
         "title": "ScenarioResultOut",
+        "type": "object"
+      },
+      "SchemeOut": {
+        "properties": {
+          "group_code": {
+            "title": "Group Code",
+            "type": "string"
+          },
+          "market": {
+            "title": "Market",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "scheme": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scheme"
+          },
+          "source_id": {
+            "title": "Source Id",
+            "type": "string"
+          },
+          "valid_from": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid From"
+          },
+          "valid_to": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid To"
+          }
+        },
+        "required": [
+          "market",
+          "group_code",
+          "name",
+          "scheme",
+          "valid_from",
+          "valid_to",
+          "source_id"
+        ],
+        "title": "SchemeOut",
         "type": "object"
       },
       "ShipOut": {
@@ -4608,6 +5750,16 @@
         ],
         "title": "SupplyGraphOut",
         "type": "object"
+      },
+      "TradeNoticeKind": {
+        "enum": [
+          "tariff_modification",
+          "trade_remedy",
+          "exclusion",
+          "other"
+        ],
+        "title": "TradeNoticeKind",
+        "type": "string"
       },
       "VesselInPortOut": {
         "properties": {
@@ -6252,6 +7404,62 @@
         "summary": "Kpis",
         "tags": [
           "kpis"
+        ]
+      }
+    },
+    "/api/v1/live": {
+      "get": {
+        "description": "The same positions message as `/ws/live`, once: for hosts without WebSockets to the\nbrowser (the deployed site polls it through its own server, A-117).",
+        "operationId": "live_snapshot_api_v1_live_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "default": "baseline",
+              "title": "Scenario",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Live Snapshot Api V1 Live Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Live Snapshot",
+        "tags": [
+          "ports"
         ]
       }
     },
@@ -8746,6 +9954,621 @@
         "summary": "Get Source",
         "tags": [
           "sources"
+        ]
+      }
+    },
+    "/api/v1/tariffs/changes": {
+      "get": {
+        "description": "Detected changes between snapshots of the official schedules, newest first.",
+        "operationId": "changes_api_v1_tariffs_changes_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "market",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Market"
+            }
+          },
+          {
+            "in": "query",
+            "name": "origin",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Origin"
+            }
+          },
+          {
+            "in": "query",
+            "name": "hs6",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Hs6"
+            }
+          },
+          {
+            "in": "query",
+            "name": "since",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Since"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 500,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_list_ChangeOut__"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Changes",
+        "tags": [
+          "tariffs"
+        ]
+      }
+    },
+    "/api/v1/tariffs/matrix": {
+      "get": {
+        "description": "Effective duty per market \u00d7 HS6 product \u00d7 origin (min and max over national lines). A\ndate that was not precomputed is computed on the fly (`precomputed: false`).",
+        "operationId": "matrix_api_v1_tariffs_matrix_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "as_of",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "As Of"
+            }
+          },
+          {
+            "description": "Repeat or comma-separate",
+            "in": "query",
+            "name": "hs6",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Repeat or comma-separate",
+              "title": "Hs6"
+            }
+          },
+          {
+            "description": "Repeat or comma-separate",
+            "in": "query",
+            "name": "market",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Repeat or comma-separate",
+              "title": "Market"
+            }
+          },
+          {
+            "description": "Repeat or comma-separate",
+            "in": "query",
+            "name": "origin",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Repeat or comma-separate",
+              "title": "Origin"
+            }
+          },
+          {
+            "in": "query",
+            "name": "industry",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Industry"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_MatrixOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Matrix",
+        "tags": [
+          "tariffs"
+        ]
+      }
+    },
+    "/api/v1/tariffs/notices": {
+      "get": {
+        "description": "Official trade notices (US Federal Register: USTR, ITA, ITC, CBP), newest first.",
+        "operationId": "notices_api_v1_tariffs_notices_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "kind",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/TradeNoticeKind"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kind"
+            }
+          },
+          {
+            "in": "query",
+            "name": "country",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Country"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_list_NoticeOut__"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Notices",
+        "tags": [
+          "tariffs"
+        ]
+      }
+    },
+    "/api/v1/tariffs/origins/{iso3}": {
+      "get": {
+        "description": "A country's tariff relations: the schemes and FTAs that cover it in each market, and\nthe country-wide surcharges it pays (e.g. US Chapter 99).",
+        "operationId": "origin_api_v1_tariffs_origins__iso3__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "iso3",
+            "required": true,
+            "schema": {
+              "title": "Iso3",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "as_of",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "As Of"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_OriginDetailOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Origin",
+        "tags": [
+          "tariffs"
+        ]
+      }
+    },
+    "/api/v1/tariffs/overview": {
+      "get": {
+        "description": "Markets with their feeds and last fetch, origins, watched products, feed status (live,\nmanual, missing) and recent change and notice counts: the page header.",
+        "operationId": "overview_api_v1_tariffs_overview_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_OverviewOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Overview",
+        "tags": [
+          "tariffs"
+        ]
+      }
+    },
+    "/api/v1/tariffs/products/{hs6}": {
+      "get": {
+        "description": "One product: per market and origin, every national line with its rate breakdown (base,\npreference, surcharges, possible exemptions) and legal references; recent changes.",
+        "operationId": "product_api_v1_tariffs_products__hs6__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "hs6",
+            "required": true,
+            "schema": {
+              "title": "Hs6",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "as_of",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "As Of"
+            }
+          },
+          {
+            "description": "Repeat or comma-separate",
+            "in": "query",
+            "name": "market",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Repeat or comma-separate",
+              "title": "Market"
+            }
+          },
+          {
+            "description": "Repeat or comma-separate",
+            "in": "query",
+            "name": "origin",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Repeat or comma-separate",
+              "title": "Origin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_ProductDetailOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Product",
+        "tags": [
+          "tariffs"
+        ]
+      }
+    },
+    "/api/v1/traffic/factor": {
+      "get": {
+        "description": "The live road factor the Route Planner applies to legs starting in the next 3 h.",
+        "operationId": "factor_api_v1_traffic_factor_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_str__Any__"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Factor",
+        "tags": [
+          "traffic"
         ]
       }
     },

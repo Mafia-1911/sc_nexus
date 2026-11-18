@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://hts.usitc.gov/reststop/exportList?from=6109&to=6110&format=JSON&styles=false",
+  "headers": {
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "note": "USITC HTS export: heading 6109 (from=6109, to=6110 exclusive; base rates)",
+  "captured_at": "2026-11-18T12:07:12.680381+00:00",
+  "status": 200,
+  "bytes": 17663
+}

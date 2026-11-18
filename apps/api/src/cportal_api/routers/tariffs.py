@@ -10,11 +10,13 @@ from __future__ import annotations
 import datetime as dt
 from collections import Counter
 from typing import Annotated, Any, cast
+from uuid import UUID
 
 from cportal_c6 import ENGINE_VERSION, service
 from cportal_c6.schemas import (
     ChangeOut,
     MatrixOut,
+    NewsOut,
     NoticeOut,
     OriginDetailOut,
     OverviewOut,
@@ -150,3 +152,19 @@ def origin(
     data = service.origin_detail(session, iso3.upper(), as_of)
     sources = {s.source_id for s in data.schemes}
     return Envelope(data=data, meta=_meta(Counter(), sources))
+
+
+@router.get("/news", response_model=Envelope[list[NewsOut]])
+def news(
+    session: SessionDep,
+    market: str | None = None,
+    origin: str | None = None,
+    event_id: UUID | None = None,
+    limit: Annotated[int, Query(ge=1, le=200)] = 50,
+) -> Envelope[list[NewsOut]]:
+    """Tariff news from the C2 news pipeline (RSS, GDELT), newest first: direction, market,
+    origin and rates read from the text, and whether the official schedule already shows it."""
+    data = service.news(
+        session, market and market.upper(), origin and origin.upper(), limit, event_id=event_id
+    )
+    return Envelope(data=data, meta=_rows_meta(data))

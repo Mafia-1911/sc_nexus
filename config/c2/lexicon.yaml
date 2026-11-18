@@ -13,7 +13,7 @@ types:
   CHOKEPOINT_DISRUPTION: ['(divert|rerout)\w* (around|via) (the )?cape', 'cape of good hope', 'red sea (attack|crisis|disruption|diversion)', 'suez (canal )?(blocked|closure|closed|disruption)', 'houthi attack']
   SECURITY_CONFLICT_PIRACY: ['pirac\w*', 'pirates?', 'hijack\w*', 'curfew', '(violent )?clashes', 'unrest']
   CUSTOMS_SYSTEM_REGULATORY: ['customs (server|system|clearance) (down|outage|delay\w*|disrupt\w*)', 'asycuda', 'clearance (delay|backlog)', 'customs (delay|backlog)']
-  TRADE_POLICY_SANCTION: ['tariffs?', 'export ban', 'import ban', 'sanctions?', 'anti-dumping', 'duty (hike|increase)']
+  TRADE_POLICY_SANCTION: ['tariffs?', 'export ban', 'import ban', 'sanctions?', 'anti-dumping', 'duty (hike|increase)', 'import dut(y|ies)', 'duty-free (access|status|entry)', 'preferential (access|tariff|treatment)', '\bGSP\b', 'Everything But Arms']
   ENERGY_UTILITY_SHORTAGE: ['power (outage|cut)s?', 'load-?shedding', 'gas (shortage|crisis|supply cut)', 'blackout', 'fuel shortage', 'electricity (shortage|crisis)']
   CYBER_INCIDENT: ['cyber-?attack', 'ransomware', 'hack(ed|ers?)\b', 'system breach']
   CARRIER_CAPACITY_RATES: ['freight rates?', 'container shortage', 'blank sailings?', '(peak season |congestion )?surcharge', 'rate hike']

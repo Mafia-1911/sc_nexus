@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import datetime as dt
 import statistics
 import time
 from collections.abc import Iterator
@@ -9,10 +10,14 @@ from collections.abc import Iterator
 import pytest
 from cportal_api.deps import get_session
 from cportal_api.main import create_app
+from cportal_c2 import service as c2_service
 from cportal_c6 import store
 from cportal_connectors.registry import connectors
 from cportal_core.db import session_scope
+from cportal_core.enums import DataMode, DiscoveredVia
+from cportal_core.ids import stable_id
 from cportal_core.loader import upsert
+from cportal_core.schemas.records import ArticleRecord
 from cportal_core.testing import TEST_URL, database_available, reset_database
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -22,16 +27,60 @@ pytestmark = pytest.mark.skipif(not database_available(), reason="no test databa
 ON = "2026-11-18"
 
 
+def _article(i: int, title: str, day: int, outlet: str) -> ArticleRecord:
+    url = f"https://{outlet}/tariff-{i}"
+    return ArticleRecord(
+        id=stable_id("article", "test", url),
+        source_id="DS-NEWS-03",
+        source_record_id=url,
+        data_mode=DataMode.REPLAY,
+        url=url,
+        url_canonical=url,
+        source_name=outlet,
+        published_at=dt.datetime(2026, 11, day, 8, tzinfo=dt.UTC),
+        lang="en",
+        title=title,
+        discovered_via=DiscoveredVia.RSS,
+        feed_id=outlet,
+        available_at=dt.datetime(2026, 11, day, 8, tzinfo=dt.UTC),
+    )
+
+
+# Test articles (written for this test, not real news): a cut, reported twice, and a raise.
+NEWS = [
+    _article(
+        1,
+        "US cuts reciprocal tariff on Bangladesh garments to 10 percent from 20 percent",
+        12,
+        "a.example",
+    ),
+    _article(
+        2,
+        "US cuts reciprocal tariff on Bangladesh garments to 10 percent from 20 "
+        "percent, exporters say",
+        12,
+        "b.example",
+    ),
+    _article(
+        3,
+        "Bangladesh garments to lose duty-free access to the EU after LDC graduation",
+        15,
+        "c.example",
+    ),
+]
+
+
 @pytest.fixture(scope="module")
 def client() -> Iterator[TestClient]:
-    import datetime as dt
-
     reset_database()
     with session_scope(TEST_URL) as s:
         for ds in ("DS-TRADE-04", "DS-TRADE-05", "DS-TRADE-06", "DS-TRADE-07", "DS-TRADE-08"):
             upsert(s, connectors()[ds].replay())
     with session_scope(TEST_URL) as s:
         store.refresh(s, dt.date(2026, 11, 18))
+        upsert(s, NEWS)
+    with session_scope(TEST_URL) as s:
+        c2_service.process(s, now=dt.datetime(2026, 11, 18, 12, tzinfo=dt.UTC))
     engine = create_engine(TEST_URL)
     factory = sessionmaker(engine, expire_on_commit=False)
 
@@ -167,6 +216,7 @@ def test_changes_empty_on_a_single_snapshot(client: TestClient) -> None:
         "/api/v1/tariffs/changes",
         "/api/v1/tariffs/notices",
         "/api/v1/tariffs/origins/BGD",
+        "/api/v1/tariffs/news",
     ],
 )
 def test_read_latency_budget(client: TestClient, path: str) -> None:
@@ -179,3 +229,88 @@ def test_read_latency_budget(client: TestClient, path: str) -> None:
         timings.append((time.perf_counter() - t0) * 1000)
     p95 = statistics.quantiles(timings, n=20)[-1]
     assert p95 < 300, f"{path}: p95 {p95:.0f} ms"
+
+
+def test_news_carries_the_tariff_signal(client: TestClient) -> None:
+    body = client.get("/api/v1/tariffs/news").json()
+    items = body["data"]
+    cut = next(n for n in items if n["direction"] == "cut")
+    assert (cut["markets"], cut["origins"]) == (["USA"], ["BGD"])
+    assert (cut["rate_pct"], cut["previous_pct"]) == (10.0, 20.0)
+    assert cut["reports"] == 2 and cut["industries"] == ["garments"]
+    assert cut["confirmed"] is False and cut["confirmation"] is None
+    assert cut["label"] == "announced, not in the schedule yet"
+    assert cut["url"].startswith("https://") and cut["published"].startswith("2026-11-12")
+    lose = next(n for n in items if n["direction"] == "raise")
+    assert lose["markets"] == ["EUN"] and lose["origins"] == ["BGD"]
+    dates = [n["published"] for n in items]
+    assert dates == sorted(dates, reverse=True)
+    assert body["meta"]["mode"] == "replay"
+
+
+def test_news_filters(client: TestClient) -> None:
+    usa = client.get("/api/v1/tariffs/news", params={"market": "usa"}).json()["data"]
+    assert usa and all("USA" in n["markets"] for n in usa)
+    assert client.get("/api/v1/tariffs/news", params={"origin": "VNM"}).json()["data"] == []
+
+
+def test_news_by_event(client: TestClient) -> None:
+    items = client.get("/api/v1/tariffs/news").json()["data"]
+    one = client.get("/api/v1/tariffs/news", params={"event_id": items[0]["event_id"]}).json()
+    assert [n["event_id"] for n in one["data"]] == [items[0]["event_id"]]
+    assert client.get("/api/v1/tariffs/news", params={"event_id": "nope"}).status_code == 422
+
+
+def test_overview_counts_news(client: TestClient) -> None:
+    d = client.get("/api/v1/tariffs/overview").json()["data"]
+    assert d["news_30d"] >= 2
+
+
+def test_a_schedule_change_confirms_matching_news(client: TestClient) -> None:
+    """Runs last: plants a US raise for Bangladesh (+5 pp) and a raise story; the story turns
+    'confirmed', the earlier cut story does not (the directions disagree)."""
+    import json
+
+    from cportal_connectors.canonical import ParseContext, sample_bytes
+    from cportal_connectors.parsers.tariffs import hts_parser
+
+    rows = json.loads(sample_bytes("DS-TRADE-05", "hts_export_9903_01_07.json"))
+    (target,) = [r for r in rows if r["htsno"] == "9903.05.26"]
+    target["general"] = "The duty provided in the applicable subheading + 15%"
+    later = ParseContext(
+        "DS-TRADE-05", DataMode.LIVE, fetched_at=dt.datetime(2026, 11, 19, 6, tzinfo=dt.UTC)
+    )
+    with session_scope(TEST_URL) as s:
+        upsert(s, hts_parser("hts:9903.01-9903.07")(json.dumps(rows).encode(), later))
+        upsert(
+            s,
+            [
+                _article(
+                    4,
+                    "US raises tariff on Bangladesh garments to 15 percent from 10 percent",
+                    16,
+                    "d.example",
+                )
+            ],
+        )
+    with session_scope(TEST_URL) as s:
+        store.refresh(s, dt.date(2026, 11, 18))
+        c2_service.process(s, now=dt.datetime(2026, 11, 18, 12, tzinfo=dt.UTC))
+    items = client.get("/api/v1/tariffs/news", params={"market": "USA"}).json()["data"]
+    raised = next(n for n in items if n["direction"] == "raise")
+    assert raised["confirmed"] is True and raised["label"] == "in the schedule"
+    assert raised["confirmation"]["measure_ref"] == "9903.05.26"
+    assert raised["confirmation"]["delta_pp"] == 5.0
+    cut = next(n for n in items if n["direction"] == "cut")
+    assert cut["confirmed"] is False
+
+
+def test_brief_has_a_cited_tariff_line(client: TestClient) -> None:
+    """Runs after the planted change: the Control Tower brief names it and cites the rows."""
+    lines = client.get("/api/v1/brief", params={"scenario": ""}).json()["data"]["lines"]
+    (line,) = [ln for ln in lines if ln["text"].startswith("Tariffs")]
+    assert "9903.05.26" in line["text"] and "Bangladesh" in line["text"]
+    assert "+10% → +15%" in line["text"]
+    assert line["tone"] == "watch"  # a duty on Bangladesh went up
+    kinds = {c["kind"] for c in line["cites"]}
+    assert kinds == {"tariff"} and all(c["href"].startswith("/tariffs") for c in line["cites"])

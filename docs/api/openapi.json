@@ -244,7 +244,8 @@
               "gates",
               "model",
               "scenario",
-              "source"
+              "source",
+              "tariff"
             ],
             "title": "Kind",
             "type": "string"
@@ -1578,6 +1579,26 @@
           "meta"
         ],
         "title": "Envelope[list[ModelOut]]",
+        "type": "object"
+      },
+      "Envelope_list_NewsOut__": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/NewsOut"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Envelope[list[NewsOut]]",
         "type": "object"
       },
       "Envelope_list_NoticeOut__": {
@@ -3563,6 +3584,249 @@
         "title": "ModelOut",
         "type": "object"
       },
+      "NewsConfirmationOut": {
+        "properties": {
+          "change_id": {
+            "title": "Change Id",
+            "type": "string"
+          },
+          "delta_pp": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delta Pp"
+          },
+          "detected_at": {
+            "format": "date-time",
+            "title": "Detected At",
+            "type": "string"
+          },
+          "market": {
+            "title": "Market",
+            "type": "string"
+          },
+          "measure_ref": {
+            "title": "Measure Ref",
+            "type": "string"
+          },
+          "new_duty_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "New Duty Text"
+          },
+          "old_duty_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Old Duty Text"
+          },
+          "origin_code": {
+            "title": "Origin Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "change_id",
+          "market",
+          "measure_ref",
+          "origin_code",
+          "old_duty_text",
+          "new_duty_text",
+          "delta_pp",
+          "detected_at"
+        ],
+        "title": "NewsConfirmationOut",
+        "type": "object"
+      },
+      "NewsOut": {
+        "properties": {
+          "confirmation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NewsConfirmationOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "confirmed": {
+            "title": "Confirmed",
+            "type": "boolean"
+          },
+          "data_mode": {
+            "title": "Data Mode",
+            "type": "string"
+          },
+          "direction": {
+            "description": "raise | cut | exempt | unknown",
+            "title": "Direction",
+            "type": "string"
+          },
+          "effective": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective"
+          },
+          "event_id": {
+            "title": "Event Id",
+            "type": "string"
+          },
+          "industries": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Industries",
+            "type": "array"
+          },
+          "label": {
+            "description": "'in the schedule' or 'announced, not in the schedule yet'",
+            "title": "Label",
+            "type": "string"
+          },
+          "last_updated": {
+            "format": "date-time",
+            "title": "Last Updated",
+            "type": "string"
+          },
+          "markets": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Markets",
+            "type": "array"
+          },
+          "origins": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Origins",
+            "type": "array"
+          },
+          "outlets": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Outlets",
+            "type": "array"
+          },
+          "previous_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Pct"
+          },
+          "published": {
+            "description": "First report",
+            "format": "date-time",
+            "title": "Published",
+            "type": "string"
+          },
+          "quote": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The words the direction was read from",
+            "title": "Quote"
+          },
+          "rate_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rate Pct"
+          },
+          "reports": {
+            "title": "Reports",
+            "type": "integer"
+          },
+          "source_id": {
+            "title": "Source Id",
+            "type": "string"
+          },
+          "status": {
+            "description": "announced | threatened",
+            "title": "Status",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": [
+          "event_id",
+          "title",
+          "url",
+          "published",
+          "last_updated",
+          "reports",
+          "outlets",
+          "source_id",
+          "direction",
+          "status",
+          "markets",
+          "origins",
+          "rate_pct",
+          "previous_pct",
+          "industries",
+          "effective",
+          "quote",
+          "confirmed",
+          "label",
+          "confirmation",
+          "data_mode"
+        ],
+        "title": "NewsOut",
+        "type": "object"
+      },
       "NodeDetailOut": {
         "properties": {
           "customers": {
@@ -4094,6 +4358,10 @@
             "title": "Markets",
             "type": "array"
           },
+          "news_30d": {
+            "title": "News 30D",
+            "type": "integer"
+          },
           "notices_30d": {
             "title": "Notices 30D",
             "type": "integer"
@@ -4121,6 +4389,7 @@
           "feeds",
           "changes_30d",
           "notices_30d",
+          "news_30d",
           "latest_change_at"
         ],
         "title": "OverviewOut",
@@ -10213,6 +10482,111 @@
           }
         },
         "summary": "Matrix",
+        "tags": [
+          "tariffs"
+        ]
+      }
+    },
+    "/api/v1/tariffs/news": {
+      "get": {
+        "description": "Tariff news from the C2 news pipeline (RSS, GDELT), newest first: direction, market,\norigin and rates read from the text, and whether the official schedule already shows it.",
+        "operationId": "news_api_v1_tariffs_news_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "market",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Market"
+            }
+          },
+          {
+            "in": "query",
+            "name": "origin",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Origin"
+            }
+          },
+          {
+            "in": "query",
+            "name": "event_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Event Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_list_NewsOut__"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "News",
         "tags": [
           "tariffs"
         ]

@@ -1,5 +1,13 @@
 # STATUS (updated 2026-11-18)
 
+UI plan for the Tariff Monitor (2026-11-18, A-134): `docs/tariffs/UI_PLAN.md` (+ `.docx`).
+New page on the Disruption Radar's workbench pattern; tariff cards on the Route Planner map,
+Supplier Network node drawer, Radar trade-policy events, and a Control Tower brief line.
+Tasks T0–T7 with checklists. Findings: G-9 (C2 treats tariff cuts as disruptions), G-10 (HS
+960290 does not exist). **Waiting on user: yes to the plan, and Q-22…Q-26** (UI_PLAN.md §9).
+No UI code written yet. Tariff news: C2 captures it live as generic trade-policy events; the
+link to the tariff tables is task T7.
+
 Tariff Monitor backend (C6, 2026-11-18; Q-18/Q-21 answered with the defaults; A-126…A-132;
 ADR-021; docs `docs/tariffs/BACKEND.md` and `docs/tariffs/LIVE_FEEDS.md`):
 - **Sources:** DS-TRADE-04 WITS (MFN, 5 markets, weekly), -05 USITC HTS (US schedule + Chapter

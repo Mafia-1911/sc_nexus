@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "url": "https://wits.worldbank.org/API/V1/SDMX/V21/datasource/TRN/reporter/918/partner/000/product/610910/year/2022/datatype/reported",
+  "headers": {
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "note": "WITS TRAINS: EU (918) MFN on HS 610910, 2022",
+  "captured_at": "2026-11-18T11:07:29.806950+00:00",
+  "status": 200,
+  "content_type": "application/vnd.sdmx.structurespecificdata+xml; version=2.1; charset=utf-8",
+  "bytes": 2221
+}

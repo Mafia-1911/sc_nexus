@@ -1,4 +1,21 @@
-# STATUS (updated 2026-11-17)
+# STATUS (updated 2026-11-18)
+
+Analysis pass (2026-11-18, user request; A-125; no code changed):
+- `docs/proposals/2026-11-18-gap-analysis-and-features.md`: file map, feature state, verified
+  logic gaps (G-1 routes ignore C2/C4, G-2 1.64× speed factor unapplied, G-3 constant FX,
+  G-4 synthetic due dates, G-5/G-6 honest-band labels), review of Mafia-1911/sc_nexus#1 (cannot
+  merge: module, route and router collisions, M2 base), theme fit (no satellite/transformer in
+  C4, no GNN, no RL), organisers' suggestions checked, features F-1…F-8 ranked.
+- `docs/proposals/C6-tariff-monitor-plan.md`: analytical plan for the Tariff & Trade-Policy
+  Monitor (sources, tables, effective-rate engine, change detection, exposure, LDC-graduation
+  scenario with BOM origin check, API, UI, C6-AC01…AC07, 5-day slices).
+- Probed and sampled (`data/samples/DS-TRADE-04…07`): WITS, USITC HTS, Federal Register, UK
+  Trade Tariff API: all 200 without keys. EU TARIC rates not in static HTML; WTO API needs a key.
+- Waiting on user: **Q-18…Q-21** (package placement, order, teammate PR, markets).
+
+---
+
+Previous status header: 2026-11-17.
 
 Milestone: **M8 Nexus + demo, in progress** (the user deferred VisA and further C5 depth,
 U-06). Branch `m3-c1`. Nothing pushed since M2 (commit only until the whole build is done).

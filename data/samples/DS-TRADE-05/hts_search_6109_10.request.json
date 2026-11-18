@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "url": "https://hts.usitc.gov/reststop/search?keyword=6109.10",
+  "headers": {
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "note": "USITC HTS: base rates for 6109.10",
+  "captured_at": "2026-11-18T11:07:30.254002+00:00",
+  "status": 200,
+  "content_type": "application/json;charset=UTF-8",
+  "bytes": 8568
+}

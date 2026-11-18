@@ -26,6 +26,7 @@ class ProductOut(BaseModel):
     hs6: str
     name: str
     industry: str
+    key: str | None = Field(default=None, description="Industry-pack SKU (e.g. TSHIRT)")
 
 
 class FeedOut(BaseModel):
@@ -58,6 +59,7 @@ class CellOut(BaseModel):
     effective_pct_max: float | None
     is_resolved: bool
     is_stale: bool
+    is_ceiling: bool = Field(description="No preference data for this market: an upper bound")
     base_pct: float | None
     preference_pct: float | None
     additional_pct: float | None
@@ -79,6 +81,7 @@ class ComponentOut(BaseModel):
     measure_ref: str
     kind: str
     origin_code: str
+    origin_name: str | None = Field(default=None, description="Scheme, FTA or country name")
     duty_text: str
     pct: float | None
     legal_ref: str | None
@@ -182,7 +185,8 @@ class NewsConfirmationOut(BaseModel):
 
 
 class NewsOut(BaseModel):
-    event_id: str
+    id: str = Field(description="The story (tariff_news row)")
+    event_id: str | None = Field(description="C2's disruption event for it, if there is one")
     title: str
     url: str | None
     published: dt.datetime = Field(description="First report")

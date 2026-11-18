@@ -25,7 +25,7 @@ import datetime as dt
 from typing import Any
 from uuid import UUID
 
-from sqlalchemy import Index, String, Text, UniqueConstraint
+from sqlalchemy import Index, String, Text, UniqueConstraint, text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from cportal_core.enums import (
@@ -203,8 +203,40 @@ class TariffEffectiveRate(Lineage, Base):
     preference_pct: Mapped[float | None]
     additional_pct: Mapped[float | None]
     is_stale: Mapped[bool] = mapped_column(default=False)  # base rate from an earlier year
+    # no preference data for this market: the number is the most this origin pays (a ceiling)
+    is_ceiling: Mapped[bool] = mapped_column(default=False, server_default=text("false"))
     components: Mapped[list[Any]] = mapped_column(default=list)  # representative line
     lines: Mapped[list[Any]] = mapped_column(default=list)  # per national line: code, pct
     notes: Mapped[list[Any]] = mapped_column(default=list)
     sources: Mapped[list[Any]] = mapped_column(default=list)  # DS-IDs used
     computed_at: Mapped[dt.datetime]
+
+
+class TariffNews(Lineage, Base):
+    """Tariff news for the Tariff Monitor, written by C2 (Q-25): one row per story (reports of
+    the same move grouped), with the tariff signal read from the text. Wider than C2's
+    disruption events: a US tariff on Indian textiles is news for Bangladeshi exporters."""
+
+    __tablename__ = "tariff_news"
+    __extra_args__ = (Index("ix_tariff_news_published", "first_published"),)
+
+    id: Mapped[UUID] = pk()
+    story_key: Mapped[str] = mapped_column(String(200))
+    article_ids: Mapped[list[Any]] = mapped_column(default=list)
+    title: Mapped[str] = mapped_column(Text)
+    url: Mapped[str | None] = mapped_column(Text)
+    outlets: Mapped[list[Any]] = mapped_column(default=list)
+    reports: Mapped[int]
+    first_published: Mapped[dt.datetime]
+    last_published: Mapped[dt.datetime]
+    direction: Mapped[str] = mapped_column(String(16))
+    status: Mapped[str] = mapped_column(String(16))
+    markets: Mapped[list[Any]] = mapped_column(default=list)
+    origins: Mapped[list[Any]] = mapped_column(default=list)
+    rate_pct: Mapped[float | None]
+    previous_pct: Mapped[float | None]
+    industries: Mapped[list[Any]] = mapped_column(default=list)
+    effective: Mapped[str | None] = mapped_column(String(64))
+    quote: Mapped[str | None] = mapped_column(Text)
+    spans: Mapped[dict[str, Any]] = mapped_column(default=dict)
+    event_id: Mapped[UUID | None] = mapped_column(index=True)  # a C2 disruption event, if any

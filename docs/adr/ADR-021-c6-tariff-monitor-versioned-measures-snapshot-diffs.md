@@ -51,3 +51,9 @@ change is detected the first time a schedule differs, idempotently; new markets 
 connectors writing the same tables. − Rules of origin are assumed met; US note-52 exemptions
 and China's stacked IEEPA lines need a person to read the notes; EU, Japan and Canada current
 rates are not live (docs/tariffs/LIVE_FEEDS.md); history starts with our first snapshot.
+
+**Addendum 2026-11-18 (UI build, A-137, A-138):** tariff news reaches C6 through a table,
+`tariff_news`, that C2 writes (capabilities talk through tables, never by import); C6 only
+reads it and links stories to `tariff_change` rows. Markets without preference data return a
+ceiling (`is_ceiling`), never a number presented as the origin's duty. Snapshots diff only
+within one parser version, and never when unversioned.

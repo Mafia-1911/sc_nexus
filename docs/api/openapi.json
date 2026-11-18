@@ -375,6 +375,11 @@
             "title": "Hs6",
             "type": "string"
           },
+          "is_ceiling": {
+            "description": "No preference data for this market: an upper bound",
+            "title": "Is Ceiling",
+            "type": "boolean"
+          },
           "is_resolved": {
             "title": "Is Resolved",
             "type": "boolean"
@@ -430,6 +435,7 @@
           "effective_pct_max",
           "is_resolved",
           "is_stale",
+          "is_ceiling",
           "base_pct",
           "preference_pct",
           "additional_pct",
@@ -642,6 +648,18 @@
           "origin_code": {
             "title": "Origin Code",
             "type": "string"
+          },
+          "origin_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Scheme, FTA or country name",
+            "title": "Origin Name"
           },
           "pct": {
             "anyOf": [
@@ -3691,7 +3709,20 @@
             "title": "Effective"
           },
           "event_id": {
-            "title": "Event Id",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "C2's disruption event for it, if there is one",
+            "title": "Event Id"
+          },
+          "id": {
+            "description": "The story (tariff_news row)",
+            "title": "Id",
             "type": "string"
           },
           "industries": {
@@ -3802,6 +3833,7 @@
           }
         },
         "required": [
+          "id",
           "event_id",
           "title",
           "url",
@@ -4920,6 +4952,18 @@
           "industry": {
             "title": "Industry",
             "type": "string"
+          },
+          "key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Industry-pack SKU (e.g. TSHIRT)",
+            "title": "Key"
           },
           "name": {
             "title": "Name",

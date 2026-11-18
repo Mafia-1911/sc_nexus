@@ -43,3 +43,15 @@ single-source cap and the alert thresholds are estimates in `config/priors/disru
 Title + snippet only; English only (Q-10 default); no GLiNER2 or embeddings yet (A-060); GDELT
 rows are titles without snippets; Red Sea geopolitics is over-included; synthetic scenario
 articles are processed into scenario-scoped events.
+
+
+## Tariff signal (added 2026-11-18, Q-25, A-137)
+
+Rules in `cportal_c2/tariff.py` read, from trade-policy text, the direction (raise, cut,
+exempt, unknown), the importing market, the origins, new and previous rate, industries and an
+effective date, each with its quoted span. A direction word counts only within 6 words of a
+tariff word. Tested by 26 cases (`tests/test_tariff_signal.py`, several on real headlines fetched
+2026-11-18) and 8 relevance cases (`tests/test_tariff_news.py`). Not evaluated on a labelled
+corpus: no tariff gold set exists yet (next: label 30+ tariff articles, report precision and
+recall per field). Effect on the disruption gold set: none (F1 0.303 before and after).
+Trade-policy events now carry `subtype`; cuts and exemptions raise no alert (G-9).

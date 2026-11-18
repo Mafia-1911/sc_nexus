@@ -4,6 +4,8 @@ import { Route } from "lucide-react";
 import { useMemo, useState, useTransition } from "react";
 
 import { optimize } from "@/app/(app)/routes/actions";
+import { loadRates } from "@/app/(app)/tariffs/actions";
+import { type BorderDuty, BorderDutyCard, legDirection } from "@/components/routes/border-duty";
 import { ParetoChart } from "@/components/routes/pareto-chart";
 import { RouteMap } from "@/components/routes/route-map";
 import { Badge } from "@/components/ui/badge";
@@ -35,7 +37,27 @@ function OnTime({ p }: { p: number | null | undefined }) {
   return <Badge tone={tone}>{fmt(p * 100)}% on time</Badge>;
 }
 
-export function Planner({ places, origin, dest }: { places: Place[]; origin?: string; dest?: string }) {
+export type CargoOption = { hs6: string; name: string; industry: string };
+
+const EXPORT_MARKETS = [
+  { code: "USA", name: "United States" },
+  { code: "GBR", name: "United Kingdom" },
+  { code: "EUN", name: "European Union" },
+  { code: "JPN", name: "Japan" },
+  { code: "CAN", name: "Canada" },
+];
+
+export function Planner({
+  places,
+  origin,
+  dest,
+  cargo = [],
+}: {
+  places: Place[];
+  origin?: string;
+  dest?: string;
+  cargo?: CargoOption[];
+}) {
   const now = useMemo(() => new Date(), []);
   const [form, setForm] = useState({
     origin: origin ?? "BDCGP",
@@ -43,7 +65,12 @@ export function Planner({ places, origin, dest }: { places: Place[]; origin?: st
     qty_teu: 2,
     reefer: false,
     deadline: localInput(new Date(now.getTime() + 36 * 3600 * 1000)),
+    hs6: "",
+    market: "USA",
   });
+  const [border, setBorder] = useState<BorderDuty | null>(null);
+  const kind = (key: string) => places.find((p) => p.key === key)?.kind;
+  const direction = legDirection(kind(form.origin), kind(form.dest));
   const [result, setResult] = useState<RouteResult | null>(null);
   const [selected, setSelected] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -63,6 +90,16 @@ export function Planner({ places, origin, dest }: { places: Place[]; origin?: st
         setResult(out.data);
         setSelected(0);
       } else setError(out.error ?? "Planning failed.");
+      // Tariffs (T3): the border this leg leads to, for the chosen cargo.
+      const product = cargo.find((c) => c.hs6 === form.hs6);
+      if (!product || !direction) return setBorder(null);
+      if (direction === "import") return setBorder({ direction, hs6: product.hs6, product: product.name });
+      const rates = await loadRates([product.hs6], [form.market], ["BGD", "VNM", "KHM"]);
+      setBorder(
+        rates.data && rates.meta
+          ? { direction, hs6: product.hs6, product: product.name, market: form.market, matrix: rates.data, meta: rates.meta }
+          : { direction: "error", hs6: product.hs6, product: product.name, message: rates.error ?? "Could not load tariffs." },
+      );
     });
 
   const plan = result?.plans[selected] ?? null;
@@ -87,7 +124,7 @@ export function Planner({ places, origin, dest }: { places: Place[]; origin?: st
   return (
     <div className="flex flex-col gap-4">
       <Card>
-        <div className="grid grid-cols-2 items-end gap-3 md:grid-cols-6">
+        <div className="grid grid-cols-2 items-end gap-3 md:grid-cols-4">
           {select("From", "origin")}
           {select("To", "dest")}
           <label className="flex flex-col gap-1 text-xs text-muted">
@@ -98,6 +135,43 @@ export function Planner({ places, origin, dest }: { places: Place[]; origin?: st
             TEU
             <input type="number" min={1} max={200} name="qty_teu" value={form.qty_teu} onChange={(e) => setForm({ ...form, qty_teu: Number(e.target.value) })} className="tabular rounded-[var(--radius-control)] border border-border bg-surface px-2 py-1.5 text-sm text-text" />
           </label>
+          {cargo.length ? (
+            <label className="flex flex-col gap-1 text-xs text-muted">
+              Cargo (for duty)
+              <select
+                name="hs6"
+                value={form.hs6}
+                onChange={(e) => setForm({ ...form, hs6: e.target.value })}
+                className="rounded-[var(--radius-control)] border border-border bg-surface px-2 py-1.5 text-sm text-text"
+              >
+                <option value="">None</option>
+                {cargo.map((c) => (
+                  <option key={c.hs6} value={c.hs6}>
+                    {c.name} ({c.hs6})
+                  </option>
+                ))}
+              </select>
+            </label>
+          ) : null}
+          {cargo.length ? (
+            <label className="flex flex-col gap-1 text-xs text-muted">
+              Export market
+              <select
+                name="market"
+                value={form.market}
+                disabled={direction !== "export"}
+                title={direction === "export" ? undefined : "Only an export leg (cluster → port) leads to a foreign market"}
+                onChange={(e) => setForm({ ...form, market: e.target.value })}
+                className="rounded-[var(--radius-control)] border border-border bg-surface px-2 py-1.5 text-sm text-text disabled:opacity-60"
+              >
+                {EXPORT_MARKETS.map((m) => (
+                  <option key={m.code} value={m.code}>
+                    {m.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ) : null}
           <label className="flex items-center gap-2 pb-2 text-sm">
             <input type="checkbox" checked={form.reefer} onChange={(e) => setForm({ ...form, reefer: e.target.checked })} />
             Cold chain (reefer)
@@ -124,6 +198,7 @@ export function Planner({ places, origin, dest }: { places: Place[]; origin?: st
               <CardHeader title="The route" subtitle={plan.name} aside={<ul className="flex gap-3 text-xs text-muted">{Object.entries(MODE_VAR).map(([m, v]) => (<li key={m} className="flex items-center gap-1"><span className="size-2.5 rounded-full" style={{ background: `var(${v})` }} />{m}</li>))}</ul>} />
               <div className="relative h-[300px] overflow-hidden rounded-[var(--radius-control)] border border-border">
                 <RouteMap plan={plan} />
+                {border ? <BorderDutyCard duty={border} /> : null}
               </div>
             </Card>
           </div>

@@ -138,6 +138,16 @@ def test_eu_cotton_tshirt(loaded: str, origin: str, expected: float | None, reso
     assert r.is_stale  # EU MFN comes from WITS 2023
 
 
+def test_markets_without_preference_data_give_a_ceiling(loaded: str) -> None:
+    """Japan and Canada: WITS MFN only, no preference data (e.g. LDC duty-free access), so the
+    number is the most a Bangladeshi good pays, not what it pays."""
+    for market in ("JPN", "CAN"):
+        assert _rate(loaded, market, "610910", "BGD").is_ceiling is True
+    for market in ("USA", "GBR", "EUN"):
+        assert _rate(loaded, market, "610910", "BGD").is_ceiling is False
+    assert any("may be lower" in n for n in _rate(loaded, "CAN", "610910", "BGD").notes)
+
+
 def test_every_cell_is_written_and_badged(loaded: str) -> None:
     with session_scope(loaded) as s:
         n = s.scalar(select(func.count()).select_from(TariffEffectiveRate))
@@ -197,3 +207,27 @@ def test_a_parser_upgrade_is_not_a_tariff_change(
         before = s.scalar(select(func.count()).select_from(TariffChange))
         assert store.refresh(s, ON)["new_changes"] == 0
         assert s.scalar(select(func.count()).select_from(TariffChange)) == before
+
+
+def test_unversioned_snapshots_are_never_diffed(loaded: str) -> None:
+    """Snapshots written before parser versioning cannot be compared safely (their parser may
+    have read the schedule differently): they re-baseline instead of producing changes."""
+    rows = json.loads(sample_bytes("DS-TRADE-05", "hts_export_9903_01_07.json"))
+    rows = [r for r in rows if r["htsno"] != "9903.05.90"]
+    recs = []
+    for when in (dt.datetime(2026, 12, 1, tzinfo=dt.UTC), dt.datetime(2026, 12, 2, tzinfo=dt.UTC)):
+        ctx = ParseContext("DS-TRADE-05", DataMode.LIVE, fetched_at=when)
+        body = json.dumps(
+            rows
+            if when.day == 1
+            else json.loads(sample_bytes("DS-TRADE-05", "hts_export_9903_01_07.json"))
+        ).encode()
+        out = hts_parser("hts:9903.01-9903.07")(body, ctx)
+        for r in out:
+            if r.table == "tariff_snapshot":
+                r.generator_version = None  # as written before versioning
+        recs += out
+    with session_scope(loaded) as s:
+        upsert(s, recs)
+        s.flush()
+        assert store.refresh(s, ON)["new_changes"] == 0

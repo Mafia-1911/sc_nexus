@@ -13,12 +13,10 @@ from typing import Any
 from uuid import UUID
 
 from cportal_core.models import (
-    Article,
-    DisruptionEvent,
-    EventMention,
     TariffChange,
     TariffEffectiveRate,
     TariffMeasure,
+    TariffNews,
     TariffNomenclature,
     TariffOriginGroup,
     TariffOriginMember,
@@ -92,7 +90,8 @@ def overview(session: Session, now: dt.datetime | None = None) -> OverviewOut:
         markets=markets,
         origins=[_origin(o) for o in catalog.origins()],
         products=[
-            ProductOut(hs6=p.hs6, name=p.name, industry=p.industry) for p in catalog.products()
+            ProductOut(hs6=p.hs6, name=p.name, industry=p.industry, key=p.key)
+            for p in catalog.products()
         ],
         feeds=[FeedOut.model_validate(f) for f in catalog.feeds()],
         changes_30d=session.scalar(
@@ -108,8 +107,8 @@ def overview(session: Session, now: dt.datetime | None = None) -> OverviewOut:
         latest_change_at=session.scalar(select(func.max(TariffChange.detected_at))),
         news_30d=session.scalar(
             select(func.count())
-            .select_from(DisruptionEvent)
-            .where(*_news_scope(), DisruptionEvent.last_updated >= since)
+            .select_from(TariffNews)
+            .where(*_news_scope(), TariffNews.last_published >= since)
         )
         or 0,
     )
@@ -130,6 +129,7 @@ def _cells(rows: list[Any]) -> tuple[list[CellOut], list[str]]:
                 effective_pct_max=r.effective_pct_max,
                 is_resolved=r.is_resolved,
                 is_stale=r.is_stale,
+                is_ceiling=r.is_ceiling,
                 base_pct=r.base_pct,
                 preference_pct=r.preference_pct,
                 additional_pct=r.additional_pct,
@@ -148,7 +148,8 @@ _MATRIX_COLUMNS = (
     TariffEffectiveRate.effective_pct_min, TariffEffectiveRate.effective_pct_max,
     TariffEffectiveRate.is_resolved, TariffEffectiveRate.is_stale, TariffEffectiveRate.base_pct,
     TariffEffectiveRate.preference_pct, TariffEffectiveRate.additional_pct,
-    TariffEffectiveRate.n_lines, TariffEffectiveRate.notes, TariffEffectiveRate.sources,
+    TariffEffectiveRate.n_lines, TariffEffectiveRate.notes, TariffEffectiveRate.is_ceiling,
+    TariffEffectiveRate.sources,
     TariffEffectiveRate.data_mode,
 )  # fmt: skip
 
@@ -285,6 +286,21 @@ def product(
             ).where(TariffNomenclature.hs6 == hs6)
         )
     }
+    group_names = {
+        (m, g): n
+        for m, g, n in session.execute(
+            select(
+                TariffOriginGroup.market_iso3, TariffOriginGroup.group_code, TariffOriginGroup.name
+            )
+        )
+    }
+    countries = catalog.country_names()
+
+    def origin_name(market: str, code: str) -> str:
+        if code == "*":
+            return "All origins"
+        return group_names.get((market, code)) or countries.get(code, code)
+
     out: list[MarketDetailOut] = []
     used: set[str] = set()
     for market in markets or list(catalog.markets()):
@@ -304,7 +320,12 @@ def product(
                         base_pct=r.base_pct,
                         preference_pct=r.preference_pct,
                         additional_pct=r.additional_pct,
-                        components=[ComponentOut(**c.__dict__) for c in r.components],
+                        components=[
+                            ComponentOut(
+                                **c.__dict__, origin_name=origin_name(market, c.origin_code)
+                            )
+                            for c in r.components
+                        ],
                         notes=r.notes,
                     )
                 )
@@ -386,12 +407,8 @@ _LABEL = {True: "in the schedule", False: "announced, not in the schedule yet"}
 
 
 def _news_scope() -> list[Any]:
-    """Real trade-policy events only (tariffs are real data; scenarios have no tariff news)."""
-    return [
-        DisruptionEvent.type == "TRADE_POLICY_SANCTION",
-        DisruptionEvent.scenario_id.is_(None),
-        ~DisruptionEvent.is_synthetic,
-    ]
+    """Real tariff news only (C2 writes stories from real articles; scenarios have none)."""
+    return [~TariffNews.is_synthetic, TariffNews.scenario_id.is_(None)]
 
 
 def _agrees(direction: str, change: TariffChange) -> bool:
@@ -432,58 +449,46 @@ def news(
     now: dt.datetime | None = None,
     event_id: UUID | None = None,
 ) -> list[NewsOut]:
+    """Tariff news stories (C2, from RSS and GDELT), newest first, each with whether the official
+    schedule already shows the move."""
     now = now or dt.datetime.now(dt.UTC)
-    q = select(DisruptionEvent).where(*_news_scope())
-    if event_id is not None:  # one event, whatever its age (the Radar's drawer asks for it)
-        q = q.where(DisruptionEvent.id == event_id)
+    q = select(TariffNews).where(*_news_scope())
+    if event_id is not None:  # the story behind one disruption event (the Radar's drawer)
+        q = q.where(TariffNews.event_id == event_id)
     else:
-        q = q.where(DisruptionEvent.last_updated >= now - dt.timedelta(NEWS_DAYS))
-    events = list(session.scalars(q.order_by(DisruptionEvent.first_seen.desc())))
-    if not events:
+        q = q.where(TariffNews.last_published >= now - dt.timedelta(NEWS_DAYS))
+    if market:
+        q = q.where(TariffNews.markets.contains([market]))
+    if origin:
+        q = q.where(TariffNews.origins.contains([origin]))
+    rows = list(session.scalars(q.order_by(TariffNews.first_published.desc()).limit(limit)))
+    if not rows:
         return []
-    rows = session.execute(
-        select(EventMention.event_id, EventMention.extracted, Article.url, Article.source_name,
-               Article.published_at)
-        .join(Article, Article.id == EventMention.article_id)
-        .where(EventMention.event_id.in_([e.id for e in events]))
-        .order_by(Article.published_at.desc())
-    ).all()  # fmt: skip
-    by_event: dict[Any, list[Any]] = {}
-    for r in rows:
-        by_event.setdefault(r.event_id, []).append(r)
     changes = list(session.scalars(select(TariffChange).order_by(TariffChange.detected_at.desc())))
     out: list[NewsOut] = []
-    for e in events:
-        mentions = by_event.get(e.id, [])
-        signals = [m.extracted.get("tariff") for m in mentions if m.extracted.get("tariff")]
-        known = [s for s in signals if s.get("direction") != "unknown"]
-        signal: dict[str, Any] = (known or signals or [{}])[0]  # newest report first
-        if market and market not in (signal.get("markets") or []):
-            continue
-        if origin and origin not in (signal.get("origins") or []):
-            continue
-        published = e.first_seen or e.last_updated or now
-        hit = _confirmation(changes, signal, published) if signal else None
-        quote = (signal.get("spans") or {}).get("direction", {}).get("text")
+    for n in rows:
+        signal = {"markets": n.markets, "origins": n.origins, "direction": n.direction}
+        hit = _confirmation(changes, signal, n.first_published)
         out.append(
             NewsOut(
-                event_id=str(e.id),
-                title=e.title,
-                url=mentions[-1].url if mentions else e.url,
-                published=published,
-                last_updated=e.last_updated or published,
-                reports=len(mentions),
-                outlets=sorted({m.source_name for m in mentions if m.source_name}),
-                source_id=e.source_id,
-                direction=str(signal.get("direction") or "unknown"),
-                status=str(signal.get("status") or "announced"),
-                markets=list(signal.get("markets") or []),
-                origins=list(signal.get("origins") or []),
-                rate_pct=signal.get("rate_pct"),
-                previous_pct=signal.get("previous_pct"),
-                industries=list(signal.get("industries") or []),
-                effective=signal.get("effective"),
-                quote=quote,
+                id=str(n.id),
+                event_id=str(n.event_id) if n.event_id else None,
+                title=n.title,
+                url=n.url,
+                published=n.first_published,
+                last_updated=n.last_published,
+                reports=n.reports,
+                outlets=list(n.outlets),
+                source_id=n.source_id,
+                direction=n.direction,
+                status=n.status,
+                markets=list(n.markets),
+                origins=list(n.origins),
+                rate_pct=n.rate_pct,
+                previous_pct=n.previous_pct,
+                industries=list(n.industries),
+                effective=n.effective,
+                quote=n.quote,
                 confirmed=hit is not None,
                 label=_LABEL[hit is not None],
                 confirmation=None
@@ -498,9 +503,7 @@ def news(
                     delta_pp=hit.delta_pp,
                     detected_at=hit.detected_at,
                 ),
-                data_mode=e.data_mode,
+                data_mode=n.data_mode,
             )
         )
-        if len(out) >= limit:
-            break
     return out

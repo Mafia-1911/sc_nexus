@@ -71,6 +71,7 @@ Full schema: `docs/api/openapi.json`.
 | `GET /changes?market&origin&hs6&since&limit` | Change feed | old/new duty text and %, delta pp, status change, effective from, detected at, source, mode |
 | `GET /notices?kind&country&limit` | Notices list | Federal Register notices: kind, countries, HTS refs, link |
 | `GET /origins/{iso3}?as_of` | Country panel ("Bangladesh in each market") | schemes/FTAs per market with dates, country-wide surcharges with status and legal refs |
+| `GET /news?market&origin&event_id&limit` | News tab, Radar "Tariff check" | tariff news stories from C2 (`tariff_news`): direction, market, origins, rates, industries, effective date, the quoted words, reports and outlets, and `confirmed` + the confirming `tariff_change` ("in the schedule" vs "announced, not in the schedule yet") |
 
 Measured on the replayed samples (local Postgres, in-process client, 20 calls): matrix median
 25 ms (max 34 ms, 204 KB), product 30 ms, overview 18 ms.
@@ -101,6 +102,22 @@ entered-before date, the membership end date and the unresolved-preference rule:
 | 6 | **Section 301/232 ranges** (9903.80–9903.91) with product lists | Correct China numbers | M |
 | 7 | **Daily brief line** for new tariff changes (Control Tower) | Cross-page hook | XS |
 | 8 | Missing feeds (LIVE_FEEDS.md §2), EU TARIC first | Live EU numbers | M each |
+
+## 6b. Added while building the UI (2026-11-18)
+
+- **News:** C2 reads a tariff signal from every real article (`cportal_c2.tariff`: direction
+  raise/cut/exempt/unknown, markets, origins, rates, industries, effective date, spans; direction
+  words count only within 6 words of a tariff word) and writes stories to `tariff_news`
+  (`cportal_c2.tariff_news`; relevance: a watched market or Bangladesh, and a watched origin or
+  industry). Trade-policy events get `subtype` tariff_raise/cut/exempt/unknown; cuts and
+  exemptions raise no alert, so no buffer advice (G-9). C6 matches a story to a `tariff_change`
+  (same market, origin, direction; detected 30 days before to 90 days after) for "in the schedule".
+- **Ceilings:** `is_ceiling` on `tariff_effective_rate` for markets with no preference data
+  (Japan, Canada); the UI writes "≤". Rule: `catalog.has_preferences(market)`.
+- **Components** carry `origin_name` (scheme, FTA or country), e.g. "Developing Countries
+  Trading Scheme (DCTS) - Comprehensive Preferences (1062)".
+- **Products** carry `key` (industry-pack SKU) so pages can map supply-graph SKUs ("G-TSHIRT").
+- **Change detection** diffs only snapshots with the same non-empty parser version.
 
 ## 7. Commands
 

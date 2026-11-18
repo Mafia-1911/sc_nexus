@@ -171,8 +171,8 @@ def detect_changes(session: Session) -> list[TariffChangeRecord]:
         for prev, new in pairwise(snaps):
             if prev.content_hash == new.content_hash:
                 continue
-            if prev.generator_version != new.generator_version:
-                continue  # a parser upgrade re-baselines; it is not a tariff change (A-133)
+            if not prev.generator_version or prev.generator_version != new.generator_version:
+                continue  # a parser upgrade (or an unversioned snapshot) re-baselines (A-133)
             old = _measures_by_id(session, prev.measure_ids)
             cur = _measures_by_id(session, new.measure_ids)
             records += [_change_record(c, prev, new) for c in diff_measures(old, cur)]
@@ -228,6 +228,12 @@ def _cell_record(
     used = {c.source_id for r in results for c in r.components}
     modes = {m.data_mode for m in pool if m.source_id in used}
     notes = sorted({n for r in results for n in r.notes})
+    ceiling = bool(results) and not catalog.has_preferences(market)
+    if ceiling:
+        notes.append(
+            "MFN only: this market's preferences (e.g. LDC duty-free access) are not in the "
+            "data, so the duty for this origin may be lower"
+        )
     if not results:
         notes = ["no tariff line found for this product in this market"]
     return TariffEffectiveRateRecord(
@@ -249,6 +255,7 @@ def _cell_record(
         preference_pct=rep.preference_pct if rep else None,
         additional_pct=rep.additional_pct if rep else None,
         is_stale=any(r.is_stale for r in results),
+        is_ceiling=ceiling,
         components=[c.as_dict() for c in rep.components] if rep else [],
         lines=[
             {"code": r.line_code, "effective_pct": r.effective_pct, "is_resolved": r.is_resolved}

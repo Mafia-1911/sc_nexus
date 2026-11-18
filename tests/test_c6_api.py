@@ -107,6 +107,8 @@ def test_overview(client: TestClient) -> None:
     assert usa["live_source"] == "DS-TRADE-05" and usa["current_measures"] > 0
     assert usa["data_mode"] == "replay"
     assert d["origins"][0] == {"iso3": "BGD", "name": "Bangladesh"}
+    tee = next(p for p in d["products"] if p["hs6"] == "610910")
+    assert tee["key"] == "TSHIRT"  # the industry-pack SKU, so pages can map orders to HS codes
     assert len(d["products"]) == 22 and {p["industry"] for p in d["products"]} == {
         "garments",
         "pharma",
@@ -176,6 +178,18 @@ def test_product_badge_and_sources(client: TestClient) -> None:
     assert {"DS-TRADE-05", "DS-TRADE-07", "DS-TRADE-04", "DS-TRADE-08"} <= set(
         body["meta"]["sources"]
     )
+
+
+def test_product_components_name_the_scheme(client: TestClient) -> None:
+    d = client.get(
+        "/api/v1/tariffs/products/610910", params={"market": "GBR", "origin": "BGD"}
+    ).json()["data"]
+    (line,) = d["markets"][0]["lines"]
+    (pref,) = [c for c in line["components"] if c["role"] == "preference"]
+    assert pref["origin_code"] == "1062"
+    assert "Comprehensive" in pref["origin_name"]  # UK DCTS Comprehensive Preferences
+    base = next(c for c in line["components"] if c["role"] == "base")
+    assert base["origin_name"] == "All origins"
 
 
 def test_product_errors(client: TestClient) -> None:
@@ -256,8 +270,9 @@ def test_news_filters(client: TestClient) -> None:
 
 def test_news_by_event(client: TestClient) -> None:
     items = client.get("/api/v1/tariffs/news").json()["data"]
-    one = client.get("/api/v1/tariffs/news", params={"event_id": items[0]["event_id"]}).json()
-    assert [n["event_id"] for n in one["data"]] == [items[0]["event_id"]]
+    linked = next(n for n in items if n["event_id"])  # the cut story is also a C2 event
+    one = client.get("/api/v1/tariffs/news", params={"event_id": linked["event_id"]}).json()
+    assert [n["id"] for n in one["data"]] == [linked["id"]]
     assert client.get("/api/v1/tariffs/news", params={"event_id": "nope"}).status_code == 422
 
 

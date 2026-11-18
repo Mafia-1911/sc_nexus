@@ -10,7 +10,7 @@ import { currentScenario } from "@/lib/scenario";
 
 export const generateMetadata = () => titled("Supplier Network");
 
-type Params = Promise<{ industry?: string; metric?: string }>;
+type Params = Promise<{ industry?: string; metric?: string; node?: string }>;
 
 const METRIC_KEYS: Metric[] = ["dominance", "downstream", "tts_gap", "risk"];
 
@@ -36,15 +36,20 @@ async function Network({ searchParams }: { searchParams: Params }) {
     client.GET("/api/v1/graph/critical", { params: { query: { ...query, metric, limit: 15 } } }),
   ]);
   if (!graph.data || !critical.data) return <ErrorNote what="the supply network" />;
+  const node = params.node && graph.data.data.nodes.some((n) => n.id === params.node) ? params.node : null;
+  const nodeDetail = node
+    ? await client.GET("/api/v1/graph/nodes/{node_id}", { params: { path: { node_id: node }, query: { scenario } } })
+    : null;
   return (
     <NetworkWorkbench
-      key={`${scenario}:${industry}:${metric}`}
+      key={`${scenario}:${industry}:${metric}:${node ?? ""}`}
       graph={graph.data.data}
       meta={graph.data.meta}
       critical={critical.data.data}
       scenario={scenario}
       industry={industry}
       metric={metric}
+      initialDetail={nodeDetail?.data?.data ?? null}
     />
   );
 }

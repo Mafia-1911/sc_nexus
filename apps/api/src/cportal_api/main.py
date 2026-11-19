@@ -1,4 +1,5 @@
-"""FastAPI app: `/api/v1` REST, `/ws/live`, `/health` (02 §3, 04 §7).
+
+"""FastAPI app: `/api/v1` REST, `/ws/live`, `/health`.
 
 Run: `uv run uvicorn cportal_api.main:app --reload`.
 """
@@ -44,17 +45,36 @@ from cportal_api.routers import (
 )
 from cportal_api.schemas import BrandOut, Problem
 
+
 PROBLEM = "application/problem+json"
 
 
-def _problem(status: int, title: str, detail: str | None, request: Request) -> JSONResponse:
-    body = Problem(title=title, status=status, detail=detail, instance=str(request.url.path))
-    return JSONResponse(body.model_dump(), status_code=status, media_type=PROBLEM)
+def _problem(
+    status: int,
+    title: str,
+    detail: str | None,
+    request: Request,
+) -> JSONResponse:
+    body = Problem(
+        title=title,
+        status=status,
+        detail=detail,
+        instance=str(request.url.path),
+    )
+    return JSONResponse(
+        body.model_dump(),
+        status_code=status,
+        media_type=PROBLEM,
+    )
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
-    threading.Thread(target=routes.warm, name="c3-warm", daemon=True).start()
+    threading.Thread(
+        target=routes.warm,
+        name="c3-warm",
+        daemon=True,
+    ).start()
     yield
 
 
@@ -64,54 +84,111 @@ def create_app() -> FastAPI:
         title=f"{brand_name()} API",
         version=__version__,
         description=(
-            f"Cportal ({brand_name()}) API. Every data response carries `meta` with the data "
-            "mode (live, replay, synthetic): synthetic rows are never presented as real."
+            f"Cportal ({brand_name()}) API. Every data response carries `meta` "
+            "with the data mode (live, replay, synthetic): synthetic rows "
+            "are never presented as real."
         ),
-        responses={404: {"model": Problem}, 422: {"model": Problem}},
-    )
-    @app.get("/health", include_in_schema=False)
-    async def health_check():
-        return {"status": "healthy"}
-
-    token = os.environ.get("API_TOKEN")
-    if token:  # the deployed API (A-120): only the website's server, which holds the token
-
-        @app.middleware("http")
-        async def require_token(request: Request, call_next: Any) -> Any:
-            if request.url.path == "/health" or hmac.compare_digest(
-                request.headers.get("authorization", ""), f"Bearer {token}"
-            ):
-                return await call_next(request)
-            return _problem(401, "Unauthorized", "missing or wrong API token", request)
-
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
-        allow_methods=["GET", "POST"],
-        allow_headers=["*"],
+        responses={
+            404: {"model": Problem},
+            422: {"model": Problem},
+        },
     )
 
-    @app.exception_handler(HTTPException)
-    async def http_problem(request: Request, exc: HTTPException) -> JSONResponse:
-        titles = {404: "Not Found", 501: "Not Implemented", 400: "Bad Request"}
-        return _problem(
-            exc.status_code, titles.get(exc.status_code, "Error"), str(exc.detail), request
-        )
+    # Public API landing page
+    @app.get("/", include_in_schema=False)
+    async def root() -> dict[str, str]:
+        return {
+            "name": brand_name(),
+            "status": "running",
+            "version": __version__,
+            "health": "/health",
+            "docs": "/docs",
+            "api": "/api/v1",
+        }
 
-    @app.exception_handler(RequestValidationError)
-    async def validation_problem(request: Request, exc: RequestValidationError) -> JSONResponse:
-        detail = "; ".join(f"{'.'.join(map(str, e['loc']))}: {e['msg']}" for e in exc.errors())
-        return _problem(422, "Unprocessable Entity", detail, request)
-
+    # Public database health check
     @app.get("/health", tags=["meta"])
     def health() -> dict[str, str]:
         try:
             with engine().connect() as conn:
                 conn.execute(text("select 1"))
             db = "ok"
-        except Exception as exc:  # report, don't crash the probe
+        except Exception as exc:
             db = f"down: {type(exc).__name__}"
-        return {"status": "ok" if db == "ok" else "degraded", "db": db, "version": __version__}
+
+        return {
+            "status": "ok" if db == "ok" else "degraded",
+            "db": db,
+            "version": __version__,
+        }
+
+    # API token authentication
+    token = os.environ.get("API_TOKEN")
+
+    if token:
+
+        @app.middleware("http")
+        async def require_token(request: Request, call_next: Any) -> Any:
+            public_paths = {"/", "/health"}
+
+            if request.url.path in public_paths:
+                return await call_next(request)
+
+            if hmac.compare_digest(
+                request.headers.get("authorization", ""),
+                f"Bearer {token}",
+            ):
+                return await call_next(request)
+
+            return _problem(
+                401,
+                "Unauthorized",
+                "missing or wrong API token",
+                request,
+            )
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+        ],
+        allow_methods=["GET", "POST"],
+        allow_headers=["*"],
+    )
+
+    @app.exception_handler(HTTPException)
+    async def http_problem(
+        request: Request,
+        exc: HTTPException,
+    ) -> JSONResponse:
+        titles = {
+            404: "Not Found",
+            501: "Not Implemented",
+            400: "Bad Request",
+        }
+        return _problem(
+            exc.status_code,
+            titles.get(exc.status_code, "Error"),
+            str(exc.detail),
+            request,
+        )
+
+    @app.exception_handler(RequestValidationError)
+    async def validation_problem(
+        request: Request,
+        exc: RequestValidationError,
+    ) -> JSONResponse:
+        detail = "; ".join(
+            f"{'.'.join(map(str, e['loc']))}: {e['msg']}"
+            for e in exc.errors()
+        )
+        return _problem(
+            422,
+            "Unprocessable Entity",
+            detail,
+            request,
+        )
 
     api = APIRouter(prefix="/api/v1")
 
@@ -143,37 +220,63 @@ def create_app() -> FastAPI:
         brief,
         tariffs,
     )
+
     for module in routers:
-        router = module.router
-        api.include_router(router)
+        api.include_router(module.router)
+
     app.include_router(api)
 
     @app.websocket("/ws/live")
-    async def live(ws: WebSocket, session: SessionDep, scenario: str = "baseline") -> None:
-        """Vessel positions for one scenario, pushed when the replay clock moves, at most once a
-        second (02 §10). Real AIS would arrive the same way; today the worker's replay feeds it."""
+    async def live(
+        ws: WebSocket,
+        session: SessionDep,
+        scenario: str = "baseline",
+    ) -> None:
+        """Vessel positions pushed when the replay clock moves."""
         await ws.accept()
-        await ws.send_text(json.dumps({"type": "hello", "brand": brand_name()}))
+        await ws.send_text(
+            json.dumps({"type": "hello", "brand": brand_name()})
+        )
+
         last_ts: str | None = None
+
         try:
             while True:
-                payload = await asyncio.to_thread(positions_snapshot, scenario, session)
-                session.close()  # the pool's connection goes back between ticks
+                payload = await asyncio.to_thread(
+                    positions_snapshot,
+                    scenario,
+                    session,
+                )
+
+                session.close()
+
                 if payload["ts"] != last_ts:
                     last_ts = payload["ts"]
-                    await ws.send_text(json.dumps(payload, default=str))
-                # Wait for the next tick by listening: a closed browser ends the loop even when
-                # the replay clock is still (no sends), instead of holding a session forever.
+                    await ws.send_text(
+                        json.dumps(payload, default=str)
+                    )
+
                 with suppress(TimeoutError):
-                    await asyncio.wait_for(ws.receive_text(), timeout=1.0)
+                    await asyncio.wait_for(
+                        ws.receive_text(),
+                        timeout=1.0,
+                    )
+
         except (WebSocketDisconnect, RuntimeError):
             return
 
     @app.get("/api/v1/live", tags=["ports"])
-    def live_snapshot(session: SessionDep, scenario: str = "baseline") -> dict[str, Any]:
-        """The same positions message as `/ws/live`, once: for hosts without WebSockets to the
-        browser (the deployed site polls it through its own server, A-117)."""
-        return json.loads(json.dumps(positions_snapshot(scenario, session), default=str))
+    def live_snapshot(
+        session: SessionDep,
+        scenario: str = "baseline",
+    ) -> dict[str, Any]:
+        """Current positions snapshot for hosts without WebSockets."""
+        return json.loads(
+            json.dumps(
+                positions_snapshot(scenario, session),
+                default=str,
+            )
+        )
 
     return app
 

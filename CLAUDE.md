@@ -12,4 +12,6 @@
   after any API change, `uv run c6 refresh` after tariff data or migration changes.
 - UI work: use the ui-consistency skills; tokens from `apps/web/app/globals.css`; a data badge on
   every data surface; verify at 1280 px in light and dark.
+- `.env`: tariffs need no keys. If `.env` points `DATABASE_URL` at Neon (the team file does), use the
+  `make` targets for local work; a bare `uv run …` writes to the deployed database (handoff §6).
 - Git: commit on `m3-c1` only; never force-push or hard-reset; if the remote moved, merge FETCH_HEAD.

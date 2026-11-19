@@ -2,7 +2,9 @@
 
 Read this first in any new session. It tells you what the project is, where each thing lives, how to change the UI, how to make a change that crosses layers, and how to build, test and deploy. The rules in `AGENTS.md` still win where they conflict with this file.
 
-Updated 2026-11-19, branch `m3-c1`.
+Updated 2026-11-19. Repo: https://github.com/Rafee-M/sc_nexus (moved from UpperPanda1/sc_nexus), branch `m3-c1`.
+
+**Contents:** [1 What it is](#1-what-it-is-30-seconds) · [2 Repo map](#2-repo-map-what-lives-where) · [3 Tariff Monitor](#3-the-tariff-monitor-c6-as-built) · [4 Change the UI](#4-how-to-modify-the-ui) · [5 Cross-layer change](#5-how-to-make-an-integrated-cross-layer-change) · [6 Build, run, test, keys](#6-build-run-and-test) · [7 Deploy](#7-deploy-for-a-hosted-demo-free-tiers-a-119-and-a-120) · [8 Gotchas](#8-gotchas-learned-the-hard-way) · [9 Start prompt](#9-start-prompt-for-a-new-session-copy-and-paste)
 
 ## 1. What it is (30 seconds)
 
@@ -189,6 +191,15 @@ Follow this order. Each step has its own tests.
 
 **Prerequisites:** Docker, `uv`, Node 20+. Copy `.env.example` to `.env`; `make up` does this automatically.
 
+**Keys and `.env`.** All secrets go in `.env` at the repo root. It is git-ignored and is never committed or printed.
+- `packages/core/src/cportal_core/settings.py` accepts several spellings of each key, so both the `.env.example` names and the team's names work: `AISSTREAM_API_KEY` or `AIS_STREAM_APIKEY`, `GFW_API_TOKEN` or `GLOBAL_FISHING_WATCH_GFW_ACCESS_TOKEN`, and so on.
+- **The Tariff Monitor needs no keys.** Every tariff source (DS-TRADE-04 to 08) is `auth: none` in `config/sources.yaml`.
+- AIS (the live map) needs the aisstream key. C2 news, C3 calibration, the vessel info panel and others use optional keys; a missing key falls back to replay.
+- The team `.env` sets `DATABASE_URL` to **Neon**, the deployed database.
+  - The `make` targets override it with the local database (`Makefile` line 8), and so does compose.
+  - A bare `uv run …` outside `make` reads `.env` and **writes to Neon**.
+  - Locally, use the `make` targets, or prefix the command with `DATABASE_URL=postgresql+psycopg://cportal:cportal@localhost:5432/cportal`.
+
 **Demo with Docker (recommended):**
 
 ```bash
@@ -272,24 +283,25 @@ The script is in `docs/GOLDEN_PATH.md`, and the video plan in `docs/VIDEO_SCRIPT
 
 ## 7. Deploy for a hosted demo (free tiers, A-119 and A-120)
 
-1. **Database on Neon.** Put `NEON_DATABASE_URL` (the direct URL) in `.env`, start the local stack and seed it, then run:
+1. **Database on Neon.** Put Neon's direct URL in `.env` as `DATABASE_URL_UNPOOLED` (or `NEON_DATABASE_URL`), start the local stack and seed it, then run:
    ```bash
    scripts/deploy_db.sh
    ```
    It prints the size first; the free tier allows 0.5 GB.
 2. **API on Render.** Use `render.yaml`. It runs `alembic upgrade head` on start, so new migrations apply on deploy. Set the env vars listed in `render.yaml` in the Render dashboard.
-3. **Web on Vercel.** Put `VERCEL_TOKEN`, `API_TOKEN`, `RENDER_API_URL` and `NEON_POOLED_URL` in `.env`, then run:
+3. **Web on Vercel.** Put `VERCEL_TOKEN`, `API_TOKEN`, `RENDER_API_URL` and the pooled Neon URL as `DATABASE_URL` in `.env`, then run:
    ```bash
    scripts/deploy_vercel.sh
    ```
    It generates `AUTH_SECRET` once.
 4. **Keep the data fresh.** Choose one:
-   - `make worker-cloud` runs a local worker against Neon.
+   - `make worker-cloud` runs a local worker against Neon. It needs `DATABASE_URL_UNPOOLED`.
    - `make cloud-refresh-timer` runs `scripts/cloud_refresh.sh` hourly. CPA runs every hour; live feeds, C2 and Nexus every 6 h.
 5. **After a tariff change, a migration or a fresh Neon copy, refresh the matrix on the target database.** `cloud_refresh.sh` fetches the tariff sources but does not run C6 itself; only the worker's outbox and 6-hourly job do. Run:
    ```bash
-   DATABASE_URL=<neon url> uv run c6 refresh
+   uv run c6 refresh
    ```
+   With the team `.env`, a bare `uv run` already targets Neon (see §6, Keys).
 6. **Smoke test.** Open `/tariffs`, `/routes`, `/network` and `/radar` on the deployed site, and check that the badges and the LIVE/REPLAY mode are right.
 
 Secrets live only in `.env`, never in git, logs or the browser. Values are never printed by the scripts.

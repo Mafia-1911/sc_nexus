@@ -4346,6 +4346,14 @@
       },
       "OriginDetailOut": {
         "properties": {
+          "data_modes": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "live / replay row counts behind this answer (badge)",
+            "title": "Data Modes",
+            "type": "object"
+          },
           "origin": {
             "$ref": "#/components/schemas/OriginOut"
           },

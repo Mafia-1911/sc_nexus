@@ -150,8 +150,8 @@ def origin(
     if not (len(iso3) == 3 and iso3.isalpha()):
         raise HTTPException(422, "iso3 must be three letters")
     data = service.origin_detail(session, iso3.upper(), as_of)
-    sources = {s.source_id for s in data.schemes}
-    return Envelope(data=data, meta=_meta(Counter(), sources))
+    sources = {s.source_id for s in data.schemes} | {s["source_id"] for s in data.surcharges}
+    return Envelope(data=data, meta=_meta(Counter(data.data_modes), sources))
 
 
 @router.get("/news", response_model=Envelope[list[NewsOut]])

@@ -369,14 +369,20 @@ def origin_detail(session: Session, iso3: str, on: dt.date | None = None) -> Ori
             TariffOriginMember.valid_from,
             TariffOriginMember.valid_to,
             TariffOriginGroup.source_id,
+            TariffOriginMember.data_mode,
         )
         .join(TariffOriginGroup, TariffOriginGroup.id == TariffOriginMember.group_id)
-        .where(TariffOriginMember.member_iso3 == iso3)
+        .where(
+            TariffOriginMember.member_iso3 == iso3,
+            or_(TariffOriginMember.valid_from.is_(None), TariffOriginMember.valid_from <= on),
+            or_(TariffOriginMember.valid_to.is_(None), TariffOriginMember.valid_to >= on),
+        )
         .distinct()
     ).all()
+    modes: Counter[str] = Counter(str(r[-1]) for r in rows)
     schemes = [
         SchemeOut(market=m, group_code=g, name=n, scheme=s, valid_from=f, valid_to=t, source_id=src)
-        for m, g, n, s, f, t, src in sorted(rows)
+        for m, g, n, s, f, t, src in sorted(r[:-1] for r in rows)
     ]
     surcharges = session.scalars(
         select(TariffMeasure)
@@ -385,11 +391,15 @@ def origin_detail(session: Session, iso3: str, on: dt.date | None = None) -> Ori
             TariffMeasure.origin_kind == "country",
             TariffMeasure.origin_code == iso3,
             TariffMeasure.code == "*",
+            TariffMeasure.status != "terminated",
+            or_(TariffMeasure.valid_from.is_(None), TariffMeasure.valid_from <= on),
+            or_(TariffMeasure.valid_to.is_(None), TariffMeasure.valid_to >= on),
         )
         .order_by(TariffMeasure.market_iso3, TariffMeasure.measure_ref)
     )
     out: list[dict[str, Any]] = []
     for m in surcharges:
+        modes[str(m.data_mode)] += 1
         out.append(
             {
                 "market": m.market_iso3,
@@ -403,9 +413,12 @@ def origin_detail(session: Session, iso3: str, on: dt.date | None = None) -> Ori
                 "legal_ref": m.legal_ref,
                 "source_url": m.source_url,
                 "is_resolved": m.is_resolved,
+                "source_id": m.source_id,
             }
         )
-    return OriginDetailOut(origin=_origin(iso3), schemes=schemes, surcharges=out)
+    return OriginDetailOut(
+        origin=_origin(iso3), schemes=schemes, surcharges=out, data_modes=dict(modes)
+    )
 
 
 # --- tariff news (C2 trade-policy events with their tariff signal, Q-25) -----------------------

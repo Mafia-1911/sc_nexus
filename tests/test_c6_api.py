@@ -343,3 +343,16 @@ def test_matrix_filters_never_widen_to_everything(client: TestClient, params: di
     for as_of in ("2026-11-18", "2026-06-01"):  # precomputed and on-the-fly paths
         r = client.get("/api/v1/tariffs/matrix", params={**params, "as_of": as_of})
         assert r.status_code == 200 and r.json()["data"]["cells"] == [], (params, as_of)
+
+
+def test_origin_relations_badge_and_date(client: TestClient) -> None:
+    """Review 2026-11-19 #8: a badge from the rows, and as_of filters schemes and surcharges."""
+    body = client.get("/api/v1/tariffs/origins/BGD", params={"as_of": "2026-11-18"}).json()
+    # from the rows (an earlier test in this module plants a live row: then "mixed"), never "none"
+    assert body["meta"]["mode"] in {"replay", "mixed"} and body["meta"]["modes"]
+    assert "DS-TRADE-05" in body["meta"]["sources"]
+    assert ("EUN", "EU-EBA") in {(s["market"], s["group_code"]) for s in body["data"]["schemes"]}
+    later = client.get("/api/v1/tariffs/origins/BGD", params={"as_of": "2030-01-01"}).json()
+    assert ("EUN", "EU-EBA") not in {
+        (s["market"], s["group_code"]) for s in later["data"]["schemes"]
+    }  # EBA ends at LDC graduation (2029-11-24)

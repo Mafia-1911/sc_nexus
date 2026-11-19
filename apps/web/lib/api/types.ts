@@ -2672,6 +2672,13 @@ export interface components {
         };
         /** OriginDetailOut */
         OriginDetailOut: {
+            /**
+             * Data Modes
+             * @description live / replay row counts behind this answer (badge)
+             */
+            data_modes?: {
+                [key: string]: number;
+            };
             origin: components["schemas"]["OriginOut"];
             /** Schemes */
             schemes: components["schemas"]["SchemeOut"][];

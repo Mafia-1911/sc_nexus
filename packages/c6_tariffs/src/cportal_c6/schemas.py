@@ -179,6 +179,9 @@ class OriginDetailOut(BaseModel):
     origin: OriginOut
     schemes: list[SchemeOut]
     surcharges: list[dict[str, Any]]
+    data_modes: dict[str, int] = Field(
+        default_factory=dict, description="live / replay row counts behind this answer (badge)"
+    )
 
 
 class NewsConfirmationOut(BaseModel):

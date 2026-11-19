@@ -12,7 +12,7 @@ from collections import Counter
 from typing import Annotated, Any, cast
 from uuid import UUID
 
-from cportal_c6 import ENGINE_VERSION, service
+from cportal_c6 import ENGINE_VERSION, catalog, service
 from cportal_c6.schemas import (
     ChangeOut,
     MatrixOut,
@@ -39,6 +39,27 @@ def _split(values: list[str] | None, upper: bool = True) -> list[str] | None:
         return None
     out = [v.strip() for value in values for v in value.split(",") if v.strip()]
     return [v.upper() for v in out] if upper else out
+
+
+def _watched(values: list[str] | None, allowed: set[str], name: str) -> list[str] | None:
+    """Only codes the monitor watches (review 2026-11-19 #11): an unknown code is a 422, so
+    no request can make the uncached on-the-fly computation larger than the full matrix."""
+    unknown = sorted(set(values or []) - allowed)
+    if unknown:
+        raise HTTPException(422, f"{name} not watched: {', '.join(unknown[:10])}")
+    return values
+
+
+def _products(values: list[str] | None) -> list[str] | None:
+    return _watched(values, {p.hs6 for p in catalog.products()}, "hs6")
+
+
+def _markets(values: list[str] | None) -> list[str] | None:
+    return _watched(values, set(catalog.markets()), "market")
+
+
+def _origins(values: list[str] | None) -> list[str] | None:
+    return _watched(values, set(catalog.origins()), "origin")
 
 
 def _meta(modes: Counter[str], sources: set[str], note: str | None = NOTE) -> Meta:
@@ -84,7 +105,12 @@ def matrix(
     """Effective duty per market × HS6 product × origin (min and max over national lines). A
     date that was not precomputed is computed on the fly (`precomputed: false`)."""
     data = service.matrix(
-        session, as_of, _split(hs6, upper=False), _split(market), _split(origin), industry
+        session,
+        as_of,
+        _products(_split(hs6, upper=False)),
+        _markets(_split(market)),
+        _origins(_split(origin)),
+        industry,
     )
     modes = Counter(c.data_mode for c in data.cells)
     return Envelope(data=data, meta=_meta(modes, {s for c in data.cells for s in c.sources}))
@@ -102,7 +128,7 @@ def product(
     preference, surcharges, possible exemptions) and legal references; recent changes."""
     if not (len(hs6) == 6 and hs6.isdigit()):
         raise HTTPException(422, "hs6 must be six digits")
-    data = service.product(session, hs6, as_of, _split(market), _split(origin))
+    data = service.product(session, hs6, as_of, _markets(_split(market)), _origins(_split(origin)))
     if data is None:
         raise HTTPException(404, f"HS {hs6} is not a watched product")
     return Envelope(data=data, meta=_meta(Counter(data.data_modes), set(data.sources)))
@@ -118,6 +144,10 @@ def changes(
     limit: Annotated[int, Query(ge=1, le=500)] = 50,
 ) -> Envelope[list[ChangeOut]]:
     """Detected changes between snapshots of the official schedules, newest first."""
+    if hs6 is not None and not (len(hs6) == 6 and hs6.isdigit()):
+        raise HTTPException(422, "hs6 must be six digits")
+    if since is not None and since.tzinfo is None:
+        since = since.replace(tzinfo=dt.UTC)  # a date-time without a zone is read as UTC
     data = service.changes(
         session, market and market.upper(), origin and origin.upper(), hs6, since, limit
     )

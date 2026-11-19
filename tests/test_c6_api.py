@@ -356,3 +356,23 @@ def test_origin_relations_badge_and_date(client: TestClient) -> None:
     assert ("EUN", "EU-EBA") not in {
         (s["market"], s["group_code"]) for s in later["data"]["schemes"]
     }  # EBA ends at LDC graduation (2029-11-24)
+
+
+@pytest.mark.parametrize(
+    ("path", "params"),
+    [
+        ("/api/v1/tariffs/matrix", {"hs6": "999999", "as_of": "0001-01-01"}),
+        ("/api/v1/tariffs/matrix", {"market": "XYZ"}),
+        ("/api/v1/tariffs/matrix", {"origin": ",".join(f"A{i:02d}" for i in range(50))}),
+        ("/api/v1/tariffs/products/610910", {"origin": "ZZZ"}),
+        ("/api/v1/tariffs/changes", {"hs6": "61"}),
+    ],
+)
+def test_unwatched_codes_are_rejected(client: TestClient, path: str, params: dict) -> None:
+    """Review 2026-11-19 #11: no request can widen the on-the-fly computation."""
+    assert client.get(path, params=params).status_code == 422
+
+
+def test_changes_since_without_a_zone_is_utc(client: TestClient) -> None:
+    r = client.get("/api/v1/tariffs/changes", params={"since": "2026-01-01T00:00:00"})
+    assert r.status_code == 200

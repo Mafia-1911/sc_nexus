@@ -22,7 +22,12 @@ _NUM = r"(\d+(?:\.\d+)?)"
 _PCT = rf"{_NUM}\s*(?:%|percent\b|per cent\b|pc\b)"
 _TO_FROM = re.compile(rf"\bto\s+{_PCT}\s+from\s+{_PCT}", re.I)
 _FROM_TO = re.compile(rf"\bfrom\s+{_NUM}\s*(?:%|percent|per cent)?\s+to\s+{_PCT}", re.I)
-_ANY_PCT = re.compile(_PCT, re.I)
+_KW = r"(?:tariffs?|dut(?:y|ies)|levy|levies)"
+# a rate that belongs to the tariff: "25% tariff", "25% additional duty", "tariff of 25%",
+# "duties at 25 per cent"; not "exports rose 12% despite US tariff" (review 2026-11-19 #9)
+_TARIFF_PCT = re.compile(
+    rf"{_PCT}(?:\s+[\w-]+)?\s+{_KW}\b|\b{_KW}(?:\s+[\w-]+){{0,4}}?\s+(?:of|at|to)\s+{_PCT}", re.I
+)
 _ZERO = re.compile(r"\bzero\b(?:\s+\w+){0,2}\s+(?:tariffs?|dut(?:y|ies)|rate)", re.I)
 
 # the importing market: who charges the duty
@@ -102,6 +107,19 @@ def _near(
     return None
 
 
+def _closest(text: str, keywords: list[re.Match[str]]) -> tuple[str, re.Match[str]] | None:
+    found = []
+    for name, pattern in (("exempt", _EXEMPT), ("cut", _CUT), ("raise", _RAISE)):
+        for m in pattern.finditer(text):
+            gap = min(_words_between(text, m, k) for k in keywords)
+            if gap <= NEAR_WORDS:
+                found.append((gap, m.start(), name, m))
+    if not found:
+        return None
+    _, _, name, m = min(found, key=lambda t: (t[0], t[1]))
+    return name, m
+
+
 def _span(m: re.Match[str], group: int = 0) -> dict[str, Any]:
     return {"text": m.group(group), "start": m.start(group), "end": m.end(group)}
 
@@ -122,7 +140,14 @@ def extract_tariff(text: str) -> TariffSignal | None:
     spans: dict[str, dict[str, Any]] = {"keyword": _span(kw)}
     keywords = list(_KEYWORD.finditer(text))
     markets = _found(MARKETS, text)
-    origins = [o for o in _found(ORIGINS, text) if o[1] not in {m[1] for m in markets}]
+    origins = _found(ORIGINS, text)
+    both = {m[1] for m in markets} & {o[1] for o in origins}
+    if both and {m[1] for m in markets} - both:
+        # "Bangladeshi goods ... US tariff; Dhaka says": another market charges the duty, so a
+        # country named both ways is the origin (Dhaka is where the quote comes from)
+        markets = [m for m in markets if m[1] not in both]
+    else:
+        origins = [o for o in origins if o[1] not in {m[1] for m in markets}]
     if markets:
         spans["market"] = _span(markets[0][2])
 
@@ -136,8 +161,8 @@ def extract_tariff(text: str) -> TariffSignal | None:
     elif m := _ZERO.search(text):
         rate = 0.0
         spans["rate"] = _span(m)
-    elif m := _ANY_PCT.search(text):
-        rate = float(m.group(1))
+    elif m := _TARIFF_PCT.search(text):
+        rate = float(m.group(1) or m.group(2))
         spans["rate"] = _span(m)
 
     direction = "unknown"
@@ -146,14 +171,13 @@ def extract_tariff(text: str) -> TariffSignal | None:
     elif m := _near(_LOSE, text, keywords):
         direction = "raise"
         spans["direction"] = _span(m, 1)
-    elif (m := _near(_EXEMPT, text, keywords)) or (rate == 0.0 and (m := _ZERO.search(text))):
+    elif rate == 0.0 and (m := _ZERO.search(text)):
         direction = "exempt"
         spans["direction"] = _span(m)
-    elif m := _near(_CUT, text, keywords):
-        direction = "cut"
-        spans["direction"] = _span(m)
-    elif m := _near(_RAISE, text, keywords):
-        direction = "raise"
+    elif best := _closest(text, keywords):
+        # the direction word nearest a tariff word wins, earlier on a tie: "imposes 25% tariff
+        # ..., exempts pharma" is a raise; "hikes tariffs ..., cutting imports" is not a cut
+        direction, m = best
         spans["direction"] = _span(m)
     if (
         "direction" not in spans

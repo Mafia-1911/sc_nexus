@@ -226,3 +226,16 @@ def test_different_tariff_stories_are_different_events() -> None:
 )
 def test_direction_words_must_be_about_the_tariff(title: str, direction: str) -> None:
     assert sig(title).direction == direction
+
+
+# Review 2026-11-19 #9: direction, rate and origin read from the words that belong together.
+def test_the_direction_nearest_the_tariff_wins() -> None:
+    s = sig("Trump imposes 25% tariff on Bangladeshi garments, exempts pharma")
+    assert s.direction == "raise" and s.rate_pct == 25.0
+    assert sig("US hikes tariffs on Chinese goods, cutting imports sharply").direction == "raise"
+
+
+def test_a_percentage_not_about_the_tariff_is_not_its_rate() -> None:
+    s = sig("Bangladesh exports rose 12% despite US tariff; Dhaka says")
+    assert s.rate_pct is None
+    assert s.markets == ["USA"] and s.origins == ["BGD"]  # Dhaka is the quote, not the market

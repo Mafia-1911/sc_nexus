@@ -91,7 +91,7 @@ def overview(session: Session, now: dt.datetime | None = None) -> OverviewOut:
                 last_fetched_at=last[0] if last else None,
                 data_mode=last[1] if last else None,
                 current_measures=int(counts.get(code, 0)),
-                mfn_year=wits_to[code].year if wits_to.get(code) else None,
+                mfn_year=y.year if (y := wits_to.get(code)) else None,
             )
         )
     return OverviewOut(

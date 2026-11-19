@@ -12,7 +12,15 @@ export function RateStack({
   surcharge: number | null | undefined;
   resolved: boolean;
 }) {
-  const b = base ?? 0;
+  // no base number (national lines differ, or unreadable): a chart would show an unknown as Free
+  if (base === null || base === undefined) {
+    return (
+      <p className="text-sm text-muted" data-testid="rate-stack">
+        No single base rate for this product: the national lines differ. See the lines and notes below.
+      </p>
+    );
+  }
+  const b = base;
   const d = duty ?? b;
   const s = surcharge ?? 0;
   const max = Math.max(b, d + s, 1);
@@ -22,7 +30,7 @@ export function RateStack({
     { y: 4, label: "Base rate (MFN)", parts: [{ w: x(b), fill: "var(--border-strong)" }], total: b },
     {
       y: 34,
-      label: resolved ? "This origin pays" : "This origin pays (at least)",
+      label: resolved ? "This origin pays" : "This origin pays, if every rule shown applies",
       parts: [
         { w: x(d), fill: "var(--series-1)" },
         { w: x(s), fill: "var(--series-2)" },
@@ -32,7 +40,7 @@ export function RateStack({
   ];
   return (
     <figure className="flex flex-col gap-1" data-testid="rate-stack">
-      <svg viewBox={`0 0 ${W + 80} 58`} className="w-full max-w-[26rem]" role="img" aria-label={`Base ${pct(b)}; this origin pays ${pct(d)} duty plus ${pct(s)} surcharge`}>
+      <svg viewBox={`0 0 ${W + 80} 58`} className="w-full max-w-[26rem]" role="img" aria-label={`Base ${pct(b)}; this origin pays ${pct(d)} duty plus ${pct(s)} surcharge${resolved ? "" : ", if every rule shown applies"}`}>
         {rows.map((r) => {
           let at = 1;
           return (

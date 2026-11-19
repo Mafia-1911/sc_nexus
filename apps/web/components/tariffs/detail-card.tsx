@@ -31,7 +31,8 @@ function rangeText(s: ReturnType<typeof summary>): string {
 
 /** One surcharge: "+10%". Several whose stacking the lines do not state: "up to +66.5% (4)". */
 function surchargeText(rep: LineRate | undefined): string {
-  if (!rep?.additional_pct) return "—";
+  const unreadable = rep?.components.some((c) => c.role === "unresolved" && c.kind === "additional");
+  if (!rep?.additional_pct) return unreadable ? "unreadable" : "—";
   const n = rep.components.filter((c) => c.role === "additional").length;
   return n > 1 ? `up to +${pct(rep.additional_pct)} (${n} lines)` : `+${pct(rep.additional_pct)}`;
 }

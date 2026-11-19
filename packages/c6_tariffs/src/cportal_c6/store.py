@@ -257,17 +257,24 @@ def _cell_record(
         is_stale=any(r.is_stale for r in results),
         is_ceiling=ceiling,
         lower_pct=(
-            None if not results or any(r.lower_pct is None for r in results)
+            None
+            if not results or any(r.lower_pct is None for r in results)
             else min(r.lower_pct for r in results if r.lower_pct is not None)
         ),
         upper_pct=(
-            None if not results or any(r.upper_pct is None for r in results)
+            None
+            if not results or any(r.upper_pct is None for r in results)
             else max(r.upper_pct for r in results if r.upper_pct is not None)
         ),
         components=[c.as_dict() for c in rep.components] if rep else [],
         lines=[
-            {"code": r.line_code, "effective_pct": r.effective_pct, "is_resolved": r.is_resolved,
-             "lower_pct": r.lower_pct, "upper_pct": r.upper_pct}
+            {
+                "code": r.line_code,
+                "effective_pct": r.effective_pct,
+                "is_resolved": r.is_resolved,
+                "lower_pct": r.lower_pct,
+                "upper_pct": r.upper_pct,
+            }
             for r in results
         ],
         notes=notes,

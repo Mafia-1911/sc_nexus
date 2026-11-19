@@ -995,7 +995,13 @@ def parse_eu_preferences(body: bytes, ctx: ParseContext) -> list[Record]:
             resolved = pct is not None and not spec.get("unresolved")
             conditions = {
                 k: spec[k]
-                for k in ("exclude_chapters", "include_chapters", "mfn_reduction_pct", "verify")
+                for k in (
+                    "exclude_chapters",
+                    "include_chapters",
+                    "excluded",
+                    "mfn_reduction_pct",
+                    "verify",
+                )
                 if k in spec
             }
             measures.append(

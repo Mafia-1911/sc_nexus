@@ -279,7 +279,7 @@ def test_an_edit_to_the_eu_table_without_a_new_date_is_detected(loaded: str) -> 
     from cportal_core.paths import config_dir
 
     doc = yaml.safe_load((config_dir() / "tariffs" / "eu_preferences.yaml").read_text())
-    doc["groups"]["EU-EBA"]["measures"][0].update(ad_valorem_pct=2, duty_text="2%")
+    doc["groups"]["EU-EBA"]["measures"][1].update(ad_valorem_pct=2, duty_text="2%")  # garments
     with session_scope(loaded) as s:
         upsert(s, parse_eu_preferences(yaml.safe_dump(doc).encode(),
                                        ParseContext("DS-TRADE-08", DataMode.REPLAY)))  # fmt: skip
@@ -300,3 +300,10 @@ def test_precomputed_rates_older_than_the_window_are_pruned(loaded: str) -> None
         store.refresh(s, ON)
         dates = set(s.scalars(select(TariffEffectiveRate.as_of).distinct()))
     assert dates == {ON}
+
+
+def test_cambodia_eu_garments_have_no_guessed_zero(loaded: str) -> None:
+    """Review 2026-11-19 #14: EBA was partly withdrawn for Cambodia (Reg. (EU) 2020/550)."""
+    khm = _rate(loaded, "EUN", "610910", "KHM")
+    assert not khm.is_resolved and khm.upper_pct == pytest.approx(12.0)
+    # Bangladesh's 0 % is test_eu_cotton_tshirt (an earlier test here edits the EBA rate)

@@ -18,9 +18,22 @@ groups:
       # LDC graduation is scheduled for 24 Nov 2026 (UN GA res. 76/8, 2021); the GSP Regulation
       # keeps a graduated country in EBA for a 3-year transition (Art. 17(2)). Both dates: verify.
       - {iso3: BGD, valid_to: 2029-11-24, verify: true, note: "EBA ends after the post-graduation transition (estimate)"}
-      - {iso3: KHM, verify: true, note: "EBA partly withdrawn for some garments since 12 Aug 2020 (Reg. (EU) 2020/550); not modelled per line"}
+      - {iso3: KHM, verify: true, note: "EBA partly withdrawn for some lines since 12 Aug 2020 (Reg. (EU) 2020/550): see EU-EBA-KHM-2020"}
     measures:
-      - {code: "*", duty_text: "Free", ad_valorem_pct: 0, exclude_chapters: ["93"], verify: true}
+      # Free everywhere but arms; for the chapters with Cambodia's partial withdrawal, Free for
+      # every member except Cambodia (whose lines are in EU-EBA-KHM-2020): no guessed 0 % there.
+      - {code: "*", duty_text: "Free", ad_valorem_pct: 0, exclude_chapters: ["17", "42", "61", "62", "64", "93"], verify: true}
+      - {code: "*", duty_text: "Free", ad_valorem_pct: 0, include_chapters: ["17", "42", "61", "62", "64"], excluded: ["KHM"], verify: true}
+  EU-EBA-KHM-2020:
+    name: "EBA for Cambodia after the partial withdrawal (Reg. (EU) 2020/550)"
+    scheme: EBA
+    legal_ref: "Commission Delegated Regulation (EU) 2020/550, Annex (withdrawn lines)"
+    members:
+      - {iso3: KHM, valid_from: 2020-08-12, verify: true}
+    measures:
+      # Which garment, footwear, travel-goods and sugar lines lost EBA is a line list in the
+      # Annex, not machine-readable here: no number until it is modelled per line.
+      - {code: "*", duty_text: "EBA withdrawn for some lines (Annex): MFN or Free, see legal text", include_chapters: ["17", "42", "61", "62", "64"], unresolved: true, verify: true}
   EU-GSP:
     name: "Standard GSP arrangement"
     scheme: GSP

@@ -512,9 +512,19 @@ def eu_prefs() -> list:
 def test_eu_eba_bangladesh_with_transition_end(eu_prefs: list) -> None:
     members = [m for m in _of(eu_prefs, TariffOriginMemberRecord) if m.member_iso3 == "BGD"]
     assert [(m.group_code, m.valid_to) for m in members] == [("EU-EBA", dt.date(2029, 11, 24))]
-    (eba,) = [m for m in _of(eu_prefs, TariffMeasureRecord) if m.origin_code == "EU-EBA"]
+    eba, garments = sorted(
+        (m for m in _of(eu_prefs, TariffMeasureRecord) if m.origin_code == "EU-EBA"),
+        key=lambda m: "include_chapters" in m.conditions,
+    )
     assert eba.kind == "preferential" and eba.ad_valorem_pct == 0.0 and eba.code == "*"
-    assert eba.conditions["exclude_chapters"] == ["93"] and eba.conditions["verify"] is True
+    assert "93" in eba.conditions["exclude_chapters"] and eba.conditions["verify"] is True
+    # Cambodia's partial withdrawal (Reg. 2020/550): Free for others, no number for KHM
+    assert (
+        garments.conditions["excluded"] == ["KHM"]
+        and "61" in garments.conditions["include_chapters"]
+    )
+    (khm,) = [m for m in _of(eu_prefs, TariffMeasureRecord) if m.origin_code == "EU-EBA-KHM-2020"]
+    assert khm.is_resolved is False and khm.ad_valorem_pct is None
     assert eba.market_iso3 == "EUN" and "978/2012" in (eba.legal_ref or "")
 
 
@@ -530,7 +540,7 @@ def test_eu_relative_and_staged_rates_stay_unresolved(eu_prefs: list) -> None:
 
 def test_eu_prefs_snapshot_and_lineage(eu_prefs: list) -> None:
     (snap,) = _of(eu_prefs, TariffSnapshotRecord)
-    assert snap.scope == "eu-prefs" and snap.n_measures == 4
+    assert snap.scope == "eu-prefs" and snap.n_measures == 6
     assert all(r.source_id == "DS-TRADE-08" for r in eu_prefs)
 
 
@@ -599,7 +609,7 @@ def test_eu_refs_survive_reordering_and_edits_make_a_new_snapshot() -> None:
 
     base = parse(doc)
     refs = {m.measure_ref for m in _of(base, TariffMeasureRecord)}
-    assert "EU-EBA:*:ex93" in refs and "EU-GSP:*:in61,62,63" in refs
+    assert "EU-EBA:*:ex17,42,61,62,64,93" in refs and "EU-GSP:*:in61,62,63" in refs
     flipped = dict(doc, groups=dict(reversed(list(doc["groups"].items()))))
     assert {m.id for m in _of(parse(flipped), TariffMeasureRecord)} == {
         m.id for m in _of(base, TariffMeasureRecord)

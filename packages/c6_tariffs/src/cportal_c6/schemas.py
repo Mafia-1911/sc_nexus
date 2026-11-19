@@ -15,6 +15,9 @@ class MarketOut(BaseModel):
     last_fetched_at: dt.datetime | None
     data_mode: str | None
     current_measures: int
+    mfn_year: int | None = Field(
+        None, description="Year of the newest reported MFN average (WITS) for this market"
+    )
 
 
 class OriginOut(BaseModel):

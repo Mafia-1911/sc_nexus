@@ -3331,6 +3331,18 @@
             "description": "DS-ID of the live schedule, if any",
             "title": "Live Source"
           },
+          "mfn_year": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Year of the newest reported MFN average (WITS) for this market",
+            "title": "Mfn Year"
+          },
           "name": {
             "title": "Name",
             "type": "string"

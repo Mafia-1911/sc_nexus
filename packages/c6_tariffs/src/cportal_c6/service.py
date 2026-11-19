@@ -68,6 +68,13 @@ def overview(session: Session, now: dt.datetime | None = None) -> OverviewOut:
             .group_by(TariffMeasure.market_iso3)
         ).all()
     )
+    wits_to = dict(
+        session.execute(
+            select(TariffMeasure.market_iso3, func.max(TariffMeasure.valid_to))
+            .where(TariffMeasure.is_current, TariffMeasure.source_id == catalog.MFN_HISTORY)
+            .group_by(TariffMeasure.market_iso3)
+        ).all()
+    )
     for code, m in catalog.markets().items():
         live = catalog.live_source(code)
         last = session.execute(
@@ -84,6 +91,7 @@ def overview(session: Session, now: dt.datetime | None = None) -> OverviewOut:
                 last_fetched_at=last[0] if last else None,
                 data_mode=last[1] if last else None,
                 current_measures=int(counts.get(code, 0)),
+                mfn_year=wits_to[code].year if wits_to.get(code) else None,
             )
         )
     return OverviewOut(

@@ -140,10 +140,15 @@ export const FEED_LOOK: Record<string, { label: string; tone: "ok" | "info" | "w
 };
 
 /** Column chip for a market: is its schedule live, an annual average, or hand-kept? */
-export function marketSource(code: string, liveSource: string | null | undefined): { label: string; title: string } {
+export function marketSource(
+  code: string,
+  liveSource: string | null | undefined,
+  mfnYear?: number | null,
+): { label: string; title: string } {
   if (liveSource) return { label: "live schedule", title: `Official schedule, refreshed daily (${liveSource})` };
-  if (code === "EUN") return { label: "2023 · hand-kept prefs", title: "MFN: WITS 2023 average; preferences: hand-kept table, unverified" };
-  return { label: "2023 MFN · no preference data", title: "MFN: WITS reported 2023 average; preferences (e.g. LDC duty-free access) not in the data, so a value is the most an origin pays" };
+  const y = mfnYear ? String(mfnYear) : "annual";
+  if (code === "EUN") return { label: `${y} · hand-kept prefs`, title: `MFN: WITS ${y} average; preferences: hand-kept table, unverified` };
+  return { label: `${y} MFN · no preference data`, title: `MFN: WITS reported ${y} average; preferences (e.g. LDC duty-free access) not in the data, so a value is the most an origin pays` };
 }
 
 export function countryName(origins: { iso3: string; name: string }[], iso3: string): string {

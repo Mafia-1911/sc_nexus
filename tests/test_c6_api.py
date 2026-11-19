@@ -376,3 +376,9 @@ def test_unwatched_codes_are_rejected(client: TestClient, path: str, params: dic
 def test_changes_since_without_a_zone_is_utc(client: TestClient) -> None:
     r = client.get("/api/v1/tariffs/changes", params={"since": "2026-01-01T00:00:00"})
     assert r.status_code == 200
+
+
+def test_overview_gives_the_mfn_year_instead_of_a_hard_coded_one(client: TestClient) -> None:
+    """Review 2026-11-19 #14: the UI's '2023' chips come from the data."""
+    by = {m["code"]: m for m in client.get("/api/v1/tariffs/overview").json()["data"]["markets"]}
+    assert by["JPN"]["mfn_year"] == by["EUN"]["mfn_year"] == 2023

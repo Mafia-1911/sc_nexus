@@ -2308,6 +2308,11 @@ export interface components {
              * @description DS-ID of the live schedule, if any
              */
             live_source: string | null;
+            /**
+             * Mfn Year
+             * @description Year of the newest reported MFN average (WITS) for this market
+             */
+            mfn_year?: number | null;
             /** Name */
             name: string;
         };

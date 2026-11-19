@@ -69,11 +69,12 @@ export function Matrix({
 }) {
   const cols =
     view === "markets"
-      ? overview.markets.map((m) => ({ key: m.code, label: m.name, chip: marketSource(m.code, m.live_source) }))
+      ? overview.markets.map((m) => ({ key: m.code, label: m.name, chip: marketSource(m.code, m.live_source, m.mfn_year) }))
       : overview.origins.map((o) => ({ key: o.iso3, label: o.name, chip: null }));
   const hs6s = [...new Set(matrix.cells.map((c) => c.hs6))];
   const products = overview.products.filter((p) => hs6s.includes(p.hs6));
   const at = new Map(matrix.cells.map((c) => [`${c.hs6}:${view === "markets" ? c.market : c.origin}`, c]));
+  const mfnYear = new Map(overview.markets.map((m) => [m.code, m.mfn_year ? String(m.mfn_year) : null]));
   const fixed = view === "markets" ? countryName(overview.origins, origin) : overview.markets.find((m) => m.code === market)?.name;
   return (
     <div className="overflow-x-auto">
@@ -128,7 +129,7 @@ export function Matrix({
                     >
                       <span>{cellText(c)}</span>
                       {!c.is_resolved && c.n_lines > 0 ? <Info className="size-3.5 shrink-0" aria-hidden /> : null}
-                      {c.is_stale ? <span className="text-[10px] font-normal">2023</span> : null}
+                      {c.is_stale ? <span className="text-[10px] font-normal">{mfnYear.get(c.market) ?? "old"}</span> : null}
                     </button>
                   </td>
                 );

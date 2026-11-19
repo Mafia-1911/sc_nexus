@@ -48,7 +48,7 @@ from defusedxml import ElementTree as ET  # external XML: no entities, no expans
 
 from cportal_connectors.canonical import ParseContext, Parser, parse_ts
 
-PARSER_VERSION = "c6-parsers-2"
+PARSER_VERSION = "c6-parsers-3"  # 3: UK excluded countries as ISO3
 """Stamped on every snapshot. Bump it when parsing reads a schedule differently (e.g. 2 added
 Chapter 99 category exemptions): C6 does not diff snapshots made by different versions, so a
 parser upgrade re-baselines instead of showing up as tariff changes (A-133)."""
@@ -676,7 +676,11 @@ def parse_uk_commodity(body: bytes, ctx: ParseContext) -> list[Record]:
             groups[geo] = area
         else:
             origin_kind, origin = TariffOriginKind.COUNTRY, iso3_of_iso2(geo) or geo
-        excluded = [x["id"] for x in rel.get("excluded_countries", {}).get("data", [])]
+        # ISO3 like every other origin in C6 (the API gives geographical-area ids: ISO2)
+        excluded = [
+            iso3_of_iso2(x["id"]) or x["id"]
+            for x in rel.get("excluded_countries", {}).get("data", [])
+        ]
         n_conditions = len(rel.get("measure_conditions", {}).get("data", []))
         conditions: dict[str, Any] = {"measure_type": mt.get("description")}
         if excluded:

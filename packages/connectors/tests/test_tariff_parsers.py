@@ -368,7 +368,7 @@ def test_uk_kinds(uk: list) -> None:
 
 def test_uk_excluded_countries_and_unresolved_suspension(uk: list) -> None:
     (g1034,) = _uk(uk, "1034")
-    assert g1034.conditions["excluded"] == ["KM"]
+    assert g1034.conditions["excluded"] == ["COM"]  # ISO3 for the engine (the API says "KM")
     (susp,) = [m for m in _of(uk, TariffMeasureRecord) if m.kind == "suspension"]
     assert susp.is_resolved is False  # end-use conditions apply
 

@@ -388,3 +388,16 @@ def test_unreadable_surcharge_gives_only_a_floor() -> None:
 def test_resolved_bounds_equal_the_rate() -> None:
     r = effective_rate([MFN], MEMBERS, "USA", "61091000", "BGD", ON)
     assert r.lower_pct == r.upper_pct == r.effective_pct == 16.5
+
+
+def test_excluded_country_is_not_covered_by_a_measure() -> None:
+    """Review 2026-11-19 #3: UK measures name the countries they do not cover."""
+    surcharge = _gbr(kind="additional", measure_ref="add", ad_valorem_pct=10.0,
+                     conditions={"excluded": ["CHN"]})  # fmt: skip
+    base = _gbr(ad_valorem_pct=12.0)
+    chn = effective_rate([base, surcharge], MEMBERS, "GBR", "610910", "CHN", ON)
+    vnm = effective_rate([base, surcharge], MEMBERS, "GBR", "610910", "VNM", ON)
+    assert chn.effective_pct == 12.0 and vnm.effective_pct == 22.0
+    pref = _gbr(kind="preferential", origin_kind="group", origin_code="1062", measure_ref="p",
+                ad_valorem_pct=0.0, conditions={"excluded": ["BGD"]})  # fmt: skip
+    assert effective_rate([base, pref], MEMBERS, "GBR", "610910", "BGD", ON).effective_pct == 12.0

@@ -129,6 +129,8 @@ def _member(members: Membership, market: str, group: str, origin: str, on: dt.da
 
 
 def _origin_applies(m: Measure, origin: str, members: Membership, on: dt.date) -> bool:
+    if origin in (m.conditions.get("excluded") or []):
+        return False  # UK: the measure names countries it does not cover (excluded_countries)
     if m.origin_kind == "erga_omnes":
         return True
     if m.origin_kind == "country":
@@ -308,7 +310,9 @@ def effective_rate(
     if r.base_pct is not None:
         start = r.preference_pct if r.preference_pct is not None else r.base_pct
         pref_open = unresolved_pref and start > 0
-        surcharge_open = any(c.role == "unresolved" and c.kind == "additional" for c in r.components)
+        surcharge_open = any(
+            c.role == "unresolved" and c.kind == "additional" for c in r.components
+        )
         known = [c.pct for c in surcharges if c.pct is not None]
         floor_add = 0.0 if category_exemptions or not known else max(known)
         r.lower_pct = round((0.0 if pref_open else start) + floor_add, 4)

@@ -315,7 +315,7 @@ Secrets live only in `.env`, never in git, logs or the browser. Values are never
 | `LiveHttp` once dropped a URL's own query string | Fixed in `connectors/live.py`. Keep a test for any new query-string source. |
 | Shadowed loop variables in `c2/store.py` stored real events as synthetic (A-136) | Watch for this when editing scenario loops. |
 | Direction words in headlines were misread | They count only within 6 words of a tariff word. |
-| Known C6 defects from the 2026-11-19 adversarial review | See `docs/tariffs/REVIEW_2026-11-19.md`; fix them before the demo. |
+| C6 adversarial review (2026-11-19) | All findings resolved, one commit each (`docs/tariffs/REVIEW_2026-11-19.md`). After deploying, run `make cloud-tariffs` (new migration, parser `c6-parsers-3`). |
 | Phantom tariff changes | Never diff snapshots across parser versions. Bump `PARSER_VERSION` when a parser's output changes. |
 | Buyer SKUs from the supply graph carry a `G-` or `P-` prefix | Strip it before mapping to an industry-pack key. Buyer products come from graph edges. |
 | Sri Lanka customers and hubs are not overseas suppliers | Check the node role, not just the country. |

@@ -329,3 +329,17 @@ def test_brief_has_a_cited_tariff_line(client: TestClient) -> None:
     assert line["tone"] == "watch"  # a duty on Bangladesh went up
     kinds = {c["kind"] for c in line["cites"]}
     assert kinds == {"tariff"} and all(c["href"].startswith("/tariffs") for c in line["cites"])
+
+
+@pytest.mark.parametrize(
+    "params",
+    [
+        {"industry": "pharma", "hs6": "610910"},  # a garment code asked within pharma
+        {"industry": "no-such-industry"},
+    ],
+)
+def test_matrix_filters_never_widen_to_everything(client: TestClient, params: dict) -> None:
+    """Review 2026-11-19 #4: a filter that matches nothing returns nothing, not the matrix."""
+    for as_of in ("2026-11-18", "2026-06-01"):  # precomputed and on-the-fly paths
+        r = client.get("/api/v1/tariffs/matrix", params={**params, "as_of": as_of})
+        assert r.status_code == 200 and r.json()["data"]["cells"] == [], (params, as_of)

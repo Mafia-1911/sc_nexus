@@ -167,7 +167,12 @@ def matrix(
 ) -> MatrixOut:
     if industry:
         allowed = {p.hs6 for p in catalog.products() if p.industry == industry}
-        hs6 = [h for h in (hs6 or allowed) if h in allowed]
+        hs6 = sorted(h for h in (hs6 or allowed) if h in allowed)
+        if not hs6:  # nothing in this industry matches: an empty matrix, never all of it
+            return MatrixOut(
+                as_of=as_of or latest_as_of(session) or dt.datetime.now(dt.UTC).date(),
+                precomputed=False, notes=[], cells=[],
+            )  # fmt: skip
     stored = latest_as_of(session) if as_of is None else as_of
     if stored is not None:
         q = select(*_MATRIX_COLUMNS).where(TariffEffectiveRate.as_of == stored)

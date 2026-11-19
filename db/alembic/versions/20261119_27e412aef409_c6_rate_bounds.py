@@ -12,7 +12,6 @@ import pgvector.sqlalchemy
 import sqlalchemy as sa
 from alembic import op
 
-
 revision: str = "27e412aef409"
 down_revision: str | None = "3ea4e301beca"
 branch_labels: str | Sequence[str] | None = None

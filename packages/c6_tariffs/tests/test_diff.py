@@ -79,3 +79,34 @@ def test_output_is_ordered_and_deterministic() -> None:
     new = [m(f"9903.05.{i:02d}", 2.0, f"n{i}") for i in reversed(range(5))]
     refs = [c.new.measure_ref for c in diff_measures(old, new)]
     assert refs == sorted(refs)
+
+
+# Review 2026-11-19 #2: a preference replaces the base, so adding one is a cut, not +pct.
+def _pref(pct: float, h: str) -> Measure:
+    return m("GBR-1062", pct, h, kind="preferential", origin_kind="group", origin_code="1062")
+
+
+def test_added_preference_has_no_delta_and_reads_as_a_cut() -> None:
+    from cportal_c6.diff import direction
+
+    (c,) = diff_measures([], [_pref(5.0, "p1")])
+    assert c.change == "added" and c.delta_pp is None
+    assert direction("preferential", "1062", c.change, c.delta_pp) == "cut"
+
+
+def test_removed_free_preference_reads_as_a_raise() -> None:
+    from cportal_c6.diff import direction
+
+    (c,) = diff_measures([_pref(0.0, "p1")], [])
+    assert c.delta_pp is None
+    assert direction("preferential", "1062", c.change, c.delta_pp) == "raise"
+
+
+def test_changed_preference_rate_keeps_its_delta() -> None:
+    (c,) = diff_measures([_pref(5.0, "p1")], [_pref(2.0, "p2")])
+    assert c.delta_pp == -3.0
+
+
+def test_quota_change_has_no_delta() -> None:
+    (c,) = diff_measures([], [m("q1", 3.0, "q", kind="quota")])
+    assert c.delta_pp is None

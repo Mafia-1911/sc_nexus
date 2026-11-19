@@ -26,7 +26,7 @@ from cportal_core.models import (
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
 
-from cportal_c6 import catalog, store
+from cportal_c6 import catalog, diff, store
 from cportal_c6.schemas import (
     CellOut,
     ChangeOut,
@@ -417,14 +417,10 @@ def _news_scope() -> list[Any]:
 
 
 def _agrees(direction: str, change: TariffChange) -> bool:
-    delta = change.delta_pp
-    if direction == "raise":
-        return delta is not None and delta > 0
-    if direction == "cut":
-        return delta is not None and delta < 0
+    does = diff.direction(change.kind, change.origin_code, change.change, change.delta_pp)
     if direction == "exempt":
-        return change.kind == "exemption" or (delta is not None and delta < 0)
-    return False
+        return does in ("exempt", "cut")
+    return direction in ("raise", "cut") and does == direction
 
 
 def _confirmation(

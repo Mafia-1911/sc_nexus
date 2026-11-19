@@ -632,3 +632,25 @@ def test_wits_missing_value_is_not_a_resolved_nan() -> None:
     assert len(blank) == 1 and blank[0].is_resolved is False
     assert blank[0].duty_text == "not reported"
     assert all(m.ad_valorem_pct == m.ad_valorem_pct for m in ms if m.ad_valorem_pct is not None)
+
+
+def test_live_get_backs_off_on_429_then_succeeds(tmp_path) -> None:  # type: ignore[no-untyped-def]
+    """Review 2026-11-19 #14: rate limits are honoured (AGENTS rule 2)."""
+    import httpx
+    from cportal_connectors.live import LiveHttp
+
+    replies = iter([httpx.Response(429, headers={"Retry-After": "3"}), httpx.Response(503),
+                    httpx.Response(200, json={"ok": True})])  # fmt: skip
+    from cportal_core.settings import get_settings
+
+    http = LiveHttp(
+        "DS-TRADE-06",
+        get_settings(),
+        min_interval_s=0.001,
+        transport=httpx.MockTransport(lambda r: next(replies)),
+        root=tmp_path,
+    )
+    waits: list[float] = []
+    http.sleep = waits.append
+    assert http.get("probe", "https://example.org/api") == b'{"ok":true}'
+    assert waits == [3.0, 2.0]

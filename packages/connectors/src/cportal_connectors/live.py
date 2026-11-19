@@ -25,6 +25,19 @@ from cportal_connectors.base import TokenBucket
 from cportal_connectors.canonical import ParseContext, Parser
 from cportal_connectors.redact import Redactor
 
+RETRY_STATUS = {429, 502, 503, 504}
+RETRIES = 2
+MAX_WAIT_S = 30.0
+
+
+def _retry_after(response: httpx.Response, attempt: int) -> float:
+    """Retry-After in seconds when the server gives one (capped), else 1 s, 2 s, ..."""
+    try:
+        wait = float(response.headers.get("retry-after", ""))
+    except ValueError:
+        wait = 2.0**attempt
+    return min(max(wait, 0.0), MAX_WAIT_S)
+
 
 class LiveError(RuntimeError):
     """A live call failed (HTTP status, network, or decode). Counts as one strike."""
@@ -65,6 +78,7 @@ class LiveHttp:
         )
         self.fetched_at: datetime | None = None
         self.saved: list[Path] = []
+        self.sleep: Callable[[float], None] = time.sleep  # replaced in tests
 
     def secret(self, env_name: str) -> str | None:
         return self.settings.secret(env_name)
@@ -81,19 +95,24 @@ class LiveHttp:
     ) -> bytes:
         """GET and archive. `archive_transform` reduces what is kept on disk (e.g. RSS to
         metadata and snippets: the news guardrail, 03 §5); error pages are kept as they are."""
-        self.bucket.acquire()
-        t0 = time.perf_counter()
-        try:
-            # params=None, not {}: an empty mapping makes httpx drop a query string that is
-            # already in the URL (repeated keys such as fields[] can only travel that way).
-            response = self.client.get(
-                url,
-                params=dict(params) if params else None,
-                headers=dict(headers or {}),
-                timeout=timeout_s,
-            )
-        except httpx.HTTPError as exc:
-            raise LiveError(f"{name}: {type(exc).__name__}") from exc
+        for attempt in range(RETRIES + 1):
+            self.bucket.acquire()
+            t0 = time.perf_counter()
+            try:
+                # params=None, not {}: an empty mapping makes httpx drop a query string that is
+                # already in the URL (repeated keys such as fields[] can only travel that way).
+                response = self.client.get(
+                    url,
+                    params=dict(params) if params else None,
+                    headers=dict(headers or {}),
+                    timeout=timeout_s,
+                )
+            except httpx.HTTPError as exc:
+                raise LiveError(f"{name}: {type(exc).__name__}") from exc
+            if response.status_code not in RETRY_STATUS or attempt == RETRIES:
+                break
+            # the server asked us to slow down or is briefly down: back off (AGENTS rule 2)
+            self.sleep(_retry_after(response, attempt))
         self.fetched_at = datetime.now(UTC)
         body = response.content
         kept = body

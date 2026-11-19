@@ -401,3 +401,11 @@ def test_excluded_country_is_not_covered_by_a_measure() -> None:
     pref = _gbr(kind="preferential", origin_kind="group", origin_code="1062", measure_ref="p",
                 ad_valorem_pct=0.0, conditions={"excluded": ["BGD"]})  # fmt: skip
     assert effective_rate([base, pref], MEMBERS, "GBR", "610910", "BGD", ON).effective_pct == 12.0
+
+
+def test_suspensions_for_every_origin_are_listed_not_dropped() -> None:
+    """Review 2026-11-19 #12: rule 4 says listed, never applied, whoever they cover."""
+    susp = _gbr(kind="suspension", measure_ref="s1", ad_valorem_pct=0.0, duty_text="0% (end use)")
+    r = effective_rate([_gbr(ad_valorem_pct=12.0), susp], MEMBERS, "GBR", "610910", "VNM", ON)
+    assert r.effective_pct == 12.0
+    assert [c.role for c in r.components] == ["base", "not_applied"]

@@ -282,7 +282,7 @@ def effective_rate(
                     m, "possible_exemption", None, "may remove an additional duty: see legal text"
                 )
             )
-        elif m.kind in NOT_APPLIED and m.origin_kind != "erga_omnes":
+        elif m.kind in NOT_APPLIED:  # for one origin or for all: listed, never applied
             r.components.append(_component(m, "not_applied", m.ad_valorem_pct, NOT_APPLIED[m.kind]))
     surcharges = [c for c in r.components if c.role == "additional"]
     r.additional_pct = additional if surcharges else None

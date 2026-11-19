@@ -69,6 +69,10 @@ def create_app() -> FastAPI:
         ),
         responses={404: {"model": Problem}, 422: {"model": Problem}},
     )
+    @app.get("/health", include_in_schema=False)
+    async def health_check():
+        return {"status": "healthy"}
+
     token = os.environ.get("API_TOKEN")
     if token:  # the deployed API (A-120): only the website's server, which holds the token
 

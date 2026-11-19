@@ -1,4 +1,22 @@
-# STATUS (updated 2026-11-18)
+# STATUS (updated 2026-11-19)
+
+C6 review fixes (2026-11-19; `docs/tariffs/REVIEW_2026-11-19.md`; A-142…A-147):
+- **All 14 review findings checked**: 13 real, fixed one per commit, each with a test that
+  failed before or reproduced the defect; 14a was not a defect. Highlights: unresolved cells show
+  real bounds (≥, ≤, range), never MFN as a floor; UK excluded countries honoured; empty fetches
+  ignored; news confirmation matches product and group origins; C2 signal direction and rate
+  fixed; Cambodia's partial EBA withdrawal no longer a guessed 0 %.
+- **Also fixed:** the `Dockerfile` did not install `packages/c6_tariffs`, so `make demo` and the
+  Render build failed (`f2d63a2`).
+- **Verified:** `make check` passes everything except one test that already failed before these
+  changes: `/api/v1/graph` p95 is 330–390 ms on this 4-CPU container, and it fails on the
+  commit before the fixes too. C1 code is unchanged. The Docker demo was built and run here
+  (DEPLOY.md §6): 11 of 11 tariff browser tests pass, and the smoke, accessibility and sources
+  tests pass apart from 4 that need data this container lacks (map tiles, the C4 GFW backfill,
+  the C5 image set), as already noted in A-141.
+- **Next:** push the bundle to `Rafee-M/sc_nexus` (this session cannot write to it); on the
+  hosted demo run `make cloud-tariffs` (new migration and parser version).
+
 
 Tariff Monitor UI (2026-11-18; Q-22…Q-26 approved; A-135…A-141; plan `docs/tariffs/UI_PLAN.md`):
 - **New page `/tariffs`** (nav "Tariff Monitor"): industry and compare chips, origin or market

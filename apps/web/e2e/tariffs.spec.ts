@@ -5,7 +5,7 @@ import { expect, type Page, test } from "@playwright/test";
 const API = process.env.E2E_API_URL ?? "http://127.0.0.1:8000";
 const SHOTS = process.env.E2E_SHOTS ?? "../../docs/screenshots";
 
-type Cell = { market: string; hs6: string; origin: string; effective_pct_min: number | null; effective_pct_max: number | null; is_resolved: boolean; is_ceiling: boolean; base_pct: number | null; n_lines: number };
+type Cell = { market: string; hs6: string; origin: string; effective_pct_min: number | null; effective_pct_max: number | null; is_resolved: boolean; is_ceiling: boolean; base_pct: number | null; n_lines: number; lower_pct: number | null; upper_pct: number | null };
 
 function pct(v: number | null): string {
   if (v === null) return "—";
@@ -16,7 +16,13 @@ function pct(v: number | null): string {
 /** The same rule as lib/c6.ts cellText, applied to the API's numbers. */
 function expected(c: Cell): string {
   if (c.n_lines === 0) return "—";
-  if (!c.is_resolved || c.effective_pct_max === null) return c.base_pct === null ? "varies" : `≥ ${pct(c.base_pct).replace("Free", "0%")}`;
+  if (!c.is_resolved || c.effective_pct_max === null) {
+    const lo = c.lower_pct, hi = c.upper_pct;
+    if (lo === null && hi === null) return "varies";
+    if (hi === null) return `≥ ${pct(lo).replace("Free", "0%")}`;
+    if (lo === null || lo === 0) return `≤ ${pct(hi).replace("Free", "0%")}`;
+    return lo === hi ? pct(lo) : `${pct(lo).replace("Free", "0%")}–${pct(hi)}`;
+  }
   const lo = c.effective_pct_min ?? c.effective_pct_max;
   const text = lo === c.effective_pct_max ? pct(lo) : `${pct(lo).replace("Free", "0%")}–${pct(c.effective_pct_max)}`;
   return c.is_ceiling && c.effective_pct_max > 0 ? `≤ ${text}` : text;

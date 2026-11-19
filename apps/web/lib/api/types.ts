@@ -1340,6 +1340,11 @@ export interface components {
             is_resolved: boolean;
             /** Is Stale */
             is_stale: boolean;
+            /**
+             * Lower Pct
+             * @description Unresolved: the least this origin pays (None = unknown)
+             */
+            lower_pct?: number | null;
             /** Market */
             market: string;
             /** N Lines */
@@ -1355,6 +1360,11 @@ export interface components {
             preference_pct: number | null;
             /** Sources */
             sources: string[];
+            /**
+             * Upper Pct
+             * @description Unresolved: the most this origin pays (None = unknown)
+             */
+            upper_pct?: number | null;
         };
         /** ChangeOut */
         ChangeOut: {
@@ -2127,12 +2137,16 @@ export interface components {
             is_resolved: boolean;
             /** Is Stale */
             is_stale: boolean;
+            /** Lower Pct */
+            lower_pct?: number | null;
             /** Notes */
             notes: string[];
             /** Origin */
             origin: string;
             /** Preference Pct */
             preference_pct: number | null;
+            /** Upper Pct */
+            upper_pct?: number | null;
         };
         /** LiveResultOut */
         LiveResultOut: {

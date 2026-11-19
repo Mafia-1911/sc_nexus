@@ -833,6 +833,8 @@ class TariffEffectiveRateRecord(Record):
     additional_pct: float | None = None
     is_stale: bool = False
     is_ceiling: bool = False
+    lower_pct: float | None = None
+    upper_pct: float | None = None
     components: list[dict[str, Any]] = Field(default_factory=list)
     lines: list[dict[str, Any]] = Field(default_factory=list)
     notes: list[str] = Field(default_factory=list)

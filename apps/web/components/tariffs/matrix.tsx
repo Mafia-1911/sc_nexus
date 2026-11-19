@@ -3,6 +3,7 @@
 import { Info } from "lucide-react";
 
 import {
+  boundWords,
   type TariffCell,
   type TariffMatrix,
   type TariffOverview,
@@ -11,7 +12,6 @@ import {
   cellText,
   countryName,
   marketSource,
-  pct,
   tierOf,
 } from "@/lib/c6";
 import { cn } from "@/lib/utils";
@@ -37,7 +37,7 @@ export function Legend() {
         </li>
       ))}
       <li className="flex items-center gap-1">
-        <span className={cn("inline-block h-3 w-5 rounded-sm", UNRESOLVED)} aria-hidden />≥ at least, or varies: no single number (hover for why)
+        <span className={cn("inline-block h-3 w-5 rounded-sm", UNRESOLVED)} aria-hidden />no single number: ≥ at least, ≤ at most, a range, or varies (hover for why)
       </li>
       <li className="flex items-center gap-1">
         <span className="font-semibold text-text" aria-hidden>≤</span> at most: preferences not in the data
@@ -109,7 +109,7 @@ export function Matrix({
                 const sel: Selection = { hs6: p.hs6, market: c.market, origin: c.origin };
                 const active = selected?.hs6 === sel.hs6 && selected.market === sel.market && selected.origin === sel.origin;
                 const label = `${p.name} into ${view === "markets" ? col.label : fixed} from ${view === "markets" ? fixed : col.label}: ${
-                  c.is_resolved ? `${c.is_ceiling ? "at most " : ""}${cellText(c).replace("≤ ", "")}` : `no single number, at least ${pct(c.base_pct)}`
+                  c.is_resolved ? `${c.is_ceiling ? "at most " : ""}${cellText(c).replace("≤ ", "")}` : boundWords(c.lower_pct, c.upper_pct)
                 }`;
                 return (
                   <td key={col.key} className="px-1 py-1.5">

@@ -84,6 +84,11 @@ class RateResult:
     preference_pct: float | None = None
     additional_pct: float | None = None
     is_stale: bool = False
+    # Bounds on the duty actually paid. Equal to effective_pct when resolved; for an unresolved
+    # result, what is known: an unreadable preference can only lower the duty (upper bound), an
+    # unreadable or possibly exempted surcharge can only raise it (lower bound). None = unknown.
+    lower_pct: float | None = None
+    upper_pct: float | None = None
     components: list[Component] = field(default_factory=list)
     notes: list[str] = field(default_factory=list)
 
@@ -300,8 +305,17 @@ def effective_rate(
                 f"if they all stack: {start + additional:g} %. See legal text"
             )
 
+    if r.base_pct is not None:
+        start = r.preference_pct if r.preference_pct is not None else r.base_pct
+        pref_open = unresolved_pref and start > 0
+        surcharge_open = any(c.role == "unresolved" and c.kind == "additional" for c in r.components)
+        known = [c.pct for c in surcharges if c.pct is not None]
+        floor_add = 0.0 if category_exemptions or not known else max(known)
+        r.lower_pct = round((0.0 if pref_open else start) + floor_add, 4)
+        r.upper_pct = None if surcharge_open else round(start + additional, 4)
     if resolved and r.base_pct is not None:
         start = r.preference_pct if r.preference_pct is not None else r.base_pct
         r.effective_pct = round(start + additional, 4)
         r.is_resolved = True
+        r.lower_pct = r.upper_pct = r.effective_pct
     return r

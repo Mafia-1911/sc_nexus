@@ -388,6 +388,18 @@
             "title": "Is Stale",
             "type": "boolean"
           },
+          "lower_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Unresolved: the least this origin pays (None = unknown)",
+            "title": "Lower Pct"
+          },
           "market": {
             "title": "Market",
             "type": "string"
@@ -425,6 +437,18 @@
             },
             "title": "Sources",
             "type": "array"
+          },
+          "upper_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Unresolved: the most this origin pays (None = unknown)",
+            "title": "Upper Pct"
           }
         },
         "required": [
@@ -2750,6 +2774,17 @@
             "title": "Is Stale",
             "type": "boolean"
           },
+          "lower_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lower Pct"
+          },
           "notes": {
             "items": {
               "type": "string"
@@ -2771,6 +2806,17 @@
               }
             ],
             "title": "Preference Pct"
+          },
+          "upper_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Upper Pct"
           }
         },
         "required": [

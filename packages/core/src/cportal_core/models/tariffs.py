@@ -205,6 +205,9 @@ class TariffEffectiveRate(Lineage, Base):
     is_stale: Mapped[bool] = mapped_column(default=False)  # base rate from an earlier year
     # no preference data for this market: the number is the most this origin pays (a ceiling)
     is_ceiling: Mapped[bool] = mapped_column(default=False, server_default=text("false"))
+    # what is known when unresolved: lowest floor and highest ceiling over the lines (None = unknown)
+    lower_pct: Mapped[float | None]
+    upper_pct: Mapped[float | None]
     components: Mapped[list[Any]] = mapped_column(default=list)  # representative line
     lines: Mapped[list[Any]] = mapped_column(default=list)  # per national line: code, pct
     notes: Mapped[list[Any]] = mapped_column(default=list)

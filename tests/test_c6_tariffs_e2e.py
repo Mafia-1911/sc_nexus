@@ -231,3 +231,19 @@ def test_unversioned_snapshots_are_never_diffed(loaded: str) -> None:
         upsert(s, recs)
         s.flush()
         assert store.refresh(s, ON)["new_changes"] == 0
+
+
+def test_bounds_are_consistent_and_china_gets_a_stacked_range(loaded: str) -> None:
+    """Review 2026-11-19 #1: unresolved cells carry what is known, never MFN as a floor."""
+    with session_scope(loaded) as s:
+        rows = list(s.scalars(select(TariffEffectiveRate).where(TariffEffectiveRate.as_of == ON)))
+    assert rows
+    for r in rows:
+        if r.is_resolved:
+            assert r.lower_pct == pytest.approx(r.effective_pct_min)
+            assert r.upper_pct == pytest.approx(r.effective_pct_max)
+        elif r.lower_pct is not None and r.upper_pct is not None:
+            assert r.lower_pct <= r.upper_pct
+    china = _rate(loaded, "USA", "610910", "CHN")
+    assert not china.is_resolved
+    assert china.lower_pct is not None and china.lower_pct > china.base_pct

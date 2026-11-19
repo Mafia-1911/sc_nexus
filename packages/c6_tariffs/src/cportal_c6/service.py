@@ -130,6 +130,8 @@ def _cells(rows: list[Any]) -> tuple[list[CellOut], list[str]]:
                 is_resolved=r.is_resolved,
                 is_stale=r.is_stale,
                 is_ceiling=r.is_ceiling,
+                lower_pct=r.lower_pct,
+                upper_pct=r.upper_pct,
                 base_pct=r.base_pct,
                 preference_pct=r.preference_pct,
                 additional_pct=r.additional_pct,
@@ -149,6 +151,7 @@ _MATRIX_COLUMNS = (
     TariffEffectiveRate.is_resolved, TariffEffectiveRate.is_stale, TariffEffectiveRate.base_pct,
     TariffEffectiveRate.preference_pct, TariffEffectiveRate.additional_pct,
     TariffEffectiveRate.n_lines, TariffEffectiveRate.notes, TariffEffectiveRate.is_ceiling,
+    TariffEffectiveRate.lower_pct, TariffEffectiveRate.upper_pct,
     TariffEffectiveRate.sources,
     TariffEffectiveRate.data_mode,
 )  # fmt: skip
@@ -320,6 +323,8 @@ def product(
                         base_pct=r.base_pct,
                         preference_pct=r.preference_pct,
                         additional_pct=r.additional_pct,
+                        lower_pct=r.lower_pct,
+                        upper_pct=r.upper_pct,
                         components=[
                             ComponentOut(
                                 **c.__dict__, origin_name=origin_name(market, c.origin_code)

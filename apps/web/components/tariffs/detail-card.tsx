@@ -5,7 +5,7 @@ import { ExternalLink, Info, X } from "lucide-react";
 import { DataBadge } from "@/components/data-badge";
 import { RateStack } from "@/components/tariffs/rate-stack";
 import { Card, CardFooter } from "@/components/ui/card";
-import { type LineRate, type ProductDetail, type TariffOverview, ROLE_LABEL, countryName, pct } from "@/lib/c6";
+import { type LineRate, type ProductDetail, type TariffOverview, ROLE_LABEL, boundText, countryName, pct } from "@/lib/c6";
 import { cn, dhakaTime } from "@/lib/utils";
 
 function summary(lines: LineRate[]) {
@@ -16,13 +16,16 @@ function summary(lines: LineRate[]) {
     rep,
     allResolved: lines.length > 0 && resolved.length === lines.length,
     lo: values.length ? Math.min(...values) : null,
+    // bounds over every line: unknown if any line's bound is unknown
+    lower: lines.some((l) => l.lower_pct == null) ? null : Math.min(...lines.map((l) => l.lower_pct as number)),
+    upper: lines.some((l) => l.upper_pct == null) ? null : Math.max(...lines.map((l) => l.upper_pct as number)),
     hi: values.length ? Math.max(...values) : null,
   };
 }
 
 function rangeText(s: ReturnType<typeof summary>): string {
   if (!s.rep) return "—";
-  if (!s.allResolved) return `≥ ${pct(s.rep.base_pct ?? null).replace("Free", "0%")}`;
+  if (!s.allResolved) return boundText(s.lower, s.upper);
   return s.lo === s.hi ? pct(s.hi) : `${pct(s.lo).replace("Free", "0%")}–${pct(s.hi)}`;
 }
 

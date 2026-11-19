@@ -40,14 +40,39 @@ export function pct(v: number | null | undefined): string {
   return `${fmt(v, Number.isInteger(v) ? 0 : 1)}%`;
 }
 
-/** What a matrix cell says: one number, a range over national lines, a floor, or nothing. */
+/**
+ * What is known when there is no single number: "≥ 26.5%" (a surcharge may add more),
+ * "≤ 12%" (an unreadable preference may lower it), "16.5–41.5%" or "varies". Never MFN as a floor.
+ */
+export function boundText(lower: number | null | undefined, upper: number | null | undefined): string {
+  const lo = lower ?? null;
+  const hi = upper ?? null;
+  if (lo === null && hi === null) return "varies";
+  if (hi === null) return `≥ ${pct(lo).replace("Free", "0%")}`;
+  if (lo === null || lo === 0) return `≤ ${pct(hi).replace("Free", "0%")}`;
+  if (lo === hi) return pct(lo);
+  return `${pct(lo).replace("Free", "0%")}–${pct(hi)}`;
+}
+
+/** Spoken form of boundText, for labels. */
+export function boundWords(lower: number | null | undefined, upper: number | null | undefined): string {
+  const t = boundText(lower, upper);
+  if (t === "varies") return "no single number, varies";
+  return `no single number, ${t.replace("≥ ", "at least ").replace("≤ ", "at most ").replace("–", " to ")}`;
+}
+
+/** What a matrix cell says: one number, a range over national lines, a bound, or nothing. */
 export function cellText(
-  c: Pick<TariffCell, "effective_pct_min" | "effective_pct_max" | "is_resolved" | "base_pct" | "n_lines"> & { is_ceiling?: boolean },
+  c: Pick<TariffCell, "effective_pct_min" | "effective_pct_max" | "is_resolved" | "n_lines"> & {
+    is_ceiling?: boolean;
+    lower_pct?: number | null;
+    upper_pct?: number | null;
+  },
 ): string {
   if (c.n_lines === 0) return "—";
   if (!c.is_resolved || c.effective_pct_max === null || c.effective_pct_max === undefined) {
-    // no base number: national lines differ (an annual average); the cell's note gives the range
-    return c.base_pct === null || c.base_pct === undefined ? "varies" : `≥ ${pct(c.base_pct).replace("Free", "0%")}`;
+    // the bounds the engine could establish; the cell's notes say why there is no single number
+    return boundText(c.lower_pct, c.upper_pct);
   }
   const lo = c.effective_pct_min ?? c.effective_pct_max;
   const text = lo === c.effective_pct_max ? pct(lo) : `${pct(lo).replace("Free", "0%")}–${pct(c.effective_pct_max)}`;

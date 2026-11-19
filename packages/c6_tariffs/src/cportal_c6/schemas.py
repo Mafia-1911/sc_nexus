@@ -60,6 +60,8 @@ class CellOut(BaseModel):
     is_resolved: bool
     is_stale: bool
     is_ceiling: bool = Field(description="No preference data for this market: an upper bound")
+    lower_pct: float | None = Field(None, description="Unresolved: the least this origin pays (None = unknown)")
+    upper_pct: float | None = Field(None, description="Unresolved: the most this origin pays (None = unknown)")
     base_pct: float | None
     preference_pct: float | None
     additional_pct: float | None
@@ -102,6 +104,8 @@ class LineRateOut(BaseModel):
     base_pct: float | None
     preference_pct: float | None
     additional_pct: float | None
+    lower_pct: float | None = None
+    upper_pct: float | None = None
     components: list[ComponentOut]
     notes: list[str]
 

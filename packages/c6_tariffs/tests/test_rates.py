@@ -350,3 +350,41 @@ def test_category_exemption_makes_a_matching_surcharge_unresolved() -> None:
     # a T-shirt is outside the category's chapters: the surcharge stands
     tee = effective_rate([MFN, surcharge, exemption], MEMBERS, "USA", "61091000", "BGD", ON)
     assert tee.effective_pct == 26.5 and tee.is_resolved
+
+
+# Bounds on unresolved results (review 2026-11-19 #1): never present MFN as a floor when an
+# unreadable preference can only lower the duty.
+def _gbr(**kw: Any) -> Measure:
+    return m(market="GBR", code="610910", **kw)
+
+
+def test_unreadable_preference_gives_an_upper_bound_not_a_floor() -> None:
+    pref = _gbr(
+        kind="preferential", origin_kind="group", origin_code="1062", measure_ref="p",
+        is_resolved=False, duty_text="conditional",
+    )  # fmt: skip
+    r = effective_rate([_gbr(ad_valorem_pct=12.0), pref], MEMBERS, "GBR", "610910", "BGD", ON)
+    assert not r.is_resolved and r.effective_pct is None
+    assert r.lower_pct == 0.0 and r.upper_pct == 12.0
+
+
+def test_stacked_surcharges_give_a_floor_and_a_stacked_ceiling() -> None:
+    s1 = m(code="*", hs6=None, kind="additional", origin_kind="country", origin_code="CHN",
+           measure_ref="9903.01", ad_valorem_pct=10.0)  # fmt: skip
+    s2 = m(code="*", hs6=None, kind="additional", origin_kind="country", origin_code="CHN",
+           measure_ref="9903.02", ad_valorem_pct=25.0)  # fmt: skip
+    r = effective_rate([MFN, s1, s2], MEMBERS, "USA", "61091000", "CHN", ON)
+    assert not r.is_resolved
+    assert r.lower_pct == 41.5 and r.upper_pct == 51.5
+
+
+def test_unreadable_surcharge_gives_only_a_floor() -> None:
+    s = m(code="*", hs6=None, kind="additional", origin_kind="country", origin_code="CHN",
+          measure_ref="9903.03", is_resolved=False, duty_text="$1/kg")  # fmt: skip
+    r = effective_rate([MFN, s], MEMBERS, "USA", "61091000", "CHN", ON)
+    assert r.lower_pct == 16.5 and r.upper_pct is None
+
+
+def test_resolved_bounds_equal_the_rate() -> None:
+    r = effective_rate([MFN], MEMBERS, "USA", "61091000", "BGD", ON)
+    assert r.lower_pct == r.upper_pct == r.effective_pct == 16.5

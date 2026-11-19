@@ -20,6 +20,7 @@ from __future__ import annotations
 import datetime as dt
 import hashlib
 import json
+import math
 import re
 from collections.abc import Iterable
 from dataclasses import dataclass
@@ -72,6 +73,15 @@ class Duty:
     is_compound: bool
     is_resolved: bool  # True only when the whole duty is one ad valorem percentage
     additive: bool  # True when it adds to the ordinary rate (US Chapter 99)
+
+
+def _float(v: str | None) -> float | None:
+    """A reported number, or None (missing, empty or not a finite number)."""
+    try:
+        x = float(v) if v not in (None, "") else None
+    except ValueError:
+        return None
+    return x if x is not None and math.isfinite(x) else None
 
 
 def parse_duty(text: str) -> Duty | None:
@@ -379,6 +389,10 @@ def _base_measures(
         )
 
     general = parse_duty(row.get("general") or "")
+    if general is None and (row.get("general") or "").strip():
+        # text that is not a duty ("See 9903.88.15"): keep the line, with no number, rather
+        # than drop it and let the cell look resolved without it (review 2026-11-19 #13)
+        general = Duty(None, None, None, False, False, False)
     if general is not None:
         add(
             TariffMeasureKind.MFN,
@@ -802,9 +816,12 @@ def parse_wits_mfn(body: bytes, ctx: ParseContext) -> list[Record]:
                 continue
             year = obs.get("TIME_PERIOD", "")
             years.add(year)
-            value = float(obs.get("OBS_VALUE", "nan"))
+            value = _float(obs.get("OBS_VALUE"))
             lines = int(obs.get("TOTALNOOFLINES", "0") or 0)
             lo, hi = obs.get("MIN_RATE"), obs.get("MAX_RATE")
+            # one number only when it is reported and every national line has it (review #13)
+            same = lo is not None and hi is not None and _float(lo) == _float(hi)
+            resolved = value is not None and (lines <= 1 or same)
             measures.append(
                 _measure(
                     ctx,
@@ -816,12 +833,16 @@ def parse_wits_mfn(body: bytes, ctx: ParseContext) -> list[Record]:
                     origin_kind=TariffOriginKind.ERGA_OMNES,
                     origin_code="*",
                     origin_group_id=None,
-                    duty_text=f"{value:g}% (simple average of {lines} national lines)",
+                    duty_text=(
+                        f"{value:g}% (simple average of {lines} national lines)"
+                        if value is not None
+                        else "not reported"
+                    ),
                     ad_valorem_pct=value,
                     specific_amount=None,
                     specific_unit=None,
                     is_compound=False,
-                    is_resolved=lo == hi,
+                    is_resolved=resolved,
                     measure_ref=f"WITS:TRN:{year}",
                     legal_ref="WITS TRAINS, reported MFN (UNCTAD TRAINS)",
                     source_url="https://wits.worldbank.org/",

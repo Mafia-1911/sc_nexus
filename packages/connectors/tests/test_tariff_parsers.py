@@ -7,6 +7,8 @@ parser change that misreads a rate, an origin, a date or a product code fails he
 from __future__ import annotations
 
 import datetime as dt
+import json
+import re
 from collections import Counter
 
 import pytest
@@ -607,3 +609,26 @@ def test_eu_refs_survive_reordering_and_edits_make_a_new_snapshot() -> None:
     (s1,) = _of(base, TariffSnapshotRecord)
     (s2,) = _of(parse(edited), TariffSnapshotRecord)
     assert s1.fetched_at == s2.fetched_at and s1.id != s2.id
+
+
+# Review 2026-11-19 #13: a line is kept with no number rather than dropped or guessed.
+def test_hts_line_with_text_that_is_not_a_duty_is_kept_unresolved() -> None:
+    rows = [
+        {"htsno": "6109.10.00", "description": "T-shirts", "general": "See 9903.88.15"},
+        {"htsno": "6109.10.00.04", "description": "stat suffix", "general": ""},
+    ]
+    recs = T.hts_parser("hts:6109")(json.dumps(rows).encode(), _ctx("DS-TRADE-05", "x.json"))
+    mfn = [m for m in _of(recs, TariffMeasureRecord) if m.kind == "mfn"]
+    assert [(m.code, m.is_resolved, m.ad_valorem_pct) for m in mfn] == [("61091000", False, None)]
+
+
+def test_wits_missing_value_is_not_a_resolved_nan() -> None:
+    body = sample_bytes("DS-TRADE-04", "mfn_eun_2023.xml").decode()
+    body = re.sub(r'OBS_VALUE="[^"]*"', "", body, count=1)
+    body = re.sub(r'MIN_RATE="[^"]*"|MAX_RATE="[^"]*"', "", body)
+    recs = T.parse_wits_mfn(body.encode(), _ctx("DS-TRADE-04", "mfn_eun_2023.xml"))
+    ms = _of(recs, TariffMeasureRecord)
+    blank = [m for m in ms if m.ad_valorem_pct is None]
+    assert len(blank) == 1 and blank[0].is_resolved is False
+    assert blank[0].duty_text == "not reported"
+    assert all(m.ad_valorem_pct == m.ad_valorem_pct for m in ms if m.ad_valorem_pct is not None)

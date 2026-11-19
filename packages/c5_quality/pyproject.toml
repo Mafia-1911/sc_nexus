@@ -1,0 +1,20 @@
+[project]
+name = "cportal-c5"
+version = "0.1.0"
+description = "Universal Quality AI (C5): Zero-shot manufacturing defect detection with WinCLIP"
+requires-python = ">=3.11"
+dependencies = [
+    "cportal-core",
+    "anomalib>=2.0.0",
+    "open-clip-torch>=2.20.0",
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "opencv-python-headless>=4.8.0",
+    "pillow>=10.0.0",
+    "pydantic>=2.0.0",
+    "certifi>=2024.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=65.0"]
+build-backend = "setuptools.build_meta"

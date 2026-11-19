@@ -83,6 +83,48 @@ make calibrate  # port DES vs real marginals
 make erd    # regenerate the ERD from the models
 ```
 
+## Capability C5: Manufacturing Defect Intelligence (Universal Quality AI)
+
+Zero-shot visual anomaly detection and defect localization powered by WinCLIP (`k_shot=0`, ViT-B/16+ `laion400m_e31`). Inspects export products (garments/textiles and pharmaceuticals) without prior training images.
+
+### Integrated Quality Lab Dashboard (Next.js)
+
+The computer-vision defect intelligence is integrated directly into the Next.js Supply Chain Nexus dashboard at `/quality`:
+
+```bash
+make api          # Starts FastAPI backend on http://127.0.0.1:8000
+make web          # Starts Next.js dashboard on http://127.0.0.1:3000
+# Open http://127.0.0.1:3000/quality in your browser
+```
+
+Features:
+- Matches the "Tidewater" oceanic visual design system (Shallows light / Abyss dark themes).
+- Domain & Category Selector: **Zipper** (Garments & Apparel Hardware) and **Capsule** (Pharmaceuticals & Healthcare).
+- Quick-pick MVTec AD benchmark sample presets and custom drag-and-drop image upload.
+- Dynamic screening threshold slider with baseline calibrated presets (`0.4150` for zipper, `0.3200` for capsule).
+- Live inspection results: Side-by-side view with JET colormap defect localization heatmap, raw anomaly score, delta margin, severity rating, and human QA regulatory notice.
+
+### Standalone Gradio Demo (Fallback)
+
+```bash
+make quality-demo
+# Open http://127.0.0.1:7860 in your browser
+```
+
+### Quality API & Smoke Test
+
+```bash
+make quality-smoke        # Run visual smoke test on real MVTec AD samples (saves composite to docs/screenshots/)
+uv run pytest tests/test_quality_ai.py -v   # Run C5 test suite (engine, service, and API endpoints)
+```
+
+The FastAPI backend exposes:
+- `GET /api/v1/quality/info` — Model architecture, supported categories, and default thresholds.
+- `POST /api/v1/quality/inspect` — Multipart image upload returning anomaly scores, verdicts, and base64 heatmaps.
+
+For full architecture and package details, see [`packages/c5_quality/README.md`](packages/c5_quality/README.md).
+
+
 ## Names and brand
 
 `CPORTAL_BRAND_NAME` sets the product name. `CPORTAL_NAME_PACK=bd_demo` shows well-known

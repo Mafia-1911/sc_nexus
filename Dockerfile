@@ -30,4 +30,4 @@ RUN mkdir -p packages/core/src/cportal_core packages/connectors/src/cportal_conn
 COPY . .
 RUN uv sync --frozen --no-dev
 EXPOSE 8000
-CMD ["uv", "run", "--no-sync", "uvicorn", "cportal_api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "uv run --no-sync alembic -c db/alembic.ini upgrade head && exec uv run --no-sync uvicorn cportal_api.main:app --host 0.0.0.0 --port ${PORT:-10000} --proxy-headers"]

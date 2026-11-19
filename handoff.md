@@ -283,6 +283,8 @@ The script is in `docs/GOLDEN_PATH.md`, and the video plan in `docs/VIDEO_SCRIPT
 
 ## 7. Deploy for a hosted demo (free tiers, A-119 and A-120)
 
+**Full step-by-step guide: [`docs/DEPLOY.md`](docs/DEPLOY.md)**. It covers the `.env` / team `env.bin` placement, local and hosted setup, updates, troubleshooting, and what a Claude cloud session can run. The summary is below.
+
 1. **Database on Neon.** Put Neon's direct URL in `.env` as `DATABASE_URL_UNPOOLED` (or `NEON_DATABASE_URL`), start the local stack and seed it, then run:
    ```bash
    scripts/deploy_db.sh
@@ -297,11 +299,11 @@ The script is in `docs/GOLDEN_PATH.md`, and the video plan in `docs/VIDEO_SCRIPT
 4. **Keep the data fresh.** Choose one:
    - `make worker-cloud` runs a local worker against Neon. It needs `DATABASE_URL_UNPOOLED`.
    - `make cloud-refresh-timer` runs `scripts/cloud_refresh.sh` hourly. CPA runs every hour; live feeds, C2 and Nexus every 6 h.
-5. **After a tariff change, a migration or a fresh Neon copy, refresh the matrix on the target database.** `cloud_refresh.sh` fetches the tariff sources but does not run C6 itself; only the worker's outbox and 6-hourly job do. Run:
+5. **After a tariff change, a migration or a fresh Neon copy, refresh the matrix on the target database.** Run:
    ```bash
-   uv run c6 refresh
+   make cloud-tariffs
    ```
-   With the team `.env`, a bare `uv run` already targets Neon (see §6, Keys).
+   This applies migrations, replays the tariff samples and builds the matrix in Neon. `cloud_refresh.sh` now also rebuilds the C6 matrix every 6 hours.
 6. **Smoke test.** Open `/tariffs`, `/routes`, `/network` and `/radar` on the deployed site, and check that the badges and the LIVE/REPLAY mode are right.
 
 Secrets live only in `.env`, never in git, logs or the browser. Values are never printed by the scripts.
@@ -313,6 +315,7 @@ Secrets live only in `.env`, never in git, logs or the browser. Values are never
 | `LiveHttp` once dropped a URL's own query string | Fixed in `connectors/live.py`. Keep a test for any new query-string source. |
 | Shadowed loop variables in `c2/store.py` stored real events as synthetic (A-136) | Watch for this when editing scenario loops. |
 | Direction words in headlines were misread | They count only within 6 words of a tariff word. |
+| Known C6 defects from the 2026-11-19 adversarial review | See `docs/tariffs/REVIEW_2026-11-19.md`; fix them before the demo. |
 | Phantom tariff changes | Never diff snapshots across parser versions. Bump `PARSER_VERSION` when a parser's output changes. |
 | Buyer SKUs from the supply graph carry a `G-` or `P-` prefix | Strip it before mapping to an industry-pack key. Buyer products come from graph edges. |
 | Sri Lanka customers and hubs are not overseas suppliers | Check the node role, not just the country. |

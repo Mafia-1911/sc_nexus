@@ -9,7 +9,7 @@ export DATABASE_URL := postgresql+psycopg://cportal:cportal@localhost:5432/cport
 
 .PHONY: help setup test lint fmt type check probe probe-p0 probe-p1 cards collect-ais ais-report synth-ais \
 	db-local db-local-stop migrate revision ingest seed calibrate api openapi up down seed-docker erd golden golden-walk \
-	worker web-setup web web-check e2e demo road-graph
+	worker web-setup web web-check e2e demo road-graph cloud-tariffs
 
 help: ## List targets
 	@grep -E '^[a-z0-9-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-12s %s\n", $$1, $$2}'
@@ -125,6 +125,9 @@ cloud-refresh: ## One CPA poll into Neon (the deployed site's live data, A-121)
 
 cloud-refresh-timer: ## Run cloud-refresh hourly until the next reboot (transient user timer)
 	systemd-run --user --on-calendar='*-*-* *:07:00' --unit=cportal-cloud-refresh $(CURDIR)/scripts/cloud_refresh.sh
+
+cloud-tariffs: ## Tariff Monitor into Neon, once: migrations, tariff samples, C6 matrix
+	scripts/cloud_tariffs.sh
 
 worker-local: ## Point the worker back at the local database
 	docker compose up -d worker

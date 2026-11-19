@@ -7,6 +7,7 @@
 - Then `docs/STATUS.md` for the current state; load brief files only per AGENTS.md §6.
 - Capabilities: C1 `/network`, C2 `/radar`, C3 `/routes`, C4 `/ports`, C5 `/quality`,
   C6 tariffs `/tariffs` (ADR-021, `docs/tariffs/`), Nexus `/scenarios` and Control Tower `/`.
+- Deploying: `docs/DEPLOY.md` (team `env.bin` → `.env` at the repo root; Neon, Render, Vercel).
 - Key commands: `make demo` (Docker stack + seed), `make check` (lint, types, tests, web),
   `make e2e` (Playwright + axe on :3000), `make openapi` then `cd apps/web && npm run gen:api`
   after any API change, `uv run c6 refresh` after tariff data or migration changes.

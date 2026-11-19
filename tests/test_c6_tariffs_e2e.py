@@ -288,3 +288,15 @@ def test_an_edit_to_the_eu_table_without_a_new_date_is_detected(loaded: str) -> 
         (c,) = s.scalars(select(TariffChange).where(TariffChange.origin_code == "EU-EBA")).all()
         assert (c.change, c.delta_pp) == ("changed", 2.0)
     assert _rate(loaded, "EUN", "610910", "BGD").effective_pct_max == pytest.approx(2.0)
+
+
+def test_precomputed_rates_older_than_the_window_are_pruned(loaded: str) -> None:
+    """Review 2026-11-19 #14: one date per day would otherwise grow without bound."""
+    with session_scope(loaded) as s:
+        old = ON - dt.timedelta(days=40)
+        store.write_rates(s, old, store.compute_rates(s, old, ["610910"]))
+        s.flush()
+        assert old in set(s.scalars(select(TariffEffectiveRate.as_of).distinct()))
+        store.refresh(s, ON)
+        dates = set(s.scalars(select(TariffEffectiveRate.as_of).distinct()))
+    assert dates == {ON}

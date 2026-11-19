@@ -312,8 +312,16 @@ def compute_rates(
     return out
 
 
+KEEP_RATE_DAYS = 30  # older dates are computed on the fly; a year of rows would fill Neon
+
+
 def write_rates(session: Session, on: dt.date, records: list[TariffEffectiveRateRecord]) -> int:
-    session.execute(delete(TariffEffectiveRate).where(TariffEffectiveRate.as_of == on))
+    session.execute(
+        delete(TariffEffectiveRate).where(
+            (TariffEffectiveRate.as_of == on)
+            | (TariffEffectiveRate.as_of < on - dt.timedelta(days=KEEP_RATE_DAYS))
+        )
+    )
     upsert(session, records)
     return len(records)
 

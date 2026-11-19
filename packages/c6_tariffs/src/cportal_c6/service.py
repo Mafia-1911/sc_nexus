@@ -27,6 +27,7 @@ from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
 
 from cportal_c6 import catalog, diff, store
+from cportal_c6.rates import Membership, _member
 from cportal_c6.schemas import (
     CellOut,
     ChangeOut,
@@ -441,18 +442,39 @@ def _agrees(direction: str, change: TariffChange) -> bool:
     return direction in ("raise", "cut") and does == direction
 
 
+def _industry_hs6() -> dict[str, set[str]]:
+    out: dict[str, set[str]] = {}
+    for p in catalog.products():
+        out.setdefault(p.industry, set()).add(p.hs6)
+    return out
+
+
+def _in_group(members: Membership | None, c: TariffChange, origins: set[str], on: dt.date) -> bool:
+    return any(_member(members or {}, c.market_iso3, c.origin_code, o, on) for o in origins)
+
+
 def _confirmation(
-    changes: list[TariffChange], signal: dict[str, Any], published: dt.datetime
+    changes: list[TariffChange],
+    signal: dict[str, Any],
+    published: dt.datetime,
+    members: Membership | None = None,
 ) -> TariffChange | None:
-    """The schedule change that confirms a story: same market, an origin it names (or a change
-    for every origin), the same direction, detected within the window around the story."""
+    """The schedule change that confirms a story: same market, an origin it names (directly, as
+    a member of the change's group on the story's date, or a change for every origin), a product
+    of an industry it names (or a country-wide change), the same direction, detected within the
+    window around the story."""
     markets = set(signal.get("markets") or [])
     origins = set(signal.get("origins") or [])
+    hs6s = set().union(*(_industry_hs6().get(i, set()) for i in signal.get("industries") or []))
+    on = published.date()
     for c in changes:  # newest first
         if c.market_iso3 not in markets:
             continue
-        if origins and c.origin_code not in origins and c.origin_code != "*":
+        named = c.origin_code == "*" or c.origin_code in origins
+        if origins and not named and not _in_group(members, c, origins, on):
             continue
+        if hs6s and c.code != "*" and c.hs6 is not None and c.hs6 not in hs6s:
+            continue  # a change on another product does not confirm this story
         if not (published - CONFIRM_BEFORE <= c.detected_at <= published + CONFIRM_AFTER):
             continue
         if _agrees(str(signal.get("direction")), c):
@@ -483,11 +505,31 @@ def news(
     rows = list(session.scalars(q.order_by(TariffNews.first_published.desc()).limit(limit)))
     if not rows:
         return []
-    changes = list(session.scalars(select(TariffChange).order_by(TariffChange.detected_at.desc())))
+    # only the changes that could confirm one of these stories: their markets and time window
+    first = min(n.first_published for n in rows) - CONFIRM_BEFORE
+    last = max(n.first_published for n in rows) + CONFIRM_AFTER
+    markets = sorted({m for n in rows for m in n.markets})
+    changes = list(
+        session.scalars(
+            select(TariffChange)
+            .where(
+                TariffChange.market_iso3.in_(markets),
+                TariffChange.detected_at >= first,
+                TariffChange.detected_at <= last,
+            )
+            .order_by(TariffChange.detected_at.desc())
+        )
+    )
+    members = store.load_members(session) if changes else {}
     out: list[NewsOut] = []
     for n in rows:
-        signal = {"markets": n.markets, "origins": n.origins, "direction": n.direction}
-        hit = _confirmation(changes, signal, n.first_published)
+        signal = {
+            "markets": n.markets,
+            "origins": n.origins,
+            "direction": n.direction,
+            "industries": n.industries,
+        }
+        hit = _confirmation(changes, signal, n.first_published, members)
         out.append(
             NewsOut(
                 id=str(n.id),

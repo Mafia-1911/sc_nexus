@@ -37,7 +37,9 @@ export function marketOf(iso2: string | null | undefined): string | null {
 export function pct(v: number | null | undefined): string {
   if (v === null || v === undefined || Number.isNaN(v)) return "—";
   if (v === 0) return "Free";
-  return `${fmt(v, Number.isInteger(v) ? 0 : 1)}%`;
+  // as many decimals as the legal rate has, up to two: 2.75% stays 2.75%, not 2.8%
+  const digits = Number.isInteger(v) ? 0 : Number.isInteger(Math.round(v * 1e6) / 1e5) ? 1 : 2;
+  return `${fmt(v, digits)}%`;
 }
 
 /**

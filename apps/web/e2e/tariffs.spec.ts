@@ -10,7 +10,8 @@ type Cell = { market: string; hs6: string; origin: string; effective_pct_min: nu
 function pct(v: number | null): string {
   if (v === null) return "—";
   if (v === 0) return "Free";
-  return `${Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1)}%`;
+  const digits = Number.isInteger(v) ? 0 : Number.isInteger(Math.round(v * 1e6) / 1e5) ? 1 : 2;
+  return `${v.toFixed(digits)}%`;
 }
 
 /** The same rule as lib/c6.ts cellText, applied to the API's numbers. */

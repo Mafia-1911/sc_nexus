@@ -111,7 +111,10 @@ def mark_current(session: Session) -> int:
     """Measures in the latest snapshot of their scope are current; others are history."""
     n = 0
     for source_id, scope in _scopes(session):
-        (snap,) = _latest(session, source_id, scope, 1)
+        snaps = _latest(session, source_id, scope, SNAPSHOTS_PER_SCOPE)
+        # an empty fetch (a 200 with no rows) is a bad response, not a schedule that vanished:
+        # keep the latest snapshot that has rules (review 2026-11-19 #5)
+        snap = next((x for x in snaps if x.measure_ids), snaps[0])
         ids = list(snap.measure_ids)
         session.execute(
             update(TariffMeasure)
@@ -167,7 +170,11 @@ def detect_changes(session: Session) -> list[TariffChangeRecord]:
     """Diff consecutive snapshots of every scope; returns only changes not stored before."""
     records: list[TariffChangeRecord] = []
     for source_id, scope in _scopes(session):
-        snaps = list(reversed(_latest(session, source_id, scope, SNAPSHOTS_PER_SCOPE)))
+        snaps = [
+            x
+            for x in reversed(_latest(session, source_id, scope, SNAPSHOTS_PER_SCOPE))
+            if x.measure_ids  # empty fetches are skipped, as in mark_current
+        ]
         for prev, new in pairwise(snaps):
             if prev.content_hash == new.content_hash:
                 continue

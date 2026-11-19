@@ -247,3 +247,26 @@ def test_bounds_are_consistent_and_china_gets_a_stacked_range(loaded: str) -> No
     china = _rate(loaded, "USA", "610910", "CHN")
     assert not china.is_resolved
     assert china.lower_pct is not None and china.lower_pct > china.base_pct
+
+
+def test_an_empty_response_is_not_a_mass_removal(loaded: str) -> None:
+    """Review 2026-11-19 #5: a 200 with no rows (a flaky fetch) must not mark the whole scope
+    non-current or record every rule as removed."""
+    later = ParseContext(
+        "DS-TRADE-05", DataMode.LIVE, fetched_at=dt.datetime(2026, 12, 10, 6, tzinfo=dt.UTC)
+    )
+    with session_scope(loaded) as s:
+        before = s.scalar(select(func.count()).select_from(TariffChange))
+        current = s.scalar(
+            select(func.count()).select_from(TariffMeasure).where(TariffMeasure.is_current)
+        )
+        upsert(s, hts_parser("hts:9903.01-9903.07")(b"[]", later))
+        s.flush()
+        assert store.refresh(s, ON)["new_changes"] == 0
+        assert s.scalar(select(func.count()).select_from(TariffChange)) == before
+        assert (
+            s.scalar(
+                select(func.count()).select_from(TariffMeasure).where(TariffMeasure.is_current)
+            )
+            == current
+        )

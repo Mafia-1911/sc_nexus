@@ -399,6 +399,7 @@ class BriefCite(BaseModel):
         "model",
         "scenario",
         "source",
+        "tariff",
     ]
     id: str
     label: str

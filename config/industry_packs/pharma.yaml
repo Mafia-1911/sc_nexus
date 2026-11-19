@@ -12,7 +12,7 @@ products:
   API_METFORMIN:   {name: "Metformin hydrochloride (API)", hs6: "292529", uom: kg, unit_value_usd: 6.0}
   API_OMEPRAZOLE:  {name: "Omeprazole (API)", hs6: "293339", uom: kg, unit_value_usd: 60.0}
   EXCIPIENT_MCC:   {name: "Microcrystalline cellulose", hs6: "391290", uom: kg, unit_value_usd: 3.5}
-  CAPSULE_SHELL:   {name: "Empty hard gelatin capsules", hs6: "960290", uom: pcs, unit_value_usd: 0.002}
+  CAPSULE_SHELL:   {name: "Empty hard gelatin capsules", hs6: "960200", uom: pcs, unit_value_usd: 0.002}
   BLISTER_FOIL:    {name: "Aluminium blister foil", hs6: "760720", uom: kg, unit_value_usd: 7.0}
   PVC_FILM:        {name: "PVC blister film", hs6: "392043", uom: kg, unit_value_usd: 2.4}
   CARTON:          {name: "Folding cartons", hs6: "481910", uom: pcs, unit_value_usd: 0.03}

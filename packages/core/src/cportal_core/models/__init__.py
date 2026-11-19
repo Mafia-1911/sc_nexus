@@ -58,6 +58,17 @@ from cportal_core.models.reference import (
 )
 from cportal_core.models.road import RoadEdge
 from cportal_core.models.supply_graph import GraphMetric, WhatIfResult
+from cportal_core.models.tariffs import (
+    TariffChange,
+    TariffEffectiveRate,
+    TariffMeasure,
+    TariffNews,
+    TariffNomenclature,
+    TariffOriginGroup,
+    TariffOriginMember,
+    TariffSnapshot,
+    TradePolicyNotice,
+)
 
 __all__ = [
     "LINEAGE_COLUMNS",
@@ -112,7 +123,16 @@ __all__ = [
     "ShipmentLeg",
     "ShipmentOrder",
     "SupplyEdge",
+    "TariffChange",
+    "TariffEffectiveRate",
+    "TariffMeasure",
+    "TariffNews",
+    "TariffNomenclature",
+    "TariffOriginGroup",
+    "TariffOriginMember",
+    "TariffSnapshot",
     "TradeFlow",
+    "TradePolicyNotice",
     "TransportEvent",
     "Vessel",
     "VesselIdentity",

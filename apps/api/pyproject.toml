@@ -10,6 +10,7 @@ dependencies = [
     "cportal-c3",
     "cportal-c4",
     "cportal-c5",
+    "cportal-c6",
     "cportal-core",
     "fastapi>=0.115",
     "uvicorn[standard]>=0.32",

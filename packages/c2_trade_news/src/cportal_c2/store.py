@@ -147,6 +147,7 @@ def write(
                 **_lineage(e.data_mode, str(e.id), scenario_id),
                 available_at=e.first_seen,
                 type=e.type,
+                subtype=e.subtype,
                 title=e.title,
                 summary=e.summary,
                 status=e.status,
@@ -181,20 +182,20 @@ def write(
             )
             mentions += 1
         if e.type in area_types and e.clusters:
-            for scenario_id, _key in scenarios:
+            for sid, _key in scenarios:  # never `scenario_id`: it is this call's scope (A-136)
                 for fid in session.scalars(
                     select(Facility.id).where(
-                        Facility.scenario_id == scenario_id, Facility.cluster.in_(e.clusters)
+                        Facility.scenario_id == sid, Facility.cluster.in_(e.clusters)
                     )
                 ):
                     session.merge(
                         EventEntityLink(
-                            id=uuid5(NS, f"link:{e.id}:{scenario_id}:{fid}"),
+                            id=uuid5(NS, f"link:{e.id}:{sid}:{fid}"),
                             source_id=SOURCE,
                             source_record_id=str(e.id),
                             data_mode="synthetic",
                             is_synthetic=True,
-                            scenario_id=scenario_id,
+                            scenario_id=sid,
                             generator_version=RULES_VERSION,
                             event_id=e.id,
                             entity_type="facility",
@@ -219,8 +220,19 @@ def write(
     }
 
 
+NO_ALERT_SUBTYPES = {"tariff_cut", "tariff_exempt"}
+
+
+def alertable(e: Event) -> bool:
+    """A tariff cut or exemption is news, not a disruption: no alert, so no buffer advice (G-9)."""
+    return e.subtype not in NO_ALERT_SUBTYPES
+
+
 def _alert(session: Session, e: Event, cfg: Config, scenario_id: UUID | None = None) -> int:
     rule = cfg.priors["alert"]
+    if not alertable(e):  # a tariff cut or exemption: drop any alert an earlier report raised
+        session.execute(delete(Alert).where(Alert.dedupe_key == f"c2:{e.id}"))
+        return 0
     if (
         e.status == "resolved"
         or e.severity < rule["min_severity"]

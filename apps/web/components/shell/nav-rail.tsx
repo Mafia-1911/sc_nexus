@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  Anchor,
-  Database,
-  FlaskConical,
-  LayoutDashboard,
-  Network,
-  Radar,
-  Route,
-  ScanSearch,
-} from "lucide-react";
+import { Anchor, Database, FlaskConical, Landmark, LayoutDashboard, Network, Radar, Route, ScanSearch } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -20,6 +11,7 @@ export const PAGES = [
   { href: "/ports", label: "Ports & Vessels", Icon: Anchor },
   { href: "/network", label: "Supplier Network", Icon: Network },
   { href: "/radar", label: "Disruption Radar", Icon: Radar },
+  { href: "/tariffs", label: "Tariff Monitor", Icon: Landmark },
   { href: "/routes", label: "Route Planner", Icon: Route },
   { href: "/quality", label: "Quality Lab", Icon: ScanSearch },
   { href: "/scenarios", label: "Scenario Studio", Icon: FlaskConical },

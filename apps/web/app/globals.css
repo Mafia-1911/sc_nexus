@@ -29,6 +29,19 @@
   --series-5: #db6f9e;
   --series-6: #2f8a2f;
   --series-7: #6650d2;
+  /* Sequential "depth" ramp, ordinal tiers for the tariff heatmap (05 §2, Q-22). Light runs
+     400→900; validated 2026-11-18: monotone lightness, single hue, light end ≥ 2:1 on the chart
+     surface, and the ink on every tier ≥ 4.5:1 (dark ink on tiers 1–2, light on 3–5). */
+  --depth-1: #52b2bf;
+  --depth-2: #2b95a6;
+  --depth-3: #187789;
+  --depth-4: #0f5d70;
+  --depth-5: #082f40;
+  --on-depth-1: #0a2233;
+  --on-depth-2: #0a2233;
+  --on-depth-3: #ffffff;
+  --on-depth-4: #ffffff;
+  --on-depth-5: #ffffff;
   /* map restyle */
   --map-water: #cfe6ee;
   --map-land: #f3f8fa;
@@ -61,6 +74,17 @@
     --series-5: #d7699a;
     --series-6: #2f9a3a;
     --series-7: #8e82ea;
+    /* depth ramp, dark: anchor flipped (low values near the surface, high values bright) */
+    --depth-1: #0f5d70;
+    --depth-2: #2b95a6;
+    --depth-3: #52b2bf;
+    --depth-4: #7fcbd3;
+    --depth-5: #d5eef0;
+    --on-depth-1: #e3eef4;
+    --on-depth-2: #04222a;
+    --on-depth-3: #04222a;
+    --on-depth-4: #04222a;
+    --on-depth-5: #04222a;
     --map-water: #0b2a3f;
     --map-land: #0a1a28;
   }
@@ -92,6 +116,17 @@
   --series-5: #d7699a;
   --series-6: #2f9a3a;
   --series-7: #8e82ea;
+  /* depth ramp, dark: anchor flipped (low values near the surface, high values bright) */
+  --depth-1: #0f5d70;
+  --depth-2: #2b95a6;
+  --depth-3: #52b2bf;
+  --depth-4: #7fcbd3;
+  --depth-5: #d5eef0;
+  --on-depth-1: #e3eef4;
+  --on-depth-2: #04222a;
+  --on-depth-3: #04222a;
+  --on-depth-4: #04222a;
+  --on-depth-5: #04222a;
   --map-water: #0b2a3f;
   --map-land: #0a1a28;
 }
@@ -114,6 +149,16 @@
   --color-series-1: var(--series-1);
   --color-series-2: var(--series-2);
   --color-series-3: var(--series-3);
+  --color-depth-1: var(--depth-1);
+  --color-on-depth-1: var(--on-depth-1);
+  --color-depth-2: var(--depth-2);
+  --color-on-depth-2: var(--on-depth-2);
+  --color-depth-3: var(--depth-3);
+  --color-on-depth-3: var(--on-depth-3);
+  --color-depth-4: var(--depth-4);
+  --color-on-depth-4: var(--on-depth-4);
+  --color-depth-5: var(--depth-5);
+  --color-on-depth-5: var(--on-depth-5);
   --radius-card: 14px;
   --radius-control: 10px;
   --font-sans: var(--font-inter), var(--font-bengali), system-ui, sans-serif;

@@ -334,6 +334,71 @@ DS-TRADE-03:
   failure_modes: bad indicator/country → HTTP 200 with [{"message":[{"id":"120",...}]}]; years without data → rows with value null; page past end → empty list
   mapping: country_indicator(iso3, indicator, year, value) feature table for C1/NX
 
+DS-TRADE-04:
+  signup: none
+  limits_documented: none published; several HS6 codes per call (`;`-separated) work
+  limits_observed: 22 HS6 codes in one call, 9 KB XML; 3 s spacing used
+  licence: "World Bank WITS terms of use; tariff data from UNCTAD TRAINS (verify redistribution terms before any public export)"
+  attribution: "World Bank WITS, UNCTAD TRAINS"
+  freshness: reported MFN 1-3 years late (2023 latest on 2026-11-18; 2024 → 404)
+  history: annual
+  cadence: weekly refresh (annual data)
+  bd_coverage: "Markets that import from Bangladesh: EU (918), US (840), UK (826), Japan (392), Canada (124); 21 of 22 watched HS6 codes returned"
+  failure_modes: "year not published → HTTP 404; partner-specific preferential query EU←BD → 404 (preferences are not served this way)"
+  quirks: "values are simple averages over national lines: TOTALNOOFLINES, MIN_RATE, MAX_RATE say whether the lines differ; the EU is reporter 918 and is stored as market EUN"
+  mapping: "tariff_measure (kind mfn, erga omnes, code = HS6), tariff_snapshot per market and year"
+
+DS-TRADE-05:
+  signup: none
+  limits_documented: none published
+  limits_observed: "exportList per heading 17-30 KB; Chapter 99 range 9903.01-9903.07 268 KB, 316 lines; 22 calls per refresh"
+  licence: US government work (public domain)
+  attribution: "U.S. International Trade Commission, Harmonized Tariff Schedule"
+  freshness: current revision of the HTS
+  history: current schedule only (history is built from our own snapshots)
+  cadence: daily
+  bd_coverage: "Chapter 99 lines naming Bangladesh: 9903.01.66 (+37 %, terminated, 90 Fed. Reg. 37963), 9903.02.05 (+20 %, 7 Aug-5 Oct 2025), 9903.05.26 (+10 %, U.S. note 52), exemptions 9903.06.12/.13"
+  failure_modes: "`to` is exclusive (from=6109&to=6109 returns only the heading row); the next heading's header row is included and dropped by the parser"
+  quirks: "country surcharges are legal prose ('The duty provided in the applicable subheading + 10%'); conditions (loaded-before, entered-before, exceptions) are read with narrow tested patterns; several China lines are in force at once and their stacking is not stated in the lines (shown unresolved)"
+  mapping: "tariff_nomenclature (heading → 8-digit → 10-digit), tariff_measure (mfn, column2, preferential per programme, additional/exemption per country with code '*'), tariff_origin_group (US-SP-*, US-COL2 from config/tariffs/us_programs.yaml)"
+
+DS-TRADE-06:
+  signup: none
+  limits_documented: "1,000 results per page maximum; no key"
+  licence: public domain (Federal Register content)
+  attribution: "Office of the Federal Register, National Archives"
+  freshness: daily publication
+  history: from 1994
+  cadence: every 6 hours
+  bd_coverage: "notices naming Bangladesh are rare; most HTS-related notices are AD/CVD cases (China, India, Vietnam, …)"
+  failure_modes: "repeated fields[] parameters are lost if passed as a dict (LiveHttp now keeps a URL's own query string)"
+  quirks: "the term search returns every agency; only trade agencies (USTR, ITA, ITC, CBP, the President's office, BIS) are kept"
+  mapping: "trade_policy_notice (kind: tariff_modification | trade_remedy | exclusion | other, countries named in the title, HTS numbers in the text)"
+
+DS-TRADE-07:
+  signup: none
+  limits_documented: none published (the service asks clients to cache)
+  limits_observed: "heading 38 KB, commodity 320 KB; 190 calls (21 headings + 169 commodities) ≈ 3 min per daily refresh at 1 s spacing"
+  licence: "Open Government Licence v3.0 (verify)"
+  attribution: "HM Revenue & Customs, UK Integrated Online Tariff"
+  freshness: current, measures carry start and end dates
+  history: measures since 2021-01-01 (UK Global Tariff)
+  cadence: daily
+  bd_coverage: "Bangladesh is a member of DCTS Comprehensive Preferences (group 1062: 0 % on 6109100010 vs 12 % third-country duty; Standard Preferences 1060: 9.6 %)"
+  failure_modes: "unknown commodity → 404"
+  quirks: "origins are ISO2 or 4-digit group ids with member lists; VAT, supplementary units and import controls are not duties and are skipped; measures with conditions (end-use, certificates) are stored unresolved"
+  mapping: "tariff_nomenclature (10-digit leaves), tariff_measure per UK measure id, tariff_origin_group and tariff_origin_member from geographical areas"
+
+DS-TRADE-08:
+  signup: none
+  licence: "EU law (Regulation (EU) No 978/2012 and FTAs); table compiled by hand"
+  attribution: "European Commission, TARIC and the Official Journal"
+  freshness: as_of date in config/tariffs/eu_preferences.yaml
+  cadence: manual
+  bd_coverage: "EU-EBA with Bangladesh to 2029-11-24 (LDC graduation 24 Nov 2026 + 3-year transition: estimate, verify)"
+  quirks: "manual because TARIC's measures page renders rates in the browser and Access2Markets has no public API; every row is marked verify: true"
+  mapping: "tariff_origin_group, tariff_origin_member, tariff_measure (code '*', origin group; relative and staged rates unresolved)"
+
 DS-RISK-01:
   signup: none
   licence: WGI CC BY 4.0; INFORM (EC JRC, free with citation); ND-GAIN (free with citation)

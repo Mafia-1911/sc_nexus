@@ -54,6 +54,7 @@ export function NetworkWorkbench({
   scenario,
   industry,
   metric,
+  initialDetail = null,
 }: {
   graph: SupplyGraph;
   meta: Meta;
@@ -61,10 +62,12 @@ export function NetworkWorkbench({
   scenario: string;
   industry: string | null;
   metric: Metric;
+  initialDetail?: NodeDetail | null;
 }) {
   const [view, setView] = useState<"network" | "map">("network");
-  const [selected, setSelected] = useState<string | null>(null);
-  const [detail, setDetail] = useState<NodeDetail | null>(null);
+  // `?node=<id>` (e.g. from a tariff link) arrives with that node's detail loaded on the server.
+  const [selected, setSelected] = useState<string | null>(initialDetail?.metrics.node_id ?? null);
+  const [detail, setDetail] = useState<NodeDetail | null>(initialDetail);
   const [error, setError] = useState<string | null>(null);
   const [whatIf, setWhatIf] = useState<WhatIf | null>(null);
   const [, start] = useTransition();
@@ -173,7 +176,20 @@ export function NetworkWorkbench({
         </p>
       ) : null}
       {detail && selected === detail.metrics.node_id ? (
-        <NodeDrawer detail={detail} scenario={scenario} onClose={() => select(null)} onResult={setWhatIf} />
+        <NodeDrawer
+          detail={detail}
+          scenario={scenario}
+          onClose={() => select(null)}
+          onResult={setWhatIf}
+          node={(() => {
+            const n = graph.nodes.find((x) => x.id === selected);
+            if (!n) return undefined;
+            // what flows in and out on the graph's links (a buyer's products arrive on its export link)
+            const received = [...new Set(graph.edges.filter((e) => e.target === n.id).flatMap((e) => e.products))];
+            const sent = [...new Set(graph.edges.filter((e) => e.source === n.id).flatMap((e) => e.products))];
+            return { country: n.country, kind: n.kind, type: n.type, received, sent };
+          })()}
+        />
       ) : null}
     </div>
   );

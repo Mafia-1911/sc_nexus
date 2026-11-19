@@ -1,0 +1,16 @@
+# Tariff feed status, served by /api/v1/tariffs/overview so the UI can say what is live, what
+# is hand-kept and what is still missing (docs/tariffs/LIVE_FEEDS.md has the detail and plan).
+version: 1
+feeds:
+  - {id: DS-TRADE-05, market: USA, what: "US schedule incl. Chapter 99 country surcharges", status: live, cadence: daily}
+  - {id: DS-TRADE-06, market: USA, what: "US trade notices (Federal Register)", status: live, cadence: 6-hourly}
+  - {id: DS-TRADE-07, market: GBR, what: "UK schedule, preferences and origin groups", status: live, cadence: daily}
+  - {id: DS-TRADE-04, market: "*", what: "Reported MFN for EU, US, UK, Japan, Canada", status: live, cadence: weekly, note: "annual data, 1-3 years late"}
+  - {id: DS-TRADE-08, market: EUN, what: "EU preferences (EBA, GSP, EVFTA)", status: manual, note: "hand-kept, every row marked verify"}
+  - {id: EU-TARIC, market: EUN, what: "EU current applied rates and preferences (TARIC)", status: missing, todo: "probe the TARIC XML data dissemination files or Access2Markets; rates render in the browser today"}
+  - {id: UK-NOTICES, market: GBR, what: "UK tariff notices (GOV.UK trade remedies, tariff notices)", status: missing, todo: "probe the GOV.UK search API for tariff and trade-remedy notices"}
+  - {id: EU-OJ, market: EUN, what: "EU Official Journal implementing acts (duties, GSP changes)", status: missing, todo: "probe EUR-Lex search/SPARQL for regulations amending duties"}
+  - {id: JPN-CUSTOMS, market: JPN, what: "Japan applied tariff schedule and GSP/LDC preferences", status: missing, todo: "Japan Customs publishes the schedule as HTML/PDF per chapter; no API"}
+  - {id: CAN-CBSA, market: CAN, what: "Canada customs tariff and LDCT preferences", status: missing, todo: "CBSA publishes the tariff as PDF/HTML per chapter; no API"}
+  - {id: BGD-NBR, market: BGD, what: "Bangladesh import duties (NBR customs tariff) for inputs", status: missing, todo: "NBR publishes the budget-year schedule as PDF; customs.gov.bd failed TLS from this network"}
+  - {id: WTO-API, market: "*", what: "WTO tariff timeseries (bound and applied)", status: missing, todo: "needs a free API key (user sign-up, D-07)"}

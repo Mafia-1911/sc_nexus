@@ -3,6 +3,7 @@
 import { X } from "lucide-react";
 
 import { WhatIfPanel } from "@/components/network/whatif-panel";
+import { NodeTariffs } from "@/components/network/node-tariffs";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { BAND_TONE, type NodeDetail, type WhatIf, days, productName, typeLabel, usd } from "@/lib/c1";
@@ -71,11 +72,13 @@ export function NodeDrawer({
   scenario,
   onClose,
   onResult,
+  node,
 }: {
   detail: NodeDetail;
   scenario: string;
   onClose: () => void;
   onResult: (result: WhatIf | null) => void;
+  node?: { country?: string | null; kind: string; type: string; received: string[]; sent: string[] };
 }) {
   const m = detail.metrics;
   const inputs = Object.entries(detail.inputs);
@@ -133,6 +136,16 @@ export function NodeDrawer({
               ))}
             </ul>
           </section>
+        ) : null}
+        {node ? (
+          <NodeTariffs
+            key={m.node_id}
+            type={m.type}
+            kind={node.kind}
+            country={node.country}
+            ordered={node.received}
+            supplied={node.sent}
+          />
         ) : null}
         {detail.events.length ? (
           <section>

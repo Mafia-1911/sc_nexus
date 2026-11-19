@@ -1,0 +1,44 @@
+# US HTS "Special" column program indicators → partner countries (C6, ADR-021).
+# Source: HTS General Note 3(c)(i) and the general notes it points to
+# (https://hts.usitc.gov/, General Notes). Curated by hand on 2026-11-18; membership of the
+# multi-country programmes (GSP, AGOA, CBERA, CBTPA) changes by proclamation and is NOT listed:
+# those groups load with no members, so they never grant a preference to anyone (honest, not
+# guessed). Verify against the current General Notes before relying on a row (A-126).
+# Column 2 (General Note 3(b)): countries without normal trade relations.
+version: 1
+column2:
+  group: US-COL2
+  name: "Column 2 rate of duty (General Note 3(b))"
+  members: [CUB, PRK, RUS, BLR]
+  notes: "Russia and Belarus moved to column 2 in 2022 (Pub. L. 117-110)"
+programs:
+  A:  {name: "Generalized System of Preferences (GSP)", scheme: GSP, members: [], notes: "Authorization lapsed 31 Dec 2020; no preference applies until renewed"}
+  "A*": {name: "GSP, some beneficiaries excluded", scheme: GSP, members: [], notes: "see A"}
+  "A+": {name: "GSP, least-developed beneficiaries only", scheme: GSP, members: [], notes: "see A"}
+  AU: {name: "United States-Australia FTA", scheme: FTA, members: [AUS]}
+  B:  {name: "Automotive Products Trade Act", scheme: other, members: []}
+  BH: {name: "United States-Bahrain FTA", scheme: FTA, members: [BHR]}
+  C:  {name: "Agreement on Trade in Civil Aircraft", scheme: other, members: []}
+  CA: {name: "NAFTA, Canada (superseded by USMCA)", scheme: FTA, members: []}
+  CL: {name: "United States-Chile FTA", scheme: FTA, members: [CHL]}
+  CO: {name: "United States-Colombia Trade Promotion Agreement", scheme: FTA, members: [COL]}
+  D:  {name: "African Growth and Opportunity Act (AGOA)", scheme: unilateral, members: [], notes: "beneficiary list not curated"}
+  E:  {name: "Caribbean Basin Economic Recovery Act (CBERA)", scheme: unilateral, members: [], notes: "beneficiary list not curated"}
+  IL: {name: "United States-Israel FTA", scheme: FTA, members: [ISR]}
+  J:  {name: "Andean Trade Preference Act (expired)", scheme: unilateral, members: []}
+  JO: {name: "United States-Jordan FTA", scheme: FTA, members: [JOR]}
+  JP: {name: "United States-Japan Trade Agreement", scheme: FTA, members: [JPN]}
+  K:  {name: "Agreement on Trade in Pharmaceutical Products", scheme: plurilateral, members: [], notes: "applies to listed products whatever the origin; not modelled as an origin preference"}
+  KR: {name: "United States-Korea FTA", scheme: FTA, members: [KOR]}
+  L:  {name: "Uruguay Round Concessions on Intermediate Chemicals for Dyes", scheme: plurilateral, members: []}
+  MA: {name: "United States-Morocco FTA", scheme: FTA, members: [MAR]}
+  MX: {name: "NAFTA, Mexico (superseded by USMCA)", scheme: FTA, members: []}
+  NP: {name: "Nepal Preference Program", scheme: unilateral, members: [NPL]}
+  OM: {name: "United States-Oman FTA", scheme: FTA, members: [OMN]}
+  P:  {name: "Dominican Republic-Central America FTA (CAFTA-DR)", scheme: FTA, members: [CRI, DOM, SLV, GTM, HND, NIC]}
+  PA: {name: "United States-Panama Trade Promotion Agreement", scheme: FTA, members: [PAN]}
+  PE: {name: "United States-Peru Trade Promotion Agreement", scheme: FTA, members: [PER]}
+  R:  {name: "Caribbean Basin Trade Partnership Act (CBTPA)", scheme: unilateral, members: [], notes: "beneficiary list not curated"}
+  S:  {name: "United States-Mexico-Canada Agreement (USMCA)", scheme: FTA, members: [CAN, MEX]}
+  SG: {name: "United States-Singapore FTA", scheme: FTA, members: [SGP]}
+  W:  {name: "Israel/West Bank, Gaza Strip, Qualifying Industrial Zones", scheme: other, members: []}

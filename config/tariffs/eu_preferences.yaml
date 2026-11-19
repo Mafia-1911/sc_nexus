@@ -1,0 +1,67 @@
+# DS-TRADE-08 · EU tariff preferences for Bangladesh and its competitors (MANUAL table, C6).
+#
+# Why manual: no free EU tariff API answered the probe (TARIC's measures page renders its rates
+# in the browser; Access2Markets has no public API; see docs/tariffs/LIVE_FEEDS.md). The EU MFN
+# rates themselves come from WITS (DS-TRADE-04); this file holds only who gets a preference.
+# Every row cites its legal basis and is marked `verify: true` until a person has checked it
+# against TARIC (https://ec.europa.eu/taxation_customs/dds2/taric/) and the Official Journal.
+version: 1
+market: EUN
+reviewed: null            # set to the date a person checked every row against TARIC
+as_of: 2026-11-18        # when this table was compiled (its snapshot time)
+groups:
+  EU-EBA:
+    name: "Everything But Arms (GSP arrangement for least developed countries)"
+    scheme: EBA
+    legal_ref: "Regulation (EU) No 978/2012, Art. 17-18 and Annex IV"
+    members:
+      # LDC graduation is scheduled for 24 Nov 2026 (UN GA res. 76/8, 2021); the GSP Regulation
+      # keeps a graduated country in EBA for a 3-year transition (Art. 17(2)). Both dates: verify.
+      - {iso3: BGD, valid_to: 2029-11-24, verify: true, note: "EBA ends after the post-graduation transition (estimate)"}
+      - {iso3: KHM, verify: true, note: "EBA partly withdrawn for some lines since 12 Aug 2020 (Reg. (EU) 2020/550): see EU-EBA-KHM-2020"}
+    measures:
+      # Free everywhere but arms; for the chapters with Cambodia's partial withdrawal, Free for
+      # every member except Cambodia (whose lines are in EU-EBA-KHM-2020): no guessed 0 % there.
+      - {code: "*", duty_text: "Free", ad_valorem_pct: 0, exclude_chapters: ["17", "42", "61", "62", "64", "93"], verify: true}
+      - {code: "*", duty_text: "Free", ad_valorem_pct: 0, include_chapters: ["17", "42", "61", "62", "64"], excluded: ["KHM"], verify: true}
+  EU-EBA-KHM-2020:
+    name: "EBA for Cambodia after the partial withdrawal (Reg. (EU) 2020/550)"
+    scheme: EBA
+    legal_ref: "Commission Delegated Regulation (EU) 2020/550, Annex (withdrawn lines)"
+    members:
+      - {iso3: KHM, valid_from: 2020-08-12, verify: true}
+    measures:
+      # Which garment, footwear, travel-goods and sugar lines lost EBA is a line list in the
+      # Annex, not machine-readable here: no number until it is modelled per line.
+      - {code: "*", duty_text: "EBA withdrawn for some lines (Annex): MFN or Free, see legal text", include_chapters: ["17", "42", "61", "62", "64"], unresolved: true, verify: true}
+  EU-GSP:
+    name: "Standard GSP arrangement"
+    scheme: GSP
+    legal_ref: "Regulation (EU) No 978/2012, Art. 7 and Annex V"
+    # No members curated on purpose: who has standard GSP for which section changes with each
+    # graduation decision (e.g. India's textile sections). Unlisted origins show MFN, flagged.
+    # The LDC-graduation scenario adds Bangladesh here after the EBA transition (C6 next step).
+    members: []
+    measures:
+      # Sensitive textiles (Section XI(b), chapters 61-63): the ad valorem MFN rate is cut by 20 %
+      # (Art. 7(3)). Expressed relative to MFN, so it stays unresolved until C6 applies it.
+      - {code: "*", include_chapters: ["61", "62", "63"], duty_text: "MFN rate reduced by 20 % (Section XI(b))", mfn_reduction_pct: 20, verify: true}
+  EU-GSPPLUS:
+    name: "GSP+ (special incentive arrangement for sustainable development and good governance)"
+    scheme: GSP+
+    legal_ref: "Regulation (EU) No 978/2012, Art. 9 and Annex VIII-IX"
+    members:
+      - {iso3: PAK, verify: true}
+      - {iso3: LKA, verify: true}
+    measures:
+      # GSP+ suspends ad valorem duties on the Annex IX lines, which include garments; specific
+      # duties and lines outside Annex IX are not modelled.
+      - {code: "*", duty_text: "Free (GSP+, Annex IX lines)", ad_valorem_pct: 0, verify: true}
+  EU-VN-FTA:
+    name: "EU-Vietnam Free Trade Agreement (EVFTA)"
+    scheme: FTA
+    legal_ref: "EU-Vietnam FTA, OJ L 186, 12.6.2020, staged tariff elimination (Annex 2-A)"
+    members:
+      - {iso3: VNM, verify: true, note: "garment duties fall in stages to zero; the per-line staging is not modelled"}
+    measures:
+      - {code: "*", duty_text: "Staged reduction (EVFTA Annex 2-A): see legal text", unresolved: true, verify: true}

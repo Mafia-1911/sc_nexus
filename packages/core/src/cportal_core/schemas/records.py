@@ -39,7 +39,12 @@ from cportal_core.enums import (
     SatelliteSensor,
     ShipmentStatus,
     ShipTypeGroup,
+    TariffChangeKind,
+    TariffMeasureKind,
+    TariffOriginKind,
+    TariffStatus,
     TradeFlowDirection,
+    TradeNoticeKind,
     TransportEventType,
     TransportMode,
     VisitKind,
@@ -698,6 +703,186 @@ class ScenarioResultRecord(Record):
     artifacts: dict[str, Any] = Field(default_factory=dict)
 
 
+# --- C6 tariffs (ADR-021) --------------------------------------------------------------------
+
+
+class TariffNomenclatureRecord(Record):
+    table = "tariff_nomenclature"
+
+    market_iso3: str = Field(min_length=3, max_length=3)
+    code: str = Field(pattern=r"^\d{2,12}$")
+    code_display: str
+    suffix: str | None = None
+    level: int = Field(ge=2, le=12)
+    hs6: str | None = Field(default=None, pattern=r"^\d{6}$")
+    parent_code: str | None = None
+    description: str
+    is_declarable: bool = False
+    valid_from: dt.date | None = None
+    valid_to: dt.date | None = None
+
+
+class TariffOriginGroupRecord(Record):
+    table = "tariff_origin_group"
+
+    market_iso3: str = Field(min_length=3, max_length=3)
+    group_code: str
+    name: str
+    scheme: str | None = None
+    notes: str | None = None
+
+
+class TariffOriginMemberRecord(Record):
+    table = "tariff_origin_member"
+
+    group_id: UUID
+    market_iso3: str = Field(min_length=3, max_length=3)
+    group_code: str
+    member_iso2: str | None = None
+    member_iso3: str | None = Field(default=None, min_length=3, max_length=3)
+    valid_from: dt.date | None = None
+    valid_to: dt.date | None = None
+
+
+class TariffMeasureRecord(Record):
+    table = "tariff_measure"
+
+    market_iso3: str = Field(min_length=3, max_length=3)
+    code: str = Field(pattern=r"^(\*|\d{2,12})$")
+    hs6: str | None = Field(default=None, pattern=r"^\d{6}$")
+    kind: TariffMeasureKind
+    origin_kind: TariffOriginKind
+    origin_code: str
+    origin_group_id: UUID | None = None
+    duty_text: str
+    ad_valorem_pct: float | None = Field(default=None, ge=0)
+    specific_amount: float | None = Field(default=None, ge=0)
+    specific_unit: str | None = None
+    is_compound: bool = False
+    is_resolved: bool = True
+    measure_ref: str
+    legal_ref: str | None = None
+    source_url: str | None = None
+    status: TariffStatus = TariffStatus.IN_FORCE
+    valid_from: dt.date | None = None
+    valid_to: dt.date | None = None
+    conditions: dict[str, Any] = Field(default_factory=dict)
+    content_hash: str = Field(min_length=16, max_length=16)
+    snapshot_scope: str
+    is_current: bool = True
+
+    @model_validator(mode="after")
+    def _origin(self) -> Self:
+        if (self.origin_kind == TariffOriginKind.GROUP) != (self.origin_group_id is not None):
+            raise ValueError("origin_group_id is set exactly when origin_kind is 'group'")
+        if self.origin_kind == TariffOriginKind.ERGA_OMNES and self.origin_code != "*":
+            raise ValueError("an erga omnes measure has origin_code '*'")
+        return self
+
+
+class TariffSnapshotRecord(Record):
+    table = "tariff_snapshot"
+
+    market_iso3: str = Field(min_length=3, max_length=3)
+    scope: str
+    fetched_at: AwareDatetime
+    measure_ids: list[str] = Field(default_factory=list)
+    n_measures: int = Field(ge=0)
+    content_hash: str = Field(min_length=16, max_length=16)
+
+
+class TariffChangeRecord(Record):
+    table = "tariff_change"
+
+    market_iso3: str = Field(min_length=3, max_length=3)
+    code: str
+    hs6: str | None = None
+    kind: TariffMeasureKind
+    origin_code: str
+    measure_ref: str
+    change: TariffChangeKind
+    old_measure_id: UUID | None = None
+    new_measure_id: UUID | None = None
+    old_duty_text: str | None = None
+    new_duty_text: str | None = None
+    old_ad_valorem_pct: float | None = None
+    new_ad_valorem_pct: float | None = None
+    delta_pp: float | None = None
+    old_status: str | None = None
+    new_status: str | None = None
+    effective_from: dt.date | None = None
+    detected_at: AwareDatetime
+    prev_snapshot_id: UUID
+    new_snapshot_id: UUID
+    scope: str
+
+
+class TariffEffectiveRateRecord(Record):
+    table = "tariff_effective_rate"
+
+    as_of: dt.date
+    market_iso3: str = Field(min_length=3, max_length=3)
+    hs6: str = Field(pattern=r"^\d{6}$")
+    origin_iso3: str = Field(min_length=3, max_length=3)
+    effective_pct_min: float | None = None
+    effective_pct_max: float | None = None
+    is_resolved: bool
+    n_lines: int = Field(ge=0)
+    base_pct: float | None = None
+    preference_pct: float | None = None
+    additional_pct: float | None = None
+    is_stale: bool = False
+    is_ceiling: bool = False
+    lower_pct: float | None = None
+    upper_pct: float | None = None
+    components: list[dict[str, Any]] = Field(default_factory=list)
+    lines: list[dict[str, Any]] = Field(default_factory=list)
+    notes: list[str] = Field(default_factory=list)
+    sources: list[str] = Field(default_factory=list)
+    computed_at: AwareDatetime
+
+
+class TariffNewsRecord(Record):
+    table = "tariff_news"
+
+    story_key: str = Field(max_length=200)
+    article_ids: list[str] = Field(default_factory=list)
+    title: str
+    url: str | None = None
+    outlets: list[str] = Field(default_factory=list)
+    reports: int = Field(ge=1)
+    first_published: AwareDatetime
+    last_published: AwareDatetime
+    direction: str
+    status: str
+    markets: list[str] = Field(default_factory=list)
+    origins: list[str] = Field(default_factory=list)
+    rate_pct: float | None = None
+    previous_pct: float | None = None
+    industries: list[str] = Field(default_factory=list)
+    effective: str | None = None
+    quote: str | None = None
+    spans: dict[str, Any] = Field(default_factory=dict)
+    event_id: UUID | None = None
+
+
+class TradePolicyNoticeRecord(Record):
+    table = "trade_policy_notice"
+
+    market_iso3: str = Field(min_length=3, max_length=3)
+    document_number: str
+    title: str
+    doc_type: str | None = None
+    kind: TradeNoticeKind
+    publication_date: dt.date
+    effective_on: dt.date | None = None
+    url: str
+    abstract: str | None = None
+    agencies: list[str] = Field(default_factory=list)
+    countries: list[str] = Field(default_factory=list)
+    hts_refs: list[str] = Field(default_factory=list)
+
+
 RECORD_TYPES: tuple[type[Record], ...] = (
     LocationRecord,
     PortRecord,
@@ -736,4 +921,13 @@ RECORD_TYPES: tuple[type[Record], ...] = (
     TransportEventRecord,
     ScenarioRecord,
     ScenarioResultRecord,
+    TariffNomenclatureRecord,
+    TariffOriginGroupRecord,
+    TariffOriginMemberRecord,
+    TariffMeasureRecord,
+    TariffSnapshotRecord,
+    TariffChangeRecord,
+    TariffEffectiveRateRecord,
+    TariffNewsRecord,
+    TradePolicyNoticeRecord,
 )

@@ -56,6 +56,12 @@ sources:
   DS-TRADE-01: {name: UN Comtrade API, tier: P1, status: verified, mode: replay, fallback: DS-TRADE-02, used_by: [C1], auth: api-key, env: [COMTRADE_API_KEY], protocol: REST, base_url: "https://comtradeapi.un.org/data/v1", min_interval_s: 2}
   DS-TRADE-02: {name: CEPII BACI, tier: P1, status: verified, mode: replay, fallback: DS-TRADE-01, used_by: [C1], auth: none, protocol: file-download, min_interval_s: 2}
   DS-TRADE-03: {name: World Bank API v2 (WDI, LPI), tier: P0, status: verified, mode: live, fallback: replay, used_by: [C1, NX], auth: none, protocol: REST, base_url: "https://api.worldbank.org/v2", min_interval_s: 1}
+  # C6 tariff monitor (ADR-021; probed 2026-11-18, A-126). EU has no live feed: DS-TRADE-08 is manual.
+  DS-TRADE-04: {name: World Bank WITS TRAINS (reported MFN), tier: P1, status: verified, mode: live, fallback: replay, used_by: [C6], auth: none, protocol: REST, base_url: "https://wits.worldbank.org/API/V1/SDMX/V21", min_interval_s: 3}
+  DS-TRADE-05: {name: USITC HTS REST API, tier: P1, status: verified, mode: live, fallback: replay, used_by: [C6], auth: none, protocol: REST, base_url: "https://hts.usitc.gov/reststop", min_interval_s: 2}
+  DS-TRADE-06: {name: Federal Register API (US trade notices), tier: P1, status: verified, mode: live, fallback: replay, used_by: [C6], auth: none, protocol: REST, base_url: "https://www.federalregister.gov/api/v1", min_interval_s: 2}
+  DS-TRADE-07: {name: UK Trade Tariff API v2, tier: P1, status: verified, mode: live, fallback: replay, used_by: [C6], auth: none, protocol: REST, base_url: "https://www.trade-tariff.service.gov.uk/api/v2", min_interval_s: 1}
+  DS-TRADE-08: {name: EU tariff preferences (manual), tier: P1, status: manual, mode: replay, fallback: manual, used_by: [C6], auth: none, protocol: manual}
   # DS-RISK-01: the committed WGI sample is an API error ("Invalid value"), not data (A-054); re-probe before use.
   DS-RISK-01: {name: WGI, INFORM Risk, ND-GAIN, tier: P1, status: blocked, mode: off, fallback: replay, used_by: [C1], auth: none, protocol: file-download, min_interval_s: 2}
   DS-RISK-02: {name: WRI Aqueduct floods / JRC flood hazard, tier: P2, status: unprobed, mode: off, used_by: [C1], auth: none, protocol: file-download}

@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "url": "https://www.trade-tariff.service.gov.uk/api/v2/headings/6109",
+  "headers": {
+    "user-agent": "Cportal/0.1.0 (Supply Chain Nexus research prototype)"
+  },
+  "note": "UK Trade Tariff: heading 6109 tree",
+  "captured_at": "2026-11-18T11:57:41.345133+00:00",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "bytes": 38002
+}

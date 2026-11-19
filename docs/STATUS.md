@@ -1,4 +1,118 @@
-# STATUS (updated 2026-11-17)
+# STATUS (updated 2026-11-19)
+
+C6 review fixes (2026-11-19; `docs/tariffs/REVIEW_2026-11-19.md`; A-142…A-147):
+- **All 14 review findings checked**: 13 real, fixed one per commit, each with a test that
+  failed before or reproduced the defect; 14a was not a defect. Highlights: unresolved cells show
+  real bounds (≥, ≤, range), never MFN as a floor; UK excluded countries honoured; empty fetches
+  ignored; news confirmation matches product and group origins; C2 signal direction and rate
+  fixed; Cambodia's partial EBA withdrawal no longer a guessed 0 %.
+- **Also fixed:** the `Dockerfile` did not install `packages/c6_tariffs`, so `make demo` and the
+  Render build failed (`f2d63a2`).
+- **Verified:** `make check` passes everything except one test that already failed before these
+  changes: `/api/v1/graph` p95 is 330–390 ms on this 4-CPU container, and it fails on the
+  commit before the fixes too. C1 code is unchanged. The Docker demo was built and run here
+  (DEPLOY.md §6): 11 of 11 tariff browser tests pass, and the smoke, accessibility and sources
+  tests pass apart from 4 that need data this container lacks (map tiles, the C4 GFW backfill,
+  the C5 image set), as already noted in A-141.
+- **Next:** push the bundle to `Rafee-M/sc_nexus` (this session cannot write to it); on the
+  hosted demo run `make cloud-tariffs` (new migration and parser version).
+
+
+Tariff Monitor UI (2026-11-18; Q-22…Q-26 approved; A-135…A-141; plan `docs/tariffs/UI_PLAN.md`):
+- **New page `/tariffs`** (nav "Tariff Monitor"): industry and compare chips, origin or market
+  chips, 4 KPI tiles, matrix of effective duty (products × markets or origins) on the theme's
+  depth ramp (validated, Q-22) with "Free", ranges, "≥" (no single number, hatched), "≤"
+  (ceiling: no preference data), "varies" (WITS lines differ) and a "2023" stale label; activity
+  card with News / Schedule changes / Official notices; inline detail card (rate stack SVG,
+  compare origins, how the rate is made up with scheme names and source links, national lines
+  grouped by rate, changes); feed status (live, hand-kept, missing with to-do).
+- **Cards elsewhere:** Route Planner "Duty at the border" overlay (export: destination duty by
+  origin; import: Bangladesh feed missing) with Cargo and Export market selects (Q-24); Supplier
+  Network node drawer (buyers abroad: duty into their market; overseas suppliers: feed missing;
+  real data with its own badge, Q-23) and `?node=` deep link (A-140); Disruption Radar "Tariff
+  check" on real trade-policy events; Control Tower brief line (cited).
+- **Backend added for it:** C2 tariff signal and `tariff_news` stories (A-137), event subtypes,
+  cuts and exemptions raise no alerts (G-9 fixed); `GET /tariffs/news`; component scheme names;
+  `is_ceiling` (A-138); HS 960290 → 960200 (G-10, 22 of 22 codes now in WITS); migration
+  `3ea4e301beca`.
+- **Bugs found and fixed:** C2 real events stored as synthetic after area events (A-136,
+  pre-existing); `is_ceiling` migration on filled tables (A-135); phantom changes from
+  unversioned snapshots; Live badge contrast 4.34:1 (shared Badge, A-139).
+- **Live data now (dev DB, 2026-11-18):** 17,148 current measures; 3 real tariff stories (US
+  tariff shock on Indian textiles: raise; India-US deal: direction unclear; US zero tariff on
+  Bangladeshi pharma: exemption), all "announced, not in the schedule yet"; 49 Federal Register
+  notices; no schedule change yet (needs a second daily fetch).
+- **Checks:** pytest 525 passed, 1 failed (`/api/v1/graph` latency, failing before this work);
+  ruff, format, import contracts, mypy, alembic check clean; tsc and ESLint clean; e2e:
+  `tariffs.spec.ts` 10 passed + 1 skipped (Radar card: no real trade-policy event now; verified
+  once with a labelled test article that was removed), axe 20 of 20 (10 pages × 2 themes),
+  sources 15 passed; smoke: every test on a changed page passes; 5 e2e failures elsewhere are
+  missing CPA/C4/C5 data in this container (A-141). Screenshots `docs/screenshots/tariff-monitor-*`,
+  `route-planner-tariff-*`, `network-tariff-*`. UI checked by the author (no separate checker
+  agent was used).
+- **Next:** graduation scenario (BACKEND.md §6 step 1), exposure on orders, rules-of-origin
+  check, Japan/Canada preference data (removes the ceilings), EU TARIC feed.
+- **Note for the user:** `next build` reports a known security advisory for Next.js 16.4.3;
+  not upgraded in this task.
+
+UI plan for the Tariff Monitor (2026-11-18, A-134): `docs/tariffs/UI_PLAN.md` (+ `.docx`).
+New page on the Disruption Radar's workbench pattern; tariff cards on the Route Planner map,
+Supplier Network node drawer, Radar trade-policy events, and a Control Tower brief line.
+Tasks T0–T7 with checklists. Findings: G-9 (C2 treats tariff cuts as disruptions), G-10 (HS
+960290 does not exist). **Waiting on user: yes to the plan, and Q-22…Q-26** (UI_PLAN.md §9).
+No UI code written yet. Tariff news: C2 captures it live as generic trade-policy events; the
+link to the tariff tables is task T7.
+
+Tariff Monitor backend (C6, 2026-11-18; Q-18/Q-21 answered with the defaults; A-126…A-132;
+ADR-021; docs `docs/tariffs/BACKEND.md` and `docs/tariffs/LIVE_FEEDS.md`):
+- **Sources:** DS-TRADE-04 WITS (MFN, 5 markets, weekly), -05 USITC HTS (US schedule + Chapter
+  99, daily), -06 Federal Register (notices, 6-hourly), -07 UK Trade Tariff (daily, ≈ 190
+  calls), -08 EU preferences (manual table). Registry, cards, raw schemas, samples.
+- **Tables (migration `d4dfca106281`):** tariff_nomenclature, tariff_measure (versioned by
+  content), tariff_origin_group, tariff_origin_member, tariff_snapshot, tariff_change,
+  trade_policy_notice, tariff_effective_rate.
+- **`packages/c6_tariffs`:** pure rate engine and diff, store (current flags, change detection,
+  precomputed matrix 5 markets × 22 HS6 × 7 origins in ≈ 0.3 s), service, CLI `uv run c6`.
+- **Worker:** `c6:refresh` every 6 h and on `source.ingested` for tariff sources; outbox
+  `tariff.changed`. **API:** `/api/v1/tariffs/{overview,matrix,products/{hs6},changes,notices,
+  origins/{iso3}}` (medians 18–30 ms).
+- **Results on the real samples:** US cotton T-shirt (HTS 6109.10.00): Bangladesh 26.5 %
+  (16.5 % + 10 % note-52 surcharge, exemption 9903.06.12 flagged), Vietnam 29 %, China
+  unresolved (four surcharge lines in force per their text); UK: Bangladesh 0 % (DCTS
+  Comprehensive) vs 12 % MFN, Vietnam 0 %, India 0 % since 2026-07-15; EU (WITS 2023 + manual):
+  Bangladesh 0 % (EBA), India 12 %, Vietnam unresolved.
+- **Fix in shared code:** LiveHttp dropped a URL's own query string (A-130).
+- **Found on live data and fixed (A-133):** US pharma and aluminium surcharges ignored the
+  Chapter 99 category exemptions (now unresolved with the reason); a parser upgrade produced 17
+  phantom changes (snapshots now carry the parser version).
+- **Live run (dev DB, 2026-11-18):** 17,025 current measures; refresh 5 s; on live data the
+  matrix answers in 35 ms median (p95 221 ms), product 42–50 ms median.
+- **Checks:** `make test` equivalent 471 passed, 1 failed: `test_read_latency_budget[/api/v1/graph]`,
+  which already failed before this work on this container (baseline: 329 passed, the same 1
+  failed); C1's what-if speed test failed once under full-suite load and passed alone. Ruff,
+  format, import contracts (6 kept, C6 included), mypy clean. No UI yet.
+- **Next (backend, docs/tariffs/BACKEND.md §6):** graduation scenario, exposure on orders,
+  rules-of-origin check, "ship before cut-off" recommendation, C2 link; then the Tariff
+  Monitor page (ui-consistency flow). Missing feeds: EU TARIC first (LIVE_FEEDS.md §2).
+- **Waiting on user:** verify the EU table (`config/tariffs/eu_preferences.yaml`, A-129);
+  Q-19 (order), Q-20 (teammate PR).
+
+Analysis pass (2026-11-18, user request; A-125; no code changed):
+- `docs/proposals/2026-11-18-gap-analysis-and-features.md`: file map, feature state, verified
+  logic gaps (G-1 routes ignore C2/C4, G-2 1.64× speed factor unapplied, G-3 constant FX,
+  G-4 synthetic due dates, G-5/G-6 honest-band labels), review of Mafia-1911/sc_nexus#1 (cannot
+  merge: module, route and router collisions, M2 base), theme fit (no satellite/transformer in
+  C4, no GNN, no RL), organisers' suggestions checked, features F-1…F-8 ranked.
+- `docs/proposals/C6-tariff-monitor-plan.md`: analytical plan for the Tariff & Trade-Policy
+  Monitor (sources, tables, effective-rate engine, change detection, exposure, LDC-graduation
+  scenario with BOM origin check, API, UI, C6-AC01…AC07, 5-day slices).
+- Probed and sampled (`data/samples/DS-TRADE-04…07`): WITS, USITC HTS, Federal Register, UK
+  Trade Tariff API: all 200 without keys. EU TARIC rates not in static HTML; WTO API needs a key.
+- Waiting on user: **Q-18…Q-21** (package placement, order, teammate PR, markets).
+
+---
+
+Previous status header: 2026-11-17.
 
 Milestone: **M8 Nexus + demo, in progress** (the user deferred VisA and further C5 depth,
 U-06). Branch `m3-c1`. Nothing pushed since M2 (commit only until the whole build is done).

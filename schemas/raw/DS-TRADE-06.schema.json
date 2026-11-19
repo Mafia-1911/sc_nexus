@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-TRADE-06",
+  "title": "DS-TRADE-06 · Federal Register API (US trade notices): raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "fr_hts_documents": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "count": {
+          "type": "integer"
+        },
+        "total_pages": {
+          "type": "integer"
+        },
+        "next_page_url": {
+          "type": "string"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "document_number": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "publication_date": {
+                "type": "string"
+              },
+              "effective_on": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "html_url": {
+                "type": "string"
+              },
+              "abstract": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "agencies": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "raw_name": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "json_url": {
+                      "type": "string"
+                    },
+                    "parent_id": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "slug": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "json_url",
+                    "name",
+                    "parent_id",
+                    "raw_name",
+                    "slug",
+                    "url"
+                  ]
+                }
+              },
+              "excerpts": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "abstract",
+              "agencies",
+              "document_number",
+              "effective_on",
+              "excerpts",
+              "html_url",
+              "publication_date",
+              "title",
+              "type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "count",
+        "description",
+        "next_page_url",
+        "results",
+        "total_pages"
+      ]
+    }
+  }
+}

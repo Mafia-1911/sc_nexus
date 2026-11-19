@@ -250,6 +250,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/live": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Live Snapshot
+         * @description The same positions message as `/ws/live`, once: for hosts without WebSockets to the
+         *     browser (the deployed site polls it through its own server, A-117).
+         */
+        get: operations["live_snapshot_api_v1_live_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/meta": {
         parameters: {
             query?: never;
@@ -894,6 +915,171 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/tariffs/changes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Changes
+         * @description Detected changes between snapshots of the official schedules, newest first.
+         */
+        get: operations["changes_api_v1_tariffs_changes_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/tariffs/matrix": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Matrix
+         * @description Effective duty per market × HS6 product × origin (min and max over national lines). A
+         *     date that was not precomputed is computed on the fly (`precomputed: false`).
+         */
+        get: operations["matrix_api_v1_tariffs_matrix_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/tariffs/news": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * News
+         * @description Tariff news from the C2 news pipeline (RSS, GDELT), newest first: direction, market,
+         *     origin and rates read from the text, and whether the official schedule already shows it.
+         */
+        get: operations["news_api_v1_tariffs_news_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/tariffs/notices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Notices
+         * @description Official trade notices (US Federal Register: USTR, ITA, ITC, CBP), newest first.
+         */
+        get: operations["notices_api_v1_tariffs_notices_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/tariffs/origins/{iso3}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Origin
+         * @description A country's tariff relations: the schemes and FTAs that cover it in each market, and
+         *     the country-wide surcharges it pays (e.g. US Chapter 99).
+         */
+        get: operations["origin_api_v1_tariffs_origins__iso3__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/tariffs/overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Overview
+         * @description Markets with their feeds and last fetch, origins, watched products, feed status (live,
+         *     manual, missing) and recent change and notice counts: the page header.
+         */
+        get: operations["overview_api_v1_tariffs_overview_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/tariffs/products/{hs6}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Product
+         * @description One product: per market and origin, every national line with its rate breakdown (base,
+         *     preference, surcharges, possible exemptions) and legal references; recent changes.
+         */
+        get: operations["product_api_v1_tariffs_products__hs6__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/traffic/factor": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Factor
+         * @description The live road factor the Route Planner applies to legs starting in the next 3 h.
+         */
+        get: operations["factor_api_v1_traffic_factor_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/traffic/modelled": {
         parameters: {
             query?: never;
@@ -1102,7 +1288,7 @@ export interface components {
              * Kind
              * @enum {string}
              */
-            kind: "event" | "alert" | "recommendation" | "shipment" | "snapshot" | "gates" | "model" | "scenario" | "source";
+            kind: "event" | "alert" | "recommendation" | "shipment" | "snapshot" | "gates" | "model" | "scenario" | "source" | "tariff";
             /** Label */
             label: string;
         };
@@ -1130,6 +1316,134 @@ export interface components {
             lines: components["schemas"]["BriefLine"][];
             /** Title */
             title: string;
+        };
+        /** CellOut */
+        CellOut: {
+            /** Additional Pct */
+            additional_pct: number | null;
+            /** Base Pct */
+            base_pct: number | null;
+            /** Data Mode */
+            data_mode: string;
+            /** Effective Pct Max */
+            effective_pct_max: number | null;
+            /** Effective Pct Min */
+            effective_pct_min: number | null;
+            /** Hs6 */
+            hs6: string;
+            /**
+             * Is Ceiling
+             * @description No preference data for this market: an upper bound
+             */
+            is_ceiling: boolean;
+            /** Is Resolved */
+            is_resolved: boolean;
+            /** Is Stale */
+            is_stale: boolean;
+            /**
+             * Lower Pct
+             * @description Unresolved: the least this origin pays (None = unknown)
+             */
+            lower_pct?: number | null;
+            /** Market */
+            market: string;
+            /** N Lines */
+            n_lines: number;
+            /**
+             * Note Ids
+             * @description Indexes into MatrixOut.notes
+             */
+            note_ids: number[];
+            /** Origin */
+            origin: string;
+            /** Preference Pct */
+            preference_pct: number | null;
+            /** Sources */
+            sources: string[];
+            /**
+             * Upper Pct
+             * @description Unresolved: the most this origin pays (None = unknown)
+             */
+            upper_pct?: number | null;
+        };
+        /** ChangeOut */
+        ChangeOut: {
+            /** Change */
+            change: string;
+            /** Code */
+            code: string;
+            /** Data Mode */
+            data_mode: string;
+            /** Delta Pp */
+            delta_pp: number | null;
+            /**
+             * Detected At
+             * Format: date-time
+             */
+            detected_at: string;
+            /** Effective From */
+            effective_from: string | null;
+            /** Hs6 */
+            hs6: string | null;
+            /** Id */
+            id: string;
+            /** Kind */
+            kind: string;
+            /** Market */
+            market: string;
+            /** Measure Ref */
+            measure_ref: string;
+            /** New Duty Text */
+            new_duty_text: string | null;
+            /** New Pct */
+            new_pct: number | null;
+            /** New Status */
+            new_status: string | null;
+            /** Old Duty Text */
+            old_duty_text: string | null;
+            /** Old Pct */
+            old_pct: number | null;
+            /** Old Status */
+            old_status: string | null;
+            /** Origin Code */
+            origin_code: string;
+            /** Source Id */
+            source_id: string;
+        };
+        /** ComponentOut */
+        ComponentOut: {
+            /** Duty Text */
+            duty_text: string;
+            /** Kind */
+            kind: string;
+            /** Legal Ref */
+            legal_ref: string | null;
+            /** Measure Ref */
+            measure_ref: string;
+            /**
+             * Note
+             * @default
+             */
+            note: string;
+            /** Origin Code */
+            origin_code: string;
+            /**
+             * Origin Name
+             * @description Scheme, FTA or country name
+             */
+            origin_name?: string | null;
+            /** Pct */
+            pct: number | null;
+            /** Role */
+            role: string;
+            /** Source Id */
+            source_id: string;
+            /** Source Url */
+            source_url: string | null;
+            /** Valid From */
+            valid_from: string | null;
+            /** Valid To */
+            valid_to: string | null;
         };
         /** CriticalOut */
         CriticalOut: {
@@ -1294,14 +1608,34 @@ export interface components {
             data: components["schemas"]["LotDetailOut"];
             meta: components["schemas"]["Meta"];
         };
+        /** Envelope[MatrixOut] */
+        Envelope_MatrixOut_: {
+            data: components["schemas"]["MatrixOut"];
+            meta: components["schemas"]["Meta"];
+        };
         /** Envelope[NodeDetailOut] */
         Envelope_NodeDetailOut_: {
             data: components["schemas"]["NodeDetailOut"];
             meta: components["schemas"]["Meta"];
         };
+        /** Envelope[OriginDetailOut] */
+        Envelope_OriginDetailOut_: {
+            data: components["schemas"]["OriginDetailOut"];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[OverviewOut] */
+        Envelope_OverviewOut_: {
+            data: components["schemas"]["OverviewOut"];
+            meta: components["schemas"]["Meta"];
+        };
         /** Envelope[Page[PortCallOut]] */
         Envelope_Page_PortCallOut__: {
             data: components["schemas"]["Page_PortCallOut_"];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[ProductDetailOut] */
+        Envelope_ProductDetailOut_: {
+            data: components["schemas"]["ProductDetailOut"];
             meta: components["schemas"]["Meta"];
         };
         /** Envelope[QueueForecastOut] */
@@ -1379,6 +1713,12 @@ export interface components {
             data: components["schemas"]["AlertOut"][];
             meta: components["schemas"]["Meta"];
         };
+        /** Envelope[list[ChangeOut]] */
+        Envelope_list_ChangeOut__: {
+            /** Data */
+            data: components["schemas"]["ChangeOut"][];
+            meta: components["schemas"]["Meta"];
+        };
         /** Envelope[list[DatasetOut]] */
         Envelope_list_DatasetOut__: {
             /** Data */
@@ -1413,6 +1753,18 @@ export interface components {
         Envelope_list_ModelOut__: {
             /** Data */
             data: components["schemas"]["ModelOut"][];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[list[NewsOut]] */
+        Envelope_list_NewsOut__: {
+            /** Data */
+            data: components["schemas"]["NewsOut"][];
+            meta: components["schemas"]["Meta"];
+        };
+        /** Envelope[list[NoticeOut]] */
+        Envelope_list_NoticeOut__: {
+            /** Data */
+            data: components["schemas"]["NoticeOut"][];
             meta: components["schemas"]["Meta"];
         };
         /** Envelope[list[PortOut]] */
@@ -1568,6 +1920,26 @@ export interface components {
              * @constant
              */
             type: "FeatureCollection";
+        };
+        /** FeedOut */
+        FeedOut: {
+            /** Cadence */
+            cadence?: string | null;
+            /** Id */
+            id: string;
+            /** Market */
+            market: string;
+            /** Note */
+            note?: string | null;
+            /**
+             * Status
+             * @description live | manual | missing
+             */
+            status: string;
+            /** Todo */
+            todo?: string | null;
+            /** What */
+            what: string;
         };
         /** GraphEdgeOut */
         GraphEdgeOut: {
@@ -1747,6 +2119,35 @@ export interface components {
             /** Rate */
             rate: number;
         };
+        /** LineRateOut */
+        LineRateOut: {
+            /** Additional Pct */
+            additional_pct: number | null;
+            /** Base Pct */
+            base_pct: number | null;
+            /** Code */
+            code: string;
+            /** Components */
+            components: components["schemas"]["ComponentOut"][];
+            /** Description */
+            description: string | null;
+            /** Effective Pct */
+            effective_pct: number | null;
+            /** Is Resolved */
+            is_resolved: boolean;
+            /** Is Stale */
+            is_stale: boolean;
+            /** Lower Pct */
+            lower_pct?: number | null;
+            /** Notes */
+            notes: string[];
+            /** Origin */
+            origin: string;
+            /** Preference Pct */
+            preference_pct: number | null;
+            /** Upper Pct */
+            upper_pct?: number | null;
+        };
         /** LiveResultOut */
         LiveResultOut: {
             /** Category */
@@ -1883,6 +2284,55 @@ export interface components {
             /** Status */
             status: string;
         };
+        /** MarketDetailOut */
+        MarketDetailOut: {
+            /** Changes */
+            changes: components["schemas"]["ChangeOut"][];
+            /** Lines */
+            lines: components["schemas"]["LineRateOut"][];
+            /** Market */
+            market: string;
+        };
+        /** MarketOut */
+        MarketOut: {
+            /** Code */
+            code: string;
+            /** Current Measures */
+            current_measures: number;
+            /** Data Mode */
+            data_mode: string | null;
+            /** Last Fetched At */
+            last_fetched_at: string | null;
+            /**
+             * Live Source
+             * @description DS-ID of the live schedule, if any
+             */
+            live_source: string | null;
+            /**
+             * Mfn Year
+             * @description Year of the newest reported MFN average (WITS) for this market
+             */
+            mfn_year?: number | null;
+            /** Name */
+            name: string;
+        };
+        /** MatrixOut */
+        MatrixOut: {
+            /**
+             * As Of
+             * Format: date
+             */
+            as_of: string;
+            /** Cells */
+            cells: components["schemas"]["CellOut"][];
+            /**
+             * Notes
+             * @description Each distinct note once; cells point here
+             */
+            notes: string[];
+            /** Precomputed */
+            precomputed: boolean;
+        };
         /** MentionOut */
         MentionOut: {
             /**
@@ -1979,6 +2429,99 @@ export interface components {
             name: string;
             /** Version */
             version: string;
+        };
+        /** NewsConfirmationOut */
+        NewsConfirmationOut: {
+            /** Change Id */
+            change_id: string;
+            /** Delta Pp */
+            delta_pp: number | null;
+            /**
+             * Detected At
+             * Format: date-time
+             */
+            detected_at: string;
+            /** Market */
+            market: string;
+            /** Measure Ref */
+            measure_ref: string;
+            /** New Duty Text */
+            new_duty_text: string | null;
+            /** Old Duty Text */
+            old_duty_text: string | null;
+            /** Origin Code */
+            origin_code: string;
+        };
+        /** NewsOut */
+        NewsOut: {
+            confirmation: components["schemas"]["NewsConfirmationOut"] | null;
+            /** Confirmed */
+            confirmed: boolean;
+            /** Data Mode */
+            data_mode: string;
+            /**
+             * Direction
+             * @description raise | cut | exempt | unknown
+             */
+            direction: string;
+            /** Effective */
+            effective: string | null;
+            /**
+             * Event Id
+             * @description C2's disruption event for it, if there is one
+             */
+            event_id: string | null;
+            /**
+             * Id
+             * @description The story (tariff_news row)
+             */
+            id: string;
+            /** Industries */
+            industries: string[];
+            /**
+             * Label
+             * @description 'in the schedule' or 'announced, not in the schedule yet'
+             */
+            label: string;
+            /**
+             * Last Updated
+             * Format: date-time
+             */
+            last_updated: string;
+            /** Markets */
+            markets: string[];
+            /** Origins */
+            origins: string[];
+            /** Outlets */
+            outlets: string[];
+            /** Previous Pct */
+            previous_pct: number | null;
+            /**
+             * Published
+             * Format: date-time
+             * @description First report
+             */
+            published: string;
+            /**
+             * Quote
+             * @description The words the direction was read from
+             */
+            quote: string | null;
+            /** Rate Pct */
+            rate_pct: number | null;
+            /** Reports */
+            reports: number;
+            /** Source Id */
+            source_id: string;
+            /**
+             * Status
+             * @description announced | threatened
+             */
+            status: string;
+            /** Title */
+            title: string;
+            /** Url */
+            url: string | null;
         };
         /** NodeDetailOut */
         NodeDetailOut: {
@@ -2079,6 +2622,34 @@ export interface components {
             /** Type */
             type: string;
         };
+        /** NoticeOut */
+        NoticeOut: {
+            /** Agencies */
+            agencies: string[];
+            /** Countries */
+            countries: string[];
+            /** Data Mode */
+            data_mode: string;
+            /** Doc Type */
+            doc_type: string | null;
+            /** Document Number */
+            document_number: string;
+            /** Effective On */
+            effective_on: string | null;
+            /** Hts Refs */
+            hts_refs: string[];
+            /** Kind */
+            kind: string;
+            /**
+             * Publication Date
+             * Format: date
+             */
+            publication_date: string;
+            /** Title */
+            title: string;
+            /** Url */
+            url: string;
+        };
         /** OrderImpactOut */
         OrderImpactOut: {
             /** Buyer */
@@ -2103,6 +2674,54 @@ export interface components {
             reference: string;
             /** Revenue Usd */
             revenue_usd: number;
+        };
+        /** OriginDetailOut */
+        OriginDetailOut: {
+            /**
+             * Data Modes
+             * @description live / replay row counts behind this answer (badge)
+             */
+            data_modes?: {
+                [key: string]: number;
+            };
+            origin: components["schemas"]["OriginOut"];
+            /** Schemes */
+            schemes: components["schemas"]["SchemeOut"][];
+            /** Surcharges */
+            surcharges: {
+                [key: string]: unknown;
+            }[];
+        };
+        /** OriginOut */
+        OriginOut: {
+            /** Iso3 */
+            iso3: string;
+            /** Name */
+            name: string;
+        };
+        /** OverviewOut */
+        OverviewOut: {
+            /**
+             * As Of
+             * @description Date of the precomputed matrix
+             */
+            as_of: string | null;
+            /** Changes 30D */
+            changes_30d: number;
+            /** Feeds */
+            feeds: components["schemas"]["FeedOut"][];
+            /** Latest Change At */
+            latest_change_at: string | null;
+            /** Markets */
+            markets: components["schemas"]["MarketOut"][];
+            /** News 30D */
+            news_30d: number;
+            /** Notices 30D */
+            notices_30d: number;
+            /** Origins */
+            origins: components["schemas"]["OriginOut"][];
+            /** Products */
+            products: components["schemas"]["ProductOut"][];
         };
         /** Page[PortCallOut] */
         Page_PortCallOut_: {
@@ -2261,6 +2880,45 @@ export interface components {
              * @default about:blank
              */
             type: string;
+        };
+        /** ProductDetailOut */
+        ProductDetailOut: {
+            /**
+             * As Of
+             * Format: date
+             */
+            as_of: string;
+            /**
+             * Data Modes
+             * @description Measures used per data mode
+             */
+            data_modes: {
+                [key: string]: number;
+            };
+            /** Markets */
+            markets: components["schemas"]["MarketDetailOut"][];
+            /** Origins */
+            origins: string[];
+            product: components["schemas"]["ProductOut"];
+            /**
+             * Sources
+             * @description DS-IDs of the measures used
+             */
+            sources: string[];
+        };
+        /** ProductOut */
+        ProductOut: {
+            /** Hs6 */
+            hs6: string;
+            /** Industry */
+            industry: string;
+            /**
+             * Key
+             * @description Industry-pack SKU (e.g. TSHIRT)
+             */
+            key?: string | null;
+            /** Name */
+            name: string;
         };
         /** QueueForecastOut */
         QueueForecastOut: {
@@ -2429,6 +3087,23 @@ export interface components {
                 [key: string]: unknown;
             };
         };
+        /** SchemeOut */
+        SchemeOut: {
+            /** Group Code */
+            group_code: string;
+            /** Market */
+            market: string;
+            /** Name */
+            name: string;
+            /** Scheme */
+            scheme: string | null;
+            /** Source Id */
+            source_id: string;
+            /** Valid From */
+            valid_from: string | null;
+            /** Valid To */
+            valid_to: string | null;
+        };
         /** ShipOut */
         ShipOut: {
             /** Arrival Ts */
@@ -2595,6 +3270,11 @@ export interface components {
             /** Nodes */
             nodes: components["schemas"]["GraphNodeOut"][];
         };
+        /**
+         * TradeNoticeKind
+         * @enum {string}
+         */
+        TradeNoticeKind: "tariff_modification" | "trade_remedy" | "exclusion" | "other";
         /** VesselInPortOut */
         VesselInPortOut: {
             /**
@@ -3311,6 +3991,48 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Envelope_KpiStrip_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    live_snapshot_api_v1_live_get: {
+        parameters: {
+            query?: {
+                scenario?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
                 };
             };
             /** @description Not Found */
@@ -4786,6 +5508,346 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Envelope_SourceOut_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    changes_api_v1_tariffs_changes_get: {
+        parameters: {
+            query?: {
+                market?: string | null;
+                origin?: string | null;
+                hs6?: string | null;
+                since?: string | null;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_list_ChangeOut__"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    matrix_api_v1_tariffs_matrix_get: {
+        parameters: {
+            query?: {
+                as_of?: string | null;
+                /** @description Repeat or comma-separate */
+                hs6?: string[] | null;
+                /** @description Repeat or comma-separate */
+                market?: string[] | null;
+                /** @description Repeat or comma-separate */
+                origin?: string[] | null;
+                industry?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_MatrixOut_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    news_api_v1_tariffs_news_get: {
+        parameters: {
+            query?: {
+                market?: string | null;
+                origin?: string | null;
+                event_id?: string | null;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_list_NewsOut__"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    notices_api_v1_tariffs_notices_get: {
+        parameters: {
+            query?: {
+                kind?: components["schemas"]["TradeNoticeKind"] | null;
+                country?: string | null;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_list_NoticeOut__"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    origin_api_v1_tariffs_origins__iso3__get: {
+        parameters: {
+            query?: {
+                as_of?: string | null;
+            };
+            header?: never;
+            path: {
+                iso3: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_OriginDetailOut_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    overview_api_v1_tariffs_overview_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_OverviewOut_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    product_api_v1_tariffs_products__hs6__get: {
+        parameters: {
+            query?: {
+                as_of?: string | null;
+                /** @description Repeat or comma-separate */
+                market?: string[] | null;
+                /** @description Repeat or comma-separate */
+                origin?: string[] | null;
+            };
+            header?: never;
+            path: {
+                hs6: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_ProductDetailOut_"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    factor_api_v1_traffic_factor_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Envelope_dict_str__Any__"];
                 };
             };
             /** @description Not Found */

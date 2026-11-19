@@ -9,10 +9,13 @@ source per view (A-111): real data or the selected scenario, never both.
 
 from __future__ import annotations
 
+import re
 from datetime import UTC, datetime, timedelta
 from typing import Any, Literal
 from uuid import UUID
 
+from cportal_c6 import catalog as c6_catalog
+from cportal_c6 import service as c6_service
 from cportal_core.models import (
     Alert,
     DisruptionEvent,
@@ -21,6 +24,7 @@ from cportal_core.models import (
     Recommendation,
     Scenario,
     ScenarioResult,
+    TariffChange,
 )
 from fastapi import APIRouter
 from sqlalchemy import func, select
@@ -222,6 +226,57 @@ def _event_lines(
 # --- a scenario -----------------------------------------------------------------------------------
 
 
+def _pct_text(text: str | None) -> str:
+    """'The duty provided in the applicable subheading + 15%' → '+15%'; 'Free' stays."""
+    if not text:
+        return "none"
+    if m := re.search(r"\+\s*(\d+(?:\.\d+)?)\s*%", text):
+        return f"+{m.group(1)}%"
+    return text if len(text) <= 24 else text[:24] + "…"
+
+
+def _tariff_lines(session: SessionDep, now: datetime) -> list[BriefLine]:
+    """C6: schedule changes of the last 7 days, and tariff news the schedule does not show yet."""
+    week = now - timedelta(days=7)
+    changes = list(
+        session.scalars(
+            select(TariffChange)
+            .where(TariffChange.detected_at >= week)
+            .order_by(TariffChange.detected_at.desc())
+            .limit(3)
+        )
+    )
+    news = c6_service.news(session, now=now)
+    pending = [n for n in news if not n.confirmed and n.last_updated >= week][:2]
+    if not changes and not pending:
+        return []
+    names = c6_catalog.country_names()
+    parts: list[str] = []
+    cites: list[BriefCite] = []
+    for c in changes:
+        who = names.get(c.origin_code, c.origin_code) if c.origin_code != "*" else "all origins"
+        old, new = _pct_text(c.old_duty_text), _pct_text(c.new_duty_text)
+        parts.append(f"{c.market_iso3} {c.measure_ref} ({who}) {old} → {new}")
+        cites.append(
+            BriefCite(
+                kind="tariff",
+                id=str(c.id),
+                label=f"{c.market_iso3} {c.measure_ref}",
+                href=f"/tariffs?market={c.market_iso3}",
+            )
+        )
+    if pending:
+        parts.append(f"{len(pending)} news report(s) not in the schedule yet")
+        cites += [
+            BriefCite(kind="tariff", id=n.id, label=n.title[:60], href="/tariffs#news")
+            for n in pending
+        ]
+    head = f"Tariffs: {len(changes)} schedule change(s) this week" if changes else "Tariffs"
+    raised_bgd = any(c.origin_code in ("BGD", "*") and (c.delta_pp or 0) > 0 for c in changes)
+    tone: Tone = "watch" if raised_bgd else "info"
+    return [BriefLine(text=f"{head}: " + "; ".join(parts) + ".", tone=tone, cites=cites)]
+
+
 def _top_alerts(session: SessionDep, scope: ScopeDep) -> list[Alert]:
     alerts = session.scalars(select(Alert).where(scope.rows(Alert), Alert.status == "open")).all()
     return sorted(alerts, key=lambda a: (SEVERITY.get(a.severity, 5), a.created_at))[:3]
@@ -299,6 +354,7 @@ def brief(session: SessionDep, scope: ScopeDep) -> Envelope[BriefOut]:
     ks = {k.key: k for k in kp.kpis(session, scope).data.kpis}
     if scope.scenario_id is None:
         lines = _port_lines(session, scope, ks) + _event_lines(session, scope)
+        lines += _tariff_lines(session, datetime.now(UTC))
         when = scope.as_of or datetime.now(UTC)
         title = f"Brief · Chattogram · {when.astimezone(DHAKA):%a %d %b %Y}"
     else:

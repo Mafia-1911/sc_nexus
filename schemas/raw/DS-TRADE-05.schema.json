@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cportal:raw/DS-TRADE-05",
+  "title": "DS-TRADE-05 · USITC Harmonized Tariff Schedule REST API: raw responses as observed by the M0 probe",
+  "description": "Inferred with genson from saved probe responses. One $defs entry per call.",
+  "$defs": {
+    "hts_export_6109": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "htsno": {
+            "type": "string"
+          },
+          "indent": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "superior": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "units": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "general": {
+            "type": "string"
+          },
+          "special": {
+            "type": "string"
+          },
+          "other": {
+            "type": "string"
+          },
+          "footnotes": {
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "quotaQuantity": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "additionalDuties": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "addiitionalDuties": {
+            "type": "null"
+          }
+        },
+        "required": [
+          "addiitionalDuties",
+          "additionalDuties",
+          "description",
+          "footnotes",
+          "general",
+          "htsno",
+          "indent",
+          "other",
+          "quotaQuantity",
+          "special",
+          "superior",
+          "units"
+        ]
+      }
+    },
+    "hts_export_9903_01_07": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "htsno": {
+            "type": "string"
+          },
+          "indent": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "superior": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "units": {
+            "type": "array"
+          },
+          "general": {
+            "type": "string"
+          },
+          "special": {
+            "type": "string"
+          },
+          "other": {
+            "type": "string"
+          },
+          "footnotes": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "columns": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "marker": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "columns",
+                    "marker",
+                    "type",
+                    "value"
+                  ]
+                }
+              }
+            ]
+          },
+          "quotaQuantity": {
+            "type": "null"
+          },
+          "additionalDuties": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "addiitionalDuties": {
+            "type": "null"
+          }
+        },
+        "required": [
+          "addiitionalDuties",
+          "additionalDuties",
+          "description",
+          "footnotes",
+          "general",
+          "htsno",
+          "indent",
+          "other",
+          "quotaQuantity",
+          "special",
+          "superior",
+          "units"
+        ]
+      }
+    }
+  }
+}

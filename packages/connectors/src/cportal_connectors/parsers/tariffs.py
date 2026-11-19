@@ -48,7 +48,7 @@ from defusedxml import ElementTree as ET  # external XML: no entities, no expans
 
 from cportal_connectors.canonical import ParseContext, Parser, parse_ts
 
-PARSER_VERSION = "c6-parsers-3"  # 3: UK excluded countries as ISO3
+PARSER_VERSION = "c6-parsers-3"  # 3: UK exclusions as ISO3; EU refs by rule scope
 """Stamped on every snapshot. Bump it when parsing reads a schedule differently (e.g. 2 added
 Chapter 99 category exemptions): C6 does not diff snapshots made by different versions, so a
 parser upgrade re-baselines instead of showing up as tariff changes (A-133)."""
@@ -203,8 +203,10 @@ def _snapshot(
     lineage = ctx.lineage(source_record_id=scope)
     if not ctx.is_synthetic:
         lineage["generator_version"] = PARSER_VERSION
+    # the content is part of the id: a hand-kept table edited without moving its as_of date is
+    # a new snapshot (C6 orders equal fetch times by updated_at), not an overwrite (review #6)
     return TariffSnapshotRecord(
-        id=ctx.rid("tariff_snapshot", f"{scope}|{fetched.isoformat()}"),
+        id=ctx.rid("tariff_snapshot", f"{scope}|{fetched.isoformat()}|{_hash(ids)}"),
         **lineage,
         market_iso3=market,
         scope=scope,
@@ -924,6 +926,16 @@ def parse_federal_register(body: bytes, ctx: ParseContext) -> list[Record]:
 EU_PREFS_SCOPE = "eu-prefs"
 
 
+def _eu_ref(group: str, spec: dict[str, Any]) -> str:
+    """'EU-GSP:*' or 'EU-GSP:*:in61,62,63' / ':ex93': stable under reordering of the table."""
+    ref = f"{group}:{spec['code']}"
+    if spec.get("include_chapters"):
+        ref += ":in" + ",".join(spec["include_chapters"])
+    if spec.get("exclude_chapters"):
+        ref += ":ex" + ",".join(spec["exclude_chapters"])
+    return ref
+
+
 def eu_prefs_as_of(body: bytes) -> dt.datetime:
     as_of = yaml.safe_load(body)["as_of"]
     return dt.datetime.combine(as_of, dt.time(), dt.UTC)
@@ -957,7 +969,7 @@ def parse_eu_preferences(body: bytes, ctx: ParseContext) -> list[Record]:
                     valid_to=m.get("valid_to"),
                 )
             )
-        for i, spec in enumerate(g.get("measures", [])):
+        for spec in g.get("measures", []):
             pct = spec.get("ad_valorem_pct")
             resolved = pct is not None and not spec.get("unresolved")
             conditions = {
@@ -982,7 +994,8 @@ def parse_eu_preferences(body: bytes, ctx: ParseContext) -> list[Record]:
                     specific_unit=None,
                     is_compound=False,
                     is_resolved=resolved,
-                    measure_ref=f"{code}#{i}",
+                    # the rule's scope, not its list position: reordering is not a change
+                    measure_ref=_eu_ref(code, spec),
                     legal_ref=g.get("legal_ref"),
                     source_url="https://ec.europa.eu/taxation_customs/dds2/taric/",
                     status=TariffStatus.IN_FORCE,

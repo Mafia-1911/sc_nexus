@@ -270,3 +270,21 @@ def test_an_empty_response_is_not_a_mass_removal(loaded: str) -> None:
             )
             == current
         )
+
+
+def test_an_edit_to_the_eu_table_without_a_new_date_is_detected(loaded: str) -> None:
+    """Review 2026-11-19 #6: the hand-kept table is versioned by its content."""
+    import yaml
+    from cportal_connectors.parsers.tariffs import parse_eu_preferences
+    from cportal_core.paths import config_dir
+
+    doc = yaml.safe_load((config_dir() / "tariffs" / "eu_preferences.yaml").read_text())
+    doc["groups"]["EU-EBA"]["measures"][0].update(ad_valorem_pct=2, duty_text="2%")
+    with session_scope(loaded) as s:
+        upsert(s, parse_eu_preferences(yaml.safe_dump(doc).encode(),
+                                       ParseContext("DS-TRADE-08", DataMode.REPLAY)))  # fmt: skip
+        s.flush()
+        assert store.refresh(s, ON)["new_changes"] == 1
+        (c,) = s.scalars(select(TariffChange).where(TariffChange.origin_code == "EU-EBA")).all()
+        assert (c.change, c.delta_pp) == ("changed", 2.0)
+    assert _rate(loaded, "EUN", "610910", "BGD").effective_pct_max == pytest.approx(2.0)

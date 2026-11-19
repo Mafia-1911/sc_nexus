@@ -575,3 +575,35 @@ def test_ch99_category_exemptions_cover_their_chapters(hts99: list) -> None:
     assert "aluminium" in s232.conditions["category"]
     # donations and informational materials are not product categories: not stored
     assert _m99(hts99, "9903.05.91") == [] and _m99(hts99, "9903.05.92") == []
+
+
+def _eu_body() -> str:
+    from cportal_core.paths import config_dir
+
+    return (config_dir() / "tariffs" / "eu_preferences.yaml").read_text(encoding="utf-8")
+
+
+def test_eu_refs_survive_reordering_and_edits_make_a_new_snapshot() -> None:
+    """Review 2026-11-19 #6: rule refs are not list positions; an edit without moving as_of is
+    a new snapshot, not an overwrite of the old one."""
+    import yaml
+
+    doc = yaml.safe_load(_eu_body())
+
+    def parse(d: dict) -> list:
+        return T.parse_eu_preferences(
+            yaml.safe_dump(d).encode(), ParseContext("DS-TRADE-08", DataMode.REPLAY)
+        )
+
+    base = parse(doc)
+    refs = {m.measure_ref for m in _of(base, TariffMeasureRecord)}
+    assert "EU-EBA:*:ex93" in refs and "EU-GSP:*:in61,62,63" in refs
+    flipped = dict(doc, groups=dict(reversed(list(doc["groups"].items()))))
+    assert {m.id for m in _of(parse(flipped), TariffMeasureRecord)} == {
+        m.id for m in _of(base, TariffMeasureRecord)
+    }
+    edited = yaml.safe_load(_eu_body())
+    edited["groups"]["EU-EBA"]["measures"][0].update(ad_valorem_pct=2, duty_text="2%")
+    (s1,) = _of(base, TariffSnapshotRecord)
+    (s2,) = _of(parse(edited), TariffSnapshotRecord)
+    assert s1.fetched_at == s2.fetched_at and s1.id != s2.id

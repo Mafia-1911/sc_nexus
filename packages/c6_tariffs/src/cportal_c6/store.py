@@ -101,7 +101,7 @@ def _latest(session: Session, source_id: str, scope: str, n: int) -> list[Tariff
     q = (
         select(TariffSnapshot)
         .where(TariffSnapshot.source_id == source_id, TariffSnapshot.scope == scope)
-        .order_by(TariffSnapshot.fetched_at.desc())
+        .order_by(TariffSnapshot.fetched_at.desc(), TariffSnapshot.updated_at.desc())
         .limit(n)
     )
     return list(session.scalars(q))
